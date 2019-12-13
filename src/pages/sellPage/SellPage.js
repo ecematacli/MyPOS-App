@@ -1,26 +1,30 @@
 import React from 'react';
-import {
-  TextField
-} from '@material-ui/core';
+import { TextField, Grid } from '@material-ui/core';
 
-import { useStyles } from './useStyles';
+import styles from './styles';
+import PosTableRight from './components/PosTableRight/PosTableRight';
 
 const SellPage = () => {
-  const classes = useStyles();
+  const classes = styles();
 
   return (
-    <div className={classes.salesContainer}>
-      <div style={{ width: '100%' }} className="QQQQQQQQQQQQQ">
-        <form>
-          <TextField
-            id="outlined-basic"
-            label="Search for products..."
-            style={{ width: '50%', color: 'black' }} variant="outlined"
-          />
-        </form>
+    <Grid container className={classes.gridContainer} spacing={10}>
+      <div className={classes.salesContent}>
+        <Grid item sm={5} md={6} lg={5}>
+          <form>
+            <TextField
+              id="outlined-basic"
+              label="Search for products..."
+              style={{ width: '100%', color: 'black' }}
+              variant="outlined"
+            />
+          </form>
+        </Grid>
+        <Grid item sm={4} md={5} lg={4}></Grid>
+        <PosTableRight />
       </div>
-    </div>
-  )
+    </Grid>
+  );
 };
 
 export default SellPage;
