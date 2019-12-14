@@ -37,7 +37,7 @@ const MenuWrapper = ({ container, children }) => {
             </div>
           </div>
         </ListItem>
-        <Divider style={{ backgroundColor: '#555' }} />
+        <Divider className={classes.menuDivider} />
         {menuItems.map(({ text, url }, i) => {
           return (
             <div key={i}>
@@ -51,7 +51,7 @@ const MenuWrapper = ({ container, children }) => {
           );
         })}
       </List>
-      <Divider style={{ backgroundColor: '#555' }} />
+      <Divider className={classes.menuDivider} />
       <List>
         <ListItem button onClick={() => history.push('/signout')}>
           <ListItemIcon className={classes.menuIcon}>

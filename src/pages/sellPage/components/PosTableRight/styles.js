@@ -1,21 +1,14 @@
 import { lighten, makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(theme => ({
-  tableRoot: {
-    width: '100%',
-    height: '300%'
-  },
-  paper: {
-    width: '65%',
-    height: '70%',
+export default makeStyles(({ spacing, palette }) => ({
+  paperRoot: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.15) ',
-    marginBottom: theme.spacing(2)
+    marginBottom: spacing(2)
   },
-  table: {
-    minWidth: 750
-  },
+
   tableWrapper: {
-    overflowX: 'hidden'
+    // overflowX: 'hidden'
+    height: '50vh'
   },
   visuallyHidden: {
     border: 0,
@@ -28,20 +21,43 @@ export default makeStyles(theme => ({
     top: 20,
     width: 1
   },
-  selectedItemRoot: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(3)
+  totalSection: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: spacing(1, 3)
   },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.error.main,
-          backgroundColor: lighten(theme.palette.error.light, 0.85)
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark
-        },
+  totalPrice: {
+    fontWeight: 'bold'
+  },
+  totalDivider: {
+    backgroundColor: '#f4f4f4'
+  },
+  paymentBtnContainer: {
+    padding: spacing(2)
+  },
+  paymentButton: {
+    color: 'white',
+    backgroundColor: palette.primary.main,
+    height: '60px',
+    paddingLeft: spacing(5),
+    paddingRight: spacing(5)
+  },
+  paymentBtnTextHolder: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  paymentBtnTxt: {
+    fontSize: spacing(2.5),
+    fontWeight: 'bolder'
+  },
+  selectedItemRoot: {
+    paddingRight: spacing(3)
+  },
+  highlight: {
+    color: palette.error.main,
+    backgroundColor: lighten(palette.error.light, 0.85)
+  },
   numSelectedTitle: {
     flex: '1 1 100%'
   },

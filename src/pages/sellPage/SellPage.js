@@ -8,22 +8,29 @@ const SellPage = () => {
   const classes = styles();
 
   return (
-    <Grid container className={classes.gridContainer} spacing={10}>
-      <div className={classes.salesContent}>
-        <Grid item sm={5} md={6} lg={5}>
+    <div className={classes.salesContent}>
+      <Grid
+        container
+        className={classes.gridContainer}
+        spacing={10}
+        justify="center"
+      >
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
           <form>
             <TextField
               id="outlined-basic"
+              color="secondary"
               label="Search for products..."
-              style={{ width: '100%', color: 'black' }}
+              className={classes.productSearchInput}
               variant="outlined"
             />
           </form>
         </Grid>
-        <Grid item sm={4} md={5} lg={4}></Grid>
-        <PosTableRight />
-      </div>
-    </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
+          <PosTableRight />
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 

@@ -1,11 +1,11 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import pink from '@material-ui/core/colors/red';
+import pink from '@material-ui/core/colors/pink';
 
 export default createMuiTheme({
   palette: {
-    primary: { main: '#404854' },
-
-    error: { main: '#f50057' }
+    primary: { main: '#47C279' },
+    secondary: { main: '#696969' },
+    error: { main: pink['A400'] }
   },
   typography: {
     h1: {
@@ -20,3 +20,5 @@ export default createMuiTheme({
     }
   }
 });
+
+// secondary: { main: '#A0B2A6' },

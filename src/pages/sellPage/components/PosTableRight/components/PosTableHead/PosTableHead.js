@@ -2,13 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TableCell, TableHead, TableRow, Checkbox } from '@material-ui/core';
 
+import styles from './styles';
+
 const PosTableHead = ({ onSelectAllClick, numSelected, rowCount }) => {
+  const classes = styles();
+
   return (
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
+            classes={{ checked: classes.checked }}
             checked={numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{ 'aria-label': 'select all products' }}

@@ -6,8 +6,7 @@ export default makeStyles(theme => ({
   },
   salesContent: {
     width: '100%',
-    display: 'flex',
-    justifyContent: 'space-around'
+    display: 'flex'
   },
   contentRoot: {
     flexGrow: 1
@@ -15,6 +14,10 @@ export default makeStyles(theme => ({
   paper: {
     height: 140,
     width: 100
+  },
+  productSearchInput: {
+    width: '100%',
+    color: '#404854'
   },
   control: {
     padding: theme.spacing(2)

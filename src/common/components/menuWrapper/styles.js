@@ -7,7 +7,7 @@ export default makeStyles(theme => ({
   root: {
     display: 'flex',
     position: 'relative',
-    top: 10,
+    // top: 10,
     height: '100vh'
   },
   drawer: {
@@ -54,7 +54,6 @@ export default makeStyles(theme => ({
     border: 0,
     zIndex: theme.zIndex.drawer + 1,
     [theme.breakpoints.up('md')]: {
-      // width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth
     }
   },
@@ -65,6 +64,9 @@ export default makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       display: 'none'
     }
+  },
+  menuDivider: {
+    backgroundColor: '#555'
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -77,9 +79,9 @@ export default makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
+    overflow: 'auto',
     padding: theme.spacing(3),
-    backgroundColor: '#fcfafa',
-    marginTop: 0
+    backgroundColor: '#fcfafa'
   }
 }));
 

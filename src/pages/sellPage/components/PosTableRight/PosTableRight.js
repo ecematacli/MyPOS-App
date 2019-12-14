@@ -5,9 +5,10 @@ import {
   TableRow,
   TableBody,
   Paper,
-  FormControlLabel,
-  Switch,
-  Checkbox
+  Checkbox,
+  Typography,
+  Divider,
+  Button
 } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -15,12 +16,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import styles from './styles';
 import SelectedProductsToolbar from './components/SelectedProductsToolbar/SelectedProductsToolbar';
 import PosTableHead from './components/PosTableHead/PosTableHead';
+import Total from './components/Total/Total';
 
 const PosTableRight = ({ products }) => {
   const classes = styles();
 
   const [selected, setSelected] = useState([]);
-  const [dense, setDense] = useState(false);
 
   const handleSelectAllClick = e => {
     console.log(e.target);
@@ -53,85 +54,77 @@ const PosTableRight = ({ products }) => {
     setSelected(newSelected);
   };
 
-  const handleChangeDense = e => {
-    setDense(e.target.checked);
-  };
-
   const isSelected = name => selected.indexOf(name) !== -1;
 
   return (
-    <div className={classes.tableRoot}>
-      <Paper className={classes.paper}>
-        <SelectedProductsToolbar numSelected={selected.length} />
-        <div className={classes.tableWrapper}>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
-          >
-            <PosTableHead
-              classes={classes}
-              numSelected={selected.length}
-              onSelectAllClick={handleSelectAllClick}
-              rowCount={products.length}
-            />
-            <TableBody>
-              {products.map((product, index) => {
-                const isItemSelected = isSelected(product.name);
-                const labelId = `enhanced-table-checkbox-${index}`;
+    <Paper className={classes.paperRoot}>
+      <SelectedProductsToolbar numSelected={selected.length} />
+      <div className={classes.tableWrapper}>
+        <Table
+          className={classes.table}
+          aria-labelledby="tableTitle"
+          size="medium"
+          aria-label="enhanced table"
+        >
+          <PosTableHead
+            classes={classes}
+            numSelected={selected.length}
+            onSelectAllClick={handleSelectAllClick}
+            rowCount={products.length}
+          />
+          <TableBody>
+            {products.map((product, index) => {
+              const isItemSelected = isSelected(product.name);
+              const labelId = `enhanced-table-checkbox-${index}`;
 
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={product.name}
-                    selected={isItemSelected}
+              return (
+                <TableRow
+                  hover
+                  role="checkbox"
+                  aria-checked={isItemSelected}
+                  tabIndex={-1}
+                  key={product.name}
+                  selected={isItemSelected}
+                >
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      onClick={e => handleClick(e, product.name)}
+                      checked={isItemSelected}
+                      inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                  </TableCell>
+                  <TableCell
+                    component="th"
+                    id={labelId}
+                    scope="product"
+                    padding="none"
                   >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        onClick={e => handleClick(e, product.name)}
-                        checked={isItemSelected}
-                        inputProps={{ 'aria-labelledby': labelId }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="product"
-                      padding="none"
-                    >
-                      {product.name}
-                    </TableCell>
-                    <TableCell align="center">
-                      <div className={classes.quantity}>
-                        <span className={classes.arrow}>&#10094;</span>
-                        <div className={classes.quantityVal}>
-                          {product.quantity}
-                        </div>
-                        <span className={classes.arrow}>&#10095;</span>
+                    {product.name}
+                  </TableCell>
+                  <TableCell align="center">
+                    <div className={classes.quantity}>
+                      <span className={classes.arrow}>&#10094;</span>
+                      <div className={classes.quantityVal}>
+                        {product.quantity}
                       </div>
-                    </TableCell>
-                    <TableCell align="center">{product.price}</TableCell>
-                    <TableCell align="right">
-                      <IconButton>
-                        <DeleteIcon className={classes.deleteIcon} />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </div>
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense rows"
-      />
-    </div>
+                      <span className={classes.arrow}>&#10095;</span>
+                    </div>
+                  </TableCell>
+                  <TableCell align="center">{product.price}</TableCell>
+                  <TableCell align="right">
+                    <IconButton>
+                      <DeleteIcon className={classes.deleteIcon} />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
+      <Divider className={classes.totalDivider} />
+      <Total />
+    </Paper>
   );
 };
 
@@ -165,3 +158,18 @@ PosTableRight.defaultProps = {
 
 export default PosTableRight;
 //
+/////
+// const selectedProducts = {}
+
+// const handleSelect = (id) => {
+//   if (selectedProducts[id]) {
+//     selectedProducts[id] = false
+//   } else {
+//     selectedProducts[id] = true
+//   }
+// }
+
+// {
+//   ['123asd']: false,
+//   'asdasd': true
+// }
