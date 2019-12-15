@@ -1,7 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ palette }) => ({
+export default makeStyles(({ palette: { error } }) => ({
   checked: {
-    color: palette.error.main
+    '&$checked': {
+      color: error.main
+    }
   }
 }));

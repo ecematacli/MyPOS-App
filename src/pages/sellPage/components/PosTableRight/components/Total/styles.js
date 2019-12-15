@@ -7,7 +7,7 @@ export default makeStyles(({ spacing, palette }) => ({
     padding: spacing(1, 3)
   },
   totalDivider: {
-    backgroundColor: '#f4f4f4'
+    backgroundColor: palette.secondary.lightest
   },
   paymentBtnContainer: {
     padding: spacing(2)
@@ -17,7 +17,11 @@ export default makeStyles(({ spacing, palette }) => ({
     backgroundColor: palette.primary.main,
     height: '60px',
     paddingLeft: spacing(5),
-    paddingRight: spacing(5)
+    paddingRight: spacing(5),
+
+    '&:hover': {
+      backgroundColor: palette.primary.light
+    }
   },
   paymentBtnTextHolder: {
     display: 'flex',

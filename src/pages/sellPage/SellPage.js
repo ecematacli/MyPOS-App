@@ -2,10 +2,12 @@ import React from 'react';
 import { TextField, Grid } from '@material-ui/core';
 
 import styles from './styles';
+import useSalesState from './hooks/useSalesState';
 import PosTableRight from './components/PosTableRight/PosTableRight';
 
 const SellPage = () => {
   const classes = styles();
+  const { products } = useSalesState();
 
   return (
     <div className={classes.salesContent}>
@@ -27,7 +29,7 @@ const SellPage = () => {
           </form>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
-          <PosTableRight />
+          <PosTableRight products={products} />
         </Grid>
       </Grid>
     </div>

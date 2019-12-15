@@ -70,9 +70,14 @@ export default makeStyles(({ spacing, palette }) => ({
     margin: '0 10px'
   },
   arrow: {
-    color: '#3f3f3f'
+    color: palette.secondary.darkest
   },
   deleteIcon: {
-    color: '#7e7e7e'
+    color: palette.secondary.dark
+  },
+  checked: {
+    '&$checked': {
+      color: palette.error.main
+    }
   }
 }));

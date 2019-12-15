@@ -19,7 +19,7 @@ import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
 
 import styles from './styles';
 import logo from '../../../assets/img/app-logo.png';
-import useToggleState from '../../../hooks/useToggleState';
+import useToggleState from '../../hooks/useToggleState';
 import history from '../../../history/history';
 import menuItems from './menuItems';
 

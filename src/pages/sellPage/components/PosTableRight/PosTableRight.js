@@ -6,9 +6,7 @@ import {
   TableBody,
   Paper,
   Checkbox,
-  Typography,
-  Divider,
-  Button
+  Divider
 } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -23,11 +21,13 @@ const PosTableRight = ({ products }) => {
 
   const [selected, setSelected] = useState([]);
 
-  const handleSelectAllClick = e => {
-    console.log(e.target);
+  const productsArr = Object.values(products);
 
+  console.log(productsArr);
+
+  const handleSelectAllClick = e => {
     if (e.target.checked) {
-      const newSelecteds = products.map(n => n.name);
+      const newSelecteds = productsArr.map(n => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -70,10 +70,10 @@ const PosTableRight = ({ products }) => {
             classes={classes}
             numSelected={selected.length}
             onSelectAllClick={handleSelectAllClick}
-            rowCount={products.length}
+            rowCount={Object.values(products).length}
           />
           <TableBody>
-            {products.map((product, index) => {
+            {productsArr.map((product, index) => {
               const isItemSelected = isSelected(product.name);
               const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -91,6 +91,7 @@ const PosTableRight = ({ products }) => {
                       onClick={e => handleClick(e, product.name)}
                       checked={isItemSelected}
                       inputProps={{ 'aria-labelledby': labelId }}
+                      classes={{ checked: classes.checked }}
                     />
                   </TableCell>
                   <TableCell
@@ -128,33 +129,33 @@ const PosTableRight = ({ products }) => {
   );
 };
 
-PosTableRight.defaultProps = {
-  products: [
-    {
-      id: 1,
-      name: 'Nike Airmax',
-      quantity: 5,
-      price: '500TL',
-      tax: '15%',
-      discount: 0
-    },
-    {
-      id: 2,
-      name: 'Adidas NMD',
-      quantity: 2,
-      price: '850TL',
-      tax: '15%',
-      discount: '10%'
-    },
-    {
-      id: 3,
-      quantity: 1,
-      name: 'Adidas falcon',
-      price: '700TL',
-      tax: '15%'
-    }
-  ]
-};
+// PosTableRight.defaultProps = {
+//   products: [
+//     {
+//       id: 1,
+//       name: 'Nike Airmax',
+//       quantity: 5,
+//       price: 500,
+//       taxRate: 15,
+//       discount: 0
+//     },
+//     {
+//       id: 2,
+//       name: 'Adidas NMD',
+//       quantity: 2,
+//       price: 800.90,
+//       taxRate: 15,
+//       discount: '10%'
+//     },
+//     {
+//       id: 3,
+//       quantity: 1,
+//       name: 'Adidas falcon',
+//       price: 700.10,
+//       taxRate: 8
+//     }
+//   ]
+// };
 
 export default PosTableRight;
 //

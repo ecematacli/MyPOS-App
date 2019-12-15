@@ -3,8 +3,18 @@ import pink from '@material-ui/core/colors/pink';
 
 export default createMuiTheme({
   palette: {
-    primary: { main: '#47C279' },
-    secondary: { main: '#696969' },
+    primary: {
+      main: '#47C279',
+      light: '#77CB60',
+      dark: '#3AA687'
+    },
+    secondary: {
+      main: '#696969',
+      light: '#A0B2A6',
+      lightest: '#f4f4f4',
+      darkest: '#3f3f3f',
+      dark: '#7e7e7e'
+    },
     error: { main: pink['A400'] }
   },
   typography: {
@@ -20,5 +30,3 @@ export default createMuiTheme({
     }
   }
 });
-
-// secondary: { main: '#A0B2A6' },
