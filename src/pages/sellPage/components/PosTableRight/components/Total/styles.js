@@ -6,6 +6,12 @@ export default makeStyles(({ spacing, palette }) => ({
     justifyContent: 'space-between',
     padding: spacing(1, 3)
   },
+  discountInput: {
+    width: spacing(12),
+    height: spacing(5),
+    borderRadius: spacing(3),
+    marginRight: '-10px'
+  },
   totalDivider: {
     backgroundColor: palette.secondary.lightest
   },

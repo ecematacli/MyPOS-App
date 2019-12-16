@@ -16,14 +16,20 @@ import SelectedProductsToolbar from './components/SelectedProductsToolbar/Select
 import PosTableHead from './components/PosTableHead/PosTableHead';
 import Total from './components/Total/Total';
 
-const PosTableRight = ({ products }) => {
+const PosTableRight = ({
+  products,
+  deleteProduct,
+  decreaseProductQuantity,
+  increaseProductQuantity,
+  subTotalToPay,
+  totalToPay,
+  taxTotalToPay
+}) => {
   const classes = styles();
 
   const [selected, setSelected] = useState([]);
 
   const productsArr = Object.values(products);
-
-  console.log(productsArr);
 
   const handleSelectAllClick = e => {
     if (e.target.checked) {
@@ -83,7 +89,7 @@ const PosTableRight = ({ products }) => {
                   role="checkbox"
                   aria-checked={isItemSelected}
                   tabIndex={-1}
-                  key={product.name}
+                  key={product.id}
                   selected={isItemSelected}
                 >
                   <TableCell padding="checkbox">
@@ -104,16 +110,30 @@ const PosTableRight = ({ products }) => {
                   </TableCell>
                   <TableCell align="center">
                     <div className={classes.quantity}>
-                      <span className={classes.arrow}>&#10094;</span>
+                      <div
+                        className={classes.arrow}
+                        onClick={() => {
+                          decreaseProductQuantity(product);
+                        }}
+                      >
+                        &#10094;
+                      </div>
                       <div className={classes.quantityVal}>
                         {product.quantity}
                       </div>
-                      <span className={classes.arrow}>&#10095;</span>
+                      <div
+                        className={classes.arrow}
+                        onClick={() => {
+                          increaseProductQuantity(product);
+                        }}
+                      >
+                        &#10095;
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell align="center">{product.price}</TableCell>
                   <TableCell align="right">
-                    <IconButton>
+                    <IconButton onClick={() => deleteProduct(product.id)}>
                       <DeleteIcon className={classes.deleteIcon} />
                     </IconButton>
                   </TableCell>
@@ -124,38 +144,14 @@ const PosTableRight = ({ products }) => {
         </Table>
       </div>
       <Divider className={classes.totalDivider} />
-      <Total />
+      <Total
+        subTotalToPay={subTotalToPay}
+        totalToPay={totalToPay}
+        taxTotalToPay={taxTotalToPay}
+      />
     </Paper>
   );
 };
-
-// PosTableRight.defaultProps = {
-//   products: [
-//     {
-//       id: 1,
-//       name: 'Nike Airmax',
-//       quantity: 5,
-//       price: 500,
-//       taxRate: 15,
-//       discount: 0
-//     },
-//     {
-//       id: 2,
-//       name: 'Adidas NMD',
-//       quantity: 2,
-//       price: 800.90,
-//       taxRate: 15,
-//       discount: '10%'
-//     },
-//     {
-//       id: 3,
-//       quantity: 1,
-//       name: 'Adidas falcon',
-//       price: 700.10,
-//       taxRate: 8
-//     }
-//   ]
-// };
 
 export default PosTableRight;
 //

@@ -7,7 +7,15 @@ import PosTableRight from './components/PosTableRight/PosTableRight';
 
 const SellPage = () => {
   const classes = styles();
-  const { products } = useSalesState();
+  const {
+    products,
+    deleteProduct,
+    decreaseProductQuantity,
+    increaseProductQuantity,
+    subTotalToPay,
+    totalToPay,
+    taxTotalToPay
+  } = useSalesState();
 
   return (
     <div className={classes.salesContent}>
@@ -29,7 +37,15 @@ const SellPage = () => {
           </form>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
-          <PosTableRight products={products} />
+          <PosTableRight
+            products={products}
+            deleteProduct={deleteProduct}
+            decreaseProductQuantity={decreaseProductQuantity}
+            increaseProductQuantity={increaseProductQuantity}
+            subTotalToPay={subTotalToPay}
+            totalToPay={totalToPay}
+            taxTotalToPay={taxTotalToPay}
+          />
         </Grid>
       </Grid>
     </div>

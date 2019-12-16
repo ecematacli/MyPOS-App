@@ -19,12 +19,9 @@ const PosTableHead = ({ onSelectAllClick, numSelected, rowCount }) => {
             inputProps={{ 'aria-label': 'select all products' }}
           />
         </TableCell>
-        <TableCell padding="none">
+        <TableCell colSpan={4} padding="none">
           <h4>Select All</h4>
         </TableCell>
-        <TableCell align="right"></TableCell>
-        <TableCell></TableCell>
-        <TableCell></TableCell>
       </TableRow>
     </TableHead>
   );

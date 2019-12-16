@@ -12,8 +12,8 @@ export default createMuiTheme({
       main: '#696969',
       light: '#A0B2A6',
       lightest: '#f4f4f4',
-      darkest: '#3f3f3f',
-      dark: '#7e7e7e'
+      dark: '#7e7e7e',
+      darkest: '#3f3f3f'
     },
     error: { main: pink['A400'] }
   },

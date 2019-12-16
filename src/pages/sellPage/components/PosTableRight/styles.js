@@ -70,7 +70,7 @@ export default makeStyles(({ spacing, palette }) => ({
     margin: '0 10px'
   },
   arrow: {
-    color: palette.secondary.darkest
+    color: palette.secondary.main
   },
   deleteIcon: {
     color: palette.secondary.dark

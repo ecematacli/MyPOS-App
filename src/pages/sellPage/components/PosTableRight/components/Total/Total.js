@@ -1,15 +1,22 @@
 import React, { Fragment } from 'react';
-import { Typography, Divider, Button } from '@material-ui/core';
+import {
+  Typography,
+  Divider,
+  Button,
+  FormControl,
+  OutlinedInput
+} from '@material-ui/core';
 
 import styles from './styles';
 
-const Total = () => {
+const Total = ({ totalToPay, taxTotalToPay }) => {
   const classes = styles();
+
   return (
     <Fragment>
       <div className={classes.totalSection}>
         <Typography>Sub-Total</Typography>
-        <Typography>900</Typography>
+        <Typography>1000</Typography>
       </div>
       <div className={classes.totalSection}>
         <Typography>Tax</Typography>
@@ -17,12 +24,20 @@ const Total = () => {
       </div>
       <div className={classes.totalSection}>
         <Typography>Discount</Typography>
-        <Typography>50 TL</Typography>
+        <FormControl>
+          <OutlinedInput
+            className={classes.discountInput}
+            id="outlined-adornment-weight"
+            aria-describedby="outlined-weight-helper-text"
+            classes={classes.inputRoot}
+            color="secondary"
+          />
+        </FormControl>
       </div>
       <Divider className={classes.totalDivider} />
       <div className={classes.totalSection}>
         <Typography>Total</Typography>
-        <Typography>2000 TL</Typography>
+        <Typography>3000 TL</Typography>
       </div>
       <div className={classes.paymentBtnContainer}>
         <Button className={classes.paymentButton} fullWidth variant="contained">
