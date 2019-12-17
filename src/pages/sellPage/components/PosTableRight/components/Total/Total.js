@@ -1,43 +1,43 @@
 import React, { Fragment } from 'react';
-import {
-  Typography,
-  Divider,
-  Button,
-  FormControl,
-  OutlinedInput
-} from '@material-ui/core';
+import clsx from 'clsx';
+import { Typography, Divider, Button } from '@material-ui/core';
 
 import styles from './styles';
+import useInputState from '../../../../../../common/hooks/useInputState';
 
-const Total = ({ totalToPay, taxTotalToPay }) => {
+const Total = ({ total, tax, lastPrice, handleDiscountChange }) => {
   const classes = styles();
+  const [discountInput, setDiscountInput] = useInputState('');
+
+  const handleFormSubmit = e => {
+    e.preventDefault();
+    handleDiscountChange(discountInput);
+  };
 
   return (
     <Fragment>
       <div className={classes.totalSection}>
         <Typography>Sub-Total</Typography>
-        <Typography>1000</Typography>
+        <Typography>{total - tax}</Typography>
       </div>
       <div className={classes.totalSection}>
         <Typography>Tax</Typography>
-        <Typography>15%</Typography>
+        <Typography>{tax}</Typography>
       </div>
       <div className={classes.totalSection}>
         <Typography>Discount</Typography>
-        <FormControl>
-          <OutlinedInput
+        <form onSubmit={handleFormSubmit}>
+          <input
             className={classes.discountInput}
-            id="outlined-adornment-weight"
-            aria-describedby="outlined-weight-helper-text"
-            classes={classes.inputRoot}
-            color="secondary"
+            value={discountInput}
+            onChange={setDiscountInput}
           />
-        </FormControl>
+        </form>
       </div>
       <Divider className={classes.totalDivider} />
-      <div className={classes.totalSection}>
+      <div className={clsx(classes.totalSection, classes.totalAmount)}>
         <Typography>Total</Typography>
-        <Typography>3000 TL</Typography>
+        <Typography>{lastPrice}</Typography>
       </div>
       <div className={classes.paymentBtnContainer}>
         <Button className={classes.paymentButton} fullWidth variant="contained">
@@ -45,7 +45,9 @@ const Total = ({ totalToPay, taxTotalToPay }) => {
             <Typography className={classes.paymentBtnTxt}>
               Complete Payment
             </Typography>
-            <Typography className={classes.paymentBtnTxt}> 2000 TL</Typography>
+            <Typography className={classes.paymentBtnTxt}>
+              {lastPrice}
+            </Typography>
           </div>
         </Button>
       </div>

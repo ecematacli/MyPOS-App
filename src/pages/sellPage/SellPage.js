@@ -12,9 +12,11 @@ const SellPage = () => {
     deleteProduct,
     decreaseProductQuantity,
     increaseProductQuantity,
-    subTotalToPay,
-    totalToPay,
-    taxTotalToPay
+    total,
+    tax,
+    discount,
+    handleDiscountChange,
+    lastPrice
   } = useSalesState();
 
   return (
@@ -42,9 +44,11 @@ const SellPage = () => {
             deleteProduct={deleteProduct}
             decreaseProductQuantity={decreaseProductQuantity}
             increaseProductQuantity={increaseProductQuantity}
-            subTotalToPay={subTotalToPay}
-            totalToPay={totalToPay}
-            taxTotalToPay={taxTotalToPay}
+            total={total}
+            tax={tax}
+            discount={discount}
+            handleDiscountChange={handleDiscountChange}
+            lastPrice={lastPrice}
           />
         </Grid>
       </Grid>

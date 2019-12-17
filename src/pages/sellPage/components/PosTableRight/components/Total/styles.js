@@ -9,11 +9,25 @@ export default makeStyles(({ spacing, palette }) => ({
   discountInput: {
     width: spacing(12),
     height: spacing(5),
-    borderRadius: spacing(3),
-    marginRight: '-10px'
+    textAlign: 'right',
+    marginRight: '-14px',
+    paddingRight: spacing(2),
+    fontSize: spacing(2),
+    color: palette.textColor,
+    borderWidth: 1,
+    borderColor: palette.secondary.dark,
+    borderStyle: 'solid',
+    borderRadius: spacing(2),
+    '&:focus': {
+      outline: 'none'
+    }
   },
   totalDivider: {
-    backgroundColor: palette.secondary.lightest
+    marginTop: spacing(1)
+  },
+  totalAmount: {
+    paddingTop: spacing(2),
+    paddingBottom: spacing(1)
   },
   paymentBtnContainer: {
     padding: spacing(2)
@@ -24,7 +38,6 @@ export default makeStyles(({ spacing, palette }) => ({
     height: '60px',
     paddingLeft: spacing(5),
     paddingRight: spacing(5),
-
     '&:hover': {
       backgroundColor: palette.primary.light
     }

@@ -1,163 +1,83 @@
-import { useReducer } from 'react';
-import {
-  calculateTotal,
-  calculateSubTotal,
-  calculateTotalTax,
-  calculateTotalDiscount
-} from '../utilities';
+import { useReducer, useState, useEffect } from 'react';
+import { calculateTotal, calculateTotalTax } from '../utilities';
 
 const initialState = {
   products: {
     1: {
       id: 1,
       name: 'Nike Airmax',
-      quantity: 2,
+      quantity: 1,
       price: 200,
-      taxRate: 5,
-      discount: 0
+      taxRate: 2
     },
     2: {
       id: 2,
       name: 'Adidas NMD',
       quantity: 1,
-      price: 300,
-      taxRate: 5,
-      discount: 0
+      price: 200,
+      taxRate: 2
     }
-    // 3: {
-    //   id: 3,
-    //   quantity: 3,
-    //   name: 'Adidas falcon',
-    //   price: 200.5,
-    //   taxRate: 8,
-    //   discount: 0
-    // },
-    // 4: {
-    //   id: 4,
-    //   quantity: 1,
-    //   name: 'Adidas legend',
-    //   price: 40.0,
-    //   taxRate: 8,
-    //   discount: 0
-    // }
-  },
-  totals: {
-    tax: 50,
-    total: 700
   }
 };
 
-// Reducer
+// Products Reducer
 
-const salesReducer = (state, { type, payload }) => {
-  const { products, totals } = state;
-  const productId = products[payload.id];
+const productsReducer = (state, { type, payload }) => {
+  const { products } = state;
 
   switch (type) {
-    // case 'ADD_PRODUCT':
-    //   if () {
-    //     return {
-    //       ...totals,
-    //       products: {
-    //         ...products,
-    //         [payload.id]: {
-    //           ...payload,
-    //           quantity: products[payload.id].quantity + 1
-    //         }
-    //       }
-    //     };
-    //   } else {
-    //     return {
-    //       ...totals,
-    //       products: { ...products, [payload.id]: { ...payload, quantity: 1 } }
-    //     };yload
     case 'DELETE_PRODUCT':
       const { [payload.id]: removedProduct, ...otherProducts } = products;
       if (!!products[payload.id]) {
-        console.log('removedProduct', removedProduct);
-
         return {
-          totals: {
-            ...totals,
-            totals:
-              totals.total - removedProduct.price * removedProduct.quantity
-          },
-
           products: { ...otherProducts }
         };
       }
 
     case 'DECREASE_QUANTITY':
-      const { [payload.id]: actionToDecreased, ...others } = products;
+      const { [payload.id]: decreasedProduct, ...others } = products;
 
-      if (!!productId && productId.quantity === 1) {
+      if (!!products[payload.id] && products[payload.id].quantity === 1) {
         return {
-          ...totals,
           products: { ...others }
         };
       } else {
         return {
-          ...totals,
           products: {
             ...products,
             [payload.id]: {
               ...payload,
-              quantity: productId.quantity - 1
+              quantity: products[payload.id].quantity - 1
             }
           }
         };
       }
     case 'INCREASE_QUANTITY':
-      if (!!productId) {
+      if (!!products[payload.id]) {
         return {
-          ...totals,
           products: {
             ...products,
             [payload.id]: {
               ...payload,
-              quantity: productId.quantity + 1
+              quantity: products[payload.id].quantity + 1
             }
           }
         };
       }
-
-    case 'SUBTOTAL_TO_PAY':
-      return {
-        ...products,
-        totals: {
-          ...totals,
-          subtotal: payload
-        }
-      };
-    case 'TOTAL_TO_PAY':
-      return {
-        ...products,
-        totals: {
-          ...totals,
-          total: payload
-        }
-      };
-    case 'TAX_TO_PAY':
-      return {
-        ...products,
-        totals: {
-          ...totals,
-          tax: payload
-        }
-      };
-
     default:
       return state;
   }
 };
 
-// Action generators
+// Products and Total state
 
 export default () => {
-  const [{ products, totals }, dispatch] = useReducer(
-    salesReducer,
-    initialState
-  );
+  const [{ products }, dispatch] = useReducer(productsReducer, initialState);
+  const [total, setTotal] = useState(0);
+  const [tax, setTax] = useState(0);
+  const [discount, setDiscount] = useState('');
+
+  const productsArr = Object.values(products);
 
   const addProduct = product => {
     dispatch({
@@ -187,40 +107,24 @@ export default () => {
     });
   };
 
-  const productsArr = Object.values(products);
-
-  const subTotalToPay = () => {
-    dispatch({
-      type: 'SUBTOTAL_TO_PAY',
-      payload: calculateSubTotal(productsArr)
-    });
+  const handleDiscountChange = discountAmount => {
+    setDiscount(parseInt(discountAmount));
   };
 
-  const totalToPay = () => {
-    dispatch({
-      type: 'TOTAL_TO_PAY',
-      payload: calculateTotal(productsArr)
-    });
-  };
-
-  const taxTotalToPay = () => {
-    dispatch({
-      type: 'TAX_TO_PAY',
-      payload: calculateTotalTax(productsArr)
-    });
-  };
-
-  console.log(totals);
+  useEffect(() => {
+    setTax(calculateTotalTax(productsArr));
+    setTotal(calculateTotal(productsArr));
+  }, [products]);
 
   return {
     products,
-    addProduct,
     deleteProduct,
     decreaseProductQuantity,
     increaseProductQuantity,
-    subTotalToPay,
-    totalToPay,
-    taxTotalToPay,
-    totals
+    total,
+    tax,
+    discount,
+    handleDiscountChange,
+    lastPrice: total - discount
   };
 };

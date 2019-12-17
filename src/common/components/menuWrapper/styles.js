@@ -7,7 +7,6 @@ export default makeStyles(theme => ({
   root: {
     display: 'flex',
     position: 'relative',
-    // top: 10,
     height: '100vh'
   },
   drawer: {
@@ -74,7 +73,7 @@ export default makeStyles(theme => ({
     paddingTop: theme.spacing(2),
     backgroundSize: 'cover',
     background: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url(${backgroundImage})`,
-    // background: `linear-gradient( rgba(16,29,44, .90), rgba(016,29,44, .91) ), url(${backgroundImage})`,
+
     backgroundPosition: 'center center'
   },
   content: {
@@ -84,9 +83,3 @@ export default makeStyles(theme => ({
     backgroundColor: '#fcfafa'
   }
 }));
-
-//rgba(255, 255, 255, 0.7)
-//#404854z
-//rgba(0, 0, 0, 0.87)
-//'#607d8b',
-///#f7f7f7

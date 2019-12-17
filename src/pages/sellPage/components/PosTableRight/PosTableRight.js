@@ -21,13 +21,19 @@ const PosTableRight = ({
   deleteProduct,
   decreaseProductQuantity,
   increaseProductQuantity,
-  subTotalToPay,
-  totalToPay,
-  taxTotalToPay
+  total,
+  tax,
+  discount,
+  handleDiscountChange,
+  lastPrice
 }) => {
   const classes = styles();
 
   const [selected, setSelected] = useState([]);
+
+  console.log(products);
+
+  // console.log(discount);
 
   const productsArr = Object.values(products);
 
@@ -145,9 +151,11 @@ const PosTableRight = ({
       </div>
       <Divider className={classes.totalDivider} />
       <Total
-        subTotalToPay={subTotalToPay}
-        totalToPay={totalToPay}
-        taxTotalToPay={taxTotalToPay}
+        total={total}
+        tax={tax}
+        discount={discount}
+        handleDiscountChange={handleDiscountChange}
+        lastPrice={lastPrice}
       />
     </Paper>
   );

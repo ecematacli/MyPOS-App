@@ -15,7 +15,8 @@ export default createMuiTheme({
       dark: '#7e7e7e',
       darkest: '#3f3f3f'
     },
-    error: { main: pink['A400'] }
+    error: { main: pink['A400'] },
+    textColor: 'rgba(0, 0, 0, 0.87)'
   },
   typography: {
     h1: {

@@ -3,7 +3,8 @@ import { lighten, makeStyles } from '@material-ui/core/styles';
 export default makeStyles(({ spacing, palette }) => ({
   paperRoot: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.15) ',
-    marginBottom: spacing(2)
+    marginBottom: spacing(2),
+    fontWeight: 'bolder'
   },
 
   tableWrapper: {
@@ -30,7 +31,7 @@ export default makeStyles(({ spacing, palette }) => ({
     fontWeight: 'bold'
   },
   totalDivider: {
-    backgroundColor: '#f4f4f4'
+    backgroundColor: palette.secondary.lightest
   },
   paymentBtnContainer: {
     padding: spacing(2)
