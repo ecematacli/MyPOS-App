@@ -28,6 +28,21 @@ export default createMuiTheme({
       paper: {
         color: 'white'
       }
+    },
+    MuiTableCell: {
+      root: {
+        fontSize: 16,
+        fontWeight: 500
+      },
+      head: {
+        fontSize: 16,
+        fontWeight: 500
+      }
+    },
+    MuiTableCell: {
+      body1: {
+        fontWeight: 500
+      }
     }
   }
 });

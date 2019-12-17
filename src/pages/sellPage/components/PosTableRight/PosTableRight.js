@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
+import clsx from 'clsx';
 import {
   Table,
   TableCell,
-  TableRow,
+  TableHead,
   TableBody,
+  TableRow,
   Paper,
-  Checkbox,
-  Divider
+  Divider,
+  Toolbar,
+  Typography,
+  Button
 } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
-import SelectedProductsToolbar from './components/SelectedProductsToolbar/SelectedProductsToolbar';
-import PosTableHead from './components/PosTableHead/PosTableHead';
-import Total from './components/Total/Total';
+import useInputState from '../../../../common/hooks/useInputState';
 
 const PosTableRight = ({
   products,
@@ -29,92 +31,52 @@ const PosTableRight = ({
 }) => {
   const classes = styles();
 
-  const [selected, setSelected] = useState([]);
-
   console.log(products);
-
-  // console.log(discount);
 
   const productsArr = Object.values(products);
 
-  const handleSelectAllClick = e => {
-    if (e.target.checked) {
-      const newSelecteds = productsArr.map(n => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
+  const [discountInput, setDiscountInput] = useInputState('');
+
+  const handleFormSubmit = e => {
+    e.preventDefault();
+    handleDiscountChange(discountInput);
   };
-
-  const handleClick = (e, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
-  };
-
-  const isSelected = name => selected.indexOf(name) !== -1;
 
   return (
     <Paper className={classes.paperRoot}>
-      <SelectedProductsToolbar numSelected={selected.length} />
+      <Toolbar className={classes.toolbar}></Toolbar>
       <div className={classes.tableWrapper}>
         <Table
           className={classes.table}
+          classes={{ root: classes.tableContent }}
           aria-labelledby="tableTitle"
           size="medium"
           aria-label="enhanced table"
         >
-          <PosTableHead
-            classes={classes}
-            numSelected={selected.length}
-            onSelectAllClick={handleSelectAllClick}
-            rowCount={Object.values(products).length}
-          />
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.headerCell}>Product</TableCell>
+              <TableCell className={classes.qtHeaderCell}>Quantity</TableCell>
+              <TableCell className={classes.priceHeaderCell} align="left">
+                Price
+              </TableCell>
+              <TableCell
+                colSpan={4}
+                className={classes.headerCell}
+                align="left"
+              >
+                <div className={classes.discountHeaderCell}>Discount</div>
+              </TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
-            {productsArr.map((product, index) => {
-              const isItemSelected = isSelected(product.name);
-              const labelId = `enhanced-table-checkbox-${index}`;
-
+            {productsArr.map(product => {
               return (
-                <TableRow
-                  hover
-                  role="checkbox"
-                  aria-checked={isItemSelected}
-                  tabIndex={-1}
-                  key={product.id}
-                  selected={isItemSelected}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      onClick={e => handleClick(e, product.name)}
-                      checked={isItemSelected}
-                      inputProps={{ 'aria-labelledby': labelId }}
-                      classes={{ checked: classes.checked }}
-                    />
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    id={labelId}
-                    scope="product"
-                    padding="none"
-                  >
+                <TableRow hover tabIndex={-1} key={product.id}>
+                  <TableCell component="th" id={product.id} scope="product">
                     {product.name}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell padding="none">
                     <div className={classes.quantity}>
                       <div
                         className={classes.arrow}
@@ -137,8 +99,9 @@ const PosTableRight = ({
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell align="center">{product.price}</TableCell>
-                  <TableCell align="right">
+                  <TableCell>{product.price}</TableCell>
+                  <TableCell align="left">15780</TableCell>
+                  <TableCell colSpan={3} align="right">
                     <IconButton onClick={() => deleteProduct(product.id)}>
                       <DeleteIcon className={classes.deleteIcon} />
                     </IconButton>
@@ -149,32 +112,50 @@ const PosTableRight = ({
           </TableBody>
         </Table>
       </div>
-      <Divider className={classes.totalDivider} />
-      <Total
-        total={total}
-        tax={tax}
-        discount={discount}
-        handleDiscountChange={handleDiscountChange}
-        lastPrice={lastPrice}
-      />
+      <Divider className={classes.totalDividerBg} />
+      <Fragment>
+        <div className={classes.totalSection}>
+          <Typography>Sub-Total</Typography>
+          <Typography>{total - tax}</Typography>
+        </div>
+        <div className={classes.totalSection}>
+          <Typography>Tax</Typography>
+          <Typography>{tax}</Typography>
+        </div>
+        <div className={classes.totalSection}>
+          <Typography>Discount</Typography>
+          <form onSubmit={handleFormSubmit}>
+            <input
+              className={classes.discountInput}
+              value={discountInput}
+              onChange={setDiscountInput}
+            />
+          </form>
+        </div>
+        <Divider className={classes.totalDividerEnd} />
+        <div className={clsx(classes.totalSection, classes.totalAmount)}>
+          <Typography>Total</Typography>
+          <Typography>{lastPrice}</Typography>
+        </div>
+        <div className={classes.paymentBtnContainer}>
+          <Button
+            className={classes.paymentButton}
+            fullWidth
+            variant="contained"
+          >
+            <div className={classes.paymentBtnTextHolder}>
+              <Typography className={classes.paymentBtnTxt}>
+                Complete Payment
+              </Typography>
+              <Typography className={classes.paymentBtnTxt}>
+                {lastPrice}
+              </Typography>
+            </div>
+          </Button>
+        </div>
+      </Fragment>
     </Paper>
   );
 };
 
 export default PosTableRight;
-//
-/////
-// const selectedProducts = {}
-
-// const handleSelect = (id) => {
-//   if (selectedProducts[id]) {
-//     selectedProducts[id] = false
-//   } else {
-//     selectedProducts[id] = true
-//   }
-// }
-
-// {
-//   ['123asd']: false,
-//   'asdasd': true
-// }
