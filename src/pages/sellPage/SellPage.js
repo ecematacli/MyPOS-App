@@ -1,5 +1,6 @@
 import React from 'react';
-import { TextField, Grid } from '@material-ui/core';
+import { TextField, Grid, InputAdornment } from '@material-ui/core';
+import { Search } from '@material-ui/icons';
 
 import styles from './styles';
 import useSalesState from './hooks/useSalesState';
@@ -9,14 +10,14 @@ const SellPage = () => {
   const classes = styles();
   const {
     products,
+    productsArr,
     deleteProduct,
     decreaseProductQuantity,
     increaseProductQuantity,
     total,
     tax,
     discount,
-    handleDiscountChange,
-    lastPrice
+    handleDiscountChange
   } = useSalesState();
 
   return (
@@ -35,12 +36,20 @@ const SellPage = () => {
               label="Search for products..."
               className={classes.productSearchInput}
               variant="outlined"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Search />
+                  </InputAdornment>
+                )
+              }}
             />
           </form>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
           <PosTableRight
             products={products}
+            productsArr={productsArr}
             deleteProduct={deleteProduct}
             decreaseProductQuantity={decreaseProductQuantity}
             increaseProductQuantity={increaseProductQuantity}
@@ -48,7 +57,6 @@ const SellPage = () => {
             tax={tax}
             discount={discount}
             handleDiscountChange={handleDiscountChange}
-            lastPrice={lastPrice}
           />
         </Grid>
       </Grid>

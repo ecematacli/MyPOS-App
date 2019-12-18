@@ -12,7 +12,7 @@ import {
   ListItemText,
   IconButton
 } from '@material-ui/core';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import History from '@material-ui/icons/History';
 import MenuIcon from '@material-ui/icons/Menu';
 import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
@@ -43,7 +43,7 @@ const MenuWrapper = ({ container, children }) => {
             <div key={i}>
               <ListItem onClick={() => history.push(url)} button key={text}>
                 <ListItemIcon className={classes.menuIcon}>
-                  {i === 0 ? <InboxIcon /> : <History />}
+                  {i === 0 ? <MonetizationOnOutlinedIcon /> : <History />}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>

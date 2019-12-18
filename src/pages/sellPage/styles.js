@@ -1,11 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(theme => ({
+export default makeStyles(({ spacing, palette }) => ({
   gridContainer: {
     margin: 0
   },
   salesContent: {
-    width: '100%',
     display: 'flex'
   },
   contentRoot: {
@@ -17,9 +16,9 @@ export default makeStyles(theme => ({
   },
   productSearchInput: {
     width: '100%',
-    color: '#404854'
+    color: palette.secondary.main
   },
   control: {
-    padding: theme.spacing(2)
+    padding: spacing(2)
   }
 }));

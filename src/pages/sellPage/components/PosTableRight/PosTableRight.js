@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import clsx from 'clsx';
 import {
   Table,
@@ -10,37 +10,26 @@ import {
   Divider,
   Toolbar,
   Typography,
-  Button
+  Button,
+  OutlinedInput,
+  InputAdornment
 } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
-import useInputState from '../../../../common/hooks/useInputState';
 
 const PosTableRight = ({
-  products,
+  productsArr,
   deleteProduct,
   decreaseProductQuantity,
   increaseProductQuantity,
   total,
   tax,
   discount,
-  handleDiscountChange,
-  lastPrice
+  handleDiscountChange
 }) => {
   const classes = styles();
-
-  console.log(products);
-
-  const productsArr = Object.values(products);
-
-  const [discountInput, setDiscountInput] = useInputState('');
-
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    handleDiscountChange(discountInput);
-  };
 
   return (
     <Paper className={classes.paperRoot}>
@@ -49,9 +38,7 @@ const PosTableRight = ({
         <Table
           className={classes.table}
           classes={{ root: classes.tableContent }}
-          aria-labelledby="tableTitle"
           size="medium"
-          aria-label="enhanced table"
         >
           <TableHead>
             <TableRow>
@@ -65,7 +52,7 @@ const PosTableRight = ({
                 className={classes.headerCell}
                 align="left"
               >
-                <div className={classes.discountHeaderCell}>Discount</div>
+                <div className={classes.discountHeaderCell}>Discounted</div>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -99,8 +86,8 @@ const PosTableRight = ({
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>{product.price}</TableCell>
-                  <TableCell align="left">15780</TableCell>
+                  <TableCell>&#x20BA;{product.price}</TableCell>
+                  <TableCell align="left">&#x20BA;15780</TableCell>
                   <TableCell colSpan={3} align="right">
                     <IconButton onClick={() => deleteProduct(product.id)}>
                       <DeleteIcon className={classes.deleteIcon} />
@@ -116,26 +103,33 @@ const PosTableRight = ({
       <Fragment>
         <div className={classes.totalSection}>
           <Typography>Sub-Total</Typography>
-          <Typography>{total - tax}</Typography>
+          <Typography>&#x20BA;{total - tax}</Typography>
         </div>
         <div className={classes.totalSection}>
           <Typography>Tax</Typography>
-          <Typography>{tax}</Typography>
+          <Typography>&#x20BA;{tax}</Typography>
         </div>
         <div className={classes.totalSection}>
           <Typography>Discount</Typography>
-          <form onSubmit={handleFormSubmit}>
-            <input
-              className={classes.discountInput}
-              value={discountInput}
-              onChange={setDiscountInput}
-            />
-          </form>
+          <OutlinedInput
+            classes={{
+              root: classes.discountInput,
+              focused: classes.fieldInput,
+              notchedOutline: classes.notchedOutline
+            }}
+            inputProps={{ style: { textAlign: 'right' } }}
+            color="secondary"
+            value={discount}
+            onChange={handleDiscountChange}
+            startAdornment={
+              <InputAdornment position="start">&#x20BA;</InputAdornment>
+            }
+          />
         </div>
         <Divider className={classes.totalDividerEnd} />
         <div className={clsx(classes.totalSection, classes.totalAmount)}>
           <Typography>Total</Typography>
-          <Typography>{lastPrice}</Typography>
+          <Typography>&#x20BA;{total - discount}</Typography>
         </div>
         <div className={classes.paymentBtnContainer}>
           <Button
@@ -148,7 +142,7 @@ const PosTableRight = ({
                 Complete Payment
               </Typography>
               <Typography className={classes.paymentBtnTxt}>
-                {lastPrice}
+                &#x20BA; {total - discount}
               </Typography>
             </div>
           </Button>

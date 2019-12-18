@@ -75,7 +75,7 @@ export default () => {
   const [{ products }, dispatch] = useReducer(productsReducer, initialState);
   const [total, setTotal] = useState(0);
   const [tax, setTax] = useState(0);
-  const [discount, setDiscount] = useState('');
+  const [discount, setDiscount] = useState(0);
 
   const productsArr = Object.values(products);
 
@@ -107,8 +107,9 @@ export default () => {
     });
   };
 
-  const handleDiscountChange = discountAmount => {
-    setDiscount(parseInt(discountAmount));
+  const handleDiscountChange = ({ target: { value } }) => {
+    const numVal = parseInt(value);
+    setDiscount(isNaN(numVal) ? 0 : numVal);
   };
 
   useEffect(() => {
@@ -118,6 +119,7 @@ export default () => {
 
   return {
     products,
+    productsArr,
     deleteProduct,
     decreaseProductQuantity,
     increaseProductQuantity,
