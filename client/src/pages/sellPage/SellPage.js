@@ -1,6 +1,5 @@
 import React from 'react';
-import { TextField, Grid, InputAdornment } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
+import Grid from '@material-ui/core/Grid';
 
 import styles from './styles';
 import useSalesState from './hooks/useSalesState';
@@ -12,6 +11,7 @@ const SellPage = () => {
   const {
     products,
     productsArr,
+    addProduct,
     deleteProduct,
     decreaseProductQuantity,
     increaseProductQuantity,
@@ -30,7 +30,7 @@ const SellPage = () => {
         justify="center"
       >
         <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
-          <ProductSearchBar />
+          <ProductSearchBar addProduct={addProduct} />
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
           <PosTableRight

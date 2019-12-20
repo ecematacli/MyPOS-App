@@ -12,5 +12,15 @@ export default makeStyles(({ palette, spacing }) => ({
     '& .MuiOutlinedInput-root': {
       paddingRight: spacing(2)
     }
+  },
+  suggestedContainer: {
+    padding: spacing(2),
+    height: spacing(8),
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  suggestedCommon: {
+    color: palette.secondary.darkest
   }
 }));

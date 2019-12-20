@@ -4,8 +4,8 @@ export default makeStyles(({ spacing, palette }) => ({
   paperRoot: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.15) ',
     marginBottom: spacing(2),
-    paddingLeft: spacing(1.5),
-    paddingRight: spacing(1),
+    // paddingLeft: spacing(1.5),
+    // paddingRight: spacing(1),
     fontWeight: 'bolder'
   },
   tableContent: {
@@ -37,10 +37,14 @@ export default makeStyles(({ spacing, palette }) => ({
     textAlign: 'center'
   },
   quantityVal: {
-    margin: '0 10px'
+    margin: '0 10px',
+    fontWeight: 400,
+    fontSize: 14
   },
   arrow: {
-    color: palette.secondary.main
+    color: palette.secondary.main,
+    fontWeight: 400,
+    fontSize: 14
   },
   deleteIcon: {
     color: palette.secondary.dark
@@ -90,8 +94,8 @@ export default makeStyles(({ spacing, palette }) => ({
     color: 'white',
     backgroundColor: palette.primary.main,
     height: '60px',
-    paddingLeft: spacing(5),
-    paddingRight: spacing(5),
+    paddingLeft: spacing(4),
+    paddingRight: spacing(4),
     marginBottom: spacing(1),
     '&:hover': {
       backgroundColor: palette.primary.light

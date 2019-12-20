@@ -1,11 +1,11 @@
 export const calculateTotal = products => {
-  return products.reduce((acc, { price, quantity }) => {
-    return acc + price * quantity;
+  return products.reduce((acc, { price, qty }) => {
+    return acc + price * qty;
   }, 0);
 };
 
 export const calculateTotalTax = products => {
-  return products.reduce((acc, { price, taxRate, quantity }) => {
-    return acc + ((price * taxRate) / 100) * quantity;
+  return products.reduce((acc, { price, taxRate, qty }) => {
+    return acc + ((price * taxRate) / 100) * qty;
   }, 0);
 };

@@ -59,8 +59,12 @@ const PosTableRight = ({
           <TableBody>
             {productsArr.map(product => {
               return (
-                <TableRow hover tabIndex={-1} key={product.id}>
-                  <TableCell component="th" id={product.id} scope="product">
+                <TableRow hover tabIndex={-1} key={product.barcode}>
+                  <TableCell
+                    component="th"
+                    id={product.barcode}
+                    scope="product"
+                  >
                     {product.name}
                   </TableCell>
                   <TableCell padding="none">
@@ -73,9 +77,7 @@ const PosTableRight = ({
                       >
                         &#10094;
                       </div>
-                      <div className={classes.quantityVal}>
-                        {product.quantity}
-                      </div>
+                      <div className={classes.quantityVal}>{product.qty}</div>
                       <div
                         className={classes.arrow}
                         onClick={() => {
@@ -89,7 +91,7 @@ const PosTableRight = ({
                   <TableCell>&#x20BA;{product.price}</TableCell>
                   <TableCell align="left">&#x20BA;15780</TableCell>
                   <TableCell colSpan={3} align="right">
-                    <IconButton onClick={() => deleteProduct(product.id)}>
+                    <IconButton onClick={() => deleteProduct(product.barcode)}>
                       <DeleteIcon className={classes.deleteIcon} />
                     </IconButton>
                   </TableCell>
