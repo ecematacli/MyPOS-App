@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 
 import styles from './styles';
 import useSalesState from './hooks/useSalesState';
-import ProductSearchBar from './components/ProductSearchBar/';
+import ProductSearchBar from './components/ProductSearchBar';
 import PosTableRight from './components/PosTableRight/PosTableRight';
 
 const SellPage = () => {

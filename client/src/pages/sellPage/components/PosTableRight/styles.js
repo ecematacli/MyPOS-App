@@ -26,7 +26,7 @@ export default makeStyles(({ spacing, palette }) => ({
     paddingLeft: 0
   },
   priceHeaderCell: {
-    width: '19%'
+    width: '18%'
   },
   discountHeaderCell: {
     width: 150

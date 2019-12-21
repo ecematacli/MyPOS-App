@@ -3,8 +3,8 @@ import { calculateTotal, calculateTotalTax } from '../utilities';
 
 const initialState = {
   products: {
-    941538658299: {
-      id: 1,
+    12: {
+      id: 12,
       barcode: 941538658299,
       name: 'Adidas NMD',
       qty: 1,
@@ -16,8 +16,8 @@ const initialState = {
       brand: 'Nike',
       category: 'Tenis Ayakkabisi'
     },
-    941538658246: {
-      id: 2,
+    13: {
+      id: 13,
       barcode: 941538658246,
       name: 'Intelligent Metal Shirt',
       qty: 1,
@@ -37,41 +37,43 @@ const initialState = {
 const productsReducer = (state, { type, payload }) => {
   const { products } = state;
 
-  console.log(payload);
   switch (type) {
     case 'ADD_PRODUCT':
-      if (!!products[payload.barcode]) {
+      if (!!products[payload.id]) {
+        console.log('if case');
         return {
           products: {
             ...products,
-            [payload.borcode]: {
+            [payload.id]: {
               ...payload,
-              qty: products[payload.barcode].qty + 1
+              qty: products[payload.id].qty + 1
             }
           }
         };
       } else {
         return {
-          ...products,
-          [payload.barcode]: {
-            ...payload,
-            qty: 1
+          products: {
+            ...products,
+            [payload.id]: {
+              ...payload,
+              qty: 1
+            }
           }
         };
       }
     case 'DELETE_PRODUCT':
-      const { [payload.barcode]: removedProduct, ...otherProducts } = products;
+      const { [payload.id]: removedProduct, ...otherProducts } = products;
 
-      if (!!products[payload.barcode]) {
+      if (!!products[payload.id]) {
         return {
           products: { ...otherProducts }
         };
       }
 
     case 'DECREASE_QUANTITY':
-      const { [payload.barcode]: decreasedProduct, ...others } = products;
+      const { [payload.id]: decreasedProduct, ...others } = products;
 
-      if (!!products[payload.barcode] && products[payload.barcode].qty === 1) {
+      if (!!products[payload.id] && products[payload.id].qty === 1) {
         return {
           products: { ...others }
         };
@@ -79,21 +81,21 @@ const productsReducer = (state, { type, payload }) => {
         return {
           products: {
             ...products,
-            [payload.barcode]: {
+            [payload.id]: {
               ...payload,
-              qty: products[payload.barcode].qty - 1
+              qty: products[payload.id].qty - 1
             }
           }
         };
       }
     case 'INCREASE_QUANTITY':
-      if (!!products[payload.barcode]) {
+      if (!!products[payload.id]) {
         return {
           products: {
             ...products,
-            [payload.barcode]: {
+            [payload.id]: {
               ...payload,
-              qty: products[payload.barcode].qty + 1
+              qty: products[payload.id].qty + 1
             }
           }
         };
@@ -120,10 +122,10 @@ export default () => {
     });
   };
 
-  const deleteProduct = barcode => {
+  const deleteProduct = id => {
     dispatch({
       type: 'DELETE_PRODUCT',
-      payload: { barcode }
+      payload: { id }
     });
   };
 

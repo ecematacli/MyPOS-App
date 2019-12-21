@@ -13,7 +13,7 @@ export default makeStyles(({ palette, spacing }) => ({
       paddingRight: spacing(2)
     }
   },
-  suggestedContainer: {
+  suggestedItemList: {
     padding: spacing(2),
     height: spacing(8),
     display: 'flex',
@@ -22,5 +22,31 @@ export default makeStyles(({ palette, spacing }) => ({
   },
   suggestedCommon: {
     color: palette.secondary.darkest
+  },
+  suggestionsContainer: {
+    maxHeight: 100,
+    overFlow: 'scroll'
+  },
+  container: {
+    position: 'relative',
+    maxHeight: '30vh'
+  },
+  suggestionsContainerOpen: {
+    position: 'absolute',
+    zIndex: 1,
+    marginTop: spacing(2),
+    left: 0,
+    right: 0
+  },
+  suggestion: {
+    display: 'block'
+  },
+  disabledSuggestion: {
+    pointerEvents: 'none'
+  },
+  suggestionsList: {
+    margin: 0,
+    padding: 0,
+    listStyleType: 'none'
   }
 }));

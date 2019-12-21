@@ -7,14 +7,13 @@ import {
   TextField,
   InputAdornment,
   CircularProgress,
-  Grid,
-  Typography,
-  MenuItem
+  Typography
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Search } from '@material-ui/icons';
 
 import styles from './styles';
+import useAutocomplete from '@material-ui/lab/useAutocomplete';
 
 const ProductSearchbar = ({ addProduct }) => {
   const classes = styles();
@@ -62,12 +61,16 @@ const ProductSearchbar = ({ addProduct }) => {
         setOpen(false);
         setSearchResults([]);
       }}
+      autoSelect
       filterOptions={p => p}
       getOptionLabel={product => product.name}
       options={searchResults}
       loading={loading}
       disableOpenOnFocus
       freeSolo
+      onChange={(e, product) => {
+        onProductSelect(product);
+      }}
       autoHighlight
       classes={{ inputRoot: classes.inputRoot }}
       renderInput={params => (
@@ -102,17 +105,9 @@ const ProductSearchbar = ({ addProduct }) => {
         const matches = match(product.name, inputValue);
         const parts = parse(product.name, matches);
 
-        // console.log(product);
-        // console.log('matches', matches);
-        // console.log('parts', parts);
-
         return (
           <Fragment>
-            <div
-              className={classes.suggestedContainer}
-              onClick={() => onProductSelect(product)}
-              onKeyPress={e => onKeyPress(e, product)}
-            >
+            <div className={classes.suggestedContainer}>
               {parts.map((part, index) => (
                 <span
                   key={index}
