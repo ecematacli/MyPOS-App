@@ -1,53 +1,27 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import axios from 'axios';
-import clsx from 'clsx';
+import React from 'react';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import {
-  TextField,
-  InputAdornment,
-  CircularProgress,
-  Typography
-} from '@material-ui/core';
+import { TextField, InputAdornment, CircularProgress } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Search } from '@material-ui/icons';
 
 import styles from './styles';
-import useAutocomplete from '@material-ui/lab/useAutocomplete';
+import useSearchInput from './hooks/useSearchInput';
 
 const ProductSearchbar = ({ addProduct }) => {
   const classes = styles();
+  const {
+    open,
+    setOpen,
+    searchResults,
+    setSearchResults,
+    loading,
+    query,
+    setQuery,
+    onProductSelect
+  } = useSearchInput(addProduct);
 
-  const [open, setOpen] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-  const [query, setQuery] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const onProductSelect = product => {
-    addProduct(product);
-    setQuery('');
-    setOpen(false);
-    setSearchResults([]);
-  };
-
-  const onKeyPress = (e, product) => {
-    if (e.key === 'Enter') {
-      onProductSelect(product);
-    }
-  };
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      const response = await axios.get(
-        `http://localhost:3091/products?q=${query}`
-      );
-      setSearchResults(response.data);
-      setOpen(true);
-      setLoading(false);
-    };
-    query && fetchProducts();
-  }, [query]);
+  // console.log(open, setOpen, searchResults, setSearchResults, loading);
 
   return (
     <Autocomplete
@@ -59,18 +33,19 @@ const ProductSearchbar = ({ addProduct }) => {
       autoComplete
       onClose={() => {
         setOpen(false);
+        setQuery('');
         setSearchResults([]);
       }}
-      autoSelect
       filterOptions={p => p}
       getOptionLabel={product => product.name}
       options={searchResults}
       loading={loading}
       disableOpenOnFocus
-      freeSolo
+      clearOnEscape
       onChange={(e, product) => {
-        onProductSelect(product);
+        product && onProductSelect(product);
       }}
+      inputValue={query}
       autoHighlight
       classes={{ inputRoot: classes.inputRoot }}
       renderInput={params => (
@@ -102,24 +77,29 @@ const ProductSearchbar = ({ addProduct }) => {
         />
       )}
       renderOption={(product, { inputValue }) => {
-        const matches = match(product.name, inputValue);
-        const parts = parse(product.name, matches);
+        const matches = match(product.name || product.variation, inputValue);
+        const parts = parse(product.name || product.variation, matches);
 
         return (
-          <Fragment>
-            <div className={classes.suggestedContainer}>
-              {parts.map((part, index) => (
-                <span
-                  key={index}
-                  style={{ fontWeight: part.highlight ? 700 : 400 }}
-                >
-                  {part.text}
-                </span>
-              ))}
+          <div className={classes.suggestionContainer}>
+            <div className={classes.suggestionContent}>
+              <div>
+                {parts.map((part, index) => (
+                  <span
+                    key={index}
+                    style={{ fontWeight: part.highlight ? 700 : 400 }}
+                  >
+                    {part.text}
+                  </span>
+                ))}
+              </div>
+              <span> / {product.variation}</span>
+              <span> / {product.brand}</span>
             </div>
-            <Typography>{product.variation}</Typography>
-            <Typography>{product.price}</Typography>
-          </Fragment>
+            <div>
+              <span> &#x20BA; {product.price}</span>
+            </div>
+          </div>
         );
       }}
     />
@@ -172,3 +152,38 @@ export default ProductSearchbar;
                   &#x20BA;{product.price}
                 </Typography> */
 }
+
+// const ProductSearchbar = ({ addProduct }) => {
+//   const classes = styles();
+//   const [inputValue, setInputValue] = useState('');
+//   const [
+//     open,
+//     setOpen,
+//     searchResults,
+//     setSearchResults,
+//     loading
+//   ] = useSearchInput(inputValue);
+
+//   // const [open, setOpen] = useState(false);
+//   // const [searchResults, setSearchResults] = useState([]);
+//   // const [loading, setLoading] = useState(false);
+
+//   const onProductSelect = product => {
+//     addProduct(product);
+//     setQuery('');
+//     setOpen(false);
+//     setSearchResults([]);
+//   };
+
+//   // useEffect(() => {
+//   //   const fetchProducts = async () => {
+//   //     setLoading(true);
+//   //     const response = await axios.get(
+//   //       `http://localhost:3091/products?q=${query}`
+//   //     );
+//   //     setSearchResults(response.data);
+//   //     setOpen(true);
+//   //     setLoading(false);
+//   //   };
+//   //   query && fetchProducts();
+//   // }, [query]);

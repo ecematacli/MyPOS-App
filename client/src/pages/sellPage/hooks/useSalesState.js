@@ -40,7 +40,6 @@ const productsReducer = (state, { type, payload }) => {
   switch (type) {
     case 'ADD_PRODUCT':
       if (!!products[payload.id]) {
-        console.log('if case');
         return {
           products: {
             ...products,
