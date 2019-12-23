@@ -29,7 +29,7 @@ export default makeStyles(({ palette, spacing }) => ({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-  suggestionContent: {
+  suggestionGroup: {
     display: 'flex'
   }
 }));

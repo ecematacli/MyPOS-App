@@ -6,7 +6,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Search } from '@material-ui/icons';
 
 import styles from './styles';
-import useSearchInput from './hooks/useSearchInput';
+import useSearchInput from './hooks/useSearchBarState';
 
 const ProductSearchbar = ({ addProduct }) => {
   const classes = styles();
@@ -20,8 +20,6 @@ const ProductSearchbar = ({ addProduct }) => {
     setQuery,
     onProductSelect
   } = useSearchInput(addProduct);
-
-  // console.log(open, setOpen, searchResults, setSearchResults, loading);
 
   return (
     <Autocomplete
@@ -83,7 +81,7 @@ const ProductSearchbar = ({ addProduct }) => {
         return (
           <div className={classes.suggestionContainer}>
             <div className={classes.suggestionContent}>
-              <div>
+              <div className={classes.suggestionGroup}>
                 {parts.map((part, index) => (
                   <span
                     key={index}
@@ -92,9 +90,10 @@ const ProductSearchbar = ({ addProduct }) => {
                     {part.text}
                   </span>
                 ))}
+
+                <span> / {product.variation}</span>
               </div>
-              <span> / {product.variation}</span>
-              <span> / {product.brand}</span>
+              <span> {product.sku}</span>
             </div>
             <div>
               <span> &#x20BA; {product.price}</span>
@@ -107,83 +106,3 @@ const ProductSearchbar = ({ addProduct }) => {
 };
 
 export default ProductSearchbar;
-
-{
-  /* <div className={classes.suggestedLeftSide}>
- <Grid container alignItems="center">
-            <Grid item xs>
-              {parts.map((part, index) => (
-                <div 
-                className={classes.suggestedContainer}
-                key={part.barcode}
-                >
-                  <Typography
-                    className={clsx(
-                      classes.suggestedName,
-                      classes.suggestedCommon
-                    )}
-                    variant="body2"
-                  >
-                    {part.name} / {part.brand}
-                  </Typography>
-                </div>
-              ))}
-
-            </Grid>
-          </Grid>
-                  
-                  <Typography
-                    className={clsx(
-                      classes.suggestedName,
-                      classes.suggestedVariation
-                    )}
-                    variant="body2"
-                  >
-                    {product.variation}
-                  </Typography>
-                </div>
-                <Typography
-                  className={clsx(
-                    classes.suggestedPrice,
-                    classes.suggestedCommon
-                  )}
-                  variant="body2"
-                >
-                  &#x20BA;{product.price}
-                </Typography> */
-}
-
-// const ProductSearchbar = ({ addProduct }) => {
-//   const classes = styles();
-//   const [inputValue, setInputValue] = useState('');
-//   const [
-//     open,
-//     setOpen,
-//     searchResults,
-//     setSearchResults,
-//     loading
-//   ] = useSearchInput(inputValue);
-
-//   // const [open, setOpen] = useState(false);
-//   // const [searchResults, setSearchResults] = useState([]);
-//   // const [loading, setLoading] = useState(false);
-
-//   const onProductSelect = product => {
-//     addProduct(product);
-//     setQuery('');
-//     setOpen(false);
-//     setSearchResults([]);
-//   };
-
-//   // useEffect(() => {
-//   //   const fetchProducts = async () => {
-//   //     setLoading(true);
-//   //     const response = await axios.get(
-//   //       `http://localhost:3091/products?q=${query}`
-//   //     );
-//   //     setSearchResults(response.data);
-//   //     setOpen(true);
-//   //     setLoading(false);
-//   //   };
-//   //   query && fetchProducts();
-//   // }, [query]);

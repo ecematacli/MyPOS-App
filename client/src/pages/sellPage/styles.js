@@ -1,8 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing, palette }) => ({
+export default makeStyles(({ spacing }) => ({
   gridContainer: {
-    margin: 0
+    margin: 0,
+    '& .MuiGrid-spacing-xs-3': {
+      width: '100%'
+    }
   },
   salesContent: {
     display: 'flex'
@@ -16,5 +19,15 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   control: {
     padding: spacing(2)
+  },
+  discardSaleBtnHolder: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 5,
+    paddingRight: 10
+  },
+  discardSaleBtn: {
+    fontSize: spacing(4)
   }
 }));

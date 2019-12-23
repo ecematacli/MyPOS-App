@@ -1,5 +1,6 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import { Grid, IconButton, Typography } from '@material-ui/core';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import styles from './styles';
 import useSalesState from './hooks/useSalesState';
@@ -10,11 +11,11 @@ const SellPage = () => {
   const classes = styles();
   const {
     products,
-    productsArr,
     addProduct,
     deleteProduct,
     decreaseProductQuantity,
     increaseProductQuantity,
+    discardSale,
     total,
     tax,
     discount,
@@ -22,20 +23,34 @@ const SellPage = () => {
   } = useSalesState();
 
   return (
-    <div className={classes.salesContent}>
+    <div>
+      <Grid
+        container
+        // spacing={10}
+        justify="flex-end"
+        style={{ padding: '0 50px' }}
+      >
+        <Grid item>
+          <div className={classes.discardSaleBtnHolder}>
+            <IconButton onClick={discardSale}>
+              <DeleteForeverIcon className={classes.discardSaleBtn} />
+            </IconButton>
+            <Typography>Discard Sale</Typography>
+          </div>
+        </Grid>
+      </Grid>
       <Grid
         container
         className={classes.gridContainer}
-        spacing={10}
+        spacing={3}
         justify="center"
       >
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={5} zeroMinWidth>
           <ProductSearchBar addProduct={addProduct} />
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={5}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={5} zeroMinWidth>
           <PosTableRight
             products={products}
-            productsArr={productsArr}
             deleteProduct={deleteProduct}
             decreaseProductQuantity={decreaseProductQuantity}
             increaseProductQuantity={increaseProductQuantity}

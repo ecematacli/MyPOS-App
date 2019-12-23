@@ -73,7 +73,6 @@ export default makeStyles(theme => ({
     paddingTop: theme.spacing(2),
     backgroundSize: 'cover',
     background: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url(${backgroundImage})`,
-
     backgroundPosition: 'center center'
   },
   content: {
@@ -81,5 +80,9 @@ export default makeStyles(theme => ({
     overflow: 'auto',
     padding: theme.spacing(3),
     backgroundColor: '#fcfafa'
+    // [theme.breakpoints.up('md')]: {
+    //   maxWidth: `calc(100vw - ${drawerWidth}px)`
+    // }
+    // overflowX: 'hidden'
   }
 }));

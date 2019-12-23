@@ -12,15 +12,15 @@ import {
   Typography,
   Button,
   OutlinedInput,
-  InputAdornment
+  InputAdornment,
+  IconButton
 } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
 
 const PosTableRight = ({
-  productsArr,
+  products,
   deleteProduct,
   decreaseProductQuantity,
   increaseProductQuantity,
@@ -30,6 +30,8 @@ const PosTableRight = ({
   handleDiscountChange
 }) => {
   const classes = styles();
+
+  console.log(products);
 
   return (
     <Paper className={classes.paperRoot}>
@@ -57,7 +59,7 @@ const PosTableRight = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {productsArr.map(product => {
+            {products.map(product => {
               return (
                 <TableRow hover tabIndex={-1} key={product.id}>
                   <TableCell component="th" id={product.id} scope="product">
