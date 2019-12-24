@@ -1,5 +1,9 @@
 import { useReducer, useState, useEffect } from 'react';
-import { calculateTotal, calculateTotalTax } from '../utilities';
+import {
+  calculateTotal,
+  calculateTotalTax,
+  calculateTotalDiscount
+} from '../utilities';
 
 const initialState = [
   {
@@ -8,9 +12,9 @@ const initialState = [
     name: 'Adidas NMD ',
     qty: 1,
     sku: 397623880,
-    price: '950.00',
+    price: 50,
     taxRate: 8,
-    discountPrice: 48.75,
+    discountPrice: 40,
     variation: 'Ergonomic',
     brand: 'Adidas',
     category: 'Tenis Ayakkabisi'
@@ -21,9 +25,9 @@ const initialState = [
     name: 'Intelligent Metal Shirt',
     qty: 1,
     sku: 397623780,
-    price: '325.00',
+    price: 100,
     taxRate: 8,
-    discountPrice: 50.75,
+    discountPrice: 50,
     variation: 'Ergonomic',
     brand: 'Nike',
     category: 'Tenis Ayakkabisi'
@@ -87,7 +91,14 @@ export default () => {
   const [products, dispatch] = useReducer(productsReducer, initialState);
   const [total, setTotal] = useState(0);
   const [tax, setTax] = useState(0);
-  const [discount, setDiscount] = useState(0);
+  const [totalDiscount, setTotalDiscount] = useState(0);
+  const [discount, setDiscount] = useState(() => {
+    if (products.length === 0) return 0;
+    else {
+      const disc = calculateTotalDiscount(products);
+      return disc;
+    }
+  });
 
   const addProduct = product => {
     dispatch({
@@ -118,7 +129,6 @@ export default () => {
   };
 
   const discardSale = () => {
-    console.log('fired');
     dispatch({
       type: 'DISCARD_SALE'
     });
@@ -129,12 +139,17 @@ export default () => {
   const handleDiscountChange = ({ target: { value } }) => {
     const numVal = parseInt(value);
     setDiscount(isNaN(numVal) ? 0 : numVal);
+    setTotalDiscount(calculateTotalDiscount(products) + discount);
   };
 
   useEffect(() => {
     setTax(calculateTotalTax(products));
     setTotal(calculateTotal(products));
+    // setTotalDiscount(calculateTotalDiscount(products) + discount);
   }, [products]);
+
+  console.log(discount);
+  console.log(calculateTotalDiscount(products) + discount);
 
   return {
     products,
@@ -146,6 +161,7 @@ export default () => {
     total,
     tax,
     discount,
-    handleDiscountChange
+    handleDiscountChange,
+    totalDiscount
   };
 };

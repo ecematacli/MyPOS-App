@@ -19,49 +19,68 @@ const SellPage = () => {
     total,
     tax,
     discount,
-    handleDiscountChange
+    handleDiscountChange,
+    totalDiscount
   } = useSalesState();
 
   return (
-    <div>
+    <Grid
+      container
+      className={classes.gridContainer}
+      spacing={3}
+      justify="center"
+    >
       <Grid
-        container
-        // spacing={10}
-        justify="flex-end"
-        style={{ padding: '0 50px' }}
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={12}
+        xl={12}
+        className={classes.discardSaleGridItem}
       >
-        <Grid item>
-          <div className={classes.discardSaleBtnHolder}>
-            <IconButton onClick={discardSale}>
-              <DeleteForeverIcon className={classes.discardSaleBtn} />
-            </IconButton>
-            <Typography>Discard Sale</Typography>
-          </div>
-        </Grid>
+        <div className={classes.discardSaleBtnHolder}>
+          <IconButton onClick={discardSale}>
+            <DeleteForeverIcon className={classes.discardSaleBtn} />
+          </IconButton>
+          <Typography>Discard Sale</Typography>
+        </div>
       </Grid>
       <Grid
-        container
-        className={classes.gridContainer}
-        spacing={3}
-        justify="center"
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={6}
+        xl={5}
+        className={classes.searchBarGridItem}
+        zeroMinWidth
       >
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={5} zeroMinWidth>
-          <ProductSearchBar addProduct={addProduct} />
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={6} xl={5} zeroMinWidth>
-          <PosTableRight
-            products={products}
-            deleteProduct={deleteProduct}
-            decreaseProductQuantity={decreaseProductQuantity}
-            increaseProductQuantity={increaseProductQuantity}
-            total={total}
-            tax={tax}
-            discount={discount}
-            handleDiscountChange={handleDiscountChange}
-          />
-        </Grid>
+        <ProductSearchBar addProduct={addProduct} />
       </Grid>
-    </div>
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={6}
+        xl={5}
+        className={classes.tableGridItem}
+        zeroMinWidth
+      >
+        <PosTableRight
+          products={products}
+          deleteProduct={deleteProduct}
+          decreaseProductQuantity={decreaseProductQuantity}
+          increaseProductQuantity={increaseProductQuantity}
+          total={total}
+          tax={tax}
+          discount={discount}
+          handleDiscountChange={handleDiscountChange}
+          totalDiscount={totalDiscount}
+        />
+      </Grid>
+    </Grid>
   );
 };
 

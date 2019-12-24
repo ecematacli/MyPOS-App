@@ -24,6 +24,13 @@ export default createMuiTheme({
     }
   },
   overrides: {
+    MuiGrid: {
+      'spacing-xs-3': {
+        '& > $item': {
+          paddingBottom: 8
+        }
+      }
+    },
     MuiDrawer: {
       paper: {
         color: 'white'

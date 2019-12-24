@@ -12,7 +12,9 @@ export default makeStyles(({ spacing, palette }) => ({
     fontSize: spacing(2)
   },
   tableWrapper: {
-    height: '50vh'
+    height: '50vh',
+    paddingTop: spacing(6),
+    paddingLeft: spacing(1)
   },
   toolbar: {
     paddingLeft: spacing(2),

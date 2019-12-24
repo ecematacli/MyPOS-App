@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing }) => ({
+export default makeStyles(({ spacing, breakpoints }) => ({
   gridContainer: {
     margin: 0,
     '& .MuiGrid-spacing-xs-3': {
@@ -20,12 +20,30 @@ export default makeStyles(({ spacing }) => ({
   control: {
     padding: spacing(2)
   },
+  discardSaleGridItem: {
+    flexBasis: '83%',
+    order: 1,
+    [breakpoints.down('md')]: {
+      flexBasis: '100%',
+      order: 2
+    }
+  },
+  searchBarGridItem: {
+    order: 2,
+    [breakpoints.down('md')]: {
+      order: 1
+    }
+  },
+  tableGridItem: {
+    order: 3,
+    [breakpoints.down('md')]: {
+      order: 3
+    }
+  },
   discardSaleBtnHolder: {
     display: 'flex',
     justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginBottom: 5,
-    paddingRight: 10
+    alignItems: 'center'
   },
   discardSaleBtn: {
     fontSize: spacing(4)

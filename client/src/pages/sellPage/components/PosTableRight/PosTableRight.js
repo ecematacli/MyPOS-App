@@ -8,7 +8,6 @@ import {
   TableRow,
   Paper,
   Divider,
-  Toolbar,
   Typography,
   Button,
   OutlinedInput,
@@ -27,7 +26,8 @@ const PosTableRight = ({
   total,
   tax,
   discount,
-  handleDiscountChange
+  handleDiscountChange,
+  totalDiscount
 }) => {
   const classes = styles();
 
@@ -35,7 +35,6 @@ const PosTableRight = ({
 
   return (
     <Paper className={classes.paperRoot}>
-      <Toolbar className={classes.toolbar}></Toolbar>
       <div className={classes.tableWrapper}>
         <Table
           className={classes.table}
@@ -54,7 +53,7 @@ const PosTableRight = ({
                 className={classes.headerCell}
                 align="left"
               >
-                <div className={classes.discountHeaderCell}>Discounted</div>
+                <div className={classes.discountHeaderCell}>Discounted P</div>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -87,7 +86,9 @@ const PosTableRight = ({
                     </div>
                   </TableCell>
                   <TableCell>&#x20BA;{product.price}</TableCell>
-                  <TableCell align="left">&#x20BA;15780</TableCell>
+                  <TableCell align="left">
+                    &#x20BA;{product.discountPrice}
+                  </TableCell>
                   <TableCell colSpan={3} align="right">
                     <IconButton onClick={() => deleteProduct(product.id)}>
                       <DeleteIcon className={classes.deleteIcon} />

@@ -9,3 +9,9 @@ export const calculateTotalTax = products => {
     return acc + ((price * taxRate) / 100) * qty;
   }, 0);
 };
+
+export const calculateTotalDiscount = (products, additionalDiscount = 0) => {
+  return products.reduce((acc, { price, discountPrice, qty }) => {
+    return acc + (price - discountPrice) * qty + additionalDiscount;
+  }, 0);
+};

@@ -22,7 +22,6 @@ export default makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-end'
   },
-
   menuItems: {
     paddingTop: 2
   },
@@ -36,7 +35,6 @@ export default makeStyles(theme => ({
       display: 'none'
     }
   },
-
   logoImg: {
     width: '60px',
     height: '60'
@@ -44,7 +42,6 @@ export default makeStyles(theme => ({
   menuIcon: {
     color: 'white'
   },
-
   appBar: {
     backgroundColor: 'transparent',
     boxShadow: 'none',
@@ -56,7 +53,6 @@ export default makeStyles(theme => ({
       marginLeft: drawerWidth
     }
   },
-
   menuButton: {
     marginRight: theme.spacing(2),
     color: '#404854',
@@ -78,11 +74,7 @@ export default makeStyles(theme => ({
   content: {
     flexGrow: 1,
     overflow: 'auto',
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
     backgroundColor: '#fcfafa'
-    // [theme.breakpoints.up('md')]: {
-    //   maxWidth: `calc(100vw - ${drawerWidth}px)`
-    // }
-    // overflowX: 'hidden'
   }
 }));
