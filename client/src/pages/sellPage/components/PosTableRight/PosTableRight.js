@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import clsx from 'clsx';
 import {
   Table,
@@ -17,6 +18,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
+import { createSale } from '../../../../redux/sales/salesActions';
 
 const PosTableRight = ({
   products,
@@ -27,7 +29,7 @@ const PosTableRight = ({
   tax,
   discount,
   handleDiscountChange,
-  totalDiscount
+  createSale
 }) => {
   const classes = styles();
 
@@ -138,7 +140,10 @@ const PosTableRight = ({
             fullWidth
             variant="contained"
           >
-            <div className={classes.paymentBtnTextHolder}>
+            <div
+              onClick={() => createSale(products)}
+              className={classes.paymentBtnTextHolder}
+            >
               <Typography className={classes.paymentBtnTxt}>
                 Complete Payment
               </Typography>
@@ -153,4 +158,8 @@ const PosTableRight = ({
   );
 };
 
-export default PosTableRight;
+// const mapStateToProps = () => {
+//  sales
+// };
+
+export default connect(null, { createSale })(PosTableRight);

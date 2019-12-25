@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ palette, spacing }) => ({
   productSearchInput: {
-    width: '100%',
+    width: '95%',
     color: palette.secondary.main
   },
   searchIconHolder: {

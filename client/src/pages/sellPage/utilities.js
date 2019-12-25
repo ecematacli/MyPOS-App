@@ -10,8 +10,8 @@ export const calculateTotalTax = products => {
   }, 0);
 };
 
-export const calculateTotalDiscount = (products, additionalDiscount = 0) => {
+export const calculateTotalDiscount = products => {
   return products.reduce((acc, { price, discountPrice, qty }) => {
-    return acc + (price - discountPrice) * qty + additionalDiscount;
+    return acc + (price - discountPrice) * qty;
   }, 0);
 };

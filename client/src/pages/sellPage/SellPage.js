@@ -19,8 +19,7 @@ const SellPage = () => {
     total,
     tax,
     discount,
-    handleDiscountChange,
-    totalDiscount
+    handleDiscountChange
   } = useSalesState();
 
   return (
@@ -40,10 +39,13 @@ const SellPage = () => {
         className={classes.discardSaleGridItem}
       >
         <div className={classes.discardSaleBtnHolder}>
-          <IconButton onClick={discardSale}>
+          <IconButton
+            style={{ backgroundColor: 'transparent' }}
+            onClick={discardSale}
+          >
             <DeleteForeverIcon className={classes.discardSaleBtn} />
+            <Typography>Discard Sale</Typography>
           </IconButton>
-          <Typography>Discard Sale</Typography>
         </div>
       </Grid>
       <Grid
@@ -77,7 +79,6 @@ const SellPage = () => {
           tax={tax}
           discount={discount}
           handleDiscountChange={handleDiscountChange}
-          totalDiscount={totalDiscount}
         />
       </Grid>
     </Grid>

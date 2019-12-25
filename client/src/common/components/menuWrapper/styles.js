@@ -74,7 +74,7 @@ export default makeStyles(theme => ({
   content: {
     flexGrow: 1,
     overflow: 'auto',
-    // padding: theme.spacing(3),
+    padding: theme.spacing(3),
     backgroundColor: '#fcfafa'
   }
 }));

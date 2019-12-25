@@ -2,19 +2,20 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
   paperRoot: {
+    width: '95%',
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.15) ',
     marginBottom: spacing(2),
-    // paddingLeft: spacing(1.5),
-    // paddingRight: spacing(1),
     fontWeight: 'bolder'
   },
+  table: {},
   tableContent: {
     fontSize: spacing(2)
   },
   tableWrapper: {
-    height: '50vh',
     paddingTop: spacing(6),
-    paddingLeft: spacing(1)
+    paddingLeft: spacing(1),
+    height: '50vh',
+    overflowY: 'auto'
   },
   toolbar: {
     paddingLeft: spacing(2),
@@ -85,9 +86,6 @@ export default makeStyles(({ spacing, palette }) => ({
   totalAmount: {
     paddingTop: spacing(2),
     paddingBottom: spacing(1)
-  },
-  paymentBtnContainer: {
-    padding: spacing(2)
   },
   paymentBtnContainer: {
     padding: spacing(2)

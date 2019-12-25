@@ -21,10 +21,10 @@ export default makeStyles(({ spacing, breakpoints }) => ({
     padding: spacing(2)
   },
   discardSaleGridItem: {
-    flexBasis: '83%',
+    flexBasis: '80%',
     order: 1,
     [breakpoints.down('md')]: {
-      flexBasis: '100%',
+      flexBasis: '90%',
       order: 2
     }
   },

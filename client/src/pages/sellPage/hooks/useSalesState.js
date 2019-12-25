@@ -38,7 +38,7 @@ const initialState = [
 
 const productsReducer = (state, { type, payload }) => {
   switch (type) {
-    case 'ADD_PRODUCT':
+    case 'ADD_PRODUCT': {
       const existingPToAdd = state.find(p => p.id === payload.id);
       if (existingPToAdd) {
         return state.map(product =>
@@ -51,12 +51,14 @@ const productsReducer = (state, { type, payload }) => {
         );
       }
       return [...state, { ...payload, qty: 1 }];
+    }
 
     case 'DELETE_PRODUCT':
       return state.filter(p => p.id !== payload.id);
 
-    case 'DECREASE_QUANTITY':
+    case 'DECREASE_QUANTITY': {
       const existingPToDecrease = state.find(p => p.id === payload.id);
+
       if (existingPToDecrease.qty === 1) {
         return state.filter(p => p.id !== payload.id);
       }
@@ -65,7 +67,8 @@ const productsReducer = (state, { type, payload }) => {
           ? { ...product, qty: product.qty - 1 }
           : product
       );
-    case 'INCREASE_QUANTITY':
+    }
+    case 'INCREASE_QUANTITY': {
       const existingPToIncrease = state.find(p => p.id === payload.id);
       if (existingPToIncrease) {
         return state.map(product =>
@@ -76,7 +79,7 @@ const productsReducer = (state, { type, payload }) => {
       } else {
         return state;
       }
-
+    }
     case 'DISCARD_SALE':
       return [];
 
@@ -91,14 +94,7 @@ export default () => {
   const [products, dispatch] = useReducer(productsReducer, initialState);
   const [total, setTotal] = useState(0);
   const [tax, setTax] = useState(0);
-  const [totalDiscount, setTotalDiscount] = useState(0);
-  const [discount, setDiscount] = useState(() => {
-    if (products.length === 0) return 0;
-    else {
-      const disc = calculateTotalDiscount(products);
-      return disc;
-    }
-  });
+  const [discount, setDiscount] = useState(0);
 
   const addProduct = product => {
     dispatch({
@@ -135,21 +131,16 @@ export default () => {
   };
 
   // Total section
-
   const handleDiscountChange = ({ target: { value } }) => {
     const numVal = parseInt(value);
     setDiscount(isNaN(numVal) ? 0 : numVal);
-    setTotalDiscount(calculateTotalDiscount(products) + discount);
   };
 
   useEffect(() => {
     setTax(calculateTotalTax(products));
     setTotal(calculateTotal(products));
-    // setTotalDiscount(calculateTotalDiscount(products) + discount);
+    setDiscount(calculateTotalDiscount(products));
   }, [products]);
-
-  console.log(discount);
-  console.log(calculateTotalDiscount(products) + discount);
 
   return {
     products,
@@ -161,7 +152,6 @@ export default () => {
     total,
     tax,
     discount,
-    handleDiscountChange,
-    totalDiscount
+    handleDiscountChange
   };
 };

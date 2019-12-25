@@ -27,7 +27,7 @@ export default createMuiTheme({
     MuiGrid: {
       'spacing-xs-3': {
         '& > $item': {
-          paddingBottom: 8
+          paddingBottom: 5
         }
       }
     },
