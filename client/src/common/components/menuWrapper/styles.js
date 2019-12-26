@@ -55,7 +55,7 @@ export default makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    color: '#404854',
+    color: theme.palette.secondary.darkest,
     [theme.breakpoints.up('md')]: {
       display: 'none'
     }
@@ -75,6 +75,6 @@ export default makeStyles(theme => ({
     flexGrow: 1,
     overflow: 'auto',
     padding: theme.spacing(3),
-    backgroundColor: '#fcfafa'
+    backgroundColor: theme.palette.secondary.background
   }
 }));

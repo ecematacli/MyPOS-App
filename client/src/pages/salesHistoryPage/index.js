@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { format, formatDistance, formatRelative, subDays } from 'date-fns';
 import {
   Table,
   TableBody,
@@ -17,38 +18,43 @@ const SalesHistoryPage = ({ fetchSales, sales }) => {
   const classes = styles();
 
   useEffect(() => {
-    console.log('use effect ran');
     fetchSales();
   }, []);
 
   console.log(sales);
 
+  const tableBody = () => {
+    return sales.map((sale, i) => {
+      const formattedDate = format(new Date(sale.createdAt), ' d MMMM y - p');
+      return (
+        <TableRow
+          style={i % 2 ? { background: '#f9f9f9' } : { background: 'white' }}
+          key={sale.id}
+        >
+          <TableCell component="th" scope="row">
+            {formattedDate}
+          </TableCell>
+          <TableCell align="center">10</TableCell>
+          <TableCell align="center">1000</TableCell>
+        </TableRow>
+      );
+    });
+  };
+
   return (
-    <Paper>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {sales.map(row => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {sales.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+    <Paper className={classes.historyTablePaper}>
+      <div>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Date</TableCell>
+              <TableCell align="center">Total Quantity</TableCell>
+              <TableCell align="center">Total Price</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>{tableBody()}</TableBody>
+        </Table>
+      </div>
     </Paper>
   );
 };

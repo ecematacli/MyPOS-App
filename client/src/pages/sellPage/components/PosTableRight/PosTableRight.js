@@ -32,8 +32,45 @@ const PosTableRight = ({
   createSale
 }) => {
   const classes = styles();
-
-  console.log(products);
+  const tableBody = () => {
+    return products.map(product => {
+      return (
+        <TableRow hover tabIndex={-1} key={product.id}>
+          <TableCell component="th" id={product.id} scope="product">
+            {product.name}
+          </TableCell>
+          <TableCell padding="none">
+            <div className={classes.quantity}>
+              <div
+                className={classes.arrow}
+                onClick={() => {
+                  decreaseProductQuantity(product);
+                }}
+              >
+                &#10094;
+              </div>
+              <div className={classes.quantityVal}>{product.qty}</div>
+              <div
+                className={classes.arrow}
+                onClick={() => {
+                  increaseProductQuantity(product);
+                }}
+              >
+                &#10095;
+              </div>
+            </div>
+          </TableCell>
+          <TableCell>&#x20BA;{product.price}</TableCell>
+          <TableCell align="left">&#x20BA;{product.discountPrice}</TableCell>
+          <TableCell colSpan={3} align="right">
+            <IconButton onClick={() => deleteProduct(product.id)}>
+              <DeleteIcon className={classes.deleteIcon} />
+            </IconButton>
+          </TableCell>
+        </TableRow>
+      );
+    });
+  };
 
   return (
     <Paper className={classes.paperRoot}>
@@ -59,47 +96,7 @@ const PosTableRight = ({
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {products.map(product => {
-              return (
-                <TableRow hover tabIndex={-1} key={product.id}>
-                  <TableCell component="th" id={product.id} scope="product">
-                    {product.name}
-                  </TableCell>
-                  <TableCell padding="none">
-                    <div className={classes.quantity}>
-                      <div
-                        className={classes.arrow}
-                        onClick={() => {
-                          decreaseProductQuantity(product);
-                        }}
-                      >
-                        &#10094;
-                      </div>
-                      <div className={classes.quantityVal}>{product.qty}</div>
-                      <div
-                        className={classes.arrow}
-                        onClick={() => {
-                          increaseProductQuantity(product);
-                        }}
-                      >
-                        &#10095;
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>&#x20BA;{product.price}</TableCell>
-                  <TableCell align="left">
-                    &#x20BA;{product.discountPrice}
-                  </TableCell>
-                  <TableCell colSpan={3} align="right">
-                    <IconButton onClick={() => deleteProduct(product.id)}>
-                      <DeleteIcon className={classes.deleteIcon} />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
+          <TableBody>{tableBody()}</TableBody>
         </Table>
       </div>
       <Divider className={classes.totalDividerBg} />

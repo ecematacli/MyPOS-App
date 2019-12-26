@@ -40,7 +40,7 @@ const SellPage = () => {
       >
         <div className={classes.discardSaleBtnHolder}>
           <IconButton
-            style={{ backgroundColor: 'transparent' }}
+            classes={{ root: classes.discardIconBtn }}
             onClick={discardSale}
           >
             <DeleteForeverIcon className={classes.discardSaleBtn} />

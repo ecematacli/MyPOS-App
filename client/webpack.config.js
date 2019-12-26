@@ -1,4 +1,6 @@
 const path = require('path');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -14,8 +16,16 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|svg|jpg|gif|ico)$/,
-        use: ['file-loader']
+        test: /\.(jpg|png|svg|ico)$/,
+        use: [
+          {
+            loader: 'url-loader'
+          }
+        ]
+      },
+      {
+        test: /favicon\.png$/,
+        use: 'file-loader'
       }
     ]
   },
@@ -23,5 +33,6 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true
-  }
+  },
+  plugins: []
 };

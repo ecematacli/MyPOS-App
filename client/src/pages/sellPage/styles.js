@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing, breakpoints }) => ({
+export default makeStyles(({ spacing, breakpoints, palette }) => ({
   gridContainer: {
     margin: 0,
     '& .MuiGrid-spacing-xs-3': {
@@ -44,6 +44,13 @@ export default makeStyles(({ spacing, breakpoints }) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center'
+  },
+  discardIconBtn: {
+    borderRadius: 0,
+    '&:hover': {
+      backgroundColor: palette.secondary.solid,
+      borderRadius: '9%'
+    }
   },
   discardSaleBtn: {
     fontSize: spacing(4)

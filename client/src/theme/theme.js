@@ -10,10 +10,12 @@ export default createMuiTheme({
     },
     secondary: {
       main: '#696969',
-      light: '#A0B2A6',
+      light: '#eee',
       lightest: '#f4f4f4',
       dark: '#7e7e7e',
-      darkest: '#3f3f3f'
+      darkest: '#3f3f3f',
+      greenish: '#A0B2A6',
+      background: '#f9f9f9'
     },
     error: { main: pink['A400'] },
     textColor: 'rgba(0, 0, 0, 0.87)'

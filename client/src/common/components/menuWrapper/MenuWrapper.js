@@ -33,7 +33,7 @@ const MenuWrapper = ({ container, children }) => {
         <ListItem>
           <div className={classes.logoWrapper}>
             <div className={classes.logo}>
-              <img className={classes.logoImg} src={logo} />
+              <img className={classes.logoImg} src={logo} alt="logo image" />
             </div>
           </div>
         </ListItem>
@@ -62,7 +62,6 @@ const MenuWrapper = ({ container, children }) => {
       </List>
     </React.Fragment>
   );
-
   return (
     <div className={classes.root}>
       <CssBaseline />

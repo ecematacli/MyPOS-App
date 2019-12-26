@@ -1,13 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles({
-  historyPaper: {
-    color: 'red'
-  },
-  historyTable: {
-    minWidth: 500
-  },
-  table: {
-    minWidth: 650
+export default makeStyles(({ spacing, palette }) => ({
+  historyTablePaper: {
+    width: '95%',
+    margin: 'auto'
   }
-});
+}));
