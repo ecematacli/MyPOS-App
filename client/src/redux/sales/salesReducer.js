@@ -1,11 +1,17 @@
 import { CREATE_SALE, FETCH_SALES } from './types';
 
-export default (state = {}, { type, payload }) => {
+const initialState = {
+  count: 0,
+  sales: {}
+};
+
+export default (state = initialState, { type, payload }) => {
+  console.log(payload);
   switch (type) {
     case CREATE_SALE:
       return '';
     case FETCH_SALES: {
-      const objSalesData = payload.reduce(
+      const objSalesData = sales.reduce(
         (obj, currSale) => ({
           ...obj,
           [currSale.id]: currSale
@@ -14,7 +20,9 @@ export default (state = {}, { type, payload }) => {
       );
       return {
         ...state,
-        ...objSalesData
+        sales: {
+          ...objSalesData
+        }
       };
     }
     default:

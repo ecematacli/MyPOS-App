@@ -47,6 +47,14 @@ export default createMuiTheme({
     MuiTypography: {
       body1: {
         fontWeight: 500
+      },
+      body2: {
+        fontSize: 16
+      }
+    },
+    MuiInputBase: {
+      input: {
+        fontSize: 16
       }
     }
   }

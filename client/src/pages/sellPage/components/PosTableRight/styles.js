@@ -7,7 +7,6 @@ export default makeStyles(({ spacing, palette }) => ({
     marginBottom: spacing(2),
     fontWeight: 'bolder'
   },
-  table: {},
   tableContent: {
     fontSize: spacing(2)
   },

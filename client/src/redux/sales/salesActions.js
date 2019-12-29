@@ -9,8 +9,12 @@ export const createSale = products => async dispatch => {
   });
 };
 
-export const fetchSales = () => async dispatch => {
-  const response = await sales.get('/sales');
+export const fetchSales = (page = 1, rowsPerPage = 25) => async dispatch => {
+  const response = await sales.get(
+    `/sales?page=${page}&rowsPerPage=${rowsPerPage}`
+  );
+
+  console.log(response);
 
   dispatch({
     type: 'FETCH_SALES',
