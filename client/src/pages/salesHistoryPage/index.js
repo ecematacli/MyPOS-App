@@ -1,18 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { format, formatDistance, formatRelative, subDays } from 'date-fns';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper
-} from '@material-ui/core';
+import clsx from 'clsx';
+import { format } from 'date-fns';
 
 import styles from './styles';
 import { fetchSales } from '../../redux/sales/salesActions';
+import Table from './components/Table';
 
 const SalesHistoryPage = ({ fetchSales, sales }) => {
   const classes = styles();
@@ -23,39 +16,11 @@ const SalesHistoryPage = ({ fetchSales, sales }) => {
 
   console.log(sales);
 
-  const tableBody = () => {
-    return sales.map((sale, i) => {
-      const formattedDate = format(new Date(sale.createdAt), ' d MMMM y - p');
-      return (
-        <TableRow
-          style={i % 2 ? { background: '#f9f9f9' } : { background: 'white' }}
-          key={sale.id}
-        >
-          <TableCell component="th" scope="row">
-            {formattedDate}
-          </TableCell>
-          <TableCell align="center">10</TableCell>
-          <TableCell align="center">1000</TableCell>
-        </TableRow>
-      );
-    });
-  };
-
   return (
-    <Paper className={classes.historyTablePaper}>
-      <div>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell align="center">Total Quantity</TableCell>
-              <TableCell align="center">Total Price</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{tableBody()}</TableBody>
-        </Table>
-      </div>
-    </Paper>
+    <Table
+      tableHead={['Date', 'Payment Method', 'Total Q', 'Total P']}
+      tableData={sales}
+    />
   );
 };
 
@@ -64,3 +29,35 @@ const mapStateToProps = ({ sales }) => ({
 });
 
 export default connect(mapStateToProps, { fetchSales })(SalesHistoryPage);
+
+// return(
+//       <div className={classes.salesHistoryTable}>
+//       <div className={classes.slHistoryTableHeader}>
+//         <div className={clsx(classes.slHistoryHeaderCell, classes.dateHeader)}>
+//           Date
+//         </div>
+//         <div className={classes.slHistoryHeaderCell}>Payment Method</div>
+//         <div className={classes.slHistoryHeaderCell}>Total Quantity</div>
+//         <div className={classes.slHistoryHeaderCell}>Total Amount</div>
+//       </div>
+//       {sales.map((sale, i) => {
+//         const formattedDate = format(new Date(sale.createdAt), ' d MMMM y - p');
+//         return (
+//           <div
+//             key={sale.id}
+//             className={clsx(
+//               classes[i % 2 ? 'whiteRow' : 'greenRow'],
+//               classes.tableBody
+//             )}
+//           >
+//             <div className={classes.tableRow}>
+//               <div className={classes.tableCell}>{formattedDate}</div>
+//               <div className={classes.tableCell}>Cash</div>
+//               <div className={classes.tableCell}>10</div>
+//               <div className={classes.tableCell}>&#x20BA; 1000</div>
+//             </div>
+//           </div>
+//         );
+//       })}
+//     </div>
+// )
