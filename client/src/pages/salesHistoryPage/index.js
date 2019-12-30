@@ -2,29 +2,26 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchSales } from '../../redux/sales/salesActions';
-import Table from './components/Table';
+import Table from './components/table/Table';
 
-const SalesHistoryPage = ({ fetchSales, sales }) => {
+const SalesHistoryPage = ({ fetchSales, sales, count }) => {
   useEffect(() => {
     fetchSales();
   }, []);
-
-  console.log(sales);
 
   return (
     <Table
       tableHead={['Date', 'Payment Method', 'Total Q', 'Total P']}
       tableData={sales}
+      salesCount={count}
       fetchSales={fetchSales}
     />
   );
 };
 
-const mapStateToProps = ({ sales }) => {
-  console.log(sales);
-  return {
-    sales: Object.values(sales)
-  };
-};
+const mapStateToProps = ({ sales: { sales, count } }) => ({
+  sales: Object.values(sales),
+  count
+});
 
 export default connect(mapStateToProps, { fetchSales })(SalesHistoryPage);

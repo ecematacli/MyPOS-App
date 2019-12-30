@@ -1,6 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
+  noDisplay: {
+    display: 'flex',
+    justifyContent: 'center',
+    color: palette.secondary.main
+  },
+  displayMsg: {
+    fontSize: spacing(3),
+    fontWeight: 'bold'
+  },
   tableResponsive: {
     width: '100%',
     marginTop: spacing(3),
@@ -28,6 +37,7 @@ export default makeStyles(({ spacing, palette }) => ({
     }
   },
   tableBodyRow: {
+    cursor: 'pointer',
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
     '& > td': {
       '&:last-child': {
@@ -40,24 +50,33 @@ export default makeStyles(({ spacing, palette }) => ({
     color: '#585858',
     fontWeight: 500
   },
-  dateCellContainer: {
+  dateCell: {
     display: 'flex',
     alignItems: 'center'
   },
-  arrowContainer: {
-    marginLeft: '-18px',
+  dateContainer: {
+    marginLeft: '-5px'
+  },
+  expandIconContainer: {
+    marginLeft: '-15px',
     marginRight: '10px',
     display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer'
+    alignItems: 'center'
   },
-  arrowIcon: {
-    fontSize: spacing(2),
+  expandIconBtn: {
+    '& > span > div': {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }
+  },
+  expandIcon: {
+    fontSize: spacing(3),
     fontWeight: 'bold',
     color: palette.primary.dark
   },
   greenRow: {
-    background: '#f9fcf9'
+    background: '#f8fdf8'
   },
   whiteRow: {
     background: 'white'
@@ -67,10 +86,4 @@ export default makeStyles(({ spacing, palette }) => ({
     margin: 'auto auto',
     fontSize: '16px'
   }
-  // greenArrow: {
-  //   color: palette.primary.dark
-  // },
-  // grayArrow: {
-  //   color: palette.secondary.dark
-  // }
 }));

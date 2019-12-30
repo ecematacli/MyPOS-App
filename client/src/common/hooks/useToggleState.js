@@ -7,5 +7,5 @@ export default initialVal => {
     setState(!state);
   };
 
-  return [state, toggleState]
+  return [state, toggleState];
 };

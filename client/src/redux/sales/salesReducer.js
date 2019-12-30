@@ -6,11 +6,11 @@ const initialState = {
 };
 
 export default (state = initialState, { type, payload }) => {
-  console.log(payload);
   switch (type) {
     case CREATE_SALE:
       return '';
     case FETCH_SALES: {
+      const { sales, count } = payload;
       const objSalesData = sales.reduce(
         (obj, currSale) => ({
           ...obj,
@@ -19,7 +19,7 @@ export default (state = initialState, { type, payload }) => {
         {}
       );
       return {
-        ...state,
+        count,
         sales: {
           ...objSalesData
         }
