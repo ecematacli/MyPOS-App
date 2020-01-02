@@ -10,18 +10,23 @@ export default makeStyles(({ spacing, palette }) => ({
     fontSize: spacing(3),
     fontWeight: 'bold'
   },
-  tableResponsive: {
+  progress: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  tableContainer: {
     width: '100%',
     marginTop: spacing(3),
-    overflowX: 'auto'
+    overflowX: 'auto',
+    color: palette.secondary.main
   },
   table: {
     width: '90%',
     maxWidth: '90%',
     minHeight: '90vh',
-    marginBottom: 0,
-    backgroundColor: 'transparent',
-    margin: 'auto auto',
+    margin: 'auto',
     borderCollapse: 'separate',
     borderSpacing: '0 15px'
   },
@@ -30,7 +35,7 @@ export default makeStyles(({ spacing, palette }) => ({
       borderBottom: 'none',
       paddingBottom: 6,
       fontWeight: 600,
-      color: '#888888',
+      color: palette.secondary.tableHead,
       '&:last-child': {
         textAlign: 'right'
       }
@@ -40,6 +45,7 @@ export default makeStyles(({ spacing, palette }) => ({
     cursor: 'pointer',
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
     '& > td': {
+      borderBottom: '1px solid #eee',
       '&:last-child': {
         textAlign: 'right'
       }
@@ -47,7 +53,10 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   tableCell: {
     padding: spacing(4),
-    color: '#585858',
+    '&:last-child': {
+      padding: spacing(3)
+    },
+    color: 'inherit',
     fontWeight: 500
   },
   dateCell: {
@@ -79,7 +88,7 @@ export default makeStyles(({ spacing, palette }) => ({
     background: '#f8fdf8'
   },
   whiteRow: {
-    background: 'white'
+    background: '#fff'
   },
   paginationContainer: {
     width: '94%',

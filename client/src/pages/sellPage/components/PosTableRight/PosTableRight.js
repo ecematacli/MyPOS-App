@@ -155,8 +155,4 @@ const PosTableRight = ({
   );
 };
 
-// const mapStateToProps = () => {
-//  sales
-// };
-
 export default connect(null, { createSale })(PosTableRight);

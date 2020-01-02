@@ -15,7 +15,10 @@ export default createMuiTheme({
       dark: '#7e7e7e',
       darkest: '#3f3f3f',
       greenish: '#A0B2A6',
-      background: '#f9f9f9'
+      background: '#f9f9f9',
+      tableRow: '#727272',
+      tableHead: '#888888',
+      soft: '#F1F1F1'
     },
     error: { main: pink['A400'] },
     textColor: 'rgba(0, 0, 0, 0.87)'

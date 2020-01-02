@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchSales } from '../../redux/sales/salesActions';
-import Table from './components/table/Table';
+import SalesTable from './components/salesTable/SalesTable';
 
 const SalesHistoryPage = ({ fetchSales, sales, count }) => {
   useEffect(() => {
@@ -10,7 +10,7 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
   }, []);
 
   return (
-    <Table
+    <SalesTable
       tableHead={['Date', 'Payment Method', 'Total Q', 'Total P']}
       tableData={sales}
       salesCount={count}
