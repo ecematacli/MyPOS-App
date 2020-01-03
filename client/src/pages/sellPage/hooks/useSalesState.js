@@ -1,9 +1,11 @@
-import { useReducer, useState, useEffect } from 'react';
+import { useState, useReducer, useEffect } from 'react';
+
 import {
   calculateTotal,
   calculateTotalTax,
   calculateTotalDiscount
 } from '../utilities';
+// import useLocalStorageReducer from './useLocalStorageReducer';
 
 const initialState = [
   {
@@ -92,6 +94,12 @@ const productsReducer = (state, { type, payload }) => {
 
 export default () => {
   const [products, dispatch] = useReducer(productsReducer, initialState);
+  // const [products, dispatch] = useLocalStorageReducer(
+  //   'products',
+  //   defaultState,
+  //   productsReducer
+  // );
+
   const [total, setTotal] = useState(0);
   const [tax, setTax] = useState(0);
   const [discount, setDiscount] = useState(0);

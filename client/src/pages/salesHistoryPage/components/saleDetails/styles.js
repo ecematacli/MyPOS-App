@@ -6,7 +6,7 @@ export default makeStyles(({ spacing, palette }) => ({
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
     overflowY: 'auto',
     overflowX: 'auto',
-    marginTop: '-15px',
+    marginTop: '-14.8px',
     paddingTop: spacing(3),
     paddingBottom: spacing(4),
     fontSize: 14,

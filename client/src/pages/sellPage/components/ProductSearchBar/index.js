@@ -40,9 +40,7 @@ const ProductSearchbar = ({ addProduct }) => {
       loading={loading}
       disableOpenOnFocus
       clearOnEscape
-      onChange={(e, product) => {
-        product && onProductSelect(product);
-      }}
+      onChange={(e, product) => product && onProductSelect(product)}
       inputValue={query}
       autoHighlight
       classes={{ inputRoot: classes.inputRoot }}

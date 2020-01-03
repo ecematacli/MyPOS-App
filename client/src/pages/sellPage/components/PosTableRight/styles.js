@@ -12,7 +12,6 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   tableWrapper: {
     paddingTop: spacing(6),
-    paddingLeft: spacing(1),
     height: '50vh',
     overflowY: 'auto'
   },
@@ -88,17 +87,6 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   paymentBtnContainer: {
     padding: spacing(2)
-  },
-  paymentButton: {
-    color: 'white',
-    backgroundColor: palette.primary.main,
-    height: '60px',
-    paddingLeft: spacing(4),
-    paddingRight: spacing(4),
-    marginBottom: spacing(1),
-    '&:hover': {
-      backgroundColor: palette.primary.light
-    }
   },
   paymentBtnTextHolder: {
     display: 'flex',

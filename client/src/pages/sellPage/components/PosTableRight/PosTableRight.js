@@ -10,7 +10,6 @@ import {
   Paper,
   Divider,
   Typography,
-  Button,
   OutlinedInput,
   InputAdornment,
   IconButton
@@ -19,6 +18,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
 import { createSale } from '../../../../redux/sales/salesActions';
+import CustomButton from '../../../../common/customButton/CustomButton';
 
 const PosTableRight = ({
   products,
@@ -132,11 +132,7 @@ const PosTableRight = ({
           <Typography>&#x20BA;{total - discount}</Typography>
         </div>
         <div className={classes.paymentBtnContainer}>
-          <Button
-            className={classes.paymentButton}
-            fullWidth
-            variant="contained"
-          >
+          <CustomButton fullWidth>
             <div
               onClick={() => createSale(products)}
               className={classes.paymentBtnTextHolder}
@@ -148,7 +144,7 @@ const PosTableRight = ({
                 &#x20BA; {total - discount}
               </Typography>
             </div>
-          </Button>
+          </CustomButton>
         </div>
       </Fragment>
     </Paper>
