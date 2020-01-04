@@ -1,13 +1,13 @@
-import { useState, useReducer, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import {
   calculateTotal,
   calculateTotalTax,
   calculateTotalDiscount
 } from '../utilities';
-// import useLocalStorageReducer from './useLocalStorageReducer';
+import useProductsLocalStorage from './useProductsLocalStorage';
 
-const initialState = [
+const defaultState = [
   {
     id: 7000000,
     barcode: 941538658299,
@@ -91,14 +91,12 @@ const productsReducer = (state, { type, payload }) => {
 };
 
 // Products and Total state
-
 export default () => {
-  const [products, dispatch] = useReducer(productsReducer, initialState);
-  // const [products, dispatch] = useLocalStorageReducer(
-  //   'products',
-  //   defaultState,
-  //   productsReducer
-  // );
+  const [products, dispatch] = useProductsLocalStorage(
+    'products',
+    defaultState,
+    productsReducer
+  );
 
   const [total, setTotal] = useState(0);
   const [tax, setTax] = useState(0);

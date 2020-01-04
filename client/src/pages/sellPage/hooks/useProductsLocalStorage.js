@@ -3,7 +3,7 @@ import { useReducer, useEffect } from 'react';
 export default (key, defaultVal, reducer) => {
   const [state, dispatch] = useReducer(reducer, defaultVal, () => {
     try {
-      return JSON.parse(localStorage.getItem(key));
+      return JSON.parse(localStorage.getItem(key)) || defaultVal;
     } catch (e) {
       return defaultVal;
     }

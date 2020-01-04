@@ -1,7 +1,7 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import {
   Card,
-  CardActions,
   CardContent,
   Typography,
   CardMedia,
@@ -12,19 +12,33 @@ import styles from './styles';
 import image from '../../assets/img/accountant.jpg';
 import CustomButton from '../../common/customButton/CustomButton';
 
-const formFields = [
-  {
-    name: 'email',
-    label: 'Email*'
-  },
-  {
-    name: 'password',
-    label: 'Password*'
-  }
-];
+import useLoginState from './hooks/useLoginState';
 
 const SignInPage = () => {
   const classes = styles();
+  const {
+    email,
+    password,
+    setEmail,
+    setPassword,
+    resetEmail,
+    resetPassword,
+    postSignInForm,
+    isLoggedIn,
+    isError
+  } = useLoginState();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    resetEmail();
+    resetPassword();
+    postSignInForm();
+  };
+
+  if (isLoggedIn) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <div className={classes.signInRoot}>
       <Card className={classes.signInCard}>
@@ -36,23 +50,41 @@ const SignInPage = () => {
             <CardContent>
               <div className={classes.signInFormContainer}>
                 <Typography className={classes.signInText}>Sign In</Typography>
-                {formFields.map(({ name, label }) => (
+                <form
+                  onSubmit={handleSubmit}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                  }}
+                >
                   <TextField
-                    key={name}
                     color="secondary"
-                    label={label}
+                    label="Name*"
                     variant="outlined"
                     className={classes.signInFields}
-                    name={name}
-                    type={name}
+                    value={email}
+                    onChange={setEmail}
+                    type="email"
                   />
-                ))}
-                <CustomButton>
-                  <Typography className={classes.btnText}>Sign In</Typography>
-                </CustomButton>
+                  <TextField
+                    color="secondary"
+                    label="Password*"
+                    variant="outlined"
+                    className={classes.signInFields}
+                    value={password}
+                    onChange={setPassword}
+                    type="password"
+                  />
+
+                  <CustomButton type="submit">
+                    <Typography className={classes.btnText}>Sign In</Typography>
+                  </CustomButton>
+                </form>
               </div>
             </CardContent>
           </div>
+          {isError && <p>Error!</p>}
         </div>
       </Card>
     </div>

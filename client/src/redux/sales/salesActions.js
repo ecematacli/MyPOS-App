@@ -1,7 +1,7 @@
-import sales from '../../api/sales';
+import api from '../../api/api';
 
 export const createSale = products => async dispatch => {
-  const response = await sales.post('/sales', [...products]);
+  const response = await api.post('/sales', [...products]);
 
   dispatch({
     type: 'CREATE_SALE',
@@ -10,7 +10,7 @@ export const createSale = products => async dispatch => {
 };
 
 export const fetchSales = (page = 1, rowsPerPage = 10) => async dispatch => {
-  const response = await sales.get(
+  const response = await api.get(
     `/sales?page=${page}&rowsPerPage=${rowsPerPage}`
   );
 
