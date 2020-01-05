@@ -1,21 +1,33 @@
 import React, { useState, createContext } from 'react';
 
+import history from '../history/history';
+
 export const AuthContext = createContext();
-export const AuthTokenChangeHandle = createContext();
+export const AuthTokenSettingContext = createContext();
+
+const initialVal = JSON.parse(localStorage.getItem('token'));
 
 export const AuthContextProvider = ({ children }) => {
-  const [authToken, setAuthToken] = useState();
+  const [authToken, setAuthToken] = useState(initialVal);
 
-  const handleAuthToken = data => {
+  const saveAuthToken = (data = null) => {
     localStorage.setItem('token', JSON.stringify(data));
     setAuthToken(data);
   };
 
+  const clearAuthToken = () => {
+    setAuthToken(null);
+    localStorage.removeItem('token');
+    history.push('/signin');
+  };
+
   return (
     <AuthContext.Provider value={authToken}>
-      <AuthTokenChangeHandle.Provider value={handleAuthToken}>
+      <AuthTokenSettingContext.Provider
+        value={{ saveAuthToken, clearAuthToken }}
+      >
         {children}
-      </AuthTokenChangeHandle.Provider>
+      </AuthTokenSettingContext.Provider>
     </AuthContext.Provider>
   );
 };

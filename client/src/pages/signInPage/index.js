@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import {
   Card,
@@ -10,12 +10,13 @@ import {
 
 import styles from './styles';
 import image from '../../assets/img/accountant.jpg';
+import useLoginState from './hooks/useLoginState';
+import { AuthContext } from '../../contexts/AuthContext';
 import CustomButton from '../../common/customButton/CustomButton';
 
-import useLoginState from './hooks/useLoginState';
-
-const SignInPage = () => {
+const SignInPage = ({ location }) => {
   const classes = styles();
+  const authToken = useContext(AuthContext);
   const {
     email,
     password,
@@ -24,9 +25,10 @@ const SignInPage = () => {
     resetEmail,
     resetPassword,
     postSignInForm,
-    isLoggedIn,
     isError
   } = useLoginState();
+
+  const referer = location.referer || '/';
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -35,10 +37,11 @@ const SignInPage = () => {
     postSignInForm();
   };
 
-  if (isLoggedIn) {
-    return <Redirect to="/" />;
+  if (authToken) {
+    return <Redirect to={referer} />;
   }
 
+  console.log(JSON.parse(localStorage.getItem('token')));
   return (
     <div className={classes.signInRoot}>
       <Card className={classes.signInCard}>
@@ -76,7 +79,6 @@ const SignInPage = () => {
                     onChange={setPassword}
                     type="password"
                   />
-
                   <CustomButton type="submit">
                     <Typography className={classes.btnText}>Sign In</Typography>
                   </CustomButton>

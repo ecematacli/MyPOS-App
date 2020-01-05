@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../../../../api/api';
 
 const useSearchInput = addProduct => {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [active, setActive] = useState(true);
 
   const onProductSelect = product => {
     addProduct(product);
@@ -16,19 +15,17 @@ const useSearchInput = addProduct => {
   };
 
   useEffect(() => {
-    setActive(true);
+    let active = true;
     const fetchProducts = async () => {
       setLoading(true);
-      const response = await axios.get(
-        `http://localhost:3091/products?q=${query}`
-      );
+      const response = await api.get(`/products?q=${query}`);
       setSearchResults(response.data);
       setLoading(false);
       setOpen(true);
     };
     active && query && fetchProducts();
     return () => {
-      setActive(false);
+      active = false;
     };
   }, [query]);
 

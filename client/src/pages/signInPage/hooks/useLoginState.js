@@ -1,19 +1,16 @@
 import { useState, useContext } from 'react';
 
 import api from '../../../api/api';
-import { AuthTokenChangeHandle } from '../../../contexts/AuthContext';
+import { AuthTokenSettingContext } from '../../../contexts/AuthContext';
 import useInputState from '../../../common/hooks/useInputState';
 
 export default () => {
-  const { handleAuthToken } = useContext(AuthTokenChangeHandle);
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const { saveAuthToken } = useContext(AuthTokenSettingContext);
   const [isError, setIsError] = useState(false);
   const [email, setEmail, resetEmail] = useInputState('');
   const [password, setPassword, resetPassword] = useInputState('');
 
   const postSignInForm = async () => {
-    console.log('fired');
-    console.log(email, password);
     const response = await api.post('/login', {
       email,
       password
@@ -21,10 +18,9 @@ export default () => {
 
     try {
       if (response) {
-        handleAuthToken(response.data);
-        setLoggedIn(true);
+        saveAuthToken(response.data);
       } else {
-        setIsError(true);
+        saveAuthToken();
       }
     } catch (e) {
       setIsError(true);
@@ -38,7 +34,6 @@ export default () => {
     setPassword,
     resetEmail,
     resetPassword,
-    isLoggedIn,
     isError,
     postSignInForm
   };
