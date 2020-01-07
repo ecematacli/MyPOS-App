@@ -8,6 +8,7 @@ export default makeStyles(({ spacing, palette }) => ({
     paddingLeft: spacing(4),
     paddingRight: spacing(4),
     marginBottom: spacing(1),
+    textShadow: '0px -1px 1px rgba(0, 0, 0, 0.5)',
     '&:hover': {
       backgroundColor: palette.primary.light
     }

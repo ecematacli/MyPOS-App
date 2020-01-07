@@ -1,15 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
-  noDisplay: {
-    display: 'flex',
-    justifyContent: 'center',
-    color: palette.secondary.main
-  },
-  displayMsg: {
-    fontSize: spacing(3),
-    fontWeight: 'bold'
-  },
   progress: {
     width: '100%',
     display: 'flex',
@@ -35,10 +26,7 @@ export default makeStyles(({ spacing, palette }) => ({
       borderBottom: 'none',
       paddingBottom: 6,
       fontWeight: 600,
-      color: palette.secondary.tableHead,
-      '&:last-child': {
-        textAlign: 'right'
-      }
+      color: palette.secondary.tableHead
     }
   },
   tableBodyRow: {
@@ -92,7 +80,7 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   paginationContainer: {
     width: '94%',
-    margin: 'auto auto',
+    margin: 'auto',
     fontSize: '16px'
   }
 }));

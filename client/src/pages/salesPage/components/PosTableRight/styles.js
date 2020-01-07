@@ -7,33 +7,21 @@ export default makeStyles(({ spacing, palette }) => ({
     marginBottom: spacing(2),
     fontWeight: 'bolder'
   },
-  tableContent: {
-    fontSize: spacing(2)
-  },
   tableWrapper: {
     paddingTop: spacing(6),
     height: '50vh',
     overflowY: 'auto'
   },
+  tableContent: {
+    fontSize: spacing(2)
+  },
   toolbar: {
     paddingLeft: spacing(2),
     paddingRight: spacing(3)
   },
-  headerCell: {
-    width: '20%'
-  },
-  qtHeaderCell: {
-    width: '20%',
-    paddingLeft: 0
-  },
-  priceHeaderCell: {
-    width: '18%'
-  },
-  discountHeaderCell: {
-    width: 150
-  },
   quantity: {
     display: 'flex',
+    paddingLeft: spacing(3),
     cursor: 'pointer',
     textAlign: 'center'
   },
@@ -50,15 +38,16 @@ export default makeStyles(({ spacing, palette }) => ({
   deleteIcon: {
     color: palette.secondary.dark
   },
-  totalDividerBg: {
-    backgroundColor: palette.secondary.lightest
+  totalDivider: {
+    backgroundColor: palette.secondary.light
   },
   totalSection: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     height: spacing(6),
-    padding: spacing(1, 3)
+    padding: spacing(2, 3),
+    margin: spacing(1)
   },
   discountForm: {
     display: 'flex',
@@ -77,9 +66,6 @@ export default makeStyles(({ spacing, palette }) => ({
     color: palette.textColor,
     borderColor: palette.secondary.dark,
     borderRadius: spacing(2)
-  },
-  totalDividerEnd: {
-    marginTop: spacing(1)
   },
   totalAmount: {
     paddingTop: spacing(2),

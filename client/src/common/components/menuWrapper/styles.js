@@ -23,6 +23,7 @@ export default makeStyles(
     },
     toolbar: mixins.toolbar,
     menuButton: {
+      display: 'fixed',
       marginRight: spacing(2),
       color: palette.secondary.darkest,
       [breakpoints.up('md')]: {

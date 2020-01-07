@@ -18,7 +18,27 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
 import { createSale } from '../../../../redux/sales/salesActions';
-import CustomButton from '../../../../common/customButton/CustomButton';
+import CustomButton from '../../../../common/components/customButton/CustomButton';
+
+const TABLE_HEAD = [
+  {
+    label: 'Product'
+  },
+  {
+    label: 'Quantity'
+  },
+  {
+    label: 'Price',
+    numeric: true
+  },
+  {
+    label: 'Discounted P',
+    numeric: true
+  },
+  {
+    label: ''
+  }
+];
 
 const PosTableRight = ({
   products,
@@ -32,14 +52,26 @@ const PosTableRight = ({
   createSale
 }) => {
   const classes = styles();
+
+  const tableHead = () => {
+    return TABLE_HEAD.map(({ label, numeric }) => {
+      return (
+        <TableCell key={label} align={numeric ? 'right' : 'left'}>
+          {label}
+        </TableCell>
+      );
+    });
+  };
+
   const tableBody = () => {
     return products.map(product => {
+      const { id, name, qty, price, discountPrice } = product;
       return (
-        <TableRow hover tabIndex={-1} key={product.id}>
-          <TableCell component="th" id={product.id} scope="product">
-            {product.name}
+        <TableRow role="checkbox" hover tabIndex={-1} key={id}>
+          <TableCell component="th" id={id} scope="row">
+            {name}
           </TableCell>
-          <TableCell padding="none">
+          <TableCell align="right" padding="none">
             <div className={classes.quantity}>
               <div
                 className={classes.arrow}
@@ -49,7 +81,7 @@ const PosTableRight = ({
               >
                 &#10094;
               </div>
-              <div className={classes.quantityVal}>{product.qty}</div>
+              <div className={classes.quantityVal}>{qty}</div>
               <div
                 className={classes.arrow}
                 onClick={() => {
@@ -60,8 +92,8 @@ const PosTableRight = ({
               </div>
             </div>
           </TableCell>
-          <TableCell>&#x20BA;{product.price}</TableCell>
-          <TableCell align="left">&#x20BA;{product.discountPrice}</TableCell>
+          <TableCell align="right">&#x20BA;{price}</TableCell>
+          <TableCell align="right">&#x20BA;{discountPrice}</TableCell>
           <TableCell colSpan={3} align="right">
             <IconButton onClick={() => deleteProduct(product.id)}>
               <DeleteIcon className={classes.deleteIcon} />
@@ -75,31 +107,14 @@ const PosTableRight = ({
   return (
     <Paper className={classes.paperRoot}>
       <div className={classes.tableWrapper}>
-        <Table
-          className={classes.table}
-          classes={{ root: classes.tableContent }}
-          size="medium"
-        >
+        <Table classes={{ root: classes.tableContent }} size="medium">
           <TableHead>
-            <TableRow>
-              <TableCell className={classes.headerCell}>Product</TableCell>
-              <TableCell className={classes.qtHeaderCell}>Quantity</TableCell>
-              <TableCell className={classes.priceHeaderCell} align="left">
-                Price
-              </TableCell>
-              <TableCell
-                colSpan={4}
-                className={classes.headerCell}
-                align="left"
-              >
-                <div className={classes.discountHeaderCell}>Discounted P</div>
-              </TableCell>
-            </TableRow>
+            <TableRow>{tableHead()}</TableRow>
           </TableHead>
           <TableBody>{tableBody()}</TableBody>
         </Table>
       </div>
-      <Divider className={classes.totalDividerBg} />
+      <Divider className={classes.totalDivider} />
       <Fragment>
         <div className={classes.totalSection}>
           <Typography>Sub-Total</Typography>
@@ -126,7 +141,7 @@ const PosTableRight = ({
             }
           />
         </div>
-        <Divider className={classes.totalDividerEnd} />
+        <Divider className={classes.totalDivider} />
         <div className={clsx(classes.totalSection, classes.totalAmount)}>
           <Typography>Total</Typography>
           <Typography>&#x20BA;{total - discount}</Typography>
@@ -134,7 +149,7 @@ const PosTableRight = ({
         <div className={classes.paymentBtnContainer}>
           <CustomButton fullWidth>
             <div
-              onClick={() => createSale(products)}
+              onClick={() => createSale(products, total, discount)}
               className={classes.paymentBtnTextHolder}
             >
               <Typography className={classes.paymentBtnTxt}>

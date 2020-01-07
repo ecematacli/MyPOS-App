@@ -2,11 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
   signInRoot: {
-    position: 'fixed',
-    width: '80%',
-    height: '70vh',
-    minWidth: 350,
-    minHeight: 350,
+    width: '100vw',
+    height: '60vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
@@ -14,16 +11,7 @@ export default makeStyles(({ spacing, palette }) => ({
   signInCard: {
     width: 700,
     height: 450,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  cardMediaImg: {
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    borderRadius: '3%'
   },
   cardContainer: {
     width: '100%',
@@ -32,15 +20,30 @@ export default makeStyles(({ spacing, palette }) => ({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  cardMedia: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   signInCardImg: {
     height: 250,
     width: 280
   },
+  cardContent: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   signInFormContainer: {
-    paddingRight: 40,
+    marginLeft: spacing(4),
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center'
+  },
+  signInForm: {
+    display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center'
   },
   signInFields: {
@@ -51,7 +54,7 @@ export default makeStyles(({ spacing, palette }) => ({
     color: palette.secondary.main,
     fontWeight: 600,
     fontSize: 20,
-    marginBottom: 20
+    marginBottom: spacing(3)
   },
   btnText: {
     fontSize: spacing(2),

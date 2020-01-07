@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { format } from 'date-fns';
 import clsx from 'clsx';
 import {
   TableContainer,
@@ -9,7 +8,6 @@ import {
   TableHead,
   TableRow,
   TablePagination,
-  Typography,
   Collapse,
   CircularProgress,
   TableSortLabel
@@ -51,9 +49,26 @@ const SalesTable = ({ tableHead, tableData, salesCount, fetchSales }) => {
     return `${from} of ${count}`;
   };
 
+  const tableHeadRow = () => {
+    return tableHead.map(({ label, numeric }, i) => (
+      <TableCell align={numeric && 'right'} key={i}>
+        {i === 0 ? (
+          <TableSortLabel
+            active={label.id}
+            direction={direction}
+            onClick={handleDirectionChange}
+          >
+            {label}
+          </TableSortLabel>
+        ) : (
+          <div>{label}</div>
+        )}
+      </TableCell>
+    ));
+  };
+
   const tableBody = () => {
     return tableData.map((sale, i) => {
-      const formattedDate = format(new Date(sale.createdAt), ' d MMMM y - p');
       return (
         <React.Fragment key={sale.id}>
           <TableRow
@@ -72,12 +87,18 @@ const SalesTable = ({ tableHead, tableData, salesCount, fetchSales }) => {
                     <ExpandMore className={classes.expandIcon} />
                   )}
                 </div>
-                <div className={classes.dateContainer}>{formattedDate}</div>
+                <div className={classes.dateContainer}>{sale.createdAt}</div>
               </div>
             </TableCell>
-            <TableCell className={classes.tableCell}>Cash</TableCell>
-            <TableCell className={classes.tableCell}>10</TableCell>
-            <TableCell className={classes.tableCell}>&#x20BA;1000</TableCell>
+            <TableCell align="right" className={classes.tableCell}>
+              Cash
+            </TableCell>
+            <TableCell align="right" className={classes.tableCell}>
+              10
+            </TableCell>
+            <TableCell align="right" className={classes.tableCell}>
+              &#x20BA;1000
+            </TableCell>
           </TableRow>
           {expandedRows[sale.id] ? (
             <TableRow key={sale.id}>
@@ -91,7 +112,7 @@ const SalesTable = ({ tableHead, tableData, salesCount, fetchSales }) => {
                   <SaleDetails
                     sale={sale}
                     rowIndex={i}
-                    saleDate={formattedDate}
+                    saleDate={sale.createdAt}
                   />
                 </Collapse>
               </TableCell>
@@ -111,38 +132,14 @@ const SalesTable = ({ tableHead, tableData, salesCount, fetchSales }) => {
       </div>
     );
   }
-
-  if (tableData.length === 0) {
-    return (
-      <div className={classes.noDisplay}>
-        <Typography className={classes.displayMsg}>
-          There is no sale to display
-        </Typography>
-      </div>
-    );
-  }
   return (
     <TableContainer>
       <div className={classes.tableContainer}>
-        <Table stickyHeader className={classes.table}>
+        <Table className={classes.table}>
           {tableHead !== undefined ? (
             <TableHead>
               <TableRow className={classes.tableHeadRow}>
-                {tableHead.map((head, i) => (
-                  <TableCell key={i}>
-                    {i === 0 ? (
-                      <TableSortLabel
-                        active={head.id}
-                        direction={direction}
-                        onClick={handleDirectionChange}
-                      >
-                        {head}
-                      </TableSortLabel>
-                    ) : (
-                      <div>{head}</div>
-                    )}
-                  </TableCell>
-                ))}
+                {tableHeadRow()}
               </TableRow>
             </TableHead>
           ) : null}
