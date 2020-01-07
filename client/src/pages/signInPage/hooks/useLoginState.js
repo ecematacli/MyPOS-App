@@ -11,6 +11,7 @@ export default () => {
   const [password, setPassword, resetPassword] = useInputState('');
 
   const postSignInForm = async () => {
+    let active = true;
     const response = await api.post('/login', {
       email,
       password
@@ -18,13 +19,16 @@ export default () => {
 
     try {
       if (response) {
-        saveAuthToken(response.data);
+        active && saveAuthToken(response.data);
       } else {
-        saveAuthToken();
+        active && saveAuthToken();
       }
     } catch (e) {
-      setIsError(true);
+      active && setIsError(true);
     }
+    return () => {
+      active = false;
+    };
   };
 
   return {

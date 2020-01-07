@@ -16,7 +16,7 @@ import CustomButton from '../../common/customButton/CustomButton';
 
 const SignInPage = ({ location }) => {
   const classes = styles();
-  const authToken = useContext(AuthContext);
+  const authenticated = useContext(AuthContext);
   const {
     email,
     password,
@@ -37,11 +37,10 @@ const SignInPage = ({ location }) => {
     postSignInForm();
   };
 
-  if (authToken) {
+  if (authenticated) {
     return <Redirect to={referer} />;
   }
 
-  console.log(JSON.parse(localStorage.getItem('token')));
   return (
     <div className={classes.signInRoot}>
       <Card className={classes.signInCard}>

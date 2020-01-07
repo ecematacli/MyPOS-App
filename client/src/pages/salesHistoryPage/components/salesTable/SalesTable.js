@@ -43,10 +43,6 @@ const SalesTable = ({ tableHead, tableData, salesCount, fetchSales }) => {
     setDirection(isDesc ? 'asc' : 'desc');
   };
 
-  const isExpanded = id => {
-    return expandedRows[id];
-  };
-
   const toggleExpanded = id => {
     setExpandedRows({ ...expandedRows, [id]: !expandedRows[id] });
   };
@@ -70,7 +66,7 @@ const SalesTable = ({ tableHead, tableData, salesCount, fetchSales }) => {
             <TableCell className={classes.tableCell}>
               <div className={classes.dateCell}>
                 <div className={classes.expandIconContainer}>
-                  {isExpanded(sale.id) ? (
+                  {expandedRows[sale.id] ? (
                     <ExpandLess className={classes.expandIcon} />
                   ) : (
                     <ExpandMore className={classes.expandIcon} />
@@ -83,12 +79,12 @@ const SalesTable = ({ tableHead, tableData, salesCount, fetchSales }) => {
             <TableCell className={classes.tableCell}>10</TableCell>
             <TableCell className={classes.tableCell}>&#x20BA;1000</TableCell>
           </TableRow>
-          {isExpanded(sale.id) ? (
+          {expandedRows[sale.id] ? (
             <TableRow key={sale.id}>
               <TableCell padding={'none'} colSpan={12}>
                 <Collapse
-                  hidden={!isExpanded(sale.id)}
-                  in={isExpanded(sale.id)}
+                  hidden={!expandedRows[sale.id]}
+                  in={expandedRows[sale.id]}
                   timeout="auto"
                   unmountOnExit
                 >

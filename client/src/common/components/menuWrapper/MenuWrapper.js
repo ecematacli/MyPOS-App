@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import clsx from 'clsx';
 import {
   CssBaseline,
   Drawer,
@@ -10,82 +11,152 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  IconButton
+  IconButton,
+  Collapse
 } from '@material-ui/core';
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import History from '@material-ui/icons/History';
 import MenuIcon from '@material-ui/icons/Menu';
-import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import HistoryIcon from '@material-ui/icons/History';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
+import logo from '../../../assets/img/app-logo.png';
+import drawerItemList from './drawerItemList';
+import history from '../../../history/history';
 import {
   AuthContext,
   AuthTokenSettingContext
 } from '../../../contexts/AuthContext';
-import logo from '../../../assets/img/app-logo.png';
-import useToggleState from '../../hooks/useToggleState';
-import history from '../../../history/history';
-import menuItems from './menuItems';
 
 const MenuWrapper = ({ container, children }) => {
   const classes = styles();
   const authenticated = useContext(AuthContext);
   const { clearAuthToken } = useContext(AuthTokenSettingContext);
-  const [mobileOpen, setMobileOpen] = useToggleState(false);
+  const [openedItems, setOpenedItems] = useState({});
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const onSignOutClick = () => {
     clearAuthToken();
   };
 
+  const toggleOpenedItems = label => {
+    setOpenedItems({ ...openedItems, [label]: !openedItems[label] });
+  };
+
+  const handleMobileOpenToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const handleCloseMenu = () => {
+    setMobileOpen(false);
+  };
+
+  const renderSubMenuItems = (subMenuItems, label) => {
+    return subMenuItems.map(({ subLabel, url }, i) => {
+      return (
+        <Collapse
+          onClick={() => {
+            history.push(url);
+            handleCloseMenu();
+          }}
+          key={subLabel}
+          in={openedItems[label]}
+          timeout="auto"
+          unmountOnExit
+        >
+          <List component="div" disablePadding>
+            <ListItem
+              button
+              className={clsx(
+                i === 0 && classes.subMenuFirstItem,
+                classes.subMenuItems
+              )}
+            >
+              <ListItemIcon className={classes.subMenuIcons}>
+                {i === 0 ? <AddShoppingCartIcon /> : <HistoryIcon />}
+              </ListItemIcon>
+              <ListItemText primary={subLabel} />
+            </ListItem>
+          </List>
+        </Collapse>
+      );
+    });
+  };
+
   const drawer = (
     <React.Fragment>
-      <List className={classes.menuItems}>
+      <List className={classes.drawerListItems}>
         <ListItem>
           <div className={classes.logoWrapper}>
-            <div className={classes.logo}>
+            <div>
               <img className={classes.logoImg} src={logo} alt="logo image" />
             </div>
           </div>
         </ListItem>
-        <Divider className={classes.menuDivider} />
-        {menuItems.map(({ text, url }, i) => {
+        <Divider className={classes.divider} />
+        {drawerItemList.map(({ label, url, subMenuItems, Icon }, i) => {
+          if (subMenuItems) {
+            return (
+              <div key={label}>
+                <ListItem button onClick={() => toggleOpenedItems(label)}>
+                  <IconButton className={classes.drawerIcon}>
+                    <Icon />
+                  </IconButton>
+                  <ListItemText
+                    className={classes.drawerItemText}
+                    inset
+                    primary={label}
+                  />
+                  {openedItems[label] ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                {renderSubMenuItems(subMenuItems, label)}
+              </div>
+            );
+          }
           return (
-            <div key={i}>
-              <ListItem onClick={() => history.push(url)} button key={text}>
-                <ListItemIcon className={classes.menuIcon}>
-                  {i === 0 ? <MonetizationOnOutlinedIcon /> : <History />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
+            <div key={label}>
+              <ListItem
+                onClick={() => {
+                  history.push(url);
+                  handleCloseMenu();
+                  label === 'Sign Out' && onSignOutClick();
+                }}
+                key={label}
+                button
+              >
+                <IconButton className={classes.drawerIcon}>
+                  <Icon />
+                </IconButton>
+                <ListItemText
+                  className={classes.drawerItemText}
+                  inset
+                  primary={label}
+                />
               </ListItem>
+              {i === drawerItemList.length - 2 && (
+                <Divider className={classes.divider} />
+              )}
             </div>
           );
         })}
       </List>
-      <Divider className={classes.menuDivider} />
-      <List>
-        <ListItem button onClick={onSignOutClick}>
-          <ListItemIcon className={classes.menuIcon}>
-            <PowerSettingsNew />
-          </ListItemIcon>
-          <ListItemText>Sign Out</ListItemText>
-        </ListItem>
-      </List>
     </React.Fragment>
   );
   return (
-    <div className={classes.root}>
+    <div className={classes.drawerRoot}>
       <CssBaseline />
       {authenticated ? (
         <React.Fragment>
           <AppBar className={classes.appBar}>
             <Toolbar>
-              <div className={classes.headerContainer}>
+              <div>
                 <IconButton
-                  edge="start"
                   className={classes.menuButton}
+                  edge="start"
                   color="inherit"
                   aria-label="open drawer"
-                  onClick={setMobileOpen}
+                  onClick={handleMobileOpenToggle}
                 >
                   <MenuIcon />
                 </IconButton>
@@ -98,7 +169,7 @@ const MenuWrapper = ({ container, children }) => {
                 container={container}
                 variant="temporary"
                 open={mobileOpen}
-                onClose={setMobileOpen}
+                onClose={handleMobileOpenToggle}
                 ModalProps={{
                   keepMounted: true // Better open performance on mobile.
                 }}

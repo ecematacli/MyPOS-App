@@ -7,7 +7,7 @@ import useSalesState from './hooks/useSalesState';
 import ProductSearchBar from './components/ProductSearchBar';
 import PosTableRight from './components/PosTableRight/PosTableRight';
 
-const SellPage = () => {
+const SalesPage = () => {
   const classes = styles();
   const {
     products,
@@ -85,4 +85,4 @@ const SellPage = () => {
   );
 };
 
-export default SellPage;
+export default SalesPage;

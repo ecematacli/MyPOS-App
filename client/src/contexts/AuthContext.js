@@ -16,8 +16,8 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const clearAuthToken = () => {
-    setAuthToken(null);
     localStorage.removeItem('token');
+    setAuthToken(null);
     history.push('/signin');
   };
 
