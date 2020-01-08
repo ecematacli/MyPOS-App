@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import { format } from 'date-fns';
 
 import { fetchSales } from '../../redux/sales/salesActions';
-import SalesTable from './components/salesTable/SalesTable';
+import CustomTable from '../../common/components/customTable/CustomTable';
+import SaleDetails from './components/saleDetails/SaleDetails';
 
 const SalesHistoryPage = ({ fetchSales, sales, count }) => {
   useEffect(() => {
     fetchSales();
   }, []);
 
-  const salesData = () =>
+  const formattedSalesData = () =>
     sales.map(sale => {
       return {
         ...sale,
@@ -19,10 +20,11 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
     });
 
   return (
-    <SalesTable
-      tableHead={[
+    <CustomTable
+      tableHeads={[
         {
-          label: 'Date'
+          label: 'Date',
+          sortLabel: true
         },
         {
           label: 'Total Qty',
@@ -37,9 +39,10 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
           numeric: true
         }
       ]}
-      tableData={salesData()}
+      sales={formattedSalesData()}
       salesCount={count}
       fetchSales={fetchSales}
+      component={SaleDetails}
     />
   );
 };

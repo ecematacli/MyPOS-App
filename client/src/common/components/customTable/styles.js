@@ -16,7 +16,6 @@ export default makeStyles(({ spacing, palette }) => ({
   table: {
     width: '90%',
     maxWidth: '90%',
-    minHeight: '90vh',
     margin: 'auto',
     borderCollapse: 'separate',
     borderSpacing: '0 15px'
@@ -33,30 +32,27 @@ export default makeStyles(({ spacing, palette }) => ({
     cursor: 'pointer',
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
     '& > td': {
-      borderBottom: '1px solid #eee',
-      '&:last-child': {
-        textAlign: 'right'
-      }
+      borderBottom: '1px solid #eee'
     }
   },
   tableCell: {
-    padding: spacing(4),
-    '&:last-child': {
-      padding: spacing(3)
-    },
+    paddingTop: spacing(4),
+    paddingBottom: spacing(4),
     color: 'inherit',
-    fontWeight: 500
+    fontWeight: 500,
+    '&:last-child': {
+      paddingRight: spacing(3)
+    }
   },
-  dateCell: {
+  firstCellContainer: {
     display: 'flex',
     alignItems: 'center'
   },
-  dateContainer: {
+  firstCellItem: {
     marginLeft: '-5px'
   },
   expandIconContainer: {
-    marginLeft: '-15px',
-    marginRight: '10px',
+    marginRight: spacing(1),
     display: 'flex',
     alignItems: 'center'
   },

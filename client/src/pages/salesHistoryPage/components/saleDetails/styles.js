@@ -9,6 +9,7 @@ export default makeStyles(({ spacing, palette }) => ({
     paddingTop: spacing(3),
     paddingBottom: spacing(4),
     fontSize: 14,
+    borderTop: 'transparent',
     color: palette.secondary.main,
     display: 'flex',
     flexDirection: 'column',
@@ -21,27 +22,11 @@ export default makeStyles(({ spacing, palette }) => ({
     borderSpacing: 0,
     borderCollapse: 'collapse'
   },
-  tableHeadCell: {
-    fontSize: 14,
-    width: '15%',
-    '&:nth-child(2)': {
-      width: '24%'
-    },
-    '&:nth-child(3)': {
-      width: '10%'
-    },
-    '&:last-child': {
-      width: '20%',
-      textAlign: 'right'
-    },
-    '&:nth-child(n+4)': {
-      textAlign: 'right'
-    }
-  },
   tableHeadRow: {
     '& > th': {
       borderBottom: '1px solid #eee',
       paddingBottom: 6,
+      fontSize: 14,
       fontWeight: 700,
       color: palette.secondary.tableHead
     }
@@ -58,9 +43,6 @@ export default makeStyles(({ spacing, palette }) => ({
       fontSize: 14,
       padding: spacing(2),
       borderBottom: '0.5px solid #eee',
-      '&:nth-child(n+4)': {
-        textAlign: 'right'
-      },
       color: 'inherit'
     }
   },

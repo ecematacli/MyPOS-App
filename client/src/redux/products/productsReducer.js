@@ -1,8 +1,7 @@
 import { FETCH_PRODUCTS } from './types';
 
 const initialState = {
-  count: 0,
-  sales: {}
+  products: {}
 };
 
 export default (state = initialState, { type, payload }) => {
