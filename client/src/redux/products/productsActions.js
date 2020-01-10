@@ -11,3 +11,12 @@ export const fetchProducts = (page = 1, rowsPerPage = 10) => async dispatch => {
     payload: response.data
   });
 };
+
+export const editProduct = id => async dispatch => {
+  const response = await api.patch(`/products/${id}`, {});
+
+  dispatch({
+    type: FETCH_PRODUCTS,
+    payload: response.data
+  });
+};

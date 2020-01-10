@@ -75,8 +75,9 @@ export default makeStyles(({ spacing, palette }) => ({
     background: '#fff'
   },
   paginationContainer: {
+    marginTop: spacing(2),
     width: '94%',
     margin: 'auto',
-    fontSize: '16px'
+    fontSize: 16
   }
 }));

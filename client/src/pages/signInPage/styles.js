@@ -1,14 +1,24 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
+  signInPage: {
+    width: '100vw',
+    height: '100vh',
+    background: 'linear-gradient(90deg,  #ecf1f1, #f0f3f4, #f0f4f4)',
+    margin: '-30px',
+    marginTop: '-90px'
+  },
   signInRoot: {
     width: '100vw',
-    height: '60vh',
+    height: '70vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
   },
   signInCard: {
+    boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.30)',
+    overflow: 'hidden',
+    color: '#fff',
     width: 700,
     height: 450,
     borderRadius: '3%'

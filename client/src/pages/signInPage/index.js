@@ -42,52 +42,57 @@ const SignInPage = ({ location }) => {
   }
 
   return (
-    <div className={classes.signInRoot}>
-      <Card className={classes.signInCard}>
-        <div className={classes.cardContainer}>
-          <div className={classes.cardMedia}>
-            <CardMedia className={classes.signInCardImg} image={image} />
-          </div>
-          <div>
-            <div className={classes.cardContent}>
-              <CardContent>
-                <div className={classes.signInFormContainer}>
-                  <Typography className={classes.signInText}>
-                    Sign In
-                  </Typography>
-                  <form onSubmit={handleSubmit} className={classes.signInForm}>
-                    <TextField
-                      color="secondary"
-                      label="Name*"
-                      variant="outlined"
-                      className={classes.signInFields}
-                      value={email}
-                      onChange={setEmail}
-                      type="email"
-                    />
-                    <TextField
-                      color="secondary"
-                      label="Password*"
-                      variant="outlined"
-                      style={{ marginBottom: 25 }}
-                      className={classes.signInFields}
-                      value={password}
-                      onChange={setPassword}
-                      type="password"
-                    />
-                    <CustomButton type="submit">
-                      <Typography className={classes.btnText}>
-                        Sign In
-                      </Typography>
-                    </CustomButton>
-                  </form>
-                </div>
-              </CardContent>
+    <div className={classes.signInPage}>
+      <div className={classes.signInRoot}>
+        <Card className={classes.signInCard}>
+          <div className={classes.cardContainer}>
+            <div className={classes.cardMedia}>
+              <CardMedia className={classes.signInCardImg} image={image} />
             </div>
+            <div>
+              <div className={classes.cardContent}>
+                <CardContent>
+                  <div className={classes.signInFormContainer}>
+                    <Typography className={classes.signInText}>
+                      Sign In
+                    </Typography>
+                    <form
+                      onSubmit={handleSubmit}
+                      className={classes.signInForm}
+                    >
+                      <TextField
+                        color="secondary"
+                        label="Name*"
+                        variant="outlined"
+                        className={classes.signInFields}
+                        value={email}
+                        onChange={setEmail}
+                        type="email"
+                      />
+                      <TextField
+                        color="secondary"
+                        label="Password*"
+                        variant="outlined"
+                        style={{ marginBottom: 25 }}
+                        className={classes.signInFields}
+                        value={password}
+                        onChange={setPassword}
+                        type="password"
+                      />
+                      <CustomButton type="submit">
+                        <Typography className={classes.btnText}>
+                          Sign In
+                        </Typography>
+                      </CustomButton>
+                    </form>
+                  </div>
+                </CardContent>
+              </div>
+            </div>
+            {isError && <p>Error!</p>}
           </div>
-          {isError && <p>Error!</p>}
-        </div>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 };

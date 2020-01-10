@@ -24,6 +24,7 @@ const CustomTable = ({
   salesCount,
   productsCount,
   fetchSales,
+  fetchProducts,
   component: Component
 }) => {
   const classes = styles();
@@ -36,11 +37,13 @@ const CustomTable = ({
     if (newPage < 0) return;
     setPage(newPage);
     sales && fetchSales(newPage, rowsPerPage);
+    products && fetchProducts(newPage, rowsPerPage);
   };
 
   const handleChangeRowsPerPage = e => {
     setRowsPerPage(e.target.value);
     sales && fetchSales(1, e.target.value);
+    products && fetchProducts(1, e.target.value);
   };
 
   const handleDirectionChange = () => {
@@ -164,7 +167,7 @@ const CustomTable = ({
                 &#x20BA;{product.price}
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
-                &#x20BA;{product.discountedPrice}
+                &#x20BA;{product.discountPrice}
               </TableCell>
             </TableRow>
             {expandedRows[product.id] ? (
@@ -176,7 +179,7 @@ const CustomTable = ({
                     timeout="auto"
                     unmountOnExit
                   >
-                    <Component />
+                    <Component product={product} rowIndex={i} />
                   </Collapse>
                 </TableCell>
               </TableRow>
