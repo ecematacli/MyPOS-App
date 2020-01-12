@@ -8,7 +8,6 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case FETCH_PRODUCTS: {
-      console.log(payload);
       const { products, count } = payload;
       const objProductsData = products.reduce(
         (obj, currProduct) => ({
@@ -25,13 +24,13 @@ export default (state = initialState, { type, payload }) => {
       };
     }
     case EDIT_PRODUCT:
-      console.log({
+      return {
         ...state,
         products: {
+          ...state.products,
           [payload.id]: payload
         }
-      });
-      return '';
+      };
     default:
       return state;
   }

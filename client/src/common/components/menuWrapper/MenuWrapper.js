@@ -194,10 +194,7 @@ const MenuWrapper = ({ container, children }) => {
           </nav>
         </React.Fragment>
       ) : null}
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        {children}
-      </main>
+      <main className={classes.content}>{children}</main>
     </div>
   );
 };

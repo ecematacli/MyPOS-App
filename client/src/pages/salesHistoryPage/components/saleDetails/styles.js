@@ -3,8 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(({ spacing, palette }) => ({
   salesDetailsContainer: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
-    overflowY: 'auto',
-    overflowX: 'auto',
+    overflow: 'auto',
     marginTop: '-14.8px',
     paddingTop: spacing(3),
     paddingBottom: spacing(4),

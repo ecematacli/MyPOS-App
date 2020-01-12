@@ -1,10 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
-  salesDetailsContainer: {
+  productDetailsContainer: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
-    overflowY: 'auto',
-    overflowX: 'auto',
+    overflow: 'auto',
     marginTop: '-14.8px',
     paddingTop: spacing(3),
     paddingBottom: spacing(4),
@@ -14,28 +13,46 @@ export default makeStyles(({ spacing, palette }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    background: ({ rowIndex }) => (rowIndex % 2 ? '#fff' : '#f8fdf8')
+    background: ({ rowIndex }) => (rowIndex % 2 ? '#fff' : '#f8fdf8'),
+    position: 'relative'
   },
-  detailsPaper: {
-    width: '80%',
+  detailsCard: {
+    width: '75%',
     height: '80%',
     boxShadow: 'none',
     backgroundColor: 'inherit',
-    paddingLeft: 120,
-    paddingRight: 120
+    paddingLeft: spacing(2),
+    paddingRight: spacing(2),
+    border: '1px solid #eee',
+    marginBottom: 15
+  },
+  cardHead: {
+    borderRadius: 3,
+    width: '65%',
+    height: 65,
+    marginBottom: -spacing(4),
+    padding: spacing(2),
+    display: 'flex',
+    justifyContent: 'space-between',
+    zIndex: '3 !important',
+    background: ({ rowIndex }) => (rowIndex % 2 ? '#e2e2e2' : '#e3ece3')
   },
   productDetails: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: spacing(3),
-    paddingBottom: spacing(3),
+    '&:first-child': {
+      marginTop: 40
+    },
+    paddingTop: spacing(1),
+    paddingBottom: spacing(1),
     margin: spacing(1),
     color: palette.secondary.main
-    // borderBottom: '1px solid #eee'
   },
-  detailAction: {
-    display: 'flex'
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: palette.secondary.dark
   },
   editIcon: {
     marginLeft: spacing(2),
@@ -44,6 +61,29 @@ export default makeStyles(({ spacing, palette }) => ({
     alignItems: 'center',
     color: palette.secondary.dark,
     cursor: 'pointer'
+  },
+  editInput: {
+    width: spacing(20),
+    height: spacing(5),
+    fontSize: spacing(2),
+    color: palette.textColor,
+    borderColor: palette.secondary.dark
+  },
+  detailAction: {
+    display: 'flex'
+  },
+  iconButton: {
+    width: 35,
+    height: 35,
+    padding: 0,
+    '& > span': {
+      display: 'flex',
+      alignItems: 'center'
+    }
+  },
+  detailActionBtnIcon: {
+    width: 25,
+    height: 25
   },
   editFormContainer: {
     display: 'flex',
@@ -54,20 +94,15 @@ export default makeStyles(({ spacing, palette }) => ({
   editIcons: {
     marginLeft: spacing(1)
   },
-  closeIcon: {
-    fontSize: spacing(3.5),
-    marginLeft: 5
-  },
   doneIcon: {
     fontSize: spacing(3.5),
-    marginLeft: 3
+    marginLeft: 3,
+    backgroundColor: 'transparent',
+    boxShadow: 'none'
   },
-  editInput: {
-    width: spacing(20),
-    height: spacing(5),
-    fontWeight: 400,
-    fontSize: spacing(2),
-    color: palette.textColor,
-    borderColor: palette.secondary.dark
+  closeIcon: {
+    fontSize: spacing(3.5),
+    backgroundColor: 'transparent',
+    boxShadow: 'none'
   }
 }));

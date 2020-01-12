@@ -8,14 +8,12 @@ export const createSale = (products, total, discount) => async dispatch => {
     }, 0);
   };
 
-  const response = await api.post('/sales', [
-    {
-      products: [...products],
-      total: total - discount,
-      discount,
-      totalQty: totalQty()
-    }
-  ]);
+  const response = await api.post('/sales', {
+    products,
+    total: (total - discount).toString(),
+    discount: discount.toString()
+    // totalQty: totalQty()
+  });
 
   dispatch({
     type: CREATE_SALE,

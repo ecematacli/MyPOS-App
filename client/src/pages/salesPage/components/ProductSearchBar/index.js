@@ -1,12 +1,11 @@
 import React from 'react';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import { TextField, InputAdornment, CircularProgress } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Search } from '@material-ui/icons';
 
 import styles from './styles';
 import useSearchInput from './hooks/useSearchBarState';
+import SearchBar from '../../../../common/components/searchBar/SearchBar';
 
 const ProductSearchbar = ({ addProduct }) => {
   const classes = styles();
@@ -45,31 +44,12 @@ const ProductSearchbar = ({ addProduct }) => {
       autoHighlight
       classes={{ inputRoot: classes.inputRoot }}
       renderInput={params => (
-        <TextField
+        <SearchBar
           {...params}
-          className={classes.productSearchInput}
-          classes={{ root: classes.inputRoot }}
+          width="95%"
           value={query}
           onChange={e => setQuery(e.target.value)}
-          label="Search for products..."
-          color="secondary"
-          variant="outlined"
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <React.Fragment>
-                {loading ? (
-                  <CircularProgress color="inherit" size={20} />
-                ) : null}
-                <InputAdornment
-                  className={classes.searchIconHolder}
-                  position="end"
-                >
-                  <Search />
-                </InputAdornment>
-              </React.Fragment>
-            )
-          }}
+          loading={loading}
         />
       )}
       renderOption={(product, { inputValue }) => {
