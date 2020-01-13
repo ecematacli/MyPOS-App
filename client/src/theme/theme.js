@@ -64,6 +64,11 @@ export default createMuiTheme({
       input: {
         fontSize: 16
       }
+    },
+    MuiPickersToolbar: {
+      toolbar: {
+        backgroundColor: '#47C279'
+      }
     }
   }
 });

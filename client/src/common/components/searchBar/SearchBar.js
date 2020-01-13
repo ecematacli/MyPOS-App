@@ -7,7 +7,6 @@ import { Search } from '@material-ui/icons';
 
 const SearchBar = ({ loading, ...props }) => {
   const classes = styles(props);
-  console.log(loading);
   return (
     <TextField
       {...props}

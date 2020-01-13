@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { format } from 'date-fns';
 
 import { fetchSales } from '../../redux/sales/salesActions';
 import CustomTable from '../../common/components/customTable/CustomTable';
 import SaleDetails from './components/saleDetails/SaleDetails';
+import DatePickerInput from './components/datePickerInput/DatePickerInput';
 
 const SalesHistoryPage = ({ fetchSales, sales, count }) => {
   useEffect(() => {
@@ -20,30 +21,33 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
     });
 
   return (
-    <CustomTable
-      tableHeads={[
-        {
-          label: 'Date',
-          sortLabel: true
-        },
-        {
-          label: 'Total Qty',
-          numeric: true
-        },
-        {
-          label: 'Total Price',
-          numeric: true
-        },
-        {
-          label: 'Total Discount',
-          numeric: true
-        }
-      ]}
-      sales={formattedSalesData()}
-      salesCount={count}
-      fetchSales={fetchSales}
-      component={SaleDetails}
-    />
+    <Fragment>
+      <DatePickerInput />
+      <CustomTable
+        tableHeads={[
+          {
+            label: 'Date',
+            sortLabel: true
+          },
+          {
+            label: 'Total Qty',
+            numeric: true
+          },
+          {
+            label: 'Total Price',
+            numeric: true
+          },
+          {
+            label: 'Total Discount',
+            numeric: true
+          }
+        ]}
+        sales={formattedSalesData()}
+        salesCount={count}
+        fetchSales={fetchSales}
+        component={SaleDetails}
+      />
+    </Fragment>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchProducts } from '../../redux/products/productsActions';
@@ -11,9 +11,9 @@ const ProductsPage = ({ fetchProducts, products }) => {
     fetchProducts();
   }, []);
   return (
-    <div>
+    <Fragment>
       <div style={{ marginTop: 50, paddingLeft: '2rem' }}>
-        <SearchBar width="50%" />
+        <SearchBar width="80%" />
       </div>
       <CustomTable
         tableHeads={[
@@ -44,7 +44,7 @@ const ProductsPage = ({ fetchProducts, products }) => {
         fetchProducts={fetchProducts}
         component={ProductDetails}
       />
-    </div>
+    </Fragment>
   );
 };
 

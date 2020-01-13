@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import clsx from 'clsx';
@@ -7,45 +7,44 @@ import {
   Typography,
   OutlinedInput,
   IconButton,
-  Card
+  Card,
+  Button
 } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 
 import styles from './styles';
+// import useProductDetails from '../hooks/useProductDetails';
 import { editProduct } from '../../../redux/products/productsActions';
+import useProductDetails from '../hooks/useProductDetails';
 
 const ProductDetails = props => {
   const classes = styles(props);
   const { product, editProduct } = props;
   const {
-    product: { name, sku, brand, category, price }
-  } = props;
+    PRODUCT_FIELDS,
+    edittedRow,
+    handleEdittedRow,
+    handleEditClick,
+    productVal,
+    handleInputChange,
+    enabledEdit
+  } = useProductDetails(product);
+
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const [edittedRow, setEdittedRow] = useState({});
-  const [productVal, setProductVal] = useState(product);
-  const [enabledEdit, setEnabledEdit] = useState(false);
 
-  const PRODUCT_FIELDS = [
-    { label: 'Product Name', fieldId: 'name', value: name },
-    { label: 'Sku', fieldId: 'sku', value: sku },
-    { label: 'Brand Name', fieldId: 'brand', value: brand },
-    { label: 'Category Name', fieldId: 'category', value: category },
-    { label: 'Price', fieldId: 'price', value: price, currency: true }
-  ];
-
-  const handleEdittedRow = label => {
-    setEdittedRow({ ...edittedRow, [label]: !edittedRow[label] });
-  };
-
-  const handleInputChange = (e, fieldId) => {
-    setProductVal({ ...productVal, [fieldId]: e.target.value });
-  };
-
-  const handleEditClick = () => {
-    setEnabledEdit(!enabledEdit);
-  };
+  const action = key => (
+    <Fragment>
+      <Button
+        onClick={() => {
+          closeSnackbar(key);
+        }}
+      >
+        <CloseIcon />
+      </Button>
+    </Fragment>
+  );
 
   const renderEditForm = (fieldId, label, snackbarMessage) => {
     return (
@@ -63,7 +62,12 @@ const ProductDetails = props => {
             className={classes.iconButton}
             onClick={() => {
               editProduct(productVal);
-              enqueueSnackbar(snackbarMessage, { persist: false });
+              enqueueSnackbar(snackbarMessage, {
+                variant: 'success',
+                autoHideDuration: 3000,
+                preventDuplicate: true,
+                action
+              });
               handleEdittedRow(label);
             }}
           >
@@ -74,7 +78,6 @@ const ProductDetails = props => {
           <IconButton
             className={classes.iconButton}
             onClick={() => {
-              editProduct(productVal);
               handleEdittedRow(label);
             }}
           >
@@ -90,25 +93,16 @@ const ProductDetails = props => {
   return (
     <Paper className={classes.productDetailsContainer}>
       <div className={classes.cardHead}>
-        <Typography
-          variant="title"
-          color="secondary"
-          className={classes.cardTitle}
-        >
+        <Typography color="secondary" className={classes.cardTitle}>
           Details
         </Typography>
         <IconButton className={classes.iconButton} onClick={handleEditClick}>
-          {enabledEdit ? (
-            <DoneIcon />
-          ) : (
-            <div onClick={() => setEnabledEdit(false)}>
-              <EditOutlinedIcon />
-            </div>
-          )}
+          {enabledEdit ? <DoneIcon /> : <EditOutlinedIcon />}
         </IconButton>
       </div>
       <Card className={classes.detailsCard}>
-        {PRODUCT_FIELDS.map(({ label, fieldId, value, currency }) => {
+        {PRODUCT_FIELDS.map(product => {
+          const { label, fieldId, currency } = product;
           const snackbarMessage = `"${label}" has been updated!" `;
           return (
             <div key={label} className={classes.productDetails}>
@@ -119,7 +113,7 @@ const ProductDetails = props => {
                 ) : (
                   <>
                     {currency && <div>&#x20BA;</div>}
-                    <Typography>{value}</Typography>
+                    <Typography>{productVal[fieldId]}</Typography>
                     <div
                       onClick={() => {
                         handleEdittedRow(label);
