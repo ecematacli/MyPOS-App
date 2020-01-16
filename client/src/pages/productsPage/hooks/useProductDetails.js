@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { editProduct } from '../../../redux/products/productsActions';
@@ -12,8 +12,8 @@ export default product => {
   const PRODUCT_FIELDS = [
     { label: 'Product Name', fieldId: 'name' },
     { label: 'Sku', fieldId: 'sku' },
-    { label: 'Brand Name', fieldId: 'brand' },
-    { label: 'Category Name', fieldId: 'category' },
+    { label: 'Brand Name', fieldId: 'brand', dropdown: true },
+    { label: 'Category Name', fieldId: 'category', dropdown: true },
     { label: 'Price', fieldId: 'price', currency: true }
   ];
 
@@ -34,7 +34,10 @@ export default product => {
     }
   };
 
-  // const edit = dispatch(editProduct());
+  const dispatchEditAction = useCallback(
+    productVal => dispatch(editProduct(productVal)),
+    [dispatch]
+  );
 
   return {
     PRODUCT_FIELDS,
@@ -43,6 +46,7 @@ export default product => {
     handleEditClick,
     productVal,
     handleInputChange,
-    enabledEdit
+    enabledEdit,
+    dispatchEditAction
   };
 };

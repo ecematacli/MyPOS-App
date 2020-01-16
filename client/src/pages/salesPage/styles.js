@@ -31,7 +31,8 @@ export default makeStyles(({ spacing, breakpoints, palette }) => ({
   searchBarGridItem: {
     order: 2,
     [breakpoints.down('md')]: {
-      order: 1
+      order: 1,
+      marginTop: spacing(4)
     }
   },
   tableGridItem: {

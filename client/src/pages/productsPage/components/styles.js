@@ -62,8 +62,11 @@ export default makeStyles(({ spacing, palette }) => ({
     color: palette.secondary.dark,
     cursor: 'pointer'
   },
+  selectInput: {
+    width: 200
+  },
   editInput: {
-    width: spacing(20),
+    width: 200,
     height: spacing(5),
     fontSize: spacing(2),
     color: palette.textColor,
@@ -83,7 +86,10 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   detailActionBtnIcon: {
     width: 25,
-    height: 25
+    height: 25,
+    fontSize: spacing(3.5),
+    backgroundColor: 'transparent',
+    boxShadow: 'none'
   },
   editFormContainer: {
     display: 'flex',
@@ -93,16 +99,5 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   editIcons: {
     marginLeft: spacing(1)
-  },
-  doneIcon: {
-    fontSize: spacing(3.5),
-    marginLeft: 3,
-    backgroundColor: 'transparent',
-    boxShadow: 'none'
-  },
-  closeIcon: {
-    fontSize: spacing(3.5),
-    backgroundColor: 'transparent',
-    boxShadow: 'none'
   }
 }));

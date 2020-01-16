@@ -1,27 +1,29 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import clsx from 'clsx';
 import {
   Paper,
   Typography,
   OutlinedInput,
   IconButton,
   Card,
-  Button
+  Select,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem
 } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from './styles';
-// import useProductDetails from '../hooks/useProductDetails';
-import { editProduct } from '../../../redux/products/productsActions';
 import useProductDetails from '../hooks/useProductDetails';
 
+// eslint-disable-next-line react/display-name
 const ProductDetails = props => {
   const classes = styles(props);
-  const { product, editProduct } = props;
+  const { product } = props;
   const {
     PRODUCT_FIELDS,
     edittedRow,
@@ -29,7 +31,8 @@ const ProductDetails = props => {
     handleEditClick,
     productVal,
     handleInputChange,
-    enabledEdit
+    enabledEdit,
+    dispatchEditAction
   } = useProductDetails(product);
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -46,22 +49,40 @@ const ProductDetails = props => {
     </Fragment>
   );
 
-  const renderEditForm = (fieldId, label, snackbarMessage) => {
+  const renderEditForm = (fieldId, label, dropdown, snackbarMessage) => {
     return (
       <div className={classes.editFormContainer}>
-        <OutlinedInput
-          classes={{
-            root: classes.editInput
-          }}
-          color="secondary"
-          value={productVal[fieldId]}
-          onChange={e => handleInputChange(e, fieldId)}
-        />
+        {dropdown ? (
+          <FormControl className={classes.selectInput} style={{}}>
+            <InputLabel color="secondary" id={label}>
+              {label}
+            </InputLabel>
+            <Select
+              color="secondary"
+              labelId={label}
+              value={'age'}
+              onChange={() => 'hey'}
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
+        ) : (
+          <OutlinedInput
+            classes={{
+              root: classes.editInput
+            }}
+            color="secondary"
+            value={productVal[fieldId]}
+            onChange={e => handleInputChange(e, fieldId)}
+          />
+        )}
         <div className={classes.editIcons}>
           <IconButton
             className={classes.iconButton}
             onClick={() => {
-              editProduct(productVal);
+              dispatchEditAction(productVal);
               enqueueSnackbar(snackbarMessage, {
                 variant: 'success',
                 autoHideDuration: 3000,
@@ -71,9 +92,7 @@ const ProductDetails = props => {
               handleEdittedRow(label);
             }}
           >
-            <DoneIcon
-              className={clsx(classes.detailActionBtnIcon, classes.doneIcon)}
-            />
+            <DoneIcon className={classes.detailActionBtnIcon} />
           </IconButton>
           <IconButton
             className={classes.iconButton}
@@ -81,13 +100,41 @@ const ProductDetails = props => {
               handleEdittedRow(label);
             }}
           >
-            <CloseIcon
-              className={clsx(classes.detailActionBtnIcon, classes.closeIcon)}
-            />
+            <CancelIcon className={classes.detailActionBtnIcon} />
           </IconButton>
         </div>
       </div>
     );
+  };
+
+  const renderProductDetails = () => {
+    return PRODUCT_FIELDS.map(productField => {
+      const { label, fieldId, dropdown, currency } = productField;
+      const snackbarMessage = `"${label}" has been updated!" `;
+      return (
+        <div key={label} className={classes.productDetails}>
+          <Typography>{label}: </Typography>
+          <div className={classes.detailAction}>
+            {edittedRow[label] ? (
+              renderEditForm(fieldId, label, dropdown, snackbarMessage)
+            ) : (
+              <>
+                {currency && <div>&#x20BA;</div>}
+                <Typography>{productVal[fieldId]}</Typography>
+                <div
+                  onClick={() => {
+                    handleEdittedRow(label);
+                  }}
+                  className={classes.editIcon}
+                >
+                  {enabledEdit ? <EditOutlinedIcon /> : null}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      );
+    });
   };
 
   return (
@@ -100,37 +147,9 @@ const ProductDetails = props => {
           {enabledEdit ? <DoneIcon /> : <EditOutlinedIcon />}
         </IconButton>
       </div>
-      <Card className={classes.detailsCard}>
-        {PRODUCT_FIELDS.map(product => {
-          const { label, fieldId, currency } = product;
-          const snackbarMessage = `"${label}" has been updated!" `;
-          return (
-            <div key={label} className={classes.productDetails}>
-              <Typography>{label}: </Typography>
-              <div className={classes.detailAction}>
-                {edittedRow[label] ? (
-                  renderEditForm(fieldId, label, snackbarMessage)
-                ) : (
-                  <>
-                    {currency && <div>&#x20BA;</div>}
-                    <Typography>{productVal[fieldId]}</Typography>
-                    <div
-                      onClick={() => {
-                        handleEdittedRow(label);
-                      }}
-                      className={classes.editIcon}
-                    >
-                      {enabledEdit ? <EditOutlinedIcon /> : null}
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </Card>
+      <Card className={classes.detailsCard}>{renderProductDetails()}</Card>
     </Paper>
   );
 };
 
-export default connect(null, { editProduct })(ProductDetails);
+export default ProductDetails;

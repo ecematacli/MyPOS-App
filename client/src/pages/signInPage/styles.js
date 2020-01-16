@@ -4,9 +4,8 @@ export default makeStyles(({ spacing, palette }) => ({
   signInPage: {
     width: '100vw',
     height: '100vh',
-    background: 'linear-gradient(90deg,  #ecf1f1, #f0f3f4, #f0f4f4)',
-    margin: '-30px',
-    marginTop: '-90px'
+    background: 'linear-gradient(to bottom,  #ecf1f1, #f0f3f4, #f0f4f4)',
+    margin: '-25px'
   },
   signInRoot: {
     width: '100vw',
@@ -58,7 +57,10 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   signInFields: {
     width: 300,
-    marginBottom: 20
+    marginBottom: 20,
+    '& > fieldset': {
+      backgroundColor: palette.secondary.main
+    }
   },
   signInText: {
     color: palette.secondary.main,
