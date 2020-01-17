@@ -25,7 +25,7 @@ export default makeStyles(({ spacing, palette }) => ({
       borderBottom: 'none',
       paddingBottom: 6,
       fontWeight: 600,
-      color: palette.secondary.tableHead
+      color: palette.grayColors[7]
     }
   },
   tableBodyRow: {
@@ -69,10 +69,10 @@ export default makeStyles(({ spacing, palette }) => ({
     color: palette.primary.dark
   },
   greenRow: {
-    background: '#f8fdf8'
+    background: palette.greenColors[2]
   },
   whiteRow: {
-    background: '#fff'
+    background: palette.whiteColors[0]
   },
   paginationContainer: {
     marginTop: spacing(2),

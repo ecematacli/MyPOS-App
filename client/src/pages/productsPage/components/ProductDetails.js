@@ -82,7 +82,8 @@ const ProductDetails = props => {
           <IconButton
             className={classes.iconButton}
             onClick={() => {
-              dispatchEditAction(productVal);
+              console.log(product.id);
+              dispatchEditAction(productVal[fieldId], fieldId, product.id);
               enqueueSnackbar(snackbarMessage, {
                 variant: 'success',
                 autoHideDuration: 3000,

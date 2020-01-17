@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ palette, spacing }) => ({
   suggestedCommon: {
-    color: palette.secondary.darkest
+    color: palette.grayColors[3]
   },
   suggestionContainer: {
     display: 'flex',
@@ -10,7 +10,7 @@ export default makeStyles(({ palette, spacing }) => ({
     alignItems: 'center',
     height: spacing(8),
     width: '100%',
-    color: palette.secondary.darkest
+    color: palette.grayColors[3]
   },
   suggestedItems: {
     display: 'flex',

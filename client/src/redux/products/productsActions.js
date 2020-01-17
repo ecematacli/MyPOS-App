@@ -12,10 +12,14 @@ export const fetchProducts = (page = 1, rowsPerPage = 10) => async dispatch => {
   });
 };
 
-export const editProduct = product => async dispatch => {
-  console.log('product:', product);
-  const { id } = product;
-  const response = await api.patch(`/products/${id}`, product);
+export const editProduct = (
+  productVal,
+  fieldId,
+  productId
+) => async dispatch => {
+  const response = await api.patch(`/products/${productId}`, {
+    [fieldId]: productVal
+  });
 
   dispatch({
     type: EDIT_PRODUCT,

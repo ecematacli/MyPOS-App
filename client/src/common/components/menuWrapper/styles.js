@@ -23,7 +23,7 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
   menuButton: {
     display: 'fixed',
     marginRight: spacing(2),
-    color: palette.secondary.darkest,
+    color: palette.grayColors[3],
     [breakpoints.up('md')]: {
       display: 'none'
     }
@@ -74,12 +74,12 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
     paddingLeft: spacing(3)
   },
   divider: {
-    backgroundColor: palette.secondary.darkest
+    backgroundColor: palette.grayColors[3]
   },
   content: {
     flexGrow: 1,
     overflow: 'auto',
     padding: spacing(3),
-    backgroundColor: palette.secondary.background
+    backgroundColor: palette.grayColors[5]
   }
 }));

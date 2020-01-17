@@ -8,19 +8,34 @@ export default createMuiTheme({
       light: '#77CB60',
       dark: '#3AA687'
     },
-    secondary: {
-      main: '#696969',
-      light: '#eee',
-      lightest: '#f4f4f4',
-      dark: '#7e7e7e',
-      darkest: '#3f3f3f',
-      greenish: '#A0B2A6',
-      background: '#f9f9f9',
-      tableRow: '#727272',
-      tableHead: '#888888',
-      soft: '#F1F1F1'
-    },
+    secondary: { main: '#696969', light: '#eee', dark: '#7e7e7e' },
     error: { main: pink['A400'] },
+    grayColors: [
+      '#e7e7e7',
+      '#f4f4f4',
+      '#7e7e7e',
+      '#3f3f3f',
+      '#A0B2A6',
+      '#f9f9f9',
+      '#727272',
+      '#888888',
+      '#F1F1F1',
+      '#999',
+      '#e2e2e2'
+    ],
+    greenColors: [
+      '#66bb6a',
+      '#43a047',
+      '#f8fdf8',
+      '#ecf1f1',
+      '#f0f3f4',
+      '#f0f4f4',
+      '#e3ece3'
+    ],
+    yellowColors: ['#ffa726', '#fb8c00'],
+    blueColors: ['#26c6da', '#00acc1'],
+    navyBlueColors: ['#035670', '#02394a'],
+    whiteColors: ['#fff'],
     textColor: 'rgba(0, 0, 0, 0.87)'
   },
   typography: {

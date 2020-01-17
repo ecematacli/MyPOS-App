@@ -13,7 +13,8 @@ export default makeStyles(({ spacing, palette }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    background: ({ rowIndex }) => (rowIndex % 2 ? '#fff' : '#f8fdf8')
+    background: ({ rowIndex }) =>
+      rowIndex % 2 ? `${palette.whiteColors[0]}` : '#f8fdf8'
   },
   table: {
     marginBottom: 0,
@@ -23,11 +24,11 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   tableHeadRow: {
     '& > th': {
-      borderBottom: '1px solid #eee',
+      borderBottom: `1px solid ${palette.whiteColors[0]}`,
       paddingBottom: 6,
       fontSize: 14,
       fontWeight: 700,
-      color: palette.secondary.tableHead
+      color: palette.grayColors[7]
     }
   },
   tableBodyRow: {

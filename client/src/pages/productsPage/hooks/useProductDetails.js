@@ -35,7 +35,8 @@ export default product => {
   };
 
   const dispatchEditAction = useCallback(
-    productVal => dispatch(editProduct(productVal)),
+    (productVal, fieldId, productId) =>
+      dispatch(editProduct(productVal, fieldId, productId)),
     [dispatch]
   );
 

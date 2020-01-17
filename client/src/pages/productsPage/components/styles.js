@@ -13,7 +13,8 @@ export default makeStyles(({ spacing, palette }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    background: ({ rowIndex }) => (rowIndex % 2 ? '#fff' : '#f8fdf8'),
+    background: ({ rowIndex }) =>
+      rowIndex % 2 ? `${palette.whiteColors[0]}` : `${palette.greenColors[2]}`,
     position: 'relative'
   },
   detailsCard: {
@@ -23,7 +24,7 @@ export default makeStyles(({ spacing, palette }) => ({
     backgroundColor: 'inherit',
     paddingLeft: spacing(2),
     paddingRight: spacing(2),
-    border: '1px solid #eee',
+    border: `1px solid ${palette.secondary.light}`,
     marginBottom: 15
   },
   cardHead: {
@@ -35,7 +36,8 @@ export default makeStyles(({ spacing, palette }) => ({
     display: 'flex',
     justifyContent: 'space-between',
     zIndex: '3 !important',
-    background: ({ rowIndex }) => (rowIndex % 2 ? '#e2e2e2' : '#e3ece3')
+    background: ({ rowIndex }) =>
+      rowIndex % 2 ? `${palette.grayColors[10]}` : `${palette.greenColors[6]}`
   },
   productDetails: {
     display: 'flex',

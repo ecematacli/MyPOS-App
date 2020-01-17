@@ -4,7 +4,7 @@ export default makeStyles(({ spacing, palette }) => ({
   signInPage: {
     width: '100vw',
     height: '100vh',
-    background: 'linear-gradient(to bottom,  #ecf1f1, #f0f3f4, #f0f4f4)',
+    background: 'linear-gradient(to right, #fdfbfb, #ebedee)',
     margin: '-25px'
   },
   signInRoot: {
@@ -17,7 +17,7 @@ export default makeStyles(({ spacing, palette }) => ({
   signInCard: {
     boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.30)',
     overflow: 'hidden',
-    color: '#fff',
+    color: palette.whiteColors[0],
     width: 700,
     height: 450,
     borderRadius: '3%'

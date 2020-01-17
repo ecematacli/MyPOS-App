@@ -7,7 +7,12 @@ import DashboardStats from './components/dashboardStats/DashboardStats';
 const DashboardPage = () => {
   const classes = styles();
   return (
-    <Grid container justify="center" spacing={3}>
+    <Grid
+      className={classes.gridContainer}
+      container
+      justify="center"
+      spacing={3}
+    >
       <DashboardStats />
     </Grid>
   );
