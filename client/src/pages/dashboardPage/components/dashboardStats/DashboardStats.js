@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Typography, Tooltip, Card, Grid, Paper } from '@material-ui/core';
+import { Typography, Tooltip, Grid, Paper } from '@material-ui/core';
 
 import styles from './styles';
 import { STAT_PROPS } from './statProps';

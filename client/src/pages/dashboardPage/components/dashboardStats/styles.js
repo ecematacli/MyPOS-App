@@ -4,7 +4,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => {
   return {
     dashboardStatDiv: {
       display: 'flex',
-      minHeight: '135px',
+      minHeight: 135,
       [breakpoints.down('sm')]: {
         marginTop: spacing(3)
       }

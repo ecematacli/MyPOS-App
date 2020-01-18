@@ -21,7 +21,9 @@ export default createMuiTheme({
       '#888888',
       '#F1F1F1',
       '#999',
-      '#e2e2e2'
+      '#e2e2e2',
+      '#fdfbfb',
+      '#ebedee'
     ],
     greenColors: [
       '#66bb6a',

@@ -4,7 +4,7 @@ export default makeStyles(({ spacing, palette }) => ({
   signInPage: {
     width: '100vw',
     height: '100vh',
-    background: 'linear-gradient(to right, #fdfbfb, #ebedee)',
+    background: `linear-gradient(to right, ${palette.grayColors[11]}, ${palette.grayColors[12]})`,
     margin: '-25px'
   },
   signInRoot: {

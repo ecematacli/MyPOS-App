@@ -1,7 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing }) => ({
-  gridContainer: {
+  statsGridContainer: {
     marginTop: spacing(4)
+  },
+  chartGridContainer: {
+    marginTop: spacing(13)
   }
 }));
