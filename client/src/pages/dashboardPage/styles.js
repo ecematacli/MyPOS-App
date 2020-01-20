@@ -5,6 +5,6 @@ export default makeStyles(({ spacing }) => ({
     marginTop: spacing(4)
   },
   chartGridContainer: {
-    marginTop: spacing(13)
+    marginTop: spacing(10)
   }
 }));

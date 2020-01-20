@@ -6,6 +6,7 @@ const useSearchInput = addProduct => {
   const [open, setOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [noProduct, setNoProduct] = useState(false);
 
   const onProductSelect = product => {
     addProduct(product);
@@ -13,17 +14,20 @@ const useSearchInput = addProduct => {
     setOpen(false);
     setSearchResults([]);
   };
-
   useEffect(() => {
     let active = true;
     const fetchProducts = async () => {
       setLoading(true);
       const response = await api.get(`/products?q=${query}`);
       setSearchResults(response.data);
+      searchResults.length === 0 ? setNoProduct(true) : setNoProduct(false);
       setLoading(false);
       setOpen(true);
     };
-    active && query && fetchProducts();
+
+    if (active && query) {
+      fetchProducts();
+    }
     return () => {
       active = false;
     };
@@ -38,7 +42,8 @@ const useSearchInput = addProduct => {
     setLoading,
     query,
     setQuery,
-    onProductSelect
+    onProductSelect,
+    noProduct
   };
 };
 

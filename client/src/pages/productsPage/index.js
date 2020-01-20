@@ -13,7 +13,7 @@ const ProductsPage = ({ fetchProducts, products }) => {
   return (
     <Fragment>
       <div style={{ marginTop: 50, paddingLeft: '2rem' }}>
-        <SearchBar width="80%" />
+        <SearchBar width="80%" icon />
       </div>
       <CustomTable
         tableHeads={[

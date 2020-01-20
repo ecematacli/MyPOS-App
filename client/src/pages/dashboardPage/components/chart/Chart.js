@@ -8,6 +8,9 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts';
+import { Paper } from '@material-ui/core';
+
+import styles from './styles';
 
 const data = [
   {
@@ -55,20 +58,21 @@ const data = [
 ];
 
 const Chart = () => {
+  const classes = styles();
   return (
-    <div style={{ height: '290px', width: '100%' }}>
+    <Paper className={classes.chartPaper}>
       <ResponsiveContainer width="100%" height="90%">
         <AreaChart
           data={data}
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          margin={{ top: 45, right: 30, left: 0, bottom: 0 }}
         >
           <defs>
-            <linearGradient id="colorUv" x1="1" y1="0" x2="0" y2="1">
-              <stop offset="10%" stopColor="#00acc1" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#00acc1" stopOpacity={0} />
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="10%" stopColor="#00acc1" stopOpacity={0.3} />
+              <stop offset="90%" stopColor="#00acc1" stopOpacity={0.1} />
             </linearGradient>
             <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.3} />
               <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
             </linearGradient>
           </defs>
@@ -92,10 +96,8 @@ const Chart = () => {
           />
         </AreaChart>
       </ResponsiveContainer>
-    </div>
+    </Paper>
   );
 };
 
 export default Chart;
-
-///

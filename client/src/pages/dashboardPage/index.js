@@ -22,6 +22,9 @@ const DashboardPage = () => {
           <Chart />
         </Grid>
       </Grid>
+      <Grid container>
+        <Grid item xs={12} sm={12} md={6}></Grid>
+      </Grid>
     </Fragment>
   );
 };

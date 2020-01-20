@@ -11,10 +11,15 @@ export default product => {
 
   const PRODUCT_FIELDS = [
     { label: 'Product Name', fieldId: 'name' },
+    { label: 'Quantity', fieldId: 'qty', dropdown: true },
+    { label: 'Variation', fieldId: 'variation' },
+    { label: 'Price', fieldId: 'price', currency: true },
+    { label: 'Discounted Price', fieldId: 'discountPrice', currency: true },
+    { label: 'Barcode', fieldId: 'barcode' },
+    { label: 'Tax Rate', fieldId: 'taxRate', dropdown: true },
     { label: 'Sku', fieldId: 'sku' },
     { label: 'Brand Name', fieldId: 'brand', dropdown: true },
-    { label: 'Category Name', fieldId: 'category', dropdown: true },
-    { label: 'Price', fieldId: 'price', currency: true }
+    { label: 'Category Name', fieldId: 'category', dropdown: true }
   ];
 
   const handleEdittedRow = label => {

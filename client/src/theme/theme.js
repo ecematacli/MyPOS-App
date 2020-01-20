@@ -75,6 +75,9 @@ export default createMuiTheme({
       },
       body2: {
         fontSize: 16
+      },
+      h6: {
+        fontSize: 24
       }
     },
     MuiInputBase: {

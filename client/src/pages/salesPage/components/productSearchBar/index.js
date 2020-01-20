@@ -6,6 +6,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import styles from './styles';
 import useSearchInput from './hooks/useSearchBarState';
 import SearchBar from '../../../../common/components/searchBar/SearchBar';
+import QuickProductAdd from '../../components/quickProductAdd/QuickProductAdd';
 
 const ProductSearchbar = ({ addProduct }) => {
   const classes = styles();
@@ -17,16 +18,17 @@ const ProductSearchbar = ({ addProduct }) => {
     loading,
     query,
     setQuery,
-    onProductSelect
+    onProductSelect,
+    noProduct
   } = useSearchInput(addProduct);
 
   return (
     <Autocomplete
       id="asynchronous-demo"
       open={open}
-      onOpen={() => {
-        setOpen(true);
-      }}
+      // onOpen={() => {
+      //   setOpen(true);
+      // }}
       autoComplete
       onClose={() => {
         setOpen(false);
@@ -38,14 +40,19 @@ const ProductSearchbar = ({ addProduct }) => {
       options={searchResults}
       loading={loading}
       disableOpenOnFocus
+      noOptionsText="No product"
       clearOnEscape
-      onChange={(e, product) => product && onProductSelect(product)}
+      onChange={(e, product) => {
+        product && onProductSelect(product);
+      }}
       inputValue={query}
       autoHighlight
       classes={{ inputRoot: classes.inputRoot }}
       renderInput={params => (
         <SearchBar
           {...params}
+          nonExistentProduct={noProduct}
+          component={QuickProductAdd}
           width="95%"
           value={query}
           onChange={e => setQuery(e.target.value)}

@@ -4,8 +4,8 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import styles from './styles';
 import useSalesState from './hooks/useSalesState';
-import ProductSearchBar from './components/ProductSearchBar';
-import PosTableRight from './components/PosTableRight/PosTableRight';
+import ProductSearchBar from './components/productSearchBar';
+import PosTableRight from './components/posTableRight/PosTableRight';
 
 const SalesPage = () => {
   const classes = styles();

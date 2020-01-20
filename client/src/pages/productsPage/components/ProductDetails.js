@@ -24,6 +24,8 @@ import useProductDetails from '../hooks/useProductDetails';
 const ProductDetails = props => {
   const classes = styles(props);
   const { product } = props;
+  console.log(product);
+
   const {
     PRODUCT_FIELDS,
     edittedRow,
@@ -53,7 +55,7 @@ const ProductDetails = props => {
     return (
       <div className={classes.editFormContainer}>
         {dropdown ? (
-          <FormControl className={classes.selectInput} style={{}}>
+          <FormControl className={classes.selectInput}>
             <InputLabel color="secondary" id={label}>
               {label}
             </InputLabel>
