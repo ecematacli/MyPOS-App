@@ -20,14 +20,16 @@ const useSearchInput = addProduct => {
       setLoading(true);
       const response = await api.get(`/products?q=${query}`);
       setSearchResults(response.data);
-      searchResults.length === 0 ? setNoProduct(true) : setNoProduct(false);
+      response.data.length === 0 ? setNoProduct(true) : setNoProduct(false);
       setLoading(false);
       setOpen(true);
     };
 
-    if (active && query) {
-      fetchProducts();
+    active && query && fetchProducts();
+    if (!query) {
+      setNoProduct(false);
     }
+
     return () => {
       active = false;
     };

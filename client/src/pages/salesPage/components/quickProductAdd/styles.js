@@ -20,7 +20,8 @@ export default makeStyles(({ spacing, palette }) => ({
   dialogPaper: {
     maxHeight: 'unset',
     marginTop: 10,
-    padding: spacing(5),
+    padding: spacing(7),
+    paddingTop: spacing(3),
     paddingBottom: spacing(2),
     borderRadius: 6
   }

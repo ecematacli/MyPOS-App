@@ -32,7 +32,7 @@ const ProductSearchbar = ({ addProduct }) => {
       autoComplete
       onClose={() => {
         setOpen(false);
-        setQuery('');
+        // setQuery('');
         setSearchResults([]);
       }}
       filterOptions={p => p}

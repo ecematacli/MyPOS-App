@@ -11,31 +11,27 @@ const SearchBar = ({
   ...props
 }) => {
   const classes = styles(props);
+
   return (
-    <div>
-      <TextField
-        {...props}
-        color="secondary"
-        variant="outlined"
-        label="Search for products..."
-        className={classes.input}
-        classes={{ root: classes.inputRoot }}
-        InputProps={{
-          ...props.InputProps,
-          endAdornment: (
-            <React.Fragment>
-              {loading ? <CircularProgress color="inherit" size={20} /> : null}
-              <InputAdornment
-                className={classes.searchIconHolder}
-                position="end"
-              >
-                {nonExistentProduct ? <Component /> : <Search />}
-              </InputAdornment>
-            </React.Fragment>
-          )
-        }}
-      />
-    </div>
+    <TextField
+      {...props}
+      color="secondary"
+      variant="outlined"
+      label="Search for products..."
+      className={classes.input}
+      classes={{ root: classes.inputRoot }}
+      InputProps={{
+        ...props.InputProps,
+        endAdornment: (
+          <React.Fragment>
+            {loading ? <CircularProgress color="inherit" size={20} /> : null}
+            <InputAdornment className={classes.searchIconHolder} position="end">
+              {nonExistentProduct ? <Component /> : <Search />}
+            </InputAdornment>
+          </React.Fragment>
+        )
+      }}
+    />
   );
 };
 

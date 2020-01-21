@@ -33,7 +33,6 @@ const QuickProductAdd = () => {
     category,
     setCategory
   } = useProductInputState();
-
   return (
     <div>
       <div onClick={handleOpenDialog}>

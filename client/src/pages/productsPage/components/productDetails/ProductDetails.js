@@ -18,13 +18,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from './styles';
-import useProductDetails from '../hooks/useProductDetails';
+import useProductDetails from './hooks/useProductDetails';
 
 // eslint-disable-next-line react/display-name
 const ProductDetails = props => {
   const classes = styles(props);
   const { product } = props;
-  console.log(product);
 
   const {
     PRODUCT_FIELDS,

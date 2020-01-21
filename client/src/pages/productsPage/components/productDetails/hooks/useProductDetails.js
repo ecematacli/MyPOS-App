@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { editProduct } from '../../../redux/products/productsActions';
+import { editProduct } from '../../../../../redux/products/productsActions';
 
 export default product => {
   const dispatch = useDispatch();

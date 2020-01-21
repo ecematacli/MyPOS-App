@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchProducts } from '../../redux/products/productsActions';
 import CustomTable from '../../common/components/customTable/CustomTable';
-import ProductDetails from './components/ProductDetails';
+import ProductDetails from './components/productDetails/ProductDetails';
 import SearchBar from '../../common/components/searchBar/SearchBar';
 
 const ProductsPage = ({ fetchProducts, products }) => {
@@ -13,7 +13,7 @@ const ProductsPage = ({ fetchProducts, products }) => {
   return (
     <Fragment>
       <div style={{ marginTop: 50, paddingLeft: '2rem' }}>
-        <SearchBar width="80%" icon />
+        <SearchBar width="80%" />
       </div>
       <CustomTable
         tableHeads={[
