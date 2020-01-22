@@ -22,7 +22,7 @@ export default makeStyles(({ spacing, palette }) => ({
     height: '80%',
     boxShadow: 'none',
     backgroundColor: 'inherit',
-    paddingLeft: spacing(2),
+    paddingLeft: spacing(2.5),
     paddingRight: spacing(2),
     border: `1px solid ${palette.secondary.light}`,
     marginBottom: 15
@@ -63,16 +63,6 @@ export default makeStyles(({ spacing, palette }) => ({
     alignItems: 'center',
     color: palette.secondary.dark,
     cursor: 'pointer'
-  },
-  selectInput: {
-    width: 200
-  },
-  editInput: {
-    width: 200,
-    height: spacing(5),
-    fontSize: spacing(2),
-    color: palette.textColor,
-    borderColor: palette.secondary.dark
   },
   detailAction: {
     display: 'flex'

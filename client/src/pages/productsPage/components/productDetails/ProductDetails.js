@@ -19,7 +19,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from './styles';
 import useProductDetails from './hooks/useProductDetails';
-
+import CustomInput from '../../../../common/components/customInput/CustomInput';
 // eslint-disable-next-line react/display-name
 const ProductDetails = props => {
   const classes = styles(props);
@@ -50,10 +50,16 @@ const ProductDetails = props => {
     </Fragment>
   );
 
-  const renderEditForm = (fieldId, label, dropdown, snackbarMessage) => {
+  const renderEditForm = (
+    fieldId,
+    label,
+    dropdown,
+    dropdownItems,
+    snackbarMessage
+  ) => {
     return (
       <div className={classes.editFormContainer}>
-        {dropdown ? (
+        {/* {dropdown ? (
           <FormControl className={classes.selectInput}>
             <InputLabel color="secondary" id={label}>
               {label}
@@ -78,12 +84,20 @@ const ProductDetails = props => {
             value={productVal[fieldId]}
             onChange={e => handleInputChange(e, fieldId)}
           />
-        )}
+        )} */}
+        <CustomInput
+          inputType="editInput"
+          label={label}
+          dropdown={dropdown}
+          dropdownItems={dropdownItems}
+          value={productVal[fieldId]}
+          onChange={e => handleInputChange(e, fieldId)}
+          color="secondary"
+        />
         <div className={classes.editIcons}>
           <IconButton
             className={classes.iconButton}
             onClick={() => {
-              console.log(product.id);
               dispatchEditAction(productVal[fieldId], fieldId, product.id);
               enqueueSnackbar(snackbarMessage, {
                 variant: 'success',
@@ -111,14 +125,26 @@ const ProductDetails = props => {
 
   const renderProductDetails = () => {
     return PRODUCT_FIELDS.map(productField => {
-      const { label, fieldId, dropdown, currency } = productField;
+      const {
+        label,
+        fieldId,
+        dropdown,
+        dropdownItems,
+        currency
+      } = productField;
       const snackbarMessage = `"${label}" has been updated!" `;
       return (
         <div key={label} className={classes.productDetails}>
           <Typography>{label}: </Typography>
           <div className={classes.detailAction}>
             {edittedRow[label] ? (
-              renderEditForm(fieldId, label, dropdown, snackbarMessage)
+              renderEditForm(
+                fieldId,
+                label,
+                dropdown,
+                dropdownItems,
+                snackbarMessage
+              )
             ) : (
               <>
                 {currency && <div>&#x20BA;</div>}

@@ -24,5 +24,14 @@ export default makeStyles(({ spacing, palette }) => ({
     paddingTop: spacing(3),
     paddingBottom: spacing(2),
     borderRadius: 6
+  },
+  expansionRoot: {
+    boxShadow: 'none',
+    color: palette.secondary.main
+  },
+  expansionText: {
+    textDecoration: 'underline',
+    fontWeight: 'bold',
+    fontSize: 16
   }
 }));

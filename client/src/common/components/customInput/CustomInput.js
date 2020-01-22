@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   OutlinedInput,
   InputLabel,
@@ -10,46 +10,50 @@ import {
 import styles from './styles';
 
 const CustomInput = props => {
-  const { label, dropdown, type = 'text' } = props;
-  const classes = styles();
+  const classes = styles(props);
+  const {
+    label,
+    dropdown,
+    dropdownItems,
+    inputLabel,
+    type = 'text',
+    ...otherProps
+  } = props;
+
   return (
     <div>
       {dropdown ? (
-        <div>
-          <InputLabel color="secondary" id={label}>
-            {label}
-          </InputLabel>
+        <Fragment>
+          {inputLabel && (
+            <InputLabel color="secondary" id={label}>
+              {label}
+            </InputLabel>
+          )}
           <FormControl
             variant="outlined"
             classes={{ root: classes.formControlRoot }}
-            className={classes.selectInput}
           >
-            <Select
-              color="secondary"
-              labelId={label}
-              value={'age'}
-              onChange={() => 'hey'}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+            <Select color="secondary" labelId={label} {...otherProps}>
+              {dropdownItems.map(item => (
+                <MenuItem key={item} value={item}>
+                  {item}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
-        </div>
+        </Fragment>
       ) : (
-        <div>
-          <InputLabel color="secondary">{label}</InputLabel>
+        <Fragment>
+          {inputLabel && <InputLabel color="secondary">{label}</InputLabel>}
           <OutlinedInput
-            color="secondary"
             classes={{
-              root: classes.inputRoot,
-              focused: classes.fieldInput,
-              notchedOutline: classes.notchedOutline
+              root: classes.input
             }}
-            required
+            {...otherProps}
+            color="secondary"
             type={type}
           />
-        </div>
+        </Fragment>
       )}
     </div>
   );

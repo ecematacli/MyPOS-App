@@ -10,16 +10,31 @@ export default product => {
   const [enabledEdit, setEnabledEdit] = useState(false);
 
   const PRODUCT_FIELDS = [
+    { label: 'Barcode', fieldId: 'barcode' },
     { label: 'Product Name', fieldId: 'name' },
-    { label: 'Quantity', fieldId: 'qty', dropdown: true },
-    { label: 'Variation', fieldId: 'variation' },
+    { label: 'Quantity', fieldId: 'qty' },
     { label: 'Price', fieldId: 'price', currency: true },
     { label: 'Discounted Price', fieldId: 'discountPrice', currency: true },
-    { label: 'Barcode', fieldId: 'barcode' },
-    { label: 'Tax Rate', fieldId: 'taxRate', dropdown: true },
+    { label: 'Variation', fieldId: 'variation' },
+    {
+      label: 'Tax Rate',
+      fieldId: 'taxRate',
+      dropdown: true,
+      dropdownItems: ['18%', '8%']
+    },
     { label: 'Sku', fieldId: 'sku' },
-    { label: 'Brand Name', fieldId: 'brand', dropdown: true },
-    { label: 'Category Name', fieldId: 'category', dropdown: true }
+    {
+      label: 'Brand Name',
+      fieldId: 'brand',
+      dropdown: true,
+      dropdownItems: ['Nike', 'Adidas', 'Wilson']
+    },
+    {
+      label: 'Category Name',
+      fieldId: 'category',
+      dropdown: true,
+      dropdownItems: ['Tennis shoe', 'Tennis racket']
+    }
   ];
 
   const handleEdittedRow = label => {

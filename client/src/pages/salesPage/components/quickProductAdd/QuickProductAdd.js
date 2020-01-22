@@ -1,14 +1,21 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import React, { Fragment } from 'react';
+import {
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+  Typography,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle
+} from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
 import useQuickAddState from './hooks/useQuickAddState';
-import useProductInputState from './hooks/useProductInputState';
+import useNewProductInputState from './hooks/useNewProductInputState';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 
 const QuickProductAdd = () => {
@@ -18,23 +25,9 @@ const QuickProductAdd = () => {
     openDialog,
     handleCloseDialog
   } = useQuickAddState();
-  const {
-    PRODUCT_FIELDS,
-    name,
-    setName,
-    sku,
-    setSku,
-    barcode,
-    setBarcode,
-    price,
-    setPrice,
-    discountedPrice,
-    setDiscountedPrice,
-    category,
-    setCategory
-  } = useProductInputState();
+  const { NEW_PRODUCT_FIELDS, handleInputChange } = useNewProductInputState();
   return (
-    <div>
+    <Fragment>
       <div onClick={handleOpenDialog}>
         <AddCircleIcon className={classes.quickAddIcon} />
       </div>
@@ -45,12 +38,41 @@ const QuickProductAdd = () => {
       >
         <DialogTitle className={classes.dialogTitle}>Add a Product</DialogTitle>
         <DialogContent>
-          {PRODUCT_FIELDS.map(({ label, dropdown }) => (
-            <CustomInput key={label} label={label} dropdown={dropdown} />
-          ))}
+          {NEW_PRODUCT_FIELDS.map(
+            ({ label, dropdown, dropdownItems, fieldId, value }) => (
+              <CustomInput
+                inputType="quickAddInput"
+                name={fieldId}
+                value={value}
+                onChange={handleInputChange}
+                key={label}
+                label={label}
+                dropdown={dropdown}
+                dropdownItems={dropdownItems}
+                inputLabel={true}
+              />
+            )
+          )}
         </DialogContent>
+        <div>
+          <ExpansionPanel
+            classes={{ root: classes.expansionRoot }}
+            square
+            // expanded={expanded === 'panel1'}
+            // onChange={handleChange('panel1')}
+          >
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.expansionText}>
+                Expand for more fields
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <CustomInput inputType="quickAddInput" name="X" label="Brand" />
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </div>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button onClick={handleCloseDialog} color="secondary">
             Cancel
           </Button>
           <Button onClick={handleCloseDialog} color="primary">
@@ -58,7 +80,7 @@ const QuickProductAdd = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Fragment>
   );
 };
 
