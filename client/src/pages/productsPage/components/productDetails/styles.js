@@ -91,5 +91,17 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   editIcons: {
     marginLeft: spacing(1)
+  },
+  input: {
+    width: 246,
+    height: 35,
+    color: palette.grayColors[3],
+    borderColor: palette.secondary.dark
+  },
+  dropdownInput: {
+    width: 246
+  },
+  innerInput: {
+    height: 35
   }
 }));

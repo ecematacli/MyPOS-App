@@ -47,9 +47,18 @@ const ProductDetails = props => {
   ) => (
     <div className={classes.editFormContainer}>
       <CustomInput
-        inputType="editInput"
         label={label}
         dropdown={dropdown}
+        classesProp={
+          !dropdown
+            ? {
+                root: classes.input
+              }
+            : {
+                dropdownInput: { root: classes.dropdownInput },
+                innerInput: { root: classes.innerInput }
+              }
+        }
         dropdownItems={dropdownItems}
         value={productVal[fieldId]}
         onChange={e => handleInputChange(e, fieldId)}

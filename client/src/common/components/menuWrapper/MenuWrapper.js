@@ -148,20 +148,22 @@ const MenuWrapper = ({ container, children }) => {
       <CssBaseline />
       {authenticated ? (
         <React.Fragment>
-          <AppBar className={classes.appBar}>
-            <Toolbar classes={{ regular: classes.toolbar }}>
-              <div className={classes.menuIconContainer} style={{}}>
-                <IconButton
-                  className={classes.menuButton}
-                  edge="start"
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={handleMobileOpenToggle}
-                >
-                  <MenuIcon style={{ fontSize: 28 }} />
-                </IconButton>
-              </div>
-            </Toolbar>
+          <AppBar
+            classes={{ root: classes.appBarRoot }}
+            className={classes.appBar}
+          >
+            <div className={classes.menuIconContainer}>
+              <IconButton
+                className={classes.menuButton}
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleMobileOpenToggle}
+              >
+                <MenuIcon style={{ fontSize: 28 }} />
+              </IconButton>
+            </div>
+            <Toolbar classes={{ regular: classes.toolbar }}></Toolbar>
           </AppBar>
           <nav className={classes.drawer} aria-label="menu items">
             <Hidden mdUp implementation="css">

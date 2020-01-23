@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
+import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
 
 const TABLE_HEAD = [
   {
@@ -64,8 +65,10 @@ const SaleDetails = props => {
           <TableCell>{name}</TableCell>
           <TableCell align="right">{variation}</TableCell>
           <TableCell align="right">{qty}</TableCell>
-          <TableCell align="right">{price}</TableCell>
-          <TableCell align="right">{discountPrice}</TableCell>
+          <TableCell align="right">{currencyFormatter(price)}</TableCell>
+          <TableCell align="right">
+            {currencyFormatter(discountPrice)}
+          </TableCell>
         </TableRow>
       )
     );
@@ -84,7 +87,7 @@ const SaleDetails = props => {
       <div className={classes.detailTotal}>
         <div>
           <Typography className={classes.total}>
-            Total &nbsp; &#x20BA; 5000
+            Total &nbsp; {currencyFormatter(5000)}
           </Typography>
         </div>
       </div>

@@ -7,16 +7,13 @@ import {
   MenuItem
 } from '@material-ui/core';
 
-import styles from './styles';
-
 const CustomInput = props => {
-  const classes = styles(props);
   const {
     label,
     dropdown,
     dropdownItems,
     inputLabel,
-    inputType,
+    classesProp,
     type = 'text',
     ...otherProps
   } = props;
@@ -30,16 +27,12 @@ const CustomInput = props => {
               {label}
             </InputLabel>
           )}
-          <FormControl
-            variant="outlined"
-            classes={{ root: classes.formControlRoot }}
-          >
+          <FormControl variant="outlined" classes={classesProp.dropdownInput}>
             <Select
-              classes={{ root: classes.formControlRoot }}
               color="secondary"
               labelId={label}
               {...otherProps}
-              input={<OutlinedInput classes={{ root: classes.selectInput }} />}
+              input={<OutlinedInput classes={classesProp.innerInput} />}
             >
               {dropdownItems.map(item => (
                 <MenuItem key={item} value={item}>
@@ -53,9 +46,7 @@ const CustomInput = props => {
         <Fragment>
           {inputLabel && <InputLabel color="secondary">{label}</InputLabel>}
           <OutlinedInput
-            classes={{
-              root: classes.input
-            }}
+            classes={!dropdown && classesProp}
             {...otherProps}
             color="secondary"
             type={type}

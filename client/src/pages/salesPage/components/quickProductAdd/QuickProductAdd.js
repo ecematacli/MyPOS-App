@@ -57,6 +57,9 @@ const QuickProductAdd = () => {
                   key={label}
                   label={label}
                   dropdown={dropdown}
+                  classesProp={{
+                    dropdownInput: { root: classes.dropdownInput }
+                  }}
                   dropdownItems={dropdownItems}
                   inputLabel={true}
                 />
@@ -91,7 +94,6 @@ const QuickProductAdd = () => {
               }
               return (
                 <CustomInput
-                  inputType="quickAddInput"
                   name={fieldId}
                   value={value}
                   onChange={handleInputChange}
@@ -100,6 +102,9 @@ const QuickProductAdd = () => {
                   dropdown={dropdown}
                   dropdownItems={dropdownItems}
                   inputLabel={true}
+                  classesProp={{
+                    root: classes.input
+                  }}
                 />
               );
             }

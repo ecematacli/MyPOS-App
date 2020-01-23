@@ -1,15 +1,12 @@
 import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
-import FilterListIcon from '@material-ui/icons/FilterList';
 
-import styles from './styles';
 import { fetchProducts } from '../../redux/products/productsActions';
 import CustomTable from '../../common/components/customTable/CustomTable';
 import ProductDetails from './components/productDetails/ProductDetails';
-import SearchBar from '../../common/components/searchBar/SearchBar';
+import ProductFilters from './components/productFilters/ProductFilters';
 
 const ProductsPage = ({ fetchProducts, products }) => {
-  const classes = styles();
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -18,11 +15,8 @@ const ProductsPage = ({ fetchProducts, products }) => {
       {/* <div style={{ marginTop: 50, paddingLeft: '2rem' }}>
         <SearchBar width="80%" />
       </div> */}
-      <div className={classes.filterIconContainer}>
-        <div className={classes.filterDiv}>
-          <FilterListIcon className={classes.filterIcon} />
-        </div>
-      </div>
+
+      <ProductFilters />
       <CustomTable
         tableHeads={[
           {

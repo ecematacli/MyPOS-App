@@ -7,6 +7,7 @@ import styles from './styles';
 import useSearchInput from './hooks/useSearchBarState';
 import SearchBar from '../../../../common/components/searchBar/SearchBar';
 import QuickProductAdd from '../../components/quickProductAdd/QuickProductAdd';
+import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
 
 const ProductSearchbar = ({ addProduct }) => {
   const classes = styles();
@@ -24,6 +25,7 @@ const ProductSearchbar = ({ addProduct }) => {
 
   return (
     <Autocomplete
+      classes={{ root: classes.autoComplete }}
       id="asynchronous-demo"
       open={open}
       // onOpen={() => {
@@ -81,7 +83,7 @@ const ProductSearchbar = ({ addProduct }) => {
               <span> {product.sku}</span>
             </div>
             <div>
-              <span> &#x20BA; {product.price}</span>
+              <span>{currencyFormatter(product.price)}</span>
             </div>
           </div>
         );

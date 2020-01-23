@@ -18,6 +18,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
 import { createSale } from '../../../../redux/sales/salesActions';
+import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
+import CustomInput from '../../../../common/components/customInput/CustomInput';
 import CustomButton from '../../../../common/components/customButton/CustomButton';
 
 const TABLE_HEAD = [
@@ -92,8 +94,10 @@ const PosTableRight = ({
               </div>
             </div>
           </TableCell>
-          <TableCell align="right">&#x20BA;{price}</TableCell>
-          <TableCell align="right">&#x20BA;{discountPrice}</TableCell>
+          <TableCell align="right">{currencyFormatter(price)}</TableCell>
+          <TableCell align="right">
+            {currencyFormatter(discountPrice)}
+          </TableCell>
           <TableCell colSpan={3} align="right">
             <IconButton onClick={() => deleteProduct(product.id)}>
               <DeleteIcon className={classes.deleteIcon} />
@@ -118,22 +122,21 @@ const PosTableRight = ({
       <Fragment>
         <div className={classes.totalSection}>
           <Typography>Sub-Total</Typography>
-          <Typography>&#x20BA;{total - tax}</Typography>
+          <Typography>{currencyFormatter(total - tax)}</Typography>
         </div>
         <div className={classes.totalSection}>
           <Typography>Tax</Typography>
-          <Typography>&#x20BA;{tax}</Typography>
+          <Typography>{currencyFormatter(tax)}</Typography>
         </div>
         <div className={classes.totalSection}>
           <Typography>Discount</Typography>
-          <OutlinedInput
-            classes={{
+          <CustomInput
+            classesProp={{
               root: classes.discountInput,
               focused: classes.fieldInput,
               notchedOutline: classes.notchedOutline
             }}
             inputProps={{ style: { textAlign: 'right' } }}
-            color="secondary"
             value={discount}
             onChange={handleDiscountChange}
             startAdornment={
@@ -144,7 +147,7 @@ const PosTableRight = ({
         <Divider className={classes.totalDivider} />
         <div className={clsx(classes.totalSection, classes.totalAmount)}>
           <Typography>Total</Typography>
-          <Typography>&#x20BA;{total - discount}</Typography>
+          <Typography>{currencyFormatter(total - discount)}</Typography>
         </div>
         <div className={classes.paymentBtnContainer}>
           <CustomButton fullWidth>
@@ -156,7 +159,7 @@ const PosTableRight = ({
                 Complete Payment
               </Typography>
               <Typography className={classes.paymentBtnTxt}>
-                &#x20BA; {total - discount}
+                {currencyFormatter(total - discount)}
               </Typography>
             </div>
           </CustomButton>

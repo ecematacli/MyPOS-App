@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import { currencyFormatter } from '../../utils/currencyFormatter';
 
 import styles from './styles';
 
@@ -109,7 +110,7 @@ const CustomTable = ({
                 10
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
-                &#x20BA;1000
+                {currencyFormatter(13454)}
               </TableCell>
             </TableRow>
             {expandedRows[id] ? (
@@ -133,49 +134,56 @@ const CustomTable = ({
 
     if (products) {
       return products.map((product, i) => {
+        const {
+          id,
+          sku,
+          name,
+          category,
+          brand,
+          price,
+          discountPrice
+        } = product;
         return (
-          <React.Fragment key={product.sku}>
+          <React.Fragment key={id}>
             <TableRow
               className={clsx(
                 classes.tableBodyRow,
                 classes[i % 2 ? 'whiteRow' : 'greenRow']
               )}
-              onClick={() => toggleExpanded(product.id)}
+              onClick={() => toggleExpanded(id)}
             >
               <TableCell className={classes.tableCell}>
                 <div className={classes.firstCellContainer}>
                   <div className={classes.expandIconContainer}>
-                    {expandedRows[product.id] ? (
+                    {expandedRows[id] ? (
                       <ExpandLess className={classes.expandIcon} />
                     ) : (
                       <ExpandMore className={classes.expandIcon} />
                     )}
                   </div>
-                  <div className={classes.firstCellItem}>{product.sku}</div>
+                  <div className={classes.firstCellItem}>{sku}</div>
                 </div>
               </TableCell>
+              <TableCell className={classes.tableCell}>{name}</TableCell>
               <TableCell className={classes.tableCell}>
-                {product.name}
+                {category && category}
               </TableCell>
               <TableCell className={classes.tableCell}>
-                {product.category}
-              </TableCell>
-              <TableCell className={classes.tableCell}>
-                {product.brand}
+                {brand && brand}
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
-                &#x20BA;{product.price}
+                {price && currencyFormatter(price)}
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
-                &#x20BA;{product.discountPrice}
+                {discountPrice && currencyFormatter(discountPrice)}
               </TableCell>
             </TableRow>
-            {expandedRows[product.id] ? (
-              <TableRow key={product.id}>
+            {expandedRows[id] ? (
+              <TableRow key={id}>
                 <TableCell padding={'none'} colSpan={12}>
                   <Collapse
-                    hidden={!expandedRows[product.id]}
-                    in={expandedRows[product.id]}
+                    hidden={!expandedRows[id]}
+                    in={expandedRows[id]}
                     timeout="auto"
                     unmountOnExit
                   >

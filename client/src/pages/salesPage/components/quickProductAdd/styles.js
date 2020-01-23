@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
   paper: {
-    backgroundColor: palette.background.paper,
     border: '2px solid #000',
     padding: spacing(2, 4, 3)
   },
@@ -37,5 +36,17 @@ export default makeStyles(({ spacing, palette }) => ({
   expansionDetails: {
     display: 'flex',
     flexDirection: 'column'
+  },
+  input: {
+    width: 380,
+    height: 57,
+    color: palette.grayColors[3],
+    borderColor: palette.secondary.dark,
+    marginBottom: 15
+  },
+  dropdownInput: {
+    width: 380,
+    height: 50,
+    marginBottom: 15
   }
 }));

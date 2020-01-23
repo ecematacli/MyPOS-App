@@ -10,18 +10,22 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
     height: '100vh'
   },
   appBar: {
-    borderBottom: 0,
-    marginBottom: 0,
-    border: 0,
-    backgroundColor: 'transparent',
-    boxShadow: 'none',
+    // borderBottom: 0,
+    // marginBottom: 0,
+    // border: 0,
+    // height: 0,
+    // backgroundColor: 'transparent',
+    // boxShadow: 'none',
     zIndex: zIndex.drawer + 1,
     [breakpoints.up('md')]: {
       marginLeft: drawerWidth
     }
   },
+  appBarRoot: { height: 0 },
   menuIconContainer: {
-    marginTop: spacing(3)
+    marginTop: spacing(3),
+    marginLeft: spacing(4),
+    width: 30
   },
   menuButton: {
     display: 'fixed',
@@ -31,6 +35,7 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
       display: 'none'
     }
   },
+
   logoWrapper: {
     width: '100%',
     height: spacing(8),
@@ -86,6 +91,7 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
     backgroundColor: palette.grayColors[5]
   },
   toolbar: {
-    minHeight: 0
+    minHeight: 0,
+    height: 0
   }
 }));
