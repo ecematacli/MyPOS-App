@@ -20,6 +20,9 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
       marginLeft: drawerWidth
     }
   },
+  menuIconContainer: {
+    marginTop: spacing(3)
+  },
   menuButton: {
     display: 'fixed',
     marginRight: spacing(2),
@@ -81,5 +84,8 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
     overflow: 'auto',
     padding: spacing(3),
     backgroundColor: palette.grayColors[5]
+  },
+  toolbar: {
+    minHeight: 0
   }
 }));

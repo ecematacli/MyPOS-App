@@ -33,5 +33,9 @@ export default makeStyles(({ spacing, palette }) => ({
     textDecoration: 'underline',
     fontWeight: 'bold',
     fontSize: 16
+  },
+  expansionDetails: {
+    display: 'flex',
+    flexDirection: 'column'
   }
 }));

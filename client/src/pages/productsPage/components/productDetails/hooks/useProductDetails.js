@@ -20,20 +20,20 @@ export default product => {
       label: 'Tax Rate',
       fieldId: 'taxRate',
       dropdown: true,
-      dropdownItems: ['18%', '8%']
+      dropdownItems: ['18', '8']
     },
     { label: 'Sku', fieldId: 'sku' },
     {
       label: 'Brand Name',
       fieldId: 'brand',
       dropdown: true,
-      dropdownItems: ['Nike', 'Adidas', 'Wilson']
+      dropdownItems: ['Babolat', 'Adidas', 'Wilson']
     },
     {
       label: 'Category Name',
       fieldId: 'category',
       dropdown: true,
-      dropdownItems: ['Tennis shoe', 'Tennis racket']
+      dropdownItems: ['Tennis shoe', 'Tennis racket', 'Raket']
     }
   ];
 

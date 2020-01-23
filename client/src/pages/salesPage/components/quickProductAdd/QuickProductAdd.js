@@ -26,11 +26,50 @@ const QuickProductAdd = () => {
     handleCloseDialog
   } = useQuickAddState();
   const { NEW_PRODUCT_FIELDS, handleInputChange } = useNewProductInputState();
-  return (
-    <Fragment>
-      <div onClick={handleOpenDialog}>
-        <AddCircleIcon className={classes.quickAddIcon} />
-      </div>
+
+  const renderAdditionalFields = () => {
+    return (
+      <ExpansionPanel classes={{ root: classes.expansionRoot }}>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography className={classes.expansionText}>
+            Expand for more fields
+          </Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails classes={{ root: classes.expansionDetails }}>
+          {NEW_PRODUCT_FIELDS.map(
+            ({
+              label,
+              dropdown,
+              dropdownItems,
+              fieldId,
+              value,
+              additionalField
+            }) => {
+              if (!additionalField) {
+                return;
+              }
+              return (
+                <CustomInput
+                  inputType="quickAddInput"
+                  name={fieldId}
+                  value={value}
+                  onChange={handleInputChange}
+                  key={label}
+                  label={label}
+                  dropdown={dropdown}
+                  dropdownItems={dropdownItems}
+                  inputLabel={true}
+                />
+              );
+            }
+          )}
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
+  };
+
+  const renderDialog = () => {
+    return (
       <Dialog
         classes={{ paper: classes.dialogPaper }}
         open={openDialog}
@@ -39,38 +78,34 @@ const QuickProductAdd = () => {
         <DialogTitle className={classes.dialogTitle}>Add a Product</DialogTitle>
         <DialogContent>
           {NEW_PRODUCT_FIELDS.map(
-            ({ label, dropdown, dropdownItems, fieldId, value }) => (
-              <CustomInput
-                inputType="quickAddInput"
-                name={fieldId}
-                value={value}
-                onChange={handleInputChange}
-                key={label}
-                label={label}
-                dropdown={dropdown}
-                dropdownItems={dropdownItems}
-                inputLabel={true}
-              />
-            )
+            ({
+              label,
+              dropdown,
+              dropdownItems,
+              fieldId,
+              value,
+              additionalField
+            }) => {
+              if (additionalField) {
+                return;
+              }
+              return (
+                <CustomInput
+                  inputType="quickAddInput"
+                  name={fieldId}
+                  value={value}
+                  onChange={handleInputChange}
+                  key={label}
+                  label={label}
+                  dropdown={dropdown}
+                  dropdownItems={dropdownItems}
+                  inputLabel={true}
+                />
+              );
+            }
           )}
         </DialogContent>
-        <div>
-          <ExpansionPanel
-            classes={{ root: classes.expansionRoot }}
-            square
-            // expanded={expanded === 'panel1'}
-            // onChange={handleChange('panel1')}
-          >
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.expansionText}>
-                Expand for more fields
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <CustomInput inputType="quickAddInput" name="X" label="Brand" />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </div>
+        <div>{renderAdditionalFields()}</div>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="secondary">
             Cancel
@@ -80,6 +115,15 @@ const QuickProductAdd = () => {
           </Button>
         </DialogActions>
       </Dialog>
+    );
+  };
+
+  return (
+    <Fragment>
+      <div onClick={handleOpenDialog}>
+        <AddCircleIcon className={classes.quickAddIcon} />
+      </div>
+      {renderDialog()}
     </Fragment>
   );
 };

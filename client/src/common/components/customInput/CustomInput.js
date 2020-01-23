@@ -16,6 +16,7 @@ const CustomInput = props => {
     dropdown,
     dropdownItems,
     inputLabel,
+    inputType,
     type = 'text',
     ...otherProps
   } = props;
@@ -33,7 +34,13 @@ const CustomInput = props => {
             variant="outlined"
             classes={{ root: classes.formControlRoot }}
           >
-            <Select color="secondary" labelId={label} {...otherProps}>
+            <Select
+              classes={{ root: classes.formControlRoot }}
+              color="secondary"
+              labelId={label}
+              {...otherProps}
+              input={<OutlinedInput classes={{ root: classes.selectInput }} />}
+            >
               {dropdownItems.map(item => (
                 <MenuItem key={item} value={item}>
                   {item}

@@ -149,8 +149,8 @@ const MenuWrapper = ({ container, children }) => {
       {authenticated ? (
         <React.Fragment>
           <AppBar className={classes.appBar}>
-            <Toolbar>
-              <div>
+            <Toolbar classes={{ regular: classes.toolbar }}>
+              <div className={classes.menuIconContainer} style={{}}>
                 <IconButton
                   className={classes.menuButton}
                   edge="start"
@@ -158,7 +158,7 @@ const MenuWrapper = ({ container, children }) => {
                   aria-label="open drawer"
                   onClick={handleMobileOpenToggle}
                 >
-                  <MenuIcon />
+                  <MenuIcon style={{ fontSize: 28 }} />
                 </IconButton>
               </div>
             </Toolbar>

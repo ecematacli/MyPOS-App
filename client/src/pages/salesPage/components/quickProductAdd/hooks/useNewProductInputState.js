@@ -51,23 +51,26 @@ export default () => {
       fieldId: 'taxRate',
       dropdown: true,
       dropdownItems: ['18%', '8%'],
-      value: userInput.taxRate
+      value: userInput.taxRate,
+      additionalField: true
     },
-    { label: 'Sku', fieldId: 'sku', value: userInput.sku }
-    // {
-    //   label: 'Brand Name',
-    //   fieldId: 'brand',
-    //   dropdown: true,
-    //   dropdownItems: ['Nike', 'Adidas', 'Wilson'],
-    //   value: userInput.brand
-    // },
-    // {
-    //   label: 'Category Name',
-    //   fieldId: 'category',
-    //   dropdown: true,
-    //   dropdownItems: ['Tennis shoe', 'Tennis racket'],
-    //   value: userInput.category
-    // }
+    { label: 'Sku', fieldId: 'sku', value: userInput.sku },
+    {
+      label: 'Brand Name',
+      fieldId: 'brand',
+      dropdown: true,
+      dropdownItems: ['Nike', 'Adidas', 'Wilson'],
+      value: userInput.brand,
+      additionalField: true
+    },
+    {
+      label: 'Category Name',
+      fieldId: 'category',
+      dropdown: true,
+      dropdownItems: ['Tennis shoe', 'Tennis racket'],
+      value: userInput.category,
+      additionalField: true
+    }
   ];
 
   return {

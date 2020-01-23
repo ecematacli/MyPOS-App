@@ -1,17 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSnackbar } from 'notistack';
-import {
-  Paper,
-  Typography,
-  OutlinedInput,
-  IconButton,
-  Card,
-  Select,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem
-} from '@material-ui/core';
+import { Paper, Typography, IconButton, Card, Button } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
@@ -37,7 +26,6 @@ const ProductDetails = props => {
   } = useProductDetails(product);
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
   const action = key => (
     <Fragment>
       <Button
@@ -56,72 +44,44 @@ const ProductDetails = props => {
     dropdown,
     dropdownItems,
     snackbarMessage
-  ) => {
-    return (
-      <div className={classes.editFormContainer}>
-        {/* {dropdown ? (
-          <FormControl className={classes.selectInput}>
-            <InputLabel color="secondary" id={label}>
-              {label}
-            </InputLabel>
-            <Select
-              color="secondary"
-              labelId={label}
-              value={'age'}
-              onChange={() => 'hey'}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        ) : (
-          <OutlinedInput
-            classes={{
-              root: classes.editInput
-            }}
-            color="secondary"
-            value={productVal[fieldId]}
-            onChange={e => handleInputChange(e, fieldId)}
-          />
-        )} */}
-        <CustomInput
-          inputType="editInput"
-          label={label}
-          dropdown={dropdown}
-          dropdownItems={dropdownItems}
-          value={productVal[fieldId]}
-          onChange={e => handleInputChange(e, fieldId)}
-          color="secondary"
-        />
-        <div className={classes.editIcons}>
-          <IconButton
-            className={classes.iconButton}
-            onClick={() => {
-              dispatchEditAction(productVal[fieldId], fieldId, product.id);
-              enqueueSnackbar(snackbarMessage, {
-                variant: 'success',
-                autoHideDuration: 3000,
-                preventDuplicate: true,
-                action
-              });
-              handleEdittedRow(label);
-            }}
-          >
-            <DoneIcon className={classes.detailActionBtnIcon} />
-          </IconButton>
-          <IconButton
-            className={classes.iconButton}
-            onClick={() => {
-              handleEdittedRow(label);
-            }}
-          >
-            <CancelIcon className={classes.detailActionBtnIcon} />
-          </IconButton>
-        </div>
+  ) => (
+    <div className={classes.editFormContainer}>
+      <CustomInput
+        inputType="editInput"
+        label={label}
+        dropdown={dropdown}
+        dropdownItems={dropdownItems}
+        value={productVal[fieldId]}
+        onChange={e => handleInputChange(e, fieldId)}
+        color="secondary"
+      />
+      <div className={classes.editIcons}>
+        <IconButton
+          className={classes.iconButton}
+          onClick={() => {
+            dispatchEditAction(productVal[fieldId], fieldId, product.id);
+            enqueueSnackbar(snackbarMessage, {
+              variant: 'success',
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+              action
+            });
+            handleEdittedRow(label);
+          }}
+        >
+          <DoneIcon className={classes.detailActionBtnIcon} />
+        </IconButton>
+        <IconButton
+          className={classes.iconButton}
+          onClick={() => {
+            handleEdittedRow(label);
+          }}
+        >
+          <CancelIcon className={classes.detailActionBtnIcon} />
+        </IconButton>
       </div>
-    );
-  };
+    </div>
+  );
 
   const renderProductDetails = () => {
     return PRODUCT_FIELDS.map(productField => {
