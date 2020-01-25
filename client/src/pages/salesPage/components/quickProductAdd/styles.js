@@ -5,11 +5,7 @@ export default makeStyles(({ spacing, palette }) => ({
     border: '2px solid #000',
     padding: spacing(2, 4, 3)
   },
-  quickAddIcon: {
-    fontSize: spacing(4.5),
-    color: palette.primary.main,
-    cursor: 'pointer'
-  },
+
   dialogTitle: {
     fontSize: 20,
     color: palette.grayColors[3],

@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
   filterIconContainer: {
-    height: 32,
     width: '95%',
     display: 'flex',
     justifyContent: 'flex-end',
@@ -19,24 +18,31 @@ export default makeStyles(({ spacing, palette }) => ({
   popoverPaper: {
     boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.14)'
   },
+  filterCaption: {
+    marginTop: spacing(3),
+    paddingLeft: spacing(2),
+    paddingBottom: spacing(2),
+    borderBottom: '1px solid #eee',
+    fontSize: 16,
+    color: 'rgba(0, 0, 0, 0.54)'
+  },
+  filterLabel: { marginRight: spacing(5), color: palette.grayColors[3] },
   filterInputContainer: {
     minWidth: 400,
-    minHeight: 260,
-    padding: spacing(3),
-    paddingTop: spacing(5)
+    padding: spacing(4, 3, 4)
   },
   filterInputs: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // marginTop: spacing(2),
-    marginBottom: spacing(4)
+    marginBottom: spacing(4),
+    '&:last-child': {
+      marginBottom: 0
+    }
   },
-  filterLabel: { marginRight: spacing(5), color: palette.grayColors[3] },
   input: {
     width: 246,
     height: 35,
-    color: palette.secondary.main,
     borderColor: palette.secondary.dark
   },
   dropdownInput: {
@@ -44,5 +50,15 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   innerInput: {
     height: 35
+  },
+  filterBtnDiv: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginRight: spacing(2.7),
+    marginBottom: spacing(2)
+  },
+  filterBtn: {
+    textTransform: 'capitalize',
+    fontSize: 16
   }
 }));

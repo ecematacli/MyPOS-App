@@ -12,15 +12,21 @@ export default product => {
   const PRODUCT_FIELDS = [
     { label: 'Barcode', fieldId: 'barcode' },
     { label: 'Product Name', fieldId: 'name' },
-    { label: 'Quantity', fieldId: 'qty' },
-    { label: 'Price', fieldId: 'price', currency: true },
-    { label: 'Discounted Price', fieldId: 'discountPrice', currency: true },
+    { label: 'Quantity', fieldId: 'qty', type: 'number' },
+    { label: 'Price', fieldId: 'price', currency: true, type: 'number' },
+    {
+      label: 'Discounted Price',
+      fieldId: 'discountPrice',
+      currency: true,
+      type: 'number'
+    },
     { label: 'Variation', fieldId: 'variation' },
     {
       label: 'Tax Rate',
       fieldId: 'taxRate',
       dropdown: true,
-      dropdownItems: ['18', '8']
+      dropdownItems: ['18', '8'],
+      type: 'number'
     },
     { label: 'Sku', fieldId: 'sku' },
     {
@@ -37,8 +43,8 @@ export default product => {
     }
   ];
 
-  const handleEdittedRow = label => {
-    setEdittedRow({ ...edittedRow, [label]: !edittedRow[label] });
+  const handleEdittedRow = fieldId => {
+    setEdittedRow({ ...edittedRow, [fieldId]: !edittedRow[fieldId] });
   };
 
   const handleInputChange = (e, fieldId) => {

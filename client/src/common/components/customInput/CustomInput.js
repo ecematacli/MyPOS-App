@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   OutlinedInput,
   InputLabel,
@@ -7,7 +8,16 @@ import {
   MenuItem
 } from '@material-ui/core';
 
+const styles = makeStyles({
+  root: {
+    '&:focus': {
+      backgroundColor: 'transparent'
+    }
+  }
+});
+
 const CustomInput = props => {
+  const classes = styles();
   const {
     label,
     dropdown,
@@ -29,9 +39,10 @@ const CustomInput = props => {
           )}
           <FormControl variant="outlined" classes={classesProp.dropdownInput}>
             <Select
+              {...otherProps}
+              classes={{ root: classes.root }}
               color="secondary"
               labelId={label}
-              {...otherProps}
               input={<OutlinedInput classes={classesProp.innerInput} />}
             >
               {dropdownItems.map(item => (
@@ -46,8 +57,8 @@ const CustomInput = props => {
         <Fragment>
           {inputLabel && <InputLabel color="secondary">{label}</InputLabel>}
           <OutlinedInput
-            classes={!dropdown && classesProp}
             {...otherProps}
+            classes={!dropdown && classesProp}
             color="secondary"
             type={type}
           />

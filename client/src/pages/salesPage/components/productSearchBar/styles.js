@@ -25,5 +25,22 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
   },
   suggestionGroup: {
     display: 'flex'
+  },
+  searchBarInput: {
+    color: palette.secondary.main,
+    width: '95%'
+  },
+  inputRoot: {
+    '& .MuiOutlinedInput-root': {
+      paddingRight: spacing(2)
+    }
+  },
+  searchIconHolder: {
+    marginRight: -spacing(5.5)
+  },
+  quickAddIcon: {
+    fontSize: spacing(4.5),
+    color: palette.primary.main,
+    cursor: 'pointer'
   }
 }));

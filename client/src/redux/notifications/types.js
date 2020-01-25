@@ -1,0 +1,2 @@
+export const DISPLAY_ERROR = 'DISPLAY_ERROR';
+export const DISPLAY_SUCCESS = 'DISPLAY_ERROR';

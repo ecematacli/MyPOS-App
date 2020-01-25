@@ -6,7 +6,7 @@ const useSearchInput = addProduct => {
   const [open, setOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [noProduct, setNoProduct] = useState(false);
+  const [productNotFound, setProductNotFound] = useState(false);
 
   const onProductSelect = product => {
     addProduct(product);
@@ -20,14 +20,14 @@ const useSearchInput = addProduct => {
       setLoading(true);
       const response = await api.get(`/products?q=${query}`);
       setSearchResults(response.data);
-      response.data.length === 0 ? setNoProduct(true) : setNoProduct(false);
+      setProductNotFound(response.data.length === 0);
       setLoading(false);
       setOpen(true);
     };
 
     active && query && fetchProducts();
     if (!query) {
-      setNoProduct(false);
+      setProductNotFound(false);
     }
 
     return () => {
@@ -45,7 +45,7 @@ const useSearchInput = addProduct => {
     query,
     setQuery,
     onProductSelect,
-    noProduct
+    productNotFound
   };
 };
 

@@ -1,18 +1,21 @@
-import React, { Fragment } from 'react';
-import { useSnackbar } from 'notistack';
-import { Paper, Typography, IconButton, Card, Button } from '@material-ui/core';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Paper, Typography, IconButton, Card } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DoneIcon from '@material-ui/icons/Done';
-import CloseIcon from '@material-ui/icons/Close';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from './styles';
 import useProductDetails from './hooks/useProductDetails';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
+import {
+  displayErrorMsg,
+  displaySuccessMsg
+} from '../../../../redux/notifications/notificationsActions';
 // eslint-disable-next-line react/display-name
 const ProductDetails = props => {
   const classes = styles(props);
-  const { product } = props;
+  const { product, displaySuccessMsg, displayErrorMsg } = props;
 
   const {
     PRODUCT_FIELDS,
@@ -25,30 +28,12 @@ const ProductDetails = props => {
     dispatchEditAction
   } = useProductDetails(product);
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const action = key => (
-    <Fragment>
-      <Button
-        onClick={() => {
-          closeSnackbar(key);
-        }}
-      >
-        <CloseIcon />
-      </Button>
-    </Fragment>
-  );
-
-  const renderEditForm = (
-    fieldId,
-    label,
-    dropdown,
-    dropdownItems,
-    snackbarMessage
-  ) => (
+  const renderEditForm = (fieldId, label, dropdown, dropdownItems, type) => (
     <div className={classes.editFormContainer}>
       <CustomInput
         label={label}
         dropdown={dropdown}
+        type={type}
         classesProp={
           !dropdown
             ? {
@@ -69,13 +54,9 @@ const ProductDetails = props => {
           className={classes.iconButton}
           onClick={() => {
             dispatchEditAction(productVal[fieldId], fieldId, product.id);
-            enqueueSnackbar(snackbarMessage, {
-              variant: 'success',
-              autoHideDuration: 3000,
-              preventDuplicate: true,
-              action
-            });
-            handleEdittedRow(label);
+            displaySuccessMsg(`${label} has been updated successfully!`);
+            displayErrorMsg('Something went wrong!');
+            handleEdittedRow(fieldId);
           }}
         >
           <DoneIcon className={classes.detailActionBtnIcon} />
@@ -83,7 +64,7 @@ const ProductDetails = props => {
         <IconButton
           className={classes.iconButton}
           onClick={() => {
-            handleEdittedRow(label);
+            handleEdittedRow(fieldId);
           }}
         >
           <CancelIcon className={classes.detailActionBtnIcon} />
@@ -99,28 +80,23 @@ const ProductDetails = props => {
         fieldId,
         dropdown,
         dropdownItems,
-        currency
+        currency,
+        type
       } = productField;
-      const snackbarMessage = `"${label}" has been updated!" `;
+
       return (
         <div key={label} className={classes.productDetails}>
           <Typography>{label}: </Typography>
           <div className={classes.detailAction}>
-            {edittedRow[label] ? (
-              renderEditForm(
-                fieldId,
-                label,
-                dropdown,
-                dropdownItems,
-                snackbarMessage
-              )
+            {edittedRow[fieldId] ? (
+              renderEditForm(fieldId, label, dropdown, dropdownItems)
             ) : (
               <>
                 {currency && <div>&#x20BA;</div>}
                 <Typography>{productVal[fieldId]}</Typography>
                 <div
                   onClick={() => {
-                    handleEdittedRow(label);
+                    handleEdittedRow(fieldId);
                   }}
                   className={classes.editIcon}
                 >
@@ -149,4 +125,7 @@ const ProductDetails = props => {
   );
 };
 
-export default ProductDetails;
+export default connect(null, {
+  displayErrorMsg,
+  displaySuccessMsg
+})(ProductDetails);

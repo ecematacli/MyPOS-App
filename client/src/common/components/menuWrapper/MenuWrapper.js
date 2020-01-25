@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, Fragment } from 'react';
 import clsx from 'clsx';
 import {
   CssBaseline,
@@ -24,6 +24,7 @@ import styles from './styles';
 import logo from '../../../assets/img/app-logo.png';
 import drawerItemList from './drawerItemList';
 import history from '../../../history/history';
+import Notifications from '../notifications/Notifications';
 import {
   AuthContext,
   AuthTokenSettingContext
@@ -85,7 +86,7 @@ const MenuWrapper = ({ container, children }) => {
   };
 
   const drawer = (
-    <React.Fragment>
+    <Fragment>
       <List className={classes.drawerListItems}>
         <ListItem>
           <div className={classes.logoWrapper}>
@@ -141,13 +142,13 @@ const MenuWrapper = ({ container, children }) => {
           );
         })}
       </List>
-    </React.Fragment>
+    </Fragment>
   );
   return (
     <div className={classes.drawerRoot}>
       <CssBaseline />
       {authenticated ? (
-        <React.Fragment>
+        <Fragment>
           <AppBar
             classes={{ root: classes.appBarRoot }}
             className={classes.appBar}
@@ -194,9 +195,10 @@ const MenuWrapper = ({ container, children }) => {
               </Drawer>
             </Hidden>
           </nav>
-        </React.Fragment>
+        </Fragment>
       ) : null}
       <main className={classes.content}>{children}</main>
+      <Notifications />
     </div>
   );
 };

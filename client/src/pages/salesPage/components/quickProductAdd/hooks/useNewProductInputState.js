@@ -17,7 +17,12 @@ export default () => {
     }
   );
 
+  // console.log(userInput.barcode, userInput.name, userInput.qty);
+  // console.log(userInput.taxRate, userInput.brand, userInput.category);
+
   const handleInputChange = e => {
+    console.log('HANDLE INPUT CHANGE CALLBACK!!!!!!!!!!');
+    console.log(e.target.name);
     const fieldName = e.target.name;
     const newValue = e.target.value;
     setUserInput({ [fieldName]: newValue });

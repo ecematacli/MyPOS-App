@@ -10,21 +10,15 @@ import {
   DialogContent,
   DialogTitle
 } from '@material-ui/core';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
-import useQuickAddState from './hooks/useQuickAddState';
 import useNewProductInputState from './hooks/useNewProductInputState';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 
-const QuickProductAdd = () => {
+const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {
   const classes = styles();
-  const {
-    handleOpenDialog,
-    openDialog,
-    handleCloseDialog
-  } = useQuickAddState();
+
   const { NEW_PRODUCT_FIELDS, handleInputChange } = useNewProductInputState();
 
   const renderAdditionalFields = () => {
@@ -50,7 +44,6 @@ const QuickProductAdd = () => {
               }
               return (
                 <CustomInput
-                  inputType="quickAddInput"
                   name={fieldId}
                   value={value}
                   onChange={handleInputChange}
@@ -61,7 +54,7 @@ const QuickProductAdd = () => {
                     dropdownInput: { root: classes.dropdownInput }
                   }}
                   dropdownItems={dropdownItems}
-                  inputLabel={true}
+                  inputLabel
                 />
               );
             }
@@ -81,14 +74,7 @@ const QuickProductAdd = () => {
         <DialogTitle className={classes.dialogTitle}>Add a Product</DialogTitle>
         <DialogContent>
           {NEW_PRODUCT_FIELDS.map(
-            ({
-              label,
-              dropdown,
-              dropdownItems,
-              fieldId,
-              value,
-              additionalField
-            }) => {
+            ({ label, fieldId, value, additionalField }) => {
               if (additionalField) {
                 return;
               }
@@ -99,8 +85,6 @@ const QuickProductAdd = () => {
                   onChange={handleInputChange}
                   key={label}
                   label={label}
-                  dropdown={dropdown}
-                  dropdownItems={dropdownItems}
                   inputLabel={true}
                   classesProp={{
                     root: classes.input
@@ -123,14 +107,7 @@ const QuickProductAdd = () => {
     );
   };
 
-  return (
-    <Fragment>
-      <div onClick={handleOpenDialog}>
-        <AddCircleIcon className={classes.quickAddIcon} />
-      </div>
-      {renderDialog()}
-    </Fragment>
-  );
+  return <Fragment>{renderDialog()}</Fragment>;
 };
 
 export default QuickProductAdd;
