@@ -13,8 +13,8 @@ export const fetchProducts = (page = 1, rowsPerPage = 10) => async dispatch => {
 };
 
 export const editProduct = (
-  productVal,
   fieldId,
+  productVal,
   productId
 ) => async dispatch => {
   const response = await api.patch(`/products/${productId}`, {

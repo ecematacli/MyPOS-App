@@ -8,12 +8,12 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, { type, payload }) => {
   switch (type) {
     case DISPLAY_SUCCESS:
-      console.log('DISPLAY SUCCESS');
+      // console.log('DISPLAY SUCCESS');
       return {
         success: payload
       };
     case DISPLAY_ERROR:
-      console.log('DISPLAY ERROR');
+      // console.log('DISPLAY ERROR');
       return {
         error: payload
       };

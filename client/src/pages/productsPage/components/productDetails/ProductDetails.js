@@ -25,7 +25,8 @@ const ProductDetails = props => {
     productVal,
     handleInputChange,
     enabledEdit,
-    dispatchEditAction
+    dispatchEditAction,
+    completeEdit
   } = useProductDetails(product);
 
   const renderEditForm = (fieldId, label, dropdown, dropdownItems, type) => (
@@ -53,7 +54,7 @@ const ProductDetails = props => {
         <IconButton
           className={classes.iconButton}
           onClick={() => {
-            dispatchEditAction(productVal[fieldId], fieldId, product.id);
+            completeEdit(fieldId, productVal[fieldId], product.id);
             displaySuccessMsg(`${label} has been updated successfully!`);
             displayErrorMsg('Something went wrong!');
             handleEdittedRow(fieldId);
@@ -83,13 +84,12 @@ const ProductDetails = props => {
         currency,
         type
       } = productField;
-
       return (
         <div key={label} className={classes.productDetails}>
           <Typography>{label}: </Typography>
           <div className={classes.detailAction}>
             {edittedRow[fieldId] ? (
-              renderEditForm(fieldId, label, dropdown, dropdownItems)
+              renderEditForm(fieldId, label, dropdown, dropdownItems, type)
             ) : (
               <>
                 {currency && <div>&#x20BA;</div>}
@@ -112,8 +112,8 @@ const ProductDetails = props => {
 
   return (
     <Paper className={classes.productDetailsContainer}>
-      <div className={classes.cardHead}>
-        <Typography color="secondary" className={classes.cardTitle}>
+      <div className={classes.paperHead}>
+        <Typography color="secondary" className={classes.paperTitle}>
           Details
         </Typography>
         <IconButton className={classes.iconButton} onClick={handleEditClick}>

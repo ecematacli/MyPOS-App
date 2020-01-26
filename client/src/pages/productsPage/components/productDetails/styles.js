@@ -27,7 +27,7 @@ export default makeStyles(({ spacing, palette }) => ({
     border: `1px solid ${palette.secondary.light}`,
     marginBottom: 15
   },
-  cardHead: {
+  paperHead: {
     borderRadius: 3,
     width: '65%',
     height: 65,
@@ -38,6 +38,11 @@ export default makeStyles(({ spacing, palette }) => ({
     zIndex: '3 !important',
     background: ({ rowIndex }) =>
       rowIndex % 2 ? `${palette.grayColors[10]}` : `${palette.greenColors[6]}`
+  },
+  paperTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: palette.secondary.dark
   },
   productDetails: {
     display: 'flex',
@@ -50,11 +55,6 @@ export default makeStyles(({ spacing, palette }) => ({
     paddingBottom: spacing(1),
     margin: spacing(1),
     color: palette.secondary.main
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: palette.secondary.dark
   },
   editIcon: {
     marginLeft: spacing(2),

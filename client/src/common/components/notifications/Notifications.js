@@ -13,8 +13,8 @@ import Alert from '@material-ui/lab/Alert';
 
 const Notifications = ({ errorMsg, successMsg }) => {
   // const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  console.log('error msg is:', errorMsg);
-  console.log('success msg is:', successMsg);
+  // console.log('error msg is:', errorMsg);
+  // console.log('success msg is:', successMsg);
 
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);

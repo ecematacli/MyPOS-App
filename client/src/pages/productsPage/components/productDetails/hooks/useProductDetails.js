@@ -61,10 +61,16 @@ export default product => {
   };
 
   const dispatchEditAction = useCallback(
-    (productVal, fieldId, productId) =>
-      dispatch(editProduct(productVal, fieldId, productId)),
+    (fieldId, fieldValue, productId) =>
+      dispatch(editProduct(fieldId, fieldValue, productId)),
     [dispatch]
   );
+
+  const completeEdit = (fieldId, fieldValue, productId) => {
+    if (product[fieldId] !== productVal[fieldId]) {
+      dispatchEditAction(fieldId, fieldValue, productId);
+    }
+  };
 
   return {
     PRODUCT_FIELDS,
@@ -74,6 +80,7 @@ export default product => {
     productVal,
     handleInputChange,
     enabledEdit,
-    dispatchEditAction
+    dispatchEditAction,
+    completeEdit
   };
 };
