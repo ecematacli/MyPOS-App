@@ -55,7 +55,7 @@ const PosTableRight = ({
 }) => {
   const classes = styles();
 
-  const tableHead = () => {
+  const renderTableHead = () => {
     return TABLE_HEAD.map(({ label, numeric }) => {
       return (
         <TableCell key={label} align={numeric ? 'right' : 'left'}>
@@ -65,7 +65,7 @@ const PosTableRight = ({
     });
   };
 
-  const tableBody = () => {
+  const renderTableBody = () => {
     return products.map(product => {
       const { id, name, qty, price, discountPrice } = product;
       return (
@@ -108,63 +108,67 @@ const PosTableRight = ({
     });
   };
 
+  const renderTotalSection = () => (
+    <Fragment>
+      <div className={classes.totalSection}>
+        <Typography>Sub-Total</Typography>
+        <Typography>{currencyFormatter(total - tax)}</Typography>
+      </div>
+      <div className={classes.totalSection}>
+        <Typography>Tax</Typography>
+        <Typography>{currencyFormatter(tax)}</Typography>
+      </div>
+      <div className={classes.totalSection}>
+        <Typography>Discount</Typography>
+        <CustomInput
+          classesProp={{
+            root: classes.discountInput,
+            focused: classes.fieldInput,
+            notchedOutline: classes.notchedOutline
+          }}
+          inputProps={{ style: { textAlign: 'right' } }}
+          value={discount}
+          onChange={handleDiscountChange}
+          startAdornment={
+            <InputAdornment position="start">&#x20BA;</InputAdornment>
+          }
+        />
+      </div>
+      <Divider className={classes.totalDivider} />
+      <div className={clsx(classes.totalSection, classes.totalAmount)}>
+        <Typography>Total</Typography>
+        <Typography>{currencyFormatter(total - discount)}</Typography>
+      </div>
+      <div className={classes.paymentBtnContainer}>
+        <CustomButton fullWidth>
+          <div
+            onClick={() => createSale(products, total, discount)}
+            className={classes.paymentBtnTextHolder}
+          >
+            <Typography className={classes.paymentBtnTxt}>
+              Complete Payment
+            </Typography>
+            <Typography className={classes.paymentBtnTxt}>
+              {currencyFormatter(total - discount)}
+            </Typography>
+          </div>
+        </CustomButton>
+      </div>
+    </Fragment>
+  );
+
   return (
     <Paper className={classes.paperRoot}>
       <div className={classes.tableWrapper}>
         <Table classes={{ root: classes.tableContent }} size="medium">
           <TableHead>
-            <TableRow>{tableHead()}</TableRow>
+            <TableRow>{renderTableHead()}</TableRow>
           </TableHead>
-          <TableBody>{tableBody()}</TableBody>
+          <TableBody>{renderTableBody()}</TableBody>
         </Table>
       </div>
       <Divider className={classes.totalDivider} />
-      <Fragment>
-        <div className={classes.totalSection}>
-          <Typography>Sub-Total</Typography>
-          <Typography>{currencyFormatter(total - tax)}</Typography>
-        </div>
-        <div className={classes.totalSection}>
-          <Typography>Tax</Typography>
-          <Typography>{currencyFormatter(tax)}</Typography>
-        </div>
-        <div className={classes.totalSection}>
-          <Typography>Discount</Typography>
-          <CustomInput
-            classesProp={{
-              root: classes.discountInput,
-              focused: classes.fieldInput,
-              notchedOutline: classes.notchedOutline
-            }}
-            inputProps={{ style: { textAlign: 'right' } }}
-            value={discount}
-            onChange={handleDiscountChange}
-            startAdornment={
-              <InputAdornment position="start">&#x20BA;</InputAdornment>
-            }
-          />
-        </div>
-        <Divider className={classes.totalDivider} />
-        <div className={clsx(classes.totalSection, classes.totalAmount)}>
-          <Typography>Total</Typography>
-          <Typography>{currencyFormatter(total - discount)}</Typography>
-        </div>
-        <div className={classes.paymentBtnContainer}>
-          <CustomButton fullWidth>
-            <div
-              onClick={() => createSale(products, total, discount)}
-              className={classes.paymentBtnTextHolder}
-            >
-              <Typography className={classes.paymentBtnTxt}>
-                Complete Payment
-              </Typography>
-              <Typography className={classes.paymentBtnTxt}>
-                {currencyFormatter(total - discount)}
-              </Typography>
-            </div>
-          </CustomButton>
-        </div>
-      </Fragment>
+      {renderTotalSection()}
     </Paper>
   );
 };

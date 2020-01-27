@@ -7,4 +7,4 @@ export default axios.create({
   }
 });
 
-// 'http://stockmanagementservicedev.pkupag2y6m.eu-central-1.elasticbeanstalk.com/',
+// 'http://stockmanagementservicedev.pkupag2y6m.eu-central-1.elasticbeanstalk.com/'

@@ -6,16 +6,14 @@ import useInputState from '../../../common/hooks/useInputState';
 
 export default () => {
   const { saveAuthToken } = useContext(AuthTokenSettingContext);
-  const [isError, setIsError] = useState(false);
-  const [email, setEmail, resetEmail] = useInputState('');
-  const [password, setPassword, resetPassword] = useInputState('');
+  // const [isError, setIsError] = useState(false);
+  // const [email, setEmail, resetEmail] = useInputState('');
+  // const [password, setPassword, resetPassword] = useInputState('');
 
-  const postSignInForm = async () => {
+  const postSignInForm = async userCredentials => {
+    console.log(userCredentials);
     let active = true;
-    const response = await api.post('/login', {
-      email,
-      password
-    });
+    const response = await api.post('/login', userCredentials);
 
     try {
       if (response) {
@@ -24,7 +22,7 @@ export default () => {
         active && saveAuthToken();
       }
     } catch (e) {
-      active && setIsError(true);
+      // active && setIsError(true);
     }
     return () => {
       active = false;
@@ -32,13 +30,13 @@ export default () => {
   };
 
   return {
-    email,
-    password,
-    setEmail,
-    setPassword,
-    resetEmail,
-    resetPassword,
-    isError,
+    // email,
+    // password,
+    // setEmail,
+    // setPassword,
+    // resetEmail,
+    // resetPassword,
+    // isError,
     postSignInForm
   };
 };

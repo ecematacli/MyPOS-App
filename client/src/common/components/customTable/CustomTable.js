@@ -9,7 +9,6 @@ import {
   TableRow,
   TablePagination,
   Collapse,
-  CircularProgress,
   TableSortLabel
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';

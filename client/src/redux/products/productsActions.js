@@ -1,5 +1,5 @@
 import api from '../../api/api';
-import { FETCH_PRODUCTS, EDIT_PRODUCT } from './types';
+import { FETCH_PRODUCTS, EDIT_PRODUCT, CREATE_PRODUCT } from './types';
 
 export const fetchProducts = (page = 1, rowsPerPage = 10) => async dispatch => {
   const response = await api.get(
@@ -17,12 +17,21 @@ export const editProduct = (
   productVal,
   productId
 ) => async dispatch => {
-  const response = await api.patch(`/products/${productId}`, {
+  const response = await api.patch(`/products/${productId}/`, {
     [fieldId]: productVal
   });
 
   dispatch({
     type: EDIT_PRODUCT,
+    payload: response.data
+  });
+};
+
+export const createProduct = product => async dispatch => {
+  const response = await api.post('/products', product);
+
+  dispatch({
+    type: CREATE_PRODUCT,
     payload: response.data
   });
 };

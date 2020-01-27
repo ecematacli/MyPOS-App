@@ -11,6 +11,7 @@ export const AuthContextProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(initialVal);
 
   const saveAuthToken = (data = null) => {
+    console.log(data);
     localStorage.setItem('token', JSON.stringify(data));
     setAuthToken(data);
   };

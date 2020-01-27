@@ -1,4 +1,4 @@
-import { FETCH_PRODUCTS, EDIT_PRODUCT } from './types';
+import { FETCH_PRODUCTS, EDIT_PRODUCT, CREATE_PRODUCT } from './types';
 
 const initialState = {
   count: 0,
@@ -24,6 +24,14 @@ export default (state = initialState, { type, payload }) => {
       };
     }
     case EDIT_PRODUCT:
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          [payload.id]: payload
+        }
+      };
+    case CREATE_PRODUCT:
       return {
         ...state,
         products: {

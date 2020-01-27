@@ -24,7 +24,6 @@ export default makeStyles(({ spacing, palette }) => ({
     '& > th': {
       borderBottom: 'none',
       paddingBottom: 6,
-      fontWeight: 600,
       color: palette.grayColors[7]
     }
   },

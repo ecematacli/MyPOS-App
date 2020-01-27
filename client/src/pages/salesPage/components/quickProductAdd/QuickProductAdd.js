@@ -19,7 +19,11 @@ import CustomInput from '../../../../common/components/customInput/CustomInput';
 const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {
   const classes = styles();
 
-  const { NEW_PRODUCT_FIELDS, handleInputChange } = useNewProductInputState();
+  const {
+    NEW_PRODUCT_FIELDS,
+    handleInputChange,
+    onAddProductClick
+  } = useNewProductInputState();
 
   const renderAdditionalFields = () => {
     return (
@@ -37,7 +41,8 @@ const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {
               dropdownItems,
               fieldId,
               value,
-              additionalField
+              additionalField,
+              type
             }) => {
               if (!additionalField) {
                 return;
@@ -48,6 +53,7 @@ const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {
                   value={value}
                   onChange={handleInputChange}
                   key={label}
+                  type={type}
                   label={label}
                   dropdown={dropdown}
                   classesProp={{
@@ -70,39 +76,44 @@ const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {
         classes={{ paper: classes.dialogPaper }}
         open={openDialog}
         onClose={handleCloseDialog}
+        disableBackdropClick
       >
         <DialogTitle className={classes.dialogTitle}>Add a Product</DialogTitle>
-        <DialogContent>
-          {NEW_PRODUCT_FIELDS.map(
-            ({ label, fieldId, value, additionalField }) => {
-              if (additionalField) {
-                return;
+        <form onSubmit={() => console.log('submitted!')}>
+          <DialogContent>
+            {NEW_PRODUCT_FIELDS.map(
+              ({ label, fieldId, value, additionalField, type, required }) => {
+                if (additionalField) {
+                  return;
+                }
+                return (
+                  <CustomInput
+                    name={fieldId}
+                    value={value}
+                    onChange={handleInputChange}
+                    key={label}
+                    label={label}
+                    type={type}
+                    inputLabel
+                    required
+                    classesProp={{
+                      root: classes.input
+                    }}
+                  />
+                );
               }
-              return (
-                <CustomInput
-                  name={fieldId}
-                  value={value}
-                  onChange={handleInputChange}
-                  key={label}
-                  label={label}
-                  inputLabel={true}
-                  classesProp={{
-                    root: classes.input
-                  }}
-                />
-              );
-            }
-          )}
-        </DialogContent>
-        <div>{renderAdditionalFields()}</div>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="secondary">
-            Cancel
-          </Button>
-          <Button onClick={handleCloseDialog} color="primary">
-            Add Product
-          </Button>
-        </DialogActions>
+            )}
+          </DialogContent>
+          <div>{renderAdditionalFields()}</div>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={onAddProductClick} color="primary">
+              Add Product
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     );
   };

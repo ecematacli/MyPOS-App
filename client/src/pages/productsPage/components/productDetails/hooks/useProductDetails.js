@@ -13,12 +13,11 @@ export default product => {
     { label: 'Barcode', fieldId: 'barcode' },
     { label: 'Product Name', fieldId: 'name' },
     { label: 'Quantity', fieldId: 'qty', type: 'number' },
-    { label: 'Price', fieldId: 'price', currency: true, type: 'number' },
+    { label: 'Price', fieldId: 'price', currency: true },
     {
       label: 'Discounted Price',
       fieldId: 'discountPrice',
-      currency: true,
-      type: 'number'
+      currency: true
     },
     { label: 'Variation', fieldId: 'variation' },
     {

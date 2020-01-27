@@ -25,6 +25,7 @@ const CustomInput = props => {
     inputLabel,
     classesProp,
     type = 'text',
+    required,
     ...otherProps
   } = props;
 
@@ -61,6 +62,7 @@ const CustomInput = props => {
             classes={!dropdown && classesProp}
             color="secondary"
             type={type}
+            required
           />
         </Fragment>
       )}

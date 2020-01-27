@@ -12,6 +12,7 @@ import {
   displayErrorMsg,
   displaySuccessMsg
 } from '../../../../redux/notifications/notificationsActions';
+import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
 // eslint-disable-next-line react/display-name
 const ProductDetails = props => {
   const classes = styles(props);
@@ -25,7 +26,6 @@ const ProductDetails = props => {
     productVal,
     handleInputChange,
     enabledEdit,
-    dispatchEditAction,
     completeEdit
   } = useProductDetails(product);
 
@@ -46,7 +46,11 @@ const ProductDetails = props => {
               }
         }
         dropdownItems={dropdownItems}
-        value={productVal[fieldId]}
+        value={
+          fieldId === 'price' || fieldId === 'discountPrice'
+            ? currencyFormatter(productVal[fieldId])
+            : productVal[fieldId]
+        }
         onChange={e => handleInputChange(e, fieldId)}
         color="secondary"
       />
