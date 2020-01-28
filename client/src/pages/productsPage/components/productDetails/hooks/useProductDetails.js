@@ -1,10 +1,12 @@
-import { useState, useCallback } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { editProduct } from '../../../../../redux/products/productsActions';
+import { NotificationsContext } from '../../../../../contexts/NotificationsContext';
 
 export default product => {
   const dispatch = useDispatch();
+  const { addNotification } = useContext(NotificationsContext);
   const [edittedRow, setEdittedRow] = useState({});
   const [productVal, setProductVal] = useState(product);
   const [enabledEdit, setEnabledEdit] = useState(false);
@@ -60,14 +62,13 @@ export default product => {
   };
 
   const dispatchEditAction = useCallback(
-    (fieldId, fieldValue, productId) =>
-      dispatch(editProduct(fieldId, fieldValue, productId)),
+    (...args) => dispatch(editProduct(...args, addNotification)),
     [dispatch]
   );
 
-  const completeEdit = (fieldId, fieldValue, productId) => {
+  const completeEdit = (fieldId, fieldValue, productId, label) => {
     if (product[fieldId] !== productVal[fieldId]) {
-      dispatchEditAction(fieldId, fieldValue, productId);
+      dispatchEditAction(fieldId, fieldValue, productId, label);
     }
   };
 

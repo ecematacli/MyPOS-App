@@ -24,5 +24,8 @@ export default makeStyles(({ spacing, palette }) => ({
     fontSize: spacing(2),
     fontWeight: 'bold',
     textTransform: 'capitalize'
+  },
+  notchedOutline: {
+    borderColor: palette.error.main
   }
 }));

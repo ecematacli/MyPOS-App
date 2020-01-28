@@ -1,17 +1,18 @@
-import { useReducer } from 'react';
+import { useReducer, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { NotificationsContext } from '../../../../../contexts/NotificationsContext';
 import { createProduct } from '../../../../../redux/products/productsActions';
-import { currencyFormatter } from '../../../../../common/utils/currencyFormatter';
 
 export default () => {
+  const { addNotification } = useContext(NotificationsContext);
   const dispatch = useDispatch();
   const [userInputs, setUserInputs] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
       barcode: '',
       name: '',
-      qty: '1',
+      qty: 1,
       sku: '',
       price: 0,
       taxRate: 18,
@@ -21,8 +22,6 @@ export default () => {
       brand: ''
     }
   );
-
-  console.log(parseInt(userInputs.price));
 
   const NEW_PRODUCT_FIELDS = [
     {
@@ -42,14 +41,14 @@ export default () => {
       label: 'Price (required*)',
       fieldId: 'price',
       currency: true,
-      value: currencyFormatter(userInputs.price),
+      value: userInputs.price,
       required: true
     },
     {
       label: 'Discounted Price',
       fieldId: 'discountPrice',
       currency: true,
-      value: currencyFormatter(userInputs.discountPrice)
+      value: userInputs.discountPrice
     },
     { label: 'Variation', fieldId: 'variation', value: userInputs.variation },
     {
@@ -80,12 +79,9 @@ export default () => {
     }
   ];
 
-  console.log(userInputs);
-
-  const handleInputChange = e => {
-    // console.log(e.target.name);
-    const fieldName = e.target.name;
-    let newValue = e.target.value;
+  const handleInputChange = ({ target: { value, name } }) => {
+    const fieldName = name;
+    const newValue = value;
 
     if (
       fieldName === 'taxRate' ||
@@ -93,16 +89,21 @@ export default () => {
       fieldName === 'price' ||
       fieldName === 'discountPrice'
     ) {
-      newValue = parseInt(newValue);
+      const value = parseInt(newValue);
+      console.log('newValue is:', newValue);
+      console.log('value is:', value);
+      console.log('-----------');
+
+      setUserInputs({ [fieldName]: isNaN(value) ? 0 : value });
     }
 
-    console.log(newValue);
+    console.log('tax rate:', userInputs.taxRate, 'price:', userInputs.price);
 
     setUserInputs({ [fieldName]: newValue });
   };
 
   const onAddProductClick = () => {
-    dispatch(createProduct(userInputs));
+    dispatch(createProduct(userInputs, addNotification));
   };
 
   return {

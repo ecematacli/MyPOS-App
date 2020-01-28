@@ -10,7 +10,6 @@ import {
   Paper,
   Divider,
   Typography,
-  OutlinedInput,
   InputAdornment,
   IconButton
 } from '@material-ui/core';

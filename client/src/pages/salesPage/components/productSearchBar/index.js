@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -33,7 +33,7 @@ const ProductSearchbar = ({ addProduct }) => {
   } = useProductDialogState();
 
   return (
-    <>
+    <Fragment>
       <Autocomplete
         id="asynchronous-demo"
         open={open}
@@ -123,7 +123,7 @@ const ProductSearchbar = ({ addProduct }) => {
         handleCloseDialog={handleCloseDialog}
         handleOpenDialog={handleOpenDialog}
       />
-    </>
+    </Fragment>
   );
 };
 

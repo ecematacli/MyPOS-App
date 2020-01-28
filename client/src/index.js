@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import App from './App';
 import reducers from './redux';
 import { AuthContextProvider } from './contexts/AuthContext';
+import { NotificationsProvider } from './contexts/NotificationsContext';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
@@ -14,7 +15,9 @@ const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 ReactDOM.render(
   <Provider store={store}>
     <AuthContextProvider>
-      <App />
+      <NotificationsProvider>
+        <App />
+      </NotificationsProvider>
     </AuthContextProvider>
   </Provider>,
   document.getElementById('root')

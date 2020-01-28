@@ -15,23 +15,36 @@ export const fetchProducts = (page = 1, rowsPerPage = 10) => async dispatch => {
 export const editProduct = (
   fieldId,
   productVal,
-  productId
+  productId,
+  label,
+  addNotification
 ) => async dispatch => {
-  const response = await api.patch(`/products/${productId}/`, {
-    [fieldId]: productVal
-  });
+  try {
+    const response = await api.patch(`/products/${productId}/`, {
+      [fieldId]: productVal
+    });
 
-  dispatch({
-    type: EDIT_PRODUCT,
-    payload: response.data
-  });
+    dispatch({
+      type: EDIT_PRODUCT,
+      payload: response.data
+    });
+    addNotification(`${label} has been successfully updated`, 'success');
+  } catch (e) {
+    addNotification(`${label} could not be updated!`, 'error');
+  }
 };
 
-export const createProduct = product => async dispatch => {
-  const response = await api.post('/products', product);
+export const createProduct = (product, addNotification) => async dispatch => {
+  try {
+    const response = await api.post('/products', product);
 
-  dispatch({
-    type: CREATE_PRODUCT,
-    payload: response.data
-  });
+    addNotification('Product has been created successfully', 'success');
+
+    dispatch({
+      type: CREATE_PRODUCT,
+      payload: response.data
+    });
+  } catch (e) {
+    addNotification('Product could not be created!', 'error');
+  }
 };

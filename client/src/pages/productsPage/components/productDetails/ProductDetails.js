@@ -1,22 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Paper, Typography, IconButton, Card } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DoneIcon from '@material-ui/icons/Done';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from './styles';
+import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
 import useProductDetails from './hooks/useProductDetails';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
-import {
-  displayErrorMsg,
-  displaySuccessMsg
-} from '../../../../redux/notifications/notificationsActions';
-import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
 // eslint-disable-next-line react/display-name
 const ProductDetails = props => {
   const classes = styles(props);
-  const { product, displaySuccessMsg, displayErrorMsg } = props;
+  const { product } = props;
 
   const {
     PRODUCT_FIELDS,
@@ -58,9 +53,7 @@ const ProductDetails = props => {
         <IconButton
           className={classes.iconButton}
           onClick={() => {
-            completeEdit(fieldId, productVal[fieldId], product.id);
-            displaySuccessMsg(`${label} has been updated successfully!`);
-            displayErrorMsg('Something went wrong!');
+            completeEdit(fieldId, productVal[fieldId], product.id, label);
             handleEdittedRow(fieldId);
           }}
         >
@@ -129,7 +122,4 @@ const ProductDetails = props => {
   );
 };
 
-export default connect(null, {
-  displayErrorMsg,
-  displaySuccessMsg
-})(ProductDetails);
+export default ProductDetails;

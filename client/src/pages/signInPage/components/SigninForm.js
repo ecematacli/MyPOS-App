@@ -4,16 +4,20 @@ import { TextField, Typography } from '@material-ui/core';
 import styles from './styles';
 import CustomButton from '../../../common/components/customButton/CustomButton';
 
-export const SigninInputs = props => {
-  console.log(props);
-  const {
-    values: { email, password },
-    handleChange,
-    handleSubmit,
-    errors,
-    touched
-  } = props;
-  const classes = styles(props);
+export const SigninInputs = ({
+  values: { email, password },
+  handleChange,
+  handleSubmit,
+  errors,
+  touched
+}) => {
+  const classes = styles();
+
+  const inputClasses = {
+    classes: {
+      notchedOutline: classes.notchedOutline
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit} className={classes.signInForm}>
@@ -24,6 +28,7 @@ export const SigninInputs = props => {
         className={classes.signInFields}
         value={email}
         onChange={handleChange}
+        InputProps={errors.email && inputClasses}
         name="email"
         type="email"
       />
@@ -38,6 +43,7 @@ export const SigninInputs = props => {
         style={{ marginBottom: 25 }}
         value={password}
         onChange={handleChange}
+        InputProps={errors.password && inputClasses}
         name="password"
         type="password"
       />

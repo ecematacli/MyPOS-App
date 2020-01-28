@@ -14,6 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
 import useNewProductInputState from './hooks/useNewProductInputState';
+import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 
 const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {
@@ -89,7 +90,11 @@ const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {
                 return (
                   <CustomInput
                     name={fieldId}
-                    value={value}
+                    value={
+                      fieldId === 'price' || fieldId === 'discountPrice'
+                        ? currencyFormatter(value)
+                        : value
+                    }
                     onChange={handleInputChange}
                     key={label}
                     label={label}
