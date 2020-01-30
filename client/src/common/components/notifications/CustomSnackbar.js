@@ -7,7 +7,7 @@ const TransitionLeft = props => <Slide {...props} direction="left" />;
 const CustomSnackbar = ({ open, handleClose, snackbarContent, severity }) => (
   <Snackbar
     open={open}
-    autoHideDuration={3500}
+    autoHideDuration={3000}
     TransitionComponent={TransitionLeft}
     onClose={(e, reason) => {
       if (reason !== 'clickaway') {

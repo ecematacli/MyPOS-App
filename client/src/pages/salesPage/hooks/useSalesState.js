@@ -20,19 +20,6 @@ const defaultState = [
     variation: 'Ergonomic',
     brand: 'Adidas',
     category: 'Tenis Ayakkabisi'
-  },
-  {
-    id: 80000000,
-    barcode: 941538658246,
-    name: 'Intelligent Metal Shirt',
-    qty: 1,
-    sku: 397623780,
-    price: 100,
-    taxRate: 8,
-    discountPrice: 50,
-    variation: 'Ergonomic',
-    brand: 'Nike',
-    category: 'Tenis Ayakkabisi'
   }
 ];
 
@@ -94,13 +81,13 @@ const productsReducer = (state, { type, payload }) => {
 export default () => {
   const [products, dispatch] = useProductsLocalStorage(
     'products',
-    defaultState,
+    [],
     productsReducer
   );
 
   const [total, setTotal] = useState(0);
   const [tax, setTax] = useState(0);
-  const [discount, setDiscount] = useState(0);
+  const [discount, setDiscount] = useState('');
 
   const addProduct = product => {
     dispatch({
@@ -138,8 +125,7 @@ export default () => {
 
   // Total section
   const handleDiscountChange = ({ target: { value } }) => {
-    const numVal = parseInt(value);
-    setDiscount(isNaN(numVal) ? 0 : numVal);
+    setDiscount(isNaN(value) ? 0 : value);
   };
 
   useEffect(() => {

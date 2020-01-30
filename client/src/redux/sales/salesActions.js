@@ -1,17 +1,18 @@
 import api from '../../api/api';
 import { CREATE_SALE, FETCH_SALES } from './types';
 
-export const createSale = (products, total, discount) => async dispatch => {
-  const totalQty = () => {
-    return products.reduce((acc, curr) => {
-      return acc + curr.qty;
-    }, 0);
-  };
-
+export const completeSale = (products, total, discount) => async dispatch => {
+  console.log('products:', products, 'total:', total, 'discount:', discount);
+  console.log({
+    products,
+    total: total - parseFloat(discount),
+    discount: parseFloat(discount)
+    // totalQty: totalQty()
+  });
   const response = await api.post('/sales', {
     products,
-    total: (total - discount).toString(),
-    discount: discount.toString()
+    total: total - parseFloat(discount),
+    discount: parseFloat(discount)
     // totalQty: totalQty()
   });
 

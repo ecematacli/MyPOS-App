@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import clsx from 'clsx';
 import {
   TableContainer,
@@ -82,7 +82,7 @@ const CustomTable = ({
       return sales.map((sale, i) => {
         const { id, createdAt } = sale;
         return (
-          <React.Fragment key={id}>
+          <Fragment key={id}>
             <TableRow
               className={clsx(
                 classes.tableBodyRow,
@@ -126,7 +126,7 @@ const CustomTable = ({
                 </TableCell>
               </TableRow>
             ) : null}
-          </React.Fragment>
+          </Fragment>
         );
       });
     }
@@ -143,7 +143,7 @@ const CustomTable = ({
           discountPrice
         } = product;
         return (
-          <React.Fragment key={id}>
+          <Fragment key={id}>
             <TableRow
               className={clsx(
                 classes.tableBodyRow,
@@ -191,7 +191,7 @@ const CustomTable = ({
                 </TableCell>
               </TableRow>
             ) : null}
-          </React.Fragment>
+          </Fragment>
         );
       });
     }

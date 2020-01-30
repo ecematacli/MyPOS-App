@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
 import clsx from 'clsx';
 import {
   Table,
@@ -16,7 +15,6 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
-import { createSale } from '../../../../redux/sales/salesActions';
 import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import CustomButton from '../../../../common/components/customButton/CustomButton';
@@ -50,7 +48,7 @@ const PosTableRight = ({
   tax,
   discount,
   handleDiscountChange,
-  createSale
+  completeSale
 }) => {
   const classes = styles();
 
@@ -65,6 +63,7 @@ const PosTableRight = ({
   };
 
   const renderTableBody = () => {
+    console.log(products);
     return products.map(product => {
       const { id, name, qty, price, discountPrice } = product;
       return (
@@ -141,7 +140,7 @@ const PosTableRight = ({
       <div className={classes.paymentBtnContainer}>
         <CustomButton fullWidth>
           <div
-            onClick={() => createSale(products, total, discount)}
+            onClick={() => completeSale(products, total, discount)}
             className={classes.paymentBtnTextHolder}
           >
             <Typography className={classes.paymentBtnTxt}>
@@ -172,4 +171,4 @@ const PosTableRight = ({
   );
 };
 
-export default connect(null, { createSale })(PosTableRight);
+export default PosTableRight;

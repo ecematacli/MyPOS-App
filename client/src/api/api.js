@@ -1,10 +1,19 @@
 import axios from 'axios';
 
-export default axios.create({
-  baseURL: 'http://localhost:3091',
-  headers: {
-    Authorization: JSON.parse(localStorage.getItem('token'))
-  }
+let axiosInstance = axios.create({
+  baseURL:
+    'http://stockmanagementservicedev.pkupag2y6m.eu-central-1.elasticbeanstalk.com/'
 });
 
+axiosInstance.interceptors.request.use(
+  config => {
+    config.headers.Authorization = JSON.parse(localStorage.getItem('token'));
+    return config;
+  },
+  error => Promise.reject(error)
+);
+
+export default axiosInstance;
+
 // 'http://stockmanagementservicedev.pkupag2y6m.eu-central-1.elasticbeanstalk.com/'
+//http://localhost:3091

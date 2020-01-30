@@ -14,10 +14,10 @@ export default () => {
       name: '',
       qty: 1,
       sku: '',
-      price: 0,
+      price: '',
       taxRate: 18,
       variation: '',
-      discountPrice: 0,
+      discountPrice: '',
       category: '',
       brand: ''
     }
@@ -83,23 +83,12 @@ export default () => {
     const fieldName = name;
     const newValue = value;
 
-    if (
-      fieldName === 'taxRate' ||
-      fieldName === 'qty' ||
-      fieldName === 'price' ||
-      fieldName === 'discountPrice'
-    ) {
-      const value = parseInt(newValue);
-      console.log('newValue is:', newValue);
-      console.log('value is:', value);
-      console.log('-----------');
-
-      setUserInputs({ [fieldName]: isNaN(value) ? 0 : value });
+    if (fieldName === 'taxRate' || fieldName === 'qty') {
+      const numValue = parseInt(newValue);
+      setUserInputs({ [fieldName]: isNaN(numValue) ? 0 : numValue });
+    } else {
+      setUserInputs({ [fieldName]: newValue });
     }
-
-    console.log('tax rate:', userInputs.taxRate, 'price:', userInputs.price);
-
-    setUserInputs({ [fieldName]: newValue });
   };
 
   const onAddProductClick = () => {

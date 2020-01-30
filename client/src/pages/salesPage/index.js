@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Grid, IconButton, Typography } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
@@ -6,8 +7,9 @@ import styles from './styles';
 import useSalesState from './hooks/useSalesState';
 import ProductSearchBar from './components/productSearchBar';
 import PosTableRight from './components/posTableRight/PosTableRight';
+import { completeSale } from '../../redux/sales/salesActions';
 
-const SalesPage = () => {
+const SalesPage = ({ completeSale }) => {
   const classes = styles();
   const {
     products,
@@ -79,10 +81,11 @@ const SalesPage = () => {
           tax={tax}
           discount={discount}
           handleDiscountChange={handleDiscountChange}
+          completeSale={completeSale}
         />
       </Grid>
     </Grid>
   );
 };
 
-export default SalesPage;
+export default connect(null, { completeSale })(SalesPage);

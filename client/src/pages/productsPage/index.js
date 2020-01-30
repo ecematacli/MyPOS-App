@@ -2,13 +2,15 @@ import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchProducts } from '../../redux/products/productsActions';
+import { fetchCategories } from '../../redux/categories/categoriesActions';
 import CustomTable from '../../common/components/customTable/CustomTable';
 import ProductDetails from './components/productDetails/ProductDetails';
 import ProductFilters from './components/productFilters/ProductFilters';
 
-const ProductsPage = ({ fetchProducts, products }) => {
+const ProductsPage = ({ fetchProducts, products, count }) => {
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
   return (
     <Fragment>
@@ -38,7 +40,7 @@ const ProductsPage = ({ fetchProducts, products }) => {
           }
         ]}
         products={products}
-        salesCount={70}
+        salesCount={count}
         fetchProducts={fetchProducts}
         component={ProductDetails}
       />
@@ -52,5 +54,6 @@ const mapStateToProps = ({ products: { products, count } }) => ({
 });
 
 export default connect(mapStateToProps, {
-  fetchProducts
+  fetchProducts,
+  fetchCategories
 })(ProductsPage);

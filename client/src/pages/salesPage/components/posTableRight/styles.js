@@ -58,7 +58,7 @@ export default makeStyles(({ spacing, palette }) => ({
     borderColor: palette.secondary.light
   },
   discountInput: {
-    width: spacing(12),
+    width: spacing(14),
     height: spacing(5),
     marginRight: '-7px',
     fontWeight: 400,

@@ -36,7 +36,11 @@ export const editProduct = (
 
 export const createProduct = (product, addNotification) => async dispatch => {
   try {
-    const response = await api.post('/products', product);
+    const response = await api.post('/products', {
+      ...product,
+      price: parseFloat(product.price),
+      discountPrice: parseFloat(product.discountPrice)
+    });
 
     addNotification('Product has been created successfully', 'success');
 
