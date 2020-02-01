@@ -7,22 +7,6 @@ import {
 } from '../utilities';
 import useProductsLocalStorage from './useProductsLocalStorage';
 
-const defaultState = [
-  {
-    id: 7000000,
-    barcode: 941538658299,
-    name: 'Adidas NMD ',
-    qty: 1,
-    sku: 397623880,
-    price: 50,
-    taxRate: 8,
-    discountPrice: 40,
-    variation: 'Ergonomic',
-    brand: 'Adidas',
-    category: 'Tenis Ayakkabisi'
-  }
-];
-
 // Products Reducer
 
 const productsReducer = (state, { type, payload }) => {

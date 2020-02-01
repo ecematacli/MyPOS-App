@@ -62,16 +62,28 @@ const SaleDetails = props => {
           className={classes.tableBodyRow}
         >
           <TableCell>{sku}</TableCell>
-          <TableCell>{name}</TableCell>
-          <TableCell align="right">{variation}</TableCell>
+          <TableCell>{name ? name : '-'}</TableCell>
+          <TableCell align="right">{variation ? variation : '-'}</TableCell>
           <TableCell align="right">{qty}</TableCell>
-          <TableCell align="right">{currencyFormatter(price)}</TableCell>
           <TableCell align="right">
-            {currencyFormatter(discountPrice)}
+            {price ? currencyFormatter(price) : '-'}
+          </TableCell>
+          <TableCell align="right">
+            {discountPrice ? currencyFormatter(discountPrice) : '-'}
           </TableCell>
         </TableRow>
       )
     );
+  };
+
+  const total = () => {
+    return products.reduce((acc, { qty, price, discountPrice }) => {
+      if (discountPrice) {
+        return acc + qty * discountPrice;
+      }
+
+      return acc + qty * price;
+    }, 0);
   };
 
   return (
@@ -87,7 +99,7 @@ const SaleDetails = props => {
       <div className={classes.detailTotal}>
         <div>
           <Typography className={classes.total}>
-            Total &nbsp; {currencyFormatter(5000)}
+            Total &nbsp; {currencyFormatter(total())}
           </Typography>
         </div>
       </div>

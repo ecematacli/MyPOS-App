@@ -15,14 +15,12 @@ import {
   Collapse
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import HistoryIcon from '@material-ui/icons/History';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
 import logo from '../../../assets/img/app-logo.png';
-import drawerItemList from './drawerItemList';
+import menuItemList from './menuItemList';
 import history from '../../../history/history';
 import Notifications from '../notifications/Notifications';
 import {
@@ -41,8 +39,8 @@ const MenuWrapper = ({ container, children }) => {
     clearAuthToken();
   };
 
-  const toggleOpenedItems = label => {
-    setOpenedItems({ ...openedItems, [label]: !openedItems[label] });
+  const toggleOpenedItems = item => {
+    setOpenedItems({ ...openedItems, [item]: !openedItems[item] });
   };
 
   const handleMobileOpenToggle = () => {
@@ -53,8 +51,8 @@ const MenuWrapper = ({ container, children }) => {
     setMobileOpen(false);
   };
 
-  const renderSubMenuItems = (subMenuItems, label) => {
-    return subMenuItems.map(({ subLabel, url }, i) => {
+  const renderSubMenuItems = (subMenuItems, item) => {
+    return subMenuItems.map(({ subLabel, url, Icon }, i) => {
       return (
         <Collapse
           onClick={() => {
@@ -62,7 +60,7 @@ const MenuWrapper = ({ container, children }) => {
             handleCloseMenu();
           }}
           key={subLabel}
-          in={openedItems[label]}
+          in={openedItems[item]}
           timeout="auto"
           unmountOnExit
         >
@@ -75,7 +73,7 @@ const MenuWrapper = ({ container, children }) => {
               )}
             >
               <ListItemIcon className={classes.subMenuIcons}>
-                {i === 0 ? <AddShoppingCartIcon /> : <HistoryIcon />}
+                <Icon />
               </ListItemIcon>
               <ListItemText primary={subLabel} />
             </ListItem>
@@ -96,11 +94,11 @@ const MenuWrapper = ({ container, children }) => {
           </div>
         </ListItem>
         <Divider className={classes.divider} />
-        {drawerItemList.map(({ label, url, subMenuItems, Icon }, i) => {
+        {menuItemList.map(({ label, item, url, subMenuItems, Icon }, i) => {
           if (subMenuItems) {
             return (
               <div key={label}>
-                <ListItem button onClick={() => toggleOpenedItems(label)}>
+                <ListItem button onClick={() => toggleOpenedItems(item)}>
                   <IconButton className={classes.drawerIcon}>
                     <Icon />
                   </IconButton>
@@ -109,19 +107,22 @@ const MenuWrapper = ({ container, children }) => {
                     inset
                     primary={label}
                   />
-                  {openedItems[label] ? <ExpandLess /> : <ExpandMore />}
+                  {openedItems[item] ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
-                {renderSubMenuItems(subMenuItems, label)}
+                {renderSubMenuItems(subMenuItems, item)}
               </div>
             );
           }
           return (
             <div key={label}>
+              {i === menuItemList.length - 1 && (
+                <Divider className={classes.divider} />
+              )}
               <ListItem
                 onClick={() => {
                   history.push(url);
                   handleCloseMenu();
-                  label === 'Sign Out' && onSignOutClick();
+                  item === 'signout' && onSignOutClick();
                 }}
                 key={label}
                 button
@@ -135,9 +136,6 @@ const MenuWrapper = ({ container, children }) => {
                   primary={label}
                 />
               </ListItem>
-              {i === drawerItemList.length - 2 && (
-                <Divider className={classes.divider} />
-              )}
             </div>
           );
         })}

@@ -10,12 +10,6 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
     height: '100vh'
   },
   appBar: {
-    // borderBottom: 0,
-    // marginBottom: 0,
-    // border: 0,
-    // height: 0,
-    // backgroundColor: 'transparent',
-    // boxShadow: 'none',
     zIndex: zIndex.drawer + 1,
     [breakpoints.up('md')]: {
       marginLeft: drawerWidth
@@ -43,7 +37,8 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
     justifyContent: 'center',
     [breakpoints.down('sm')]: {
       display: 'none'
-    }
+    },
+    marginBottom: -spacing(1.5)
   },
   logoImg: {
     width: 60,
@@ -82,7 +77,9 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
     paddingLeft: spacing(3)
   },
   divider: {
-    backgroundColor: palette.grayColors[3]
+    backgroundColor: palette.grayColors[3],
+    marginTop: spacing(1),
+    marginBottom: spacing(1)
   },
   content: {
     flexGrow: 1,

@@ -3,12 +3,7 @@ import { CREATE_SALE, FETCH_SALES } from './types';
 
 export const completeSale = (products, total, discount) => async dispatch => {
   console.log('products:', products, 'total:', total, 'discount:', discount);
-  console.log({
-    products,
-    total: total - parseFloat(discount),
-    discount: parseFloat(discount)
-    // totalQty: totalQty()
-  });
+
   const response = await api.post('/sales', {
     products,
     total: total - parseFloat(discount),

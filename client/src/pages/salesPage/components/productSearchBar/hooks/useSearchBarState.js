@@ -18,7 +18,7 @@ const useSearchInput = addProduct => {
     let active = true;
     const fetchProducts = async () => {
       setLoading(true);
-      const response = await api.get(`/products?q=${query}`);
+      const response = await api.get(`/products/search/?q=${query}`);
       setSearchResults(response.data);
       setProductNotFound(response.data.length === 0);
       setLoading(false);

@@ -1,5 +1,6 @@
 import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { fetchProducts } from '../../redux/products/productsActions';
 import { fetchCategories } from '../../redux/categories/categoriesActions';
@@ -12,7 +13,9 @@ const ProductsPage = ({ fetchProducts, products, count }) => {
     fetchProducts();
     fetchCategories();
   }, []);
-  return (
+  return !products ? (
+    <CircularProgress color="primary" />
+  ) : (
     <Fragment>
       <ProductFilters />
       <CustomTable

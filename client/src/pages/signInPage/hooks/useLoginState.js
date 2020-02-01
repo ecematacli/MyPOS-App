@@ -2,13 +2,13 @@ import { useContext } from 'react';
 
 import api from '../../../api/api';
 import { AuthTokenSettingContext } from '../../../contexts/AuthContext';
+import { NotificationsContext } from '../../../contexts/NotificationsContext';
 
 export default () => {
   const { saveAuthToken } = useContext(AuthTokenSettingContext);
-  // const [isError, setIsError] = useState(false);
+  const { addNotification } = useContext(NotificationsContext);
 
   const postSignInForm = async userCredentials => {
-    console.log('fired!');
     let active = true;
     const response = await api.post('/login', userCredentials);
 
@@ -19,7 +19,10 @@ export default () => {
         active && saveAuthToken();
       }
     } catch (e) {
-      // active && setIsError(true);
+      addNotification(
+        'There was a problem logging in. Check your email and password',
+        'error'
+      );
     }
     return () => {
       active = false;

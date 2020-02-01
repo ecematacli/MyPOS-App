@@ -1,2 +1,6 @@
-export const currencyFormatter = n =>
-  n.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' });
+export const currencyFormatter = n => {
+  if (!n) {
+    return '';
+  }
+  return n.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' });
+};

@@ -18,39 +18,44 @@ export const SigninInputs = ({
       notchedOutline: classes.notchedOutline
     }
   };
+  const signinFields = [
+    {
+      label: 'Email Address*',
+      name: 'email',
+      value: email,
+      errors: errors.email,
+      touched: touched.email
+    },
+    {
+      label: 'Password*',
+      name: 'password',
+      value: password,
+      errors: errors.password,
+      touched: touched.password
+    }
+  ];
 
   return (
     <form onSubmit={handleSubmit} className={classes.signInForm}>
-      <TextField
-        color="secondary"
-        label="Email Address*"
-        variant="outlined"
-        className={classes.signInFields}
-        value={email}
-        onChange={handleChange}
-        InputProps={errors.email && inputClasses}
-        name="email"
-        type="email"
-      />
-      {(errors.email || touched.email) && (
-        <div className={classes.helperText}>{errors.email}</div>
-      )}
-      <TextField
-        color="secondary"
-        label="Password*"
-        variant="outlined"
-        className={classes.signInFields}
-        style={{ marginBottom: 25 }}
-        value={password}
-        onChange={handleChange}
-        InputProps={errors.password && inputClasses}
-        name="password"
-        type="password"
-      />
-      {(errors.password || touched.password) && (
-        <div className={classes.helperText}>{errors.password}</div>
-      )}
-
+      {signinFields.map(({ label, name, value, errors, touched }) => (
+        <div key={label}>
+          <TextField
+            color="secondary"
+            label={label}
+            variant="outlined"
+            className={classes.signInFields}
+            value={value}
+            onChange={handleChange}
+            InputProps={errors && inputClasses}
+            name={name}
+            type={name}
+            style={name === 'password' ? { marginBottom: 25 } : null}
+          />
+          {(errors || touched) && (
+            <div className={classes.helperText}>{errors}</div>
+          )}
+        </div>
+      ))}
       <CustomButton type="submit">
         <Typography className={classes.btnText}>Sign In</Typography>
       </CustomButton>

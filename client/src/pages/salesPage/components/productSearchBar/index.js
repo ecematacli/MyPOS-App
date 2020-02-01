@@ -31,7 +31,6 @@ const ProductSearchbar = ({ addProduct }) => {
     handleOpenDialog,
     handleCloseDialog
   } = useProductDialogState();
-
   return (
     <Fragment>
       <Autocomplete
@@ -112,7 +111,9 @@ const ProductSearchbar = ({ addProduct }) => {
                 <span> {product.sku}</span>
               </div>
               <div>
-                <span>{currencyFormatter(product.price)}</span>
+                <span>
+                  {product.price ? currencyFormatter(product.price) : '-'}
+                </span>
               </div>
             </div>
           );

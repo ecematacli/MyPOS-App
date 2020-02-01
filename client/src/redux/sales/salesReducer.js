@@ -2,7 +2,8 @@ import { CREATE_SALE, FETCH_SALES } from './types';
 
 const initialState = {
   count: 0,
-  sales: {}
+  sales: {},
+  ids: []
 };
 
 export default (state = initialState, { type, payload }) => {
