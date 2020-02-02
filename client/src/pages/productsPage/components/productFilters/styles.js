@@ -41,12 +41,12 @@ export default makeStyles(({ spacing, palette }) => ({
     }
   },
   input: {
-    width: 246,
+    width: 258,
     height: 35,
     borderColor: palette.secondary.dark
   },
   dropdownInput: {
-    width: 246
+    width: 258
   },
   innerInput: {
     height: 35

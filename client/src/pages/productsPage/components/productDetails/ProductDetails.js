@@ -1,18 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Paper, Typography, IconButton, Card } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DoneIcon from '@material-ui/icons/Done';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from './styles';
-import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
 import useProductDetails from './hooks/useProductDetails';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 // eslint-disable-next-line react/display-name
 const ProductDetails = props => {
   const classes = styles(props);
-  const { product } = props;
-
+  const { product, brands, categories } = props;
   const {
     PRODUCT_FIELDS,
     edittedRow,
@@ -22,7 +21,7 @@ const ProductDetails = props => {
     handleInputChange,
     enabledEdit,
     completeEdit
-  } = useProductDetails(product);
+  } = useProductDetails(product, brands, categories);
 
   const renderEditForm = (fieldId, label, dropdown, dropdownItems, type) => (
     <div className={classes.editFormContainer}>
@@ -42,8 +41,10 @@ const ProductDetails = props => {
         }
         dropdownItems={dropdownItems}
         value={
-          fieldId === 'price' || fieldId === 'discountPrice'
-            ? currencyFormatter(productVal[fieldId])
+          fieldId === 'brand' || fieldId === 'category'
+            ? dropdownItems.find(({ label, id }) => {
+                return label === productVal[fieldId];
+              })
             : productVal[fieldId]
         }
         onChange={e => handleInputChange(e, fieldId)}
@@ -122,4 +123,9 @@ const ProductDetails = props => {
   );
 };
 
-export default ProductDetails;
+const mapStateToProps = ({ brands, categories }) => ({
+  brands,
+  categories
+});
+
+export default connect(mapStateToProps)(ProductDetails);

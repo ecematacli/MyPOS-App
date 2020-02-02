@@ -8,7 +8,8 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts';
-import { Paper } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Paper, IconButton } from '@material-ui/core';
 
 import styles from './styles';
 
@@ -61,6 +62,9 @@ const Chart = () => {
   const classes = styles();
   return (
     <Paper className={classes.chartPaper}>
+      <IconButton className={classes.iconButton}>
+        <MoreVertIcon />
+      </IconButton>
       <ResponsiveContainer width="100%" height="90%">
         <AreaChart
           data={data}

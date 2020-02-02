@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 
 import { editProduct } from '../../../../../redux/products/productsActions';
 import { NotificationsContext } from '../../../../../contexts/NotificationsContext';
+import { dropdownItemsFormatter } from '../../../../../common/utils';
 
-export default product => {
+export default (product, brands, categories) => {
   const dispatch = useDispatch();
   const { addNotification } = useContext(NotificationsContext);
   const [edittedRow, setEdittedRow] = useState({});
@@ -26,7 +27,7 @@ export default product => {
       label: 'Tax Rate',
       fieldId: 'taxRate',
       dropdown: true,
-      dropdownItems: ['18', '8'],
+      dropdownItems: [8, 18].map(n => ({ value: n, label: n })),
       type: 'number'
     },
     { label: 'Sku', fieldId: 'sku' },
@@ -34,13 +35,13 @@ export default product => {
       label: 'Brand Name',
       fieldId: 'brand',
       dropdown: true,
-      dropdownItems: ['Babolat', 'Adidas', 'Wilson']
+      dropdownItems: dropdownItemsFormatter(brands)
     },
     {
       label: 'Category Name',
       fieldId: 'category',
       dropdown: true,
-      dropdownItems: ['Tennis shoe', 'Tennis racket', 'Raket']
+      dropdownItems: dropdownItemsFormatter(categories)
     }
   ];
 

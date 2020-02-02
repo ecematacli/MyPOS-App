@@ -46,9 +46,9 @@ const CustomInput = props => {
               labelId={label}
               input={<OutlinedInput classes={classesProp.innerInput} />}
             >
-              {dropdownItems.map(item => (
-                <MenuItem key={item} value={item}>
-                  {item}
+              {dropdownItems.map(({ value, label }) => (
+                <MenuItem key={value} value={value}>
+                  {label}
                 </MenuItem>
               ))}
             </Select>

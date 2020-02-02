@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
-import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
+import { currencyFormatter } from '../../../../common/utils';
 
 const TABLE_HEAD = [
   {

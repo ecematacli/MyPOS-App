@@ -8,12 +8,11 @@ import {
   TableHead,
   TableRow,
   TablePagination,
-  Collapse,
-  TableSortLabel
+  Collapse
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { currencyFormatter } from '../../utils/currencyFormatter';
+import { currencyFormatter } from '../../utils';
 
 import styles from './styles';
 
@@ -24,14 +23,15 @@ const CustomTable = ({
   salesCount,
   productsCount,
   fetchSales,
+  rowsPerPage,
+  setRowsPerPage,
   fetchProducts,
+  page,
+  setPage,
   component: Component
 }) => {
   const classes = styles();
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [expandedRows, setExpandedRows] = useState({});
-  const [direction, setDirection] = useState('asc');
 
   const handleChangePage = (e, newPage) => {
     if (newPage < 0) return;
@@ -46,11 +46,6 @@ const CustomTable = ({
     products && fetchProducts(1, e.target.value);
   };
 
-  const handleDirectionChange = () => {
-    const isDesc = direction === 'desc';
-    setDirection(isDesc ? 'asc' : 'desc');
-  };
-
   const toggleExpanded = id => {
     setExpandedRows({ ...expandedRows, [id]: !expandedRows[id] });
   };
@@ -60,19 +55,9 @@ const CustomTable = ({
   };
 
   const renderTableHead = () => {
-    return tableHeads.map(({ label, numeric, sortLabel }, i) => (
+    return tableHeads.map(({ label, numeric }, i) => (
       <TableCell align={numeric && 'right'} key={i}>
-        {sortLabel ? (
-          <TableSortLabel
-            active={label.id}
-            direction={direction}
-            onClick={handleDirectionChange}
-          >
-            {label}
-          </TableSortLabel>
-        ) : (
-          <div>{label}</div>
-        )}
+        <div>{label}</div>
       </TableCell>
     ));
   };
@@ -214,7 +199,7 @@ const CustomTable = ({
         <TablePagination
           rowsPerPageOptions={[10, 25, 50]}
           component="div"
-          count={salesCount}
+          count={sales ? salesCount : productsCount}
           labelDisplayedRows={displayedLabel}
           rowsPerPage={rowsPerPage}
           page={page}

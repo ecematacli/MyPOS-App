@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { format } from 'date-fns';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -9,10 +9,13 @@ import SaleDetails from './components/saleDetails/SaleDetails';
 import DatePickerInput from './components/datePickerInput/DatePickerInput';
 
 const SalesHistoryPage = ({ fetchSales, sales, count }) => {
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
     fetchSales();
   }, []);
-  console.log(sales);
+
   const formattedSalesData = () =>
     sales.map(sale => {
       console.log('sale is:', sale);
@@ -30,8 +33,7 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
       <CustomTable
         tableHeads={[
           {
-            label: 'Date',
-            sortLabel: true
+            label: 'Date'
           },
           {
             label: 'Total Qty',
@@ -49,6 +51,10 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
         sales={formattedSalesData()}
         salesCount={count}
         fetchSales={fetchSales}
+        rowsPerPage={rowsPerPage}
+        setRowsPerPage={setRowsPerPage}
+        page={page}
+        setPage={setPage}
         component={SaleDetails}
       />
     </Fragment>

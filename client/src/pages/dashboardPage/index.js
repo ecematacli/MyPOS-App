@@ -35,10 +35,10 @@ const DashboardPage = () => {
         </Grid>
       </Grid>
       <Grid className={classes.gridContainer} container>
-        <Grid item xs={12} sm={12} md={6}>
+        <Grid item xs={12} sm={12} md={7}>
           <TopSellingProducts />
         </Grid>
-        <Grid item xs={12} sm={12} md={6}>
+        <Grid item xs={12} sm={12} md={5}>
           <LastActivities />
         </Grid>
       </Grid>

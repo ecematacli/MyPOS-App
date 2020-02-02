@@ -15,7 +15,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
-import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
+import { currencyFormatter } from '../../../../common/utils';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import CustomButton from '../../../../common/components/customButton/CustomButton';
 

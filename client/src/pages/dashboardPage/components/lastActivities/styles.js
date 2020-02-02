@@ -1,10 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing }) => ({
-  gridContainer: {
-    marginTop: spacing(10)
+  lastActivitiesPaper: {
+    height: 580,
+    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.14)',
+    position: 'relative',
+    marginLeft: 20
   },
-  statsGridContainer: {
-    marginTop: spacing(4)
+  title: {
+    padding: spacing(3, 2.5)
   }
 }));

@@ -1,7 +1,16 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
+import { dropdownItemsFormatter } from '../../../../../common/utils';
 
-export default () => {
+export default (brands, categories) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [filterInputs, setFilterInputs] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    {
+      searchQuery: '',
+      category: '',
+      brand: ''
+    }
+  );
 
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
@@ -15,28 +24,40 @@ export default () => {
 
   const filterInputFields = [
     {
-      label: 'Product Name',
-      fieldId: 'name'
+      label: 'Search Query',
+      fieldId: 'searchQuery',
+      placeholder: 'Search by name, sku or barcode',
+      value: filterInputs.searchQuery
     },
     {
       label: 'Category',
       fieldId: 'category',
       dropdown: true,
-      dropdownItems: ['Tennis shoe', 'Tennis racket']
+      dropdownItems: dropdownItemsFormatter(categories),
+      value: filterInputs.category
     },
     {
       label: 'Brand',
       fieldId: 'brand',
       dropdown: true,
-      dropdownItems: ['Nike', 'Adidas', 'Wilson']
+      dropdownItems: dropdownItemsFormatter(brands),
+      value: filterInputs.brand
     }
   ];
 
+  const handleInputChange = ({ target: { value, name } }) => {
+    const fieldName = name;
+    const newValue = value;
+    setFilterInputs({ [fieldName]: newValue });
+  };
+
   return {
     anchorEl,
+    filterInputs,
     handleClick,
     handleClose,
     open,
+    handleInputChange,
     filterInputFields
   };
 };

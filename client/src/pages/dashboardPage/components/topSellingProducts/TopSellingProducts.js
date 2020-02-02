@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
   Paper,
   Typography,
@@ -38,36 +38,34 @@ const TopSellingItems = () => {
   };
 
   return (
-    <Fragment>
-      <Paper className={classes.topSellingPaper}>
-        <div className={classes.title}>
-          <Typography>Top Selling Items</Typography>
-        </div>
-        <Divider />
-        <Table>
-          <TableHead>
-            <TableRow style={{ height: 48 }}>
-              <TableCell>Sku</TableCell>
-              <TableCell>Product Name</TableCell>
-              <TableCell>Variation</TableCell>
-              <TableCell>Unit Sold</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{renderProducts()}</TableBody>
-        </Table>
-        <div className={classes.pagination}>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={5}
-            rowsPerPage={25}
-            page={10}
-            onChangePage={() => 'y'}
-            onChangeRowsPerPage={123}
-          />
-        </div>
-      </Paper>
-    </Fragment>
+    <Paper className={classes.topSellingPaper}>
+      <div className={classes.title}>
+        <Typography>Top Selling Items</Typography>
+      </div>
+      <Divider />
+      <Table>
+        <TableHead>
+          <TableRow style={{ height: 48 }}>
+            <TableCell>Sku</TableCell>
+            <TableCell>Product Name</TableCell>
+            <TableCell>Variation</TableCell>
+            <TableCell>Unit Sold</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>{renderProducts()}</TableBody>
+      </Table>
+      <div className={classes.pagination}>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={5}
+          rowsPerPage={25}
+          page={10}
+          onChangePage={() => 'y'}
+          onChangeRowsPerPage={123}
+        />
+      </div>
+    </Paper>
   );
 };
 

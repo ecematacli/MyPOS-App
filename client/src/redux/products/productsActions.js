@@ -1,10 +1,28 @@
 import api from '../../api/api';
 import { FETCH_PRODUCTS, EDIT_PRODUCT, CREATE_PRODUCT } from './types';
 
-export const fetchProducts = (page = 1, rowsPerPage = 10) => async dispatch => {
-  const response = await api.get(
-    `/products?page=${page}&rowsPerPage=${rowsPerPage}`
-  );
+export const fetchProducts = (
+  page = 1,
+  rowsPerPage = 10,
+  categoryId,
+  brandId,
+  searchQuery
+) => async dispatch => {
+  console.log('called!!');
+  console.log(categoryId, brandId, searchQuery);
+  let url = `/products?page=${page}&rowsPerPage=${rowsPerPage}`;
+
+  if (categoryId) {
+    url += `&categoryId=${categoryId}`;
+  }
+  if (brandId) {
+    url += `&brandId=${brandId}`;
+  }
+  if (searchQuery) {
+    url += `&query=${searchQuery}`;
+  }
+
+  const response = await api.get(url);
 
   dispatch({
     type: FETCH_PRODUCTS,

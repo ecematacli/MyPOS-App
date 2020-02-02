@@ -10,7 +10,7 @@ import styles from './styles';
 import useSearchInput from './hooks/useSearchBarState';
 import useProductDialogState from './hooks/useProductDialogState';
 import QuickProductAdd from '../../components/quickProductAdd/QuickProductAdd';
-import { currencyFormatter } from '../../../../common/utils/currencyFormatter';
+import { currencyFormatter } from '../../../../common/utils';
 
 const ProductSearchbar = ({ addProduct }) => {
   const classes = styles();
