@@ -1,5 +1,5 @@
 import { useState, useReducer } from 'react';
-import { dropdownItemsFormatter } from '../../../../../common/utils';
+import { dropdownItemsFormatter } from '../../../../common/utils';
 
 export default (brands, categories) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -54,6 +54,7 @@ export default (brands, categories) => {
   return {
     anchorEl,
     filterInputs,
+    setFilterInputs,
     handleClick,
     handleClose,
     open,

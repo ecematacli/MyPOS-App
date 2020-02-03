@@ -14,6 +14,3 @@ axiosInstance.interceptors.request.use(
 );
 
 export default axiosInstance;
-
-// 'http://stockmanagementservicedev.pkupag2y6m.eu-central-1.elasticbeanstalk.com/'
-//http://localhost:3091

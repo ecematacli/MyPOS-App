@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-import api from '../../../api/api';
+import api from '../../../api';
 
-export default ({ addNotification }) => {
+export default () => {
   const [products, setProducts] = useState();
 
+  console.log(products);
   const fetchTopSellingProducts = async () => {
-    console.log('called!');
-    const response = await api.get('/stats/top-selling/products');
+    const response = await api.get('/stats/top-selling-products');
     setProducts(response.data);
   };
 

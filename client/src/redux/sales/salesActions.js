@@ -1,4 +1,4 @@
-import api from '../../api/api';
+import api from '../../api';
 import { CREATE_SALE, FETCH_SALES } from './types';
 
 export const completeSale = (products, total, discount) => async dispatch => {
@@ -17,10 +17,24 @@ export const completeSale = (products, total, discount) => async dispatch => {
   });
 };
 
-export const fetchSales = (page = 1, rowsPerPage = 10) => async dispatch => {
-  const response = await api.get(
-    `/sales?page=${page}&rowsPerPage=${rowsPerPage}`
-  );
+export const fetchSales = (
+  page = 1,
+  rowsPerPage = 10,
+  startDate,
+  endDate
+) => async dispatch => {
+  console.log('this runs!!');
+  console.log(startDate, endDate);
+  let url = `/sales?page=${page}&rowsPerPage=${rowsPerPage}`;
+
+  if (startDate) {
+    url += `&startDate=${startDate.toISOString()}`;
+  }
+  if (endDate) {
+    url += `&endDate=${endDate.toISOString()}`;
+  }
+
+  const response = await api.get(url);
 
   dispatch({
     type: FETCH_SALES,

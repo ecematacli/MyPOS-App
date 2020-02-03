@@ -1,9 +1,9 @@
 import { useState, useContext, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { editProduct } from '../../../../../redux/products/productsActions';
-import { NotificationsContext } from '../../../../../contexts/NotificationsContext';
-import { dropdownItemsFormatter } from '../../../../../common/utils';
+import { editProduct } from '../../../../redux/products/productsActions';
+import { NotificationsContext } from '../../../../contexts/NotificationsContext';
+import { dropdownItemsFormatter } from '../../../../common/utils';
 
 export default (product, brands, categories) => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import api from '../../../api/api';
+import api from '../../../api';
 import { AuthTokenSettingContext } from '../../../contexts/AuthContext';
 import { NotificationsContext } from '../../../contexts/NotificationsContext';
 

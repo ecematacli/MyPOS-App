@@ -1,6 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing, palette }) => ({
+export default makeStyles(({ palette, spacing }) => ({
+  datePickerInput: {
+    display: 'inline-block',
+    marginTop: spacing(3.5)
+  },
+  calendarIcon: {
+    color: palette.secondary.main
+  },
   filterIconContainer: {
     width: '95%',
     display: 'flex',
@@ -15,6 +22,11 @@ export default makeStyles(({ spacing, palette }) => ({
   filterIconDiv: {
     cursor: 'pointer'
   },
+  filterPaper: {
+    minWidth: 400,
+    height: 220,
+    padding: spacing(4)
+  },
   filterCaption: {
     marginTop: spacing(3),
     paddingLeft: spacing(2),
@@ -23,39 +35,10 @@ export default makeStyles(({ spacing, palette }) => ({
     fontSize: 16,
     color: 'rgba(0, 0, 0, 0.54)'
   },
-  filterLabel: { marginRight: spacing(5), color: palette.grayColors[3] },
-  filterInputContainer: {
-    minWidth: 400,
-    padding: spacing(4, 3, 4)
-  },
-  filterInputs: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: spacing(4),
-    '&:last-child': {
-      marginBottom: 0
-    }
-  },
-  chipInput: {
-    backgroundColor: palette.primary.dark
-  },
-  input: {
-    width: 258,
-    height: 35,
-    borderColor: palette.secondary.dark
-  },
-  dropdownInput: {
-    width: 258
-  },
-  innerInput: {
-    height: 35
-  },
   filterBtnDiv: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginRight: spacing(2.7),
-    marginBottom: spacing(2)
+    marginTop: spacing(6)
   },
   filterBtn: {
     textTransform: 'capitalize',

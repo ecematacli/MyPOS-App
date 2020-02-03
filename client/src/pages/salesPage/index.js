@@ -5,7 +5,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import styles from './styles';
 import useSalesState from './hooks/useSalesState';
-import ProductSearchBar from './components/productSearchBar';
+import ProductSearchBar from './components/productSearchBar/ProductSearchBar';
 import PosTableRight from './components/posTableRight/PosTableRight';
 import { completeSale } from '../../redux/sales/salesActions';
 

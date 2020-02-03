@@ -1,4 +1,4 @@
-import api from '../../api/api';
+import api from '../../api';
 import { FETCH_BRANDS } from './types';
 
 export const fetchBrands = () => async dispatch => {

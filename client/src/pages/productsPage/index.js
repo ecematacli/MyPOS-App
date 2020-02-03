@@ -52,12 +52,13 @@ const ProductsPage = ({
             numeric: true
           }
         ]}
-        products={products}
+        rows={products}
+        tableType="products"
         rowsPerPage={rowsPerPage}
         setRowsPerPage={setRowsPerPage}
         page={page}
         setPage={setPage}
-        productsCount={count}
+        count={count}
         fetchProducts={fetchProducts}
         component={ProductDetails}
       />

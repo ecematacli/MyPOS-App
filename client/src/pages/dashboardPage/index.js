@@ -1,19 +1,15 @@
-import React, { Fragment, useEffect, useContext } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 
 import styles from './styles';
 import useDashboardState from './hooks/useDashboardState';
-import { NotificationsContext } from '../../contexts/NotificationsContext';
 import DashboardStats from './components/dashboardStats/DashboardStats';
 import Chart from './components/chart/Chart';
 import LastActivities from './components/lastActivities/LastActivities';
 import TopSellingProducts from './components/topSellingProducts/TopSellingProducts';
 
 const DashboardPage = () => {
-  const { addNotification } = useContext(NotificationsContext);
-  const { fetchTopSellingProducts, products } = useDashboardState(
-    addNotification
-  );
+  const { fetchTopSellingProducts, products } = useDashboardState();
 
   useEffect(() => {
     fetchTopSellingProducts();
@@ -36,7 +32,7 @@ const DashboardPage = () => {
       </Grid>
       <Grid className={classes.gridContainer} container>
         <Grid item xs={12} sm={12} md={7}>
-          <TopSellingProducts />
+          <TopSellingProducts topSellingProducts={products} />
         </Grid>
         <Grid item xs={12} sm={12} md={5}>
           <LastActivities />

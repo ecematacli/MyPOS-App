@@ -14,7 +14,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
-import useNewProductInputState from './hooks/useNewProductInputState';
+import useNewProductInputState from './useNewProductInputState';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 
 const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {

@@ -6,7 +6,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from './styles';
-import useProductDetails from './hooks/useProductDetails';
+import useProductDetails from './useProductDetails';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 // eslint-disable-next-line react/display-name
 const ProductDetails = props => {
@@ -42,8 +42,10 @@ const ProductDetails = props => {
         dropdownItems={dropdownItems}
         value={
           fieldId === 'brand' || fieldId === 'category'
-            ? dropdownItems.find(({ label, id }) => {
-                return label === productVal[fieldId];
+            ? dropdownItems.find(({ label }) => {
+                if (label === productVal[fieldId]) {
+                  console.log(label);
+                }
               })
             : productVal[fieldId]
         }

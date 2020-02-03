@@ -18,10 +18,9 @@ import styles from './styles';
 
 const CustomTable = ({
   tableHeads,
-  sales,
-  products,
-  salesCount,
-  productsCount,
+  rows,
+  tableType,
+  count,
   fetchSales,
   rowsPerPage,
   setRowsPerPage,
@@ -36,14 +35,16 @@ const CustomTable = ({
   const handleChangePage = (e, newPage) => {
     if (newPage < 0) return;
     setPage(newPage);
-    sales && fetchSales(newPage, rowsPerPage);
-    products && fetchProducts(newPage, rowsPerPage);
+    tableType === 'sales'
+      ? fetchSales(newPage, rowsPerPage)
+      : fetchProducts(newPage, rowsPerPage);
   };
 
   const handleChangeRowsPerPage = e => {
     setRowsPerPage(e.target.value);
-    sales && fetchSales(1, e.target.value);
-    products && fetchProducts(1, e.target.value);
+    tableType === 'sales'
+      ? fetchSales(1, e.target.value)
+      : fetchProducts(1, e.target.value);
   };
 
   const toggleExpanded = id => {
@@ -63,8 +64,8 @@ const CustomTable = ({
   };
 
   const renderTableBody = () => {
-    if (sales) {
-      return sales.map((sale, i) => {
+    if (tableType === 'sales') {
+      return rows.map((sale, i) => {
         const { id, createdAt } = sale;
         return (
           <Fragment key={id}>
@@ -116,8 +117,8 @@ const CustomTable = ({
       });
     }
 
-    if (products) {
-      return products.map((product, i) => {
+    if (tableType === 'products') {
+      return rows.map((product, i) => {
         const {
           id,
           sku,
@@ -180,6 +181,12 @@ const CustomTable = ({
         );
       });
     }
+
+    if (!rows || rows.length < 1) {
+      <TableRow>
+        <TableCell>Nothing to show</TableCell>
+      </TableRow>;
+    }
   };
   return (
     <TableContainer>
@@ -199,7 +206,7 @@ const CustomTable = ({
         <TablePagination
           rowsPerPageOptions={[10, 25, 50]}
           component="div"
-          count={sales ? salesCount : productsCount}
+          count={count}
           labelDisplayedRows={displayedLabel}
           rowsPerPage={rowsPerPage}
           page={page}

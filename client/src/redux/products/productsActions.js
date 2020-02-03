@@ -1,4 +1,4 @@
-import api from '../../api/api';
+import api from '../../api';
 import { FETCH_PRODUCTS, EDIT_PRODUCT, CREATE_PRODUCT } from './types';
 
 export const fetchProducts = (

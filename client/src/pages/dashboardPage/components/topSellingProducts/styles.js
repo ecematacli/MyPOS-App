@@ -10,6 +10,9 @@ export default makeStyles(({ spacing }) => ({
   title: {
     padding: spacing(3, 2.5)
   },
+  tableDiv: {
+    height: 540
+  },
   pagination: {
     position: 'absolute',
     bottom: 5,

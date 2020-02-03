@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchSales } from '../../redux/sales/salesActions';
 import CustomTable from '../../common/components/customTable/CustomTable';
 import SaleDetails from './components/saleDetails/SaleDetails';
-import DatePickerInput from './components/datePickerInput/DatePickerInput';
+import SalesFilters from './components/salesFilters/SalesFilters';
 
 const SalesHistoryPage = ({ fetchSales, sales, count }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -18,7 +18,6 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
 
   const formattedSalesData = () =>
     sales.map(sale => {
-      console.log('sale is:', sale);
       return {
         ...sale,
         createdAt: format(new Date(sale.createdAt), ' d MMMM y - p')
@@ -29,7 +28,7 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
     <CircularProgress color="primary" />
   ) : (
     <Fragment>
-      <DatePickerInput />
+      <SalesFilters page={page} rowsPerPage={rowsPerPage} />
       <CustomTable
         tableHeads={[
           {
@@ -48,8 +47,9 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
             numeric: true
           }
         ]}
-        sales={formattedSalesData()}
-        salesCount={count}
+        rows={formattedSalesData()}
+        tableType="sales"
+        count={count}
         fetchSales={fetchSales}
         rowsPerPage={rowsPerPage}
         setRowsPerPage={setRowsPerPage}

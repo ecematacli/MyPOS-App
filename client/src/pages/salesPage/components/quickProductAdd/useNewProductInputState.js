@@ -1,8 +1,8 @@
 import { useReducer, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { NotificationsContext } from '../../../../../contexts/NotificationsContext';
-import { createProduct } from '../../../../../redux/products/productsActions';
+import { NotificationsContext } from '../../../../contexts/NotificationsContext';
+import { createProduct } from '../../../../redux/products/productsActions';
 
 export default () => {
   const { addNotification } = useContext(NotificationsContext);

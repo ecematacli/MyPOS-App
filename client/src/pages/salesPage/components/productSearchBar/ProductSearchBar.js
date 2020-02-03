@@ -7,9 +7,9 @@ import { Search } from '@material-ui/icons';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import styles from './styles';
-import useSearchInput from './hooks/useSearchBarState';
-import useProductDialogState from './hooks/useProductDialogState';
-import QuickProductAdd from '../../components/quickProductAdd/QuickProductAdd';
+import useSearchInput from './useSearchBarState';
+import useProductDialogState from './useProductDialogState';
+import QuickProductAdd from '../quickProductAdd/QuickProductAdd';
 import { currencyFormatter } from '../../../../common/utils';
 
 const ProductSearchbar = ({ addProduct }) => {
