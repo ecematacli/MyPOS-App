@@ -1,20 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { fetchSales } from '../../../../redux/sales/salesActions';
 
 export default (page, rowsPerPage) => {
   const dispatch = useDispatch();
-  const [startDate, handleStartDateChange] = useState(new Date());
-  const [endDate, handleEndDateChange] = useState(new Date());
+  const [startDate, handleStartDateChange] = useState(null);
+  const [endDate, handleEndDateChange] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClose = (e, reason) => {
+    if (reason !== 'backdropClick') {
+      setAnchorEl(null);
+    }
   };
 
   const open = Boolean(anchorEl);

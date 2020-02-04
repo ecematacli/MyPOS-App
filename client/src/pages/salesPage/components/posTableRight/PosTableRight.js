@@ -63,7 +63,6 @@ const PosTableRight = ({
   };
 
   const renderTableBody = () => {
-    console.log(products);
     return products.map(product => {
       const { id, name, qty, price, discountPrice } = product;
       return (

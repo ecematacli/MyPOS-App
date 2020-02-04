@@ -2,8 +2,6 @@ import api from '../../api';
 import { CREATE_SALE, FETCH_SALES } from './types';
 
 export const completeSale = (products, total, discount) => async dispatch => {
-  console.log('products:', products, 'total:', total, 'discount:', discount);
-
   const response = await api.post('/sales', {
     products,
     total: total - parseFloat(discount),
@@ -23,8 +21,6 @@ export const fetchSales = (
   startDate,
   endDate
 ) => async dispatch => {
-  console.log('this runs!!');
-  console.log(startDate, endDate);
   let url = `/sales?page=${page}&rowsPerPage=${rowsPerPage}`;
 
   if (startDate) {

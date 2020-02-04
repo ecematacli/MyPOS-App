@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { TextField, Typography } from '@material-ui/core';
 
 import styles from './styles';
@@ -11,7 +12,7 @@ export const SigninInputs = ({
   errors,
   touched
 }) => {
-  const classes = styles();
+  const classes = styles(email, password);
 
   const inputClasses = {
     classes: {
@@ -41,15 +42,18 @@ export const SigninInputs = ({
         <div key={label}>
           <TextField
             color="secondary"
+            autoFocus
             label={label}
             variant="outlined"
-            className={classes.signInFields}
+            className={clsx(
+              classes[password && 'passwordField'],
+              classes.signInFields
+            )}
             value={value}
             onChange={handleChange}
             InputProps={errors && inputClasses}
             name={name}
             type={name}
-            style={name === 'password' ? { marginBottom: 25 } : null}
           />
           {(errors || touched) && (
             <div className={classes.helperText}>{errors}</div>

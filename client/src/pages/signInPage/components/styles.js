@@ -13,6 +13,9 @@ export default makeStyles(({ spacing, palette }) => ({
       borderColor: 'red'
     }
   },
+  passwordField: {
+    marginBottom: spacing(4)
+  },
   helperText: {
     fontSize: 16,
     color: 'red',

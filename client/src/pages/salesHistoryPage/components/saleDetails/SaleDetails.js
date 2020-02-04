@@ -11,36 +11,12 @@ import {
 
 import styles from './styles';
 import { currencyFormatter } from '../../../../common/utils';
-
-const TABLE_HEAD = [
-  {
-    label: 'Sku'
-  },
-  {
-    label: 'Product Name'
-  },
-  {
-    label: 'Variation',
-    numeric: true
-  },
-  {
-    label: 'Quantity',
-    numeric: true
-  },
-  {
-    label: 'Price',
-    numeric: true
-  },
-  {
-    label: 'Discounted Price',
-    numeric: true
-  }
-];
+import { TABLE_HEAD } from './tableHead';
 
 const SaleDetails = props => {
   const classes = styles(props);
   const {
-    sale: { products }
+    sale: { products, total }
   } = props;
 
   const tableHead = () => {
@@ -76,16 +52,6 @@ const SaleDetails = props => {
     );
   };
 
-  const total = () => {
-    return products.reduce((acc, { qty, price, discountPrice }) => {
-      if (discountPrice) {
-        return acc + qty * discountPrice;
-      }
-
-      return acc + qty * price;
-    }, 0);
-  };
-
   return (
     <Paper className={classes.salesDetailsContainer}>
       <div className={classes.table}>
@@ -99,7 +65,7 @@ const SaleDetails = props => {
       <div className={classes.detailTotal}>
         <div>
           <Typography className={classes.total}>
-            Total &nbsp; {currencyFormatter(total())}
+            Total &nbsp; {currencyFormatter(total)}
           </Typography>
         </div>
       </div>

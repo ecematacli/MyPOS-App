@@ -22,5 +22,3 @@ export const TABLE_HEAD = [
     numeric: true
   }
 ];
-
-export const totalProductQty = product => {};

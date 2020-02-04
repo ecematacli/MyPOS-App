@@ -38,12 +38,19 @@ export default makeStyles(({ spacing, palette }) => ({
     }
   },
   chipInput: {
-    backgroundColor: palette.primary.dark
+    backgroundColor: palette.primary.dark,
+    marginLeft: spacing(1)
+  },
+  firstChip: {
+    marginLeft: 2
   },
   input: {
     width: 258,
     height: 35,
-    borderColor: palette.secondary.dark
+    borderColor: palette.secondary.dark,
+    '&:focus': {
+      backgroundColor: 'transparent !important'
+    }
   },
   dropdownInput: {
     width: 258

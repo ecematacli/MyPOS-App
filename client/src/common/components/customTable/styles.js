@@ -78,5 +78,15 @@ export default makeStyles(({ spacing, palette }) => ({
     width: '94%',
     margin: 'auto',
     fontSize: 16
+  },
+  noDisplayMsg: {
+    color: palette.grayColors[3],
+    display: 'flex',
+    justifyContent: 'center',
+    fontSize: 18
+  },
+  noDisplayCell: {
+    borderBottom: 'none',
+    paddingTop: 50
   }
 }));

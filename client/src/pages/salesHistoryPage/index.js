@@ -39,11 +39,11 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
             numeric: true
           },
           {
-            label: 'Total Price',
+            label: 'Total Discount',
             numeric: true
           },
           {
-            label: 'Total Discount',
+            label: 'Total Payment',
             numeric: true
           }
         ]}

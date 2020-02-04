@@ -19,6 +19,7 @@ const ProductDetails = props => {
     handleEditClick,
     productVal,
     handleInputChange,
+    handleCategoryAndBrand,
     enabledEdit,
     completeEdit
   } = useProductDetails(product, brands, categories);
@@ -40,15 +41,7 @@ const ProductDetails = props => {
               }
         }
         dropdownItems={dropdownItems}
-        value={
-          fieldId === 'brand' || fieldId === 'category'
-            ? dropdownItems.find(({ label }) => {
-                if (label === productVal[fieldId]) {
-                  console.log(label);
-                }
-              })
-            : productVal[fieldId]
-        }
+        value={productVal[fieldId]}
         onChange={e => handleInputChange(e, fieldId)}
         color="secondary"
       />

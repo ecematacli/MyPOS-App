@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import clsx from 'clsx';
 import {
   TableContainer,
@@ -12,44 +12,30 @@ import {
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { currencyFormatter } from '../../utils';
+import MoodBadIcon from '@material-ui/icons/MoodBad';
 
 import styles from './styles';
+import { currencyFormatter, totalQty } from '../../utils';
+import useTableState from './useTableState';
 
-const CustomTable = ({
-  tableHeads,
-  rows,
-  tableType,
-  count,
-  fetchSales,
-  rowsPerPage,
-  setRowsPerPage,
-  fetchProducts,
-  page,
-  setPage,
-  component: Component
-}) => {
+const CustomTable = props => {
   const classes = styles();
-  const [expandedRows, setExpandedRows] = useState({});
+  const {
+    tableHeads,
+    rows,
+    tableType,
+    count,
+    rowsPerPage,
+    page,
+    component: Component
+  } = props;
 
-  const handleChangePage = (e, newPage) => {
-    if (newPage < 0) return;
-    setPage(newPage);
-    tableType === 'sales'
-      ? fetchSales(newPage, rowsPerPage)
-      : fetchProducts(newPage, rowsPerPage);
-  };
-
-  const handleChangeRowsPerPage = e => {
-    setRowsPerPage(e.target.value);
-    tableType === 'sales'
-      ? fetchSales(1, e.target.value)
-      : fetchProducts(1, e.target.value);
-  };
-
-  const toggleExpanded = id => {
-    setExpandedRows({ ...expandedRows, [id]: !expandedRows[id] });
-  };
+  const {
+    handleChangePage,
+    handleChangeRowsPerPage,
+    toggleExpanded,
+    expandedRows
+  } = useTableState(props);
 
   const displayedLabel = ({ from, count }) => {
     return `${from} of ${count}`;
@@ -63,44 +49,49 @@ const CustomTable = ({
     ));
   };
 
+  const renderExpandIconContainer = id => (
+    <div className={classes.expandIconContainer}>
+      {expandedRows[id] ? (
+        <ExpandLess className={classes.expandIcon} />
+      ) : (
+        <ExpandMore className={classes.expandIcon} />
+      )}
+    </div>
+  );
+
   const renderTableBody = () => {
+    const rowClassName = index =>
+      clsx(classes.tableBodyRow, classes[index % 2 ? 'whiteRow' : 'greenRow']);
+
     if (tableType === 'sales') {
+      console.log(rows);
       return rows.map((sale, i) => {
-        const { id, createdAt } = sale;
+        const { id, createdAt, discount, total, products } = sale;
         return (
           <Fragment key={id}>
             <TableRow
-              className={clsx(
-                classes.tableBodyRow,
-                classes[i % 2 ? 'whiteRow' : 'greenRow']
-              )}
+              className={rowClassName(i)}
               onClick={() => toggleExpanded(id)}
             >
               <TableCell className={classes.tableCell}>
                 <div className={classes.firstCellContainer}>
-                  <div className={classes.expandIconContainer}>
-                    {expandedRows[id] ? (
-                      <ExpandLess className={classes.expandIcon} />
-                    ) : (
-                      <ExpandMore className={classes.expandIcon} />
-                    )}
-                  </div>
+                  {renderExpandIconContainer(id)}
                   <div className={classes.firstCellItem}>{createdAt}</div>
                 </div>
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
-                Cash
+                {totalQty(products)}
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
-                10
+                {discount ? currencyFormatter(discount) : 0}
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
-                {currencyFormatter(13454)}
+                {total ? currencyFormatter(total) : '-'}
               </TableCell>
             </TableRow>
             {expandedRows[id] ? (
               <TableRow key={id}>
-                <TableCell padding={'none'} colSpan={12}>
+                <TableCell padding="none" colSpan={12}>
                   <Collapse
                     hidden={!expandedRows[id]}
                     in={expandedRows[id]}
@@ -131,21 +122,12 @@ const CustomTable = ({
         return (
           <Fragment key={id}>
             <TableRow
-              className={clsx(
-                classes.tableBodyRow,
-                classes[i % 2 ? 'whiteRow' : 'greenRow']
-              )}
+              className={rowClassName(i)}
               onClick={() => toggleExpanded(id)}
             >
               <TableCell className={classes.tableCell}>
                 <div className={classes.firstCellContainer}>
-                  <div className={classes.expandIconContainer}>
-                    {expandedRows[id] ? (
-                      <ExpandLess className={classes.expandIcon} />
-                    ) : (
-                      <ExpandMore className={classes.expandIcon} />
-                    )}
-                  </div>
+                  {renderExpandIconContainer(id)}
                   <div className={classes.firstCellItem}>{sku}</div>
                 </div>
               </TableCell>
@@ -181,12 +163,6 @@ const CustomTable = ({
         );
       });
     }
-
-    if (!rows || rows.length < 1) {
-      <TableRow>
-        <TableCell>Nothing to show</TableCell>
-      </TableRow>;
-    }
   };
   return (
     <TableContainer>
@@ -199,21 +175,38 @@ const CustomTable = ({
               </TableRow>
             </TableHead>
           ) : null}
-          <TableBody>{renderTableBody()}</TableBody>
+          <TableBody>
+            {!rows || rows.length < 1 ? (
+              <TableRow>
+                <TableCell className={classes.noDisplayCell} colSpan={10}>
+                  <div className={classes.noDisplayMsg}>
+                    {`No ${
+                      tableType === 'sales' ? 'sales' : 'products'
+                    } to display`}
+                    <MoodBadIcon />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : (
+              renderTableBody()
+            )}
+          </TableBody>
         </Table>
       </div>
-      <div className={classes.paginationContainer}>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 50]}
-          component="div"
-          count={count}
-          labelDisplayedRows={displayedLabel}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </div>
+      {rows && rows.length >= 10 && (
+        <div className={classes.paginationContainer}>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 50]}
+            component="div"
+            count={count}
+            labelDisplayedRows={displayedLabel}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </div>
+      )}
     </TableContainer>
   );
 };

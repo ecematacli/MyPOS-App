@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import clsx from 'clsx';
 import { Popover, Button, Chip } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
@@ -8,13 +9,7 @@ import { fetchProducts } from '../../../../redux/products/productsActions';
 import useProductFilters from './useProductFilters';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 
-const ProductFilters = ({
-  rowsPerPage,
-  page,
-  brands,
-  categories,
-  fetchProducts
-}) => {
+const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
   const classes = styles();
   const {
     anchorEl,
@@ -23,67 +18,29 @@ const ProductFilters = ({
     open,
     handleInputChange,
     filterInputFields,
-    filterInputs,
-    setFilterInputs
+    chipInputs,
+    handleDelete,
+    handleApplyFilterClick
   } = useProductFilters(brands, categories);
 
-  const [chipInputs, setChipInputs] = useState({});
-
-  // const handleDelete = () => {
-  //   setFilterInputs({ ...filterInputs, category: '', brand: '' });
-  // };
-
-  const handleDelete = id => {
-    setChipInputs(chipInputs.filter(n => n.id !== id));
-  };
-
-  const renderChipInput = (inputName, label) => {
-    setChipInputs({
-      ...chipInputs,
-      [inputName]: `${label}: ${filterInputs[inputName]}`
-    });
-  };
-
-  const renderFilterCaption = () => {
-    if (filterInputs.category) {
-      renderChipInput('category', 'Category');
-    }
-    if (filterInputs.brand) {
-      renderChipInput('brand', 'Brand');
-    }
-
-    // {
-    //   filterInputs.category || filterInputs.brand
-    //     ? renderChipInput()
-    //     : 'Add Filters...';
-    // }
-
-    return Object.keys(chipInputs).map(key => {
-      if (chipInputs[key]) {
-        return (
-          <Chip
-            key={key}
-            color="secondary"
-            size="medium"
-            className={classes.chipInput}
-            label={chipInputs[key]}
-            onDelete={id => handleDelete(id)}
-          />
-        );
-      } else {
-        return 'Add Filters...';
-      }
-    });
+  const renderChipInputs = () => {
+    return chipInputs.map(({ id, label }, i) => (
+      <Chip
+        key={id}
+        color="secondary"
+        size="medium"
+        className={clsx(classes[i === 0 && 'firstChip'], classes.chipInput)}
+        label={label}
+        onDelete={() => handleDelete(id)}
+      />
+    ));
   };
 
   const renderFilterContent = () => {
     return (
       <Fragment>
         <div className={classes.filterCaption}>
-          {/* {filterInputs.category || filterInputs.brand
-            ? renderChipInput()
-            : 'Add Filters...'} */}
-          {renderFilterCaption()}
+          {chipInputs.length ? renderChipInputs() : 'Add Filters...'}
         </div>
         <div className={classes.filterInputContainer}>
           {filterInputFields.map(
@@ -132,15 +89,7 @@ const ProductFilters = ({
           </div>
           <div>
             <Button
-              onClick={() =>
-                fetchProducts(
-                  page,
-                  rowsPerPage,
-                  filterInputs.category,
-                  filterInputs.brand,
-                  filterInputs.searchQuery
-                )
-              }
+              onClick={() => handleApplyFilterClick(page, rowsPerPage)}
               className={classes.filterBtn}
               color="primary"
             >
@@ -181,38 +130,3 @@ const ProductFilters = ({
 const mapStateToProps = ({ brands, categories }) => ({ brands, categories });
 
 export default connect(mapStateToProps, { fetchProducts })(ProductFilters);
-
-// const renderChipInput = () => {
-//   if (filterInputs.brand) {
-//     setChipInputs([
-//       ...chipInputs,
-//       {
-//         id: Math.random(),
-//         label: `Brand: ${filterInputs.brand}`
-//       }
-//     ]);
-//   }
-
-//   if (filterInputs.category) {
-//     setChipInputs([
-//       ...chipInputs,
-//       {
-//         id: Math.random(),
-//         label: `Category: ${filterInputs.category}`
-//       }
-//     ]);
-//   }
-
-//   return chipInputs.map(({ label, id }) => {
-//     return (
-//       <Chip
-//         key={id}
-//         color="secondary"
-//         size="medium"
-//         className={classes.chipInput}
-//         label={label}
-//         onDelete={id => handleDelete(id)}
-//       />
-//     );
-//   });
-// };
