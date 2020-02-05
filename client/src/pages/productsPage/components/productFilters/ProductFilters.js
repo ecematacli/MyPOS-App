@@ -24,14 +24,14 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
   } = useProductFilters(brands, categories);
 
   const renderChipInputs = () => {
-    return chipInputs.map(({ id, label }, i) => (
+    return chipInputs.map(({ id, label, fieldId }, i) => (
       <Chip
         key={id}
         color="secondary"
         size="medium"
         className={clsx(classes[i === 0 && 'firstChip'], classes.chipInput)}
         label={label}
-        onDelete={() => handleDelete(id)}
+        onDelete={() => handleDelete(id, fieldId)}
       />
     ));
   };
@@ -112,6 +112,7 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
+        classes={{ paper: classes.popoverPaper }}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center'

@@ -19,7 +19,7 @@ const ProductDetails = props => {
     handleEditClick,
     productVal,
     handleInputChange,
-    handleCategoryAndBrand,
+    getInputFieldValue,
     enabledEdit,
     completeEdit
   } = useProductDetails(product, brands, categories);
@@ -41,7 +41,7 @@ const ProductDetails = props => {
               }
         }
         dropdownItems={dropdownItems}
-        value={productVal[fieldId]}
+        value={getInputFieldValue(dropdownItems, fieldId)}
         onChange={e => handleInputChange(e, fieldId)}
         color="secondary"
       />

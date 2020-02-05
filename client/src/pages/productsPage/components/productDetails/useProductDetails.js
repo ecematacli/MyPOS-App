@@ -62,28 +62,22 @@ export default (product, brands, categories) => {
     }
   };
 
-  console.log(productVal);
-
   const getInputFieldValue = (dropdownItems, fieldId) => {
     if (fieldId === 'brand' || fieldId === 'category') {
-      return dropdownItems.find(({ value }) => {});
+      const matchedDropdownItem = dropdownItems.find(({ label }) => {
+        return productVal[fieldId] === label;
+      });
+      if (matchedDropdownItem) {
+        return matchedDropdownItem.value;
+      } else {
+        const matchedDropdownItem = dropdownItems.find(({ value }) => {
+          return productVal[fieldId] === value;
+        });
+        return matchedDropdownItem.value;
+      }
     } else {
       return productVal[fieldId];
     }
-    // return dropdownItems.find(({ value }) => {
-    //   console.log('----------------------');
-
-    //   console.log('value', value);
-    //   console.log('fieldId', fieldId);
-    //   console.log('brands:', brands);
-    //   console.log('categories', categories);
-
-    //   console.log('----------------------');
-
-    //   if (fieldId === 'brand') {
-    //     // console.log(value === )
-    //   }
-    // });
   };
 
   const dispatchEditAction = useCallback(

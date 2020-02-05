@@ -27,16 +27,29 @@ export default (brands, categories) => {
     }
   }, [filterInputs.category, filterInputs.brand]);
 
-  const handleDelete = id => {
+  const handleDelete = (id, fieldId) => {
+    console.log('LABEL', fieldId);
     setChipInputs(chipInputs.filter(n => n.id !== id));
-    setFilterInputs({ ...filterInputs, category: '', brand: '' });
+    setFilterInputs({ ...filterInputs, [fieldId]: '' });
   };
 
-  const handleChipInput = (inputName, label) =>
+  const handleChipInput = (inputName, label) => {
+    const brandValue = brands.find(br => br.id === filterInputs[inputName]);
+    const categoryValue = categories.find(
+      br => br.id === filterInputs[inputName]
+    );
+
     setChipInputs([
       ...chipInputs,
-      { id: Math.random(), label: `${label}: ${filterInputs[inputName]}` }
+      {
+        id: Math.random(),
+        fieldId: inputName,
+        label: `${label}: ${
+          inputName === 'brand' ? brandValue.name : categoryValue.name
+        }`
+      }
     ]);
+  };
 
   const handleClick = e => {
     setAnchorEl(e.currentTarget);

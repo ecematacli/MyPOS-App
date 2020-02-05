@@ -37,9 +37,13 @@ export default makeStyles(({ spacing, palette }) => ({
       marginBottom: 0
     }
   },
+  popoverPaper: {
+    maxWidth: 435
+  },
   chipInput: {
     backgroundColor: palette.primary.dark,
-    marginLeft: spacing(1)
+    marginLeft: spacing(1),
+    marginTop: 10
   },
   firstChip: {
     marginLeft: 2

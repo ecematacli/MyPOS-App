@@ -1,5 +1,5 @@
 export const currencyFormatter = num => {
-  if (!num) {
+  if (typeof num === 'undefined' || num === null) {
     return '';
   }
   return num.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' });
