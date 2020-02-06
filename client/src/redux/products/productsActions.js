@@ -8,8 +8,6 @@ export const fetchProducts = (
   brandId,
   searchQuery
 ) => async dispatch => {
-  console.log('called!!');
-  console.log(categoryId, brandId, searchQuery);
   let url = `/products?page=${page}&rowsPerPage=${rowsPerPage}`;
 
   if (categoryId) {

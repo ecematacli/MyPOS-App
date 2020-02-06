@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import clsx from 'clsx';
 import { Popover, Button, Chip } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import styles from './styles';
+import { capitalize } from '../../../../common/utils';
 import { fetchProducts } from '../../../../redux/products/productsActions';
 import useProductFilters from './useProductFilters';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
@@ -16,31 +16,40 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
     handleClick,
     handleClose,
     open,
+    appliedFilters,
+    filterInputs,
+    isFilterNotApplied,
+    clearAllFilters,
     handleInputChange,
     filterInputFields,
-    chipInputs,
-    handleDelete,
-    handleApplyFilterClick
+    handleApplyFilterClick,
+    handleDelete
   } = useProductFilters(brands, categories);
 
   const renderChipInputs = () => {
-    return chipInputs.map(({ id, label, fieldId }, i) => (
-      <Chip
-        key={id}
-        color="secondary"
-        size="medium"
-        className={clsx(classes[i === 0 && 'firstChip'], classes.chipInput)}
-        label={label}
-        onDelete={() => handleDelete(id, fieldId)}
-      />
-    ));
+    console.log(Object.values(filterInputs));
+    return Object.keys(appliedFilters).map(key => {
+      if (!appliedFilters[key]) return;
+      return (
+        <Chip
+          key={key}
+          color="secondary"
+          size="medium"
+          className={classes.chipInput}
+          label={`${capitalize(key)}: ${appliedFilters[key]}`}
+          onDelete={() => handleDelete(key)}
+        />
+      );
+    });
   };
 
   const renderFilterContent = () => {
     return (
       <Fragment>
         <div className={classes.filterCaption}>
-          {chipInputs.length ? renderChipInputs() : 'Add Filters...'}
+          {Object.values(appliedFilters).some(f => !!f)
+            ? renderChipInputs()
+            : 'Add Filters...'}
         </div>
         <div className={classes.filterInputContainer}>
           {filterInputFields.map(
@@ -76,10 +85,10 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
             )
           )}
         </div>
+
         <div className={classes.filterBtnDiv}>
           <div>
             <Button
-              style={{ marginRight: 8 }}
               className={classes.filterBtn}
               color="secondary"
               onClick={handleClose}
@@ -87,10 +96,25 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
               Cancel
             </Button>
           </div>
+          <div className={classes.filterBtnDiv}>
+            <Button
+              className={classes.filterBtn}
+              color="secondary"
+              disabled={
+                Object.values(filterInputs).every(f => f === '') ||
+                isFilterNotApplied
+              }
+              onClick={() => clearAllFilters(page, rowsPerPage)}
+            >
+              Clear Filters
+            </Button>
+          </div>
           <div>
             <Button
               onClick={() => handleApplyFilterClick(page, rowsPerPage)}
               className={classes.filterBtn}
+              disabled={Object.values(filterInputs).every(f => f === '')}
+              style={{ marginRight: 16 }}
               color="primary"
             >
               Apply filter

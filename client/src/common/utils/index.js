@@ -5,8 +5,16 @@ export const currencyFormatter = num => {
   return num.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' });
 };
 
+export const capitalize = str => {
+  if (typeof str !== 'string') return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 export const dropdownItemsFormatter = dropdownItems =>
-  dropdownItems.map(({ name, id }) => ({ value: id, label: name }));
+  Object.keys(dropdownItems).map(id => ({
+    value: Number(id),
+    label: dropdownItems[id]
+  }));
 
 export const totalQty = products =>
   products.reduce((acc, item) => {

@@ -65,8 +65,7 @@ export default makeStyles(({ spacing, palette }) => ({
   filterBtnDiv: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginRight: spacing(2.7),
-    marginBottom: spacing(2)
+    marginBottom: spacing(1.5)
   },
   filterBtn: {
     textTransform: 'capitalize',

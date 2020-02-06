@@ -67,6 +67,7 @@ export default (product, brands, categories) => {
       const matchedDropdownItem = dropdownItems.find(({ label }) => {
         return productVal[fieldId] === label;
       });
+
       if (matchedDropdownItem) {
         return matchedDropdownItem.value;
       } else {

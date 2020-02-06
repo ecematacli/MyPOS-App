@@ -1,71 +1,44 @@
-import { useState, useReducer, useEffect } from 'react';
+import { useState, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { dropdownItemsFormatter } from '../../../../common/utils';
 import { fetchProducts } from '../../../../redux/products/productsActions';
 
+const initialState = {
+  searchQuery: '',
+  category: '',
+  brand: ''
+};
+
 export default (brands, categories) => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [chipInputs, setChipInputs] = useState([]);
   const [filterInputs, setFilterInputs] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
-    {
-      searchQuery: '',
-      category: '',
-      brand: ''
-    }
+    initialState
   );
+  const [appliedFilters, setAppliedFilters] = useState({});
+  const [isFilterNotApplied, setIsFilterNotApplied] = useState(true);
 
-  useEffect(() => {
-    if (filterInputs.category) {
-      handleChipInput('category', 'Category');
-    }
-
-    if (filterInputs.brand) {
-      handleChipInput('brand', 'Brand');
-    }
-  }, [filterInputs.category, filterInputs.brand]);
-
-  const handleDelete = (id, fieldId) => {
-    console.log('LABEL', fieldId);
-    setChipInputs(chipInputs.filter(n => n.id !== id));
-    setFilterInputs({ ...filterInputs, [fieldId]: '' });
-  };
-
-  const handleChipInput = (inputName, label) => {
-    const brandValue = brands.find(br => br.id === filterInputs[inputName]);
-    const categoryValue = categories.find(
-      br => br.id === filterInputs[inputName]
-    );
-
-    setChipInputs([
-      ...chipInputs,
-      {
-        id: Math.random(),
-        fieldId: inputName,
-        label: `${label}: ${
-          inputName === 'brand' ? brandValue.name : categoryValue.name
-        }`
-      }
-    ]);
-  };
-
+  // Popup state handlers
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
   };
 
-  const handleClose = (e, reason) => {
-    if (reason !== 'backdropClick') {
-      setAnchorEl(null);
-    }
+  const handleClose = () => {
+    setAnchorEl(null);
   };
+
+  const open = Boolean(anchorEl);
+
+  // Input change handler function
   const handleInputChange = ({ target: { value, name } }) => {
     const fieldName = name;
     const newValue = value;
     setFilterInputs({ [fieldName]: newValue });
   };
 
+  // Filter functionality handlers
   const handleApplyFilterClick = (page, rowsPerPage) => {
     dispatch(
       fetchProducts(
@@ -78,10 +51,31 @@ export default (brands, categories) => {
     );
 
     handleClose();
+
+    setTimeout(() => {
+      setAppliedFilters({
+        searchQuery: filterInputs.searchQuery,
+        category: categories[filterInputs.category],
+        brand: brands[filterInputs.brand]
+      });
+      setIsFilterNotApplied(false);
+    }, 1000);
   };
 
-  const open = Boolean(anchorEl);
+  const handleDelete = key => {
+    const { [key]: toBeRemoved, ...otherKeys } = appliedFilters;
+    setAppliedFilters(otherKeys);
+    setFilterInputs({ ...filterInputs, [key]: '' });
+  };
 
+  const clearAllFilters = (page, rowsPerPage) => {
+    setAppliedFilters({});
+    setFilterInputs(initialState);
+    setIsFilterNotApplied(true);
+    dispatch(fetchProducts(page, rowsPerPage));
+  };
+
+  // Mappable filter input fields
   const filterInputFields = [
     {
       label: 'Search Query',
@@ -112,10 +106,12 @@ export default (brands, categories) => {
     handleClick,
     handleClose,
     open,
+    appliedFilters,
+    isFilterNotApplied,
+    clearAllFilters,
     handleInputChange,
     filterInputFields,
-    chipInputs,
-    handleDelete,
-    handleApplyFilterClick
+    handleApplyFilterClick,
+    handleDelete
   };
 };

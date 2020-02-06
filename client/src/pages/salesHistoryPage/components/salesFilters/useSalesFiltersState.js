@@ -13,10 +13,8 @@ export default (page, rowsPerPage) => {
     setAnchorEl(e.currentTarget);
   };
 
-  const handleClose = (e, reason) => {
-    if (reason !== 'backdropClick') {
-      setAnchorEl(null);
-    }
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const open = Boolean(anchorEl);
