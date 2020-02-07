@@ -10,9 +10,9 @@ export default () => {
 
   const postSignInForm = async userCredentials => {
     let active = true;
-    const response = await api.post('/login', userCredentials);
 
     try {
+      const response = await api.post('/login', userCredentials);
       if (response) {
         active && saveAuthToken(response.data);
       } else {
@@ -20,7 +20,7 @@ export default () => {
       }
     } catch (e) {
       addNotification(
-        'There was a problem logging in. Check your email and password',
+        'There was a problem logging in. Check your email and password!',
         'error'
       );
     }

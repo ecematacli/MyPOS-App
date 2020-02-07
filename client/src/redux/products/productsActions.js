@@ -1,20 +1,23 @@
 import api from '../../api';
 import { FETCH_PRODUCTS, EDIT_PRODUCT, CREATE_PRODUCT } from './types';
+import { findMatchedFields } from '../../common/utils/index';
 
 export const fetchProducts = (
   page = 1,
   rowsPerPage = 10,
-  categoryId,
-  brandId,
+  categoryName,
+  brandName,
   searchQuery
-) => async dispatch => {
+) => async (dispatch, getState) => {
   let url = `/products?page=${page}&rowsPerPage=${rowsPerPage}`;
 
-  if (categoryId) {
-    url += `&categoryId=${categoryId}`;
+  if (categoryName) {
+    url += `&categoryId=${
+      findMatchedFields(getState().categories, categoryName).id
+    }`;
   }
-  if (brandId) {
-    url += `&brandId=${brandId}`;
+  if (brandName) {
+    url += `&brandId=${findMatchedFields(getState().brands, brandName).id}`;
   }
   if (searchQuery) {
     url += `&query=${searchQuery}`;
@@ -34,11 +37,27 @@ export const editProduct = (
   productId,
   label,
   addNotification
-) => async dispatch => {
+) => async (dispatch, getState) => {
   try {
-    const response = await api.patch(`/products/${productId}/`, {
+    let updatedField = {
       [fieldId]: productVal
-    });
+    };
+
+    if (fieldId === 'brand') {
+      updatedField = {
+        brandId: findMatchedFields(getState().brands, productVal).id.toString()
+      };
+    }
+    if (fieldId === 'category') {
+      updatedField = {
+        categoryId: findMatchedFields(
+          getState().categories,
+          productVal
+        ).id.toString()
+      };
+    }
+
+    const response = await api.patch(`/products/${productId}/`, updatedField);
 
     dispatch({
       type: EDIT_PRODUCT,

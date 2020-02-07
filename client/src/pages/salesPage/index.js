@@ -82,6 +82,7 @@ const SalesPage = ({ completeSale }) => {
           discount={discount}
           handleDiscountChange={handleDiscountChange}
           completeSale={completeSale}
+          discardSale={discardSale}
         />
       </Grid>
     </Grid>

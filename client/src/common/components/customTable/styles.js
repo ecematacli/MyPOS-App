@@ -51,7 +51,7 @@ export default makeStyles(({ spacing, palette }) => ({
     marginLeft: '-5px'
   },
   expandIconContainer: {
-    marginRight: spacing(1),
+    marginRight: spacing(2),
     display: 'flex',
     alignItems: 'center'
   },

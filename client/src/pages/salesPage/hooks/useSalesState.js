@@ -8,7 +8,6 @@ import {
 import useProductsLocalStorage from './useProductsLocalStorage';
 
 // Products Reducer
-
 const productsReducer = (state, { type, payload }) => {
   switch (type) {
     case 'ADD_PRODUCT': {

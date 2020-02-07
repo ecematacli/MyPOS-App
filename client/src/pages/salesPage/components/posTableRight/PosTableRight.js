@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import clsx from 'clsx';
 import {
   Table,
@@ -16,6 +16,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
 import { currencyFormatter } from '../../../../common/utils';
+import { NotificationsContext } from '../../../../contexts/NotificationsContext';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import CustomButton from '../../../../common/components/customButton/CustomButton';
 
@@ -48,9 +49,15 @@ const PosTableRight = ({
   tax,
   discount,
   handleDiscountChange,
-  completeSale
+  completeSale,
+  discardSale
 }) => {
   const classes = styles();
+  const { addNotification } = useContext(NotificationsContext);
+
+  const onCompleteSaleClick = () => {
+    completeSale(products, total, discount, addNotification, discardSale);
+  };
 
   const renderTableHead = () => {
     return TABLE_HEAD.map(({ label, numeric }) => {
@@ -92,8 +99,8 @@ const PosTableRight = ({
             </div>
           </TableCell>
           <TableCell align="right">{currencyFormatter(price)}</TableCell>
-          <TableCell align="right">
-            {currencyFormatter(discountPrice)}
+          <TableCell align={discountPrice ? 'right' : 'center'}>
+            {discountPrice ? currencyFormatter(discountPrice) : '-'}
           </TableCell>
           <TableCell colSpan={3} align="right">
             <IconButton onClick={() => deleteProduct(product.id)}>
@@ -139,7 +146,7 @@ const PosTableRight = ({
       <div className={classes.paymentBtnContainer}>
         <CustomButton fullWidth>
           <div
-            onClick={() => completeSale(products, total, discount)}
+            onClick={onCompleteSaleClick}
             className={classes.paymentBtnTextHolder}
           >
             <Typography className={classes.paymentBtnTxt}>

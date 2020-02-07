@@ -19,7 +19,8 @@ const ProductDetails = props => {
     handleEditClick,
     productVal,
     handleInputChange,
-    getInputFieldValue,
+    renderProductValues,
+    getInputValues,
     enabledEdit,
     completeEdit
   } = useProductDetails(product, brands, categories);
@@ -41,7 +42,7 @@ const ProductDetails = props => {
               }
         }
         dropdownItems={dropdownItems}
-        value={getInputFieldValue(dropdownItems, fieldId)}
+        value={getInputValues(fieldId)}
         onChange={e => handleInputChange(e, fieldId)}
         color="secondary"
       />
@@ -77,6 +78,7 @@ const ProductDetails = props => {
         currency,
         type
       } = productField;
+
       return (
         <div key={label} className={classes.productDetails}>
           <Typography>{label}: </Typography>
@@ -86,7 +88,7 @@ const ProductDetails = props => {
             ) : (
               <>
                 {currency && <div>&#x20BA;</div>}
-                <Typography>{productVal[fieldId]}</Typography>
+                <Typography>{renderProductValues(fieldId)}</Typography>
                 <div
                   onClick={() => {
                     handleEdittedRow(fieldId);

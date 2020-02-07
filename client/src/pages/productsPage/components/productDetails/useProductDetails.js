@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import { editProduct } from '../../../../redux/products/productsActions';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
-import { dropdownItemsFormatter } from '../../../../common/utils';
 
 export default (product, brands, categories) => {
   const dispatch = useDispatch();
@@ -12,6 +11,58 @@ export default (product, brands, categories) => {
   const [productVal, setProductVal] = useState(product);
   const [enabledEdit, setEnabledEdit] = useState(false);
 
+  // Product input value handlers
+  const handleInputChange = (e, fieldId) => {
+    setProductVal({ ...productVal, [fieldId]: e.target.value });
+  };
+
+  const renderProductValues = fieldId => {
+    if (fieldId === 'brand' || fieldId === 'category') {
+      return product[fieldId].name ? product[fieldId].name : product[fieldId];
+    } else {
+      return product[fieldId];
+    }
+  };
+
+  const getInputValues = fieldId => {
+    if (fieldId === 'brand' || fieldId === 'category') {
+      console.log('product:', product.brand);
+      console.log('productVal:', productVal.brand);
+
+      return productVal[fieldId].name
+        ? productVal[fieldId].name
+        : productVal[fieldId];
+    } else {
+      return productVal[fieldId];
+    }
+  };
+
+  // Product Edit Handlers
+  const handleEdittedRow = fieldId => {
+    setEdittedRow({ ...edittedRow, [fieldId]: !edittedRow[fieldId] });
+  };
+
+  const handleEditClick = () => {
+    if (enabledEdit) {
+      setEnabledEdit(false);
+      setEdittedRow({});
+    } else {
+      setEnabledEdit(true);
+    }
+  };
+
+  const dispatchEditAction = useCallback(
+    (...args) => dispatch(editProduct(...args, addNotification)),
+    [dispatch]
+  );
+
+  const completeEdit = (fieldId, fieldValue, productId, label) => {
+    if (product[fieldId] !== productVal[fieldId]) {
+      dispatchEditAction(fieldId, fieldValue, productId, label);
+    }
+  };
+
+  //Mappable Product fields
   const PRODUCT_FIELDS = [
     { label: 'Barcode', fieldId: 'barcode' },
     { label: 'Product Name', fieldId: 'name' },
@@ -35,62 +86,15 @@ export default (product, brands, categories) => {
       label: 'Brand Name',
       fieldId: 'brand',
       dropdown: true,
-      dropdownItems: dropdownItemsFormatter(brands)
+      dropdownItems: brands
     },
     {
       label: 'Category Name',
       fieldId: 'category',
       dropdown: true,
-      dropdownItems: dropdownItemsFormatter(categories)
+      dropdownItems: categories
     }
   ];
-
-  const handleEdittedRow = fieldId => {
-    setEdittedRow({ ...edittedRow, [fieldId]: !edittedRow[fieldId] });
-  };
-
-  const handleInputChange = (e, fieldId) => {
-    setProductVal({ ...productVal, [fieldId]: e.target.value });
-  };
-
-  const handleEditClick = () => {
-    if (enabledEdit) {
-      setEnabledEdit(false);
-      setEdittedRow({});
-    } else {
-      setEnabledEdit(true);
-    }
-  };
-
-  const getInputFieldValue = (dropdownItems, fieldId) => {
-    if (fieldId === 'brand' || fieldId === 'category') {
-      const matchedDropdownItem = dropdownItems.find(({ label }) => {
-        return productVal[fieldId] === label;
-      });
-
-      if (matchedDropdownItem) {
-        return matchedDropdownItem.value;
-      } else {
-        const matchedDropdownItem = dropdownItems.find(({ value }) => {
-          return productVal[fieldId] === value;
-        });
-        return matchedDropdownItem.value;
-      }
-    } else {
-      return productVal[fieldId];
-    }
-  };
-
-  const dispatchEditAction = useCallback(
-    (...args) => dispatch(editProduct(...args, addNotification)),
-    [dispatch]
-  );
-
-  const completeEdit = (fieldId, fieldValue, productId, label) => {
-    if (product[fieldId] !== productVal[fieldId]) {
-      dispatchEditAction(fieldId, fieldValue, productId, label);
-    }
-  };
 
   return {
     PRODUCT_FIELDS,
@@ -99,7 +103,8 @@ export default (product, brands, categories) => {
     handleEditClick,
     productVal,
     handleInputChange,
-    getInputFieldValue,
+    renderProductValues,
+    getInputValues,
     enabledEdit,
     dispatchEditAction,
     completeEdit

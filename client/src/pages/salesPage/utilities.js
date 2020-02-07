@@ -12,6 +12,7 @@ export const calculateTotalTax = products => {
 
 export const calculateTotalDiscount = products => {
   return products.reduce((acc, { price, discountPrice, qty }) => {
+    if (!discountPrice) return 0;
     return acc + (price - discountPrice) * qty;
   }, 0);
 };

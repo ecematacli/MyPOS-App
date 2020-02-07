@@ -16,6 +16,7 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
     handleClick,
     handleClose,
     open,
+    cancelClick,
     appliedFilters,
     filterInputs,
     isFilterNotApplied,
@@ -26,9 +27,8 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
     handleDelete
   } = useProductFilters(brands, categories);
 
-  const renderChipInputs = () => {
-    console.log(Object.values(filterInputs));
-    return Object.keys(appliedFilters).map(key => {
+  const renderChipInputs = () =>
+    Object.keys(appliedFilters).map(key => {
       if (!appliedFilters[key]) return;
       return (
         <Chip
@@ -41,89 +41,79 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
         />
       );
     });
-  };
 
-  const renderFilterContent = () => {
-    return (
-      <Fragment>
-        <div className={classes.filterCaption}>
-          {Object.values(appliedFilters).some(f => !!f)
-            ? renderChipInputs()
-            : 'Add Filters...'}
-        </div>
-        <div className={classes.filterInputContainer}>
-          {filterInputFields.map(
-            ({
-              label,
-              fieldId,
-              dropdown,
-              placeholder,
-              value,
-              dropdownItems
-            }) => (
-              <div key={label} className={classes.filterInputs}>
-                <div className={classes.filterLabel}>{label}</div>
-                <CustomInput
-                  dropdown={dropdown}
-                  name={fieldId}
-                  placeholder={placeholder}
-                  dropdownItems={dropdownItems}
-                  value={value}
-                  onChange={handleInputChange}
-                  classesProp={
-                    !dropdown
-                      ? {
-                          root: classes.input
-                        }
-                      : {
-                          dropdownInput: { root: classes.dropdownInput },
-                          innerInput: { root: classes.innerInput }
-                        }
-                  }
-                />
-              </div>
-            )
-          )}
-        </div>
+  const renderFilterContent = () => (
+    <Fragment>
+      <div className={classes.filterCaption}>
+        {Object.values(appliedFilters).some(f => !!f)
+          ? renderChipInputs()
+          : 'Add Filters...'}
+      </div>
+      <div className={classes.filterInputContainer}>
+        {filterInputFields.map(
+          ({ label, fieldId, dropdown, placeholder, value, dropdownItems }) => (
+            <div key={label} className={classes.filterInputs}>
+              <div className={classes.filterLabel}>{label}</div>
+              <CustomInput
+                dropdown={dropdown}
+                name={fieldId}
+                placeholder={placeholder}
+                dropdownItems={dropdownItems}
+                value={value}
+                onChange={handleInputChange}
+                classesProp={
+                  !dropdown
+                    ? {
+                        root: classes.input
+                      }
+                    : {
+                        dropdownInput: { root: classes.dropdownInput },
+                        innerInput: { root: classes.innerInput }
+                      }
+                }
+              />
+            </div>
+          )
+        )}
+      </div>
 
+      <div className={classes.filterBtnDiv}>
+        <div>
+          <Button
+            className={classes.filterBtn}
+            color="secondary"
+            onClick={cancelClick}
+          >
+            Cancel
+          </Button>
+        </div>
         <div className={classes.filterBtnDiv}>
-          <div>
-            <Button
-              className={classes.filterBtn}
-              color="secondary"
-              onClick={handleClose}
-            >
-              Cancel
-            </Button>
-          </div>
-          <div className={classes.filterBtnDiv}>
-            <Button
-              className={classes.filterBtn}
-              color="secondary"
-              disabled={
-                Object.values(filterInputs).every(f => f === '') ||
-                isFilterNotApplied
-              }
-              onClick={() => clearAllFilters(page, rowsPerPage)}
-            >
-              Clear Filters
-            </Button>
-          </div>
-          <div>
-            <Button
-              onClick={() => handleApplyFilterClick(page, rowsPerPage)}
-              className={classes.filterBtn}
-              disabled={Object.values(filterInputs).every(f => f === '')}
-              style={{ marginRight: 16 }}
-              color="primary"
-            >
-              Apply filter
-            </Button>
-          </div>
+          <Button
+            className={classes.filterBtn}
+            color="secondary"
+            disabled={
+              Object.values(filterInputs).every(f => f === '') ||
+              isFilterNotApplied
+            }
+            onClick={() => clearAllFilters(page, rowsPerPage)}
+          >
+            Clear Filters
+          </Button>
         </div>
-      </Fragment>
-    );
-  };
+        <div>
+          <Button
+            onClick={() => handleApplyFilterClick(page, rowsPerPage)}
+            className={classes.filterBtn}
+            disabled={Object.values(filterInputs).every(f => f === '')}
+            style={{ marginRight: 16 }}
+            color="primary"
+          >
+            Apply filters
+          </Button>
+        </div>
+      </div>
+    </Fragment>
+  );
 
   return (
     <Fragment>

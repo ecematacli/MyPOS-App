@@ -14,10 +14,24 @@ const ProductsPage = ({
   fetchCategories,
   fetchBrands,
   products,
-  count
+  count,
+  ids,
+  pr
 }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
+
+  console.log('ids are:', ids);
+  console.log('products are:', products);
+  console.log('pr is', pr);
+
+  const productsInOrder = () => {
+    return ids.map(productId => {
+      return pr[productId];
+    });
+  };
+
+  console.log(productsInOrder());
 
   useEffect(() => {
     fetchProducts();
@@ -52,7 +66,7 @@ const ProductsPage = ({
             numeric: true
           }
         ]}
-        rows={products}
+        rows={productsInOrder()}
         tableType="products"
         rowsPerPage={rowsPerPage}
         setRowsPerPage={setRowsPerPage}
@@ -66,9 +80,11 @@ const ProductsPage = ({
   );
 };
 
-const mapStateToProps = ({ products: { products, count } }) => ({
+const mapStateToProps = ({ products: { products, count, ids } }) => ({
+  pr: products,
   products: Object.values(products),
-  count
+  count,
+  ids
 });
 
 export default connect(mapStateToProps, {

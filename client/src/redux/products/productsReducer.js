@@ -2,7 +2,8 @@ import { FETCH_PRODUCTS, EDIT_PRODUCT, CREATE_PRODUCT } from './types';
 
 const initialState = {
   count: 0,
-  products: {}
+  products: {},
+  ids: []
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -16,11 +17,13 @@ export default (state = initialState, { type, payload }) => {
         }),
         {}
       );
+
       return {
         count,
         products: {
           ...objProductsData
-        }
+        },
+        ids: products.map(p => p.id)
       };
     }
     case EDIT_PRODUCT:

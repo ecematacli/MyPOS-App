@@ -45,9 +45,6 @@ export default makeStyles(({ spacing, palette }) => ({
     marginLeft: spacing(1),
     marginTop: 10
   },
-  firstChip: {
-    marginLeft: 2
-  },
   input: {
     width: 258,
     height: 35,

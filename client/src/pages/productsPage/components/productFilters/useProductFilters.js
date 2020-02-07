@@ -1,8 +1,8 @@
 import { useState, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { dropdownItemsFormatter } from '../../../../common/utils';
 import { fetchProducts } from '../../../../redux/products/productsActions';
+import { findMatchedFields } from '../../../../common/utils';
 
 const initialState = {
   searchQuery: '',
@@ -52,14 +52,14 @@ export default (brands, categories) => {
 
     handleClose();
 
-    setTimeout(() => {
-      setAppliedFilters({
-        searchQuery: filterInputs.searchQuery,
-        category: categories[filterInputs.category],
-        brand: brands[filterInputs.brand]
-      });
-      setIsFilterNotApplied(false);
-    }, 1000);
+    setAppliedFilters({
+      searchQuery: filterInputs.searchQuery,
+      category: findMatchedFields(categories, filterInputFields.category),
+      brand: findMatchedFields(brands, filterInputFields.brands)
+      // category: categories[filterInputs.category],
+      // brand: brands[filterInputs.brand]
+    });
+    setIsFilterNotApplied(false);
   };
 
   const handleDelete = key => {
@@ -75,6 +75,13 @@ export default (brands, categories) => {
     dispatch(fetchProducts(page, rowsPerPage));
   };
 
+  const cancelClick = () => {
+    handleClose();
+    setTimeout(() => {
+      setAppliedFilters({});
+      setFilterInputs(initialState);
+    }, 1000);
+  };
   // Mappable filter input fields
   const filterInputFields = [
     {
@@ -87,14 +94,14 @@ export default (brands, categories) => {
       label: 'Category',
       fieldId: 'category',
       dropdown: true,
-      dropdownItems: dropdownItemsFormatter(categories),
+      dropdownItems: categories,
       value: filterInputs.category
     },
     {
       label: 'Brand',
       fieldId: 'brand',
       dropdown: true,
-      dropdownItems: dropdownItemsFormatter(brands),
+      dropdownItems: brands,
       value: filterInputs.brand
     }
   ];
@@ -107,6 +114,7 @@ export default (brands, categories) => {
     handleClose,
     open,
     appliedFilters,
+    cancelClick,
     isFilterNotApplied,
     clearAllFilters,
     handleInputChange,

@@ -1,18 +1,30 @@
 import api from '../../api';
 import { CREATE_SALE, FETCH_SALES } from './types';
 
-export const completeSale = (products, total, discount) => async dispatch => {
-  const response = await api.post('/sales', {
-    products,
-    total: total - parseFloat(discount),
-    discount: parseFloat(discount)
-    // totalQty: totalQty()
-  });
+export const completeSale = (
+  products,
+  total,
+  discount,
+  addNotification,
+  discardSale
+) => async dispatch => {
+  try {
+    const response = await api.post('/sales', {
+      products,
+      total: total - parseFloat(discount),
+      discount: parseFloat(discount)
+    });
 
-  dispatch({
-    type: CREATE_SALE,
-    payload: response.data
-  });
+    dispatch({
+      type: CREATE_SALE,
+      payload: response.data
+    });
+    discardSale();
+    addNotification('Sale has been completed successfully', 'success');
+  } catch (e) {
+    addNotification('Sale could not be completed!', 'error');
+    console.log(e);
+  }
 };
 
 export const fetchSales = (

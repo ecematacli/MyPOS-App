@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import MoodBadIcon from '@material-ui/icons/MoodBad';
 
 import styles from './styles';
 import { currencyFormatter, totalQty } from '../../utils';
@@ -64,7 +63,6 @@ const CustomTable = props => {
       clsx(classes.tableBodyRow, classes[index % 2 ? 'whiteRow' : 'greenRow']);
 
     if (tableType === 'sales') {
-      console.log(rows);
       return rows.map((sale, i) => {
         const { id, createdAt, discount, total, products } = sale;
         return (
@@ -83,7 +81,7 @@ const CustomTable = props => {
                 {totalQty(products)}
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
-                {discount ? currencyFormatter(discount) : 0}
+                {discount ? currencyFormatter(discount) : '-'}
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
                 {total ? currencyFormatter(total) : '-'}
@@ -128,21 +126,23 @@ const CustomTable = props => {
               <TableCell className={classes.tableCell}>
                 <div className={classes.firstCellContainer}>
                   {renderExpandIconContainer(id)}
-                  <div className={classes.firstCellItem}>{sku}</div>
+                  <div className={classes.firstCellItem}>{sku ? sku : '-'}</div>
                 </div>
               </TableCell>
-              <TableCell className={classes.tableCell}>{name}</TableCell>
               <TableCell className={classes.tableCell}>
-                {category && category}
+                {name ? name : '-'}
               </TableCell>
               <TableCell className={classes.tableCell}>
-                {brand && brand}
+                {category ? category.name : '-'}
+              </TableCell>
+              <TableCell className={classes.tableCell}>
+                {brand ? brand.name : '-'}
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
                 {price && currencyFormatter(price)}
               </TableCell>
               <TableCell align="right" className={classes.tableCell}>
-                {discountPrice && currencyFormatter(discountPrice)}
+                {discountPrice ? currencyFormatter(discountPrice) : '-'}
               </TableCell>
             </TableRow>
             {expandedRows[id] ? (
@@ -183,7 +183,6 @@ const CustomTable = props => {
                     {`No ${
                       tableType === 'sales' ? 'sales' : 'products'
                     } to display`}
-                    <MoodBadIcon />
                   </div>
                 </TableCell>
               </TableRow>
