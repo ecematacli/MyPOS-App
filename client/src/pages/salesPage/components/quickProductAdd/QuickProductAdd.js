@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -17,14 +18,19 @@ import styles from './styles';
 import useNewProductInputState from './useNewProductInputState';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 
-const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {
+const QuickProductAdd = ({
+  openDialog,
+  handleCloseDialog,
+  brands,
+  categories
+}) => {
   const classes = styles();
 
   const {
     NEW_PRODUCT_FIELDS,
     handleInputChange,
     onAddProductClick
-  } = useNewProductInputState();
+  } = useNewProductInputState(brands, categories, handleCloseDialog);
 
   const renderAdditionalFields = () => {
     return (
@@ -103,7 +109,7 @@ const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {
                         </InputAdornment>
                       ) : null
                     }
-                    required
+                    required={required}
                     classesProp={{
                       root: classes.input
                     }}
@@ -129,4 +135,9 @@ const QuickProductAdd = ({ openDialog, handleCloseDialog }) => {
   return <Fragment>{renderDialog()}</Fragment>;
 };
 
-export default QuickProductAdd;
+const mapStateToProps = ({ brands, categories }) => ({
+  brands,
+  categories
+});
+
+export default connect(mapStateToProps)(QuickProductAdd);

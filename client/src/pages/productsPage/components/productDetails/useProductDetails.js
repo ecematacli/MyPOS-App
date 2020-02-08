@@ -17,8 +17,14 @@ export default (product, brands, categories) => {
   };
 
   const renderProductValues = fieldId => {
-    if (fieldId === 'brand' || fieldId === 'category') {
-      return product[fieldId].name ? product[fieldId].name : product[fieldId];
+    if (
+      fieldId === 'brand' ||
+      fieldId === 'category' ||
+      fieldId === 'taxRate'
+    ) {
+      return product[fieldId] && product[fieldId].name
+        ? product[fieldId].name
+        : product[fieldId];
     } else {
       return product[fieldId];
     }
@@ -26,10 +32,7 @@ export default (product, brands, categories) => {
 
   const getInputValues = fieldId => {
     if (fieldId === 'brand' || fieldId === 'category') {
-      console.log('product:', product.brand);
-      console.log('productVal:', productVal.brand);
-
-      return productVal[fieldId].name
+      return productVal[fieldId] && productVal[fieldId].name
         ? productVal[fieldId].name
         : productVal[fieldId];
     } else {
@@ -78,7 +81,11 @@ export default (product, brands, categories) => {
       label: 'Tax Rate',
       fieldId: 'taxRate',
       dropdown: true,
-      dropdownItems: [8, 18].map(n => ({ value: n, label: n })),
+      dropdownItems: [
+        // { id: 0, name: null },
+        { id: 1, name: '8' },
+        { id: 2, name: '18' }
+      ],
       type: 'number'
     },
     { label: 'Sku', fieldId: 'sku' },

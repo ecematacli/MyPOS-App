@@ -23,7 +23,8 @@ export default (state = initialState, { type, payload }) => {
         count,
         sales: {
           ...objSalesData
-        }
+        },
+        ids: sales.map(sale => sale.id)
       };
     }
     default:

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
 import { createProduct } from '../../../../redux/products/productsActions';
 
-export default () => {
+export default (brands, categories, handleCloseDialog) => {
   const { addNotification } = useContext(NotificationsContext);
   const dispatch = useDispatch();
   const [userInputs, setUserInputs] = useReducer(
@@ -14,7 +14,7 @@ export default () => {
       name: '',
       qty: 1,
       sku: '',
-      price: '',
+      price: 0,
       taxRate: 18,
       variation: '',
       discountPrice: '',
@@ -23,6 +23,26 @@ export default () => {
     }
   );
 
+  // Product input field handlers
+  const handleInputChange = ({ target: { value, name } }) => {
+    const fieldName = name;
+    const newValue = value;
+
+    if (fieldName === 'taxRate' || fieldName === 'qty') {
+      const numValue = parseInt(newValue);
+      setUserInputs({ [fieldName]: isNaN(numValue) ? 0 : numValue });
+    } else {
+      setUserInputs({ [fieldName]: newValue });
+    }
+  };
+
+  const onAddProductClick = () => {
+    dispatch(createProduct(userInputs, addNotification));
+
+    handleCloseDialog();
+  };
+
+  // Mappable product fields
   const NEW_PRODUCT_FIELDS = [
     {
       label: 'Barcode (required)*',
@@ -55,17 +75,20 @@ export default () => {
       label: 'Tax Rate',
       fieldId: 'taxRate',
       dropdown: true,
-      dropdownItems: [18, 8],
+      dropdownItems: [
+        { id: 1, name: 18 },
+        { id: 2, name: 8 }
+      ],
       value: userInputs.taxRate,
       additionalField: true,
       type: 'number'
     },
-    { label: 'Sku', fieldId: 'sku', value: userInputs.sku },
+    { label: 'Sku (required*)', fieldId: 'sku', value: userInputs.sku },
     {
       label: 'Brand Name',
       fieldId: 'brand',
       dropdown: true,
-      dropdownItems: ['Nike', 'Adidas', 'Wilson'],
+      dropdownItems: brands,
       value: userInputs.brand,
       additionalField: true
     },
@@ -73,27 +96,11 @@ export default () => {
       label: 'Category Name',
       fieldId: 'category',
       dropdown: true,
-      dropdownItems: ['Tennis shoe', 'Tennis racket'],
+      dropdownItems: categories,
       value: userInputs.category,
       additionalField: true
     }
   ];
-
-  const handleInputChange = ({ target: { value, name } }) => {
-    const fieldName = name;
-    const newValue = value;
-
-    if (fieldName === 'taxRate' || fieldName === 'qty') {
-      const numValue = parseInt(newValue);
-      setUserInputs({ [fieldName]: isNaN(numValue) ? 0 : numValue });
-    } else {
-      setUserInputs({ [fieldName]: newValue });
-    }
-  };
-
-  const onAddProductClick = () => {
-    dispatch(createProduct(userInputs, addNotification));
-  };
 
   return {
     NEW_PRODUCT_FIELDS,

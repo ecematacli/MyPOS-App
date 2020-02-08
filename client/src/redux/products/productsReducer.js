@@ -23,7 +23,7 @@ export default (state = initialState, { type, payload }) => {
         products: {
           ...objProductsData
         },
-        ids: products.map(p => p.id)
+        ids: products.map(product => product.id)
       };
     }
     case EDIT_PRODUCT:

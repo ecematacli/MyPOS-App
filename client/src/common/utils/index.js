@@ -7,7 +7,6 @@ export const currencyFormatter = num => {
 
 export const findMatchedFields = (fields, fieldToBeMatched) => {
   return fields.find(f => {
-    console.log(f.name);
     return f.name === fieldToBeMatched;
   });
 };

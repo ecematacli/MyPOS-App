@@ -20,6 +20,8 @@ export default (brands, categories) => {
   const [appliedFilters, setAppliedFilters] = useState({});
   const [isFilterNotApplied, setIsFilterNotApplied] = useState(true);
 
+  console.log('applied filters:', appliedFilters);
+
   // Popup state handlers
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
@@ -52,14 +54,14 @@ export default (brands, categories) => {
 
     handleClose();
 
-    setAppliedFilters({
-      searchQuery: filterInputs.searchQuery,
-      category: findMatchedFields(categories, filterInputFields.category),
-      brand: findMatchedFields(brands, filterInputFields.brands)
-      // category: categories[filterInputs.category],
-      // brand: brands[filterInputs.brand]
-    });
-    setIsFilterNotApplied(false);
+    setTimeout(() => {
+      setAppliedFilters({
+        searchQuery: filterInputs.searchQuery,
+        category: filterInputs.category,
+        brand: filterInputs.brand
+      });
+      setIsFilterNotApplied(false);
+    }, 1000);
   };
 
   const handleDelete = key => {

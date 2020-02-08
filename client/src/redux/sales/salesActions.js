@@ -23,7 +23,6 @@ export const completeSale = (
     addNotification('Sale has been completed successfully', 'success');
   } catch (e) {
     addNotification('Sale could not be completed!', 'error');
-    console.log(e);
   }
 };
 

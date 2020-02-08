@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Grid, IconButton, Typography } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import styles from './styles';
+import { completeSale } from '../../redux/sales/salesActions';
+import { fetchCategories } from '../../redux/categories/categoriesActions';
+import { fetchBrands } from '../../redux/brands/brandsActions';
 import useSalesState from './hooks/useSalesState';
 import ProductSearchBar from './components/productSearchBar/ProductSearchBar';
 import PosTableRight from './components/posTableRight/PosTableRight';
-import { completeSale } from '../../redux/sales/salesActions';
 
-const SalesPage = ({ completeSale }) => {
+const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
   const classes = styles();
   const {
     products,
@@ -23,6 +25,11 @@ const SalesPage = ({ completeSale }) => {
     discount,
     handleDiscountChange
   } = useSalesState();
+
+  useEffect(() => {
+    fetchCategories();
+    fetchBrands();
+  }, []);
 
   return (
     <Grid
@@ -89,4 +96,8 @@ const SalesPage = ({ completeSale }) => {
   );
 };
 
-export default connect(null, { completeSale })(SalesPage);
+export default connect(null, {
+  completeSale,
+  fetchBrands,
+  fetchCategories
+})(SalesPage);

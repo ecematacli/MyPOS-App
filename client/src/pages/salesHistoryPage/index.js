@@ -8,7 +8,7 @@ import CustomTable from '../../common/components/customTable/CustomTable';
 import SaleDetails from './components/saleDetails/SaleDetails';
 import SalesFilters from './components/salesFilters/SalesFilters';
 
-const SalesHistoryPage = ({ fetchSales, sales, count }) => {
+const SalesHistoryPage = ({ fetchSales, sales, count, ids }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
 
@@ -16,8 +16,10 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
     fetchSales();
   }, []);
 
+  const salesInOrder = () => ids.map(saleId => sales[saleId]);
+
   const formattedSalesData = () =>
-    sales.map(sale => {
+    salesInOrder().map(sale => {
       return {
         ...sale,
         createdAt: format(new Date(sale.createdAt), ' d MMMM y - p')
@@ -61,9 +63,10 @@ const SalesHistoryPage = ({ fetchSales, sales, count }) => {
   );
 };
 
-const mapStateToProps = ({ sales: { sales, count } }) => ({
-  sales: Object.values(sales),
-  count
+const mapStateToProps = ({ sales: { sales, count, ids } }) => ({
+  sales,
+  count,
+  ids
 });
 
 export default connect(mapStateToProps, { fetchSales })(SalesHistoryPage);

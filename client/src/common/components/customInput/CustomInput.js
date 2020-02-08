@@ -62,7 +62,7 @@ const CustomInput = props => {
             classes={!dropdown && classesProp}
             color="secondary"
             type={type}
-            required
+            required={required}
           />
         </Fragment>
       )}
