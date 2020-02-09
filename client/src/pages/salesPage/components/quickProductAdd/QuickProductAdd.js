@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef } from 'react';
 import { connect } from 'react-redux';
+import { Formik, Field } from 'formik';
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -9,14 +10,14 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
-  InputAdornment
+  DialogTitle
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
 import useNewProductInputState from './useNewProductInputState';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
+import NewProductInputFields from '../newProductInputFields/NewProductInputFields';
 
 const QuickProductAdd = ({
   openDialog,
@@ -25,12 +26,29 @@ const QuickProductAdd = ({
   categories
 }) => {
   const classes = styles();
+  const formRef = useRef();
 
   const {
     NEW_PRODUCT_FIELDS,
+    ADDITIONAL_FIELDS,
     handleInputChange,
-    onAddProductClick
+    onAddProductClick,
+    userInputs
   } = useNewProductInputState(brands, categories, handleCloseDialog);
+
+  const validate = values => {
+    const errors = {};
+
+    if (!values.barcode) {
+      errors.barcode = 'Please enter barcode';
+    }
+
+    if (!values.price) {
+      errors.price = 'Please enter price';
+    }
+
+    return errors;
+  };
 
   const renderAdditionalFields = () => {
     return (
@@ -41,19 +59,8 @@ const QuickProductAdd = ({
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails classes={{ root: classes.expansionDetails }}>
-          {NEW_PRODUCT_FIELDS.map(
-            ({
-              label,
-              dropdown,
-              dropdownItems,
-              fieldId,
-              value,
-              additionalField,
-              type
-            }) => {
-              if (!additionalField) {
-                return;
-              }
+          {ADDITIONAL_FIELDS.map(
+            ({ label, dropdown, dropdownItems, fieldId, value, type }) => {
               return (
                 <CustomInput
                   name={fieldId}
@@ -77,6 +84,12 @@ const QuickProductAdd = ({
     );
   };
 
+  const triggerFormSubmission = () => {
+    if (formRef.current) {
+      formRef.current.handleSubmit();
+    }
+  };
+
   const renderDialog = () => {
     return (
       <Dialog
@@ -86,48 +99,48 @@ const QuickProductAdd = ({
         disableBackdropClick
       >
         <DialogTitle className={classes.dialogTitle}>Add a Product</DialogTitle>
-        <form onSubmit={() => console.log('submitted!')}>
-          <DialogContent>
-            {NEW_PRODUCT_FIELDS.map(
-              ({ label, fieldId, value, additionalField, type, required }) => {
-                if (additionalField) {
-                  return;
-                }
+        <DialogContent>
+          <Formik
+            initialValues={{
+              barcode: '',
+              name: '',
+              qty: 1,
+              sku: '',
+              price: 0,
+              variation: '',
+              discountPrice: ''
+            }}
+            onSubmit={values => {
+              onAddProductClick({ ...values, ...userInputs });
+            }}
+            validate={validate}
+            innerRef={formRef}
+          >
+            <Fragment>
+              {NEW_PRODUCT_FIELDS.map(({ fieldId, label, type }) => {
                 return (
-                  <CustomInput
-                    name={fieldId}
-                    value={value}
-                    onChange={handleInputChange}
-                    key={label}
+                  <Field
                     label={label}
+                    key={label}
+                    name={fieldId}
                     type={type}
-                    inputLabel
-                    startAdornment={
-                      fieldId === 'price' || fieldId === 'discountPrice' ? (
-                        <InputAdornment position="start">
-                          &#x20BA;
-                        </InputAdornment>
-                      ) : null
-                    }
-                    required={required}
-                    classesProp={{
-                      root: classes.input
-                    }}
+                    fieldId={fieldId}
+                    component={NewProductInputFields}
                   />
                 );
-              }
-            )}
-          </DialogContent>
-          <div>{renderAdditionalFields()}</div>
-          <DialogActions>
-            <Button onClick={handleCloseDialog} color="secondary">
-              Cancel
-            </Button>
-            <Button onClick={onAddProductClick} color="primary">
-              Add Product
-            </Button>
-          </DialogActions>
-        </form>
+              })}
+            </Fragment>
+          </Formik>
+        </DialogContent>
+        <div>{renderAdditionalFields()}</div>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={triggerFormSubmission} color="primary">
+            Add Product
+          </Button>
+        </DialogActions>
       </Dialog>
     );
   };

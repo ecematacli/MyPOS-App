@@ -1,60 +1,39 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { Fragment } from 'react';
 
 import styles from './styles';
-import useNewProductInputState from '../quickProductAdd/useNewProductInputState';
-import useProductDialogState from '../productSearchBar/useProductDialogState';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 
-const InputFields = ({
-  brands,
-  categories,
+const NewProductInputFields = ({
   field,
+  fieldId,
+  label,
+  type,
   form: { touched, errors },
-  ...props
+  ...otherProps
 }) => {
   const classes = styles();
 
-  const { handleCloseDialog } = useProductDialogState();
-  const {
-    NEW_PRODUCT_FIELDS,
-    handleInputChange,
-    onAddProductClick
-  } = useNewProductInputState(brands, categories, handleCloseDialog);
+  const requiredFields = errors[fieldId] ? `${classes.notchedOutline}` : null;
 
-  return NEW_PRODUCT_FIELDS.map(
-    ({
-      label,
-      dropdown,
-      dropdownItems,
-      fieldId,
-      value,
-      additionalField,
-      type
-    }) => {
-      if (!additionalField) {
-        return;
-      }
-      return (
-        <CustomInput
-          name={fieldId}
-          value={value}
-          onChange={handleInputChange}
-          key={label}
-          type={type}
-          label={label}
-          dropdown={dropdown}
-          classesProp={{
-            dropdownInput: { root: classes.dropdownInput }
-          }}
-          dropdownItems={dropdownItems}
-          inputLabel
-        />
-      );
-    }
+  return (
+    <Fragment>
+      <CustomInput
+        {...field}
+        {...otherProps}
+        label={label}
+        type={type}
+        classesProp={{
+          root: classes.input,
+          notchedOutline: requiredFields
+        }}
+        inputLabel
+      />
+      {fieldId === 'barcode' ||
+      (fieldId === 'price' && errors[fieldId] && touched[fieldId]) ? (
+        <div className={classes.helperText}>{errors[fieldId]}</div>
+      ) : null}
+    </Fragment>
   );
 };
 
-const mapStateToProps = ({ brands, categories }) => ({ brands, categories });
-
-export default connect(mapStateToProps)(InputFields);
+export default NewProductInputFields;

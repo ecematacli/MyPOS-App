@@ -55,7 +55,7 @@ export const SigninInputs = ({
             name={name}
             type={name}
           />
-          {(errors || touched) && (
+          {errors && touched && (
             <div className={classes.helperText}>{errors}</div>
           )}
         </div>

@@ -10,14 +10,7 @@ export default (brands, categories, handleCloseDialog) => {
   const [userInputs, setUserInputs] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      barcode: '',
-      name: '',
-      qty: 1,
-      sku: '',
-      price: 0,
       taxRate: 18,
-      variation: '',
-      discountPrice: '',
       category: '',
       brand: ''
     }
@@ -36,9 +29,8 @@ export default (brands, categories, handleCloseDialog) => {
     }
   };
 
-  const onAddProductClick = () => {
-    dispatch(createProduct(userInputs, addNotification));
-
+  const onAddProductClick = newProduct => {
+    dispatch(createProduct(newProduct, addNotification));
     handleCloseDialog();
   };
 
@@ -47,30 +39,30 @@ export default (brands, categories, handleCloseDialog) => {
     {
       label: 'Barcode (required)*',
       fieldId: 'barcode',
-      value: userInputs.barcode,
       required: true
     },
     { label: 'Product Name', fieldId: 'name', value: userInputs.name },
     {
       label: 'Quantity',
       fieldId: 'qty',
-      value: userInputs.qty,
       type: 'number'
     },
     {
       label: 'Price (required*)',
       fieldId: 'price',
       currency: true,
-      value: userInputs.price,
       required: true
     },
     {
       label: 'Discounted Price',
-      fieldId: 'discountPrice',
-      currency: true,
-      value: userInputs.discountPrice
+      fieldId: 'discountPrice'
     },
-    { label: 'Variation', fieldId: 'variation', value: userInputs.variation },
+    { label: 'Variation', fieldId: 'variation' },
+
+    { label: 'Sku', fieldId: 'sku' }
+  ];
+
+  const ADDITIONAL_FIELDS = [
     {
       label: 'Tax Rate',
       fieldId: 'taxRate',
@@ -83,7 +75,6 @@ export default (brands, categories, handleCloseDialog) => {
       additionalField: true,
       type: 'number'
     },
-    { label: 'Sku (required*)', fieldId: 'sku', value: userInputs.sku },
     {
       label: 'Brand Name',
       fieldId: 'brand',
@@ -104,7 +95,9 @@ export default (brands, categories, handleCloseDialog) => {
 
   return {
     NEW_PRODUCT_FIELDS,
+    ADDITIONAL_FIELDS,
     handleInputChange,
-    onAddProductClick
+    onAddProductClick,
+    userInputs
   };
 };

@@ -18,7 +18,7 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   helperText: {
     fontSize: 16,
-    color: 'red',
+    color: palette.error.main,
     marginTop: -20,
     marginBottom: 15,
     width: 300
