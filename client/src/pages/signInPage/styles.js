@@ -1,15 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
-  signInPage: {
+  signInPageContainer: {
     width: '100vw',
     height: '100vh',
     background: `linear-gradient(to right, ${palette.grayColors[11]}, ${palette.grayColors[12]})`,
     margin: '-25px'
   },
-  signInRoot: {
+  signInFormContainer: {
     width: '100vw',
-    height: '70vh',
+    height: '80vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
@@ -23,50 +23,34 @@ export default makeStyles(({ spacing, palette }) => ({
     borderRadius: '3%'
   },
   cardContainer: {
-    width: '100%',
+    width: 'auto',
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
   },
-  cardMedia: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+  cardContent: {
+    marginLeft: 20
   },
   signInCardImg: {
     height: 250,
     width: 280
   },
-  cardContent: {
+  signInTextDiv: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  signInFormContainer: {
-    marginLeft: spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  signInForm: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  signInFields: {
-    width: 300,
-    marginBottom: 20,
-    '& > fieldset': {
-      backgroundColor: palette.secondary.main
-    }
   },
   signInText: {
     color: palette.secondary.main,
-    fontWeight: 600,
     fontSize: 20,
-    marginBottom: spacing(3)
+    marginBottom: spacing(2)
+  },
+  signInForm: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center'
   },
   btnText: {
     fontSize: spacing(2),

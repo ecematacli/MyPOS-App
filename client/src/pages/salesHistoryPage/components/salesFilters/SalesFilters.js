@@ -18,13 +18,9 @@ const SalesFilters = ({ page, rowsPerPage }) => {
     anchorEl,
     handleClick,
     handleClose,
-    onDateSelect
+    onDateSelectClick,
+    onClearFiltersClick
   } = useSalesFiltersState(page, rowsPerPage);
-
-  const onApplyFilterClick = () => {
-    onDateSelect();
-    handleClose();
-  };
 
   const renderFilterContent = () => {
     return (
@@ -74,7 +70,6 @@ const SalesFilters = ({ page, rowsPerPage }) => {
           <div className={classes.filterBtnDiv}>
             <div>
               <Button
-                style={{ marginRight: 8 }}
                 className={classes.filterBtn}
                 color="secondary"
                 onClick={handleClose}
@@ -84,7 +79,16 @@ const SalesFilters = ({ page, rowsPerPage }) => {
             </div>
             <div>
               <Button
-                onClick={onApplyFilterClick}
+                className={classes.filterBtn}
+                color="secondary"
+                onClick={onClearFiltersClick}
+              >
+                Clear Filters
+              </Button>
+            </div>
+            <div>
+              <Button
+                onClick={onDateSelectClick}
                 className={classes.filterBtn}
                 color="primary"
               >

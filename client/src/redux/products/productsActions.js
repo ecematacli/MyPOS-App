@@ -69,12 +69,34 @@ export const editProduct = (
   }
 };
 
-export const createProduct = (product, addNotification) => async dispatch => {
+export const createProduct = (
+  inputValues,
+  additionalInputValues,
+  addNotification
+) => async (dispatch, getState) => {
   try {
+    let categoryId;
+    let brandId;
+
+    if (additionalInputValues.category) {
+      categoryId = findMatchedFields(
+        getState().categories,
+        additionalInputValues.category
+      ).id.toString();
+    }
+    if (additionalInputValues.brand) {
+      brandId = findMatchedFields(
+        getState().brands,
+        additionalInputValues.brand
+      ).id.toString();
+    }
     const response = await api.post('/products', {
-      ...product,
-      price: parseFloat(product.price),
-      discountPrice: parseFloat(product.discountPrice)
+      ...inputValues,
+      price: parseFloat(inputValues.price),
+      discountPrice: parseFloat(inputValues.discountPrice),
+      taxRate: additionalInputValues.taxRate,
+      categoryId,
+      brandId
     });
 
     addNotification('Product has been created successfully', 'success');

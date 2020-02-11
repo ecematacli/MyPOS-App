@@ -1,33 +1,23 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
-  signInForm: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  signInFields: {
+  signInField: {
     width: 300,
-    marginBottom: 20,
-    '& > fieldset': {
-      borderColor: 'red'
-    }
-  },
-  passwordField: {
-    marginBottom: spacing(4)
+    marginBottom: 20
   },
   helperText: {
-    fontSize: 16,
+    fontSize: spacing(2),
     color: palette.error.main,
     marginTop: -20,
-    marginBottom: 15,
+    marginBottom: spacing(2),
     width: 300
   },
-  btnText: {
-    fontSize: spacing(2),
-    fontWeight: 'bold',
-    textTransform: 'capitalize'
+  cssOutlinedInput: {
+    '&$cssFocused $notchedOutline': {
+      borderColor: `${palette.error.main} !important`
+    }
   },
+  cssFocused: {},
   notchedOutline: {
     borderColor: palette.error.main
   }

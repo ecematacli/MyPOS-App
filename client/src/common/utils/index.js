@@ -5,11 +5,8 @@ export const currencyFormatter = num => {
   return num.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' });
 };
 
-export const findMatchedFields = (fields, fieldToBeMatched) => {
-  return fields.find(f => {
-    return f.name === fieldToBeMatched;
-  });
-};
+export const findMatchedFields = (fields, fieldToBeMatched) =>
+  fields.find(f => f.name === fieldToBeMatched);
 
 export const capitalize = str => {
   if (typeof str !== 'string') return '';

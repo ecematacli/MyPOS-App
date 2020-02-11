@@ -32,19 +32,18 @@ const QuickProductAdd = ({
     NEW_PRODUCT_FIELDS,
     ADDITIONAL_FIELDS,
     handleInputChange,
-    onAddProductClick,
-    userInputs
+    onAddProductClick
   } = useNewProductInputState(brands, categories, handleCloseDialog);
 
   const validate = values => {
     const errors = {};
 
     if (!values.barcode) {
-      errors.barcode = 'Please enter barcode';
+      errors.barcode = 'Please enter a barcode';
     }
 
     if (!values.price) {
-      errors.price = 'Please enter price';
+      errors.price = 'Please enter a price';
     }
 
     return errors;
@@ -106,29 +105,27 @@ const QuickProductAdd = ({
               name: '',
               qty: 1,
               sku: '',
-              price: 0,
+              price: '',
               variation: '',
               discountPrice: ''
             }}
             onSubmit={values => {
-              onAddProductClick({ ...values, ...userInputs });
+              onAddProductClick(values);
             }}
             validate={validate}
             innerRef={formRef}
           >
             <Fragment>
-              {NEW_PRODUCT_FIELDS.map(({ fieldId, label, type }) => {
-                return (
-                  <Field
-                    label={label}
-                    key={label}
-                    name={fieldId}
-                    type={type}
-                    fieldId={fieldId}
-                    component={NewProductInputFields}
-                  />
-                );
-              })}
+              {NEW_PRODUCT_FIELDS.map(({ fieldId, label, type }) => (
+                <Field
+                  key={label}
+                  label={label}
+                  name={fieldId}
+                  type={type}
+                  fieldId={fieldId}
+                  component={NewProductInputFields}
+                />
+              ))}
             </Fragment>
           </Formik>
         </DialogContent>

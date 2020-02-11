@@ -13,7 +13,8 @@ const NewProductInputFields = ({
 }) => {
   const classes = styles();
 
-  const requiredFields = errors[fieldId] ? `${classes.notchedOutline}` : null;
+  const requiredFieldClasses =
+    errors[fieldId] && touched[fieldId] ? `${classes.notchedOutline}` : null;
 
   return (
     <Fragment>
@@ -24,12 +25,13 @@ const NewProductInputFields = ({
         type={type}
         classesProp={{
           root: classes.input,
-          notchedOutline: requiredFields
+          notchedOutline: requiredFieldClasses
         }}
         inputLabel
       />
-      {fieldId === 'barcode' ||
-      (fieldId === 'price' && errors[fieldId] && touched[fieldId]) ? (
+      {(fieldId === 'barcode' || fieldId === 'price') &&
+      errors[fieldId] &&
+      touched[fieldId] ? (
         <div className={classes.helperText}>{errors[fieldId]}</div>
       ) : null}
     </Fragment>

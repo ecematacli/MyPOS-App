@@ -7,7 +7,7 @@ import { createProduct } from '../../../../redux/products/productsActions';
 export default (brands, categories, handleCloseDialog) => {
   const { addNotification } = useContext(NotificationsContext);
   const dispatch = useDispatch();
-  const [userInputs, setUserInputs] = useReducer(
+  const [additionalInputs, setAdditionalInputs] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
       taxRate: 18,
@@ -21,27 +21,22 @@ export default (brands, categories, handleCloseDialog) => {
     const fieldName = name;
     const newValue = value;
 
-    if (fieldName === 'taxRate' || fieldName === 'qty') {
-      const numValue = parseInt(newValue);
-      setUserInputs({ [fieldName]: isNaN(numValue) ? 0 : numValue });
-    } else {
-      setUserInputs({ [fieldName]: newValue });
-    }
+    setAdditionalInputs({ [fieldName]: newValue });
   };
 
-  const onAddProductClick = newProduct => {
-    dispatch(createProduct(newProduct, addNotification));
+  const onAddProductClick = inputValues => {
+    dispatch(createProduct(inputValues, additionalInputs, addNotification));
     handleCloseDialog();
   };
 
-  // Mappable product fields
+  // Mappable input and additional input fields
   const NEW_PRODUCT_FIELDS = [
     {
       label: 'Barcode (required)*',
       fieldId: 'barcode',
       required: true
     },
-    { label: 'Product Name', fieldId: 'name', value: userInputs.name },
+    { label: 'Product Name', fieldId: 'name' },
     {
       label: 'Quantity',
       fieldId: 'qty',
@@ -71,7 +66,7 @@ export default (brands, categories, handleCloseDialog) => {
         { id: 1, name: 18 },
         { id: 2, name: 8 }
       ],
-      value: userInputs.taxRate,
+      value: additionalInputs.taxRate,
       additionalField: true,
       type: 'number'
     },
@@ -80,7 +75,7 @@ export default (brands, categories, handleCloseDialog) => {
       fieldId: 'brand',
       dropdown: true,
       dropdownItems: brands,
-      value: userInputs.brand,
+      value: additionalInputs.brand,
       additionalField: true
     },
     {
@@ -88,7 +83,7 @@ export default (brands, categories, handleCloseDialog) => {
       fieldId: 'category',
       dropdown: true,
       dropdownItems: categories,
-      value: userInputs.category,
+      value: additionalInputs.category,
       additionalField: true
     }
   ];
@@ -98,6 +93,6 @@ export default (brands, categories, handleCloseDialog) => {
     ADDITIONAL_FIELDS,
     handleInputChange,
     onAddProductClick,
-    userInputs
+    additionalInputs
   };
 };

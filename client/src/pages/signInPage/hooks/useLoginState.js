@@ -29,7 +29,19 @@ export default () => {
     };
   };
 
+  const SIGNIN_FIELDS = [
+    {
+      label: 'Email Address*',
+      name: 'email'
+    },
+    {
+      label: 'Password*',
+      name: 'password'
+    }
+  ];
+
   return {
-    postSignInForm
+    postSignInForm,
+    SIGNIN_FIELDS
   };
 };

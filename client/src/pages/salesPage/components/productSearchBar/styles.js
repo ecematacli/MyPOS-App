@@ -41,6 +41,7 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
   quickAddIcon: {
     fontSize: spacing(4.5),
     color: palette.primary.main,
-    cursor: 'pointer'
+    cursor: 'pointer',
+    marginRight: -spacing(1)
   }
 }));

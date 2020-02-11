@@ -2,7 +2,6 @@ import { useState, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { fetchProducts } from '../../../../redux/products/productsActions';
-import { findMatchedFields } from '../../../../common/utils';
 
 const initialState = {
   searchQuery: '',
@@ -19,8 +18,6 @@ export default (brands, categories) => {
   );
   const [appliedFilters, setAppliedFilters] = useState({});
   const [isFilterNotApplied, setIsFilterNotApplied] = useState(true);
-
-  console.log('applied filters:', appliedFilters);
 
   // Popup state handlers
   const handleClick = e => {
