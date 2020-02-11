@@ -5,7 +5,6 @@ export default makeStyles(({ spacing, palette }) => ({
     width: 380,
     height: 57,
     color: palette.secondary.main,
-    borderColor: palette.secondary.dark,
     marginBottom: spacing(2)
   },
   helperText: {

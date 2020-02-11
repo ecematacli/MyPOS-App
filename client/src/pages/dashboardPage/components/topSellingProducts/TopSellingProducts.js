@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import {
   Paper,
   Typography,
@@ -7,26 +8,29 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  TableBody,
-  TablePagination
+  TableBody
 } from '@material-ui/core';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 import styles from './styles';
 
 const TopSellingItems = ({ topSellingProducts }) => {
   const classes = styles();
-  const renderProducts = () => {
+  const renderTopSellingItems = () => {
     if (!topSellingProducts) {
       return <TableRow />;
     }
-    return topSellingProducts.map(({ sku, name, variation, soldQty }, i) => (
-      <TableRow key={i}>
-        <TableCell>{sku}</TableCell>
-        <TableCell>{name}</TableCell>
-        <TableCell>{variation}</TableCell>
-        <TableCell>{soldQty}</TableCell>
-      </TableRow>
-    ));
+    return topSellingProducts
+      .filter((product, i) => i < 3)
+      .map(({ sku, name, variation, soldQty }, i) => (
+        <TableRow className={classes.tableBodyRow} key={i}>
+          <TableCell>{sku}</TableCell>
+          <TableCell>{name}</TableCell>
+          <TableCell>{variation}</TableCell>
+          <TableCell>{soldQty}</TableCell>
+        </TableRow>
+      ));
   };
 
   return (
@@ -34,31 +38,29 @@ const TopSellingItems = ({ topSellingProducts }) => {
       <div className={classes.title}>
         <Typography>Top Selling Items</Typography>
       </div>
-      <Divider />
-      <div className={classes.tableDiv}>
+      <Divider className={classes.divider} />
+      <div className={classes.topSellingContent}>
         <Table>
           <TableHead>
-            <TableRow style={{ height: 48 }}>
-              <TableCell>Sku</TableCell>
-              <TableCell>Product Name</TableCell>
-              <TableCell>Variation</TableCell>
-              <TableCell>Unit Sold</TableCell>
+            <TableRow className={classes.tableHeadRow}>
+              {['Sku', 'Product Name', 'Variation', 'Unit Sold'].map(head => (
+                <TableCell key={head}>{head}</TableCell>
+              ))}
             </TableRow>
           </TableHead>
-          <TableBody>{renderProducts()}</TableBody>
+          <TableBody>{renderTopSellingItems()}</TableBody>
         </Table>
-      </div>
-      <div className={classes.pagination}>
-        <TablePagination
-          labelRowsPerPage=""
-          // rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={5}
-          // rowsPerPage={5}
-          page={10}
-          onChangePage={() => 'y'}
-          // onChangeRowsPerPage={123}
-        />
+        <div className={classes.paginationContainer}>
+          <div className={classes.paginationItemsDiv}>
+            <div className={classes.arrowDiv}>
+              <KeyboardArrowLeftIcon className={classes.arrowIcon} />
+            </div>
+            <div className={classes.pageCount}>1</div>
+            <div className={classes.arrowDiv}>
+              <KeyboardArrowRightIcon className={classes.arrowIcon} />
+            </div>
+          </div>
+        </div>
       </div>
     </Paper>
   );

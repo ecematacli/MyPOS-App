@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react';
-import { DatePicker } from '@material-ui/pickers';
-import { InputAdornment, Popover, Button } from '@material-ui/core';
-import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
+import { Popover } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import styles from './styles';
 import useSalesFiltersState from './useSalesFiltersState';
+import DatePickerFilter from '../../../../common/components/datePickerFilter/DatePickerFilter';
 
 const SalesFilters = ({ page, rowsPerPage }) => {
   const classes = styles();
@@ -21,85 +20,6 @@ const SalesFilters = ({ page, rowsPerPage }) => {
     onDateSelectClick,
     onClearFiltersClick
   } = useSalesFiltersState(page, rowsPerPage);
-
-  const renderFilterContent = () => {
-    return (
-      <Fragment>
-        <div className={classes.filterCaption}>
-          Add Start and End Date Filters...
-        </div>
-        <div className={classes.filterPaper}>
-          <span className={classes.datePickerInput}>
-            <DatePicker
-              variant="inline"
-              color="secondary"
-              label="Start Date"
-              autoOk
-              value={startDate}
-              onChange={date => handleStartDateChange(date)}
-              InputProps={{
-                endAdornment: (
-                  <React.Fragment>
-                    <InputAdornment position="start">
-                      <InsertInvitationIcon className={classes.calendarIcon} />
-                    </InputAdornment>
-                  </React.Fragment>
-                )
-              }}
-            />
-          </span>
-          <span style={{ marginLeft: 32 }} className={classes.datePickerInput}>
-            <DatePicker
-              variant="inline"
-              color="secondary"
-              label="End Date"
-              autoOk
-              value={endDate}
-              onChange={date => handleEndDateChange(date)}
-              InputProps={{
-                endAdornment: (
-                  <React.Fragment>
-                    <InputAdornment position="start">
-                      <InsertInvitationIcon className={classes.calendarIcon} />
-                    </InputAdornment>
-                  </React.Fragment>
-                )
-              }}
-            />
-          </span>
-          <div className={classes.filterBtnDiv}>
-            <div>
-              <Button
-                className={classes.filterBtn}
-                color="secondary"
-                onClick={handleClose}
-              >
-                Cancel
-              </Button>
-            </div>
-            <div>
-              <Button
-                className={classes.filterBtn}
-                color="secondary"
-                onClick={onClearFiltersClick}
-              >
-                Clear Filters
-              </Button>
-            </div>
-            <div>
-              <Button
-                onClick={onDateSelectClick}
-                className={classes.filterBtn}
-                color="primary"
-              >
-                Apply filter
-              </Button>
-            </div>
-          </div>
-        </div>
-      </Fragment>
-    );
-  };
 
   return (
     <Fragment>
@@ -121,7 +41,15 @@ const SalesFilters = ({ page, rowsPerPage }) => {
           horizontal: 'right'
         }}
       >
-        {renderFilterContent()}
+        <DatePickerFilter
+          startDate={startDate}
+          handleStartDateChange={handleStartDateChange}
+          endDate={endDate}
+          handleEndDateChange={handleEndDateChange}
+          handleClose={handleClose}
+          onClearFiltersClick={onClearFiltersClick}
+          onDateSelectClick={onDateSelectClick}
+        />
       </Popover>
     </Fragment>
   );

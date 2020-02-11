@@ -3,17 +3,23 @@ import { useState } from 'react';
 import api from '../../../api';
 
 export default () => {
-  const [products, setProducts] = useState();
+  const [topSellingProducts, setTopSellingProducts] = useState();
+  const [lastActivities, setLastActivities] = useState();
 
-  console.log(products);
   const fetchTopSellingProducts = async () => {
     const response = await api.get('/stats/top-selling-products');
-    setProducts(response.data);
+    setTopSellingProducts(response.data);
+  };
+
+  const fetchLastActivities = async () => {
+    const response = await api.get('/events/sales');
+    setLastActivities(response.data);
   };
 
   return {
-    products,
-    setProducts,
-    fetchTopSellingProducts
+    topSellingProducts,
+    lastActivities,
+    fetchTopSellingProducts,
+    fetchLastActivities
   };
 };

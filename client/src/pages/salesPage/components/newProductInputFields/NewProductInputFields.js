@@ -2,16 +2,18 @@ import React, { Fragment } from 'react';
 
 import styles from './styles';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
+import { InputAdornment } from '@material-ui/core';
 
-const NewProductInputFields = ({
-  field,
-  fieldId,
-  label,
-  type,
-  form: { touched, errors },
-  ...otherProps
-}) => {
-  const classes = styles();
+const NewProductInputFields = props => {
+  const classes = styles(props);
+  const {
+    field,
+    fieldId,
+    label,
+    type,
+    form: { touched, errors },
+    ...otherProps
+  } = props;
 
   const requiredFieldClasses =
     errors[fieldId] && touched[fieldId] ? `${classes.notchedOutline}` : null;
@@ -28,6 +30,11 @@ const NewProductInputFields = ({
           notchedOutline: requiredFieldClasses
         }}
         inputLabel
+        startAdornment={
+          (fieldId === 'price' || fieldId === 'discountPrice') && (
+            <InputAdornment position="start">&#x20BA;</InputAdornment>
+          )
+        }
       />
       {(fieldId === 'barcode' || fieldId === 'price') &&
       errors[fieldId] &&

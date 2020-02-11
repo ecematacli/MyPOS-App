@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
   chartPaper: {
-    height: 360,
+    height: 315,
     width: '100%',
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.14)',
     borderRadius: 6,

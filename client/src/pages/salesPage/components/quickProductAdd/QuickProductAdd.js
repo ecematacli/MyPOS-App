@@ -39,11 +39,11 @@ const QuickProductAdd = ({
     const errors = {};
 
     if (!values.barcode) {
-      errors.barcode = 'Please enter a barcode';
+      errors.barcode = 'Please enter barcode';
     }
 
     if (!values.price) {
-      errors.price = 'Please enter a price';
+      errors.price = 'Please enter price';
     }
 
     return errors;

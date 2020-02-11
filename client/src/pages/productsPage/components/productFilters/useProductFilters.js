@@ -1,7 +1,8 @@
-import { useState, useReducer } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { fetchProducts } from '../../../../redux/products/productsActions';
+import useLocalStorageState from '../../../../common/hooks/useLocalStorageState';
 
 const initialState = {
   searchQuery: '',
@@ -12,9 +13,10 @@ const initialState = {
 export default (brands, categories) => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [filterInputs, setFilterInputs] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    initialState
+  const [filterInputs, setFilterInputs] = useLocalStorageState(
+    'productFilters',
+    initialState,
+    (state, newState) => ({ ...state, ...newState })
   );
   const [appliedFilters, setAppliedFilters] = useState({});
   const [isFilterNotApplied, setIsFilterNotApplied] = useState(true);
@@ -72,6 +74,7 @@ export default (brands, categories) => {
     setFilterInputs(initialState);
     setIsFilterNotApplied(true);
     dispatch(fetchProducts(page, rowsPerPage));
+    localStorage.removeItem('productFilters');
   };
 
   const cancelClick = () => {
