@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  Paper,
-  Typography,
-  Divider,
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell
-} from '@material-ui/core';
+import { Scrollbars } from 'react-custom-scrollbars';
+import { Paper, Typography, Divider } from '@material-ui/core';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
 import styles from './styles';
 
@@ -17,16 +10,23 @@ const LastActivities = ({ lastActivities }) => {
 
   const renderLastActivities = () => {
     if (!lastActivities) {
-      return <TableRow />;
+      return <Typography>No action to display</Typography>;
     }
-    return lastActivities
-      .filter((p, i) => i < 3)
-      .map(({ event, created }, i) => (
-        <TableRow className={classes.tableBodyRow} key={i}>
-          <TableCell>{created}</TableCell>
-          <TableCell>{event}</TableCell>
-        </TableRow>
-      ));
+    return lastActivities.map(({ event, created }, i) => (
+      <div className={classes.activitiesContentDiv} key={i}>
+        <div className={classes.eventContent}>
+          <div className={classes.iconDiv}>
+            <ArrowRightIcon className={classes.arrowIcon} />
+          </div>
+          <div className={classes.eventDiv}>
+            <Typography className={classes.eventText}>{event}</Typography>
+          </div>
+        </div>
+        <div className={classes.createdContent}>
+          <Typography className={classes.createdText}>{created}</Typography>
+        </div>
+      </div>
+    ));
   };
 
   return (
@@ -35,18 +35,11 @@ const LastActivities = ({ lastActivities }) => {
         <Typography>Last Activities</Typography>
       </div>
       <Divider className={classes.divider} />
-      <div className={classes.topSellingContent}>
-        <Table>
-          <TableHead>
-            <TableRow className={classes.tableHeadRow}>
-              {['Date', 'Action'].map(head => (
-                <TableCell key={head}>{head}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>{renderLastActivities()}</TableBody>
-        </Table>
-      </div>
+      <Scrollbars style={{ width: 'auto', height: 485 }}>
+        <div className={classes.lastActivitiesContainer}>
+          {renderLastActivities()}
+        </div>
+      </Scrollbars>
     </Paper>
   );
 };

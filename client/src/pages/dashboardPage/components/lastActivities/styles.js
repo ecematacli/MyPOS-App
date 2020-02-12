@@ -14,20 +14,38 @@ export default makeStyles(({ spacing, palette }) => ({
   divider: {
     backgroundColor: palette.secondary.light
   },
-  tableHeadRow: {
-    '& > th': {
-      borderBottom: `1px solid ${palette.secondary.light}`
-    }
+  lastActivitiesContainer: {
+    height: '88%',
+    paddingTop: spacing(1.7)
   },
-  tableBodyRow: {
-    height: 120,
-    '& > td': {
-      borderBottom: `1px solid ${palette.secondary.light}`
-    },
-    '&:last-child': {
-      '& > td': {
-        borderBottom: 'none'
-      }
-    }
+  activitiesContentDiv: {
+    padding: spacing(1, 1)
+  },
+  eventContent: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  eventDiv: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  eventText: {
+    color: palette.grayColors[3]
+  },
+  iconDiv: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  createdContent: {
+    padding: spacing(1, 1)
+  },
+  createdText: {
+    fontSize: 15,
+    color: palette.secondary.main
+  },
+  arrowIcon: {
+    color: palette.secondary.main
   }
 }));

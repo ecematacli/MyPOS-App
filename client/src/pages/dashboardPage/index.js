@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
+import { format } from 'date-fns';
 import { Grid } from '@material-ui/core';
 
 import styles from './styles';
@@ -17,11 +18,19 @@ const DashboardPage = () => {
     fetchLastActivities
   } = useDashboardState();
 
+  const classes = styles();
+
   useEffect(() => {
     fetchTopSellingProducts();
     fetchLastActivities();
   }, []);
-  const classes = styles();
+
+  const formattedActivitiesData = () =>
+    lastActivities.map(action => ({
+      ...action,
+      created: format(new Date(action.created), ' d MMMM y - p')
+    }));
+
   return (
     <Fragment>
       <Grid
@@ -50,7 +59,7 @@ const DashboardPage = () => {
           <TopSellingProducts topSellingProducts={topSellingProducts} />
         </Grid>
         <Grid item xs={12} sm={12} md={5}>
-          <LastActivities lastActivities={lastActivities} />
+          <LastActivities lastActivities={formattedActivitiesData()} />
         </Grid>
       </Grid>
     </Fragment>
