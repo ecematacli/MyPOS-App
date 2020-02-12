@@ -21,22 +21,17 @@ export default makeStyles(({ spacing, palette }) => ({
   activitiesContentDiv: {
     padding: spacing(1, 1)
   },
-  eventContent: {
+  eventContentDiv: {
     display: 'flex',
     alignItems: 'center'
   },
-  eventDiv: {
+  eventContent: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
   },
   eventText: {
     color: palette.grayColors[3]
-  },
-  iconDiv: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   createdContent: {
     padding: spacing(1, 1)

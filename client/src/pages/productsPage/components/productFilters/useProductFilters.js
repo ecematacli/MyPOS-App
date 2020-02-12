@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { fetchProducts } from '../../../../redux/products/productsActions';
+import useLocalStorageReducerState from '../../../../common/hooks/useLocalStorageReducerState';
 import useLocalStorageState from '../../../../common/hooks/useLocalStorageState';
 
 const initialState = {
@@ -13,13 +14,18 @@ const initialState = {
 export default (brands, categories) => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [filterInputs, setFilterInputs] = useLocalStorageState(
+  const [
+    filterInputs,
+    setFilterInputs
+  ] = useLocalStorageReducerState(
     'productFilters',
     initialState,
     (state, newState) => ({ ...state, ...newState })
   );
-  const [appliedFilters, setAppliedFilters] = useState({});
-  const [isFilterNotApplied, setIsFilterNotApplied] = useState(true);
+  const [appliedFilters, setAppliedFilters] = useLocalStorageState(
+    'appliedFilters',
+    {}
+  );
 
   // Popup state handlers
   const handleClick = e => {
@@ -59,7 +65,6 @@ export default (brands, categories) => {
         category: filterInputs.category,
         brand: filterInputs.brand
       });
-      setIsFilterNotApplied(false);
     }, 1000);
   };
 
@@ -72,7 +77,6 @@ export default (brands, categories) => {
   const clearAllFilters = (page, rowsPerPage) => {
     setAppliedFilters({});
     setFilterInputs(initialState);
-    setIsFilterNotApplied(true);
     dispatch(fetchProducts(page, rowsPerPage));
     localStorage.removeItem('productFilters');
   };
@@ -117,7 +121,6 @@ export default (brands, categories) => {
     open,
     appliedFilters,
     cancelClick,
-    isFilterNotApplied,
     clearAllFilters,
     handleInputChange,
     filterInputFields,

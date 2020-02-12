@@ -5,7 +5,7 @@ import {
   calculateTotalTax,
   calculateTotalDiscount
 } from '../utilities';
-import useLocalStorageState from '../../../common/hooks/useLocalStorageState';
+import useLocalStorageReducerState from '../../../common/hooks/useLocalStorageReducerState';
 
 // Products Reducer
 const productsReducer = (state, { type, payload }) => {
@@ -62,7 +62,7 @@ const productsReducer = (state, { type, payload }) => {
 
 // Products and Total state
 export default () => {
-  const [products, dispatch] = useLocalStorageState(
+  const [products, dispatch] = useLocalStorageReducerState(
     'products',
     [],
     productsReducer

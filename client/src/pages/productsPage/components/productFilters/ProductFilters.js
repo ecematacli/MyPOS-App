@@ -19,7 +19,6 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
     cancelClick,
     appliedFilters,
     filterInputs,
-    isFilterNotApplied,
     clearAllFilters,
     handleInputChange,
     filterInputFields,
@@ -91,10 +90,7 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
           <Button
             className={classes.filterBtn}
             color="secondary"
-            disabled={
-              Object.values(filterInputs).every(f => f === '') ||
-              isFilterNotApplied
-            }
+            disabled={Object.values(filterInputs).every(f => f === '')}
             onClick={() => clearAllFilters(page, rowsPerPage)}
           >
             Clear Filters

@@ -14,11 +14,11 @@ const LastActivities = ({ lastActivities }) => {
     }
     return lastActivities.map(({ event, created }, i) => (
       <div className={classes.activitiesContentDiv} key={i}>
-        <div className={classes.eventContent}>
-          <div className={classes.iconDiv}>
+        <div className={classes.eventContentDiv}>
+          <div className={classes.eventContent}>
             <ArrowRightIcon className={classes.arrowIcon} />
           </div>
-          <div className={classes.eventDiv}>
+          <div className={classes.eventContent}>
             <Typography className={classes.eventText}>{event}</Typography>
           </div>
         </div>

@@ -27,33 +27,6 @@ const DashboardDateFilter = () => {
     onClearFiltersClick
   } = useDatePickerState();
 
-  const renderFilterContent = () => {
-    return (
-      <div className={classes.datePickerContainer}>
-        <div>
-          <DatePicker
-            autoOk
-            orientation="landscape"
-            variant="static"
-            openTo="date"
-            // value={date}
-            // onChange={changeDate}
-          />
-        </div>
-        <div>
-          <DatePicker
-            autoOk
-            orientation="landscape"
-            variant="static"
-            openTo="date"
-            // value={date}
-            // onChange={changeDate}
-          />
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className={classes.inputContainer}>
       <TextField
