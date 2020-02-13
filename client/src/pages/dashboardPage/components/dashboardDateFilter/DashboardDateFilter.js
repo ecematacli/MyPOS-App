@@ -1,45 +1,45 @@
-import React, { Fragment } from 'react';
-import {
-  TextField,
-  InputAdornment,
-  Popover,
-  IconButton
-} from '@material-ui/core';
-import { DatePicker } from '@material-ui/pickers';
+import React from 'react';
+import { TextField, InputAdornment, Popover } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 import styles from './styles';
 import useDatePickerState from './useDatePickerState';
 import DatePickerFilter from '../../../../common/components/datePickerFilter/DatePickerFilter';
 
-const DashboardDateFilter = () => {
+const DashboardDateFilter = ({
+  startDate,
+  handleStartDateChange,
+  endDate,
+  handleEndDateChange
+}) => {
   const classes = styles();
   const {
-    startDate,
-    handleStartDateChange,
-    endDate,
-    handleEndDateChange,
     open,
     anchorEl,
     handleClick,
     handleClose,
     onDateSelectClick,
-    onClearFiltersClick
-  } = useDatePickerState();
+    onClearFiltersClick,
+    inputText
+  } = useDatePickerState(
+    startDate,
+    handleStartDateChange,
+    endDate,
+    handleEndDateChange
+  );
 
   return (
     <div className={classes.inputContainer}>
       <TextField
         label="Select Date"
         color="secondary"
+        value={inputText}
         classes={{ root: classes.input }}
         onClick={handleClick}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton>
-                <ArrowDropDownIcon />
-              </IconButton>
+              <ArrowDropDownIcon />
             </InputAdornment>
           )
         }}

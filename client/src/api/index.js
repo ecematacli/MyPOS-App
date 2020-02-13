@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 let axiosInstance = axios.create({
-  baseURL:
-    'http://stockmanagementservicedev.pkupag2y6m.eu-central-1.elasticbeanstalk.com/'
+  baseURL: 'http://stock-management-dev.eu-central-1.elasticbeanstalk.com'
 });
 
 axiosInstance.interceptors.request.use(

@@ -5,7 +5,7 @@ export default makeStyles(({ spacing }) => ({
     marginRight: spacing(2)
   },
   input: {
-    width: 300
+    width: 220
   },
   datePickerContainer: {
     display: 'flex'

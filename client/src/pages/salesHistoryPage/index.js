@@ -1,9 +1,9 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { format } from 'date-fns';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { fetchSales } from '../../redux/sales/salesActions';
+import { formatDate } from '../../common/utils';
 import CustomTable from '../../common/components/customTable/CustomTable';
 import SaleDetails from './components/saleDetails/SaleDetails';
 import SalesFilters from './components/salesFilters/SalesFilters';
@@ -19,12 +19,10 @@ const SalesHistoryPage = ({ fetchSales, sales, count, ids }) => {
   const salesInOrder = () => ids.map(saleId => sales[saleId]);
 
   const formattedSalesData = () =>
-    salesInOrder().map(sale => {
-      return {
-        ...sale,
-        createdAt: format(new Date(sale.createdAt), ' d MMMM y - p')
-      };
-    });
+    salesInOrder().map(sale => ({
+      ...sale,
+      createdAt: formatDate(sale.createdAt, 'd MMMM y - p')
+    }));
 
   return !sales ? (
     <CircularProgress color="primary" />

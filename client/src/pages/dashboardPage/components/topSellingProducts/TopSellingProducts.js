@@ -1,5 +1,4 @@
-import React from 'react';
-import clsx from 'clsx';
+import React, { useEffect } from 'react';
 import {
   Paper,
   Typography,
@@ -15,20 +14,45 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 import styles from './styles';
 
-const TopSellingItems = ({ topSellingProducts }) => {
+const TopSellingItems = ({
+  topSellingProducts: { products, count },
+  fetchTopSellingProducts,
+  pageNumber,
+  setPageNumber
+}) => {
   const classes = styles();
+
+  useEffect(() => {
+    fetchTopSellingProducts(
+      `/stats/top-selling-products?page=${pageNumber}&rowsPerPage=3`
+    );
+  }, [pageNumber]);
+
+  const onRightArrowClick = () => {
+    const totalPageToShow = count / 3;
+    if (pageNumber >= totalPageToShow) return;
+    setPageNumber(prevPageNumber => prevPageNumber + 1);
+  };
+
+  const onLeftArrowClick = () => {
+    if (pageNumber === 1) return;
+
+    setPageNumber(prevPageNumber => prevPageNumber - 1);
+  };
+
   const renderTopSellingItems = () => {
-    if (!topSellingProducts) {
-      return <TableRow />;
-    }
-    return topSellingProducts
+    return products
       .filter((product, i) => i < 3)
       .map(({ sku, name, variation, soldQty }, i) => (
         <TableRow className={classes.tableBodyRow} key={i}>
           <TableCell>{sku}</TableCell>
           <TableCell>{name}</TableCell>
-          <TableCell>{variation}</TableCell>
-          <TableCell>{soldQty}</TableCell>
+          <TableCell align="center">{variation ? variation : '-'}</TableCell>
+          <TableCell align="center">
+            <div className={classes.soldQtyDiv} style={{}}>
+              <span className={classes.qtyData}>{soldQty}</span>
+            </div>
+          </TableCell>
         </TableRow>
       ));
   };
@@ -40,26 +64,40 @@ const TopSellingItems = ({ topSellingProducts }) => {
       </div>
       <Divider className={classes.divider} />
       <div className={classes.topSellingContent}>
-        <Table>
+        <Table className={classes.table}>
           <TableHead>
             <TableRow className={classes.tableHeadRow}>
-              {['Sku', 'Product Name', 'Variation', 'Unit Sold'].map(head => (
-                <TableCell key={head}>{head}</TableCell>
-              ))}
+              {['Sku', 'Product Name', 'Variation', 'Unit Sold'].map(
+                (head, i) => (
+                  <TableCell align={i > 1 ? 'center' : 'left'} key={head}>
+                    {head}
+                  </TableCell>
+                )
+              )}
             </TableRow>
           </TableHead>
-          <TableBody>{renderTopSellingItems()}</TableBody>
+          <TableBody>
+            {!products || products.length < 1 ? (
+              <TableRow>
+                <TableCell className={classes.noDisplayCell} colSpan={10}>
+                  <div className={classes.noDisplayMsg}>
+                    No top selling item to display
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : (
+              renderTopSellingItems()
+            )}
+          </TableBody>
         </Table>
-        <div className={classes.paginationContainer}>
-          <div className={classes.paginationItemsDiv}>
-            <div className={classes.arrowDiv}>
-              <KeyboardArrowLeftIcon className={classes.arrowIcon} />
-            </div>
-            <div className={classes.pageCount}>1</div>
-            <div className={classes.arrowDiv}>
-              <KeyboardArrowRightIcon className={classes.arrowIcon} />
-            </div>
-          </div>
+      </div>
+      <div className={classes.paginationContainer}>
+        <div onClick={onLeftArrowClick} className={classes.arrowDiv}>
+          <KeyboardArrowLeftIcon className={classes.arrowIcon} />
+        </div>
+        <div className={classes.pageCountText}>{pageNumber}</div>
+        <div onClick={onRightArrowClick} className={classes.arrowDiv}>
+          <KeyboardArrowRightIcon className={classes.arrowIcon} />
         </div>
       </div>
     </Paper>

@@ -9,8 +9,12 @@ const LastActivities = ({ lastActivities }) => {
   const classes = styles();
 
   const renderLastActivities = () => {
-    if (!lastActivities) {
-      return <Typography>No action to display</Typography>;
+    if (!lastActivities || lastActivities.length < 1) {
+      return (
+        <Typography className={classes.noDisplayMsg}>
+          No activity to display
+        </Typography>
+      );
     }
     return lastActivities.map(({ event, created }, i) => (
       <div className={classes.activitiesContentDiv} key={i}>

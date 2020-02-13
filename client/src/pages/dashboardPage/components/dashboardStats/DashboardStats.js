@@ -5,9 +5,10 @@ import { Typography, Tooltip, Grid, Paper } from '@material-ui/core';
 import styles from './styles';
 import { STAT_PROPS } from './statProps';
 
-const DashboardStats = () => {
+const DashboardStats = ({ revenue }) => {
   const classes = styles();
-  return STAT_PROPS.map(({ label, id, Icon }) => {
+  const statData = STAT_PROPS(revenue);
+  return statData.map(({ label, id, Icon }) => {
     return (
       <Grid key={id} item xs={12} sm={6} md={3}>
         <div className={classes.dashboardStatDiv}>

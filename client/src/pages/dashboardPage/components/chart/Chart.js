@@ -19,19 +19,12 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
+import { capitalize } from '../../../../common/utils';
 import useChartState from './useChartState';
 
-const Chart = () => {
+const Chart = ({ setDisplayOptions }) => {
   const classes = styles();
-  const [selectedOptions, setSelectedOptions] = useState({});
   const { data, handleClick, handleClose, open, anchorEl } = useChartState();
-
-  const handleSelectedOptions = label => {
-    setSelectedOptions({
-      ...selectedOptions,
-      label: !selectedOptions[label]
-    });
-  };
 
   const renderDateOptions = () => {
     return (
@@ -58,10 +51,14 @@ const Chart = () => {
               Choose a display type for date
             </Typography>
             <Divider />
-            {['Daily', 'Weekly', 'Monthly'].map(option => {
+            {['daily', 'weekly', 'monthly'].map(option => {
               return (
-                <MenuItem key={option} className={classes.displayOptions}>
-                  {option}
+                <MenuItem
+                  onClick={() => setDisplayOptions(option)}
+                  key={option}
+                  className={classes.displayOptions}
+                >
+                  {capitalize(option)}
                 </MenuItem>
               );
             })}

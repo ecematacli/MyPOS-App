@@ -3,6 +3,7 @@ import { useState } from 'react';
 export default () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
+  //Display options popover handler
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -13,6 +14,7 @@ export default () => {
 
   const open = Boolean(anchorEl);
 
+  //Chart data
   const data = [
     {
       name: 'Page A',

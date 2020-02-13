@@ -88,6 +88,7 @@ export default (brands, categories) => {
       setFilterInputs(initialState);
     }, 1000);
   };
+
   // Mappable filter input fields
   const filterInputFields = [
     {

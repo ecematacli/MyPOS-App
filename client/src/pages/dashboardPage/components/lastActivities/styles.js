@@ -14,6 +14,12 @@ export default makeStyles(({ spacing, palette }) => ({
   divider: {
     backgroundColor: palette.secondary.light
   },
+  noDisplayMsg: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: spacing(3),
+    color: palette.secondary.main
+  },
   lastActivitiesContainer: {
     height: '88%',
     paddingTop: spacing(1.7)

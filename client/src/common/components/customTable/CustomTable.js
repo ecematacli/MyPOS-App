@@ -36,18 +36,6 @@ const CustomTable = props => {
     expandedRows
   } = useTableState(props);
 
-  const displayedLabel = ({ from, count }) => {
-    return `${from} of ${count}`;
-  };
-
-  const renderTableHead = () => {
-    return tableHeads.map(({ label, numeric }, i) => (
-      <TableCell align={numeric && 'right'} key={i}>
-        <div>{label}</div>
-      </TableCell>
-    ));
-  };
-
   const renderExpandIconContainer = id => (
     <div className={classes.expandIconContainer}>
       {expandedRows[id] ? (
@@ -57,6 +45,14 @@ const CustomTable = props => {
       )}
     </div>
   );
+
+  const renderTableHead = () => {
+    return tableHeads.map(({ label, numeric }, i) => (
+      <TableCell align={numeric && 'right'} key={i}>
+        <div>{label}</div>
+      </TableCell>
+    ));
+  };
 
   const renderTableBody = () => {
     const rowClassName = index =>
@@ -192,13 +188,12 @@ const CustomTable = props => {
           </TableBody>
         </Table>
       </div>
-      {rows && rows.length >= 10 && (
+      {rows && rows.length > 1 && (
         <div className={classes.paginationContainer}>
           <TablePagination
             rowsPerPageOptions={[10, 25, 50]}
             component="div"
             count={count}
-            labelDisplayedRows={displayedLabel}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
