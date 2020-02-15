@@ -4,7 +4,6 @@ import { Grid } from '@material-ui/core';
 import styles from './styles';
 import DashboardDateFilter from './components/dashboardDateFilter/DashboardDateFilter';
 import useDashboardState from './hooks/useDashboardState';
-import { formatDate } from '../../common/utils';
 import DashboardStats from './components/dashboardStats/DashboardStats';
 import Chart from './components/chart/Chart';
 import LastActivities from './components/lastActivities/LastActivities';
@@ -15,14 +14,18 @@ const DashboardPage = () => {
     startDate,
     handleStartDateChange,
     endDate,
+    onDateSelection,
+    onDateFilterClearing,
     handleEndDateChange,
+    appliedFilters,
     fetchTopSellingProducts,
     topSellingProducts,
-    lastActivities,
+    formattedActivitiesData,
+    formatChartDate,
     fetchLastActivities,
-    fetchRevenueStatsData,
-    pageNumber,
-    setPageNumber,
+    fetchRevenueData,
+    saleStats,
+    fetchSaleStats,
     revenue,
     displayOptions,
     setDisplayOptions
@@ -30,21 +33,12 @@ const DashboardPage = () => {
 
   const classes = styles();
 
-  // console.log(getEachDay(startDate, endDate));
-
   useEffect(() => {
+    fetchRevenueData();
+    fetchSaleStats();
     fetchTopSellingProducts();
     fetchLastActivities();
-    fetchRevenueStatsData();
   }, []);
-
-  console.log(displayOptions);
-
-  const formattedActivitiesData = () =>
-    lastActivities.map(action => ({
-      ...action,
-      created: formatDate(action.created, 'd MMMM y - p')
-    }));
 
   return (
     <Fragment>
@@ -59,6 +53,9 @@ const DashboardPage = () => {
           handleStartDateChange={handleStartDateChange}
           endDate={endDate}
           handleEndDateChange={handleEndDateChange}
+          onDateSelection={onDateSelection}
+          onDateFilterClearing={onDateFilterClearing}
+          appliedFilters={appliedFilters}
         />
       </Grid>
       <Grid
@@ -67,18 +64,19 @@ const DashboardPage = () => {
         justify="center"
         spacing={3}
       >
-        <DashboardStats revenue={revenue} />
+        <DashboardStats saleStats={saleStats} revenue={revenue} />
       </Grid>
       <Grid className={classes.gridContainer} container>
         <Grid item xs={12} sm={12} md={12}>
-          <Chart setDisplayOptions={setDisplayOptions} />
+          <Chart
+            revenueData={formatChartDate()}
+            setDisplayOptions={setDisplayOptions}
+          />
         </Grid>
       </Grid>
       <Grid className={classes.gridContainer} container>
         <Grid item xs={12} sm={12} md={7}>
           <TopSellingProducts
-            pageNumber={pageNumber}
-            setPageNumber={setPageNumber}
             topSellingProducts={topSellingProducts}
             fetchTopSellingProducts={fetchTopSellingProducts}
           />

@@ -11,10 +11,15 @@ const DatePickerFilter = ({
   endDate,
   handleEndDateChange,
   handleClose,
-  onClearFiltersClick,
-  onDateSelectClick
+  onDateSelection,
+  onDateFilterClearing
 }) => {
   const classes = styles();
+
+  const onDateSelectClick = () => {
+    onDateSelection();
+    handleClose();
+  };
 
   const renderDatePickerInputs = () => (
     <Fragment>
@@ -74,7 +79,7 @@ const DatePickerFilter = ({
         <Button
           className={classes.filterBtn}
           color="secondary"
-          onClick={onClearFiltersClick}
+          onClick={onDateFilterClearing}
         >
           Clear Filters
         </Button>

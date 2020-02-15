@@ -36,7 +36,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   dashboardStatContent: {
     paddingRight: spacing(2),
-    paddingTop: 35
+    paddingTop: 48
   },
   statLabel: {
     color: palette.grayColors[9],

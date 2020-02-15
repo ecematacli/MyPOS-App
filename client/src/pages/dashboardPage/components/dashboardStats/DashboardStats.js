@@ -3,36 +3,33 @@ import clsx from 'clsx';
 import { Typography, Tooltip, Grid, Paper } from '@material-ui/core';
 
 import styles from './styles';
-import { STAT_PROPS } from './statProps';
+import { currencyFormatter } from '../../../../common/utils';
+import { statsData } from './statsData';
 
-const DashboardStats = ({ revenue }) => {
+const DashboardStats = ({ saleStats }) => {
   const classes = styles();
-  const statData = STAT_PROPS(revenue);
-  return statData.map(({ label, id, Icon }) => {
-    return (
-      <Grid key={id} item xs={12} sm={6} md={3}>
-        <div className={classes.dashboardStatDiv}>
-          <Paper className={classes.dashboardStatPaper}>
-            <div
-              className={clsx(classes.iconDiv, classes[`${id}IconContainer`])}
-            >
-              <Tooltip title={label}>
-                <Icon className={classes.icon} />
-              </Tooltip>
-            </div>
-            <div className={classes.dashboardStatContent}>
-              <Typography align="right" className={classes.statLabel}>
-                {label}
-              </Typography>
-              <Typography align="right" className={classes.statInfo}>
-                777.66
-              </Typography>
-            </div>
-          </Paper>
-        </div>
-      </Grid>
-    );
-  });
+
+  return statsData(saleStats).map(({ label, id, Icon, value, currency }) => (
+    <Grid key={id} item xs={12} sm={6} md={3}>
+      <div className={classes.dashboardStatDiv}>
+        <Paper className={classes.dashboardStatPaper}>
+          <div className={clsx(classes.iconDiv, classes[`${id}IconContainer`])}>
+            <Tooltip title={label}>
+              <Icon className={classes.icon} />
+            </Tooltip>
+          </div>
+          <div className={classes.dashboardStatContent}>
+            <Typography align="right" className={classes.statLabel}>
+              {label}
+            </Typography>
+            <Typography align="right" className={classes.statInfo}>
+              {currency ? currencyFormatter(value) : value}
+            </Typography>
+          </div>
+        </Paper>
+      </div>
+    </Grid>
+  ));
 };
 
 export default DashboardStats;

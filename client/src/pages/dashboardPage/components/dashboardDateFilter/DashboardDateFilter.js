@@ -10,7 +10,10 @@ const DashboardDateFilter = ({
   startDate,
   handleStartDateChange,
   endDate,
-  handleEndDateChange
+  handleEndDateChange,
+  onDateSelection,
+  onDateFilterClearing,
+  appliedFilters
 }) => {
   const classes = styles();
   const {
@@ -18,22 +21,15 @@ const DashboardDateFilter = ({
     anchorEl,
     handleClick,
     handleClose,
-    onDateSelectClick,
-    onClearFiltersClick,
-    inputText
-  } = useDatePickerState(
-    startDate,
-    handleStartDateChange,
-    endDate,
-    handleEndDateChange
-  );
+    getDatePickerInputValue
+  } = useDatePickerState(appliedFilters);
 
   return (
     <div className={classes.inputContainer}>
       <TextField
         label="Select Date"
         color="secondary"
-        value={inputText}
+        value={getDatePickerInputValue()}
         classes={{ root: classes.input }}
         onClick={handleClick}
         InputProps={{
@@ -63,8 +59,8 @@ const DashboardDateFilter = ({
           endDate={endDate}
           handleEndDateChange={handleEndDateChange}
           handleClose={handleClose}
-          onClearFiltersClick={onClearFiltersClick}
-          onDateSelectClick={onDateSelectClick}
+          onDateSelection={onDateSelection}
+          onDateFilterClearing={onDateFilterClearing}
         />
       </Popover>
     </div>

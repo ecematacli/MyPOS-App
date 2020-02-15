@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Paper,
   Typography,
@@ -16,28 +16,23 @@ import styles from './styles';
 
 const TopSellingItems = ({
   topSellingProducts: { products, count },
-  fetchTopSellingProducts,
-  pageNumber,
-  setPageNumber
+  fetchTopSellingProducts
 }) => {
   const classes = styles();
-
-  useEffect(() => {
-    fetchTopSellingProducts(
-      `/stats/top-selling-products?page=${pageNumber}&rowsPerPage=3`
-    );
-  }, [pageNumber]);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const onRightArrowClick = () => {
     const totalPageToShow = count / 3;
     if (pageNumber >= totalPageToShow) return;
     setPageNumber(prevPageNumber => prevPageNumber + 1);
+    fetchTopSellingProducts(pageNumber);
   };
 
   const onLeftArrowClick = () => {
     if (pageNumber === 1) return;
 
     setPageNumber(prevPageNumber => prevPageNumber - 1);
+    fetchTopSellingProducts(pageNumber);
   };
 
   const renderTopSellingItems = () => {

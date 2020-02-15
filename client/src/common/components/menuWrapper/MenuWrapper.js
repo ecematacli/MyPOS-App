@@ -51,8 +51,8 @@ const MenuWrapper = ({ container, children }) => {
     setMobileOpen(false);
   };
 
-  const renderSubMenuItems = (subMenuItems, item) => {
-    return subMenuItems.map(({ subLabel, url, Icon }, i) => {
+  const renderSubMenuItems = (subMenuItems, item) =>
+    subMenuItems.map(({ subLabel, url, Icon }, i) => {
       return (
         <Collapse
           onClick={() => {
@@ -81,7 +81,6 @@ const MenuWrapper = ({ container, children }) => {
         </Collapse>
       );
     });
-  };
 
   const drawer = (
     <Fragment>
@@ -89,7 +88,7 @@ const MenuWrapper = ({ container, children }) => {
         <ListItem>
           <div className={classes.logoWrapper}>
             <div>
-              <img className={classes.logoImg} src={logo} alt="logo image" />
+              <img className={classes.logoImg} src={logo} alt="logo" />
             </div>
           </div>
         </ListItem>

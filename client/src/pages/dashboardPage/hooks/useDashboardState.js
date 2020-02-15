@@ -1,38 +1,65 @@
 import { useState } from 'react';
 
 import api from '../../../api';
+import { formatDate } from '../../../common/utils';
+
+const initialValue = {
+  startDate: '',
+  endDate: ''
+};
 
 export default () => {
   const [startDate, handleStartDateChange] = useState(null);
   const [endDate, handleEndDateChange] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
   const [topSellingProducts, setTopSellingProducts] = useState([]);
   const [lastActivities, setLastActivities] = useState([]);
-  const [revenue, setRevenue] = useState(0);
+  const [revenue, setRevenue] = useState([]);
+  const [saleStats, setSaleStats] = useState([]);
   const [displayOptions, setDisplayOptions] = useState('daily');
+  const [appliedFilters, setAppliedFilters] = useState(initialValue);
 
-  const fetchRevenueStatsData = async () => {
-    let url = `/stats/revenue-chart`;
+  const getRequestParams = (baseUrl, firstParam = false) => {
+    const filters = { startDate: startDate, endDate: endDate };
 
-    if (startDate && endDate) {
-      url += `?startDate=${startDate}&endDate=${endDate}&option=${displayOptions}`;
+    const params = Object.keys(filters)
+      .reduce((arr, key) => {
+        if (filters[key]) {
+          arr.push(`${key}=${filters[key].toISOString()}`);
+        }
+        return arr;
+      }, [])
+      .join('&');
+
+    if (params.length) return baseUrl;
+
+    if (firstParam) {
+      return baseUrl + '?' + params;
+    } else {
+      return baseUrl + '&' + params;
     }
+  };
 
-    if (startDate) {
-      url += `?startDate=${startDate}`;
-    }
+  const fetchRevenueData = async () => {
+    const url = getRequestParams(
+      `/stats/revenue-chart?option=${displayOptions}`
+    );
 
-    if (endDate) {
-      url += `?endDate=${endDate}`;
-    }
     const response = await api.get(url);
     setRevenue(response.data);
   };
 
-  const fetchTopSellingProducts = async () => {
-    const response = await api.get(
+  const fetchSaleStats = async () => {
+    const url = getRequestParams(`/stats/sale-stats`, true);
+
+    const response = await api.get(url);
+    setSaleStats(response.data);
+  };
+
+  const fetchTopSellingProducts = async (pageNumber = 1) => {
+    const url = getRequestParams(
       `/stats/top-selling-products?page=${pageNumber}&rowsPerPage=3`
     );
+    const response = await api.get(url);
     setTopSellingProducts(response.data);
   };
 
@@ -41,20 +68,52 @@ export default () => {
     setLastActivities(response.data);
   };
 
+  //Date formatter handlers
+  const formattedActivitiesData = () =>
+    lastActivities.map(action => ({
+      ...action,
+      created: formatDate(action.created, 'd MMMM y - p')
+    }));
+
+  const formatChartDate = () => {
+    return revenue.map(data => ({
+      ...data,
+      x: formatDate(data.x, 'd/M/y')
+    }));
+  };
+
+  // Date Picker filter click event handlers
+  const onDateSelection = () => {
+    setAppliedFilters({ startDate, endDate });
+    fetchRevenueData();
+    fetchSaleStats();
+    fetchTopSellingProducts();
+  };
+
+  const onDateFilterClearing = () => {
+    handleStartDateChange(null);
+    handleEndDateChange(null);
+    setAppliedFilters(initialValue);
+  };
+
   return {
     startDate,
     handleStartDateChange,
     endDate,
     handleEndDateChange,
+    onDateSelection,
+    appliedFilters,
+    onDateFilterClearing,
     topSellingProducts,
-    lastActivities,
+    formattedActivitiesData,
+    formatChartDate,
     fetchTopSellingProducts,
     fetchLastActivities,
-    fetchRevenueStatsData,
+    fetchRevenueData,
+    saleStats,
+    fetchSaleStats,
     displayOptions,
     setDisplayOptions,
-    revenue,
-    pageNumber,
-    setPageNumber
+    revenue
   };
 };

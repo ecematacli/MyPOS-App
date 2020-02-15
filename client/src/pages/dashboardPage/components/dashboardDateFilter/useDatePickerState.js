@@ -1,18 +1,9 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { formatDate } from '../../../../common/utils';
 
-export default (
-  startDate,
-  handleStartDateChange,
-  endDate,
-  handleEndDateChange
-) => {
-  const dispatch = useDispatch();
-
+export default appliedFilters => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [inputText, setInputText] = useState('');
 
   //Popover handlers
   const handleClick = e => {
@@ -23,46 +14,34 @@ export default (
     setAnchorEl(null);
   };
 
-  //Date Picker filter handlers
-  const onDateSelectClick = () => {
-    const formattedStartDate = formatDate(startDate, 'd/M/y');
-    const formattedEndDate = formatDate(endDate, 'd/M/y');
-
-    if (startDate && endDate) {
-      setInputText(`${formattedStartDate} - ${formattedEndDate}`);
-    }
-    if (startDate && !endDate) {
-      setInputText(`${formattedStartDate} - ${formattedStartDate}`);
-    }
-    if (endDate && !startDate) {
-      setInputText(`${formattedEndDate} - ${formattedEndDate}`);
-    }
-
-    // dispatch(fetchSales(page, rowsPerPage, startDate, endDate));
-    handleClose();
-  };
-
-  const onClearFiltersClick = () => {
-    handleStartDateChange(null);
-    handleEndDateChange(null);
-    setInputText('');
-    // dispatch(fetchSales(page, rowsPerPage, null, null));
-  };
-
   const open = Boolean(anchorEl);
 
+  //Date Picker filter handlers
+  const getDatePickerInputValue = () => {
+    const { startDate, endDate } = appliedFilters;
+    const formattedStartDate = startDate && formatDate(startDate, 'd MMM yyyy');
+    const formattedEndDate = endDate && formatDate(endDate, 'd MMM yyyy');
+
+    let inputValue = '';
+
+    if (startDate && endDate) {
+      inputValue = `${formattedStartDate} - ${formattedEndDate}`;
+    }
+    if (startDate && !endDate) {
+      inputValue = `${formattedStartDate} - ${formattedStartDate}`;
+    }
+    if (endDate && !startDate) {
+      inputValue = `${formattedEndDate} - ${formattedEndDate}`;
+    }
+
+    return inputValue;
+  };
+
   return {
-    startDate,
-    handleStartDateChange,
-    endDate,
-    handleEndDateChange,
+    getDatePickerInputValue,
     open,
     anchorEl,
     handleClick,
-    handleClose,
-    inputText,
-    setInputText,
-    onDateSelectClick,
-    onClearFiltersClick
+    handleClose
   };
 };

@@ -3,7 +3,7 @@ import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
 import TrendingUpOutlinedIcon from '@material-ui/icons/TrendingUpOutlined';
 import StoreIcon from '@material-ui/icons/Store';
 
-export const STAT_PROPS = revenue => [
+export const statsData = ({ revenue, saleCount, soldProductCount }) => [
   {
     label: 'Revenue',
     id: 'revenue',
@@ -21,12 +21,14 @@ export const STAT_PROPS = revenue => [
     label: 'Products Sold',
     id: 'itemsSold',
     currency: false,
-    Icon: ShoppingCartOutlinedIcon
+    Icon: ShoppingCartOutlinedIcon,
+    value: saleCount
   },
   {
     label: 'Sale Count',
     id: 'saleCount',
     currency: false,
-    Icon: TrendingUpOutlinedIcon
+    Icon: TrendingUpOutlinedIcon,
+    value: soldProductCount
   }
 ];
