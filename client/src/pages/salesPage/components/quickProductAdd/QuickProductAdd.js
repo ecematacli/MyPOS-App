@@ -1,6 +1,7 @@
 import React, { Fragment, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Field } from 'formik';
+import * as Yup from 'yup';
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -35,19 +36,14 @@ const QuickProductAdd = ({
     onAddProductClick
   } = useNewProductInputState(brands, categories, handleCloseDialog);
 
-  const validate = values => {
-    const errors = {};
-
-    if (!values.barcode) {
-      errors.barcode = 'Please enter barcode';
-    }
-
-    if (!values.price) {
-      errors.price = 'Please enter price';
-    }
-
-    return errors;
-  };
+  const ProductAddSchema = Yup.object().shape({
+    barcode: Yup.string()
+      .matches(/^[0-9]*$/, 'Barcode can only consist of numbers')
+      .min(8, 'Too Short!')
+      .max(16, 'Too Long!')
+      .required('This field is required'),
+    price: Yup.string().required('This field is required')
+  });
 
   const renderAdditionalFields = () => {
     return (
@@ -112,7 +108,7 @@ const QuickProductAdd = ({
             onSubmit={values => {
               onAddProductClick(values);
             }}
-            validate={validate}
+            validationSchema={ProductAddSchema}
             innerRef={formRef}
           >
             <Fragment>
