@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import { Popover } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import styles from './styles';
 import useSalesFiltersState from './useSalesFiltersState';
 import DatePickerFilter from '../../../../common/components/datePickerFilter/DatePickerFilter';
+import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 
 const SalesFilters = ({ page, rowsPerPage }) => {
   const classes = styles();
@@ -28,19 +28,7 @@ const SalesFilters = ({ page, rowsPerPage }) => {
           <FilterListIcon className={classes.filterIcon} />
         </div>
       </div>
-      <Popover
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center'
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-      >
+      <CustomPopover open={open} anchorEl={anchorEl} onClose={handleClose}>
         <DatePickerFilter
           startDate={startDate}
           handleStartDateChange={handleStartDateChange}
@@ -50,7 +38,7 @@ const SalesFilters = ({ page, rowsPerPage }) => {
           onClearFiltersClick={onClearFiltersClick}
           onDateSelectClick={onDateSelectClick}
         />
-      </Popover>
+      </CustomPopover>
     </Fragment>
   );
 };

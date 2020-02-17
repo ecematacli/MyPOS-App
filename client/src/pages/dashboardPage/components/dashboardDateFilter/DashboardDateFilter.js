@@ -1,9 +1,10 @@
 import React from 'react';
-import { TextField, InputAdornment, Popover } from '@material-ui/core';
+import { TextField, InputAdornment } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 import styles from './styles';
 import useDatePickerState from './useDatePickerState';
+import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 import DatePickerFilter from '../../../../common/components/datePickerFilter/DatePickerFilter';
 
 const DashboardDateFilter = ({
@@ -40,19 +41,7 @@ const DashboardDateFilter = ({
           )
         }}
       />
-      <Popover
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center'
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center'
-        }}
-      >
+      <CustomPopover open={open} anchorEl={anchorEl} onClose={handleClose}>
         <DatePickerFilter
           startDate={startDate}
           handleStartDateChange={handleStartDateChange}
@@ -62,7 +51,7 @@ const DashboardDateFilter = ({
           onDateSelection={onDateSelection}
           onDateFilterClearing={onDateFilterClearing}
         />
-      </Popover>
+      </CustomPopover>
     </div>
   );
 };

@@ -1,7 +1,11 @@
 import { useState } from 'react';
 
 import api from '../../../api';
-import { getInitialLastThirtyDays } from '../utils';
+import {
+  getInitialLastThirtyDays,
+  formatChartDate,
+  formatActivitiesData
+} from '../utils';
 
 export default () => {
   const { start, end } = getInitialLastThirtyDays();
@@ -17,7 +21,7 @@ export default () => {
   const [lastActivities, setLastActivities] = useState([]);
   const [revenue, setRevenue] = useState([]);
   const [saleStats, setSaleStats] = useState([]);
-  const [displayOption, setDisplayOption] = useState('daily');
+
   const [appliedFilters, setAppliedFilters] = useState(initialValue);
 
   const getRequestParams = (baseUrl, firstParam = false) => {
@@ -41,12 +45,15 @@ export default () => {
     }
   };
 
-  const fetchRevenueData = async () => {
+  const fetchRevenueData = async (displayOption = 'daily') => {
     const url = getRequestParams(
       `/stats/revenue-chart?option=${displayOption}`
     );
+
     const response = await api.get(url);
-    setRevenue(response.data);
+
+    const formattedChartRevenue = formatChartDate(response.data, displayOption);
+    setRevenue(formattedChartRevenue);
   };
 
   const fetchSaleStats = async () => {
@@ -67,7 +74,8 @@ export default () => {
 
   const fetchLastActivities = async () => {
     const response = await api.get('/events/sales');
-    setLastActivities(response.data);
+    const formattedActivities = formatActivitiesData(response.data);
+    setLastActivities(formattedActivities);
   };
 
   // Date Picker filter click event handlers
@@ -99,8 +107,6 @@ export default () => {
     fetchRevenueData,
     saleStats,
     fetchSaleStats,
-    displayOption,
-    setDisplayOption,
     revenue
   };
 };

@@ -43,15 +43,19 @@ export const getInitialLastThirtyDays = () => {
 };
 
 //Date formatter helpers
-export const formattedActivitiesData = lastActivities =>
+export const formatActivitiesData = lastActivities =>
   lastActivities.map(action => ({
     ...action,
     created: formatDate(action.created, 'd MMMM y - p')
   }));
 
-export const formatChartDate = revenue => {
-  return revenue.map(data => ({
-    ...data,
-    x: formatDate(data.x, 'd/M/y')
-  }));
+export const formatChartDate = (revenue, option) => {
+  if (option === 'daily') {
+    return revenue.map(data => ({
+      ...data,
+      x: formatDate(data.x, 'd/M/y')
+    }));
+  } else {
+    return revenue;
+  }
 };

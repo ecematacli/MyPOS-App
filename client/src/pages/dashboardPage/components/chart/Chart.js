@@ -11,7 +11,6 @@ import {
 import {
   Paper,
   IconButton,
-  Popover,
   Typography,
   Divider,
   ListItem
@@ -19,24 +18,28 @@ import {
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import styles from './styles';
-import { getDisabledOptions } from '../../utils';
 import { capitalize } from '../../../../common/utils';
-import useChartState from './useChartState';
 import { currencyFormatter } from '../../../../common/utils';
+import { getDisabledOptions } from '../../utils';
+import useChartState from './useChartState';
+import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 
-const Chart = ({
-  revenueData,
-  appliedFilters,
-  displayOption,
-  setDisplayOption
-}) => {
-  console.log(appliedFilters);
+const Chart = ({ revenueData, fetchRevenueData, appliedFilters }) => {
   const classes = styles();
-  const { handleClick, handleClose, open, anchorEl } = useChartState();
+
   const disabledOptions = getDisabledOptions(
     appliedFilters.startDate,
     appliedFilters.endDate
   );
+
+  const {
+    handleClick,
+    handleClose,
+    open,
+    anchorEl,
+    displayOption,
+    onDisplayOptionClick
+  } = useChartState(fetchRevenueData, disabledOptions);
 
   const labelStyle = {
     color: '#696969',
@@ -53,19 +56,11 @@ const Chart = ({
         <IconButton onClick={handleClick} className={classes.iconButton}>
           <MoreVertIcon />
         </IconButton>
-        <Popover
+        <CustomPopover
           open={open}
           classes={{ paper: classes.popoverPaper }}
           anchorEl={anchorEl}
           onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center'
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
-          }}
         >
           <Paper className={classes.popoverPaper}>
             <Typography className={classes.displayOptionsTitle}>
@@ -78,7 +73,7 @@ const Chart = ({
                   className={classes.displayOptionsItem}
                   disabled={disabledOptions[option]}
                   selected={displayOption === option}
-                  onClick={() => setDisplayOption(option)}
+                  onClick={() => onDisplayOptionClick(option)}
                   key={option}
                 >
                   <div className={classes.option}>{capitalize(option)}</div>
@@ -86,7 +81,7 @@ const Chart = ({
               ))}
             </div>
           </Paper>
-        </Popover>
+        </CustomPopover>
       </div>
     );
   };
@@ -123,6 +118,7 @@ const Chart = ({
           fill="url(#colorUv)"
         /> */}
         <Area
+          isAnimationActive={false}
           connectNulls
           name="Revenue"
           type="monotone"

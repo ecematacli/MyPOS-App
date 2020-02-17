@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-export default () => {
+export default (fetchRevenueData, disabledOptions) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [displayOption, setDisplayOption] = useState('daily');
 
   //Display options popover handlers
   const handleClick = event => {
@@ -12,12 +13,21 @@ export default () => {
     setAnchorEl(null);
   };
 
+  //Display option select click handler
+  const onDisplayOptionClick = option => {
+    setDisplayOption(option);
+    !disabledOptions[option] && fetchRevenueData(option);
+    handleClose();
+  };
+
   const open = Boolean(anchorEl);
 
   return {
     open,
     anchorEl,
     handleClick,
-    handleClose
+    handleClose,
+    displayOption,
+    onDisplayOptionClick
   };
 };

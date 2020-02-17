@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Popover, Button, Chip } from '@material-ui/core';
+import { Button, Chip } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import styles from './styles';
@@ -8,6 +8,7 @@ import { capitalize } from '../../../../common/utils';
 import { fetchProducts } from '../../../../redux/products/productsActions';
 import useProductFilters from './useProductFilters';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
+import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 
 const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
   const classes = styles();
@@ -118,22 +119,14 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
           <FilterListIcon className={classes.filterIcon} />
         </div>
       </div>
-      <Popover
+      <CustomPopover
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
         classes={{ paper: classes.popoverPaper }}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center'
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
       >
         {renderFilterContent()}
-      </Popover>
+      </CustomPopover>
     </Fragment>
   );
 };

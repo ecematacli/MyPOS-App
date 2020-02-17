@@ -2,11 +2,6 @@ import React, { Fragment, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 
 import styles from './styles';
-import {
-  getDisabledOptions,
-  formattedActivitiesData,
-  formatChartDate
-} from './utils';
 import DashboardDateFilter from './components/dashboardDateFilter/DashboardDateFilter';
 import useDashboardState from './hooks/useDashboardState';
 import DashboardStats from './components/dashboardStats/DashboardStats';
@@ -31,14 +26,9 @@ const DashboardPage = () => {
     fetchRevenueData,
     saleStats,
     fetchSaleStats,
-    revenue,
-    displayOption,
-    setDisplayOption
+    revenue
   } = useDashboardState();
-  const activities = formattedActivitiesData(lastActivities);
-  const chartRevenue = formatChartDate(revenue);
 
-  console.log('DISPLAY OPTION', displayOption);
   useEffect(() => {
     fetchRevenueData();
     fetchSaleStats();
@@ -75,9 +65,8 @@ const DashboardPage = () => {
       <Grid className={classes.gridContainer} container>
         <Grid item xs={12} sm={12} md={12}>
           <Chart
-            revenueData={chartRevenue}
-            displayOption={displayOption}
-            setDisplayOption={setDisplayOption}
+            revenueData={revenue}
+            fetchRevenueData={fetchRevenueData}
             appliedFilters={appliedFilters}
           />
         </Grid>
@@ -90,7 +79,7 @@ const DashboardPage = () => {
           />
         </Grid>
         <Grid item xs={12} sm={12} md={5}>
-          <LastActivities lastActivities={activities} />
+          <LastActivities lastActivities={lastActivities} />
         </Grid>
       </Grid>
     </Fragment>
