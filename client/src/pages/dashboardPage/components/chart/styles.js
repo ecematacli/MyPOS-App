@@ -13,7 +13,7 @@ export default makeStyles(({ spacing, palette }) => ({
     height: 50,
     pointer: 'cursor',
     marginTop: -10,
-    marginBottom: -15
+    marginBottom: -spacing(1)
   },
   iconButton: {
     position: 'absolute',
@@ -21,11 +21,14 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   displayOptionsTitle: {
     color: palette.grayColors[9],
-    padding: spacing(2, 2, 2, 1)
+    padding: spacing(3, 3)
   },
-  displayOptions: {
-    padding: spacing(2, 2, 2, 1)
+  displayOptionsItem: {
+    fontSize: spacing(2),
+    padding: spacing(2, 2),
+    cursor: 'pointer'
   },
+  option: { paddingLeft: spacing(1) },
   popoverPaper: {
     minWidth: 250,
     minHeight: 200,

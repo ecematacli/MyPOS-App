@@ -8,24 +8,35 @@ import {
   CartesianGrid,
   Tooltip
 } from 'recharts';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {
   Paper,
   IconButton,
   Popover,
   Typography,
   Divider,
-  MenuItem
+  ListItem
 } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import styles from './styles';
+import { getDisabledOptions } from '../../utils';
 import { capitalize } from '../../../../common/utils';
 import useChartState from './useChartState';
 import { currencyFormatter } from '../../../../common/utils';
 
-const Chart = ({ setDisplayOptions, revenueData }) => {
+const Chart = ({
+  revenueData,
+  appliedFilters,
+  displayOption,
+  setDisplayOption
+}) => {
+  console.log(appliedFilters);
   const classes = styles();
   const { handleClick, handleClose, open, anchorEl } = useChartState();
+  const disabledOptions = getDisabledOptions(
+    appliedFilters.startDate,
+    appliedFilters.endDate
+  );
 
   const labelStyle = {
     color: '#696969',
@@ -61,17 +72,24 @@ const Chart = ({ setDisplayOptions, revenueData }) => {
               Choose a display type for date
             </Typography>
             <Divider />
-            {['daily', 'weekly', 'monthly'].map(option => {
-              return (
-                <MenuItem
-                  onClick={() => setDisplayOptions(option)}
-                  key={option}
-                  className={classes.displayOptions}
-                >
-                  {capitalize(option)}
-                </MenuItem>
-              );
-            })}
+            <div>
+              {['daily', 'weekly', 'monthly'].map(option => {
+                console.log('displayOption', displayOption);
+                console.log('option', option);
+                console.log('BOOLEAN', displayOption === option);
+                return (
+                  <ListItem
+                    className={classes.displayOptionsItem}
+                    disabled={disabledOptions[option]}
+                    selected={displayOption === option}
+                    onClick={() => setDisplayOption(option)}
+                    key={option}
+                  >
+                    <div className={classes.option}>{capitalize(option)}</div>
+                  </ListItem>
+                );
+              })}
+            </div>
           </Paper>
         </Popover>
       </div>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  //Display options popover handler
+  //Display options popover handlers
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };

@@ -2,6 +2,11 @@ import React, { Fragment, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 
 import styles from './styles';
+import {
+  getDisabledOptions,
+  formattedActivitiesData,
+  formatChartDate
+} from './utils';
 import DashboardDateFilter from './components/dashboardDateFilter/DashboardDateFilter';
 import useDashboardState from './hooks/useDashboardState';
 import DashboardStats from './components/dashboardStats/DashboardStats';
@@ -10,6 +15,7 @@ import LastActivities from './components/lastActivities/LastActivities';
 import TopSellingProducts from './components/topSellingProducts/TopSellingProducts';
 
 const DashboardPage = () => {
+  const classes = styles();
   const {
     startDate,
     handleStartDateChange,
@@ -20,19 +26,19 @@ const DashboardPage = () => {
     appliedFilters,
     fetchTopSellingProducts,
     topSellingProducts,
-    formattedActivitiesData,
-    formatChartDate,
+    lastActivities,
     fetchLastActivities,
     fetchRevenueData,
     saleStats,
     fetchSaleStats,
     revenue,
-    displayOptions,
-    setDisplayOptions
+    displayOption,
+    setDisplayOption
   } = useDashboardState();
+  const activities = formattedActivitiesData(lastActivities);
+  const chartRevenue = formatChartDate(revenue);
 
-  const classes = styles();
-
+  console.log('DISPLAY OPTION', displayOption);
   useEffect(() => {
     fetchRevenueData();
     fetchSaleStats();
@@ -50,8 +56,8 @@ const DashboardPage = () => {
       >
         <DashboardDateFilter
           startDate={startDate}
-          handleStartDateChange={handleStartDateChange}
           endDate={endDate}
+          handleStartDateChange={handleStartDateChange}
           handleEndDateChange={handleEndDateChange}
           onDateSelection={onDateSelection}
           onDateFilterClearing={onDateFilterClearing}
@@ -69,8 +75,10 @@ const DashboardPage = () => {
       <Grid className={classes.gridContainer} container>
         <Grid item xs={12} sm={12} md={12}>
           <Chart
-            revenueData={formatChartDate()}
-            setDisplayOptions={setDisplayOptions}
+            revenueData={chartRevenue}
+            displayOption={displayOption}
+            setDisplayOption={setDisplayOption}
+            appliedFilters={appliedFilters}
           />
         </Grid>
       </Grid>
@@ -82,7 +90,7 @@ const DashboardPage = () => {
           />
         </Grid>
         <Grid item xs={12} sm={12} md={5}>
-          <LastActivities lastActivities={formattedActivitiesData()} />
+          <LastActivities lastActivities={activities} />
         </Grid>
       </Grid>
     </Fragment>

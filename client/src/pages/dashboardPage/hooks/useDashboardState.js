@@ -1,21 +1,23 @@
 import { useState } from 'react';
 
 import api from '../../../api';
-import { formatDate } from '../../../common/utils';
-
-const initialValue = {
-  startDate: '',
-  endDate: ''
-};
+import { getInitialLastThirtyDays } from '../utils';
 
 export default () => {
+  const { start, end } = getInitialLastThirtyDays();
+
+  const initialValue = {
+    startDate: start,
+    endDate: end
+  };
+
   const [startDate, handleStartDateChange] = useState(null);
   const [endDate, handleEndDateChange] = useState(null);
   const [topSellingProducts, setTopSellingProducts] = useState([]);
   const [lastActivities, setLastActivities] = useState([]);
   const [revenue, setRevenue] = useState([]);
   const [saleStats, setSaleStats] = useState([]);
-  const [displayOptions, setDisplayOptions] = useState('daily');
+  const [displayOption, setDisplayOption] = useState('daily');
   const [appliedFilters, setAppliedFilters] = useState(initialValue);
 
   const getRequestParams = (baseUrl, firstParam = false) => {
@@ -30,7 +32,7 @@ export default () => {
       }, [])
       .join('&');
 
-    if (params.length) return baseUrl;
+    if (!params.length) return baseUrl;
 
     if (firstParam) {
       return baseUrl + '?' + params;
@@ -41,9 +43,8 @@ export default () => {
 
   const fetchRevenueData = async () => {
     const url = getRequestParams(
-      `/stats/revenue-chart?option=${displayOptions}`
+      `/stats/revenue-chart?option=${displayOption}`
     );
-
     const response = await api.get(url);
     setRevenue(response.data);
   };
@@ -59,6 +60,7 @@ export default () => {
     const url = getRequestParams(
       `/stats/top-selling-products?page=${pageNumber}&rowsPerPage=3`
     );
+
     const response = await api.get(url);
     setTopSellingProducts(response.data);
   };
@@ -66,20 +68,6 @@ export default () => {
   const fetchLastActivities = async () => {
     const response = await api.get('/events/sales');
     setLastActivities(response.data);
-  };
-
-  //Date formatter handlers
-  const formattedActivitiesData = () =>
-    lastActivities.map(action => ({
-      ...action,
-      created: formatDate(action.created, 'd MMMM y - p')
-    }));
-
-  const formatChartDate = () => {
-    return revenue.map(data => ({
-      ...data,
-      x: formatDate(data.x, 'd/M/y')
-    }));
   };
 
   // Date Picker filter click event handlers
@@ -105,15 +93,14 @@ export default () => {
     appliedFilters,
     onDateFilterClearing,
     topSellingProducts,
-    formattedActivitiesData,
-    formatChartDate,
     fetchTopSellingProducts,
+    lastActivities,
     fetchLastActivities,
     fetchRevenueData,
     saleStats,
     fetchSaleStats,
-    displayOptions,
-    setDisplayOptions,
+    displayOption,
+    setDisplayOption,
     revenue
   };
 };

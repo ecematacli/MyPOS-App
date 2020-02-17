@@ -19,8 +19,11 @@ export default appliedFilters => {
   //Date Picker filter handlers
   const getDatePickerInputValue = () => {
     const { startDate, endDate } = appliedFilters;
-    const formattedStartDate = startDate && formatDate(startDate, 'd MMM yyyy');
-    const formattedEndDate = endDate && formatDate(endDate, 'd MMM yyyy');
+
+    const formatType = 'd MMM yyyy';
+    const formattedStartDate = startDate && formatDate(startDate, formatType);
+    const formattedEndDate = endDate && formatDate(endDate, formatType);
+    const today = formatDate(new Date(), formatType);
 
     let inputValue = '';
 
@@ -28,10 +31,10 @@ export default appliedFilters => {
       inputValue = `${formattedStartDate} - ${formattedEndDate}`;
     }
     if (startDate && !endDate) {
-      inputValue = `${formattedStartDate} - ${formattedStartDate}`;
+      inputValue = `${formattedStartDate} - ${today}`;
     }
     if (endDate && !startDate) {
-      inputValue = `${formattedEndDate} - ${formattedEndDate}`;
+      inputValue = `\u221E - ${formattedEndDate}`;
     }
 
     return inputValue;
