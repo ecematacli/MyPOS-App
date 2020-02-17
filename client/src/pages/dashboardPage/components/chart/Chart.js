@@ -73,22 +73,17 @@ const Chart = ({
             </Typography>
             <Divider />
             <div>
-              {['daily', 'weekly', 'monthly'].map(option => {
-                console.log('displayOption', displayOption);
-                console.log('option', option);
-                console.log('BOOLEAN', displayOption === option);
-                return (
-                  <ListItem
-                    className={classes.displayOptionsItem}
-                    disabled={disabledOptions[option]}
-                    selected={displayOption === option}
-                    onClick={() => setDisplayOption(option)}
-                    key={option}
-                  >
-                    <div className={classes.option}>{capitalize(option)}</div>
-                  </ListItem>
-                );
-              })}
+              {['daily', 'weekly', 'monthly'].map(option => (
+                <ListItem
+                  className={classes.displayOptionsItem}
+                  disabled={disabledOptions[option]}
+                  selected={displayOption === option}
+                  onClick={() => setDisplayOption(option)}
+                  key={option}
+                >
+                  <div className={classes.option}>{capitalize(option)}</div>
+                </ListItem>
+              ))}
             </div>
           </Paper>
         </Popover>

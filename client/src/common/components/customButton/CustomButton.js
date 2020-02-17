@@ -1,15 +1,9 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 
-import styles from './styles';
+import { StyledButton } from './CustomButtonStyles';
 
-const CustomButton = ({ children, ...otherProps }) => {
-  const classes = styles(otherProps);
-  return (
-    <Button variant="contained" className={classes.customBtn} {...otherProps}>
-      {children}
-    </Button>
-  );
-};
+const CustomButton = ({ children, ...props }) => (
+  <StyledButton {...props}>{children}</StyledButton>
+);
 
 export default CustomButton;
