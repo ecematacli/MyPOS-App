@@ -35,7 +35,6 @@ export default (state = initialState, { type, payload }) => {
         }
       };
     case CREATE_PRODUCT + '_SUCCESS':
-      console.log('success case create product!');
       return {
         ...state,
         products: {

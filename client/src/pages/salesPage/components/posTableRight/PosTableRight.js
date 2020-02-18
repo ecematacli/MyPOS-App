@@ -144,11 +144,13 @@ const PosTableRight = ({
         <Typography>{currencyFormatter(total - discount)}</Typography>
       </div>
       <div className={classes.paymentBtnContainer}>
-        <CustomButton fullWidth>
-          <div
-            onClick={onCompleteSaleClick}
-            className={classes.paymentBtnTextHolder}
-          >
+        <CustomButton
+          disabled={products.length < 1}
+          // classes={{ disabled: classes.disabledButton }}
+          onClick={onCompleteSaleClick}
+          fullWidth
+        >
+          <div className={classes.paymentBtnTextHolder}>
             <Typography className={classes.paymentBtnTxt}>
               Complete Payment
             </Typography>

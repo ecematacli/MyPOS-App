@@ -82,5 +82,8 @@ export default makeStyles(({ spacing, palette }) => ({
   paymentBtnTxt: {
     fontSize: spacing(2.5),
     fontWeight: 'bold'
+  },
+  disabledButton: {
+    color: `${palette.whiteColors[0]} !important`
   }
 }));

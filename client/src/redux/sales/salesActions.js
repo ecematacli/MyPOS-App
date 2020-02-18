@@ -1,5 +1,5 @@
-import api from '../../api';
 import { CREATE_SALE, FETCH_SALES } from './types';
+import createAPIAction from '../middlewares/createAPIAction';
 
 export const completeSale = (
   products,
@@ -8,22 +8,23 @@ export const completeSale = (
   addNotification,
   discardSale
 ) => async dispatch => {
-  try {
-    const response = await api.post('/sales', {
-      products,
-      total: total - parseFloat(discount),
-      discount: parseFloat(discount)
-    });
+  const saleData = {
+    products,
+    total: total - parseFloat(discount),
+    discount: parseFloat(discount)
+  };
 
-    dispatch({
-      type: CREATE_SALE,
-      payload: response.data
-    });
-    discardSale();
-    addNotification('Sale has been completed successfully', 'success');
-  } catch (e) {
-    addNotification('Sale could not be completed!', 'error');
-  }
+  dispatch(
+    createAPIAction(
+      CREATE_SALE,
+      'post',
+      '/sales',
+      saleData,
+      () => addNotification('Sale has been completed successfully', 'success'),
+      () => addNotification('Sale could not been created!', 'error')
+    )
+  );
+  discardSale();
 };
 
 export const fetchSales = (
@@ -41,10 +42,5 @@ export const fetchSales = (
     url += `&endDate=${endDate.toISOString()}`;
   }
 
-  const response = await api.get(url);
-
-  dispatch({
-    type: FETCH_SALES,
-    payload: response.data
-  });
+  dispatch(createAPIAction(FETCH_SALES, 'get', url));
 };

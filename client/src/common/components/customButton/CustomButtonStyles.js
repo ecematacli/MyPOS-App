@@ -6,7 +6,7 @@ export const StyledButton = styled(withTheme(Button))(
   ({ theme: { palette, spacing }, fullWidth }) => {
     return {
       background: palette.background.paper,
-      color: 'white',
+      color: palette.whiteColors[0],
       backgroundColor: palette.primary.main,
       height: fullWidth ? 60 : 40,
       paddingLeft: spacing(4),

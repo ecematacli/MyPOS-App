@@ -6,11 +6,12 @@ const initialState = {
   ids: []
 };
 
-export default (state = initialState, { type, payload }) => {
+export default (state = initialState, { type, payload, callNotification }) => {
   switch (type) {
     case CREATE_SALE:
-      return '';
-    case FETCH_SALES: {
+      callNotification();
+      return payload;
+    case FETCH_SALES + '_SUCCESS': {
       const { sales, count } = payload;
       const objSalesData = sales.reduce(
         (obj, currSale) => ({
