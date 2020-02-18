@@ -42,15 +42,13 @@ export default makeStyles(({ spacing, palette }) => ({
     justifyContent: 'center'
   },
   qtyData: {
+    ...centered,
     height: spacing(3),
     fontSize: 14,
     width: spacing(3),
     borderRadius: '50%',
     backgroundColor: palette.grayColors[1],
-    color: palette.secondary.main,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    color: palette.secondary.main
   },
   tableHeadRow: {
     '& > th': {
@@ -66,7 +64,7 @@ export default makeStyles(({ spacing, palette }) => ({
     '& > td': {
       borderBottom: `1px solid ${palette.secondary.light}`,
       maxWidth: '98px',
-      maxHeight: 120,
+      height: 'auto !important',
       '&:nth-child(2)': {
         maxWidth: '110px'
       }

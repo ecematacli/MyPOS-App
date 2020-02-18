@@ -1,5 +1,5 @@
-import api from '../../api';
 import { FETCH_PRODUCTS, EDIT_PRODUCT, CREATE_PRODUCT } from './types';
+import createAPIAction from '../middlewares/createAPIAction';
 import { findMatchedFields } from '../../common/utils/index';
 
 export const fetchProducts = (
@@ -22,13 +22,7 @@ export const fetchProducts = (
   if (searchQuery) {
     url += `&query=${searchQuery}`;
   }
-
-  const response = await api.get(url);
-
-  dispatch({
-    type: FETCH_PRODUCTS,
-    payload: response.data
-  });
+  dispatch(createAPIAction(FETCH_PRODUCTS, 'get', url));
 };
 
 export const editProduct = (
@@ -57,12 +51,14 @@ export const editProduct = (
       };
     }
 
-    const response = await api.patch(`/products/${productId}/`, updatedField);
-
-    dispatch({
-      type: EDIT_PRODUCT,
-      payload: response.data
-    });
+    dispatch(
+      createAPIAction(
+        EDIT_PRODUCT,
+        'patch',
+        `/products/${productId}/`,
+        updatedField
+      )
+    );
     addNotification(`${label} has been successfully updated`, 'success');
   } catch (e) {
     addNotification(`${label} could not be updated!`, 'error');
@@ -90,21 +86,19 @@ export const createProduct = (
         additionalInputValues.brand
       ).id.toString();
     }
-    const response = await api.post('/products', {
-      ...inputValues,
-      price: parseFloat(inputValues.price),
-      discountPrice: parseFloat(inputValues.discountPrice),
-      taxRate: additionalInputValues.taxRate,
-      categoryId,
-      brandId
-    });
+
+    dispatch(
+      createAPIAction(CREATE_PRODUCT, 'post', '/products', {
+        ...inputValues,
+        price: parseFloat(inputValues.price),
+        discountPrice: parseFloat(inputValues.discountPrice),
+        taxRate: additionalInputValues.taxRate,
+        categoryId,
+        brandId
+      })
+    );
 
     addNotification('Product has been created successfully', 'success');
-
-    dispatch({
-      type: CREATE_PRODUCT,
-      payload: response.data
-    });
   } catch (e) {
     addNotification('Product could not be created!', 'error');
   }

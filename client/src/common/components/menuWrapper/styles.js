@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 import backgroundImage from '../../../assets/img/sidebar-2.jpg';
+
 const drawerWidth = 250;
 
 export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({

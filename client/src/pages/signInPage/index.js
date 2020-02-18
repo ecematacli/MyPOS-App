@@ -1,7 +1,8 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Card, CardContent, Typography, CardMedia } from '@material-ui/core';
 import { Formik, Field, Form } from 'formik';
+import * as Yup from 'yup';
 
 import styles from './styles';
 import image from '../../assets/img/accountant.jpg';
@@ -21,19 +22,12 @@ const SignInPage = ({ location }) => {
     return <Redirect to={referer} />;
   }
 
-  const validate = values => {
-    const errors = {};
-
-    if (!values.email) {
-      errors.email = 'Please enter your email address';
-    }
-
-    if (!values.password) {
-      errors.password = 'Please enter your password';
-    }
-
-    return errors;
-  };
+  const SigninSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Please enter your email address'),
+    password: Yup.string().required('Please enter your password')
+  });
 
   return (
     <div className={classes.signInPageContainer}>
@@ -43,10 +37,7 @@ const SignInPage = ({ location }) => {
             <div>
               <CardMedia className={classes.signInCardImg} image={image} />
             </div>
-            <CardContent
-              className={classes.cardContent}
-              style={{ marginLeft: 20 }}
-            >
+            <CardContent className={classes.cardContent}>
               <div className={classes.signInTextDiv}>
                 <Typography className={classes.signInText}>Sign In</Typography>
               </div>
@@ -55,7 +46,7 @@ const SignInPage = ({ location }) => {
                 onSubmit={values => {
                   postSignInForm(values);
                 }}
-                validate={validate}
+                validationSchema={SigninSchema}
               >
                 <Form
                   autoComplete="new-password"

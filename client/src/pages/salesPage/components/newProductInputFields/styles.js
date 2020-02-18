@@ -5,7 +5,11 @@ export default makeStyles(({ spacing, palette }) => ({
     width: 380,
     height: 57,
     color: palette.secondary.main,
-    marginBottom: spacing(2)
+    marginBottom: spacing(2),
+    '& input:valid:focus + fieldset': {
+      borderColor: ({ form: { touched, errors }, fieldId }) =>
+        errors[fieldId] && touched[fieldId] ? `${palette.error.main}` : 'unset'
+    }
   },
   helperText: {
     fontSize: 16,
@@ -16,5 +20,8 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   notchedOutline: {
     borderColor: palette.error.main
+  },
+  invalidatedLabel: {
+    color: palette.error.main
   }
 }));

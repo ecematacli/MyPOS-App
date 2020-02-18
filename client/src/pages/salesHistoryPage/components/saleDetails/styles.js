@@ -14,7 +14,7 @@ export default makeStyles(({ spacing, palette }) => ({
     flexDirection: 'column',
     alignItems: 'center',
     background: ({ rowIndex }) =>
-      rowIndex % 2 ? `${palette.whiteColors[0]}` : '#f8fdf8'
+      rowIndex % 2 ? `${palette.whiteColors[0]}` : `${palette.greenColors[2]}`
   },
   table: {
     marginBottom: 0,
@@ -42,14 +42,15 @@ export default makeStyles(({ spacing, palette }) => ({
       fontWeight: 545,
       fontSize: 14,
       padding: spacing(2),
-      borderBottom: '0.5px solid #eee',
+      borderBottom: `0.5px solid ${palette.secondary.light}`,
       color: 'inherit'
     }
   },
   detailTotal: {
     width: '90%',
     height: spacing(6),
-    background: ({ rowIndex }) => (rowIndex % 2 ? '#F1F1F1' : '#efffef'),
+    background: ({ rowIndex }) =>
+      rowIndex % 2 ? `${palette.grayColors[8]}` : `${palette.greenColors[7]}`,
     margin: 'auto',
     marginTop: spacing(4),
     marginBottom: spacing(2),

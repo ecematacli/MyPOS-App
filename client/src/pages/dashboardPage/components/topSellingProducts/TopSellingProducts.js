@@ -44,7 +44,7 @@ const TopSellingItems = ({
           <TableCell>{name}</TableCell>
           <TableCell align="center">{variation ? variation : '-'}</TableCell>
           <TableCell align="center">
-            <div className={classes.soldQtyDiv} style={{}}>
+            <div className={classes.soldQtyDiv}>
               <span className={classes.qtyData}>{soldQty}</span>
             </div>
           </TableCell>

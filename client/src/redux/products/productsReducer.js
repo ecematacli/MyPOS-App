@@ -8,7 +8,7 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case FETCH_PRODUCTS: {
+    case FETCH_PRODUCTS + '_SUCCESS': {
       const { products, count } = payload;
       const objProductsData = products.reduce(
         (obj, currProduct) => ({
@@ -26,7 +26,7 @@ export default (state = initialState, { type, payload }) => {
         ids: products.map(product => product.id)
       };
     }
-    case EDIT_PRODUCT:
+    case EDIT_PRODUCT + '_SUCCESS':
       return {
         ...state,
         products: {
@@ -34,7 +34,8 @@ export default (state = initialState, { type, payload }) => {
           [payload.id]: payload
         }
       };
-    case CREATE_PRODUCT:
+    case CREATE_PRODUCT + '_SUCCESS':
+      console.log('success case create product!');
       return {
         ...state,
         products: {

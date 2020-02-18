@@ -7,13 +7,16 @@ import { createProduct } from '../../../../redux/products/productsActions';
 export default (brands, categories, handleCloseDialog) => {
   const { addNotification } = useContext(NotificationsContext);
   const dispatch = useDispatch();
+
+  const initialValues = {
+    taxRate: 18,
+    category: '',
+    brand: ''
+  };
+
   const [additionalInputs, setAdditionalInputs] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
-    {
-      taxRate: 18,
-      category: '',
-      brand: ''
-    }
+    initialValues
   );
 
   // Product input field handlers
@@ -26,6 +29,7 @@ export default (brands, categories, handleCloseDialog) => {
 
   const onAddProductClick = inputValues => {
     dispatch(createProduct(inputValues, additionalInputs, addNotification));
+    setAdditionalInputs(initialValues);
     handleCloseDialog();
   };
 

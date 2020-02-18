@@ -32,7 +32,8 @@ export default createMuiTheme({
       '#ecf1f1',
       '#f0f3f4',
       '#f0f4f4',
-      '#e3ece3'
+      '#e3ece3',
+      '#efffef'
     ],
     yellowColors: ['#ffa726', '#fb8c00'],
     blueColors: ['#26c6da', '#00acc1'],

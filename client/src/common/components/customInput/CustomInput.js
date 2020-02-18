@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
+
 import {
   OutlinedInput,
   InputLabel,
@@ -17,7 +19,9 @@ const styles = makeStyles({
 });
 
 const CustomInput = props => {
+  const { palette } = useTheme();
   const classes = styles();
+
   const {
     label,
     dropdown,
@@ -26,6 +30,7 @@ const CustomInput = props => {
     classesProp,
     type = 'text',
     required,
+    invalidatedField,
     ...otherProps
   } = props;
 
@@ -56,7 +61,14 @@ const CustomInput = props => {
         </Fragment>
       ) : (
         <Fragment>
-          {inputLabel && <InputLabel color="secondary">{label}</InputLabel>}
+          {inputLabel && (
+            <InputLabel
+              color="secondary"
+              style={invalidatedField && { color: palette.error.main }}
+            >
+              {label}
+            </InputLabel>
+          )}
           <OutlinedInput
             {...otherProps}
             classes={!dropdown && classesProp}

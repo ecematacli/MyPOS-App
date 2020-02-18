@@ -15,8 +15,10 @@ const NewProductInputFields = props => {
     ...otherProps
   } = props;
 
-  const requiredFieldClasses =
-    errors[fieldId] && touched[fieldId] ? `${classes.notchedOutline}` : null;
+  const invalidFields = errors[fieldId] && touched[fieldId];
+  const requiredFieldClasses = invalidFields
+    ? `${classes.notchedOutline}`
+    : null;
 
   return (
     <Fragment>
@@ -30,15 +32,14 @@ const NewProductInputFields = props => {
           notchedOutline: requiredFieldClasses
         }}
         inputLabel
+        invalidatedField={invalidFields}
         startAdornment={
           (fieldId === 'price' || fieldId === 'discountPrice') && (
             <InputAdornment position="start">&#x20BA;</InputAdornment>
           )
         }
       />
-      {(fieldId === 'barcode' || fieldId === 'price') &&
-      errors[fieldId] &&
-      touched[fieldId] ? (
+      {(fieldId === 'barcode' || fieldId === 'price') && invalidFields ? (
         <div className={classes.helperText}>{errors[fieldId]}</div>
       ) : null}
     </Fragment>

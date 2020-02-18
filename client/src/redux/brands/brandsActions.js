@@ -1,11 +1,5 @@
-import api from '../../api';
 import { FETCH_BRANDS } from './types';
+import createAPIAction from '../middlewares/createAPIAction';
 
-export const fetchBrands = () => async dispatch => {
-  const response = await api.get('/brands');
-
-  dispatch({
-    type: FETCH_BRANDS,
-    payload: response.data
-  });
-};
+export const fetchBrands = () => async dispatch =>
+  dispatch(createAPIAction(FETCH_BRANDS, 'get', '/brands'));
