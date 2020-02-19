@@ -16,6 +16,9 @@ export const StyledButton = styled(withTheme(Button))(
       transition: 'all .9',
       '&:hover': {
         backgroundColor: palette.primary.light
+      },
+      ' &.disabled': {
+        color: 'white !important'
       }
     };
   }

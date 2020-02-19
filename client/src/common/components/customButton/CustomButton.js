@@ -4,7 +4,7 @@ import { StyledButton } from './CustomButtonStyles';
 
 const CustomButton = ({ children, ...props }) => {
   return (
-    <StyledButton className="button" {...props}>
+    <StyledButton classes={{ root: 'disabled' }} {...props}>
       {children}
     </StyledButton>
   );
