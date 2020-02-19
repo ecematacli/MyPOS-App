@@ -19,10 +19,12 @@ const DashboardStats = ({ saleStats }) => {
             </Tooltip>
           </div>
           <div className={classes.dashboardStatContent}>
-            <Typography align="right" className={classes.statLabel}>
-              {label}
-            </Typography>
-            <Typography align="right" className={classes.statInfo}>
+            <div>
+              <Typography align="right" className={classes.statLabel}>
+                {label}
+              </Typography>
+            </div>
+            <Typography align="right" className={classes.statValue}>
               {currency ? currencyFormatter(value) : value}
             </Typography>
           </div>

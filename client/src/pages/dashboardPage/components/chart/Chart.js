@@ -46,10 +46,6 @@ const Chart = ({ revenueData, fetchRevenueData, appliedFilters }) => {
     textAlign: 'center'
   };
 
-  const contentStyle = {
-    color: '#43a047'
-  };
-
   const renderDateOptions = () => {
     return (
       <div className={classes.iconContainer}>
@@ -93,10 +89,10 @@ const Chart = ({ revenueData, fetchRevenueData, appliedFilters }) => {
         margin={{ top: 30, right: 30, left: 0, bottom: 25 }}
       >
         <defs>
-          {/* <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="10%" stopColor="#00acc1" stopOpacity={0.3} />
             <stop offset="90%" stopColor="#00acc1" stopOpacity={0.1} />
-          </linearGradient> */}
+          </linearGradient>
           <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.3} />
             <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
@@ -107,22 +103,24 @@ const Chart = ({ revenueData, fetchRevenueData, appliedFilters }) => {
         <CartesianGrid stroke="#e2e2e2" strokeDasharray="3 3" />
         <Tooltip
           labelStyle={labelStyle}
-          itemStyle={contentStyle}
           formatter={value => currencyFormatter(value)}
         />
-        {/* <Area
-          type="monotone"
-          dataKey="uv"
-          stroke="#00acc1"
-          fillOpacity={1}
-          fill="url(#colorUv)"
-        /> */}
         <Area
           isAnimationActive={false}
           connectNulls
-          name="Revenue"
+          name="Web Revenue"
           type="monotone"
-          dataKey="y"
+          dataKey="web"
+          stroke="#00acc1"
+          fillOpacity={1}
+          fill="url(#colorUv)"
+        />
+        <Area
+          isAnimationActive={false}
+          connectNulls
+          name="Store Revenue"
+          type="monotone"
+          dataKey="store"
           stroke="#82ca9d"
           fillOpacity={1}
           fill="url(#colorPv)"

@@ -2,19 +2,25 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
 import TrendingUpOutlinedIcon from '@material-ui/icons/TrendingUpOutlined';
 
-export const statsData = ({ revenue, saleCount, soldProductCount }) => [
+export const statsData = ({
+  webRevenue,
+  storeRevenue,
+  saleCount,
+  soldProductCount
+}) => [
   {
-    label: 'Revenue',
+    label: 'Revenue (store)',
     id: 'revenue',
     currency: true,
     Icon: AttachMoneyOutlinedIcon,
-    value: revenue
+    value: storeRevenue
   },
   {
-    label: 'Profit',
+    label: 'Revenue (web)',
     id: 'profit',
     currency: true,
-    Icon: ShoppingCartOutlinedIcon
+    Icon: AttachMoneyOutlinedIcon,
+    value: webRevenue
   },
   {
     label: 'Products Sold',

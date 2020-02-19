@@ -1,18 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
+  dashboardStatPaper: {
+    width: '100%',
+    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.14)',
+    borderRadius: 6,
+    position: 'relative'
+  },
   dashboardStatDiv: {
     display: 'flex',
     minHeight: 135,
     [breakpoints.down('sm')]: {
       marginTop: spacing(3)
     }
-  },
-  dashboardStatPaper: {
-    width: '100%',
-    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.14)',
-    borderRadius: 6,
-    position: 'relative'
   },
   iconDiv: {
     color: palette.whiteColors[0],
@@ -43,7 +43,8 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     fontSize: 14,
     paddingBottom: spacing(0.3)
   },
-  statInfo: { color: palette.secondary.dark, fontSize: 24 },
+
+  statValue: { color: palette.secondary.dark, fontSize: 24 },
   revenueIconContainer: {
     background: `linear-gradient(60deg, ${palette.greenColors[0]}, ${palette.greenColors[1]})`,
     boxShadow:

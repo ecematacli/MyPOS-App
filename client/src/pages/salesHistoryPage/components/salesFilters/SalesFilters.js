@@ -17,8 +17,8 @@ const SalesFilters = ({ page, rowsPerPage }) => {
     anchorEl,
     handleClick,
     handleClose,
-    onDateSelectClick,
-    onClearFiltersClick
+    onDateSelection,
+    onDateFilterClearing
   } = useSalesFiltersState(page, rowsPerPage);
 
   return (
@@ -35,8 +35,8 @@ const SalesFilters = ({ page, rowsPerPage }) => {
           endDate={endDate}
           handleEndDateChange={handleEndDateChange}
           handleClose={handleClose}
-          onClearFiltersClick={onClearFiltersClick}
-          onDateSelectClick={onDateSelectClick}
+          onDateFilterClearing={onDateFilterClearing}
+          onDateSelection={onDateSelection}
         />
       </CustomPopover>
     </Fragment>

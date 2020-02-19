@@ -17,12 +17,12 @@ export default (page, rowsPerPage) => {
     setAnchorEl(null);
   };
 
-  const onDateSelectClick = () => {
+  const onDateSelection = () => {
     dispatch(fetchSales(page, rowsPerPage, startDate, endDate));
     handleClose();
   };
 
-  const onClearFiltersClick = () => {
+  const onDateFilterClearing = () => {
     handleStartDateChange(null);
     handleEndDateChange(null);
     dispatch(fetchSales(page, rowsPerPage, null, null));
@@ -39,7 +39,7 @@ export default (page, rowsPerPage) => {
     anchorEl,
     handleClick,
     handleClose,
-    onDateSelectClick,
-    onClearFiltersClick
+    onDateSelection,
+    onDateFilterClearing
   };
 };

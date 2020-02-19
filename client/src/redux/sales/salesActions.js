@@ -1,5 +1,5 @@
 import { CREATE_SALE, FETCH_SALES } from './types';
-import createAPIAction from '../middlewares/createAPIAction';
+import createAPIAction from '../createAPIAction';
 
 export const completeSale = (
   products,

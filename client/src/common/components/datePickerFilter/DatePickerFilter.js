@@ -16,6 +16,8 @@ const DatePickerFilter = ({
 }) => {
   const classes = styles();
 
+  const noAppliedFilter = !startDate && !endDate;
+
   const onDateSelectClick = () => {
     onDateSelection();
     handleClose();
@@ -79,6 +81,7 @@ const DatePickerFilter = ({
         <Button
           className={classes.filterBtn}
           color="secondary"
+          disabled={noAppliedFilter}
           onClick={onDateFilterClearing}
         >
           Clear Filters
@@ -87,6 +90,7 @@ const DatePickerFilter = ({
       <div>
         <Button
           onClick={onDateSelectClick}
+          disabled={noAppliedFilter}
           className={classes.filterBtn}
           color="primary"
         >

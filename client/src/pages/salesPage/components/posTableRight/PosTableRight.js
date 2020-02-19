@@ -146,7 +146,6 @@ const PosTableRight = ({
       <div className={classes.paymentBtnContainer}>
         <CustomButton
           disabled={products.length < 1}
-          // classes={{ disabled: classes.disabledButton }}
           onClick={onCompleteSaleClick}
           fullWidth
         >

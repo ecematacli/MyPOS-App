@@ -33,8 +33,10 @@ export default store => next => async action => {
       })
     );
 
-    successMessage();
+    successMessage && successMessage();
   } catch (error) {
+    console.log('ERROR CASE>>>>', error);
+    console.log('errorMessage', errorMessage());
     const response = error.response;
 
     if (response && response.status === 401) {
@@ -44,7 +46,7 @@ export default store => next => async action => {
 
     console.log(errorMessage);
 
-    errorMessage();
+    errorMessage && errorMessage();
 
     next(
       actionWith({
