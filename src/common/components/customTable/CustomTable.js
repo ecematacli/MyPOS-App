@@ -160,6 +160,7 @@ const CustomTable = props => {
       });
     }
   };
+
   return (
     <TableContainer>
       <div className={classes.tableContainer}>
@@ -172,7 +173,7 @@ const CustomTable = props => {
             </TableHead>
           ) : null}
           <TableBody>
-            {!rows || rows.length < 1 ? (
+            {!rows ? (
               <TableRow>
                 <TableCell className={classes.noDisplayCell} colSpan={10}>
                   <div className={classes.noDisplayMsg}>

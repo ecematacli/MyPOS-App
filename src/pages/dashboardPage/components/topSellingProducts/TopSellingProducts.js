@@ -13,8 +13,10 @@ import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 import styles from './styles';
+import Loading from '../../../../common/components/loading/Loading';
 
 const TopSellingItems = ({
+  loading,
   topSellingProducts: { products, count },
   fetchTopSellingProducts
 }) => {
@@ -34,6 +36,16 @@ const TopSellingItems = ({
     setPageNumber(prevPageNumber => prevPageNumber - 1);
     fetchTopSellingProducts(pageNumber);
   };
+
+  const renderTableHead = () => (
+    <TableRow className={classes.tableHeadRow}>
+      {['Sku', 'Product Name', 'Variation', 'Unit Sold'].map((head, i) => (
+        <TableCell align={i > 1 ? 'center' : 'left'} key={head}>
+          {head}
+        </TableCell>
+      ))}
+    </TableRow>
+  );
 
   const renderTopSellingItems = () => {
     return products
@@ -60,24 +72,18 @@ const TopSellingItems = ({
       <Divider className={classes.divider} />
       <div className={classes.topSellingContent}>
         <Table className={classes.table}>
-          <TableHead>
-            <TableRow className={classes.tableHeadRow}>
-              {['Sku', 'Product Name', 'Variation', 'Unit Sold'].map(
-                (head, i) => (
-                  <TableCell align={i > 1 ? 'center' : 'left'} key={head}>
-                    {head}
-                  </TableCell>
-                )
-              )}
-            </TableRow>
-          </TableHead>
+          <TableHead>{renderTableHead()}</TableHead>
           <TableBody>
-            {!products || products.length < 1 ? (
+            {loading || !products ? (
               <TableRow>
-                <TableCell className={classes.noDisplayCell} colSpan={10}>
-                  <div className={classes.noDisplayMsg}>
-                    No top selling item to display
-                  </div>
+                <TableCell className={classes.displayMsgCell} colSpan={10}>
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    <div className={classes.displayMsg}>
+                      No top selling item to display
+                    </div>
+                  )}
                 </TableCell>
               </TableRow>
             ) : (

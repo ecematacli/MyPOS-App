@@ -20,13 +20,13 @@ export default makeStyles(({ spacing, palette }) => ({
     padding: spacing(3, 2.5),
     color: palette.grayColors[3]
   },
-  noDisplayMsg: {
+  displayMsg: {
     color: palette.secondary.main,
     display: 'flex',
     justifyContent: 'center',
     fontSize: 18
   },
-  noDisplayCell: {
+  displayMsgCell: {
     borderBottom: 'none',
     paddingTop: 50
   },

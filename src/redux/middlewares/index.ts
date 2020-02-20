@@ -1,13 +1,32 @@
 // import axios from 'axios';
 import api from '../../api';
 import history from '../../history/history';
+import {
+  Middleware,
+  MiddlewareAPI,
+  applyMiddleware,
+  createStore,
+  Dispatch,
+  Reducer,
+  Action,
+  AnyAction
+} from 'redux';
 
 export const CALL_API = 'CALL_API';
 
-export default store => next => async action => {
-  const callAPI = action[CALL_API];
+interface CallApiAction {
+  type: string;
+  method: string;
+  url: string;
+  data?: any;
+  successMessage: (message: string, messageType: string) => void;
+  errorMessage: (message: string, messageType: string) => void;
+}
 
-  console.log(action);
+export const apiMiddleware: Middleware<Dispatch> = () => (
+  next: Dispatch
+) => async (action: AnyAction | CallApiAction) => {
+  const callAPI = action[CALL_API];
 
   if (typeof callAPI === 'undefined') {
     return next(action);
@@ -35,8 +54,6 @@ export default store => next => async action => {
 
     successMessage && successMessage();
   } catch (error) {
-    console.log('ERROR CASE>>>>', error);
-    console.log('errorMessage', errorMessage());
     const response = error.response;
 
     if (response && response.status === 401) {

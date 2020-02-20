@@ -14,7 +14,7 @@ export default () => {
     startDate: start,
     endDate: end
   };
-
+  const [loading, setLoading] = useState(false);
   const [startDate, handleStartDateChange] = useState(null);
   const [endDate, handleEndDateChange] = useState(null);
   const [topSellingProducts, setTopSellingProducts] = useState([]);
@@ -24,6 +24,7 @@ export default () => {
 
   const [appliedFilters, setAppliedFilters] = useState(initialValue);
 
+  // API Call helpers
   const getRequestParams = (baseUrl, firstParam = false) => {
     const filters = { startDate: startDate, endDate: endDate };
 
@@ -45,22 +46,32 @@ export default () => {
     }
   };
 
+  const makeApiCall = async (url, method = 'get') => {
+    setLoading(true);
+
+    const response = await api[method](url);
+
+    setLoading(false);
+
+    return response.data;
+  };
+
+  // Dashboard Page API Calls
   const fetchRevenueData = async (displayOption = 'daily') => {
     const url = getRequestParams(
       `/stats/revenue-chart?option=${displayOption}`
     );
+    const data = await makeApiCall(url);
 
-    const response = await api.get(url);
-
-    const formattedChartRevenue = formatChartDate(response.data, displayOption);
+    const formattedChartRevenue = formatChartDate(data, displayOption);
     setRevenue(formattedChartRevenue);
   };
 
   const fetchSaleStats = async () => {
     const url = getRequestParams(`/stats/sale-stats`, true);
 
-    const response = await api.get(url);
-    setSaleStats(response.data);
+    const data = await makeApiCall(url);
+    setSaleStats(data);
   };
 
   const fetchTopSellingProducts = async (pageNumber = 1) => {
@@ -68,13 +79,14 @@ export default () => {
       `/stats/top-selling-products?page=${pageNumber}&rowsPerPage=3`
     );
 
-    const response = await api.get(url);
-    setTopSellingProducts(response.data);
+    const data = await makeApiCall(url);
+
+    setTopSellingProducts(data);
   };
 
   const fetchLastActivities = async () => {
-    const response = await api.get('/events/sales');
-    const formattedActivities = formatActivitiesData(response.data);
+    const data = await makeApiCall('/events/sales');
+    const formattedActivities = formatActivitiesData(data);
     setLastActivities(formattedActivities);
   };
 
@@ -93,6 +105,7 @@ export default () => {
   };
 
   return {
+    loading,
     startDate,
     handleStartDateChange,
     endDate,

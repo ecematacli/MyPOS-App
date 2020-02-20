@@ -12,6 +12,7 @@ import TopSellingProducts from './components/topSellingProducts/TopSellingProduc
 const DashboardPage = () => {
   const classes = styles();
   const {
+    loading,
     startDate,
     handleStartDateChange,
     endDate,
@@ -74,12 +75,13 @@ const DashboardPage = () => {
       <Grid className={classes.gridContainer} container>
         <Grid item xs={12} sm={12} md={7}>
           <TopSellingProducts
+            loading={loading}
             topSellingProducts={topSellingProducts}
             fetchTopSellingProducts={fetchTopSellingProducts}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={5}>
-          <LastActivities lastActivities={lastActivities} />
+          <LastActivities lastActivities={lastActivities} loading={loading} />
         </Grid>
       </Grid>
     </Fragment>

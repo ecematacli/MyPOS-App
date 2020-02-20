@@ -3,7 +3,7 @@ import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { CircularProgress, InputAdornment, TextField } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
+import { Search, InputTwoTone } from '@material-ui/icons';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import styles from './styles';
@@ -90,8 +90,10 @@ const ProductSearchbar = ({ addProduct }) => {
           />
         )}
         renderOption={(product, { inputValue }) => {
-          const matches = match(product.name || product.variation, inputValue);
-          const parts = parse(product.name || product.variation, matches);
+          const productFields =
+            product.name || product.variation || product.sku;
+          const matches = match(productFields, inputValue);
+          const parts = parse(productFields, matches);
 
           return (
             <div className={classes.suggestionContainer}>

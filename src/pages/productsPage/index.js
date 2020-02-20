@@ -1,10 +1,11 @@
 import React, { useEffect, Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { fetchProducts } from '../../redux/products/productsActions';
 import { fetchCategories } from '../../redux/categories/categoriesActions';
 import { fetchBrands } from '../../redux/brands/brandsActions';
+import { loadingSelector } from '../../redux/loading/loadingReducer';
+import Loading from '../../common/components/loading/Loading';
 import CustomTable from '../../common/components/customTable/CustomTable';
 import ProductDetails from './components/productDetails/ProductDetails';
 import ProductFilters from './components/productFilters/ProductFilters';
@@ -15,7 +16,8 @@ const ProductsPage = ({
   fetchBrands,
   products,
   count,
-  ids
+  ids,
+  isFetching
 }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
@@ -27,8 +29,8 @@ const ProductsPage = ({
     fetchCategories();
     fetchBrands();
   }, []);
-  return !products ? (
-    <CircularProgress color="primary" />
+  return isFetching ? (
+    <Loading />
   ) : (
     <Fragment>
       <ProductFilters rowsPerPage={rowsPerPage} page={page} />
@@ -69,11 +71,17 @@ const ProductsPage = ({
   );
 };
 
-const mapStateToProps = ({ products: { products, count, ids } }) => ({
-  products,
-  count,
-  ids
-});
+const mapStateToProps = state => {
+  const {
+    products: { products, count, ids }
+  } = state;
+  return {
+    products,
+    count,
+    ids,
+    isFetching: loadingSelector(['FETCH_PRODUCTS'], state)
+  };
+};
 
 export default connect(mapStateToProps, {
   fetchProducts,

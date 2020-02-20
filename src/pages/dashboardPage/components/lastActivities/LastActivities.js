@@ -4,18 +4,24 @@ import { Paper, Typography, Divider } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
 import styles from './styles';
+import Loading from '../../../../common/components/loading/Loading';
 
-const LastActivities = ({ lastActivities }) => {
+const LastActivities = ({ loading, lastActivities }) => {
   const classes = styles();
 
   const renderLastActivities = () => {
-    if (!lastActivities || lastActivities.length < 1) {
+    if (loading) {
+      return <Loading />;
+    }
+
+    if (!lastActivities) {
       return (
         <Typography className={classes.noDisplayMsg}>
-          No activity to display
+          No activities to display
         </Typography>
       );
     }
+
     return lastActivities.map(({ event, created }, i) => (
       <div className={classes.activitiesContentDiv} key={i}>
         <div className={classes.eventContentDiv}>
