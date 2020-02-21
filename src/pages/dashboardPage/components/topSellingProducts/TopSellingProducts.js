@@ -92,15 +92,17 @@ const TopSellingItems = ({
           </TableBody>
         </Table>
       </div>
-      <div className={classes.paginationContainer}>
-        <div onClick={onLeftArrowClick} className={classes.arrowDiv}>
-          <KeyboardArrowLeftIcon className={classes.arrowIcon} />
+      {!loading && products && (
+        <div className={classes.paginationContainer}>
+          <div onClick={onLeftArrowClick} className={classes.arrowDiv}>
+            <KeyboardArrowLeftIcon className={classes.arrowIcon} />
+          </div>
+          <div className={classes.pageCountText}>{pageNumber}</div>
+          <div onClick={onRightArrowClick} className={classes.arrowDiv}>
+            <KeyboardArrowRightIcon className={classes.arrowIcon} />
+          </div>
         </div>
-        <div className={classes.pageCountText}>{pageNumber}</div>
-        <div onClick={onRightArrowClick} className={classes.arrowDiv}>
-          <KeyboardArrowRightIcon className={classes.arrowIcon} />
-        </div>
-      </div>
+      )}
     </Paper>
   );
 };

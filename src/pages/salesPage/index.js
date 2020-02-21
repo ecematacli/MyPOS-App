@@ -32,21 +32,8 @@ const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
   }, []);
 
   return (
-    <Grid
-      container
-      className={classes.gridContainer}
-      spacing={3}
-      justify="center"
-    >
-      <Grid
-        item
-        xs={12}
-        sm={12}
-        md={12}
-        lg={12}
-        xl={12}
-        className={classes.discardSaleGridItem}
-      >
+    <Grid container spacing={3} justify="center">
+      <Grid item align="center" className={classes.discardSaleGridItem}>
         <div className={classes.discardSaleBtnHolder}>
           <IconButton
             classes={{ root: classes.discardIconBtn }}
@@ -59,6 +46,7 @@ const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
       </Grid>
       <Grid
         item
+        align="center"
         xs={12}
         sm={12}
         md={12}
@@ -71,12 +59,13 @@ const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
       </Grid>
       <Grid
         item
+        align="center"
         xs={12}
         sm={12}
         md={12}
         lg={6}
         xl={5}
-        className={classes.tableGridItem}
+        className={classes.posTableGridItem}
         zeroMinWidth
       >
         <PosTableRight

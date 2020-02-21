@@ -2,9 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
   filterIconContainer: {
-    width: '95%',
+    width: '90%',
     display: 'flex',
     justifyContent: 'flex-end',
+    margin: 'auto',
     marginTop: spacing(3),
     marginBottom: -spacing(1)
   },

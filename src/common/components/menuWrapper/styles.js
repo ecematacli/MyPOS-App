@@ -2,67 +2,58 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import backgroundImage from '../../../assets/img/sidebar-2.jpg';
 
-const drawerWidth = 250;
+const drawerWidth = 255;
 
-export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
+export default makeStyles(({ breakpoints, spacing, palette }) => ({
   drawerRoot: {
-    display: 'flex',
-    position: 'relative',
-    height: '100vh'
+    display: 'flex'
   },
   appBar: {
-    zIndex: zIndex.drawer + 1,
-    [breakpoints.up('md')]: {
-      marginLeft: drawerWidth
-    }
+    height: 0
   },
-  appBarRoot: { height: 0 },
   menuIconContainer: {
     marginTop: spacing(3),
-    marginLeft: spacing(4),
+    marginLeft: spacing(2),
     width: 30
   },
+  menuIcon: {
+    fontSize: 35
+  },
   menuButton: {
-    display: 'fixed',
     marginRight: spacing(2),
     color: palette.grayColors[3],
-    [breakpoints.up('md')]: {
+    [breakpoints.up('lg')]: {
       display: 'none'
     }
   },
-
   logoWrapper: {
     width: '100%',
     height: spacing(8),
     display: 'flex',
     justifyContent: 'center',
-    [breakpoints.down('sm')]: {
-      display: 'none'
-    },
-    marginBottom: -spacing(1.5)
+    paddingTop: spacing(2)
   },
   logoImg: {
     width: 60,
     height: 60
   },
   drawer: {
-    [breakpoints.up('md')]: {
+    [breakpoints.up('lg')]: {
       width: drawerWidth,
       flexShrink: 0
     }
   },
   drawerPaper: {
     width: drawerWidth,
-    paddingTop: spacing(2),
     backgroundSize: 'cover',
     backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url(${backgroundImage})`,
     backgroundPosition: 'center center'
   },
-  drawerListItems: {
-    paddingTop: 2
-  },
   drawerIcon: {
     color: palette.secondary.light
+  },
+  drawerListItems: {
+    paddingTop: 2
   },
   drawerItemText: {
     paddingLeft: 10
@@ -87,9 +78,5 @@ export default makeStyles(({ breakpoints, zIndex, spacing, palette }) => ({
     overflow: 'auto',
     padding: spacing(3),
     backgroundColor: palette.grayColors[5]
-  },
-  toolbar: {
-    minHeight: 0,
-    height: 0
   }
 }));

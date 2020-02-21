@@ -10,7 +10,7 @@ const DashboardStats = ({ saleStats }) => {
   const classes = styles();
 
   return statsData(saleStats).map(({ label, id, Icon, value, currency }) => (
-    <Grid key={id} item xs={12} sm={6} md={3}>
+    <Grid key={id} item xs={12} sm={12} md={3}>
       <div className={classes.dashboardStatDiv}>
         <Paper className={classes.dashboardStatPaper}>
           <div className={clsx(classes.iconDiv, classes[`${id}IconContainer`])}>

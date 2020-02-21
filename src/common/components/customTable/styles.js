@@ -1,12 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
-  progress: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   tableContainer: {
     width: '100%',
     marginTop: spacing(3),

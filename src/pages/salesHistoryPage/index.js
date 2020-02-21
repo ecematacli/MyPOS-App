@@ -25,9 +25,6 @@ const SalesHistoryPage = ({ fetchSales, sales, count, ids, isFetching }) => {
       createdAt: formatDate(sale.createdAt, 'd MMMM y - p')
     }));
 
-  console.log(isFetching);
-  console.log(formattedSalesData());
-
   return isFetching ? (
     <Loading />
   ) : (

@@ -1,11 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing, palette }) => ({
+export default makeStyles(({ spacing, palette, breakpoints }) => ({
   lastActivitiesPaper: {
     height: 570,
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.14)',
-    position: 'relative',
-    marginLeft: 20
+    marginLeft: 20,
+    [breakpoints.down('sm')]: {
+      marginTop: spacing(3),
+      marginLeft: 0
+    }
   },
   title: {
     padding: spacing(3, 2.5),

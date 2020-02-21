@@ -10,7 +10,6 @@ export default makeStyles(({ spacing, palette }) => ({
   topSellingPaper: {
     height: 570,
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.14)',
-    marginRight: 10,
     position: 'relative'
   },
   divider: {

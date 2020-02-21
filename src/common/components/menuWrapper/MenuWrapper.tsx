@@ -4,7 +4,6 @@ import {
   CssBaseline,
   Drawer,
   AppBar,
-  Toolbar,
   Hidden,
   Divider,
   List,
@@ -29,70 +28,68 @@ import {
 } from '../../../contexts/AuthContext';
 
 interface Props {
-  children: any;
+  children: JSX.Element;
 }
 
-const MenuWrapper: React.FC<Props> = ({ children }) => {
+const MenuWrapper: React.FC<Props> = ({ children }): JSX.Element => {
   const classes = styles();
   const authenticated = useContext(AuthContext);
   const { clearAuthToken } = useContext(AuthTokenSettingContext);
-  const [openedItems, setOpenedItems] = useState({});
+  const [openedItems, setOpenedItems] = useState<{ [key: string]: boolean }>(
+    {}
+  );
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const onSignOutClick = () => {
     clearAuthToken();
   };
 
-  const toggleOpenedItems = item => {
+  const toggleOpenedItems = (item: string): void => {
     setOpenedItems({ ...openedItems, [item]: !openedItems[item] });
   };
 
-  const handleMobileOpenToggle = () => {
+  const handleMobileOpenToggle = (): void => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleCloseMenu = () => {
+  const handleCloseMenu = (): void => {
     setMobileOpen(false);
   };
 
   const renderSubMenuItems = (subMenuItems: SubMenuItem[], item: string) =>
-    subMenuItems.map(({ subLabel, url, Icon }, i) => {
-      return (
-        <div
-          key={subLabel}
-          onClick={() => {
-            history.push(url);
-            handleCloseMenu();
-          }}
-        >
-          <Collapse in={openedItems[item]} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem
-                button
-                className={clsx(
-                  i === 0 && classes.subMenuFirstItem,
-                  classes.subMenuItems
-                )}
-              >
-                <ListItemIcon className={classes.subMenuIcons}>
-                  <Icon />
-                </ListItemIcon>
-                <ListItemText primary={subLabel} />
-              </ListItem>
-            </List>
-          </Collapse>
-        </div>
-      );
-    });
+    subMenuItems.map(({ subLabel, url, Icon }, i) => (
+      <div
+        key={subLabel}
+        onClick={() => {
+          history.push(url);
+          handleCloseMenu();
+        }}
+      >
+        <Collapse in={openedItems[item]} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem
+              button
+              className={clsx(
+                i === 0 && classes.subMenuFirstItem,
+                classes.subMenuItems
+              )}
+            >
+              <ListItemIcon className={classes.subMenuIcons}>
+                <Icon />
+              </ListItemIcon>
+              <ListItemText primary={subLabel} />
+            </ListItem>
+          </List>
+        </Collapse>
+      </div>
+    ));
 
   const drawer = (
     <Fragment>
       <List className={classes.drawerListItems}>
         <ListItem>
           <div className={classes.logoWrapper}>
-            <div>
-              <img className={classes.logoImg} src={logo} alt="logo" />
-            </div>
+            <img className={classes.logoImg} src={logo} alt="logo" />
           </div>
         </ListItem>
         <Divider className={classes.divider} />
@@ -149,10 +146,7 @@ const MenuWrapper: React.FC<Props> = ({ children }) => {
       <CssBaseline />
       {authenticated ? (
         <Fragment>
-          <AppBar
-            classes={{ root: classes.appBarRoot }}
-            className={classes.appBar}
-          >
+          <AppBar classes={{ root: classes.appBar }}>
             <div className={classes.menuIconContainer}>
               <IconButton
                 className={classes.menuButton}
@@ -161,13 +155,12 @@ const MenuWrapper: React.FC<Props> = ({ children }) => {
                 aria-label="open drawer"
                 onClick={handleMobileOpenToggle}
               >
-                <MenuIcon style={{ fontSize: 28 }} />
+                <MenuIcon className={classes.menuIcon} />
               </IconButton>
             </div>
-            <Toolbar classes={{ regular: classes.toolbar }}></Toolbar>
           </AppBar>
-          <nav className={classes.drawer} aria-label="menu items">
-            <Hidden mdUp implementation="css">
+          <nav className={classes.drawer}>
+            <Hidden lgUp implementation="css">
               <Drawer
                 variant="temporary"
                 open={mobileOpen}
@@ -182,7 +175,7 @@ const MenuWrapper: React.FC<Props> = ({ children }) => {
                 {drawer}
               </Drawer>
             </Hidden>
-            <Hidden smDown implementation="css">
+            <Hidden mdDown implementation="css">
               <Drawer
                 classes={{
                   paper: classes.drawerPaper

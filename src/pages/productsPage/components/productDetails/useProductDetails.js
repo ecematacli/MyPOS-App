@@ -82,7 +82,6 @@ export default (product, brands, categories) => {
       fieldId: 'taxRate',
       dropdown: true,
       dropdownItems: [
-        // { id: 0, name: null },
         { id: 1, name: '8' },
         { id: 2, name: '18' }
       ],

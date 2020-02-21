@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { CircularProgress, InputAdornment, TextField } from '@material-ui/core';
-import { Search, InputTwoTone } from '@material-ui/icons';
+import { Search } from '@material-ui/icons';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import styles from './styles';
@@ -32,7 +32,7 @@ const ProductSearchbar = ({ addProduct }) => {
     handleCloseDialog
   } = useProductDialogState();
   return (
-    <Fragment>
+    <div>
       <Autocomplete
         id="asynchronous-demo"
         open={open}
@@ -126,7 +126,7 @@ const ProductSearchbar = ({ addProduct }) => {
         handleCloseDialog={handleCloseDialog}
         handleOpenDialog={handleOpenDialog}
       />
-    </Fragment>
+    </div>
   );
 };
 

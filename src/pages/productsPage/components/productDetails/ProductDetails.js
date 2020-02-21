@@ -68,8 +68,8 @@ const ProductDetails = props => {
     </div>
   );
 
-  const renderProductDetails = () => {
-    return PRODUCT_FIELDS.map(productField => {
+  const renderProductDetails = () =>
+    PRODUCT_FIELDS.map(productField => {
       const {
         label,
         fieldId,
@@ -103,7 +103,6 @@ const ProductDetails = props => {
         </div>
       );
     });
-  };
 
   return (
     <Paper className={classes.productDetailsContainer}>

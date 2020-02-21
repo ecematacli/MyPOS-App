@@ -4,7 +4,7 @@ import {
   calculateTotal,
   calculateTotalTax,
   calculateTotalDiscount
-} from '../utilities';
+} from '../utilities/utilities';
 import useLocalStorageReducerState from '../../../common/hooks/useLocalStorageReducerState';
 
 // Products Reducer

@@ -86,13 +86,6 @@ const theme = {
         fontSize: 16
       }
     },
-    // MuiButton: {
-    //   root: {
-    //     '&$disabled': {
-    //       color: 'white'
-    //     }
-    //   }
-    // },
     MuiPopover: {
       paper: {
         boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.14)'

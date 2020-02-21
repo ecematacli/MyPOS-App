@@ -24,7 +24,7 @@ export default () => {
 
   const [appliedFilters, setAppliedFilters] = useState(initialValue);
 
-  // API Call helpers
+  // API Call helpers that are being used by other functions
   const getRequestParams = (baseUrl, firstParam = false) => {
     const filters = { startDate: startDate, endDate: endDate };
 

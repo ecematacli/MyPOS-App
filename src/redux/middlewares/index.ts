@@ -61,8 +61,6 @@ export const apiMiddleware: Middleware<Dispatch> = () => (
       localStorage.removeItem('token');
     }
 
-    console.log(errorMessage);
-
     errorMessage && errorMessage();
 
     next(
