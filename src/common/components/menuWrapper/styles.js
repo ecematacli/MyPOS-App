@@ -31,7 +31,7 @@ export default makeStyles(({ breakpoints, spacing, palette }) => ({
     height: spacing(8),
     display: 'flex',
     justifyContent: 'center',
-    paddingTop: spacing(2)
+    paddingTop: spacing(1.8)
   },
   logoImg: {
     width: 60,

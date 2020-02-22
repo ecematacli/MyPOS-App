@@ -18,7 +18,7 @@ import { currencyFormatter, totalQty } from '../../utils';
 import useTableState from './useTableState';
 
 const CustomTable = props => {
-  const classes = styles();
+  const classes = styles(props);
   const {
     tableHeads,
     rows,
@@ -53,6 +53,16 @@ const CustomTable = props => {
       </TableCell>
     ));
   };
+
+  const renderNoDisplay = () => (
+    <TableRow>
+      <TableCell className={classes.noDisplayCell} colSpan={10}>
+        <div className={classes.noDisplayMsg}>
+          {`No ${tableType === 'sales' ? 'sales' : 'products'} to display`}
+        </div>
+      </TableCell>
+    </TableRow>
+  );
 
   const renderTableBody = () => {
     const rowClassName = index =>
@@ -161,6 +171,29 @@ const CustomTable = props => {
     }
   };
 
+  const renderLabelFDisplayRows = ({ from, to, count }) =>
+    `Page ${page} of ${Math.ceil(count / rowsPerPage)}  -  ${count} items`;
+
+  const renderPagination = () => (
+    <div className={classes.paginationContainer}>
+      <TablePagination
+        classes={{
+          toolbar: classes.smallPagination,
+          caption: classes.smallPagination,
+          select: classes.smallPagination
+        }}
+        rowsPerPageOptions={[10, 25, 50]}
+        component="div"
+        count={count}
+        rowsPerPage={rowsPerPage}
+        page={page - 1}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+        labelDisplayedRows={renderLabelFDisplayRows}
+      />
+    </div>
+  );
+
   return (
     <TableContainer>
       <div className={classes.tableContainer}>
@@ -172,36 +205,10 @@ const CustomTable = props => {
               </TableRow>
             </TableHead>
           ) : null}
-          <TableBody>
-            {!rows ? (
-              <TableRow>
-                <TableCell className={classes.noDisplayCell} colSpan={10}>
-                  <div className={classes.noDisplayMsg}>
-                    {`No ${
-                      tableType === 'sales' ? 'sales' : 'products'
-                    } to display`}
-                  </div>
-                </TableCell>
-              </TableRow>
-            ) : (
-              renderTableBody()
-            )}
-          </TableBody>
+          <TableBody>{!rows ? renderNoDisplay() : renderTableBody()}</TableBody>
         </Table>
       </div>
-      {rows && rows.length > 1 && (
-        <div className={classes.paginationContainer}>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 50]}
-            component="div"
-            count={count}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </div>
-      )}
+      {rows && rows.length > 1 && renderPagination()}
     </TableContainer>
   );
 };

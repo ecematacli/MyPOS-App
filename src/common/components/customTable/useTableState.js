@@ -15,11 +15,12 @@ export default ({
   };
 
   const handleChangePage = (e, newPage) => {
-    if (newPage < 0) return;
-    setPage(newPage);
+    //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
+    if (newPage + 1 < 0) return;
+    setPage(newPage + 1);
     tableType === 'sales'
-      ? fetchSales(newPage, rowsPerPage)
-      : fetchProducts(newPage, rowsPerPage);
+      ? fetchSales(newPage + 1, rowsPerPage)
+      : fetchProducts(newPage + 1, rowsPerPage);
   };
 
   const handleChangeRowsPerPage = ({ target: { value } }) => {

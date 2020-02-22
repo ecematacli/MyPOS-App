@@ -47,8 +47,8 @@ const TopSellingItems = ({
     </TableRow>
   );
 
-  const renderTopSellingItems = () => {
-    return products
+  const renderTopSellingItems = () =>
+    products
       .filter((product, i) => i < 3)
       .map(({ sku, name, variation, soldQty }, i) => (
         <TableRow className={classes.tableBodyRow} key={i}>
@@ -62,7 +62,6 @@ const TopSellingItems = ({
           </TableCell>
         </TableRow>
       ));
-  };
 
   return (
     <Paper className={classes.topSellingPaper}>

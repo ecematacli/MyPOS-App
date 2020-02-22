@@ -60,13 +60,11 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   tableBodyRow: {
     height: 120,
+    maxHeight: 120,
     '& > td': {
       borderBottom: `1px solid ${palette.secondary.light}`,
-      maxWidth: '98px',
       height: 'auto !important',
-      '&:nth-child(2)': {
-        maxWidth: '110px'
-      }
+      maxHeight: 120
     },
     '&:last-child': {
       '& > td': {

@@ -1,6 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing, palette }) => ({
+const verticallyAligned = {
+  display: 'flex',
+  alignItems: 'center'
+};
+
+const horizontallyAligned = {
+  display: 'flex',
+  justifyContent: 'center'
+};
+
+export default makeStyles(({ spacing, palette, breakpoints }) => ({
   tableContainer: {
     width: '100%',
     marginTop: spacing(3),
@@ -23,42 +33,41 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   tableBodyRow: {
     cursor: 'pointer',
-    boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
-    '& > td': {
-      borderBottom: '1px solid #eee'
-    }
+    boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)'
   },
   tableCell: {
     paddingTop: spacing(4),
     paddingBottom: spacing(4),
+    height: ({ tableType }) => (tableType === 'sales' ? 100 : 125),
+    maxHeight: ({ tableType }) => (tableType === 'sales' ? 100 : 125),
+    [breakpoints.down('sm')]: {
+      fontSize: 13
+    },
     color: 'inherit',
     fontWeight: 500,
+    borderBottom: `1px solid ${palette.secondary.light}`,
     '&:last-child': {
       paddingRight: spacing(3)
     }
   },
   firstCellContainer: {
-    display: 'flex',
-    alignItems: 'center'
+    ...verticallyAligned
   },
   firstCellItem: {
     marginLeft: '-5px'
   },
   expandIconContainer: {
-    marginRight: spacing(2),
-    display: 'flex',
-    alignItems: 'center'
+    ...verticallyAligned,
+    marginRight: spacing(2)
   },
   expandIconBtn: {
     '& > span > div': {
-      display: 'flex',
-      justifyContent: 'center',
+      ...horizontallyAligned,
       alignItems: 'center'
     }
   },
   expandIcon: {
     fontSize: spacing(3),
-    fontWeight: 'bold',
     color: palette.primary.dark
   },
   greenRow: {
@@ -69,15 +78,21 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   paginationContainer: {
     marginTop: spacing(2),
-    width: '94%',
+    fontSize: spacing(2),
+    width: '93%',
     margin: 'auto',
-    fontSize: 16
+    display: 'flex',
+    justifyContent: 'flex-end'
+  },
+  smallPagination: {
+    [breakpoints.down('sm')]: {
+      fontSize: 13
+    }
   },
   noDisplayMsg: {
+    ...horizontallyAligned,
     color: palette.grayColors[3],
-    display: 'flex',
-    justifyContent: 'center',
-    fontSize: 18
+    fontSize: spacing(2.25)
   },
   noDisplayCell: {
     borderBottom: 'none',

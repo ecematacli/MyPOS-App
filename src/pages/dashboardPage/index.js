@@ -7,7 +7,7 @@ import useDashboardState from './hooks/useDashboardState';
 import DashboardStats from './components/dashboardStats/DashboardStats';
 import Chart from './components/chart/Chart';
 import LastActivities from './components/lastActivities/LastActivities';
-import TopSellingProducts from './components/topSellingProducts/TopSellingProducts';
+import TopSellingItems from './components/topSellingItems/TopSellingItems';
 
 const DashboardPage = () => {
   const classes = styles();
@@ -74,7 +74,7 @@ const DashboardPage = () => {
       </Grid>
       <Grid className={classes.gridContainer} container>
         <Grid item xs={12} sm={12} md={7}>
-          <TopSellingProducts
+          <TopSellingItems
             loading={loading}
             topSellingProducts={topSellingProducts}
             fetchTopSellingProducts={fetchTopSellingProducts}
