@@ -1,9 +1,10 @@
 import { format } from 'date-fns';
 
-export const currencyFormatter = num => {
+export const currencyFormatter = (num: string): string => {
   if (typeof num === 'undefined' || num === null) {
     return '';
   }
+  // @ts-ignore
   return num.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' });
 };
 

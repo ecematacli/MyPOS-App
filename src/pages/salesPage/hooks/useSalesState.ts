@@ -6,11 +6,29 @@ import {
   calculateTotalDiscount
 } from '../utilities/utilities';
 import useLocalStorageReducerState from '../../../common/hooks/useLocalStorageReducerState';
+import { Product } from '../../../redux/products/types';
+
+type State = Product[];
+enum ActionType {
+  Add,
+  Delete,
+  DecreaseQuantity,
+  IncreaseQuantity,
+  DiscardSale
+}
+
+interface SaleReducerAction {
+  type: ActionType;
+  payload?: any;
+}
 
 // Products Reducer
-const productsReducer = (state, { type, payload }) => {
+const productsReducer = (
+  state: State,
+  { type, payload }: SaleReducerAction
+): State => {
   switch (type) {
-    case 'ADD_PRODUCT': {
+    case ActionType.Add: {
       const existingPToAdd = state.find(p => p.id === payload.id);
       if (existingPToAdd) {
         return state.map(product =>
@@ -25,10 +43,10 @@ const productsReducer = (state, { type, payload }) => {
       return [...state, { ...payload, qty: 1 }];
     }
 
-    case 'DELETE_PRODUCT':
+    case ActionType.Delete:
       return state.filter(p => p.id !== payload.id);
 
-    case 'DECREASE_QUANTITY': {
+    case ActionType.DecreaseQuantity: {
       const existingPToDecrease = state.find(p => p.id === payload.id);
 
       if (existingPToDecrease.qty === 1) {
@@ -40,7 +58,7 @@ const productsReducer = (state, { type, payload }) => {
           : product
       );
     }
-    case 'INCREASE_QUANTITY': {
+    case ActionType.IncreaseQuantity: {
       const existingPToIncrease = state.find(p => p.id === payload.id);
       if (existingPToIncrease) {
         return state.map(product =>
@@ -52,7 +70,7 @@ const productsReducer = (state, { type, payload }) => {
         return state;
       }
     }
-    case 'DISCARD_SALE':
+    case ActionType.DiscardSale:
       return [];
 
     default:
@@ -68,41 +86,41 @@ export default () => {
     productsReducer
   );
 
-  const [total, setTotal] = useState(0);
-  const [tax, setTax] = useState(0);
-  const [discount, setDiscount] = useState('');
+  const [total, setTotal] = useState<number>(0);
+  const [tax, setTax] = useState<number>(0);
+  const [discount, setDiscount] = useState<string>('');
 
-  const addProduct = product => {
+  const addProduct = (product: Product) => {
     dispatch({
-      type: 'ADD_PRODUCT',
+      type: ActionType.Add,
       payload: product
     });
   };
 
-  const deleteProduct = id => {
+  const deleteProduct = (id: number) => {
     dispatch({
-      type: 'DELETE_PRODUCT',
+      type: ActionType.Delete,
       payload: { id }
     });
   };
 
-  const decreaseProductQuantity = product => {
+  const decreaseProductQuantity = (product: Product) => {
     dispatch({
-      type: 'DECREASE_QUANTITY',
+      type: ActionType.DecreaseQuantity,
       payload: product
     });
   };
 
-  const increaseProductQuantity = product => {
+  const increaseProductQuantity = (product: Product) => {
     dispatch({
-      type: 'INCREASE_QUANTITY',
+      type: ActionType.IncreaseQuantity,
       payload: product
     });
   };
 
   const discardSale = () => {
     dispatch({
-      type: 'DISCARD_SALE'
+      type: ActionType.DiscardSale
     });
   };
 

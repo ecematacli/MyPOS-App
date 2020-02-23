@@ -1,7 +1,16 @@
 import React from 'react';
-import { Popover } from '@material-ui/core';
+import { Popover, PopoverOrigin } from '@material-ui/core';
 
-const CustomPopover = ({
+interface Props {
+  children: JSX.Element;
+  anchorOrigin: PopoverOrigin;
+  transformOrigin: PopoverOrigin;
+  open: boolean;
+  onClose: () => void;
+  classes: any;
+}
+
+const CustomPopover: React.FC<Props> = ({
   children,
   anchorOrigin,
   transformOrigin,

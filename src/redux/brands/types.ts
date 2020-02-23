@@ -3,3 +3,8 @@ export enum ActionTypes {
 }
 
 export type Action = '';
+
+export interface Brand {
+  id: number;
+  name: string;
+}
