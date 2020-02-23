@@ -28,7 +28,10 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     '& > th': {
       borderBottom: 'none',
       paddingBottom: 6,
-      color: palette.grayColors[7]
+      color: palette.grayColors[7],
+      [breakpoints.down('sm')]: {
+        fontSize: 13
+      }
     }
   },
   tableBodyRow: {
@@ -38,8 +41,8 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   tableCell: {
     paddingTop: spacing(4),
     paddingBottom: spacing(4),
-    height: ({ tableType }) => (tableType === 'sales' ? 100 : 125),
-    maxHeight: ({ tableType }) => (tableType === 'sales' ? 100 : 125),
+    height: ({ tableType }) => (tableType === 'sales' ? 100 : 115),
+    maxHeight: ({ tableType }) => (tableType === 'sales' ? 100 : 115),
     [breakpoints.down('sm')]: {
       fontSize: 13
     },

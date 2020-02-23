@@ -16,22 +16,21 @@ export default makeStyles(({ spacing, breakpoints }) => ({
   },
   discardSaleGridItem: {
     flexBasis: '81%',
-    // margin: 'auto',
-    order: 1,
+    '@media (max-width:1919px) and (min-width:1280px)': {
+      flexBasis: '98%'
+    },
     [breakpoints.down('md')]: {
-      flexBasis: '90%',
+      flexBasis: '96%',
       order: 2
     }
   },
   searchBarGridItem: {
-    order: 2,
     [breakpoints.down('md')]: {
       order: 1,
       marginTop: spacing(10)
     }
   },
   posTableGridItem: {
-    order: 3,
     [breakpoints.down('md')]: {
       order: 3
     }

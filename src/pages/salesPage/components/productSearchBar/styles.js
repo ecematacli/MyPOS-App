@@ -21,7 +21,6 @@ export default makeStyles(({ palette, spacing }) => ({
     display: 'flex'
   },
   searchBarInput: {
-    color: palette.secondary.main,
     width: '95%'
   },
   inputRoot: {

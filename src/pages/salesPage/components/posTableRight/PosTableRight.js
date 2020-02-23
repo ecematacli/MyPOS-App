@@ -32,7 +32,7 @@ const TABLE_HEAD = [
     numeric: true
   },
   {
-    label: 'Discounted P',
+    label: 'Discount Price',
     numeric: true
   },
   {
@@ -60,9 +60,13 @@ const PosTableRight = ({
   };
 
   const renderTableHead = () => {
-    return TABLE_HEAD.map(({ label, numeric }) => {
+    return TABLE_HEAD.map(({ label, numeric }, i) => {
       return (
-        <TableCell key={label} align={numeric ? 'right' : 'left'}>
+        <TableCell
+          className={classes[i === 0 && 'firstCell']}
+          key={label}
+          align={numeric ? 'right' : 'left'}
+        >
           {label}
         </TableCell>
       );
@@ -74,7 +78,12 @@ const PosTableRight = ({
       const { id, name, qty, price, discountPrice } = product;
       return (
         <TableRow role="checkbox" hover tabIndex={-1} key={id}>
-          <TableCell component="th" id={id} scope="row">
+          <TableCell
+            className={classes.firstCell}
+            component="th"
+            id={id}
+            scope="row"
+          >
             {name}
           </TableCell>
           <TableCell align="right" padding="none">

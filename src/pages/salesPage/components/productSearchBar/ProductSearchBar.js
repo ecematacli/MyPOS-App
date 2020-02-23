@@ -57,9 +57,9 @@ const ProductSearchbar = ({ addProduct }) => {
         renderInput={params => (
           <TextField
             {...params}
+            placeholder="Search for products..."
             color="secondary"
             variant="outlined"
-            label="Search for products..."
             className={classes.searchBarInput}
             classes={{ root: classes.inputRoot }}
             value={query}

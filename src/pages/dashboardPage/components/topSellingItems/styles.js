@@ -30,6 +30,7 @@ export default makeStyles(({ spacing, palette }) => ({
     paddingTop: 50
   },
   topSellingContent: {
+    overflow: 'auto',
     height: 480,
     display: 'flex',
     flexDirection: 'column',

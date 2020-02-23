@@ -10,11 +10,12 @@ export default makeStyles(({ spacing, palette }) => ({
   tableWrapper: {
     paddingTop: spacing(6),
     height: '50vh',
-    overflowY: 'auto'
+    overflow: 'auto'
   },
   tableContent: {
     fontSize: spacing(2)
   },
+  firstCell: { paddingLeft: spacing(2.8) },
   toolbar: {
     paddingLeft: spacing(2),
     paddingRight: spacing(3)
@@ -27,13 +28,13 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   quantityVal: {
     margin: '0 10px',
-    fontWeight: 400,
-    fontSize: 14
+    fontWeight: spacing(50),
+    fontSize: spacing(1.75)
   },
   arrow: {
     color: palette.secondary.main,
-    fontWeight: 400,
-    fontSize: 14
+    fontWeight: spacing(50),
+    fontSize: spacing(1.75)
   },
   deleteIcon: {
     color: palette.secondary.dark
@@ -61,7 +62,7 @@ export default makeStyles(({ spacing, palette }) => ({
     width: spacing(14),
     height: spacing(5),
     marginRight: '-7px',
-    fontWeight: 400,
+    fontWeight: spacing(50),
     fontSize: spacing(2),
     color: palette.textColor,
     borderColor: palette.secondary.dark,
