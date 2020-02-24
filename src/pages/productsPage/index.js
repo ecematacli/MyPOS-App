@@ -29,44 +29,56 @@ const ProductsPage = ({
     fetchCategories();
     fetchBrands();
   }, []);
-  return isFetching ? (
-    <Loading />
-  ) : (
+
+  const dataFoundBasedOnFilters = data => data;
+
+  return (
     <Fragment>
-      <ProductFilters rowsPerPage={rowsPerPage} page={page} />
-      <CustomTable
-        tableHeads={[
-          {
-            label: 'Sku'
-          },
-          {
-            label: 'Product Name'
-          },
-          {
-            label: 'Category'
-          },
-          {
-            label: 'Brand'
-          },
-          {
-            label: 'Price',
-            numeric: true
-          },
-          {
-            label: 'Discounted Price',
-            numeric: true
-          }
-        ]}
-        rows={productsInOrder()}
-        tableType="products"
+      <ProductFilters
         rowsPerPage={rowsPerPage}
-        setRowsPerPage={setRowsPerPage}
         page={page}
-        setPage={setPage}
-        count={count}
-        fetchProducts={fetchProducts}
-        component={ProductDetails}
+        dataFoundBasedOnFilters={dataFoundBasedOnFilters}
       />
+
+      {isFetching ? (
+        <Loading />
+      ) : (
+        <Fragment>
+          <CustomTable
+            tableHeads={[
+              {
+                label: 'Sku'
+              },
+              {
+                label: 'Product Name'
+              },
+              {
+                label: 'Category'
+              },
+              {
+                label: 'Brand'
+              },
+              {
+                label: 'Price',
+                numeric: true
+              },
+              {
+                label: 'Discounted Price',
+                numeric: true
+              }
+            ]}
+            rows={productsInOrder()}
+            tableType="products"
+            rowsPerPage={rowsPerPage}
+            setRowsPerPage={setRowsPerPage}
+            page={page}
+            setPage={setPage}
+            count={count}
+            fetchProducts={fetchProducts}
+            component={ProductDetails}
+          />
+        </Fragment>
+      )}
     </Fragment>
   );
 };

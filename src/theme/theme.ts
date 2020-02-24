@@ -96,6 +96,15 @@ const theme = {
         backgroundColor: '#47C279'
       }
     }
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1500,
+      xl: 1920
+    }
   }
 };
 

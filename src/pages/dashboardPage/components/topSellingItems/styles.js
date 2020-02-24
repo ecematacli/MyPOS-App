@@ -6,7 +6,7 @@ const centered = {
   alignItems: 'center'
 };
 
-export default makeStyles(({ spacing, palette }) => ({
+export default makeStyles(({ spacing, palette, breakpoints }) => ({
   topSellingPaper: {
     height: 570,
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.14)',
@@ -54,6 +54,9 @@ export default makeStyles(({ spacing, palette }) => ({
     '& > th': {
       borderBottom: `1px solid ${palette.secondary.light}`,
       width: '98px',
+      [breakpoints.down('md')]: {
+        fontSize: 14
+      },
       '&:nth-child(2)': {
         width: '110px'
       }
@@ -65,7 +68,10 @@ export default makeStyles(({ spacing, palette }) => ({
     '& > td': {
       borderBottom: `1px solid ${palette.secondary.light}`,
       height: 'auto !important',
-      maxHeight: 120
+      maxHeight: 120,
+      [breakpoints.down('md')]: {
+        fontSize: 14
+      }
     },
     '&:last-child': {
       '& > td': {

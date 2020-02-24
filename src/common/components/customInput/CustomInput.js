@@ -10,13 +10,18 @@ import {
   MenuItem
 } from '@material-ui/core';
 
-const styles = makeStyles({
+const styles = makeStyles(({ breakpoints }) => ({
   root: {
     '&:focus': {
       backgroundColor: 'transparent'
     }
+  },
+  dropdownItems: {
+    [breakpoints.down('sm')]: {
+      fontSize: 14
+    }
   }
-});
+}));
 
 const CustomInput = props => {
   const { palette } = useTheme();
@@ -52,7 +57,11 @@ const CustomInput = props => {
               input={<OutlinedInput classes={classesProp.innerInput} />}
             >
               {dropdownItems.map(({ id, name }) => (
-                <MenuItem key={id} value={name}>
+                <MenuItem
+                  classes={{ root: classes.dropdownItems }}
+                  key={id}
+                  value={name}
+                >
                   {name}
                 </MenuItem>
               ))}

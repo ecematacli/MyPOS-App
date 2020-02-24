@@ -34,11 +34,14 @@ const ProductDetails = props => {
         classesProp={
           !dropdown
             ? {
-                root: classes.input
+                root: classes.inputRoot,
+                input: classes.input
               }
             : {
-                dropdownInput: { root: classes.dropdownInput },
-                innerInput: { root: classes.innerInput }
+                dropdownInput: {
+                  root: classes.dropdownInput
+                },
+                innerInput: { root: classes.innerInput, input: classes.input }
               }
         }
         dropdownItems={dropdownItems}
@@ -88,7 +91,9 @@ const ProductDetails = props => {
             ) : (
               <>
                 {currency && <div>&#x20BA;</div>}
-                <Typography>{renderProductValues(fieldId)}</Typography>
+                <Typography className={classes.detailContent}>
+                  {renderProductValues(fieldId)}
+                </Typography>
                 <div
                   onClick={() => {
                     handleEdittedRow(fieldId);

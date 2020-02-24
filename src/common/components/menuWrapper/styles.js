@@ -13,15 +13,14 @@ export default makeStyles(({ breakpoints, spacing, palette }) => ({
   },
   menuIconContainer: {
     marginTop: spacing(3),
-    marginLeft: spacing(2),
+    marginLeft: spacing(3.5),
     width: 30
   },
   menuIcon: {
     fontSize: 35
   },
   menuButton: {
-    marginRight: spacing(2),
-    color: palette.grayColors[3],
+    color: palette.secondary.dark,
     [breakpoints.up('lg')]: {
       display: 'none'
     }

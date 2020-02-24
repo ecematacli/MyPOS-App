@@ -205,7 +205,9 @@ const CustomTable = props => {
               </TableRow>
             </TableHead>
           ) : null}
-          <TableBody>{!rows ? renderNoDisplay() : renderTableBody()}</TableBody>
+          <TableBody>
+            {!rows || !count ? renderNoDisplay() : renderTableBody()}
+          </TableBody>
         </Table>
       </div>
       {rows && rows.length > 1 && renderPagination()}

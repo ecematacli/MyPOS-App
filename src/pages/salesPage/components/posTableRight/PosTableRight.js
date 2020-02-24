@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 import {
   Table,
@@ -59,25 +59,28 @@ const PosTableRight = ({
     completeSale(products, total, discount, addNotification, discardSale);
   };
 
-  const renderTableHead = () => {
-    return TABLE_HEAD.map(({ label, numeric }, i) => {
-      return (
-        <TableCell
-          className={classes[i === 0 && 'firstCell']}
-          key={label}
-          align={numeric ? 'right' : 'left'}
-        >
-          {label}
-        </TableCell>
-      );
-    });
-  };
+  const renderTableHead = () =>
+    TABLE_HEAD.map(({ label, numeric }, i) => (
+      <TableCell
+        className={classes[i === 0 && 'firstCell']}
+        key={label}
+        align={numeric ? 'right' : 'left'}
+      >
+        {label}
+      </TableCell>
+    ));
 
-  const renderTableBody = () => {
-    return products.map(product => {
+  const renderTableBody = () =>
+    products.map(product => {
       const { id, name, qty, price, discountPrice } = product;
       return (
-        <TableRow role="checkbox" hover tabIndex={-1} key={id}>
+        <TableRow
+          className={classes.tableRow}
+          role="checkbox"
+          hover
+          tabIndex={-1}
+          key={id}
+        >
           <TableCell
             className={classes.firstCell}
             component="th"
@@ -119,10 +122,9 @@ const PosTableRight = ({
         </TableRow>
       );
     });
-  };
 
   const renderTotalSection = () => (
-    <Fragment>
+    <div className={classes.totalContentDiv}>
       <div className={classes.totalSection}>
         <Typography>Sub-Total</Typography>
         <Typography>{currencyFormatter(total - tax)}</Typography>
@@ -168,15 +170,17 @@ const PosTableRight = ({
           </div>
         </CustomButton>
       </div>
-    </Fragment>
+    </div>
   );
 
   return (
     <Paper className={classes.paperRoot}>
       <div className={classes.tableWrapper}>
-        <Table classes={{ root: classes.tableContent }} size="medium">
+        <Table size="medium">
           <TableHead>
-            <TableRow>{renderTableHead()}</TableRow>
+            <TableRow className={classes.tableRow}>
+              {renderTableHead()}
+            </TableRow>
           </TableHead>
           <TableBody>{renderTableBody()}</TableBody>
         </Table>

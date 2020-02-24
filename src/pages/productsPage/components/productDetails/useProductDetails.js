@@ -17,7 +17,9 @@ export default (product, brands, categories) => {
   };
 
   const renderProductValues = fieldId => {
-    if (
+    if (!product[fieldId]) {
+      return '-';
+    } else if (
       fieldId === 'brand' ||
       fieldId === 'category' ||
       fieldId === 'taxRate'
@@ -31,7 +33,9 @@ export default (product, brands, categories) => {
   };
 
   const getInputValues = fieldId => {
-    if (fieldId === 'brand' || fieldId === 'category') {
+    if (!productVal[fieldId]) {
+      return '';
+    } else if (fieldId === 'brand' || fieldId === 'category') {
       return productVal[fieldId] && productVal[fieldId].name
         ? productVal[fieldId].name
         : productVal[fieldId];

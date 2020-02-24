@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing, palette }) => ({
+export default makeStyles(({ spacing, palette, breakpoints }) => ({
   salesDetailsContainer: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
     overflow: 'auto',
@@ -28,7 +28,10 @@ export default makeStyles(({ spacing, palette }) => ({
       paddingBottom: 6,
       fontSize: 14,
       fontWeight: 700,
-      color: palette.grayColors[7]
+      color: palette.grayColors[7],
+      [breakpoints.down('sm')]: {
+        fontSize: 14
+      }
     }
   },
   tableBodyRow: {
@@ -43,7 +46,10 @@ export default makeStyles(({ spacing, palette }) => ({
       fontSize: 14,
       padding: spacing(2),
       borderBottom: `0.5px solid ${palette.secondary.light}`,
-      color: 'inherit'
+      color: 'inherit',
+      [breakpoints.down('sm')]: {
+        fontSize: 14
+      }
     }
   },
   detailTotal: {

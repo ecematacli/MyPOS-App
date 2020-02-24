@@ -10,7 +10,14 @@ import useProductFilters from './useProductFilters';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 
-const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
+const ProductFilters = ({
+  rowsPerPage,
+  page,
+  brands,
+  categories,
+  fetchProducts,
+  dataFoundBasedOnFilters
+}) => {
   const classes = styles();
   const {
     anchorEl,
@@ -25,7 +32,7 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
     filterInputFields,
     handleApplyFilterClick,
     handleDelete
-  } = useProductFilters(brands, categories);
+  } = useProductFilters(brands, categories, fetchProducts);
 
   const renderChipInputs = () =>
     Object.keys(appliedFilters).map(key => {
@@ -43,7 +50,7 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
     });
 
   const renderFilterContent = () => (
-    <Fragment>
+    <div className={classes.popoverPaper}>
       <div className={classes.filterCaption}>
         {Object.values(appliedFilters).some(f => !!f)
           ? renderChipInputs()
@@ -64,11 +71,15 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
                 classesProp={
                   !dropdown
                     ? {
-                        root: classes.input
+                        root: classes.inputRoot,
+                        input: classes.input
                       }
                     : {
                         dropdownInput: { root: classes.dropdownInput },
-                        innerInput: { root: classes.innerInput }
+                        innerInput: {
+                          root: classes.innerInput,
+                          input: classes.input
+                        }
                       }
                 }
               />
@@ -109,7 +120,7 @@ const ProductFilters = ({ rowsPerPage, page, brands, categories }) => {
           </Button>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 
   return (

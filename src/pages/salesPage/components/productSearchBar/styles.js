@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ palette, spacing }) => ({
+export default makeStyles(({ palette, spacing, breakpoints }) => ({
   suggestedCommon: {
     color: palette.grayColors[3]
   },
@@ -10,7 +10,12 @@ export default makeStyles(({ palette, spacing }) => ({
     alignItems: 'center',
     height: spacing(8),
     width: '100%',
-    color: palette.grayColors[3]
+    color: palette.grayColors[3],
+    [breakpoints.down('sm')]: {
+      ' & > * ': {
+        fontSize: 13
+      }
+    }
   },
   suggestedItems: {
     display: 'flex',
@@ -21,7 +26,10 @@ export default makeStyles(({ palette, spacing }) => ({
     display: 'flex'
   },
   searchBarInput: {
-    width: '95%'
+    width: '95%',
+    '@media (max-width:1499px) and (min-width:1390px)': {
+      width: '85%'
+    }
   },
   inputRoot: {
     '& .MuiOutlinedInput-root': {

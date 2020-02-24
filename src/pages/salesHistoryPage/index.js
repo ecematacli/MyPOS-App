@@ -25,39 +25,41 @@ const SalesHistoryPage = ({ fetchSales, sales, count, ids, isFetching }) => {
       createdAt: formatDate(sale.createdAt, 'd MMMM y - p')
     }));
 
-  return isFetching ? (
-    <Loading />
-  ) : (
+  return (
     <Fragment>
       <SalesFilters page={page} rowsPerPage={rowsPerPage} />
-      <CustomTable
-        tableHeads={[
-          {
-            label: 'Date'
-          },
-          {
-            label: 'Total Qty',
-            numeric: true
-          },
-          {
-            label: 'Total Discount',
-            numeric: true
-          },
-          {
-            label: 'Total Payment',
-            numeric: true
-          }
-        ]}
-        rows={formattedSalesData()}
-        tableType="sales"
-        count={count}
-        fetchSales={fetchSales}
-        rowsPerPage={rowsPerPage}
-        setRowsPerPage={setRowsPerPage}
-        page={page}
-        setPage={setPage}
-        component={SaleDetails}
-      />
+      {isFetching ? (
+        <Loading />
+      ) : (
+        <CustomTable
+          tableHeads={[
+            {
+              label: 'Date'
+            },
+            {
+              label: 'Total Qty',
+              numeric: true
+            },
+            {
+              label: 'Total Discount',
+              numeric: true
+            },
+            {
+              label: 'Total Payment',
+              numeric: true
+            }
+          ]}
+          rows={formattedSalesData()}
+          tableType="sales"
+          count={count}
+          fetchSales={fetchSales}
+          rowsPerPage={rowsPerPage}
+          setRowsPerPage={setRowsPerPage}
+          page={page}
+          setPage={setPage}
+          component={SaleDetails}
+        />
+      )}
     </Fragment>
   );
 };

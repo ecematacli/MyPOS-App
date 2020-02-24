@@ -97,7 +97,7 @@ const ProductSearchbar = ({ addProduct }) => {
 
           return (
             <div className={classes.suggestionContainer}>
-              <div className={classes.suggestionContent}>
+              <div>
                 <div className={classes.suggestionGroup}>
                   {parts.map((part, index) => (
                     <span

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing, palette }) => ({
+export default makeStyles(({ spacing, palette, breakpoints }) => ({
   productDetailsContainer: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
     overflow: 'auto',
@@ -54,7 +54,12 @@ export default makeStyles(({ spacing, palette }) => ({
     paddingTop: spacing(1),
     paddingBottom: spacing(1),
     margin: spacing(1),
-    color: palette.secondary.main
+    color: palette.secondary.main,
+    [breakpoints.down('sm')]: {
+      ' & > p ': {
+        fontSize: 14
+      }
+    }
   },
   editIcon: {
     marginLeft: spacing(2),
@@ -63,6 +68,11 @@ export default makeStyles(({ spacing, palette }) => ({
     alignItems: 'center',
     color: palette.secondary.dark,
     cursor: 'pointer'
+  },
+  detailContent: {
+    [breakpoints.down('sm')]: {
+      fontSize: 13
+    }
   },
   detailAction: {
     display: 'flex'
@@ -92,9 +102,14 @@ export default makeStyles(({ spacing, palette }) => ({
   editIcons: {
     marginLeft: spacing(1)
   },
-  input: {
+  inputRoot: {
     width: 246,
     height: 35
+  },
+  input: {
+    [breakpoints.down('sm')]: {
+      fontSize: 13
+    }
   },
   dropdownInput: {
     width: 246

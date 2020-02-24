@@ -19,6 +19,9 @@ export default makeStyles(({ spacing, breakpoints }) => ({
     '@media (max-width:1919px) and (min-width:1280px)': {
       flexBasis: '98%'
     },
+    '@media (max-width:1499px) and (min-width:1390px)': {
+      marginRight: spacing(13)
+    },
     [breakpoints.down('md')]: {
       flexBasis: '96%',
       order: 2
@@ -43,7 +46,7 @@ export default makeStyles(({ spacing, breakpoints }) => ({
   discardIconBtn: {
     borderRadius: 0,
     '&:hover': {
-      borderRadius: 6
+      borderRadius: spacing(0.75)
     }
   },
   discardSaleBtn: {

@@ -4,7 +4,7 @@ import {
   calculateTotal,
   calculateTotalTax,
   calculateTotalDiscount
-} from '../utilities/utilities';
+} from '../utilities/';
 import useLocalStorageReducerState from '../../../common/hooks/useLocalStorageReducerState';
 import { Product } from '../../../redux/products/types';
 

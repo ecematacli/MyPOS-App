@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import clsx from 'clsx';
 import { DatePicker } from '@material-ui/pickers';
 import { InputAdornment, Button } from '@material-ui/core';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
@@ -25,10 +26,11 @@ const DatePickerFilter = ({
 
   const renderDatePickerInputs = () => (
     <Fragment>
-      <span className={classes.datePickerInput}>
+      <span className={classes.datePickerSpan}>
         <DatePicker
           variant="inline"
           color="secondary"
+          className={classes.datePickerInput}
           label="Start Date"
           autoOk
           value={startDate}
@@ -44,11 +46,12 @@ const DatePickerFilter = ({
           }}
         />
       </span>
-      <span style={{ marginLeft: 32 }} className={classes.datePickerInput}>
+      <span className={clsx(classes.datePickerSpan, classes.endDate)}>
         <DatePicker
           variant="inline"
           color="secondary"
           label="End Date"
+          className={classes.datePickerInput}
           autoOk
           value={endDate}
           onChange={date => handleEndDateChange(date)}
