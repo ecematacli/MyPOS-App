@@ -6,9 +6,11 @@ import {
   formatChartDate,
   formatActivitiesData
 } from '../utils';
+import useAsyncError from '../../../common/hooks/useAsyncError';
 
 export default () => {
   const { start, end } = getInitialLastThirtyDays();
+  const throwError = useAsyncError();
 
   const initialValue = {
     startDate: start,
@@ -48,12 +50,14 @@ export default () => {
 
   const makeApiCall = async (url, method = 'get') => {
     setLoading(true);
-
-    const response = await api[method](url);
-
-    setLoading(false);
-
-    return response.data;
+    try {
+      const response = await api[method](url);
+      setLoading(false);
+      return response.data;
+    } catch (e) {
+      setLoading(false);
+      throwError(new Error('Asynchronous API Call error'));
+    }
   };
 
   // Dashboard Page API Calls
@@ -85,7 +89,7 @@ export default () => {
   };
 
   const fetchLastActivities = async () => {
-    const data = await makeApiCall('/events/sales');
+    const data = await makeApiCall('/events/ss');
     const formattedActivities = formatActivitiesData(data);
     setLastActivities(formattedActivities);
   };

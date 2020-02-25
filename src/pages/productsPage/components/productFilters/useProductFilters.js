@@ -38,7 +38,9 @@ export default (brands, categories) => {
 
   // Filter functionality handlers
   const handleApplyFilterClick = (page, rowsPerPage) => {
-    setAppliedFilters(filterInputs);
+    setTimeout(() => {
+      setAppliedFilters(filterInputs);
+    }, 1000);
 
     dispatch(
       fetchProducts(
@@ -63,7 +65,6 @@ export default (brands, categories) => {
     setAppliedFilters({});
     setFilterInputs(initialState);
     dispatch(fetchProducts(page, rowsPerPage));
-    localStorage.removeItem('productFilters');
   };
 
   const cancelClick = () => {
