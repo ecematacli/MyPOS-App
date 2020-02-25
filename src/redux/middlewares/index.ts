@@ -1,11 +1,10 @@
 // import axios from 'axios';
 import api from '../../api';
-import history from '../../history/history';
+import history from '../../history';
 import {
   Middleware,
   MiddlewareAPI,
   applyMiddleware,
-  createStore,
   Dispatch,
   Reducer,
   Action,

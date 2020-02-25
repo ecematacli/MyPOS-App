@@ -3,6 +3,26 @@ import sub from 'date-fns/sub';
 
 import { formatDate } from '../../../common/utils';
 
+export const getUnstatedDisplayOption = (startDate, endDate) => {
+  const diff = differenceInDays(endDate, startDate);
+
+  if (diff > 0 && diff <= 31) {
+    return 'daily';
+  }
+
+  if (diff > 31 && diff <= 60) {
+    return 'weekly';
+  }
+
+  if (diff > 60 && diff <= 200) {
+    return 'monthly';
+  }
+
+  if (diff > 200) {
+    return 'monthly';
+  }
+};
+
 export const getDisabledOptions = (startDate, endDate) => {
   if (!startDate && endDate) {
     return { monthly: true, weekly: false, daily: false };

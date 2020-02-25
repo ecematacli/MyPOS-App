@@ -7,8 +7,9 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
     padding: spacing(3, 4),
     overflowY: 'auto',
     [breakpoints.down('sm')]: {
-      width: 350,
-      height: 285,
+      width: 380,
+      minWidth: 380,
+      height: 289,
       textAlign: 'center'
     }
   },
@@ -16,7 +17,7 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
     display: 'inline-block',
     marginTop: spacing(3.5),
     '@media (max-width:420px)': {
-      paddingRight: spacing(7)
+      paddingRight: spacing(5)
     }
   },
   datePickerInput: {
@@ -39,7 +40,7 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
     marginTop: spacing(3),
     paddingLeft: spacing(2),
     paddingBottom: spacing(2),
-    borderBottom: '1px solid #eee',
+    borderBottom: `1px solid ${palette.secondary.light}`,
     fontSize: spacing(2),
     color: 'rgba(0, 0, 0, 0.54)'
   },

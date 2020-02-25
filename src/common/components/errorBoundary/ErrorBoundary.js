@@ -6,24 +6,31 @@ import {
   ErrorMessageDiv,
   ErrorMessage
 } from './ErrorBoundaryStyles';
+import history from '../../../history';
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
+    this.state = { hasError: false, error: '' };
+    // To render the child tree that are error-free
+    history.listen(() => {
+      if (this.state.hasError) {
+        this.setState({
+          hasError: false,
+          error: '',
+          errorInfo: ''
+        });
+      }
+    });
   }
 
   componentDidCatch(error, errorInfo) {
-    console.log(error, errorInfo);
-  }
-
-  resetState() {
-    this.props.resetState();
-    this.setState({ hasError: false });
+    const { componentStack } = errorInfo;
+    this.setState({
+      hasError: true,
+      error,
+      errorInfo: componentStack
+    });
   }
 
   render() {
@@ -35,6 +42,8 @@ export default class ErrorBoundary extends Component {
             <ErrorMessage classes={{ body1: 'body' }}>
               Oops! Something went wrong.
             </ErrorMessage>
+            {this.state.error && <div>{this.state.error.message}</div>}
+            {this.state.errorInfo && <div>{this.state.errorInfo}</div>}
           </ErrorMessageDiv>
         </ErrorBoundaryContainer>
       );

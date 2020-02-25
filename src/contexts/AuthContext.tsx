@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react';
 
-import history from '../history/history';
+import history from '../history';
 
 interface AuthContext {
   authToken?: String;

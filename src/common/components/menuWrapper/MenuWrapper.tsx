@@ -20,7 +20,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import styles from './styles';
 import logo from '../../../assets/img/app-logo.png';
 import { MENU_ITEMS, SubMenuItem, MenuItem } from './menuItemList';
-import history from '../../../history/history';
+import history from '../../../history';
 import Notifications from '../notifications/Notifications';
 import {
   AuthContext,

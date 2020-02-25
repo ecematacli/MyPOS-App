@@ -31,7 +31,7 @@ const DashboardPage = () => {
   } = useDashboardState();
 
   useEffect(() => {
-    fetchRevenueData();
+    fetchRevenueData('daily');
     fetchSaleStats();
     fetchTopSellingProducts();
     fetchLastActivities();

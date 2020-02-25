@@ -25,9 +25,7 @@ ReactDOM.render(
     <AuthContextProvider>
       <NotificationsProvider>
         <GlobalStyles />
-        <ErrorBoundary>
-          <App />
-        </ErrorBoundary>
+        <App />
       </NotificationsProvider>
     </AuthContextProvider>
   </Provider>,

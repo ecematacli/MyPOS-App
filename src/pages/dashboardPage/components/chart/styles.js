@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing, palette }) => ({
+export default makeStyles(({ spacing, palette, breakpoints }) => ({
   chartPaper: {
     height: 315,
     width: '100%',
@@ -25,6 +25,9 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   displayOptionsItem: {
     fontSize: spacing(2),
+    [breakpoints.down('sm')]: {
+      fontSize: 14
+    },
     padding: spacing(2, 2),
     cursor: 'pointer'
   },

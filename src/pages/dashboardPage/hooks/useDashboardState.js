@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
 import api from '../../../api';
+import useAsyncError from '../../../common/hooks/useAsyncError';
 import {
   getInitialLastThirtyDays,
+  getUnstatedDisplayOption,
   formatChartDate,
   formatActivitiesData
 } from '../utils';
-import useAsyncError from '../../../common/hooks/useAsyncError';
 
 export default () => {
   const { start, end } = getInitialLastThirtyDays();
@@ -16,6 +17,7 @@ export default () => {
     startDate: start,
     endDate: end
   };
+
   const [loading, setLoading] = useState(false);
   const [startDate, handleStartDateChange] = useState(null);
   const [endDate, handleEndDateChange] = useState(null);
@@ -26,7 +28,7 @@ export default () => {
 
   const [appliedFilters, setAppliedFilters] = useState(initialValue);
 
-  // API Call helpers that are being used by other functions
+  // API Call helpers that are being used by all functions
   const getRequestParams = (baseUrl, firstParam = false) => {
     const filters = { startDate: startDate, endDate: endDate };
 
@@ -55,19 +57,26 @@ export default () => {
       setLoading(false);
       return response.data;
     } catch (e) {
+      console.log(e);
       setLoading(false);
-      throwError(new Error('Asynchronous API Call error'));
+      throwError(new Error(e));
     }
   };
 
   // Dashboard Page API Calls
-  const fetchRevenueData = async (displayOption = 'daily') => {
-    const url = getRequestParams(
-      `/stats/revenue-chart?option=${displayOption}`
-    );
+  const fetchRevenueData = async displayOption => {
+    let option;
+
+    if (!displayOption) {
+      option = getUnstatedDisplayOption(startDate, endDate);
+    } else {
+      option = displayOption;
+    }
+
+    const url = getRequestParams(`/stats/revenue-chart?option=${option}`);
     const data = await makeApiCall(url);
 
-    const formattedChartRevenue = formatChartDate(data, displayOption);
+    const formattedChartRevenue = formatChartDate(data, option);
     setRevenue(formattedChartRevenue);
   };
 
@@ -89,7 +98,7 @@ export default () => {
   };
 
   const fetchLastActivities = async () => {
-    const data = await makeApiCall('/events/ss');
+    const data = await makeApiCall('/events/sales');
     const formattedActivities = formatActivitiesData(data);
     setLastActivities(formattedActivities);
   };
