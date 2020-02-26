@@ -5,7 +5,7 @@ export default makeStyles(({ spacing, palette }) => ({
     width: '100vw',
     height: '100vh',
     background: `linear-gradient(to right, ${palette.grayColors[11]}, ${palette.grayColors[12]})`,
-    margin: '-25px'
+    margin: '-24px'
   },
   signInFormContainer: {
     width: '100vw',
@@ -16,10 +16,19 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   signInCard: {
     boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.30)',
-    overflow: 'hidden',
+    overflow: 'auto',
     color: palette.whiteColors[0],
     width: 700,
     height: 450,
+    '@media (max-width:760px) and (min-width: 568px)': {
+      width: '75%',
+      height: '85%'
+    },
+    '@media (max-width:567px)': {
+      width: '85%',
+      height: '90%',
+      marginTop: spacing(12.5)
+    },
     borderRadius: '3%'
   },
   cardContainer: {
@@ -27,14 +36,26 @@ export default makeStyles(({ spacing, palette }) => ({
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    '@media (max-width:760px) and (min-width: 568px)': {
+      flexDirection: 'column',
+      paddingTop: spacing(5)
+    },
+    '@media (max-width:567px)': {
+      flexDirection: 'column',
+      paddingTop: spacing(1.5)
+    }
   },
   cardContent: {
-    marginLeft: 20
+    marginLeft: spacing(2.5)
   },
   signInCardImg: {
     height: 250,
-    width: 280
+    width: 280,
+    '@media (max-width:567px)': {
+      width: 200,
+      height: 180
+    }
   },
   signInTextDiv: {
     display: 'flex',
@@ -43,7 +64,7 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   signInText: {
     color: palette.secondary.main,
-    fontSize: 20,
+    fontSize: spacing(2.5),
     marginBottom: spacing(2)
   },
   signInForm: {
@@ -55,6 +76,10 @@ export default makeStyles(({ spacing, palette }) => ({
   btnText: {
     fontSize: spacing(2),
     fontWeight: 'bold',
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
+    '@media (max-width:567px)': {
+      fontSize: 18,
+      paddingLeft: spacing(2.5)
+    }
   }
 }));

@@ -7,8 +7,7 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
     padding: spacing(3, 4),
     overflowY: 'auto',
     [breakpoints.down('sm')]: {
-      width: 380,
-      minWidth: 380,
+      width: 400,
       height: 289,
       textAlign: 'center'
     }

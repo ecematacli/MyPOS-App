@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import { ExpansionPanelSummary } from '@material-ui/core';
 
 import {
   ErrorBoundaryContainer,
   ErrorIcon,
   ErrorMessageDiv,
-  ErrorMessage
+  ErrorMessage,
+  ExpansionPanelContainer,
+  ExpansionTextDiv,
+  ShowMoreText,
+  ExpansionPanelContent,
+  ErrorInfoDiv,
+  AsyncErrorInfo
 } from './ErrorBoundaryStyles';
 import history from '../../../history';
 
@@ -22,6 +29,7 @@ export default class ErrorBoundary extends Component {
         });
       }
     });
+    this.showMore = this.showMore.bind(this);
   }
 
   componentDidCatch(error, errorInfo) {
@@ -33,6 +41,19 @@ export default class ErrorBoundary extends Component {
     });
   }
 
+  showMore() {
+    return (
+      <ExpansionPanelContent>
+        {this.state.error && (
+          <AsyncErrorInfo>{this.state.error.message}</AsyncErrorInfo>
+        )}
+        {this.state.errorInfo && (
+          <ErrorInfoDiv>{this.state.errorInfo}</ErrorInfoDiv>
+        )}
+      </ExpansionPanelContent>
+    );
+  }
+
   render() {
     if (this.state.hasError) {
       return (
@@ -42,8 +63,18 @@ export default class ErrorBoundary extends Component {
             <ErrorMessage classes={{ body1: 'body' }}>
               Oops! Something went wrong.
             </ErrorMessage>
-            {this.state.error && <div>{this.state.error.message}</div>}
-            {this.state.errorInfo && <div>{this.state.errorInfo}</div>}
+            <div>
+              <ExpansionPanelContainer classes={{ root: 'root' }}>
+                <ExpansionPanelSummary>
+                  <ExpansionTextDiv>
+                    <ShowMoreText classes={{ body1: 'body' }}>
+                      Expand for more info
+                    </ShowMoreText>
+                  </ExpansionTextDiv>
+                </ExpansionPanelSummary>
+                {this.showMore()}
+              </ExpansionPanelContainer>
+            </div>
           </ErrorMessageDiv>
         </ErrorBoundaryContainer>
       );

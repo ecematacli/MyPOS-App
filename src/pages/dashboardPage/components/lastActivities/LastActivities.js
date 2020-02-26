@@ -45,7 +45,15 @@ const LastActivities = ({ loading, lastActivities }) => {
         <Typography>Last Activities</Typography>
       </div>
       <Divider className={classes.divider} />
-      <Scrollbars style={{ width: 'auto', height: 485 }}>
+      <Scrollbars
+        renderTrackHorizontal={props => (
+          <div {...props} style={{ display: 'none' }} />
+        )}
+        renderThumbHorizontal={props => (
+          <div {...props} style={{ display: 'none' }} />
+        )}
+        style={{ width: 'auto', height: 500 }}
+      >
         <div className={classes.lastActivitiesContainer}>
           {renderLastActivities()}
         </div>

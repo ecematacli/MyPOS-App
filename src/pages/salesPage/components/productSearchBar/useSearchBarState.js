@@ -30,11 +30,7 @@ const useSearchInput = addProduct => {
         setOpen(true);
       } catch (e) {
         setLoading(false);
-        throwError(
-          new Error(
-            'Something went wrong with API Call from product search bar page'
-          )
-        );
+        throwError(new Error(e));
       }
     };
 

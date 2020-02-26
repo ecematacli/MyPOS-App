@@ -13,6 +13,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     [breakpoints.down('sm')]: {
       marginTop: spacing(3)
     }
+    //1050-960
   },
   iconDiv: {
     color: palette.whiteColors[0],
@@ -36,7 +37,10 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   dashboardStatContent: {
     paddingRight: spacing(2),
-    paddingTop: 48
+    paddingTop: 48,
+    '@media (max-width:1050px) and (min-width:959px)': {
+      paddingRight: 5
+    }
   },
   statLabel: {
     color: palette.grayColors[9],

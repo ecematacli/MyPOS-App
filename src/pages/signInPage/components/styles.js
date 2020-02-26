@@ -3,7 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(({ spacing, palette }) => ({
   signInField: {
     width: 300,
-    marginBottom: 20
+    marginBottom: 20,
+    '@media (max-width:567px)': {
+      width: 200
+    }
   },
   helperText: {
     fontSize: spacing(2),

@@ -65,6 +65,16 @@ export default (product, brands, categories) => {
 
   const completeEdit = (fieldId, fieldValue, productId, label) => {
     if (product[fieldId] !== productVal[fieldId]) {
+      if (
+        fieldId === 'price' ||
+        fieldId === 'discountPrice' ||
+        fieldId === 'barcode'
+      ) {
+        !isNaN(fieldValue) &&
+          dispatchEditAction(fieldId, fieldValue, productId, label);
+        return;
+      }
+
       dispatchEditAction(fieldId, fieldValue, productId, label);
     }
   };
@@ -88,8 +98,7 @@ export default (product, brands, categories) => {
       dropdownItems: [
         { id: 1, name: '8' },
         { id: 2, name: '18' }
-      ],
-      type: 'number'
+      ]
     },
     { label: 'Sku', fieldId: 'sku' },
     {

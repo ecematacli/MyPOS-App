@@ -57,7 +57,6 @@ export default () => {
       setLoading(false);
       return response.data;
     } catch (e) {
-      console.log(e);
       setLoading(false);
       throwError(new Error(e));
     }
