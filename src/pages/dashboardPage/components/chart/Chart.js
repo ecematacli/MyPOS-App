@@ -39,7 +39,7 @@ const Chart = ({ revenueData, fetchRevenueData, appliedFilters }) => {
     anchorEl,
     displayOption,
     onDisplayOptionClick
-  } = useChartState(fetchRevenueData, disabledOptions);
+  } = useChartState(fetchRevenueData, disabledOptions, appliedFilters);
 
   const labelStyle = {
     color: '#696969',

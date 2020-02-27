@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 
 import styles from './styles';
+import { getInitialLastThirtyDays } from './utils';
 import DashboardDateFilter from './components/dashboardDateFilter/DashboardDateFilter';
 import useDashboardState from './hooks/useDashboardState';
 import DashboardStats from './components/dashboardStats/DashboardStats';
@@ -11,8 +12,9 @@ import TopSellingItems from './components/topSellingItems/TopSellingItems';
 
 const DashboardPage = () => {
   const classes = styles();
+  const { initialStart, initialEnd } = getInitialLastThirtyDays();
   const {
-    loading,
+    loading: { topSellings, activities },
     startDate,
     handleStartDateChange,
     endDate,
@@ -31,9 +33,9 @@ const DashboardPage = () => {
   } = useDashboardState();
 
   useEffect(() => {
-    fetchRevenueData('daily');
-    fetchSaleStats();
-    fetchTopSellingProducts();
+    fetchRevenueData('daily', initialStart, initialEnd);
+    fetchSaleStats(initialStart, initialEnd);
+    fetchTopSellingProducts(1, initialStart, initialEnd);
     fetchLastActivities();
   }, []);
 
@@ -61,7 +63,7 @@ const DashboardPage = () => {
         justify="center"
         spacing={3}
       >
-        <DashboardStats saleStats={saleStats} revenue={revenue} />
+        <DashboardStats saleStats={saleStats} />
       </Grid>
       <Grid className={classes.gridContainer} container>
         <Grid item xs={12} sm={12} md={12}>
@@ -75,13 +77,18 @@ const DashboardPage = () => {
       <Grid className={classes.gridContainer} container>
         <Grid item xs={12} sm={12} md={7}>
           <TopSellingItems
-            loading={loading}
+            loading={topSellings && topSellings}
             topSellingProducts={topSellingProducts}
             fetchTopSellingProducts={fetchTopSellingProducts}
+            startDate={startDate}
+            endDate={endDate}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={5}>
-          <LastActivities lastActivities={lastActivities} loading={loading} />
+          <LastActivities
+            lastActivities={lastActivities}
+            loading={activities && activities}
+          />
         </Grid>
       </Grid>
     </Fragment>

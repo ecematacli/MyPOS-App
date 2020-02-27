@@ -6,6 +6,8 @@ import { formatDate } from '../../../common/utils';
 export const getUnstatedDisplayOption = (startDate, endDate) => {
   const diff = differenceInDays(endDate, startDate);
 
+  console.log('DIFFERENCE IS>>>', diff);
+
   if (diff > 0 && diff <= 31) {
     return 'daily';
   }
@@ -18,9 +20,7 @@ export const getUnstatedDisplayOption = (startDate, endDate) => {
     return 'monthly';
   }
 
-  if (diff > 200) {
-    return 'monthly';
-  }
+  return 'monthly';
 };
 
 export const getDisabledOptions = (startDate, endDate) => {
@@ -59,7 +59,7 @@ export const getInitialLastThirtyDays = () => {
   const endDate = new Date();
   const startDate = sub(endDate, { days: 30 });
 
-  return { start: startDate, end: endDate };
+  return { initialStart: startDate, initialEnd: endDate };
 };
 
 //Date formatter helpers

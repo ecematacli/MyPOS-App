@@ -33,6 +33,7 @@ export default appliedFilters => {
     if (startDate && !endDate) {
       inputValue = `${formattedStartDate} - ${today}`;
     }
+    //Start date here will depend on the data being sent by the server
     if (endDate && !startDate) {
       inputValue = `\u221E - ${formattedEndDate}`;
     }

@@ -18,7 +18,9 @@ import Loading from '../../../../common/components/loading/Loading';
 const TopSellingItems = ({
   loading,
   topSellingProducts: { products, count },
-  fetchTopSellingProducts
+  fetchTopSellingProducts,
+  startDate,
+  endDate
 }) => {
   const classes = styles();
   const [pageNumber, setPageNumber] = useState(1);
@@ -27,14 +29,14 @@ const TopSellingItems = ({
     const totalPageToShow = count / 3;
     if (pageNumber >= totalPageToShow) return;
     setPageNumber(prevPageNumber => prevPageNumber + 1);
-    fetchTopSellingProducts(pageNumber);
+    fetchTopSellingProducts(pageNumber, startDate, endDate);
   };
 
   const onLeftArrowClick = () => {
     if (pageNumber === 1) return;
 
     setPageNumber(prevPageNumber => prevPageNumber - 1);
-    fetchTopSellingProducts(pageNumber);
+    fetchTopSellingProducts(pageNumber, startDate, endDate);
   };
 
   const renderTableHead = () => (

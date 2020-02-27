@@ -18,7 +18,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
-import logo from '../../../assets/img/app-logo.png';
+import logo from '../../../assets/img/merit.png';
 import { MENU_ITEMS, SubMenuItem, MenuItem } from './menuItemList';
 import history from '../../../history';
 import Notifications from '../notifications/Notifications';

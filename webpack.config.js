@@ -1,11 +1,12 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: 'bundle.[contentHash].js',
+    path: path.resolve(__dirname, 'public')
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.png']
@@ -14,7 +15,7 @@ module.exports = {
     rules: [
       {
         loader: 'babel-loader',
-        test: /|.js$/,
+        test: /\.js$/,
         exclude: /node_modules/
       },
       {
@@ -35,10 +36,14 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './template.html'
+    })
+  ],
   devtool: 'source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    contentBase: path.resolve(__dirname, 'public'),
     historyApiFallback: true
-  },
-  plugins: []
+  }
 };

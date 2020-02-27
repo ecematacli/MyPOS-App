@@ -30,10 +30,11 @@ export default makeStyles(({ breakpoints, spacing, palette }) => ({
     height: spacing(8),
     display: 'flex',
     justifyContent: 'center',
-    paddingTop: spacing(1.8)
+    paddingTop: spacing(1.8),
+    marginBottom: spacing(1.5)
   },
   logoImg: {
-    width: 60,
+    width: 95,
     height: 60
   },
   drawer: {

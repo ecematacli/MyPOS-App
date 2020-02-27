@@ -52,7 +52,7 @@ const LastActivities = ({ loading, lastActivities }) => {
         renderThumbHorizontal={props => (
           <div {...props} style={{ display: 'none' }} />
         )}
-        style={{ width: 'auto', height: 500 }}
+        style={{ width: 'auto', height: 498 }}
       >
         <div className={classes.lastActivitiesContainer}>
           {renderLastActivities()}
