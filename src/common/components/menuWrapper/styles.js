@@ -30,11 +30,10 @@ export default makeStyles(({ breakpoints, spacing, palette }) => ({
     height: spacing(8),
     display: 'flex',
     justifyContent: 'center',
-    paddingTop: spacing(1.8),
-    marginBottom: spacing(1.5)
+    marginBottom: -spacing(1.9)
   },
   logoImg: {
-    width: 95,
+    width: 60,
     height: 60
   },
   drawer: {
@@ -45,6 +44,7 @@ export default makeStyles(({ breakpoints, spacing, palette }) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    paddingTop: spacing(2),
     backgroundSize: 'cover',
     backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url(${backgroundImage})`,
     backgroundPosition: 'center center'

@@ -1,5 +1,5 @@
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -14,30 +14,30 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(jpg|png|svg|ico)$/,
-        use: [
-          {
-            loader: 'url-loader'
-          }
-        ]
+        test: /\.html$/,
+        use: ['html-loader']
       },
       {
-        test: /favicon\.(png|svg|jpg)$/,
-        use: 'file-loader'
+        test: /\.(png|svg|jpg|ico|gif)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[hash].[ext]',
+            outputPath: 'imgs'
+          }
+        }
       },
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
+        loader: 'awesome-typescript-loader',
+        exclude: /node_modules/
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './template.html'
-    })
-  ],
-  devServer: {
-    contentBase: path.resolve(__dirname, 'public'),
-    historyApiFallback: true
-  }
+    }),
+    new Dotenv()
+  ]
 };

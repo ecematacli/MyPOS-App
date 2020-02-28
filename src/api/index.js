@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let axiosInstance = axios.create({
-  baseURL: 'http://stock-management-dev.eu-central-1.elasticbeanstalk.com'
+  baseURL: process.env.apiUrl
 });
 
 axiosInstance.interceptors.request.use(

@@ -1,6 +1,7 @@
 const path = require('path');
 const common = require('./webpack.common');
 const merge = require('webpack-merge');
+const webpack = require('webpack');
 
 module.exports = merge(common, {
   mode: 'development',
@@ -8,12 +9,11 @@ module.exports = merge(common, {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public')
   },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.png']
-  },
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
-    historyApiFallback: true
-  }
+    historyApiFallback: true,
+    hot: true
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin()]
 });
