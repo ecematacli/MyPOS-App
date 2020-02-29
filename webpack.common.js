@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
@@ -38,6 +39,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './template.html'
     }),
+    new FaviconsWebpackPlugin('./src/assets/img/app-logo.png'),
     new Dotenv()
   ]
 };

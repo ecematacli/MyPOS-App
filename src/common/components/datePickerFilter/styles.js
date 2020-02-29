@@ -4,11 +4,12 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
   filterPaper: {
     minWidth: 400,
     height: 220,
-    padding: spacing(3, 4),
+    padding: spacing(3.4, 4),
     overflowY: 'auto',
     [breakpoints.down('sm')]: {
       width: 400,
       height: 289,
+      padding: spacing(3, 4),
       textAlign: 'center'
     }
   },

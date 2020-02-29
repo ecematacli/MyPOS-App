@@ -30,7 +30,7 @@ export default makeStyles(({ breakpoints, spacing, palette }) => ({
     height: spacing(8),
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: -spacing(1.9)
+    marginBottom: -spacing(2)
   },
   logoImg: {
     width: 60,
