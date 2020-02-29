@@ -6,13 +6,14 @@ const webpack = require('webpack');
 module.exports = merge(common, {
   mode: 'development',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'public')
   },
   devtool: 'inline-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
     historyApiFallback: true,
+    publicPath: '/public',
     hot: true
   },
   plugins: [new webpack.HotModuleReplacementPlugin()]

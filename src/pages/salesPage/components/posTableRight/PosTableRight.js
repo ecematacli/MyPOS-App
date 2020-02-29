@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment, useState } from 'react';
 import clsx from 'clsx';
 import {
   Table,
@@ -19,6 +19,7 @@ import { currencyFormatter } from '../../../../common/utils';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import CustomButton from '../../../../common/components/customButton/CustomButton';
+import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 
 const TABLE_HEAD = [
   {
@@ -54,9 +55,45 @@ const PosTableRight = ({
 }) => {
   const classes = styles();
   const { addNotification } = useContext(NotificationsContext);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   const onCompleteSaleClick = () => {
     completeSale(products, total, discount, addNotification, discardSale);
+  };
+
+  const getPriceValue = price => {
+    return (
+      <Fragment>
+        <div onClick={handleClick}>{currencyFormatter(price)}</div>
+        <CustomPopover
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center'
+          }}
+        >
+          <Typography className={classes.typography}>
+            The content of the Popover.
+          </Typography>
+        </CustomPopover>
+      </Fragment>
+    );
   };
 
   const renderTableHead = () =>
@@ -110,7 +147,7 @@ const PosTableRight = ({
               </div>
             </div>
           </TableCell>
-          <TableCell align="right">{currencyFormatter(price)}</TableCell>
+          <TableCell align="right">{getPriceValue(price)}</TableCell>
           <TableCell align={discountPrice ? 'right' : 'center'}>
             {discountPrice ? currencyFormatter(discountPrice) : '-'}
           </TableCell>
