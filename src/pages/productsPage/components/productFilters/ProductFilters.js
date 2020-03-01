@@ -15,8 +15,7 @@ const ProductFilters = ({
   page,
   brands,
   categories,
-  fetchProducts,
-  dataFoundBasedOnFilters
+  fetchProducts
 }) => {
   const classes = styles();
   const {
@@ -87,7 +86,6 @@ const ProductFilters = ({
           )
         )}
       </div>
-
       <div className={classes.filterBtnDiv}>
         <div>
           <Button

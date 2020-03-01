@@ -61,11 +61,11 @@ export const ExpansionPanelContent = styled(ExpansionPanelDetails)`
   font-size: 18 !important;
 `;
 
-export const AsyncErrorInfo = styled.div`
+export const ShortErrorInfo = styled.div`
   color: #ef5350;
   font-weight: bold;
 `;
-export const ErrorInfoDiv = styled.div`
-  width: 200px;
+export const MoreErrorInfoDiv = styled.div`
+  width: 300px;
   margin-top: 10px;
 `;

@@ -13,7 +13,17 @@ export default (product, brands, categories) => {
 
   // Product input value handlers
   const handleInputChange = (e, fieldId) => {
-    setProductVal({ ...productVal, [fieldId]: e.target.value });
+    const userInput = e.target.value;
+    if (
+      fieldId === 'price' ||
+      fieldId === 'discountPrice' ||
+      fieldId === 'barcode'
+    ) {
+      if (isNaN(userInput)) {
+        return null;
+      }
+    }
+    setProductVal({ ...productVal, [fieldId]: userInput });
   };
 
   const renderProductValues = fieldId => {
@@ -65,16 +75,6 @@ export default (product, brands, categories) => {
 
   const completeEdit = (fieldId, fieldValue, productId, label) => {
     if (product[fieldId] !== productVal[fieldId]) {
-      if (
-        fieldId === 'price' ||
-        fieldId === 'discountPrice' ||
-        fieldId === 'barcode'
-      ) {
-        !isNaN(fieldValue) &&
-          dispatchEditAction(fieldId, fieldValue, productId, label);
-        return;
-      }
-
       dispatchEditAction(fieldId, fieldValue, productId, label);
     }
   };

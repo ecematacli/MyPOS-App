@@ -36,6 +36,8 @@ export const editProduct = (
     [fieldId]: productVal
   };
 
+  console.log(fieldId, productVal, productId);
+
   if (fieldId === 'brand') {
     updatedField = {
       brandId: findMatchedFields(getState().brands, productVal).id.toString()

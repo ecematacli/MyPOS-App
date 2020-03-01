@@ -14,7 +14,8 @@ enum ActionType {
   Delete,
   DecreaseQuantity,
   IncreaseQuantity,
-  DiscardSale
+  DiscardSale,
+  EditPrice
 }
 
 interface SaleReducerAction {
@@ -70,6 +71,8 @@ const productsReducer = (
         return state;
       }
     }
+    case ActionType.EditPrice:
+      return [];
     case ActionType.DiscardSale:
       return [];
 

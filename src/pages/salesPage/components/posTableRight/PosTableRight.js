@@ -10,36 +10,19 @@ import {
   Divider,
   Typography,
   InputAdornment,
-  IconButton
+  IconButton,
+  Button
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
+import useAddPriceInputState from './useAddPriceInputState';
+import { TABLE_HEAD } from './tableHead';
 import { currencyFormatter } from '../../../../common/utils';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import CustomButton from '../../../../common/components/customButton/CustomButton';
 import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
-
-const TABLE_HEAD = [
-  {
-    label: 'Product'
-  },
-  {
-    label: 'Quantity'
-  },
-  {
-    label: 'Price',
-    numeric: true
-  },
-  {
-    label: 'Discount Price',
-    numeric: true
-  },
-  {
-    label: ''
-  }
-];
 
 const PosTableRight = ({
   products,
@@ -55,6 +38,12 @@ const PosTableRight = ({
 }) => {
   const classes = styles();
   const { addNotification } = useContext(NotificationsContext);
+  const {
+    inputValue,
+    handleInputChange,
+    resetInput,
+    editPriceValue
+  } = useAddPriceInputState();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = event => {
@@ -67,33 +56,89 @@ const PosTableRight = ({
 
   const open = Boolean(anchorEl);
 
+  const onButtonClick = id => {
+    console.log('ID>>', id);
+    editPriceValue(id);
+    handleClose();
+    resetInput();
+  };
+
   const onCompleteSaleClick = () => {
     completeSale(products, total, discount, addNotification, discardSale);
   };
 
-  const getPriceValue = price => {
-    return (
-      <Fragment>
-        <div onClick={handleClick}>{currencyFormatter(price)}</div>
-        <CustomPopover
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center'
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center'
-          }}
-        >
-          <Typography className={classes.typography}>
-            The content of the Popover.
-          </Typography>
-        </CustomPopover>
-      </Fragment>
-    );
+  const getPriceValue = (price, product) => {
+    if (price === 0) {
+      console.log('-----------------------');
+
+      console.log('condition', product);
+
+      console.log('-----------------------');
+
+      return (
+        <Fragment>
+          <div className={classes.noPrice} onClick={handleClick}>
+            {currencyFormatter(price)}
+          </div>
+          <CustomPopover
+            classes={{ paper: classes.popoverPaper }}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center'
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center'
+            }}
+          >
+            <div className={classes.popoverContentDiv}>
+              <Typography className={classes.addPriceCaption}>
+                Add an amount for price
+              </Typography>
+              <Divider />
+              <div className={classes.addPriceDiv}>
+                <div className={clsx(classes.title, classes.smallScreenFont)}>
+                  Price
+                </div>
+                <CustomInput
+                  startAdornment={
+                    <InputAdornment position="start">&#x20BA;</InputAdornment>
+                  }
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  classesProp={{
+                    root: classes.priceInputRoot,
+                    input: classes.smallScreenFont
+                  }}
+                />
+              </div>
+              <div className={classes.btnDiv}>
+                <Button
+                  style={{ marginRight: -5 }}
+                  className={classes.actionBtn}
+                  onClick={handleClose}
+                  color="secondary"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => console.log('product you clicked is', product)}
+                  className={classes.actionBtn}
+                  color="primary"
+                >
+                  OK
+                </Button>
+              </div>
+            </div>
+          </CustomPopover>
+        </Fragment>
+      );
+    }
+
+    return currencyFormatter(price);
   };
 
   const renderTableHead = () =>
@@ -109,7 +154,9 @@ const PosTableRight = ({
 
   const renderTableBody = () =>
     products.map(product => {
+      // console.log(product);
       const { id, name, qty, price, discountPrice } = product;
+      // console.log('id from render', id);
       return (
         <TableRow
           className={classes.tableRow}
@@ -147,8 +194,8 @@ const PosTableRight = ({
               </div>
             </div>
           </TableCell>
-          <TableCell align="right">{getPriceValue(price)}</TableCell>
-          <TableCell align={discountPrice ? 'right' : 'center'}>
+          <TableCell align="right">{getPriceValue(price, product)}</TableCell>
+          <TableCell align="right">
             {discountPrice ? currencyFormatter(discountPrice) : '-'}
           </TableCell>
           <TableCell colSpan={3} align="right">

@@ -6,8 +6,6 @@ import { formatDate } from '../../../common/utils';
 export const getUnstatedDisplayOption = (startDate, endDate) => {
   const diff = differenceInDays(endDate, startDate);
 
-  console.log('DIFFERENCE IS>>>', diff);
-
   if (diff > 0 && diff <= 31) {
     return 'daily';
   }

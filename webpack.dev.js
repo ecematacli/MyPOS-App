@@ -13,7 +13,8 @@ module.exports = merge(common, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'public'),
-    historyApiFallback: true
+    historyApiFallback: true,
+    hot: true
   },
   plugins: [new webpack.HotModuleReplacementPlugin()]
 });

@@ -10,15 +10,15 @@ import {
   ExpansionTextDiv,
   ShowMoreText,
   ExpansionPanelContent,
-  ErrorInfoDiv,
-  AsyncErrorInfo
+  MoreErrorInfoDiv,
+  ShortErrorInfo
 } from './ErrorBoundaryStyles';
 import history from '../../../history';
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: '' };
+    this.state = { hasError: false, error: '', errorInfo: '' };
     // To render the child tree that are error-free
     history.listen(() => {
       if (this.state.hasError) {
@@ -45,10 +45,10 @@ export default class ErrorBoundary extends Component {
     return (
       <ExpansionPanelContent>
         {this.state.error && (
-          <AsyncErrorInfo>{this.state.error.message}</AsyncErrorInfo>
+          <ShortErrorInfo>{this.state.error.message}</ShortErrorInfo>
         )}
         {this.state.errorInfo && (
-          <ErrorInfoDiv>{this.state.errorInfo}</ErrorInfoDiv>
+          <MoreErrorInfoDiv>{this.state.errorInfo}</MoreErrorInfoDiv>
         )}
       </ExpansionPanelContent>
     );

@@ -3,8 +3,10 @@ import { useContext } from 'react';
 import api from '../../../api';
 import { AuthTokenSettingContext } from '../../../contexts/AuthContext';
 import { NotificationsContext } from '../../../contexts/NotificationsContext';
+import useAsyncError from '../../../common/hooks/useAsyncError';
 
 export default () => {
+  const throwError = useAsyncError();
   const { saveAuthToken } = useContext(AuthTokenSettingContext);
   const { addNotification } = useContext(NotificationsContext);
 
@@ -19,10 +21,14 @@ export default () => {
         active && saveAuthToken();
       }
     } catch (e) {
-      addNotification(
-        'There was a problem logging in. Check your email and password!',
-        'error'
-      );
+      const { status } = e.response;
+      if (status === 400 || status === 403 || status === 401) {
+        const errorMessage =
+          'There was a problem logging in. Check your email and password!';
+        addNotification(errorMessage, 'error');
+      } else {
+        throwError(new Error(e));
+      }
     }
     return () => {
       active = false;
