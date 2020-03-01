@@ -23,6 +23,7 @@
   "rules": {
     "linebreak-style": ["error", "unix"],
     "react-hooks/rules-of-hooks": "error",
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "quotes": "off"
   }
 }

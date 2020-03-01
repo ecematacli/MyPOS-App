@@ -31,6 +31,7 @@ const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
     fetchBrands();
   }, []);
 
+  console.log('asd');
   return (
     <Grid container spacing={3} justify="center">
       <Grid item align="center" className={classes.discardSaleGridItem}>
