@@ -1,30 +1,29 @@
-// import axios from 'axios';
 import api from '../../api';
 import history from '../../history';
-import {
-  Middleware,
-  MiddlewareAPI,
-  applyMiddleware,
-  Dispatch,
-  Reducer,
-  Action,
-  AnyAction
-} from 'redux';
+import { Middleware, Dispatch, AnyAction } from 'redux';
 
 export const CALL_API = 'CALL_API';
 
-interface CallApiAction {
+export interface CallApiAction {
   type: string;
   method: string;
   url: string;
   data?: any;
-  successMessage: (message: string, messageType: string) => void;
-  errorMessage: (message: string, messageType: string) => void;
+  successMessage?: (message: string, messageType: string) => void;
+  errorMessage?: (message: string, messageType: string) => void;
 }
 
-export const apiMiddleware: Middleware<Dispatch> = () => (
-  next: Dispatch
-) => async (action: AnyAction | CallApiAction) => {
+interface Data {
+  type: string;
+  payload?: any;
+  response?: string;
+  requestPayload?: any;
+  requestUrl?: string;
+}
+
+export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
+  action: CallApiAction | AnyAction
+) => {
   const callAPI = action[CALL_API];
 
   if (typeof callAPI === 'undefined') {
@@ -32,7 +31,7 @@ export const apiMiddleware: Middleware<Dispatch> = () => (
   }
   const { url, type, method, data, successMessage, errorMessage } = callAPI;
 
-  const actionWith = dataObj => {
+  const actionWith = (dataObj: Data) => {
     const finalAction = { ...action, ...dataObj };
     delete finalAction[CALL_API];
     return finalAction;
@@ -55,7 +54,7 @@ export const apiMiddleware: Middleware<Dispatch> = () => (
   } catch (error) {
     const response = error.response;
 
-    if (response && response.status === 401) {
+    if ((response && response.status === 400) || response.status === 401) {
       history.push('/signin');
       localStorage.removeItem('token');
     }

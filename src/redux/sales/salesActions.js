@@ -1,4 +1,4 @@
-import { CREATE_SALE, FETCH_SALES } from './types';
+import { ActionTypes } from './types';
 import createAPIAction from '../createAPIAction';
 
 export const completeSale = (
@@ -16,7 +16,7 @@ export const completeSale = (
 
   dispatch(
     createAPIAction(
-      CREATE_SALE,
+      ActionTypes.CREATE_SALE,
       'post',
       '/sales',
       saleData,
@@ -42,5 +42,5 @@ export const fetchSales = (
     url += `&endDate=${endDate.toISOString()}`;
   }
 
-  dispatch(createAPIAction(FETCH_SALES, 'get', url));
+  dispatch(createAPIAction(ActionTypes.FETCH_SALES, 'get', url));
 };

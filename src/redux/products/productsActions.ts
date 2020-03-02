@@ -1,14 +1,21 @@
-import { FETCH_PRODUCTS, EDIT_PRODUCT, CREATE_PRODUCT } from './types';
+import {
+  ActionTypes,
+  NotificationType,
+  AdditionalInputs,
+  InputValues
+} from './types';
+import { StoreState } from '../types';
 import createAPIAction from '../createAPIAction';
 import { findMatchedFields } from '../../common/utils/index';
+import { Dispatch } from 'redux';
 
 export const fetchProducts = (
-  page = 1,
-  rowsPerPage = 10,
-  categoryName,
-  brandName,
-  searchQuery
-) => async (dispatch, getState) => {
+  page: number = 1,
+  rowsPerPage: number = 10,
+  categoryName: string,
+  brandName: string,
+  searchQuery: string
+) => async (dispatch: Dispatch<any>, getState: () => StoreState) => {
   let url = `/products?page=${page}&rowsPerPage=${rowsPerPage}`;
 
   if (categoryName) {
@@ -22,21 +29,19 @@ export const fetchProducts = (
   if (searchQuery) {
     url += `&query=${searchQuery}`;
   }
-  dispatch(createAPIAction(FETCH_PRODUCTS, 'get', url));
+  dispatch(createAPIAction(ActionTypes.FETCH_PRODUCTS, 'get', url));
 };
 
 export const editProduct = (
-  fieldId,
-  productVal,
-  productId,
-  label,
-  addNotification
-) => async (dispatch, getState) => {
+  fieldId: string,
+  productVal: string | number,
+  productId: number,
+  label: string,
+  addNotification: (m: string, t: string) => void
+) => async (dispatch: Dispatch<any>, getState: () => StoreState) => {
   let updatedField = {
     [fieldId]: productVal
   };
-
-  console.log(fieldId, productVal, productId);
 
   if (fieldId === 'brand') {
     updatedField = {
@@ -54,7 +59,7 @@ export const editProduct = (
 
   dispatch(
     createAPIAction(
-      EDIT_PRODUCT,
+      ActionTypes.EDIT_PRODUCT,
       'patch',
       `/products/${productId}/`,
       updatedField,
@@ -66,12 +71,12 @@ export const editProduct = (
 };
 
 export const createProduct = (
-  inputValues,
-  additionalInputValues,
-  addNotification
-) => async (dispatch, getState) => {
-  let categoryId;
-  let brandId;
+  inputValues: InputValues,
+  additionalInputValues: AdditionalInputs,
+  addNotification: NotificationType
+) => async (dispatch: Dispatch<any>, getState: () => StoreState) => {
+  let categoryId: string;
+  let brandId: string;
 
   if (additionalInputValues.category) {
     categoryId = findMatchedFields(
@@ -97,7 +102,7 @@ export const createProduct = (
 
   dispatch(
     createAPIAction(
-      CREATE_PRODUCT,
+      ActionTypes.CREATE_PRODUCT,
       'post',
       '/products',
       productData,

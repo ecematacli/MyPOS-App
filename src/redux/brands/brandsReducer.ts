@@ -1,6 +1,6 @@
-import { ActionTypes } from './types';
+import { ActionTypes, BrandsAction, Brand } from './types';
 
-export default (state = [], { type, payload }) => {
+export default (state: Brand[] = [], { type, payload }: BrandsAction) => {
   switch (type) {
     case ActionTypes.FETCH_BRANDS + '_SUCCESS':
       return payload;

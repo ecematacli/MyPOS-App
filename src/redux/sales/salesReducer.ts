@@ -1,20 +1,19 @@
-import { CREATE_SALE, FETCH_SALES } from './types';
+import { ActionTypes, SalesState, Sale } from './types';
 
-const initialState = {
+const initialState: SalesState = {
   count: 0,
   sales: {},
   ids: []
 };
 
-export default (state = initialState, { type, payload, callNotification }) => {
+export default (state = initialState, { type, payload }): SalesState => {
   switch (type) {
-    case CREATE_SALE:
-      callNotification();
+    case ActionTypes.CREATE_SALE:
       return payload;
-    case FETCH_SALES + '_SUCCESS': {
+    case ActionTypes.FETCH_SALES + '_SUCCESS': {
       const { sales, count } = payload;
       const objSalesData = sales.reduce(
-        (obj, currSale) => ({
+        (obj: { [id: string]: Sale }, currSale: Sale) => ({
           ...obj,
           [currSale.id]: currSale
         }),

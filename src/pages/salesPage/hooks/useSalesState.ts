@@ -71,8 +71,11 @@ const productsReducer = (
         return state;
       }
     }
-    case ActionType.EditPrice:
-      return [];
+    case ActionType.EditPrice: {
+      return state.map(p =>
+        p.id === payload.id ? { ...p, price: payload.newPrice } : p
+      );
+    }
     case ActionType.DiscardSale:
       return [];
 
@@ -121,6 +124,12 @@ export default () => {
     });
   };
 
+  const editPrice = (id: number, newPrice: number) => {
+    dispatch({
+      type: ActionType.EditPrice,
+      payload: { id, newPrice }
+    });
+  };
   const discardSale = () => {
     dispatch({
       type: ActionType.DiscardSale
