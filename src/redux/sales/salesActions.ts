@@ -1,17 +1,21 @@
-import { ActionTypes } from './types';
+import { Dispatch } from 'redux';
+import { ActionTypes } from '../types';
+
+import { SaleData } from './types';
 import createAPIAction from '../createAPIAction';
+import { Product } from '../products/types';
 
 export const completeSale = (
-  products,
-  total,
-  discount,
-  addNotification,
-  discardSale
-) => async dispatch => {
-  const saleData = {
+  products: Product[],
+  total: number,
+  discount: number,
+  addNotification: (m: string, t: string) => void,
+  discardSale: () => void
+) => async (dispatch: Dispatch<any>) => {
+  const saleData: SaleData = {
     products,
-    total: total - parseFloat(discount),
-    discount: parseFloat(discount)
+    total: total - discount,
+    discount: discount
   };
 
   dispatch(
@@ -28,11 +32,11 @@ export const completeSale = (
 };
 
 export const fetchSales = (
-  page = 1,
-  rowsPerPage = 10,
-  startDate,
-  endDate
-) => async dispatch => {
+  page: number = 1,
+  rowsPerPage: number = 10,
+  startDate: Date,
+  endDate: Date
+) => async (dispatch: Dispatch<any>) => {
   let url = `/sales?page=${page}&rowsPerPage=${rowsPerPage}`;
 
   if (startDate) {

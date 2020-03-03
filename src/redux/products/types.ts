@@ -1,18 +1,13 @@
+import { ActionTypes } from '../types';
 import { Category } from '../categories/types';
 import { Brand } from '../brands/types';
-
-export enum ActionTypes {
-  FETCH_PRODUCTS = 'FETCH_PRODUCTS',
-  EDIT_PRODUCT = 'EDIT_PRODUCT',
-  CREATE_PRODUCT = 'CREATE_PRODUCT'
-}
 
 export interface Product {
   id: number;
   barcode: string;
   sku: string;
   name: string;
-  price: number | null;
+  price: number;
   discountPrice: number | null;
   qty: number;
   variation: string | null;
@@ -36,26 +31,14 @@ export interface FetchProductsAction {
 
 export type NotificationType = (m: string, t: string) => void;
 
+export type UpdatedField = { [key: string]: string };
 export interface EditProductAction {
   type: ActionTypes.EDIT_PRODUCT;
   method: string;
   url: string;
-  data: { [key: string]: string | number };
+  data: { [key: string]: string };
   successMessage: NotificationType;
   errorMessage: NotificationType;
-}
-
-interface ProductData {
-  price: number;
-  discountPrice: number;
-  taxRate: number;
-  categoryId: string;
-  brandId: string;
-  barcode: string;
-  name: string;
-  qty: number;
-  sku: string;
-  variation: string;
 }
 
 export interface InputValues {
@@ -63,15 +46,20 @@ export interface InputValues {
   name: string;
   qty: number;
   sku: string;
-  price: string;
+  price: number;
   variation: string;
-  discountPrice: string;
+  discountPrice: number;
 }
 
 export interface AdditionalInputs {
   taxRate: number;
   category: string;
   brand: string;
+}
+export interface ProductData extends InputValues {
+  taxRate: number;
+  categoryId: string;
+  brandId: string;
 }
 
 export interface CreateProductAction {
@@ -82,3 +70,8 @@ export interface CreateProductAction {
   successMessage: NotificationType;
   errorMessage: NotificationType;
 }
+
+export type Action =
+  | FetchProductsAction
+  | EditProductAction
+  | CreateProductAction;

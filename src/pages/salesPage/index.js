@@ -19,6 +19,7 @@ const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
     deleteProduct,
     decreaseProductQuantity,
     increaseProductQuantity,
+    editProductPrice,
     discardSale,
     total,
     tax,
@@ -73,6 +74,7 @@ const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
           deleteProduct={deleteProduct}
           decreaseProductQuantity={decreaseProductQuantity}
           increaseProductQuantity={increaseProductQuantity}
+          editPriceLocalStorageState={editProductPrice}
           total={total}
           tax={tax}
           discount={discount}

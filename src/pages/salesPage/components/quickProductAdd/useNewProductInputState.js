@@ -28,7 +28,14 @@ export default (brands, categories, handleCloseDialog) => {
   };
 
   const onAddProductClick = inputValues => {
-    dispatch(createProduct(inputValues, additionalInputs, addNotification));
+    const values = {
+      ...inputValues,
+      price: parseFloat(inputValues.price),
+      discountPrice: parseFloat(inputValues.discountPrice)
+    };
+
+    console.log(values);
+    dispatch(createProduct(values, additionalInputs, addNotification));
     setAdditionalInputs(initialValues);
     handleCloseDialog();
   };

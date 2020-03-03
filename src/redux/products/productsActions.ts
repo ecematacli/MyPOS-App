@@ -1,8 +1,10 @@
+import { ActionTypes } from '../types';
 import {
-  ActionTypes,
   NotificationType,
   AdditionalInputs,
-  InputValues
+  InputValues,
+  UpdatedField,
+  ProductData
 } from './types';
 import { StoreState } from '../types';
 import createAPIAction from '../createAPIAction';
@@ -34,12 +36,12 @@ export const fetchProducts = (
 
 export const editProduct = (
   fieldId: string,
-  productVal: string | number,
+  productVal: string,
   productId: number,
   label: string,
-  addNotification: (m: string, t: string) => void
+  addNotification: NotificationType
 ) => async (dispatch: Dispatch<any>, getState: () => StoreState) => {
-  let updatedField = {
+  let updatedField: UpdatedField = {
     [fieldId]: productVal
   };
 
@@ -48,6 +50,7 @@ export const editProduct = (
       brandId: findMatchedFields(getState().brands, productVal).id.toString()
     };
   }
+
   if (fieldId === 'category') {
     updatedField = {
       categoryId: findMatchedFields(
@@ -91,10 +94,8 @@ export const createProduct = (
     ).id.toString();
   }
 
-  const productData = {
+  const productData: ProductData = {
     ...inputValues,
-    price: parseFloat(inputValues.price),
-    discountPrice: parseFloat(inputValues.discountPrice),
     taxRate: additionalInputValues.taxRate,
     categoryId,
     brandId

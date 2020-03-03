@@ -1,4 +1,5 @@
-import { ActionTypes, CategoriesAction, Category } from './types';
+import { ActionTypes } from '../types';
+import { CategoriesAction, Category } from './types';
 
 export default (
   state: Category[] = [],

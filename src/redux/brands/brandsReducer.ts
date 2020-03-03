@@ -1,4 +1,5 @@
-import { ActionTypes, BrandsAction, Brand } from './types';
+import { ActionTypes } from '../types';
+import { BrandsAction, Brand } from './types';
 
 export default (state: Brand[] = [], { type, payload }: BrandsAction) => {
   switch (type) {

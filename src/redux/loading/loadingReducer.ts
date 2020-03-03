@@ -1,4 +1,12 @@
-export default (state = {}, action) => {
+import { ActionTypes, StoreState } from '../types';
+import { LoadingState } from './types';
+
+import { EnhancedAction } from '../middlewares';
+
+export default (
+  state: LoadingState = {},
+  action: EnhancedAction
+): LoadingState => {
   const { type } = action;
 
   const parts = type.split('_');
@@ -15,4 +23,5 @@ export default (state = {}, action) => {
   return state;
 };
 
-export const loadingSelector = (action, state) => state.loading[action];
+export const loadingSelector = (actionType: ActionTypes, state: StoreState) =>
+  state.loading[actionType];

@@ -1,6 +1,4 @@
-export enum ActionTypes {
-  FETCH_CATEGORIES = 'FETCH_CATEGORIES'
-}
+import { ActionTypes } from '../types';
 
 export interface Category {
   id: number;

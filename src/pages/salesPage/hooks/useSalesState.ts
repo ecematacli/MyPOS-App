@@ -15,7 +15,7 @@ enum ActionType {
   DecreaseQuantity,
   IncreaseQuantity,
   DiscardSale,
-  EditPrice
+  EditProductPrice
 }
 
 interface SaleReducerAction {
@@ -71,7 +71,7 @@ const productsReducer = (
         return state;
       }
     }
-    case ActionType.EditPrice: {
+    case ActionType.EditProductPrice: {
       return state.map(p =>
         p.id === payload.id ? { ...p, price: payload.newPrice } : p
       );
@@ -124,9 +124,9 @@ export default () => {
     });
   };
 
-  const editPrice = (id: number, newPrice: number) => {
+  const editProductPrice = (id: number, newPrice: number) => {
     dispatch({
-      type: ActionType.EditPrice,
+      type: ActionType.EditProductPrice,
       payload: { id, newPrice }
     });
   };
@@ -138,7 +138,9 @@ export default () => {
 
   // Total section
   const handleDiscountChange = ({ target: { value } }) => {
-    setDiscount(isNaN(value) ? 0 : value);
+    if (products.length) {
+      setDiscount(isNaN(value) ? 0 : value);
+    }
   };
 
   useEffect(() => {
@@ -153,6 +155,7 @@ export default () => {
     addProduct,
     decreaseProductQuantity,
     increaseProductQuantity,
+    editProductPrice,
     discardSale,
     total,
     tax,

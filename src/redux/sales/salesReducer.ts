@@ -1,4 +1,7 @@
-import { ActionTypes, SalesState, Sale } from './types';
+import { ActionTypes } from '../types';
+import { SalesState, Sale } from './types';
+
+import { EnhancedAction } from '../middlewares';
 
 const initialState: SalesState = {
   count: 0,
@@ -6,7 +9,10 @@ const initialState: SalesState = {
   ids: []
 };
 
-export default (state = initialState, { type, payload }): SalesState => {
+export default (
+  state = initialState,
+  { type, payload }: EnhancedAction
+): SalesState => {
   switch (type) {
     case ActionTypes.CREATE_SALE:
       return payload;
@@ -24,7 +30,7 @@ export default (state = initialState, { type, payload }): SalesState => {
         sales: {
           ...objSalesData
         },
-        ids: sales.map(sale => sale.id)
+        ids: sales.map((sale: Sale) => sale.id)
       };
     }
     default:

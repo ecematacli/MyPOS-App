@@ -1,4 +1,7 @@
-import { ActionTypes, ProductsState, Product } from './types';
+import { ActionTypes } from '../types';
+import { ProductsState, Product } from './types';
+
+import { EnhancedAction } from '../middlewares';
 
 const initialState: ProductsState = {
   count: 0,
@@ -6,7 +9,10 @@ const initialState: ProductsState = {
   ids: []
 };
 
-export default (state = initialState, { type, payload }): ProductsState => {
+export default (
+  state = initialState,
+  { type, payload }: EnhancedAction
+): ProductsState => {
   switch (type) {
     case ActionTypes.FETCH_PRODUCTS + '_SUCCESS': {
       const { products, count } = payload;
@@ -23,7 +29,7 @@ export default (state = initialState, { type, payload }): ProductsState => {
         products: {
           ...objProductsData
         },
-        ids: products.map(product => product.id)
+        ids: products.map((product: Product) => product.id)
       };
     }
     case ActionTypes.EDIT_PRODUCT + '_SUCCESS':

@@ -1,9 +1,8 @@
-import api from '../../api';
-import history from '../../history';
 import { Middleware, Dispatch, AnyAction } from 'redux';
 
-export const CALL_API = 'CALL_API';
+import api from '../../api';
 
+export const CALL_API = 'CALL_API';
 export interface CallApiAction {
   type: string;
   method: string;
@@ -13,7 +12,7 @@ export interface CallApiAction {
   errorMessage?: (message: string, messageType: string) => void;
 }
 
-interface Data {
+export interface EnhancedAction {
   type: string;
   payload?: any;
   response?: string;
@@ -31,7 +30,7 @@ export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
   }
   const { url, type, method, data, successMessage, errorMessage } = callAPI;
 
-  const actionWith = (dataObj: Data) => {
+  const actionWith = (dataObj: EnhancedAction) => {
     const finalAction = { ...action, ...dataObj };
     delete finalAction[CALL_API];
     return finalAction;
@@ -53,9 +52,12 @@ export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
     successMessage && successMessage();
   } catch (error) {
     const response = error.response;
+    const { status } = response;
 
-    if ((response && response.status === 400) || response.status === 401) {
-      history.push('/signin');
+    const errStatus = status === 401 || status === 403;
+
+    if (response && errStatus) {
+      location.replace('/signin');
       localStorage.removeItem('token');
     }
 
@@ -64,7 +66,7 @@ export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
     next(
       actionWith({
         type: type + '_FAILURE',
-        response: error.response,
+        response: response,
         requestPayload: data,
         requestUrl: url
       })

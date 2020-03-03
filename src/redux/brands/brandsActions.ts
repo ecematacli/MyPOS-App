@@ -1,4 +1,4 @@
-import { ActionTypes } from './types';
+import { ActionTypes } from '../types';
 import createAPIAction from '../createAPIAction';
 import { ApiAction } from '../types';
 

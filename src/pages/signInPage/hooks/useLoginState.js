@@ -22,7 +22,7 @@ export default () => {
       }
     } catch (e) {
       const { status } = e.response;
-      if (status === 400 || status === 403 || status === 401) {
+      if (status === 400 || status === 401 || status === 403) {
         const errorMessage =
           'There was a problem logging in. Check your email and password!';
         addNotification(errorMessage, 'error');

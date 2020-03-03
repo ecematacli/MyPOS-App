@@ -1,7 +1,4 @@
-export enum ActionTypes {
-  FETCH_BRANDS = 'FETCH_BRANDS'
-}
-
+import { ActionTypes } from '../types';
 export interface Brand {
   id: number;
   name: string | null;

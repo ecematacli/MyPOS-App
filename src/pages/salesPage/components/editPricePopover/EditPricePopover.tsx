@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './styles';
+import clsx from 'clsx';
 import {
   Popover,
   Typography,
@@ -7,9 +7,9 @@ import {
   Button,
   InputAdornment
 } from '@material-ui/core';
-import CustomInput from '../../../../common/components/customInput/CustomInput';
-import clsx from 'clsx';
 
+import styles from './styles';
+import CustomInput from '../../../../common/components/customInput/CustomInput';
 interface Props {
   id: string;
   open: boolean;
@@ -17,7 +17,7 @@ interface Props {
   handleClose: () => void;
   inputValue: string;
   handleInputChange: (i: string) => void;
-  onSubmit: () => void;
+  handleCompleteEditClick: () => void;
 }
 
 const EditPricePopover: React.FC<Props> = ({
@@ -26,10 +26,10 @@ const EditPricePopover: React.FC<Props> = ({
   handleClose,
   inputValue,
   handleInputChange,
-  id,
-  onSubmit
+  handleCompleteEditClick
 }) => {
   const classes = styles();
+
   return (
     <Popover
       open={open}
@@ -51,7 +51,7 @@ const EditPricePopover: React.FC<Props> = ({
         <Divider />
         <div className={classes.addPriceDiv}>
           <div className={clsx(classes.title, classes.smallScreenFont)}>
-            Price {id}
+            Price
           </div>
           <CustomInput
             startAdornment={
@@ -75,7 +75,7 @@ const EditPricePopover: React.FC<Props> = ({
             Cancel
           </Button>
           <Button
-            onClick={onSubmit}
+            onClick={handleCompleteEditClick}
             className={classes.actionBtn}
             color="primary"
           >

@@ -1,5 +1,4 @@
-import React, { useContext, Fragment, useState } from 'react';
-import clsx from 'clsx';
+import React, { Fragment, useState } from 'react';
 import {
   Table,
   TableCell,
@@ -8,8 +7,6 @@ import {
   TableRow,
   Paper,
   Divider,
-  Typography,
-  InputAdornment,
   IconButton
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -18,16 +15,15 @@ import styles from './styles';
 import useAddPriceInputState from './useAddPriceInputState';
 import { TABLE_HEAD } from './tableHead';
 import { currencyFormatter } from '../../../../common/utils';
-import { NotificationsContext } from '../../../../contexts/NotificationsContext';
-import CustomInput from '../../../../common/components/customInput/CustomInput';
-import CustomButton from '../../../../common/components/customButton/CustomButton';
 import EditPricePopover from '../editPricePopover/EditPricePopover';
+import Total from '../total/Total';
 
 const PosTableRight = ({
   products,
   deleteProduct,
   decreaseProductQuantity,
   increaseProductQuantity,
+  editPriceLocalStorageState,
   total,
   tax,
   discount,
@@ -36,19 +32,21 @@ const PosTableRight = ({
   discardSale
 }) => {
   const classes = styles();
-  const { addNotification } = useContext(NotificationsContext);
   const {
     inputValue,
     handleInputChange,
     resetInput,
     editPriceValue
   } = useAddPriceInputState();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [id, setId] = useState(null);
+  const [edittedProduct, setEdittedProduct] = useState(null);
 
-  const handleClick = (event, id) => {
+  const handleEditPriceClick = (event, id, product) => {
     setAnchorEl(event.currentTarget);
     setId(id);
+    setEdittedProduct(product);
   };
 
   const handleClose = () => {
@@ -57,33 +55,13 @@ const PosTableRight = ({
 
   const open = Boolean(anchorEl);
 
-  const onCompleteSaleClick = () => {
-    completeSale(products, total, discount, addNotification, discardSale);
-  };
-
-  const edit = () => {
-    console.log(id);
-  };
-
-  const getPriceValue = price => {
-    if (price === 0) {
-      return (
-        <Fragment>
-          <div className={classes.noPrice}>{currencyFormatter(price)}</div>
-          <EditPricePopover
-            open={open}
-            anchorEl={anchorEl}
-            id={id}
-            inputValue={inputValue}
-            handleInputChange={handleInputChange}
-            handleClose={handleClose}
-            onSubmit={edit}
-          />
-        </Fragment>
-      );
+  const handleCompleteEditClick = () => {
+    if (inputValue && edittedProduct.price !== inputValue) {
+      editPriceValue(id);
+      editPriceLocalStorageState(id, inputValue);
     }
-
-    return currencyFormatter(price);
+    resetInput();
+    handleClose();
   };
 
   const renderTableHead = () =>
@@ -141,18 +119,19 @@ const PosTableRight = ({
             <Fragment>
               <div
                 className={classes[price === 0 && 'noPrice']}
-                onClick={e => price === 0 && handleClick(e, id)}
+                onClick={e =>
+                  price === 0 && handleEditPriceClick(e, id, product)
+                }
               >
                 {currencyFormatter(price)}
               </div>
               <EditPricePopover
                 open={open}
                 anchorEl={anchorEl}
-                id={id}
                 inputValue={inputValue}
                 handleInputChange={handleInputChange}
                 handleClose={handleClose}
-                onSubmit={edit}
+                handleCompleteEditClick={handleCompleteEditClick}
               />
             </Fragment>
           </TableCell>
@@ -168,56 +147,6 @@ const PosTableRight = ({
       );
     });
 
-  const renderTotalSection = () => (
-    <div className={classes.totalContentDiv}>
-      <div className={classes.totalSection}>
-        <Typography>Sub-Total</Typography>
-        <Typography>{currencyFormatter(total - tax)}</Typography>
-      </div>
-      <div className={classes.totalSection}>
-        <Typography>Tax</Typography>
-        <Typography>{currencyFormatter(tax)}</Typography>
-      </div>
-      <div className={classes.totalSection}>
-        <Typography>Discount</Typography>
-        <CustomInput
-          classesProp={{
-            root: classes.discountInput,
-            focused: classes.fieldInput,
-            notchedOutline: classes.notchedOutline
-          }}
-          inputProps={{ style: { textAlign: 'right' } }}
-          value={discount}
-          onChange={handleDiscountChange}
-          startAdornment={
-            <InputAdornment position="start">&#x20BA;</InputAdornment>
-          }
-        />
-      </div>
-      <Divider className={classes.totalDivider} />
-      <div className={clsx(classes.totalSection, classes.totalAmount)}>
-        <Typography>Total</Typography>
-        <Typography>{currencyFormatter(total - discount)}</Typography>
-      </div>
-      <div className={classes.paymentBtnContainer}>
-        <CustomButton
-          disabled={products.length < 1}
-          onClick={onCompleteSaleClick}
-          fullWidth
-        >
-          <div className={classes.paymentBtnTextHolder}>
-            <Typography className={classes.paymentBtnTxt}>
-              Complete Payment
-            </Typography>
-            <Typography className={classes.paymentBtnTxt}>
-              {currencyFormatter(total - discount)}
-            </Typography>
-          </div>
-        </CustomButton>
-      </div>
-    </div>
-  );
-
   return (
     <Paper className={classes.paperRoot}>
       <div className={classes.tableWrapper}>
@@ -231,7 +160,15 @@ const PosTableRight = ({
         </Table>
       </div>
       <Divider className={classes.totalDivider} />
-      {renderTotalSection()}
+      <Total
+        products={products}
+        total={total}
+        tax={tax}
+        discount={discount}
+        handleDiscountChange={handleDiscountChange}
+        completeSale={completeSale}
+        discardSale={discardSale}
+      />
     </Paper>
   );
 };

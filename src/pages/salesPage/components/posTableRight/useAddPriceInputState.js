@@ -14,7 +14,7 @@ export default () => {
     if (isNaN(userInput)) {
       return null;
     } else {
-      setInputValue(userInput);
+      setInputValue(parseFloat(userInput));
     }
   };
 

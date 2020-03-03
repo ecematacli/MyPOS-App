@@ -1,10 +1,5 @@
 import { Product } from '../products/types';
 
-export enum ActionTypes {
-  CREATE_SALE = 'CREATE_SALE',
-  FETCH_SALES = 'FETCH_SALES'
-}
-
 export interface Sale {
   id: number;
   createdAt: string;
@@ -20,4 +15,10 @@ export interface SalesState {
   count: number;
   sales: { [id: string]: Sale };
   ids: number[];
+}
+
+export interface SaleData {
+  products: Product[];
+  total: number;
+  discount: number;
 }
