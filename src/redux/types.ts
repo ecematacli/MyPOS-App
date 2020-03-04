@@ -13,15 +13,17 @@ export enum ActionTypes {
   CREATE_SALE = 'CREATE_SALE',
   FETCH_SALES = 'FETCH_SALES'
 }
+
+export interface CallApi {
+  method: string;
+  url: string;
+  data?: any;
+  successMessage?: () => void;
+  errorMessage?: () => void;
+}
 export interface ApiAction {
-  [key: string]: {
-    type: string;
-    method: string;
-    url: string;
-    data?: any;
-    successMessage?: (m: string, t: string) => void;
-    errorMessage?: (m: string, t: string) => void;
-  };
+  type: string;
+  callApi: CallApi;
 }
 
 export interface StoreState {

@@ -2,16 +2,9 @@ import { Middleware, Dispatch, AnyAction } from 'redux';
 
 import api from '../../api';
 
-export const CALL_API = 'CALL_API';
-export interface CallApiAction {
-  type: string;
-  method: string;
-  url: string;
-  data?: any;
-  successMessage?: (message: string, messageType: string) => void;
-  errorMessage?: (message: string, messageType: string) => void;
-}
+import { ApiAction, CallApi } from '../types';
 
+// export const CALL_API = 'CALL_API';
 export interface EnhancedAction {
   type: string;
   payload?: any;
@@ -20,21 +13,37 @@ export interface EnhancedAction {
   requestUrl?: string;
 }
 
+export interface CallApiAction {
+  callApi: CallApi;
+  type: string;
+  method: string;
+  url: string;
+  data?: any;
+  successMessage?: (message: string, messageType: string) => void;
+  errorMessage?: (message: string, messageType: string) => void;
+}
+
 export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
-  action: CallApiAction | AnyAction
+  action: ApiAction | AnyAction
 ) => {
-  const callAPI = action[CALL_API];
+  console.log('ACTION::', action);
+
+  const callAPI = action.callApi;
 
   if (typeof callAPI === 'undefined') {
     return next(action);
   }
-  const { url, type, method, data, successMessage, errorMessage } = callAPI;
 
   const actionWith = (dataObj: EnhancedAction) => {
-    const finalAction = { ...action, ...dataObj };
-    delete finalAction[CALL_API];
+    // console.log('ACTION BEFORE DELETION', action);
+    const { callApi, type } = action;
+    const finalAction = { type, ...dataObj };
+    console.log('FINAL ACTION:', finalAction);
     return finalAction;
   };
+
+  const { url, method, data, successMessage, errorMessage } = callAPI;
+  const { type } = action;
 
   next(actionWith({ type: type + '_REQUEST' }));
 

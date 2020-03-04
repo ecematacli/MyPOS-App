@@ -10,6 +10,22 @@ import {
   MenuItem
 } from '@material-ui/core';
 
+interface DropdownItems {
+  name: string;
+  id: number;
+}
+
+interface Props {
+  label: string;
+  dropdown: boolean;
+  dropdownItems: DropdownItems[];
+  inputLabel: boolean;
+  classesProp: any;
+  type: string;
+  required: boolean;
+  invalidatedField: boolean;
+}
+
 const styles = makeStyles(({ breakpoints }) => ({
   root: {
     '&:focus': {
@@ -23,7 +39,7 @@ const styles = makeStyles(({ breakpoints }) => ({
   }
 }));
 
-const CustomInput = props => {
+const CustomInput: React.FC<Props> = props => {
   const { palette } = useTheme();
   const classes = styles();
 
@@ -56,7 +72,7 @@ const CustomInput = props => {
               labelId={label}
               input={<OutlinedInput classes={classesProp.innerInput} />}
             >
-              {dropdownItems.map(({ id, name }) => (
+              {dropdownItems.map(({ id, name }: DropdownItems) => (
                 <MenuItem
                   classes={{ root: classes.dropdownItems }}
                   key={id}

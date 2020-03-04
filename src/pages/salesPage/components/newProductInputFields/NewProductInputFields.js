@@ -19,7 +19,7 @@ const NewProductInputFields = props => {
   const requiredFieldClasses = invalidFields
     ? `${classes.notchedOutline}`
     : null;
-
+  console.log(invalidFields);
   return (
     <Fragment>
       <CustomInput

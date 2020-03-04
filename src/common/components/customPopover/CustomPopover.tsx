@@ -2,7 +2,7 @@ import React from 'react';
 import { Popover, PopoverOrigin } from '@material-ui/core';
 
 interface Props {
-  children: JSX.Element;
+  children: React.ReactNode;
   anchorOrigin: PopoverOrigin;
   transformOrigin: PopoverOrigin;
   open: boolean;

@@ -27,11 +27,7 @@ import {
   AuthTokenSettingContext
 } from '../../../contexts/AuthContext';
 
-interface Props {
-  children: JSX.Element;
-}
-
-const MenuWrapper: React.FC<Props> = ({ children }) => {
+const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const classes = styles();
   const authenticated = useContext(AuthContext);
   const { clearAuthToken } = useContext(AuthTokenSettingContext);
@@ -40,7 +36,7 @@ const MenuWrapper: React.FC<Props> = ({ children }) => {
   );
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
 
-  const onSignOutClick = () => {
+  const onSignOutClick = (): void => {
     clearAuthToken();
   };
 

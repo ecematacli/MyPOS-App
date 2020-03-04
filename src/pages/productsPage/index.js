@@ -24,21 +24,17 @@ const ProductsPage = ({
 
   const productsInOrder = () => ids.map(productId => products[productId]);
 
+  console.log(productsInOrder());
+
   useEffect(() => {
     fetchProducts();
     fetchCategories();
     fetchBrands();
   }, []);
 
-  const dataFoundBasedOnFilters = data => data;
-
   return (
     <Fragment>
-      <ProductFilters
-        rowsPerPage={rowsPerPage}
-        page={page}
-        dataFoundBasedOnFilters={dataFoundBasedOnFilters}
-      />
+      <ProductFilters rowsPerPage={rowsPerPage} page={page} />
 
       {isFetching ? (
         <Loading />

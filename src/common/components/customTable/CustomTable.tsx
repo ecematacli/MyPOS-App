@@ -14,10 +14,29 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
+import { Product } from '../../../redux/products/types';
+import { Sale } from '../../../redux/sales/types';
 import { currencyFormatter, totalQty } from '../../utils';
 import useTableState from './useTableState';
 
-const CustomTable = props => {
+interface TableHeads {
+  label: string;
+  numeric?: boolean;
+}
+
+type Rows = Product[] | Sale[];
+
+interface Props {
+  tableHeads: TableHeads[];
+  rows: Rows;
+  tableType: string;
+  count: number;
+  rowsPerPage: number;
+  page: number;
+  component: React.JSXElementConstructor<any>;
+}
+
+const CustomTable: React.FC<Props> = props => {
   const classes = styles(props);
   const {
     tableHeads,
