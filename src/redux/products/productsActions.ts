@@ -4,7 +4,8 @@ import {
   AdditionalInputs,
   InputValues,
   UpdatedField,
-  ProductData
+  ProductData,
+  FetchProductsAction
 } from './types';
 import { StoreState } from '../types';
 import createAPIAction from '../createAPIAction';
@@ -17,7 +18,7 @@ export const fetchProducts = (
   categoryName: string,
   brandName: string,
   searchQuery: string
-) => async (dispatch: Dispatch<any>, getState: () => StoreState) => {
+) => async (dispatch: Dispatch, getState: () => StoreState) => {
   let url = `/products?page=${page}&rowsPerPage=${rowsPerPage}`;
 
   if (categoryName) {
@@ -40,7 +41,7 @@ export const editProduct = (
   productId: number,
   label: string,
   addNotification: NotificationType
-) => async (dispatch: Dispatch<any>, getState: () => StoreState) => {
+) => async (dispatch: Dispatch, getState: () => StoreState) => {
   let updatedField: UpdatedField = {
     [fieldId]: productVal
   };
@@ -77,7 +78,7 @@ export const createProduct = (
   inputValues: InputValues,
   additionalInputValues: AdditionalInputs,
   addNotification: NotificationType
-) => async (dispatch: Dispatch<any>, getState: () => StoreState) => {
+) => async (dispatch: Dispatch, getState: () => StoreState) => {
   let categoryId: string;
   let brandId: string;
 

@@ -1,11 +1,15 @@
 import Button from '@material-ui/core/Button';
 
-import { withTheme, styled } from '@material-ui/core/styles';
+import { withTheme, styled, Theme } from '@material-ui/core/styles';
+import { ButtonProps } from './types';
+
+interface StyleProps extends ButtonProps {
+  theme: Theme;
+}
 
 export const StyledButton = styled(withTheme(Button))(
-  ({ theme: { palette, spacing }, fullWidth }) => {
+  ({ theme: { palette, spacing }, fullWidth }: StyleProps) => {
     return {
-      background: palette.background.paper,
       color: palette.whiteColors[0],
       backgroundColor: palette.primary.main,
       height: fullWidth ? 60 : 40,

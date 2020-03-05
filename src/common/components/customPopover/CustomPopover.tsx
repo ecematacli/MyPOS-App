@@ -7,7 +7,7 @@ interface Props {
   transformOrigin: PopoverOrigin;
   open: boolean;
   onClose: () => void;
-  classes: any;
+  classes: Partial<Record<'paper', string>>;
 }
 
 const CustomPopover: React.FC<Props> = ({

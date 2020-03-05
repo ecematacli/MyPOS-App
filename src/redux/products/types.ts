@@ -2,6 +2,11 @@ import { ActionTypes } from '../types';
 import { Category } from '../categories/types';
 import { Brand } from '../brands/types';
 
+export enum ProductsActionTypes {
+  FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS',
+  EDIT_PRODUCT_SUCCESS = 'EDIT_PRODUCT_SUCCESS',
+  CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS'
+}
 export interface Product {
   id: number;
   barcode: string;
@@ -23,23 +28,27 @@ export interface ProductsState {
   ids: number[];
 }
 
+//Action Creator types
+
 export interface FetchProductsAction {
-  type: ActionTypes.FETCH_PRODUCTS;
-  method: string;
-  url: string;
+  type: ProductsActionTypes.FETCH_PRODUCTS_SUCCESS;
+  payload: {
+    count: number;
+    products: Product[];
+  };
+}
+
+export interface CreateProductAction {
+  type: ProductsActionTypes.CREATE_PRODUCT_SUCCESS;
+  payload: Product;
+}
+export interface EditProductAction {
+  type: ProductsActionTypes.EDIT_PRODUCT_SUCCESS;
+  payload: Product;
 }
 
 export type NotificationType = (m: string, t: string) => void;
-
 export type UpdatedField = { [key: string]: string };
-export interface EditProductAction {
-  type: ActionTypes.EDIT_PRODUCT;
-  method: string;
-  url: string;
-  data: { [key: string]: string };
-  successMessage: NotificationType;
-  errorMessage: NotificationType;
-}
 
 export interface InputValues {
   barcode: string;
@@ -60,15 +69,6 @@ export interface ProductData extends InputValues {
   taxRate: number;
   categoryId: string;
   brandId: string;
-}
-
-export interface CreateProductAction {
-  type: ActionTypes.CREATE_PRODUCT;
-  method: string;
-  url: string;
-  data: ProductData;
-  successMessage: NotificationType;
-  errorMessage: NotificationType;
 }
 
 export type Action =

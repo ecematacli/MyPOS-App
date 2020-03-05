@@ -4,7 +4,6 @@ import api from '../../api';
 
 import { ApiAction, CallApi } from '../types';
 
-// export const CALL_API = 'CALL_API';
 export interface EnhancedAction {
   type: string;
   payload?: any;
@@ -26,8 +25,6 @@ export interface CallApiAction {
 export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
   action: ApiAction | AnyAction
 ) => {
-  console.log('ACTION::', action);
-
   const callAPI = action.callApi;
 
   if (typeof callAPI === 'undefined') {
@@ -35,10 +32,8 @@ export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
   }
 
   const actionWith = (dataObj: EnhancedAction) => {
-    // console.log('ACTION BEFORE DELETION', action);
     const { callApi, type } = action;
     const finalAction = { type, ...dataObj };
-    console.log('FINAL ACTION:', finalAction);
     return finalAction;
   };
 

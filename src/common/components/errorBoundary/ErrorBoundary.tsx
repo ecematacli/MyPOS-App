@@ -15,8 +15,16 @@ import {
 } from './ErrorBoundaryStyles';
 import history from '../../../history';
 
-export default class ErrorBoundary extends Component {
-  constructor(props) {
+interface Props {
+  children: React.ReactNode;
+}
+interface State {
+  hasError: boolean;
+  error: any;
+  errorInfo: string;
+}
+export default class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = { hasError: false, error: '', errorInfo: '' };
     // To render the child tree that are error-free
@@ -32,7 +40,7 @@ export default class ErrorBoundary extends Component {
     this.showMore = this.showMore.bind(this);
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: any, errorInfo: { componentStack: string }) {
     const { componentStack } = errorInfo;
     this.setState({
       hasError: true,

@@ -1,16 +1,9 @@
 import React from 'react';
 
 import { StyledButton } from './CustomButtonStyles';
+import { ButtonProps } from './types';
 
-interface Props {
-  children: React.ReactNode;
-  disabled?: boolean;
-  type?: 'submit' | 'button';
-  fullWidth?: boolean;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
-
-const CustomButton: React.FC<Props> = ({ children, ...props }) => {
+const CustomButton: React.FC<ButtonProps> = ({ children, ...props }) => {
   return (
     <StyledButton classes={{ root: 'disabled' }} {...props}>
       {children}

@@ -1,9 +1,8 @@
+import { Dispatch } from 'redux';
+
 import { ActionTypes } from '../types';
 import createAPIAction from '../createAPIAction';
 
-import { ApiAction } from '../types';
-
-export const fetchBrands = () => async (dispatch: (A: ApiAction) => void) => {
-  console.log(createAPIAction(ActionTypes.FETCH_BRANDS, 'get', '/brands'));
+export const fetchBrands = () => async (dispatch: Dispatch) => {
   dispatch(createAPIAction(ActionTypes.FETCH_BRANDS, 'get', '/brands'));
 };

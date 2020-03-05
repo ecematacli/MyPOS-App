@@ -1,10 +1,25 @@
 import React from 'react';
-import { Snackbar, Slide } from '@material-ui/core';
+import { Snackbar, Slide, SlideProps } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
+import { Color } from '@material-ui/lab/Alert';
 
-const TransitionLeft = props => <Slide {...props} direction="left" />;
+interface SnackbarProps {
+  open: boolean;
+  handleClose: () => void;
+  snackbarContent: string;
+  severity: Color;
+}
 
-const CustomSnackbar = ({ open, handleClose, snackbarContent, severity }) => (
+const TransitionLeft = (props: SlideProps) => (
+  <Slide {...props} direction="left" />
+);
+
+const CustomSnackbar: React.FC<SnackbarProps> = ({
+  open,
+  handleClose,
+  snackbarContent,
+  severity
+}) => (
   <Snackbar
     open={open}
     autoHideDuration={3000}

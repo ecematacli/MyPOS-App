@@ -14,27 +14,9 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
-import { Product } from '../../../redux/products/types';
-import { Sale } from '../../../redux/sales/types';
+import { Props } from './types';
 import { currencyFormatter, totalQty } from '../../utils';
 import useTableState from './useTableState';
-
-interface TableHeads {
-  label: string;
-  numeric?: boolean;
-}
-
-type Rows = Product[] | Sale[];
-
-interface Props {
-  tableHeads: TableHeads[];
-  rows: Rows;
-  tableType: string;
-  count: number;
-  rowsPerPage: number;
-  page: number;
-  component: React.JSXElementConstructor<any>;
-}
 
 const CustomTable: React.FC<Props> = props => {
   const classes = styles(props);
@@ -55,7 +37,7 @@ const CustomTable: React.FC<Props> = props => {
     expandedRows
   } = useTableState(props);
 
-  const renderExpandIconContainer = id => (
+  const renderExpandIconContainer = (id: number) => (
     <div className={classes.expandIconContainer}>
       {expandedRows[id] ? (
         <ExpandLess className={classes.expandIcon} />
@@ -67,7 +49,7 @@ const CustomTable: React.FC<Props> = props => {
 
   const renderTableHead = () => {
     return tableHeads.map(({ label, numeric }, i) => (
-      <TableCell align={numeric && 'right'} key={i}>
+      <TableCell align={numeric ? 'right' : 'left'} key={i}>
         <div>{label}</div>
       </TableCell>
     ));
@@ -115,12 +97,7 @@ const CustomTable: React.FC<Props> = props => {
             {expandedRows[id] ? (
               <TableRow key={id}>
                 <TableCell padding="none" colSpan={12}>
-                  <Collapse
-                    hidden={!expandedRows[id]}
-                    in={expandedRows[id]}
-                    timeout="auto"
-                    unmountOnExit
-                  >
+                  <Collapse in={expandedRows[id]} timeout="auto" unmountOnExit>
                     <Component sale={sale} rowIndex={i} />
                   </Collapse>
                 </TableCell>
@@ -173,12 +150,7 @@ const CustomTable: React.FC<Props> = props => {
             {expandedRows[id] ? (
               <TableRow key={id}>
                 <TableCell padding={'none'} colSpan={12}>
-                  <Collapse
-                    hidden={!expandedRows[id]}
-                    in={expandedRows[id]}
-                    timeout="auto"
-                    unmountOnExit
-                  >
+                  <Collapse in={expandedRows[id]} timeout="auto" unmountOnExit>
                     <Component product={product} rowIndex={i} />
                   </Collapse>
                 </TableCell>

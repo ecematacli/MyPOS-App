@@ -11,7 +11,7 @@ export const completeSale = (
   discount: number,
   addNotification: (m: string, t: string) => void,
   discardSale: () => void
-) => async (dispatch: Dispatch<any>) => {
+) => async (dispatch: Dispatch) => {
   const saleData: SaleData = {
     products,
     total: total - discount,
@@ -34,9 +34,9 @@ export const completeSale = (
 export const fetchSales = (
   page: number = 1,
   rowsPerPage: number = 10,
-  startDate: Date,
-  endDate: Date
-) => async (dispatch: Dispatch<any>) => {
+  startDate?: Date,
+  endDate?: Date
+) => async (dispatch: Dispatch) => {
   let url = `/sales?page=${page}&rowsPerPage=${rowsPerPage}`;
 
   if (startDate) {

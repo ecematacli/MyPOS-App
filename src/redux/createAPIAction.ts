@@ -1,8 +1,6 @@
 import { ApiAction } from './types';
 
-export const CALL_API = 'CALL_API';
-
-const Api = (
+export default (
   type: string,
   method: string,
   url: string,
@@ -19,5 +17,3 @@ const Api = (
     errorMessage
   }
 });
-
-export default Api;

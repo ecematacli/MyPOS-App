@@ -1,20 +1,18 @@
 import { ActionTypes } from '../types';
-import { ProductsState, Product } from './types';
+import { ProductsState, Product, Action } from './types';
 
-import { EnhancedAction } from '../middlewares';
-
-const initialState: ProductsState = {
+const initialState = {
   count: 0,
   products: {},
   ids: []
 };
 
 export default (
-  state = initialState,
-  { type, payload }: EnhancedAction
+  state: ProductsState = initialState,
+  { type, payload }: Action
 ): ProductsState => {
   switch (type) {
-    case ActionTypes.FETCH_PRODUCTS + '_SUCCESS': {
+    case ActionTypes.FETCH_PRODUCTS + '_SUCCESS':
       const { products, count } = payload;
       const objProductsData = products.reduce(
         (obj: { [id: string]: Product }, currProduct: Product) => ({
@@ -23,7 +21,6 @@ export default (
         }),
         {}
       );
-
       return {
         count,
         products: {
@@ -31,7 +28,6 @@ export default (
         },
         ids: products.map((product: Product) => product.id)
       };
-    }
     case ActionTypes.EDIT_PRODUCT + '_SUCCESS':
       return {
         ...state,

@@ -6,7 +6,19 @@ import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 
 import styles from './styles';
 
-const DatePickerFilter = ({
+type DateChangeHandler = (newDate: Date) => void;
+
+interface Props {
+  handleClose: () => void;
+  startDate: Date;
+  handleStartDateChange: DateChangeHandler;
+  endDate: string;
+  handleEndDateChange: DateChangeHandler;
+  onDateSelection: () => void;
+  onDateFilterClearing: () => void;
+}
+
+const DatePickerFilter: React.FC<Props> = ({
   startDate,
   handleStartDateChange,
   endDate,

@@ -40,8 +40,8 @@ const styles = makeStyles(({ breakpoints }) => ({
 }));
 
 const CustomInput: React.FC<Props> = props => {
-  const { palette } = useTheme();
   const classes = styles();
+  const { palette } = useTheme();
 
   const {
     label,

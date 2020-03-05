@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 
-import { NotificationsContext } from '../../../contexts/NotificationsContext';
+import {
+  NotificationsContext,
+  Notification
+} from '../../../contexts/NotificationsContext';
 import CustomSnackbar from './CustomSnackbar';
 
 const Notifications = () => {
@@ -8,13 +11,13 @@ const Notifications = () => {
     NotificationsContext
   );
 
-  return notifications.map(n => (
+  return notifications.map((n: Notification) => (
     <CustomSnackbar
       key={n.id}
       open
       handleClose={() => removeNotification(n.id)}
       snackbarContent={n.message}
-      severity={n.messageType}
+      severity={n.severity}
     />
   ));
 };

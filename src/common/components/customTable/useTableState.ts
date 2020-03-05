@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
+
+import { StateProps } from './types';
 
 export default ({
   tableType,
@@ -7,7 +9,7 @@ export default ({
   setRowsPerPage,
   fetchProducts,
   setPage
-}) => {
+}: StateProps) => {
   const [expandedRows, setExpandedRows] = useState<{
     [id: number]: boolean | undefined;
   }>({});
@@ -17,7 +19,7 @@ export default ({
   };
 
   const handleChangePage = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    event: MouseEvent<HTMLButtonElement, MouseEvent<Element, MouseEvent>>,
     newPage: number
   ) => {
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
@@ -31,6 +33,7 @@ export default ({
   const handleChangeRowsPerPage = ({
     target: { value }
   }: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('VAGUE VALUE', value);
     setRowsPerPage(value);
     tableType === 'sales' ? fetchSales(1, value) : fetchProducts(1, value);
   };
