@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { ActionTypes } from '../types';
+import { ActionTypes, ApiAction } from '../types';
 
 import { SaleData } from './types';
 import createAPIAction from '../createAPIAction';
@@ -18,7 +18,7 @@ export const completeSale = (
     discount: discount
   };
 
-  dispatch(
+  dispatch<ApiAction>(
     createAPIAction(
       ActionTypes.CREATE_SALE,
       'post',
@@ -46,5 +46,5 @@ export const fetchSales = (
     url += `&endDate=${endDate.toISOString()}`;
   }
 
-  dispatch(createAPIAction(ActionTypes.FETCH_SALES, 'get', url));
+  dispatch<ApiAction>(createAPIAction(ActionTypes.FETCH_SALES, 'get', url));
 };

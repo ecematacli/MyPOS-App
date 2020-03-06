@@ -1,20 +1,24 @@
-import { ActionTypes } from '../types';
-import { SalesState, Sale } from './types';
+import {
+  SalesState,
+  Sale,
+  FetchSalesAction,
+  SuccessActionTypes
+} from './types';
 
-const initialState: SalesState = {
+const initialState = {
   count: 0,
   sales: {},
   ids: []
 };
 
-export default (state = initialState, { type, payload }): SalesState => {
-  switch (type) {
-    case ActionTypes.CREATE_SALE + '_SUCCESS':
-      console.log('create sale action payload', payload);
-      return payload;
-    case ActionTypes.FETCH_SALES + '_SUCCESS': {
-      console.log('fetch sales payload', payload);
-      const { sales, count } = payload;
+export default (
+  state: SalesState = initialState,
+  action: FetchSalesAction
+): SalesState => {
+  switch (action.type) {
+    case SuccessActionTypes.FETCH_SALES_SUCCESS: {
+      console.log(action.payload);
+      const { sales, count } = action.payload;
       const objSalesData = sales.reduce(
         (obj: { [id: string]: Sale }, currSale: Sale) => ({
           ...obj,

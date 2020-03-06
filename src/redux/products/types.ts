@@ -1,8 +1,7 @@
-import { ActionTypes } from '../types';
 import { Category } from '../categories/types';
 import { Brand } from '../brands/types';
 
-export enum ProductsActionTypes {
+export enum SuccessActionTypes {
   FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS',
   EDIT_PRODUCT_SUCCESS = 'EDIT_PRODUCT_SUCCESS',
   CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS'
@@ -31,7 +30,7 @@ export interface ProductsState {
 //Action Creator types
 
 export interface FetchProductsAction {
-  type: ProductsActionTypes.FETCH_PRODUCTS_SUCCESS;
+  type: SuccessActionTypes.FETCH_PRODUCTS_SUCCESS;
   payload: {
     count: number;
     products: Product[];
@@ -39,15 +38,15 @@ export interface FetchProductsAction {
 }
 
 export interface CreateProductAction {
-  type: ProductsActionTypes.CREATE_PRODUCT_SUCCESS;
+  type: SuccessActionTypes.CREATE_PRODUCT_SUCCESS;
   payload: Product;
 }
 export interface EditProductAction {
-  type: ProductsActionTypes.EDIT_PRODUCT_SUCCESS;
+  type: SuccessActionTypes.EDIT_PRODUCT_SUCCESS;
   payload: Product;
 }
 
-export type NotificationType = (m: string, t: string) => void;
+export type NotificationType = ;
 export type UpdatedField = { [key: string]: string };
 
 export interface InputValues {

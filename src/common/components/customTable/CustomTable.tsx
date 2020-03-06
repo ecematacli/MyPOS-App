@@ -14,11 +14,11 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
-import { Props } from './types';
+import { TableProps } from './types';
 import { currencyFormatter, totalQty } from '../../utils';
 import useTableState from './useTableState';
 
-const CustomTable: React.FC<Props> = props => {
+const CustomTable: React.FC<TableProps> = props => {
   const classes = styles(props);
   const {
     tableHeads,
@@ -66,11 +66,11 @@ const CustomTable: React.FC<Props> = props => {
   );
 
   const renderTableBody = () => {
-    const rowClassName = index =>
+    const rowClassName = (index: number) =>
       clsx(classes.tableBodyRow, classes[index % 2 ? 'whiteRow' : 'greenRow']);
 
     if (tableType === 'sales') {
-      return rows.map((sale, i) => {
+      return rows.map((sale: any, i: number) => {
         const { id, createdAt, discount, total, products } = sale;
         return (
           <Fragment key={id}>
@@ -109,7 +109,7 @@ const CustomTable: React.FC<Props> = props => {
     }
 
     if (tableType === 'products') {
-      return rows.map((product, i) => {
+      return rows.map((product: any, i: number) => {
         const {
           id,
           sku,

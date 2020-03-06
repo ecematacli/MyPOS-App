@@ -5,10 +5,7 @@ interface TableHeads {
   label: string;
   numeric?: boolean;
 }
-
-type Rows = Product[] | Sale[];
-
-export interface StateProps {
+export interface UseTableStateProps {
   tableType: string;
   fetchSales?: (page: number, rowsPerPage: number) => void;
   rowsPerPage: number;
@@ -17,11 +14,13 @@ export interface StateProps {
   fetchProducts?: (page: number, rowsPerPage: number) => void;
 }
 
-export interface Props extends StateProps {
+export interface TableProps extends UseTableStateProps {
   tableHeads: TableHeads[];
-  rows: Rows;
+  rows: any;
   tableType: string;
   count: number;
   page: number;
   component: React.JSXElementConstructor<any>;
 }
+
+export interface ProductsRow {}

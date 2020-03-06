@@ -1,9 +1,11 @@
-import { ActionTypes } from '../types';
 import { Product } from '../products/types';
 
+export enum SuccessActionTypes {
+  FETCH_SALES_SUCCESS = 'FETCH_SALES_SUCCESS'
+}
 export interface Sale {
   id: number;
-  createdAt: string;
+  createdAt: Date;
   outlet: string;
   status: string;
   orderNo: null;
@@ -24,17 +26,11 @@ export interface SaleData {
   discount: number;
 }
 
-// Action creators
-interface FetchPayload {
-  count: number;
-  sales: Sale[];
-}
+// Action creator
 export interface FetchSalesAction {
-  type: ActionTypes.CREATE_SALE;
-  payload: FetchPayload;
-}
-
-export interface CreateSaleAction {
-  type: ActionTypes.CREATE_SALE;
-  payload: FetchPayload;
+  type: SuccessActionTypes.FETCH_SALES_SUCCESS;
+  payload: {
+    count: number;
+    sales: Sale[];
+  };
 }

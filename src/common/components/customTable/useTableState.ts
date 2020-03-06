@@ -1,6 +1,6 @@
-import { useState, MouseEvent } from 'react';
+import { useState } from 'react';
 
-import { StateProps } from './types';
+import { UseTableStateProps } from './types';
 
 export default ({
   tableType,
@@ -9,7 +9,7 @@ export default ({
   setRowsPerPage,
   fetchProducts,
   setPage
-}: StateProps) => {
+}: UseTableStateProps) => {
   const [expandedRows, setExpandedRows] = useState<{
     [id: number]: boolean | undefined;
   }>({});
@@ -18,10 +18,7 @@ export default ({
     setExpandedRows({ ...expandedRows, [id]: !expandedRows[id] });
   };
 
-  const handleChangePage = (
-    event: MouseEvent<HTMLButtonElement, MouseEvent<Element, MouseEvent>>,
-    newPage: number
-  ) => {
+  const handleChangePage = (event, newPage) => {
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
     if (newPage + 1 < 0) return;
     setPage(newPage + 1);

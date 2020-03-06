@@ -3,10 +3,10 @@ import React, { useState, createContext } from 'react';
 import history from '../history';
 
 interface AuthContext {
-  authToken?: String;
+  authToken?: string;
 }
 
-type SaveAuthToken = (data: string) => void;
+type SaveAuthToken = (data?: string) => void;
 type ClearAuthToken = () => void;
 
 interface AuthTokenSettingContext {
@@ -21,7 +21,7 @@ export const AuthTokenSettingContext = createContext<AuthTokenSettingContext>(
 
 const initialVal = JSON.parse(localStorage.getItem('token'));
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider: React.FC = ({ children }) => {
   const [authToken, setAuthToken] = useState(initialVal);
 
   const saveAuthToken: SaveAuthToken = (data = null) => {

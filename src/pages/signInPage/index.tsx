@@ -9,17 +9,20 @@ import image from '../../assets/img/accountant.jpg';
 import useLoginState from './hooks/useLoginState';
 import { AuthContext } from '../../contexts/AuthContext';
 import CustomButton from '../../common/components/customButton/CustomButton';
-import SigninForm from './components/SigninForm';
+import SigninInputs from './components/SigninInputs';
 
-const SignInPage = ({ location }) => {
+export interface FormValues {
+  email: string;
+  password: string;
+}
+
+const SignInPage: React.FC = () => {
   const classes = styles();
   const authenticated = useContext(AuthContext);
   const { postSignInForm, SIGNIN_FIELDS } = useLoginState();
 
-  const referer = location.referer || '/';
-
   if (authenticated) {
-    return <Redirect to={referer} />;
+    return <Redirect to="/" />;
   }
 
   const SigninSchema = Yup.object().shape({
@@ -41,7 +44,7 @@ const SignInPage = ({ location }) => {
               <div className={classes.signInTextDiv}>
                 <Typography className={classes.signInText}>Sign In</Typography>
               </div>
-              <Formik
+              <Formik<FormValues>
                 initialValues={{ email: '', password: '' }}
                 onSubmit={values => {
                   postSignInForm(values);
@@ -59,7 +62,7 @@ const SignInPage = ({ location }) => {
                       name={name}
                       fieldId={name}
                       type={name}
-                      component={SigninForm}
+                      component={SigninInputs}
                     />
                   ))}
                   <CustomButton type="submit">

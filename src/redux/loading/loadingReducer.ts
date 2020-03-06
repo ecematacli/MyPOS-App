@@ -1,12 +1,7 @@
 import { ActionTypes, StoreState } from '../types';
 import { LoadingState } from './types';
 
-import { EnhancedAction } from '../middlewares';
-
-export default (
-  state: LoadingState = {},
-  action: EnhancedAction
-): LoadingState => {
+export default (state: LoadingState = {}, action: any): LoadingState => {
   const { type } = action;
 
   const parts = type.split('_');

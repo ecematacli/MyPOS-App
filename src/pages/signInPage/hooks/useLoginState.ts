@@ -1,20 +1,28 @@
 import { useContext } from 'react';
 
 import api from '../../../api';
+import { FormValues } from '../index';
 import { AuthTokenSettingContext } from '../../../contexts/AuthContext';
 import { NotificationsContext } from '../../../contexts/NotificationsContext';
 import useAsyncError from '../../../common/hooks/useAsyncError';
+
+interface Field {
+  label: string;
+  name: string;
+}
+
+export type SigninFields = Field[];
 
 export default () => {
   const throwError = useAsyncError();
   const { saveAuthToken } = useContext(AuthTokenSettingContext);
   const { addNotification } = useContext(NotificationsContext);
 
-  const postSignInForm = async userCredentials => {
+  const postSignInForm = async (userCredentials: FormValues) => {
     let active = true;
 
     try {
-      const response = await api.post('/login', userCredentials);
+      const response = await api.post<string>('/login', userCredentials);
       if (response) {
         active && saveAuthToken(response.data);
       } else {
@@ -35,7 +43,7 @@ export default () => {
     };
   };
 
-  const SIGNIN_FIELDS = [
+  const SIGNIN_FIELDS: SigninFields = [
     {
       label: 'Email Address*',
       name: 'email'

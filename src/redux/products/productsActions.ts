@@ -1,11 +1,9 @@
-import { ActionTypes } from '../types';
+import { ActionTypes, ApiAction } from '../types';
 import {
-  NotificationType,
   AdditionalInputs,
   InputValues,
   UpdatedField,
-  ProductData,
-  FetchProductsAction
+  ProductData
 } from './types';
 import { StoreState } from '../types';
 import createAPIAction from '../createAPIAction';
@@ -32,7 +30,7 @@ export const fetchProducts = (
   if (searchQuery) {
     url += `&query=${searchQuery}`;
   }
-  dispatch(createAPIAction(ActionTypes.FETCH_PRODUCTS, 'get', url));
+  dispatch<ApiAction>(createAPIAction(ActionTypes.FETCH_PRODUCTS, 'get', url));
 };
 
 export const editProduct = (
@@ -40,7 +38,7 @@ export const editProduct = (
   productVal: string,
   productId: number,
   label: string,
-  addNotification: NotificationType
+  addNotification: (m: string, t: string) => void
 ) => async (dispatch: Dispatch, getState: () => StoreState) => {
   let updatedField: UpdatedField = {
     [fieldId]: productVal
@@ -61,7 +59,7 @@ export const editProduct = (
     };
   }
 
-  dispatch(
+  dispatch<ApiAction>(
     createAPIAction(
       ActionTypes.EDIT_PRODUCT,
       'patch',
@@ -77,7 +75,7 @@ export const editProduct = (
 export const createProduct = (
   inputValues: InputValues,
   additionalInputValues: AdditionalInputs,
-  addNotification: NotificationType
+  addNotification: (m: string, t: string) => void
 ) => async (dispatch: Dispatch, getState: () => StoreState) => {
   let categoryId: string;
   let brandId: string;
@@ -102,7 +100,7 @@ export const createProduct = (
     brandId
   };
 
-  dispatch(
+  dispatch<ApiAction>(
     createAPIAction(
       ActionTypes.CREATE_PRODUCT,
       'post',

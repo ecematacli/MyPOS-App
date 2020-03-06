@@ -1,16 +1,26 @@
 import React, { Fragment } from 'react';
+import { FieldProps } from 'formik';
 import { TextField } from '@material-ui/core';
 
 import styles from './styles';
+import { FormValues } from '../index';
 
-export const SigninInputs = ({
+interface InputProps {
+  fieldId: string;
+  label: string;
+  type: string;
+}
+
+export const SigninInputs: React.FC<FieldProps<FormValues> & InputProps> = ({
   field,
   fieldId,
   label,
-  form: { touched, errors },
+  form,
   ...otherProps
 }) => {
   const classes = styles();
+
+  const { touched, errors } = form;
 
   const inputClasses = {
     classes: {

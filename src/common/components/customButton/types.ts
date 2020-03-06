@@ -3,6 +3,6 @@ export interface ButtonProps {
   disabled?: boolean;
   type?: 'submit' | 'button';
   fullWidth?: boolean;
-  classes: Partial<Record<'root', string>>;
+  classes?: Partial<Record<'root', string>>;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }

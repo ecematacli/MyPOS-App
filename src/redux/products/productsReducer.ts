@@ -1,5 +1,4 @@
-import { ActionTypes } from '../types';
-import { ProductsState, Product, Action } from './types';
+import { ProductsState, Product, Action, SuccessActionTypes } from './types';
 
 const initialState = {
   count: 0,
@@ -9,11 +8,11 @@ const initialState = {
 
 export default (
   state: ProductsState = initialState,
-  { type, payload }: Action
+  action: Action
 ): ProductsState => {
-  switch (type) {
-    case ActionTypes.FETCH_PRODUCTS + '_SUCCESS':
-      const { products, count } = payload;
+  switch (action.type) {
+    case SuccessActionTypes.FETCH_PRODUCTS_SUCCESS:
+      const { products, count } = action.payload;
       const objProductsData = products.reduce(
         (obj: { [id: string]: Product }, currProduct: Product) => ({
           ...obj,
@@ -28,20 +27,20 @@ export default (
         },
         ids: products.map((product: Product) => product.id)
       };
-    case ActionTypes.EDIT_PRODUCT + '_SUCCESS':
+    case SuccessActionTypes.EDIT_PRODUCT_SUCCESS:
       return {
         ...state,
         products: {
           ...state.products,
-          [payload.id]: payload
+          [action.payload.id]: action.payload
         }
       };
-    case ActionTypes.CREATE_PRODUCT + '_SUCCESS':
+    case SuccessActionTypes.CREATE_PRODUCT_SUCCESS:
       return {
         ...state,
         products: {
           ...state.products,
-          [payload.id]: payload
+          [action.payload.id]: action.payload
         }
       };
     default:

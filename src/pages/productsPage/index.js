@@ -24,8 +24,6 @@ const ProductsPage = ({
 
   const productsInOrder = () => ids.map(productId => products[productId]);
 
-  console.log(productsInOrder());
-
   useEffect(() => {
     fetchProducts();
     fetchCategories();

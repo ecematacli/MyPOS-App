@@ -13,7 +13,6 @@ const SalesHistoryPage = ({ fetchSales, sales, count, ids, isFetching }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
 
-  console.log('rows per page', rowsPerPage);
   useEffect(() => {
     fetchSales();
   }, []);
