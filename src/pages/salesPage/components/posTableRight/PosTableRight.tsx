@@ -13,12 +13,33 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
 import useAddPriceInputState from './useAddPriceInputState';
+import { Product } from '../../../../redux/products/types';
 import { TABLE_HEAD } from './tableHead';
 import { currencyFormatter } from '../../../../common/utils';
 import EditPricePopover from '../editPricePopover/EditPricePopover';
 import Total from '../total/Total';
 
-const PosTableRight = ({
+interface PosTableProps {
+  products: Product[];
+  deleteProduct: (id: number) => void;
+  decreaseProductQuantity: (product: Product) => void;
+  increaseProductQuantity: (product: Product) => void;
+  editPriceLocalStorageState: (id: number, newPrice: number) => void;
+  total: number;
+  tax: number;
+  discount: number | string;
+  handleDiscountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  completeSale: (
+    products: Product[],
+    total: number,
+    discount: number,
+    addNotification: (m: string, t: string) => void,
+    discardSale: () => void
+  ) => void;
+  discardSale: () => void;
+}
+
+const PosTableRight: React.FC<PosTableProps> = ({
   products,
   deleteProduct,
   decreaseProductQuantity,
@@ -43,7 +64,11 @@ const PosTableRight = ({
   const [id, setId] = useState(null);
   const [edittedProduct, setEdittedProduct] = useState(null);
 
-  const handleEditPriceClick = (event, id, product) => {
+  const handleEditPriceClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    id: number,
+    product: Product
+  ) => {
     setAnchorEl(event.currentTarget);
     setId(id);
     setEdittedProduct(product);
@@ -76,7 +101,7 @@ const PosTableRight = ({
     ));
 
   const renderTableBody = () =>
-    products.map(product => {
+    products.map((product: Product) => {
       const { id, name, qty, price, discountPrice } = product;
       return (
         <TableRow
@@ -86,12 +111,7 @@ const PosTableRight = ({
           tabIndex={-1}
           key={id}
         >
-          <TableCell
-            className={classes.firstCell}
-            component="th"
-            id={id}
-            scope="row"
-          >
+          <TableCell className={classes.firstCell} component="th" scope="row">
             {name}
           </TableCell>
           <TableCell align="right" padding="none">
@@ -118,12 +138,10 @@ const PosTableRight = ({
           <TableCell align="right">
             <Fragment>
               <div
-                className={classes[price === 0 && 'noPrice']}
-                onClick={e =>
-                  price === 0 && handleEditPriceClick(e, id, product)
-                }
+                className={classes.noPrice}
+                onClick={e => handleEditPriceClick(e, id, product)}
               >
-                {currencyFormatter(price)}
+                {currencyFormatter(price as any)}
               </div>
               <EditPricePopover
                 open={open}
@@ -136,7 +154,7 @@ const PosTableRight = ({
             </Fragment>
           </TableCell>
           <TableCell align="right">
-            {discountPrice ? currencyFormatter(discountPrice) : '-'}
+            {discountPrice ? currencyFormatter(discountPrice as any) : '-'}
           </TableCell>
           <TableCell colSpan={3} align="right">
             <IconButton onClick={() => deleteProduct(product.id)}>

@@ -7,23 +7,21 @@ import { NotificationsContext } from '../../../../contexts/NotificationsContext'
 export default () => {
   const dispatch = useDispatch();
   const { addNotification } = useContext(NotificationsContext);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(0);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const userInput = e.target.value;
-    if (isNaN(userInput)) {
-      return null;
-    } else {
-      setInputValue(parseFloat(userInput));
-    }
+    setInputValue(parseInt(userInput));
   };
 
-  const resetInput = () => {
-    setInputValue('');
+  const resetInput = (): void => {
+    setInputValue(0);
   };
 
-  const editPriceValue = id => {
-    dispatch(editProduct('price', inputValue, id, 'Price', addNotification));
+  const editPriceValue = (id: number): void => {
+    dispatch(
+      editProduct('price', inputValue.toString(), id, 'Price', addNotification)
+    );
   };
 
   return {

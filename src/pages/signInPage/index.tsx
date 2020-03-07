@@ -9,7 +9,7 @@ import image from '../../assets/img/accountant.jpg';
 import useLoginState from './hooks/useLoginState';
 import { AuthContext } from '../../contexts/AuthContext';
 import CustomButton from '../../common/components/customButton/CustomButton';
-import SigninInputs from './components/SigninInputs';
+import SigninInput from './components/SigninInput';
 
 export interface FormValues {
   email: string;
@@ -62,7 +62,7 @@ const SignInPage: React.FC = () => {
                       name={name}
                       fieldId={name}
                       type={name}
-                      component={SigninInputs}
+                      component={SigninInput}
                     />
                   ))}
                   <CustomButton type="submit">

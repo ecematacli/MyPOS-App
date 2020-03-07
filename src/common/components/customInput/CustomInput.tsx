@@ -16,14 +16,18 @@ interface DropdownItems {
 }
 
 interface Props {
-  label: string;
-  dropdown: boolean;
-  dropdownItems: DropdownItems[];
-  inputLabel: boolean;
+  label?: string;
+  dropdown?: boolean;
+  dropdownItems?: DropdownItems[];
+  inputLabel?: boolean;
   classesProp: any;
-  type: string;
-  required: boolean;
-  invalidatedField: boolean;
+  type?: string;
+  required?: boolean;
+  startAdornment?: JSX.Element;
+  invalidatedField?: boolean;
+  color?: string;
+  value: any;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const styles = makeStyles(({ breakpoints }) => ({

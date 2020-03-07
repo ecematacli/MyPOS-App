@@ -11,7 +11,7 @@ interface InputProps {
   type: string;
 }
 
-export const SigninInputs: React.FC<FieldProps<FormValues> & InputProps> = ({
+export const SigninInput: React.FC<FieldProps<FormValues> & InputProps> = ({
   field,
   fieldId,
   label,
@@ -48,4 +48,4 @@ export const SigninInputs: React.FC<FieldProps<FormValues> & InputProps> = ({
   );
 };
 
-export default SigninInputs;
+export default SigninInput;

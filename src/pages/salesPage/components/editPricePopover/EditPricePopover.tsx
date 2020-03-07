@@ -11,12 +11,11 @@ import {
 import styles from './styles';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 interface Props {
-  id: string;
   open: boolean;
-  anchorEl: any;
+  anchorEl: null | Element;
   handleClose: () => void;
-  inputValue: string;
-  handleInputChange: (i: string) => void;
+  inputValue: number;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCompleteEditClick: () => void;
 }
 

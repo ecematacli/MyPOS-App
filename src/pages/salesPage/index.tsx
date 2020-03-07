@@ -5,13 +5,30 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import styles from './styles';
 import { completeSale } from '../../redux/sales/salesActions';
+import { Product } from '../../redux/products/types';
 import { fetchCategories } from '../../redux/categories/categoriesActions';
 import { fetchBrands } from '../../redux/brands/brandsActions';
 import useSalesState from './hooks/useSalesState';
 import ProductSearchBar from './components/productSearchBar/ProductSearchBar';
 import PosTableRight from './components/posTableRight/PosTableRight';
 
-const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
+interface SalesProps {
+  completeSale: (
+    products: Product[],
+    total: number,
+    discount: number,
+    addNotification: (m: string, t: string) => void,
+    discardSale: () => void
+  ) => void;
+  fetchBrands: () => void;
+  fetchCategories: () => void;
+}
+
+const SalesPage: React.FC<SalesProps> = ({
+  completeSale,
+  fetchBrands,
+  fetchCategories
+}) => {
   const classes = styles();
   const {
     products,
@@ -34,6 +51,8 @@ const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
 
   return (
     <Grid container spacing={3} justify="center">
+      {/*
+ // @ts-ignore */}
       <Grid item align="center" className={classes.discardSaleGridItem}>
         <div className={classes.discardSaleBtnHolder}>
           <IconButton
@@ -45,6 +64,8 @@ const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
           </IconButton>
         </div>
       </Grid>
+      {/*
+ // @ts-ignore */}
       <Grid
         item
         align="center"
@@ -58,6 +79,8 @@ const SalesPage = ({ completeSale, fetchBrands, fetchCategories }) => {
       >
         <ProductSearchBar addProduct={addProduct} />
       </Grid>
+      {/*
+   // @ts-ignore */}
       <Grid
         item
         align="center"
