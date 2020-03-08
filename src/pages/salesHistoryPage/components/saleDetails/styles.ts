@@ -1,4 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+
+interface StyleProps extends Theme {
+  rowIndex: number;
+}
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   salesDetailsContainer: {
@@ -13,7 +17,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    background: ({ rowIndex }) =>
+    background: ({ rowIndex }: StyleProps) =>
       rowIndex % 2 ? `${palette.whiteColors[0]}` : `${palette.greenColors[2]}`
   },
   table: {
@@ -55,7 +59,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   detailTotal: {
     width: '90%',
     height: spacing(6),
-    background: ({ rowIndex }) =>
+    background: ({ rowIndex }: StyleProps) =>
       rowIndex % 2 ? `${palette.grayColors[8]}` : `${palette.greenColors[7]}`,
     margin: 'auto',
     marginTop: spacing(4),

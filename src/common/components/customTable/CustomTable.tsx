@@ -14,6 +14,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
+import { Sale } from '../../../redux/sales/types';
+import { Product } from '../../../redux/products/types';
 import { TableProps } from './types';
 import { currencyFormatter, totalQty } from '../../utils';
 import useTableState from './useTableState';
@@ -69,8 +71,8 @@ const CustomTable: React.FC<TableProps> = props => {
     const rowClassName = (index: number) =>
       clsx(classes.tableBodyRow, classes[index % 2 ? 'whiteRow' : 'greenRow']);
 
-    if (tableType === 'sales') {
-      return rows.map((sale: any, i: number) => {
+    if ('sales' in rows) {
+      return rows.sales.map((sale: Sale, i: number) => {
         const { id, createdAt, discount, total, products } = sale;
         return (
           <Fragment key={id}>
@@ -108,8 +110,8 @@ const CustomTable: React.FC<TableProps> = props => {
       });
     }
 
-    if (tableType === 'products') {
-      return rows.map((product: any, i: number) => {
+    if ('products' in rows) {
+      return rows.products.map((product: Product, i: number) => {
         const {
           id,
           sku,
@@ -162,7 +164,7 @@ const CustomTable: React.FC<TableProps> = props => {
     }
   };
 
-  const renderLabelFDisplayRows = ({ from, to, count }) =>
+  const renderLabelDisplayRows = ({ from, to, count }) =>
     `Page ${page} of ${Math.ceil(count / rowsPerPage)}  -  ${count} items`;
 
   const renderPagination = () => (
@@ -180,7 +182,7 @@ const CustomTable: React.FC<TableProps> = props => {
         page={page - 1}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
-        labelDisplayedRows={renderLabelFDisplayRows}
+        labelDisplayedRows={renderLabelDisplayRows}
       />
     </div>
   );
@@ -197,11 +199,11 @@ const CustomTable: React.FC<TableProps> = props => {
             </TableHead>
           ) : null}
           <TableBody>
-            {!rows || !count ? renderNoDisplay() : renderTableBody()}
+            {!count ? renderNoDisplay() : renderTableBody()}
           </TableBody>
         </Table>
       </div>
-      {rows && rows.length > 1 && renderPagination()}
+      {count > 1 && renderPagination()}
     </TableContainer>
   );
 };

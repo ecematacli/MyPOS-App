@@ -13,9 +13,9 @@ import { Dispatch } from 'redux';
 export const fetchProducts = (
   page: number = 1,
   rowsPerPage: number = 10,
-  categoryName: string,
-  brandName: string,
-  searchQuery: string
+  categoryName?: string,
+  brandName?: string,
+  searchQuery?: string
 ) => async (dispatch: Dispatch, getState: () => StoreState) => {
   let url = `/products?page=${page}&rowsPerPage=${rowsPerPage}`;
 

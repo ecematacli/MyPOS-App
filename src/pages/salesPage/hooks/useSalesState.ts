@@ -79,7 +79,7 @@ export default () => {
 
   const [total, setTotal] = useState<number>(0);
   const [tax, setTax] = useState<number>(0);
-  const [discount, setDiscount] = useState<string | number>('');
+  const [discount, setDiscount] = useState<number>(0);
 
   const addProduct = (product: Product) => {
     dispatch({
@@ -110,7 +110,6 @@ export default () => {
   };
 
   const editProductPrice = (id: number, newPrice: number) => {
-    console.log('newPrice>>>', newPrice);
     dispatch({
       type: ActionTypes.EditProductPrice,
       payload: { id, newPrice }
@@ -126,8 +125,17 @@ export default () => {
   const handleDiscountChange = ({
     target: { value }
   }: React.ChangeEvent<HTMLInputElement>) => {
-    if (products.length) {
-      setDiscount(isNaN(Number(value)) ? 0 : value);
+    if (value.includes('.') || value.includes(',')) {
+      return;
+    }
+    if (value === '') {
+      setDiscount(0);
+    } else if (
+      products.length &&
+      parseInt(value) >= 0 &&
+      parseInt(value) < total
+    ) {
+      setDiscount(isNaN(Number(value)) ? 0 : parseFloat(value));
     }
   };
 

@@ -1,4 +1,9 @@
-export const TABLE_HEAD = [
+interface TableHead {
+  label: string;
+  numeric?: boolean;
+}
+
+export const TABLE_HEAD: TableHead[] = [
   {
     label: 'Sku'
   },

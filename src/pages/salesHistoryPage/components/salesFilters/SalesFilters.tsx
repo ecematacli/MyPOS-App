@@ -6,7 +6,12 @@ import useSalesFiltersState from './useSalesFiltersState';
 import DatePickerFilter from '../../../../common/components/datePickerFilter/DatePickerFilter';
 import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 
-const SalesFilters = ({ page, rowsPerPage }) => {
+interface FiltersProps {
+  page: number;
+  rowsPerPage: number;
+}
+
+const SalesFilters: React.FC<FiltersProps> = ({ page, rowsPerPage }) => {
   const classes = styles();
   const {
     startDate,

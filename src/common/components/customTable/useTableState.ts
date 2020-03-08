@@ -5,20 +5,23 @@ import { UseTableStateProps } from './types';
 export default ({
   tableType,
   fetchSales,
+  fetchProducts,
   rowsPerPage,
   setRowsPerPage,
-  fetchProducts,
   setPage
 }: UseTableStateProps) => {
   const [expandedRows, setExpandedRows] = useState<{
-    [id: number]: boolean | undefined;
+    [id: string]: boolean | undefined;
   }>({});
 
   const toggleExpanded = (id: number): void => {
     setExpandedRows({ ...expandedRows, [id]: !expandedRows[id] });
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newPage: number
+  ) => {
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
     if (newPage + 1 < 0) return;
     setPage(newPage + 1);
@@ -30,9 +33,11 @@ export default ({
   const handleChangeRowsPerPage = ({
     target: { value }
   }: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('VAGUE VALUE', value);
-    setRowsPerPage(value);
-    tableType === 'sales' ? fetchSales(1, value) : fetchProducts(1, value);
+    const numValue = parseInt(value);
+    setRowsPerPage(numValue);
+    tableType === 'sales'
+      ? fetchSales(1, numValue)
+      : fetchProducts(1, numValue);
   };
 
   return {

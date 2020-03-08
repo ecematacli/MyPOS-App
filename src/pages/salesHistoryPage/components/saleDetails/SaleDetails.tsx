@@ -10,10 +10,16 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
+import { Sale } from '../../../../redux/sales/types';
 import { currencyFormatter } from '../../../../common/utils';
 import { TABLE_HEAD } from './tableHead';
 
-const SaleDetails = props => {
+interface DetailsProps {
+  sale: Sale;
+  rowIndex: number;
+}
+
+const SaleDetails: React.FC<DetailsProps> = props => {
   const classes = styles(props);
   const {
     sale: { products, total }
@@ -21,7 +27,7 @@ const SaleDetails = props => {
 
   const tableHead = () => {
     return TABLE_HEAD.map(({ label, numeric }) => (
-      <TableCell align={numeric && 'right'} key={label}>
+      <TableCell align={numeric ? 'right' : 'left'} key={label}>
         {label}
       </TableCell>
     ));

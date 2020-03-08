@@ -3,13 +3,15 @@ import { useDispatch } from 'react-redux';
 
 import { fetchSales } from '../../../../redux/sales/salesActions';
 
-export default (page, rowsPerPage) => {
+export default (page: number, rowsPerPage: number) => {
   const dispatch = useDispatch();
-  const [startDate, handleStartDateChange] = useState(null);
-  const [endDate, handleEndDateChange] = useState(null);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [startDate, handleStartDateChange] = useState<Date | null>(null);
+  const [endDate, handleEndDateChange] = useState<Date | null>(null);
+  const [anchorEl, setAnchorEl] = useState<
+    null | Element | ((element: Element) => Element)
+  >(null);
 
-  const handleClick = e => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(e.currentTarget);
   };
 

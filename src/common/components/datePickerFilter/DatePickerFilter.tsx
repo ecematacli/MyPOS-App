@@ -12,7 +12,7 @@ interface Props {
   handleClose: () => void;
   startDate: Date;
   handleStartDateChange: DateChangeHandler;
-  endDate: string;
+  endDate: Date;
   handleEndDateChange: DateChangeHandler;
   onDateSelection: () => void;
   onDateFilterClearing: () => void;

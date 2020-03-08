@@ -27,7 +27,7 @@ interface PosTableProps {
   editPriceLocalStorageState: (id: number, newPrice: number) => void;
   total: number;
   tax: number;
-  discount: number | string;
+  discount: number;
   handleDiscountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   completeSale: (
     products: Product[],
@@ -61,8 +61,8 @@ const PosTableRight: React.FC<PosTableProps> = ({
   } = useAddPriceInputState();
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [id, setId] = useState(null);
-  const [edittedProduct, setEdittedProduct] = useState(null);
+  const [id, setId] = useState<number | null>(null);
+  const [edittedProduct, setEdittedProduct] = useState<Product | null>(null);
 
   const handleEditPriceClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -141,7 +141,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
                 className={classes.noPrice}
                 onClick={e => handleEditPriceClick(e, id, product)}
               >
-                {currencyFormatter(price as any)}
+                {currencyFormatter(price)}
               </div>
               <EditPricePopover
                 open={open}
@@ -154,7 +154,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
             </Fragment>
           </TableCell>
           <TableCell align="right">
-            {discountPrice ? currencyFormatter(discountPrice as any) : '-'}
+            {discountPrice ? currencyFormatter(discountPrice) : '-'}
           </TableCell>
           <TableCell colSpan={3} align="right">
             <IconButton onClick={() => deleteProduct(product.id)}>

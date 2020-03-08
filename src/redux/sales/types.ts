@@ -5,7 +5,7 @@ export enum SuccessActionTypes {
 }
 export interface Sale {
   id: number;
-  createdAt: Date;
+  createdAt: string;
   outlet: string;
   status: string;
   orderNo: null;

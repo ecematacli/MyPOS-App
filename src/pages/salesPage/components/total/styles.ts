@@ -32,7 +32,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     marginRight: '-7px',
     fontWeight: spacing(50),
     fontSize: spacing(2),
-    color: palette.textColor,
+    color: 'rgba(0, 0, 0, 0.87)',
     borderColor: palette.secondary.dark,
     borderRadius: spacing(2)
   },

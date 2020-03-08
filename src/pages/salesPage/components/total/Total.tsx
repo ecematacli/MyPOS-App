@@ -7,8 +7,25 @@ import { currencyFormatter } from '../../../../common/utils';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import CustomButton from '../../../../common/components/customButton/CustomButton';
+import { Product } from '../../../../redux/products/types';
 
-const Total = ({
+interface TotalProps {
+  products: Product[];
+  total: number;
+  tax: number;
+  discount: number;
+  handleDiscountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  completeSale: (
+    products: Product[],
+    total: number,
+    discount: number,
+    addNotification: (m: string, t: string) => void,
+    discardSale: () => void
+  ) => void;
+  discardSale: () => void;
+}
+
+const Total: React.FC<TotalProps> = ({
   products,
   total,
   tax,
@@ -21,13 +38,7 @@ const Total = ({
   const { addNotification } = useContext(NotificationsContext);
 
   const onCompleteSaleClick = () => {
-    completeSale(
-      products,
-      parseFloat(total),
-      parseFloat(discount),
-      addNotification,
-      discardSale
-    );
+    completeSale(products, total, discount, addNotification, discardSale);
   };
 
   return (
@@ -45,7 +56,6 @@ const Total = ({
         <CustomInput
           classesProp={{
             root: classes.discountInput,
-            focused: classes.fieldInput,
             notchedOutline: classes.notchedOutline
           }}
           inputProps={{ style: { textAlign: 'right' } }}

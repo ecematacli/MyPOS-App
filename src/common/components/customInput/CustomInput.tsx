@@ -7,7 +7,8 @@ import {
   InputLabel,
   FormControl,
   Select,
-  MenuItem
+  MenuItem,
+  InputBaseComponentProps
 } from '@material-ui/core';
 
 interface DropdownItems {
@@ -24,6 +25,7 @@ interface Props {
   type?: string;
   required?: boolean;
   startAdornment?: JSX.Element;
+  inputProps?: InputBaseComponentProps;
   invalidatedField?: boolean;
   color?: string;
   value: any;

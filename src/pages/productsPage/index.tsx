@@ -1,6 +1,8 @@
 import React, { useEffect, Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 
+import { ActionTypes, StoreState } from '../../redux/types';
+import { Product } from '../../redux/products/types';
 import { fetchProducts } from '../../redux/products/productsActions';
 import { fetchCategories } from '../../redux/categories/categoriesActions';
 import { fetchBrands } from '../../redux/brands/brandsActions';
@@ -10,7 +12,23 @@ import CustomTable from '../../common/components/customTable/CustomTable';
 import ProductDetails from './components/productDetails/ProductDetails';
 import ProductFilters from './components/productFilters/ProductFilters';
 
-const ProductsPage = ({
+interface ProductsProps {
+  fetchProducts: (
+    page: number,
+    rowsPerPage: number,
+    categoryName?: string,
+    brandName?: string,
+    searchQuery?: string
+  ) => void;
+  fetchCategories: () => void;
+  fetchBrands: () => void;
+  products: { [id: string]: Product };
+  count: number;
+  ids: number[];
+  isFetching: boolean;
+}
+
+const ProductsPage: React.FC<ProductsProps> = ({
   fetchProducts,
   fetchCategories,
   fetchBrands,
@@ -22,10 +40,11 @@ const ProductsPage = ({
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
 
-  const productsInOrder = () => ids.map(productId => products[productId]);
+  const productsInOrder = () =>
+    ids.map((productId: number) => products[productId]);
 
   useEffect(() => {
-    fetchProducts();
+    fetchProducts(1, 10);
     fetchCategories();
     fetchBrands();
   }, []);
@@ -61,7 +80,7 @@ const ProductsPage = ({
                 numeric: true
               }
             ]}
-            rows={productsInOrder()}
+            rows={{ type: 'products', products: productsInOrder() }}
             tableType="products"
             rowsPerPage={rowsPerPage}
             setRowsPerPage={setRowsPerPage}
@@ -77,7 +96,7 @@ const ProductsPage = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: StoreState) => {
   const {
     products: { products, count, ids }
   } = state;
@@ -85,7 +104,7 @@ const mapStateToProps = state => {
     products,
     count,
     ids,
-    isFetching: loadingSelector(['FETCH_PRODUCTS'], state)
+    isFetching: loadingSelector(ActionTypes.FETCH_PRODUCTS, state)
   };
 };
 

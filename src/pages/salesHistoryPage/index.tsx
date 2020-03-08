@@ -3,24 +3,45 @@ import { connect } from 'react-redux';
 
 import { fetchSales } from '../../redux/sales/salesActions';
 import { formatDate } from '../../common/utils';
+import { ActionTypes, StoreState } from '../../redux/types';
+import { Sale } from '../../redux/sales/types';
 import { loadingSelector } from '../../redux/loading/loadingReducer';
 import Loading from '../../common/components/loading/Loading';
 import CustomTable from '../../common/components/customTable/CustomTable';
 import SaleDetails from './components/saleDetails/SaleDetails';
 import SalesFilters from './components/salesFilters/SalesFilters';
 
-const SalesHistoryPage = ({ fetchSales, sales, count, ids, isFetching }) => {
+interface SalesHistoryProps {
+  fetchSales: (
+    page: number,
+    rowsPerPage: number,
+    startDate?: Date,
+    endDate?: Date
+  ) => void;
+  sales: { [id: string]: Sale };
+  count: number;
+  ids: number[];
+  isFetching: boolean;
+}
+
+const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
+  fetchSales,
+  sales,
+  count,
+  ids,
+  isFetching
+}) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetchSales();
+    fetchSales(1, 10);
   }, []);
 
-  const salesInOrder = () => ids.map(saleId => sales[saleId]);
+  const salesInOrder = (): Sale[] => ids.map((saleId: number) => sales[saleId]);
 
   const formattedSalesData = () =>
-    salesInOrder().map(sale => ({
+    salesInOrder().map((sale: Sale) => ({
       ...sale,
       createdAt: formatDate(sale.createdAt, 'd MMMM y - p')
     }));
@@ -49,7 +70,7 @@ const SalesHistoryPage = ({ fetchSales, sales, count, ids, isFetching }) => {
               numeric: true
             }
           ]}
-          rows={formattedSalesData()}
+          rows={{ type: 'sales', sales: formattedSalesData() }}
           tableType="sales"
           count={count}
           fetchSales={fetchSales}
@@ -64,7 +85,7 @@ const SalesHistoryPage = ({ fetchSales, sales, count, ids, isFetching }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: StoreState) => {
   const {
     sales: { sales, count, ids }
   } = state;
@@ -72,7 +93,7 @@ const mapStateToProps = state => {
     sales,
     count,
     ids,
-    isFetching: loadingSelector('FETCH_SALES', state)
+    isFetching: loadingSelector(ActionTypes.FETCH_SALES, state)
   };
 };
 

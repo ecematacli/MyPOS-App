@@ -8,7 +8,6 @@ declare module '@material-ui/core/styles/createPalette' {
     blueColors?: string[];
     navyBlueColors?: string[];
     whiteColors?: string[];
-    textColor?: string[];
   }
   interface PaletteOptions {
     grayColors?: AdditionalColorOptions;
@@ -17,7 +16,6 @@ declare module '@material-ui/core/styles/createPalette' {
     blueColors?: AdditionalColorOptions;
     navyBlueColors?: AdditionalColorOptions;
     whiteColors?: AdditionalColorOptions;
-    textColor?: AdditionalColorOptions;
   }
   interface AdditionalColor {
     grayColors: string[];
@@ -26,7 +24,6 @@ declare module '@material-ui/core/styles/createPalette' {
     blueColors: string[];
     navyBlueColors: string[];
     whiteColors: string[];
-    textColor?: string[];
   }
 
   interface Palette {
@@ -36,6 +33,5 @@ declare module '@material-ui/core/styles/createPalette' {
     blueColors: AdditionalColor;
     navyBlueColors: AdditionalColor;
     whiteColors: AdditionalColor;
-    textColor: AdditionalColor;
   }
 }
