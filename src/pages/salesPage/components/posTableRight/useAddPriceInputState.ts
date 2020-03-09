@@ -9,13 +9,8 @@ export default () => {
   const { addNotification } = useContext(NotificationsContext);
   const [inputValue, setInputValue] = useState(0);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const userInput = e.target.value;
-    if (userInput === '') {
-      return;
-    }
-    setInputValue(parseInt(userInput));
-  };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setInputValue(parseInt(e.target.value || '0'));
 
   const resetInput = (): void => {
     setInputValue(0);

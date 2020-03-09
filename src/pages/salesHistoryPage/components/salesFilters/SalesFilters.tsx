@@ -2,29 +2,34 @@ import React, { Fragment } from 'react';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import styles from './styles';
-import useSalesFiltersState from './useSalesFiltersState';
+import useSalesFiltersPopover from './useSalesFiltersPopover';
 import DatePickerFilter from '../../../../common/components/datePickerFilter/DatePickerFilter';
 import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 
 interface FiltersProps {
-  page: number;
-  rowsPerPage: number;
+  startDate: Date;
+  handleStartDateChange: (newDate: Date) => void;
+  endDate: Date;
+  handleEndDateChange: (newDate: Date) => void;
+  onDateFilterClearing: () => void;
+  onDateSelection: () => void;
 }
 
-const SalesFilters: React.FC<FiltersProps> = ({ page, rowsPerPage }) => {
+const SalesFilters: React.FC<FiltersProps> = ({
+  startDate,
+  handleStartDateChange,
+  endDate,
+  handleEndDateChange,
+  onDateFilterClearing,
+  onDateSelection
+}) => {
   const classes = styles();
-  const {
-    startDate,
-    handleStartDateChange,
-    endDate,
-    handleEndDateChange,
-    open,
-    anchorEl,
-    handleClick,
-    handleClose,
-    onDateSelection,
-    onDateFilterClearing
-  } = useSalesFiltersState(page, rowsPerPage);
+  const { open, anchorEl, handleClick, handleClose } = useSalesFiltersPopover();
+
+  const onApplyFilterClick = () => {
+    onDateSelection();
+    handleClose();
+  };
 
   return (
     <Fragment>
@@ -41,7 +46,7 @@ const SalesFilters: React.FC<FiltersProps> = ({ page, rowsPerPage }) => {
           handleEndDateChange={handleEndDateChange}
           handleClose={handleClose}
           onDateFilterClearing={onDateFilterClearing}
-          onDateSelection={onDateSelection}
+          onDateSelection={onApplyFilterClick}
         />
       </CustomPopover>
     </Fragment>

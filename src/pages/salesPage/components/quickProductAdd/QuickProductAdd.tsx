@@ -117,7 +117,7 @@ const QuickProductAdd: React.FC<Props> = ({
               onAddProductClick(values);
             }}
             validationSchema={ProductAddSchema}
-            innerRef={formRef}
+            innerRef={formRef as any}
           >
             <Fragment>
               {NEW_PRODUCT_FIELDS.map(({ fieldId, label, type }) => (

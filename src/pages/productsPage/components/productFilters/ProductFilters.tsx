@@ -5,43 +5,51 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 
 import styles from './styles';
 import { capitalize } from '../../../../common/utils';
-import { StoreState } from '../../../../redux/types';
-import { Brand } from '../../../../redux/brands/types';
-import { Category } from '../../../../redux/categories/types';
-import useProductFilters from './useProductFilters';
+import useProductFilterPopover from './useProductFilterPopover';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
+import { Filters, AppliedFilters, FilterInput } from '../../types';
 
 interface FiltersProps {
-  rowsPerPage: number;
-  page: number;
-  brands: Brand[];
-  categories: Category[];
-  setPage: (page: number) => void;
+  filterInputs: Filters;
+  appliedFilters: AppliedFilters;
+  cancelClick: () => void;
+  clearAllFilters: () => void;
+  handleInputChange: ({
+    target: { value, name }
+  }: React.ChangeEvent<HTMLInputElement>) => void;
+  filterInputFields: FilterInput[];
+  handleApplyFilterClick: () => void;
+  handleDelete: (key: string) => void;
 }
 
 const ProductFilters: React.FC<FiltersProps> = ({
-  rowsPerPage,
-  page,
-  brands,
-  categories,
-  setPage
+  filterInputs,
+  appliedFilters,
+  cancelClick,
+  clearAllFilters,
+  handleInputChange,
+  filterInputFields,
+  handleApplyFilterClick,
+  handleDelete
 }) => {
   const classes = styles();
   const {
     anchorEl,
     handleClick,
     handleClose,
-    open,
-    cancelClick,
-    appliedFilters,
-    filterInputs,
-    clearAllFilters,
-    handleInputChange,
-    filterInputFields,
-    handleApplyFilterClick,
-    handleDelete
-  } = useProductFilters(brands, categories, setPage);
+    open
+  } = useProductFilterPopover();
+
+  const onCancelClick = () => {
+    handleClose();
+    cancelClick();
+  };
+
+  const onApplyFilterClick = () => {
+    handleApplyFilterClick();
+    handleClose();
+  };
 
   const renderChipInputs = () =>
     Object.keys(appliedFilters).map(key => {
@@ -101,7 +109,7 @@ const ProductFilters: React.FC<FiltersProps> = ({
           <Button
             className={classes.filterBtn}
             color="secondary"
-            onClick={cancelClick}
+            onClick={onCancelClick}
           >
             Cancel
           </Button>
@@ -111,14 +119,14 @@ const ProductFilters: React.FC<FiltersProps> = ({
             className={classes.filterBtn}
             color="secondary"
             disabled={Object.values(filterInputs).every(f => f === '')}
-            onClick={() => clearAllFilters(page, rowsPerPage)}
+            onClick={clearAllFilters}
           >
             Clear Filters
           </Button>
         </div>
         <div>
           <Button
-            onClick={() => handleApplyFilterClick(page, rowsPerPage)}
+            onClick={onApplyFilterClick}
             className={classes.filterBtn}
             disabled={Object.values(filterInputs).every(f => f === '')}
             style={{ marginRight: 16 }}
@@ -150,9 +158,4 @@ const ProductFilters: React.FC<FiltersProps> = ({
   );
 };
 
-const mapStateToProps = (state: StoreState) => ({
-  brands: state.brands,
-  categories: state.categories
-});
-
-export default connect(mapStateToProps)(ProductFilters);
+export default ProductFilters;

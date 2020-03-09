@@ -39,8 +39,6 @@ export default (
       price: parseFloat(inputValues.price),
       discountPrice: parseFloat(inputValues.discountPrice)
     };
-
-    console.log(values);
     dispatch(createProduct(values, additionalInputs, addNotification));
     setAdditionalInputs(initialValues);
     handleCloseDialog();
@@ -63,7 +61,7 @@ export default (
     label: string;
     fieldId: string;
     dropdown: boolean;
-    dropdownItems: Category[] | Brand[] | TaxDropdown[];
+    dropdownItems: Category[] | Brand[] | any[];
     value: number | string;
     additionalField: boolean;
     type?: string;

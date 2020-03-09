@@ -16,9 +16,9 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import styles from './styles';
 import { Sale } from '../../../redux/sales/types';
 import { Product } from '../../../redux/products/types';
-import { TableProps } from './types';
+import { TableProps, PaginationLabel } from './types';
 import { currencyFormatter, totalQty } from '../../utils';
-import useTableState from './useTableState';
+import useExpandedRowsState from './useExpandedRowsState';
 
 const CustomTable: React.FC<TableProps> = props => {
   const classes = styles(props);
@@ -26,18 +26,15 @@ const CustomTable: React.FC<TableProps> = props => {
     tableHeads,
     rows,
     tableType,
-    count,
     rowsPerPage,
     page,
+    count,
+    handleChangePage,
+    handleChangeRowsPerPage,
     component: Component
   } = props;
 
-  const {
-    handleChangePage,
-    handleChangeRowsPerPage,
-    toggleExpanded,
-    expandedRows
-  } = useTableState(props);
+  const { toggleExpanded, expandedRows } = useExpandedRowsState();
 
   const renderExpandIconContainer = (id: number) => (
     <div className={classes.expandIconContainer}>
@@ -164,15 +161,7 @@ const CustomTable: React.FC<TableProps> = props => {
     }
   };
 
-  const renderLabelDisplayRows = ({
-    from,
-    to,
-    count
-  }: {
-    from: number;
-    to: number;
-    count: number;
-  }) => {
+  const renderLabelDisplayRows = ({ from, to, count }: PaginationLabel) => {
     return `Page ${page} of ${Math.ceil(
       count / rowsPerPage
     )}  -  ${count} items`;

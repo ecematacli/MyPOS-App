@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 
 import { ActionTypes, StoreState } from '../../redux/types';
 import { fetchSales } from '../../redux/sales/salesActions';
-import { formatDate } from '../../common/utils';
 import { Sale } from '../../redux/sales/types';
 import { loadingSelector } from '../../redux/loading/loadingReducer';
+import useSalesFiltersState from './hooks/useSalesFiltersState';
+import { formatDate } from '../../common/utils';
+import { TABLE_HEADS } from './tableHeads';
 import Loading from '../../common/components/loading/Loading';
 import CustomTable from '../../common/components/customTable/CustomTable';
 import SaleDetails from './components/saleDetails/SaleDetails';
@@ -34,6 +36,33 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
 
+  const {
+    startDate,
+    endDate,
+    handleStartDateChange,
+    handleEndDateChange,
+    onDateSelection,
+    onDateFilterClearing
+  } = useSalesFiltersState(page, rowsPerPage, setPage);
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newPage: number
+  ) => {
+    //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
+    if (newPage + 1 < 0) return;
+    setPage(newPage + 1);
+    fetchSales(newPage + 1, rowsPerPage, startDate, endDate);
+  };
+
+  const handleChangeRowsPerPage = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    const numValue = parseInt(value);
+    setRowsPerPage(numValue);
+    fetchSales(page, numValue, startDate, endDate);
+  };
+
   useEffect(() => {
     fetchSales(page, rowsPerPage);
   }, []);
@@ -48,36 +77,26 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
 
   return (
     <Fragment>
-      <SalesFilters page={page} rowsPerPage={rowsPerPage} />
+      <SalesFilters
+        startDate={startDate}
+        endDate={endDate}
+        handleStartDateChange={handleStartDateChange}
+        handleEndDateChange={handleEndDateChange}
+        onDateSelection={onDateSelection}
+        onDateFilterClearing={onDateFilterClearing}
+      />
       {isFetching ? (
         <Loading />
       ) : (
         <CustomTable
-          tableHeads={[
-            {
-              label: 'Date'
-            },
-            {
-              label: 'Total Qty',
-              numeric: true
-            },
-            {
-              label: 'Total Discount',
-              numeric: true
-            },
-            {
-              label: 'Total Payment',
-              numeric: true
-            }
-          ]}
+          tableHeads={TABLE_HEADS}
           rows={{ type: 'sales', sales: formattedSalesData() }}
           tableType="sales"
-          count={count}
-          fetchSales={fetchSales}
           rowsPerPage={rowsPerPage}
-          setRowsPerPage={setRowsPerPage}
           page={page}
-          setPage={setPage}
+          count={count}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
           component={SaleDetails}
         />
       )}

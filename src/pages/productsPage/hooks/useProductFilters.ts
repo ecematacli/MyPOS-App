@@ -1,30 +1,10 @@
 import { useState, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { fetchProducts } from '../../../../redux/products/productsActions';
-import { Brand } from '../../../../redux/brands/types';
-import { Category } from '../../../../redux/categories/types';
-
-interface FilterState {
-  searchQuery: string;
-  category: string;
-  brand: string;
-}
-
-export interface AppliedFilters {
-  searchQuery?: string;
-  category?: string;
-  brand?: string;
-}
-
-interface FilterInput {
-  label: string;
-  fieldId: string;
-  value: string;
-  placeholder?: string;
-  dropdown?: boolean;
-  dropdownItems?: Brand[] | Category[];
-}
+import { Category } from '../../../redux/categories/types';
+import { Brand } from '../../../redux/brands/types';
+import { Filters, AppliedFilters, FilterInput } from '../types';
+import { fetchProducts } from '../../../redux/products/productsActions';
 
 const initialState = {
   searchQuery: '',
@@ -35,28 +15,20 @@ const initialState = {
 export default (
   brands: Brand[],
   categories: Category[],
-  setPage: (page: number) => void
+  setPage: (page: number) => void,
+  page: number,
+  rowsPerPage: number
 ) => {
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState<
-    null | Element | ((element: Element) => Element)
-  >(null);
+
   const [filterInputs, setFilterInputs] = useReducer(
-    (state: FilterState, newState: FilterState) => ({ ...state, ...newState }),
+    (state: Filters, newState: Filters) => ({
+      ...state,
+      ...newState
+    }),
     initialState
   );
   const [appliedFilters, setAppliedFilters] = useState<AppliedFilters>({});
-
-  // Popup state handlers
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(e.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
 
   // Input change handler function
   const handleInputChange = ({
@@ -64,11 +36,12 @@ export default (
   }: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = name;
     const newValue = value;
+
     setFilterInputs({ ...filterInputs, [fieldName]: newValue });
   };
 
   // Filter functionality handlers
-  const handleApplyFilterClick = (page: number, rowsPerPage: number) => {
+  const handleApplyFilterClick = () => {
     setTimeout(() => {
       setAppliedFilters(filterInputs);
     }, 1000);
@@ -82,8 +55,6 @@ export default (
         filterInputs.searchQuery
       )
     );
-
-    handleClose();
   };
 
   const handleDelete = (key: string) => {
@@ -96,15 +67,14 @@ export default (
     setFilterInputs({ ...filterInputs, [key]: '' });
   };
 
-  const clearAllFilters = (page: number, rowsPerPage: number) => {
+  const clearAllFilters = () => {
     setAppliedFilters({});
     setPage(1);
     setFilterInputs(initialState);
-    dispatch(fetchProducts(page, rowsPerPage));
+    dispatch(fetchProducts(1, rowsPerPage));
   };
 
   const cancelClick = () => {
-    handleClose();
     setTimeout(() => {
       setAppliedFilters({});
       setFilterInputs(initialState);
@@ -112,7 +82,7 @@ export default (
   };
 
   // Mappable filter input fields
-  const filterInputFields: FilterInput[] = [
+  const FILTER_INPUT_FIELDS: FilterInput[] = [
     {
       label: 'Search Query',
       fieldId: 'searchQuery',
@@ -136,17 +106,12 @@ export default (
   ];
 
   return {
-    anchorEl,
     filterInputs,
-    setFilterInputs,
-    handleClick,
-    handleClose,
-    open,
     appliedFilters,
     cancelClick,
     clearAllFilters,
     handleInputChange,
-    filterInputFields,
+    FILTER_INPUT_FIELDS,
     handleApplyFilterClick,
     handleDelete
   };

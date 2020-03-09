@@ -1,23 +1,9 @@
 import { Product } from '../../../redux/products/types';
 import { Sale } from '../../../redux/sales/types';
-import { fetchSales } from '../../../redux/sales/salesActions';
 
 interface TableHeads {
   label: string;
   numeric?: boolean;
-}
-export interface UseTableStateProps {
-  tableType: string;
-  fetchSales?: (
-    page: number,
-    rowsPerPage: number,
-    startDate?: Date,
-    endDate?: Date
-  ) => void;
-  fetchProducts?: (page: number, rowsPerPage: number) => void;
-  rowsPerPage: number;
-  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface SalesRow {
@@ -29,10 +15,24 @@ interface ProductsRow {
   type: string;
   products: Product[];
 }
-export interface TableProps extends UseTableStateProps {
+
+export interface TableProps {
   tableHeads: TableHeads[];
   rows: SalesRow | ProductsRow;
-  count: number;
+  tableType: string;
+  rowsPerPage: number;
   page: number;
+  count: number;
+  handleChangePage: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newPage: number
+  ) => void;
+  handleChangeRowsPerPage: (e: React.ChangeEvent<HTMLInputElement>) => void;
   component: React.JSXElementConstructor<any>;
+}
+
+export interface PaginationLabel {
+  from: number;
+  to: number;
+  count: number;
 }
