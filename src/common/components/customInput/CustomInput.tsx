@@ -22,7 +22,9 @@ interface Props {
   dropdownItems?: DropdownItems[];
   inputLabel?: boolean;
   classesProp: any;
+  name?: string;
   type?: string;
+  placeholder?: string;
   required?: boolean;
   startAdornment?: JSX.Element;
   inputProps?: InputBaseComponentProps;

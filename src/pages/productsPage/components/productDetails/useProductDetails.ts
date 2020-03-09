@@ -1,39 +1,57 @@
 import { useState, useContext, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { Product } from '../../../../redux/products/types';
+import { Brand } from '../../../../redux/brands/types';
+import { Category } from '../../../../redux/categories/types';
 import { editProduct } from '../../../../redux/products/productsActions';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
 
-export default (product, brands, categories) => {
+interface DropdownItem {
+  name: string;
+  id: number;
+}
+interface ProductField {
+  label: string;
+  fieldId: string;
+  type?: string;
+  currency?: boolean;
+  dropdown?: boolean;
+  dropdownItems?: DropdownItem[];
+}
+interface EdittedRow {
+  [key: string]: boolean | undefined;
+}
+
+export default (product: Product, brands: Brand[], categories: Category[]) => {
   const dispatch = useDispatch();
   const { addNotification } = useContext(NotificationsContext);
-  const [edittedRow, setEdittedRow] = useState({});
+  const [edittedRow, setEdittedRow] = useState<EdittedRow | {}>({});
   const [productVal, setProductVal] = useState(product);
   const [enabledEdit, setEnabledEdit] = useState(false);
 
   // Product input value handlers
-  const handleInputChange = (e, fieldId) => {
-    const userInput = e.target.value;
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    fieldId: string
+  ) => {
+    let userInput = e.target.value;
     if (
       fieldId === 'price' ||
       fieldId === 'discountPrice' ||
       fieldId === 'barcode'
     ) {
-      if (isNaN(userInput)) {
+      if (isNaN(Number(userInput))) {
         return null;
       }
     }
     setProductVal({ ...productVal, [fieldId]: userInput });
   };
 
-  const renderProductValues = fieldId => {
+  const renderProductValues = (fieldId: string) => {
     if (!product[fieldId]) {
       return '-';
-    } else if (
-      fieldId === 'brand' ||
-      fieldId === 'category' ||
-      fieldId === 'taxRate'
-    ) {
+    } else if (fieldId === 'brand' || fieldId === 'category') {
       return product[fieldId] && product[fieldId].name
         ? product[fieldId].name
         : product[fieldId];
@@ -42,7 +60,7 @@ export default (product, brands, categories) => {
     }
   };
 
-  const getInputValues = fieldId => {
+  const getInputValues = (fieldId: string) => {
     if (!productVal[fieldId]) {
       return '';
     } else if (fieldId === 'brand' || fieldId === 'category') {
@@ -55,7 +73,7 @@ export default (product, brands, categories) => {
   };
 
   // Product Edit Handlers
-  const handleEdittedRow = fieldId => {
+  const handleEdittedRow = (fieldId: string) => {
     setEdittedRow({ ...edittedRow, [fieldId]: !edittedRow[fieldId] });
   };
 
@@ -69,18 +87,40 @@ export default (product, brands, categories) => {
   };
 
   const dispatchEditAction = useCallback(
-    (...args) => dispatch(editProduct(...args, addNotification)),
+    (fieldId, fieldValue, productId, label) => {
+      dispatch(
+        editProduct(fieldId, fieldValue, productId, label, addNotification)
+      );
+    },
     [dispatch]
   );
 
-  const completeEdit = (fieldId, fieldValue, productId, label) => {
-    if (product[fieldId] !== productVal[fieldId]) {
+  const completeEdit = (
+    fieldId: string,
+    fieldValue: string,
+    productId: number,
+    label: string
+  ) => {
+    if (fieldId === 'brand' || fieldId === 'category') {
+      //@ts-ignore
+
+      console.log('In product>>', product[fieldId]);
+      console.log('In product VAL', productVal[fieldId]);
+      console.log('EQUAL', product[fieldId].name !== productVal[fieldId]);
+      if (product[fieldId].name !== productVal[fieldId]) {
+        console.log('NOT EQUAL', product[fieldId].name !== productVal[fieldId]);
+
+        console.log('In product>>', product[fieldId]);
+        console.log('In product VAL', productVal[fieldId]);
+        dispatchEditAction(fieldId, fieldValue, productId, label);
+      }
+    } else if (product[fieldId] != productVal[fieldId]) {
       dispatchEditAction(fieldId, fieldValue, productId, label);
     }
   };
 
   //Mappable Product fields
-  const PRODUCT_FIELDS = [
+  const PRODUCT_FIELDS: ProductField[] = [
     { label: 'Barcode', fieldId: 'barcode' },
     { label: 'Product Name', fieldId: 'name' },
     { label: 'Quantity', fieldId: 'qty', type: 'number' },
@@ -125,7 +165,6 @@ export default (product, brands, categories) => {
     renderProductValues,
     getInputValues,
     enabledEdit,
-    dispatchEditAction,
     completeEdit
   };
 };

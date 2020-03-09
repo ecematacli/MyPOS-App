@@ -18,5 +18,5 @@ export default (state: LoadingState = {}, action: any): LoadingState => {
   return state;
 };
 
-export const loadingSelector = (actionType: ActionTypes, state: StoreState) =>
-  state.loading[actionType];
+export const loadingSelector = (action: ActionTypes, state: StoreState) =>
+  state.loading[action];

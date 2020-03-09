@@ -16,18 +16,26 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
+import { Category } from '../../../../redux/categories/types';
+import { Brand } from '../../../../redux/brands/types';
 import useNewProductInputState from './useNewProductInputState';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import NewProductInputFields from '../newProductInputFields/NewProductInputFields';
 
-const QuickProductAdd = ({
+interface Props {
+  openDialog: boolean;
+  handleCloseDialog: () => void;
+  brands: Brand[];
+  categories: Category[];
+}
+const QuickProductAdd: React.FC<Props> = ({
   openDialog,
   handleCloseDialog,
   brands,
   categories
 }) => {
   const classes = styles();
-  const formRef = useRef();
+  const formRef = useRef<HTMLElement | any>();
 
   const {
     NEW_PRODUCT_FIELDS,

@@ -11,6 +11,9 @@ export default () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const userInput = e.target.value;
+    if (userInput === '') {
+      return;
+    }
     setInputValue(parseInt(userInput));
   };
 

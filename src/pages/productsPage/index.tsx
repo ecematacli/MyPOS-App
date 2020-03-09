@@ -44,15 +44,14 @@ const ProductsPage: React.FC<ProductsProps> = ({
     ids.map((productId: number) => products[productId]);
 
   useEffect(() => {
-    fetchProducts(1, 10);
+    fetchProducts(page, rowsPerPage);
     fetchCategories();
     fetchBrands();
   }, []);
 
   return (
     <Fragment>
-      <ProductFilters rowsPerPage={rowsPerPage} page={page} />
-
+      <ProductFilters rowsPerPage={rowsPerPage} page={page} setPage={setPage} />
       {isFetching ? (
         <Loading />
       ) : (

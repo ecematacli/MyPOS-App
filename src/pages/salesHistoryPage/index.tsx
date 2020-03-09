@@ -1,9 +1,9 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 
+import { ActionTypes, StoreState } from '../../redux/types';
 import { fetchSales } from '../../redux/sales/salesActions';
 import { formatDate } from '../../common/utils';
-import { ActionTypes, StoreState } from '../../redux/types';
 import { Sale } from '../../redux/sales/types';
 import { loadingSelector } from '../../redux/loading/loadingReducer';
 import Loading from '../../common/components/loading/Loading';
@@ -35,7 +35,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetchSales(1, 10);
+    fetchSales(page, rowsPerPage);
   }, []);
 
   const salesInOrder = (): Sale[] => ids.map((saleId: number) => sales[saleId]);

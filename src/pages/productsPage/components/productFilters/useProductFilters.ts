@@ -2,6 +2,29 @@ import { useState, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { fetchProducts } from '../../../../redux/products/productsActions';
+import { Brand } from '../../../../redux/brands/types';
+import { Category } from '../../../../redux/categories/types';
+
+interface FilterState {
+  searchQuery: string;
+  category: string;
+  brand: string;
+}
+
+export interface AppliedFilters {
+  searchQuery?: string;
+  category?: string;
+  brand?: string;
+}
+
+interface FilterInput {
+  label: string;
+  fieldId: string;
+  value: string;
+  placeholder?: string;
+  dropdown?: boolean;
+  dropdownItems?: Brand[] | Category[];
+}
 
 const initialState = {
   searchQuery: '',
@@ -9,17 +32,23 @@ const initialState = {
   brand: ''
 };
 
-export default (brands, categories) => {
+export default (
+  brands: Brand[],
+  categories: Category[],
+  setPage: (page: number) => void
+) => {
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<
+    null | Element | ((element: Element) => Element)
+  >(null);
   const [filterInputs, setFilterInputs] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
+    (state: FilterState, newState: FilterState) => ({ ...state, ...newState }),
     initialState
   );
-  const [appliedFilters, setAppliedFilters] = useState({});
+  const [appliedFilters, setAppliedFilters] = useState<AppliedFilters>({});
 
   // Popup state handlers
-  const handleClick = e => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(e.currentTarget);
   };
 
@@ -30,21 +59,23 @@ export default (brands, categories) => {
   const open = Boolean(anchorEl);
 
   // Input change handler function
-  const handleInputChange = ({ target: { value, name } }) => {
+  const handleInputChange = ({
+    target: { value, name }
+  }: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = name;
     const newValue = value;
-    setFilterInputs({ [fieldName]: newValue });
+    setFilterInputs({ ...filterInputs, [fieldName]: newValue });
   };
 
   // Filter functionality handlers
-  const handleApplyFilterClick = (page, rowsPerPage) => {
+  const handleApplyFilterClick = (page: number, rowsPerPage: number) => {
     setTimeout(() => {
       setAppliedFilters(filterInputs);
     }, 1000);
-
+    setPage(1);
     dispatch(
       fetchProducts(
-        page,
+        1,
         rowsPerPage,
         filterInputs.category,
         filterInputs.brand,
@@ -55,14 +86,19 @@ export default (brands, categories) => {
     handleClose();
   };
 
-  const handleDelete = key => {
-    const { [key]: toBeRemoved, ...otherKeys } = appliedFilters;
+  const handleDelete = (key: string) => {
+    const {
+      [key as keyof AppliedFilters]: toBeRemoved,
+      ...otherKeys
+    } = appliedFilters;
     setAppliedFilters(otherKeys);
+    setPage(1);
     setFilterInputs({ ...filterInputs, [key]: '' });
   };
 
-  const clearAllFilters = (page, rowsPerPage) => {
+  const clearAllFilters = (page: number, rowsPerPage: number) => {
     setAppliedFilters({});
+    setPage(1);
     setFilterInputs(initialState);
     dispatch(fetchProducts(page, rowsPerPage));
   };
@@ -76,7 +112,7 @@ export default (brands, categories) => {
   };
 
   // Mappable filter input fields
-  const filterInputFields = [
+  const filterInputFields: FilterInput[] = [
     {
       label: 'Search Query',
       fieldId: 'searchQuery',

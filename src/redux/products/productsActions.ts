@@ -35,18 +35,18 @@ export const fetchProducts = (
 
 export const editProduct = (
   fieldId: string,
-  productVal: string,
+  fieldValue: string,
   productId: number,
   label: string,
-  addNotification: (m: string, t: string) => void
+  addNotification: (m?: string, t?: string) => void
 ) => async (dispatch: Dispatch, getState: () => StoreState) => {
   let updatedField: UpdatedField = {
-    [fieldId]: productVal
+    [fieldId]: fieldValue
   };
 
   if (fieldId === 'brand') {
     updatedField = {
-      brandId: findMatchedFields(getState().brands, productVal).id.toString()
+      brandId: findMatchedFields(getState().brands, fieldValue).id.toString()
     };
   }
 
@@ -54,7 +54,7 @@ export const editProduct = (
     updatedField = {
       categoryId: findMatchedFields(
         getState().categories,
-        productVal
+        fieldValue
       ).id.toString()
     };
   }

@@ -30,7 +30,7 @@ export default (page: number, rowsPerPage: number) => {
     dispatch(fetchSales(page, rowsPerPage, null, null));
   };
 
-  const open = Boolean(anchorEl);
+  const open: boolean = Boolean(anchorEl);
 
   return {
     startDate,

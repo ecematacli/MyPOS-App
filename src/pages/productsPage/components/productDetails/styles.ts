@@ -1,5 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
+interface StyleProps extends Theme {
+  rowIndex: number;
+}
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   productDetailsContainer: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
@@ -13,7 +16,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    background: ({ rowIndex }) =>
+    background: ({ rowIndex }: StyleProps) =>
       rowIndex % 2 ? `${palette.whiteColors[0]}` : `${palette.greenColors[2]}`,
     position: 'relative'
   },
@@ -35,8 +38,8 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     padding: spacing(2),
     display: 'flex',
     justifyContent: 'space-between',
-    zIndex: '3 !important',
-    background: ({ rowIndex }) =>
+    zIndex: 5,
+    background: ({ rowIndex }: StyleProps) =>
       rowIndex % 2 ? `${palette.grayColors[10]}` : `${palette.greenColors[6]}`
   },
   paperTitle: {

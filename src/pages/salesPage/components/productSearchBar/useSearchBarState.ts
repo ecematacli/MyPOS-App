@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
 
 import api from '../../../../api';
+import { Product } from '../../../../redux/products/types';
 import useAsyncError from '../../../../common/hooks/useAsyncError';
 
-const useSearchInput = addProduct => {
+type AddProduct = (product: Product) => void;
+
+const useSearchInput = (addProduct: AddProduct) => {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<Product[] | []>([]);
   const [loading, setLoading] = useState(false);
   const [productNotFound, setProductNotFound] = useState(false);
 
   const throwError = useAsyncError();
 
-  const onProductSelect = product => {
+  const onProductSelect = (product: Product) => {
     addProduct(product);
     setQuery('');
     setOpen(false);

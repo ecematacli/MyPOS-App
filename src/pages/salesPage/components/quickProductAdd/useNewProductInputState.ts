@@ -1,10 +1,16 @@
 import { useReducer, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { Category } from '../../../../redux/categories/types';
+import { Brand } from '../../../../redux/brands/types';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
 import { createProduct } from '../../../../redux/products/productsActions';
 
-export default (brands, categories, handleCloseDialog) => {
+export default (
+  brands: Brand[],
+  categories: Category[],
+  handleCloseDialog: () => void
+) => {
   const { addNotification } = useContext(NotificationsContext);
   const dispatch = useDispatch();
 
@@ -40,8 +46,30 @@ export default (brands, categories, handleCloseDialog) => {
     handleCloseDialog();
   };
 
+  interface ProductField {
+    label: string;
+    fieldId: string;
+    required?: boolean;
+    currency?: boolean;
+    type?: string;
+  }
+
+  interface TaxDropdown {
+    name: number;
+    id: number;
+  }
+
+  interface AdditionalField {
+    label: string;
+    fieldId: string;
+    dropdown: boolean;
+    dropdownItems: Category[] | Brand[] | TaxDropdown[];
+    value: number | string;
+    additionalField: boolean;
+    type?: string;
+  }
   // Mappable input and additional input fields
-  const NEW_PRODUCT_FIELDS = [
+  const NEW_PRODUCT_FIELDS: ProductField[] = [
     {
       label: 'Barcode (required)*',
       fieldId: 'barcode',
@@ -68,7 +96,7 @@ export default (brands, categories, handleCloseDialog) => {
     { label: 'Sku', fieldId: 'sku' }
   ];
 
-  const ADDITIONAL_FIELDS = [
+  const ADDITIONAL_FIELDS: AdditionalField[] = [
     {
       label: 'Tax Rate',
       fieldId: 'taxRate',

@@ -53,16 +53,15 @@ const PosTableRight: React.FC<PosTableProps> = ({
   discardSale
 }) => {
   const classes = styles();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [id, setId] = useState<number | null>(null);
+  const [edittedProduct, setEdittedProduct] = useState<Product | null>(null);
   const {
     inputValue,
     handleInputChange,
     resetInput,
     editPriceValue
   } = useAddPriceInputState();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [id, setId] = useState<number | null>(null);
-  const [edittedProduct, setEdittedProduct] = useState<Product | null>(null);
 
   const handleEditPriceClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,

@@ -7,12 +7,17 @@ import { Search } from '@material-ui/icons';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import styles from './styles';
+import { Product } from '../../../../redux/products/types';
 import useSearchInput from './useSearchBarState';
 import useProductDialogState from './useProductDialogState';
 import QuickProductAdd from '../quickProductAdd/QuickProductAdd';
 import { currencyFormatter } from '../../../../common/utils';
 
-const ProductSearchbar = ({ addProduct }) => {
+interface SearchBarProps {
+  addProduct: (product: Product) => void;
+}
+
+const ProductSearchBar: React.FC<SearchBarProps> = ({ addProduct }) => {
   const classes = styles();
   const {
     open,
@@ -43,15 +48,15 @@ const ProductSearchbar = ({ addProduct }) => {
           setSearchResults([]);
         }}
         filterOptions={p => p}
-        getOptionLabel={product => product.name}
+        getOptionLabel={(product: Product) => product.name}
         options={searchResults}
         loading={loading}
         disableOpenOnFocus
         noOptionsText="No product"
         clearOnEscape
-        onChange={(e, product) => {
-          product && onProductSelect(product);
-        }}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>, product: Product) =>
+          product && onProductSelect(product)
+        }
         inputValue={query}
         autoHighlight
         renderInput={params => (
@@ -63,7 +68,9 @@ const ProductSearchbar = ({ addProduct }) => {
             className={classes.searchBarInput}
             classes={{ root: classes.inputRoot }}
             value={query}
-            onChange={e => setQuery(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setQuery(e.target.value)
+            }
             InputProps={{
               ...params.InputProps,
               endAdornment: (
@@ -89,7 +96,7 @@ const ProductSearchbar = ({ addProduct }) => {
             }}
           />
         )}
-        renderOption={(product, { inputValue }) => {
+        renderOption={(product: Product, { inputValue }) => {
           const productFields =
             product.name || product.variation || product.sku;
           const matches = match(productFields, inputValue);
@@ -99,14 +106,19 @@ const ProductSearchbar = ({ addProduct }) => {
             <div className={classes.suggestionContainer}>
               <div>
                 <div className={classes.suggestionGroup}>
-                  {parts.map((part, index) => (
-                    <span
-                      key={index}
-                      style={{ fontWeight: part.highlight ? 700 : 400 }}
-                    >
-                      {part.text}
-                    </span>
-                  ))}
+                  {parts.map(
+                    (
+                      part: { text: string; highlight: boolean },
+                      index: number
+                    ) => (
+                      <span
+                        key={index}
+                        style={{ fontWeight: part.highlight ? 700 : 400 }}
+                      >
+                        {part.text}
+                      </span>
+                    )
+                  )}
 
                   <span> / {product.variation}</span>
                 </div>
@@ -124,10 +136,9 @@ const ProductSearchbar = ({ addProduct }) => {
       <QuickProductAdd
         openDialog={openDialog}
         handleCloseDialog={handleCloseDialog}
-        handleOpenDialog={handleOpenDialog}
       />
     </div>
   );
 };
 
-export default ProductSearchbar;
+export default ProductSearchBar;

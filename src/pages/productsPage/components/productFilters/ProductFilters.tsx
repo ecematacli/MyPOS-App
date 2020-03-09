@@ -5,17 +5,27 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 
 import styles from './styles';
 import { capitalize } from '../../../../common/utils';
-import { fetchProducts } from '../../../../redux/products/productsActions';
+import { StoreState } from '../../../../redux/types';
+import { Brand } from '../../../../redux/brands/types';
+import { Category } from '../../../../redux/categories/types';
 import useProductFilters from './useProductFilters';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 
-const ProductFilters = ({
+interface FiltersProps {
+  rowsPerPage: number;
+  page: number;
+  brands: Brand[];
+  categories: Category[];
+  setPage: (page: number) => void;
+}
+
+const ProductFilters: React.FC<FiltersProps> = ({
   rowsPerPage,
   page,
   brands,
   categories,
-  fetchProducts
+  setPage
 }) => {
   const classes = styles();
   const {
@@ -31,7 +41,7 @@ const ProductFilters = ({
     filterInputFields,
     handleApplyFilterClick,
     handleDelete
-  } = useProductFilters(brands, categories, fetchProducts);
+  } = useProductFilters(brands, categories, setPage);
 
   const renderChipInputs = () =>
     Object.keys(appliedFilters).map(key => {
@@ -140,6 +150,9 @@ const ProductFilters = ({
   );
 };
 
-const mapStateToProps = ({ brands, categories }) => ({ brands, categories });
+const mapStateToProps = (state: StoreState) => ({
+  brands: state.brands,
+  categories: state.categories
+});
 
-export default connect(mapStateToProps, { fetchProducts })(ProductFilters);
+export default connect(mapStateToProps)(ProductFilters);

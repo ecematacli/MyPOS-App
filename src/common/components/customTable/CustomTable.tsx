@@ -164,8 +164,19 @@ const CustomTable: React.FC<TableProps> = props => {
     }
   };
 
-  const renderLabelDisplayRows = ({ from, to, count }) =>
-    `Page ${page} of ${Math.ceil(count / rowsPerPage)}  -  ${count} items`;
+  const renderLabelDisplayRows = ({
+    from,
+    to,
+    count
+  }: {
+    from: number;
+    to: number;
+    count: number;
+  }) => {
+    return `Page ${page} of ${Math.ceil(
+      count / rowsPerPage
+    )}  -  ${count} items`;
+  };
 
   const renderPagination = () => (
     <div className={classes.paginationContainer}>

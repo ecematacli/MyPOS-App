@@ -6,10 +6,20 @@ import DoneIcon from '@material-ui/icons/Done';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from './styles';
+import { StoreState } from '../../../../redux/types';
+import { Product } from '../../../../redux/products/types';
+import { Category } from '../../../../redux/categories/types';
+import { Brand } from '../../../../redux/brands/types';
 import useProductDetails from './useProductDetails';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
+
+interface DetailsProps {
+  product: Product;
+  brands: Brand[];
+  categories: Category[];
+}
 // eslint-disable-next-line react/display-name
-const ProductDetails = props => {
+const ProductDetails: React.FC<DetailsProps> = props => {
   const classes = styles(props);
   const { product, brands, categories } = props;
   const {
@@ -25,7 +35,13 @@ const ProductDetails = props => {
     completeEdit
   } = useProductDetails(product, brands, categories);
 
-  const renderEditForm = (fieldId, label, dropdown, dropdownItems, type) => (
+  const renderEditForm = (
+    fieldId: string,
+    label: string,
+    dropdown: boolean,
+    dropdownItems: { name: string; id: number }[],
+    type: string
+  ) => (
     <div className={classes.editFormContainer}>
       <CustomInput
         label={label}
@@ -124,9 +140,12 @@ const ProductDetails = props => {
   );
 };
 
-const mapStateToProps = ({ brands, categories }) => ({
-  brands,
-  categories
-});
+const mapStateToProps = (state: StoreState) => {
+  const { brands, categories } = state;
+  return {
+    brands,
+    categories
+  };
+};
 
 export default connect(mapStateToProps)(ProductDetails);

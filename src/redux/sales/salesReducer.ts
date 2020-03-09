@@ -17,7 +17,6 @@ export default (
 ): SalesState => {
   switch (action.type) {
     case SuccessActionTypes.FETCH_SALES_SUCCESS: {
-      console.log(action.payload);
       const { sales, count } = action.payload;
       const objSalesData = sales.reduce(
         (obj: { [id: string]: Sale }, currSale: Sale) => ({
