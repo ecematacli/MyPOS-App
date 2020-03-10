@@ -6,7 +6,7 @@ interface AuthContext {
   authToken?: string;
 }
 
-type SaveAuthToken = (data?: string) => void;
+type SaveAuthToken = (data: string | null) => void;
 type ClearAuthToken = () => void;
 
 interface AuthTokenSettingContext {
@@ -21,7 +21,9 @@ export const AuthTokenSettingContext = createContext<AuthTokenSettingContext>(
 
 const initialVal = JSON.parse(localStorage.getItem('token'));
 
-export const AuthContextProvider: React.FC = ({ children }) => {
+export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
+  children
+}) => {
   const [authToken, setAuthToken] = useState(initialVal);
 
   const saveAuthToken: SaveAuthToken = (data = null) => {

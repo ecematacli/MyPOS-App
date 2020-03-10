@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 
 import { withTheme, styled, Theme } from '@material-ui/core/styles';
-import { ButtonProps } from './types';
+import { ButtonProps } from './CustomButton';
 
 interface StyleProps extends ButtonProps {
   theme: Theme;

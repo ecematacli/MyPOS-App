@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const getDefaultVal = (key, defaultVal) => {
+const getDefaultVal = (key: string, defaultVal: any) => {
   try {
     return JSON.parse(localStorage.getItem(key)) || defaultVal;
   } catch (e) {
@@ -8,7 +8,7 @@ const getDefaultVal = (key, defaultVal) => {
   }
 };
 
-export default (key, defaultVal) => {
+export default (key: string, defaultVal: any) => {
   const [state, setState] = useState(getDefaultVal(key, defaultVal));
 
   useEffect(() => {

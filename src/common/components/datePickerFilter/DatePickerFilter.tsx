@@ -6,7 +6,7 @@ import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 
 import styles from './styles';
 
-type DateChangeHandler = (newDate: Date) => void;
+type DateChangeHandler = React.Dispatch<React.SetStateAction<Date>>;
 
 interface Props {
   handleClose: () => void;

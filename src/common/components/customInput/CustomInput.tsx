@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { FormikTouched } from 'formik';
-import { useTheme } from '@material-ui/core/styles';
 
 import {
   OutlinedInput,
