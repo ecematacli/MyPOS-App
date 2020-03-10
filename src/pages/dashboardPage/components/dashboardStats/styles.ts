@@ -13,7 +13,6 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     [breakpoints.down('sm')]: {
       marginTop: spacing(3)
     }
-    //1050-960
   },
   iconDiv: {
     color: palette.whiteColors[0],

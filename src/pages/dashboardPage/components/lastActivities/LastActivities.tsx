@@ -4,9 +4,15 @@ import { Paper, Typography, Divider } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
 import styles from './styles';
+import { LastActivitiesData } from '../../types';
 import Loading from '../../../../common/components/loading/Loading';
 
-const LastActivities = ({ loading, lastActivities }) => {
+interface Props {
+  loading: boolean;
+  lastActivities: LastActivitiesData;
+}
+
+const LastActivities: React.FC<Props> = ({ loading, lastActivities }) => {
   const classes = styles();
 
   const renderLastActivities = () => {

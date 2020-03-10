@@ -1,13 +1,26 @@
 import { useState } from 'react';
+import { AppliedFilters } from '../../types';
 
-export default (fetchRevenueData, disabledOptions, appliedFilters) => {
+interface DisabledOptions {
+  [key: string]: boolean;
+}
+
+export default (
+  fetchRevenueData: (
+    displayOption: string,
+    start: Date,
+    end: Date
+  ) => Promise<void>,
+  disabledOptions: DisabledOptions,
+  appliedFilters: AppliedFilters
+) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [displayOption, setDisplayOption] = useState('daily');
 
   const { startDate, endDate } = appliedFilters;
 
   //Display options popover handlers
-  const handleClick = event => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -16,7 +29,7 @@ export default (fetchRevenueData, disabledOptions, appliedFilters) => {
   };
 
   //Display option select click handler
-  const onDisplayOptionClick = option => {
+  const onDisplayOptionClick = (option: string) => {
     setDisplayOption(option);
     !disabledOptions[option] && fetchRevenueData(option, startDate, endDate);
     handleClose();

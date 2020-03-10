@@ -1,5 +1,13 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+interface FormikForm {
+  touched: any;
+  errors: any;
+}
 
+interface StyleProps extends Theme {
+  form: FormikForm;
+  fieldId: string;
+}
 export default makeStyles(({ spacing, palette }) => ({
   input: {
     width: 380,
@@ -7,7 +15,7 @@ export default makeStyles(({ spacing, palette }) => ({
     color: palette.secondary.main,
     marginBottom: spacing(2),
     '& input:valid:focus + fieldset': {
-      borderColor: ({ form: { touched, errors }, fieldId }) =>
+      borderColor: ({ form: { touched, errors }, fieldId }: StyleProps) =>
         errors[fieldId] && touched[fieldId] ? `${palette.error.main}` : 'unset'
     }
   },

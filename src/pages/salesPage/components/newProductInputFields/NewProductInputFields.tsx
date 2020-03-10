@@ -1,10 +1,18 @@
 import React, { Fragment } from 'react';
+import { InputAdornment } from '@material-ui/core';
+import { FieldProps } from 'formik';
 
 import styles from './styles';
+import { FormValues } from '../quickProductAdd/QuickProductAdd';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
-import { InputAdornment } from '@material-ui/core';
 
-const NewProductInputFields = props => {
+interface InputProps {
+  fieldId: string;
+  label: string;
+  type: string | undefined;
+}
+const NewProductInputFields: React.FC<FieldProps<FormValues> &
+  InputProps> = props => {
   const classes = styles(props);
   const {
     field,
@@ -19,7 +27,8 @@ const NewProductInputFields = props => {
   const requiredFieldClasses = invalidFields
     ? `${classes.notchedOutline}`
     : null;
-  console.log(invalidFields);
+
+  console.log('invalidated field', invalidFields);
   return (
     <Fragment>
       <CustomInput
@@ -39,7 +48,10 @@ const NewProductInputFields = props => {
           )
         }
       />
-      {(fieldId === 'barcode' || fieldId === 'price') && invalidFields ? (
+      {(fieldId === 'barcode' ||
+        fieldId === 'price' ||
+        fieldId === 'discountPrice') &&
+      invalidFields ? (
         <div className={classes.helperText}>{errors[fieldId]}</div>
       ) : null}
     </Fragment>

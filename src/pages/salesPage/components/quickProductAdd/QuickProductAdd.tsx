@@ -1,7 +1,6 @@
 import React, { Fragment, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Field } from 'formik';
-import * as Yup from 'yup';
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -16,19 +15,14 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
-import { Category } from '../../../../redux/categories/types';
-import { Brand } from '../../../../redux/brands/types';
+import { StoreState } from '../../../../redux/types';
+import { QuickAddProps, FormValues } from './types';
+import { ProductAddSchema } from './productAddSchema';
 import useNewProductInputState from './useNewProductInputState';
 import CustomInput from '../../../../common/components/customInput/CustomInput';
 import NewProductInputFields from '../newProductInputFields/NewProductInputFields';
 
-interface Props {
-  openDialog: boolean;
-  handleCloseDialog: () => void;
-  brands: Brand[];
-  categories: Category[];
-}
-const QuickProductAdd: React.FC<Props> = ({
+const QuickProductAdd: React.FC<QuickAddProps> = ({
   openDialog,
   handleCloseDialog,
   brands,
@@ -43,15 +37,6 @@ const QuickProductAdd: React.FC<Props> = ({
     handleInputChange,
     onAddProductClick
   } = useNewProductInputState(brands, categories, handleCloseDialog);
-
-  const ProductAddSchema = Yup.object().shape({
-    barcode: Yup.string()
-      .matches(/^[0-9]*$/, 'Barcode can only consist of numbers')
-      .min(8, 'Too Short!')
-      .max(16, 'Too Long!')
-      .required('This field is required'),
-    price: Yup.string().required('This field is required')
-  });
 
   const renderAdditionalFields = () => {
     return (
@@ -103,7 +88,7 @@ const QuickProductAdd: React.FC<Props> = ({
       >
         <DialogTitle className={classes.dialogTitle}>Add a Product</DialogTitle>
         <DialogContent>
-          <Formik
+          <Formik<FormValues>
             initialValues={{
               barcode: '',
               name: '',
@@ -149,9 +134,9 @@ const QuickProductAdd: React.FC<Props> = ({
   return <Fragment>{renderDialog()}</Fragment>;
 };
 
-const mapStateToProps = ({ brands, categories }) => ({
-  brands,
-  categories
+const mapStateToProps = (state: StoreState) => ({
+  brands: state.brands,
+  categories: state.categories
 });
 
 export default connect(mapStateToProps)(QuickProductAdd);

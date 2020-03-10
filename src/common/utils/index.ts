@@ -16,7 +16,7 @@ export const findMatchedFields = (
   fieldToBeMatched: string
 ): Category | Brand => fields.find(f => f.name === fieldToBeMatched);
 
-export const formatDate = (dateToFormat: string, formatType: string) => {
+export const formatDate = (dateToFormat: string | Date, formatType: string) => {
   return format(new Date(dateToFormat), formatType);
 };
 

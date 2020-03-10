@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { FormikTouched } from 'formik';
 import { useTheme } from '@material-ui/core/styles';
 
 import {
@@ -8,7 +9,8 @@ import {
   FormControl,
   Select,
   MenuItem,
-  InputBaseComponentProps
+  InputBaseComponentProps,
+  Theme
 } from '@material-ui/core';
 
 interface DropdownItems {
@@ -28,7 +30,7 @@ interface Props {
   required?: boolean;
   startAdornment?: JSX.Element;
   inputProps?: InputBaseComponentProps;
-  invalidatedField?: boolean;
+  invalidatedField?: boolean | FormikTouched<any> | FormikTouched<any>[];
   color?: string;
   value: any;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -49,7 +51,7 @@ const styles = makeStyles(({ breakpoints }) => ({
 
 const CustomInput: React.FC<Props> = props => {
   const classes = styles();
-  const { palette } = useTheme();
+  const { palette }: Theme = useTheme();
 
   const {
     label,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Paper,
   Typography,
@@ -13,9 +13,22 @@ import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 import styles from './styles';
+import { TopSellingData } from '../../types';
 import Loading from '../../../../common/components/loading/Loading';
 
-const TopSellingItems = ({
+interface Props {
+  loading: boolean;
+  topSellingProducts: TopSellingData;
+  fetchTopSellingProducts: (
+    pageNumber: number,
+    start: Date,
+    end: Date
+  ) => Promise<void>;
+  startDate: Date;
+  endDate: Date;
+}
+
+const TopSellingItems: React.FC<Props> = ({
   loading,
   topSellingProducts: { products, count },
   fetchTopSellingProducts,
@@ -24,6 +37,10 @@ const TopSellingItems = ({
 }) => {
   const classes = styles();
   const [pageNumber, setPageNumber] = useState(1);
+
+  useEffect(() => {
+    setPageNumber(1);
+  }, [startDate, endDate]);
 
   const onRightArrowClick = () => {
     const totalPageToShow = count / 3;
@@ -72,7 +89,7 @@ const TopSellingItems = ({
       </div>
       <Divider className={classes.divider} />
       <div className={classes.topSellingContent}>
-        <Table className={classes.table}>
+        <Table>
           <TableHead>{renderTableHead()}</TableHead>
           <TableBody>
             {loading || !products ? (
@@ -98,7 +115,7 @@ const TopSellingItems = ({
           <div onClick={onLeftArrowClick} className={classes.arrowDiv}>
             <KeyboardArrowLeftIcon className={classes.arrowIcon} />
           </div>
-          <div className={classes.pageCountText}>{pageNumber}</div>
+          <div>{pageNumber}</div>
           <div onClick={onRightArrowClick} className={classes.arrowDiv}>
             <KeyboardArrowRightIcon className={classes.arrowIcon} />
           </div>

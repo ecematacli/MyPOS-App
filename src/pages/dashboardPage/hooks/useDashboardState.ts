@@ -1,6 +1,14 @@
 import { useState } from 'react';
 
 import api from '../../../api';
+import {
+  InitialDates,
+  Loading,
+  TopSellingData,
+  LastActivitiesData,
+  RevenueData,
+  SaleStatsData
+} from '../types';
 import useAsyncError from '../../../common/hooks/useAsyncError';
 import {
   getInitialLastThirtyDays,
@@ -10,7 +18,7 @@ import {
 } from '../utils';
 
 export default () => {
-  const { initialStart, initialEnd } = getInitialLastThirtyDays();
+  const { initialStart, initialEnd }: InitialDates = getInitialLastThirtyDays();
   const throwError = useAsyncError();
 
   const initialValues = {
@@ -18,22 +26,30 @@ export default () => {
     endDate: initialEnd
   };
 
-  const [loading, setLoading] = useState({});
-  const [startDate, handleStartDateChange] = useState(null);
-  const [endDate, handleEndDateChange] = useState(null);
-  const [topSellingProducts, setTopSellingProducts] = useState([]);
-  const [lastActivities, setLastActivities] = useState([]);
-  const [revenue, setRevenue] = useState([]);
-  const [saleStats, setSaleStats] = useState([]);
+  const [loading, setLoading] = useState<Loading>({});
+  const [startDate, handleStartDateChange] = useState<Date | null>(null);
+  const [endDate, handleEndDateChange] = useState<Date | null>(null);
+  const [topSellingProducts, setTopSellingProducts] = useState<TopSellingData>({
+    count: 0,
+    products: []
+  });
+  const [lastActivities, setLastActivities] = useState<LastActivitiesData>([]);
+  const [revenue, setRevenue] = useState<RevenueData>([]);
+  const [saleStats, setSaleStats] = useState<SaleStatsData>({
+    webRevenue: 0,
+    storeRevenue: 0,
+    saleCount: 0,
+    soldProductCount: 0
+  });
 
   const [appliedFilters, setAppliedFilters] = useState(initialValues);
 
-  // API Call helpers that are being used by all functions
+  // API Call helpers being used by all functions
   const getRequestParams = (
-    baseUrl,
-    startDate,
-    endDate,
-    firstParam = false
+    baseUrl: string,
+    startDate: Date,
+    endDate: Date,
+    firstParam: boolean = false
   ) => {
     const filters = { startDate, endDate };
 
@@ -55,7 +71,11 @@ export default () => {
     }
   };
 
-  const makeApiCall = async (url, name = '', method = 'get') => {
+  const makeApiCall = async (
+    url: string,
+    name: string = '',
+    method: string = 'get'
+  ) => {
     try {
       setLoading({ ...loading, [name]: true });
       const response = await api[method](url);
@@ -68,9 +88,13 @@ export default () => {
     }
   };
 
-  // Dashboard Page API Calls
-  const fetchRevenueData = async (displayOption, start, end) => {
-    let option;
+  // Dashboard Page API Caller functions
+  const fetchRevenueData = async (
+    displayOption: string,
+    start: Date,
+    end: Date
+  ) => {
+    let option: string;
 
     if (!displayOption) {
       option = getUnstatedDisplayOption(start, end);
@@ -83,34 +107,42 @@ export default () => {
       start,
       end
     );
-    const data = await makeApiCall(url);
+    const data: RevenueData = await makeApiCall(url);
 
-    const formattedChartRevenue = formatChartDate(data, option);
+    const formattedChartRevenue: RevenueData = formatChartDate(data, option);
+
     setRevenue(formattedChartRevenue);
   };
 
-  const fetchSaleStats = async (start, end) => {
+  const fetchSaleStats = async (start: Date, end: Date) => {
     const url = getRequestParams(`/stats/sale-stats`, start, end, true);
 
-    const data = await makeApiCall(url);
+    const data: SaleStatsData = await makeApiCall(url);
     setSaleStats(data);
   };
 
-  const fetchTopSellingProducts = async (pageNumber = 1, start, end) => {
+  const fetchTopSellingProducts = async (
+    pageNumber: number = 1,
+    start: Date,
+    end: Date
+  ) => {
     const url = getRequestParams(
       `/stats/top-selling-products?page=${pageNumber}&rowsPerPage=3`,
       start,
       end
     );
 
-    const data = await makeApiCall(url, 'topSellings');
+    const data: TopSellingData = await makeApiCall(url, 'topSellings');
 
     setTopSellingProducts(data);
   };
 
   const fetchLastActivities = async () => {
-    const data = await makeApiCall('/events/sales', 'activities');
-    const formattedActivities = formatActivitiesData(data);
+    const data: LastActivitiesData = await makeApiCall(
+      '/events/sales',
+      'activities'
+    );
+    const formattedActivities: LastActivitiesData = formatActivitiesData(data);
     setLastActivities(formattedActivities);
   };
 

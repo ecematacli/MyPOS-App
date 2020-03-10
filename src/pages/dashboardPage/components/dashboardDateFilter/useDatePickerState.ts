@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
+import { AppliedFilters } from '../../types';
 import { formatDate } from '../../../../common/utils';
 
-export default appliedFilters => {
+export default (appliedFilters: AppliedFilters) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   //Popover handlers
-  const handleClick = e => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(e.currentTarget);
   };
 
@@ -20,7 +21,7 @@ export default appliedFilters => {
   const getDatePickerInputValue = () => {
     const { startDate, endDate } = appliedFilters;
 
-    const formatType = 'd MMM yyyy';
+    const formatType: string = 'd MMM yyyy';
     const formattedStartDate = startDate && formatDate(startDate, formatType);
     const formattedEndDate = endDate && formatDate(endDate, formatType);
     const today = formatDate(new Date(), formatType);

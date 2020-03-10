@@ -71,15 +71,15 @@ const productsReducer = (state: State, action: Action): State => {
 
 // Products and Total state
 export default () => {
+  const [total, setTotal] = useState<number>(0);
+  const [tax, setTax] = useState<number>(0);
+  const [discount, setDiscount] = useState<number>(0);
+
   const [products, dispatch] = useLocalStorageReducerState(
     'products',
     [],
     productsReducer
   );
-
-  const [total, setTotal] = useState<number>(0);
-  const [tax, setTax] = useState<number>(0);
-  const [discount, setDiscount] = useState<number>(0);
 
   const addProduct = (product: Product) => {
     dispatch({

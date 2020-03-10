@@ -10,7 +10,7 @@ import Chart from './components/chart/Chart';
 import LastActivities from './components/lastActivities/LastActivities';
 import TopSellingItems from './components/topSellingItems/TopSellingItems';
 
-const DashboardPage = () => {
+const DashboardPage: React.FC = () => {
   const classes = styles();
   const { initialStart, initialEnd } = getInitialLastThirtyDays();
   const {

@@ -3,11 +3,22 @@ import { TextField, InputAdornment } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 import styles from './styles';
+import { AppliedFilters } from '../../types';
 import useDatePickerState from './useDatePickerState';
 import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 import DatePickerFilter from '../../../../common/components/datePickerFilter/DatePickerFilter';
 
-const DashboardDateFilter = ({
+interface DateFilterProps {
+  startDate: Date;
+  handleStartDateChange: React.Dispatch<React.SetStateAction<Date>>;
+  endDate: Date;
+  handleEndDateChange: React.Dispatch<React.SetStateAction<Date>>;
+  onDateSelection: () => void;
+  onDateFilterClearing: () => void;
+  appliedFilters: AppliedFilters;
+}
+
+const DashboardDateFilter: React.FC<DateFilterProps> = ({
   startDate,
   handleStartDateChange,
   endDate,

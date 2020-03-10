@@ -18,13 +18,28 @@ import {
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import styles from './styles';
+import { RevenueData, AppliedFilters } from '../../types';
 import { capitalize } from '../../../../common/utils';
 import { currencyFormatter } from '../../../../common/utils';
 import { getDisabledOptions } from '../../utils';
 import useChartState from './useChartState';
 import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
 
-const Chart = ({ revenueData, fetchRevenueData, appliedFilters }) => {
+interface ChartProps {
+  revenueData: RevenueData;
+  fetchRevenueData: (
+    displayOption: string,
+    start: Date,
+    end: Date
+  ) => Promise<void>;
+  appliedFilters: AppliedFilters;
+}
+
+const Chart: React.FC<ChartProps> = ({
+  revenueData,
+  fetchRevenueData,
+  appliedFilters
+}) => {
   const classes = styles();
 
   const disabledOptions = getDisabledOptions(
@@ -103,7 +118,7 @@ const Chart = ({ revenueData, fetchRevenueData, appliedFilters }) => {
         <CartesianGrid stroke="#e2e2e2" strokeDasharray="3 3" />
         <Tooltip
           labelStyle={labelStyle}
-          formatter={value => currencyFormatter(value)}
+          formatter={value => currencyFormatter(value as number)}
         />
         <Area
           isAnimationActive={false}

@@ -1,9 +1,10 @@
 import differenceInDays from 'date-fns/differenceInDays';
 import sub from 'date-fns/sub';
 
+import { RevenueData, LastActivitiesData } from '../types';
 import { formatDate } from '../../../common/utils';
 
-export const getUnstatedDisplayOption = (startDate, endDate) => {
+export const getUnstatedDisplayOption = (startDate: Date, endDate: Date) => {
   const diff = differenceInDays(endDate, startDate);
 
   if (diff > 0 && diff <= 31) {
@@ -21,7 +22,7 @@ export const getUnstatedDisplayOption = (startDate, endDate) => {
   return 'monthly';
 };
 
-export const getDisabledOptions = (startDate, endDate) => {
+export const getDisabledOptions = (startDate: Date, endDate: Date) => {
   if (!startDate && endDate) {
     return { monthly: true, weekly: false, daily: false };
   }
@@ -39,7 +40,6 @@ export const getDisabledOptions = (startDate, endDate) => {
   if (diff > 7 && diff <= 31) {
     return { monthly: true, weekly: false, daily: false };
   }
-
   if (diff > 31 && diff <= 60) {
     return { monthly: false, weekly: false, daily: false };
   }
@@ -61,13 +61,13 @@ export const getInitialLastThirtyDays = () => {
 };
 
 //Date formatter helpers
-export const formatActivitiesData = lastActivities =>
+export const formatActivitiesData = (lastActivities: LastActivitiesData) =>
   lastActivities.map(action => ({
     ...action,
     created: formatDate(action.created, 'd MMMM y - p')
   }));
 
-export const formatChartDate = (revenue, option) => {
+export const formatChartDate = (revenue: RevenueData, option: string) => {
   if (option === 'daily') {
     return revenue.map(data => ({
       ...data,
