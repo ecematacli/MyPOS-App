@@ -1,10 +1,11 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { editProduct } from '../../../../redux/products/productsActions';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
+import { Product } from '../../../../redux/products/types';
 
-export default () => {
+export default (id: number, products: Product[]) => {
   const dispatch = useDispatch();
   const { addNotification } = useContext(NotificationsContext);
   const [inputValue, setInputValue] = useState(0);
@@ -21,6 +22,11 @@ export default () => {
       editProduct('price', inputValue.toString(), id, 'Price', addNotification)
     );
   };
+
+  useEffect(() => {
+    const product = products.find(product => product.id === id);
+    setInputValue((product && product.price) || 0);
+  }, [id]);
 
   return {
     inputValue,

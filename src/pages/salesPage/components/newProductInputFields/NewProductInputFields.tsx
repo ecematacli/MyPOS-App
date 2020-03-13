@@ -28,7 +28,6 @@ const NewProductInputFields: React.FC<FieldProps<FormValues> &
     ? `${classes.notchedOutline}`
     : null;
 
-  console.log('invalidated field', invalidFields);
   return (
     <Fragment>
       <CustomInput

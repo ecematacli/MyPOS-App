@@ -19,14 +19,14 @@ interface ProductField {
   dropdown?: boolean;
   dropdownItems?: DropdownItem[];
 }
-interface EdittedRow {
+interface EditedRow {
   [key: string]: boolean | undefined;
 }
 
 export default (product: Product, brands: Brand[], categories: Category[]) => {
   const dispatch = useDispatch();
   const { addNotification } = useContext(NotificationsContext);
-  const [edittedRow, setEdittedRow] = useState<EdittedRow | {}>({});
+  const [editedRow, setEditedRow] = useState<EditedRow | {}>({});
   const [productVal, setProductVal] = useState(product);
   const [enabledEdit, setEnabledEdit] = useState(false);
 
@@ -73,14 +73,14 @@ export default (product: Product, brands: Brand[], categories: Category[]) => {
   };
 
   // Product Edit Handlers
-  const handleEdittedRow = (fieldId: string) => {
-    setEdittedRow({ ...edittedRow, [fieldId]: !edittedRow[fieldId] });
+  const handleEditedRow = (fieldId: string) => {
+    setEditedRow({ ...editedRow, [fieldId]: !editedRow[fieldId] });
   };
 
   const handleEditClick = () => {
     if (enabledEdit) {
       setEnabledEdit(false);
-      setEdittedRow({});
+      setEditedRow({});
     } else {
       setEnabledEdit(true);
     }
@@ -103,15 +103,7 @@ export default (product: Product, brands: Brand[], categories: Category[]) => {
   ) => {
     if (fieldId === 'brand' || fieldId === 'category') {
       //@ts-ignore
-
-      console.log('In product>>', product[fieldId]);
-      console.log('In product VAL', productVal[fieldId]);
-      console.log('EQUAL', product[fieldId].name !== productVal[fieldId]);
       if (product[fieldId].name !== productVal[fieldId]) {
-        console.log('NOT EQUAL', product[fieldId].name !== productVal[fieldId]);
-
-        console.log('In product>>', product[fieldId]);
-        console.log('In product VAL', productVal[fieldId]);
         dispatchEditAction(fieldId, fieldValue, productId, label);
       }
     } else if (product[fieldId] != productVal[fieldId]) {
@@ -157,8 +149,8 @@ export default (product: Product, brands: Brand[], categories: Category[]) => {
 
   return {
     PRODUCT_FIELDS,
-    edittedRow,
-    handleEdittedRow,
+    editedRow,
+    handleEditedRow,
     handleEditClick,
     productVal,
     handleInputChange,

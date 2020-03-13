@@ -24,8 +24,8 @@ const ProductDetails: React.FC<DetailsProps> = props => {
   const { product, brands, categories } = props;
   const {
     PRODUCT_FIELDS,
-    edittedRow,
-    handleEdittedRow,
+    editedRow,
+    handleEditedRow,
     handleEditClick,
     productVal,
     handleInputChange,
@@ -70,7 +70,7 @@ const ProductDetails: React.FC<DetailsProps> = props => {
           className={classes.iconButton}
           onClick={() => {
             completeEdit(fieldId, productVal[fieldId], product.id, label);
-            handleEdittedRow(fieldId);
+            handleEditedRow(fieldId);
           }}
         >
           <DoneIcon className={classes.detailActionBtnIcon} />
@@ -78,7 +78,7 @@ const ProductDetails: React.FC<DetailsProps> = props => {
         <IconButton
           className={classes.iconButton}
           onClick={() => {
-            handleEdittedRow(fieldId);
+            handleEditedRow(fieldId);
           }}
         >
           <CancelIcon className={classes.detailActionBtnIcon} />
@@ -102,7 +102,7 @@ const ProductDetails: React.FC<DetailsProps> = props => {
         <div key={label} className={classes.productDetails}>
           <Typography>{label}: </Typography>
           <div className={classes.detailAction}>
-            {edittedRow[fieldId] ? (
+            {editedRow[fieldId] ? (
               renderEditForm(fieldId, label, dropdown, dropdownItems, type)
             ) : (
               <>
@@ -112,7 +112,7 @@ const ProductDetails: React.FC<DetailsProps> = props => {
                 </Typography>
                 <div
                   onClick={() => {
-                    handleEdittedRow(fieldId);
+                    handleEditedRow(fieldId);
                   }}
                   className={classes.editIcon}
                 >

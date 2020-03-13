@@ -55,13 +55,13 @@ const PosTableRight: React.FC<PosTableProps> = ({
   const classes = styles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [id, setId] = useState<number | null>(null);
-  const [edittedProduct, setEdittedProduct] = useState<Product | null>(null);
+  const [editedProduct, setEditedProduct] = useState<Product | null>(null);
   const {
     inputValue,
     handleInputChange,
     resetInput,
     editPriceValue
-  } = useAddPriceInputState();
+  } = useAddPriceInputState(id, products);
 
   const handleEditPriceClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -70,7 +70,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
   ) => {
     setAnchorEl(event.currentTarget);
     setId(id);
-    setEdittedProduct(product);
+    setEditedProduct(product);
   };
 
   const handleClose = () => {
@@ -80,9 +80,10 @@ const PosTableRight: React.FC<PosTableProps> = ({
   const open = Boolean(anchorEl);
 
   const handleCompleteEditClick = () => {
-    if (inputValue && edittedProduct.price !== inputValue) {
+    if (inputValue && editedProduct.price !== inputValue) {
       editPriceValue(id);
       editPriceLocalStorageState(id, inputValue);
+      setId(null);
     }
     resetInput();
     handleClose();
@@ -143,6 +144,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
                 {currencyFormatter(price)}
               </div>
               <EditPricePopover
+                data-test="input-box"
                 open={open}
                 anchorEl={anchorEl}
                 inputValue={inputValue}
