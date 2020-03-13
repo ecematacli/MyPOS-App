@@ -38,7 +38,8 @@ module.exports = env => ({
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './template.html'
+      template: './template.html',
+      favicon: path.join(__dirname, 'src/assets/img/app-logo.png')
     }),
     new webpack.DefinePlugin({
       'process.env.API_URL': JSON.stringify(env.API_URL)
