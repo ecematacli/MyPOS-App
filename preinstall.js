@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const { API_URL } = process.env;
 
-package.scripts['build'] = package.dependencies['build'].replace(
+package.scripts['build'] = package.scripts['build'].replace(
   '${$API_URL}',
   API_URL
 );
