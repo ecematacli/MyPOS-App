@@ -5,7 +5,7 @@
   "author": "Ecem Atacli",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
+    "build": "webpack --env.API_URL=${API_URL} --config webpack.prod.js",
     "start": "webpack-dev-server --config webpack.dev.js --open",
     "test": "jest --watch",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
@@ -80,21 +80,5 @@
     "react-test-renderer": "^16.13.0",
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "tsConfigFile": "tsconfig.json"
-      }
-    },
-    "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ]
   }
 }
