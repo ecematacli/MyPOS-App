@@ -1,16 +1,17 @@
 import React from 'react';
 import { Popover, PopoverOrigin } from '@material-ui/core';
 
-interface Props {
-  children: JSX.Element;
-  anchorOrigin: PopoverOrigin;
-  transformOrigin: PopoverOrigin;
+interface PopoverProps {
+  children: React.ReactNode;
+  anchorOrigin?: PopoverOrigin;
+  transformOrigin?: PopoverOrigin;
   open: boolean;
+  anchorEl: null | Element | ((element: Element) => Element);
   onClose: () => void;
-  classes: any;
+  classes?: Partial<Record<'paper', string>>;
 }
 
-const CustomPopover: React.FC<Props> = ({
+const CustomPopover: React.FC<PopoverProps> = ({
   children,
   anchorOrigin,
   transformOrigin,
@@ -36,6 +37,7 @@ const CustomPopover: React.FC<Props> = ({
 
   return (
     <Popover
+      anchorEl
       {...otherProps}
       anchorOrigin={anchorOrigin}
       transformOrigin={transformOrigin}

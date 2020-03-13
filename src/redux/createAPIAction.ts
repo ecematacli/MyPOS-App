@@ -1,17 +1,15 @@
 import { ApiAction } from './types';
 
-export const CALL_API = 'CALL_API';
-
 export default (
   type: string,
   method: string,
   url: string,
   data?: any,
-  successMessage?: (m: string, t: string) => void,
-  errorMessage?: (m: string, t: string) => void
+  successMessage?: () => void,
+  errorMessage?: () => void
 ): ApiAction => ({
-  [CALL_API]: {
-    type,
+  type,
+  callApi: {
     method,
     url,
     data,

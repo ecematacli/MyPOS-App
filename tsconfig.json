@@ -14,9 +14,10 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "noEmit": true,
-    "strict": false
+    "strict": false,
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "jest.config.js"],
   "exclude": ["node_modules"],
   "awesomeTypescriptLoaderOptions": {
     "useCache": true,

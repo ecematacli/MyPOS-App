@@ -38,8 +38,7 @@ const theme = {
     yellowColors: ['#ffa726', '#fb8c00'],
     blueColors: ['#26c6da', '#00acc1'],
     navyBlueColors: ['#035670', '#02394a'],
-    whiteColors: ['#fff'],
-    textColor: 'rgba(0, 0, 0, 0.87)'
+    whiteColors: ['#fff']
   },
   typography: {
     h1: {

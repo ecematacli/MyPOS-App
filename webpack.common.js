@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const path = require('path');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -13,10 +13,6 @@ module.exports = {
         loader: 'babel-loader',
         test: /\.js$/,
         exclude: /node_modules/
-      },
-      {
-        test: /\.html$/,
-        use: ['html-loader']
       },
       {
         test: /\.(png|svg|jpg|ico|gif)$/,
@@ -37,9 +33,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './template.html'
+      template: path.resolve(__dirname, 'template.html'),
+      favicon: path.join(__dirname, 'src/assets/img/app-logo.png')
     }),
-    new FaviconsWebpackPlugin('./src/assets/img/app-logo.png'),
     new Dotenv()
   ]
 };

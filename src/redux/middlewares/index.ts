@@ -1,42 +1,44 @@
-// import axios from 'axios';
+import { Middleware, Dispatch, AnyAction } from 'redux';
+
 import api from '../../api';
-import history from '../../history';
-import {
-  Middleware,
-  MiddlewareAPI,
-  applyMiddleware,
-  Dispatch,
-  Reducer,
-  Action,
-  AnyAction
-} from 'redux';
 
-export const CALL_API = 'CALL_API';
+import { ApiAction, CallApi } from '../types';
 
-interface CallApiAction {
+export interface EnhancedAction {
+  type: string;
+  payload?: any;
+  response?: string;
+  requestPayload?: any;
+  requestUrl?: string;
+}
+
+export interface CallApiAction {
+  callApi: CallApi;
   type: string;
   method: string;
   url: string;
   data?: any;
-  successMessage: (message: string, messageType: string) => void;
-  errorMessage: (message: string, messageType: string) => void;
+  successMessage?: (message: string, messageType: string) => void;
+  errorMessage?: (message: string, messageType: string) => void;
 }
 
-export const apiMiddleware: Middleware<Dispatch> = () => (
-  next: Dispatch
-) => async (action: AnyAction | CallApiAction) => {
-  const callAPI = action[CALL_API];
+export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
+  action: ApiAction | AnyAction
+) => {
+  const callAPI = action.callApi;
 
   if (typeof callAPI === 'undefined') {
     return next(action);
   }
-  const { url, type, method, data, successMessage, errorMessage } = callAPI;
 
-  const actionWith = dataObj => {
-    const finalAction = { ...action, ...dataObj };
-    delete finalAction[CALL_API];
+  const actionWith = (dataObj: EnhancedAction) => {
+    const { callApi, type } = action;
+    const finalAction = { type, ...dataObj };
     return finalAction;
   };
+
+  const { url, method, data, successMessage, errorMessage } = callAPI;
+  const { type } = action;
 
   next(actionWith({ type: type + '_REQUEST' }));
 
@@ -54,9 +56,12 @@ export const apiMiddleware: Middleware<Dispatch> = () => (
     successMessage && successMessage();
   } catch (error) {
     const response = error.response;
+    const { status } = response;
 
-    if (response && response.status === 401) {
-      history.push('/signin');
+    const errStatus = status === 401 || status === 403;
+
+    if (response && errStatus) {
+      location.replace('/signin');
       localStorage.removeItem('token');
     }
 
@@ -65,7 +70,7 @@ export const apiMiddleware: Middleware<Dispatch> = () => (
     next(
       actionWith({
         type: type + '_FAILURE',
-        response: error.response,
+        response: response,
         requestPayload: data,
         requestUrl: url
       })
