@@ -24,6 +24,7 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.40",
     "@material-ui/pickers": "^3.2.8",
+    "@testing-library/react-hooks": "^3.2.1",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.7.6",
     "@types/react": "^16.9.23",
@@ -41,8 +42,6 @@
     "clsx": "^1.0.4",
     "date-fns": "^2.9.0",
     "dotenv-webpack": "^1.7.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-react-hooks": "^2.5.0",
@@ -72,8 +71,6 @@
     "yup": "^0.28.1"
   },
   "devDependencies": {
-    "@types/enzyme": "^3.10.5",
-    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/webpack-env": "^1.15.1",
     "@types/yup": "^0.26.32",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
