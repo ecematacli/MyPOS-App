@@ -5,6 +5,7 @@ import SportsTennisRoundedIcon from '@material-ui/icons/SportsTennisRounded';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import HistoryIcon from '@material-ui/icons/History';
 import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
+import ExposureOutlinedIcon from '@material-ui/icons/ExposureOutlined';
 import { SvgIconProps } from '@material-ui/core';
 
 export interface MenuItem {
@@ -52,8 +53,13 @@ export const MENU_ITEMS: MenuItem[] = [
     subMenuItems: [
       {
         subLabel: 'Products',
-        url: '/products',
+        url: '/inventory/products',
         Icon: SportsTennisRoundedIcon
+      },
+      {
+        subLabel: 'Inventory Count',
+        url: '/inventory/count',
+        Icon: ExposureOutlinedIcon
       }
     ]
   },

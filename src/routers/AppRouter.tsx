@@ -10,8 +10,10 @@ import DashboardPage from '../pages/dashboardPage';
 import SalesPage from '../pages/salesPage';
 import SalesHistoryPage from '../pages/salesHistoryPage';
 import ProductsPage from '../pages/productsPage';
+import InventoryCount from '../pages/inventoryCount/InventoryCount';
+import CreateInventoryCount from '../pages/inventoryCount/components/CreateInventoryCount';
 
-const AppRouter = () => (
+const AppRouter: React.FC = () => (
   <Router history={history}>
     <MenuWrapper>
       <ErrorBoundary>
@@ -23,7 +25,21 @@ const AppRouter = () => (
             exact
             component={SalesHistoryPage}
           />
-          <PrivateRoute path="/products" exact component={ProductsPage} />
+          <PrivateRoute
+            path="/inventory/products"
+            exact
+            component={ProductsPage}
+          />
+          <PrivateRoute
+            path="/inventory/count"
+            exact
+            component={InventoryCount}
+          />
+          <PrivateRoute
+            path="/inventory/count_create"
+            exact
+            component={CreateInventoryCount}
+          />
           <PrivateRoute path="/" exact component={DashboardPage} />
         </Switch>
       </ErrorBoundary>

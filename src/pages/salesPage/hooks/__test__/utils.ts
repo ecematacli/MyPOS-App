@@ -1,3 +1,5 @@
+import { Product } from '../../../../redux/products/types';
+
 export const createTestProduct = (
   length: number = 1,
   prices: number[] = [],
@@ -20,3 +22,8 @@ export const createTestProduct = (
     };
   });
 };
+
+export const getTotalQty = (arr: Product[]) =>
+  arr.reduce((acc: number, curr: Product): number => {
+    return acc + curr.qty;
+  }, 0);
