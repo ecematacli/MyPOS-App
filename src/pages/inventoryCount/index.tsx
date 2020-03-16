@@ -14,7 +14,7 @@ const InventoryCount: React.FC = () => {
     setValue(newValue);
   };
   return (
-    <div style={{ height: '95vh' }}>
+    <div className={classes.inventoryContainer}>
       <Paper className={classes.tabsPaper}>
         <Tabs
           className={classes.tabs}

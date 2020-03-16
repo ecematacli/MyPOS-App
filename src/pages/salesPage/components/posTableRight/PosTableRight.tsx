@@ -28,7 +28,7 @@ interface PosTableProps {
   total: number;
   tax: number;
   discount: number;
-  handleDiscountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDiscountChange: (e: string) => void;
   completeSale: (
     products: Product[],
     total: number,

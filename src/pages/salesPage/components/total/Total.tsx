@@ -14,7 +14,7 @@ interface TotalProps {
   total: number;
   tax: number;
   discount: number;
-  handleDiscountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDiscountChange: (e: string) => void;
   completeSale: (
     products: Product[],
     total: number,
@@ -60,7 +60,7 @@ const Total: React.FC<TotalProps> = ({
           }}
           inputProps={{ style: { textAlign: 'right' } }}
           value={discount}
-          onChange={handleDiscountChange}
+          onChange={e => handleDiscountChange(e.target.value)}
           startAdornment={
             <InputAdornment position="start">&#x20BA;</InputAdornment>
           }

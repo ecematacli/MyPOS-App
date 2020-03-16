@@ -123,20 +123,18 @@ export default (storage?: any) => {
   };
 
   // Total section
-  const handleDiscountChange = ({
-    target: { value }
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    if (value.includes('.') || value.includes(',')) {
+  const handleDiscountChange = (discount: string) => {
+    if (discount.includes('.') || discount.includes(',')) {
       return;
     }
-    if (value === '') {
+    if (discount === '') {
       setDiscount(0);
     } else if (
       products.length &&
-      parseInt(value) >= 0 &&
-      parseInt(value) < total
+      parseInt(discount) >= 0 &&
+      parseInt(discount) < total
     ) {
-      setDiscount(isNaN(Number(value)) ? 0 : parseFloat(value));
+      setDiscount(isNaN(Number(discount)) ? 0 : parseFloat(discount));
     }
   };
 
