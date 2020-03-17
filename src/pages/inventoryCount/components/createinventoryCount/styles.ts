@@ -6,7 +6,6 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   titleDiv: {
     margin: spacing(7, 29, 1.2),
-    width: '100%',
     display: 'flex',
     alignItems: 'center'
   },
@@ -25,22 +24,13 @@ export default makeStyles(({ spacing, palette }) => ({
     height: spacing(11.25),
     padding: spacing(3),
     backgroundColor: '#f1f3f5',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
     boxShadow: 'none'
-  },
-  infoDiv: {
-    marginLeft: spacing(18)
   },
   infoText: {
     color: palette.grayColors[3],
-    marginLeft: spacing(3.4)
+    paddingLeft: spacing(20)
   },
   actionBtnDiv: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginRight: spacing(4)
   },
   btnText: {
@@ -59,11 +49,5 @@ export default makeStyles(({ spacing, palette }) => ({
     '&:hover': {
       backgroundColor: palette.primary.light
     }
-  },
-  imageDiv: {
-    marginTop: spacing(18),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
   }
 }));

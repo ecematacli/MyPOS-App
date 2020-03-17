@@ -1,35 +1,67 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import { Brand } from '../../../../redux/brands/types';
 import { Category } from '../../../../redux/categories/types';
+import useInputState from '../../../../common/hooks/useInputState';
+
+export interface Filters {
+  category: string;
+  brand: string;
+}
+
+const initialState = {
+  category: '',
+  brand: ''
+};
 
 export default (brands: Brand[], categories: Category[]) => {
   const [startDate, handleStartDateChange] = useState<Date | null>(null);
+  const [countName, setCountName] = useState('');
+  const [dropdownInputs, setDropdownInputs] = useReducer(
+    (state: Filters, newState: Filters) => ({
+      ...state,
+      ...newState
+    }),
+    initialState
+  );
 
-  const FILTER_INPUT_FIELDS = [
-    {
-      label: 'Count Name',
-      fieldId: 'searchQuery',
-      placeholder: 'Search by name, sku or barcode',
-      value: 'x'
-    },
+  // Start Date and Count Name input handlers
+  const handleDropdownInputChange = ({
+    target: { value, name }
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    const fieldName = name;
+    const newValue = value;
+
+    setDropdownInputs({ ...dropdownInputs, [fieldName]: newValue });
+  };
+
+  const handleCountNameChange = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    setCountName(value);
+  };
+
+  //Dropdown Input fields for MU Select component
+  const DROPDOWN_INPUT_FIELDS = [
     {
       label: 'Category',
       fieldId: 'category',
-      dropdown: true,
-      dropdownItems: categories,
-      value: 'y'
+      value: dropdownInputs.category,
+      dropdownItems: categories
     },
     {
       label: 'Brand',
       fieldId: 'brand',
-      dropdown: true,
-      dropdownItems: brands,
-      value: 'z'
+      value: dropdownInputs.brand,
+      dropdownItems: brands
     }
   ];
 
   return {
     startDate,
-    handleStartDateChange
+    handleStartDateChange,
+    countName,
+    handleCountNameChange,
+    handleDropdownInputChange,
+    DROPDOWN_INPUT_FIELDS
   };
 };

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Paper, Typography, Button } from '@material-ui/core';
+import { Paper, Typography, Button, Grid } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
@@ -45,30 +45,44 @@ const CreateInventoryCount: React.FC<Props> = ({
   );
 
   const renderCountActionPaper = () => (
-    <Paper className={classes.startCountPaper}>
-      <div className={classes.infoDiv}>
-        <Typography className={classes.infoText}>
-          Schedule a full or partial inventory count to maintain accurate
-          inventory levels.
-        </Typography>
-      </div>
-      <div className={classes.actionBtnDiv}>
-        <Button className={classes.exitBtn}>
-          <Typography className={classes.btnText}>Save&Exit</Typography>
-        </Button>
-        <Button className={classes.startBtn}>
-          <Typography className={classes.btnText}>Start Count</Typography>
-        </Button>
-      </div>
-    </Paper>
+    <div className={classes.actionBtnDiv}>
+      <Button className={classes.exitBtn}>
+        <Typography className={classes.btnText}>Save & Exit</Typography>
+      </Button>
+      <Button className={classes.startBtn}>
+        <Typography className={classes.btnText}>Start Count</Typography>
+      </Button>
+    </div>
   );
 
   return (
-    <div className={classes.inventoryCountContainer}>
-      {renderTitle()}
-      {renderCountActionPaper()}
-      <InventoryCountFilters brands={brands} categories={categories} />
-    </div>
+    <Fragment>
+      <Grid container>
+        <Grid item xs={12} sm={12} md={12}>
+          {renderTitle()}
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        justify="space-around"
+        alignItems="center"
+        component={Paper}
+        className={classes.startCountPaper}
+      >
+        <Grid item xl={6} lg={6}>
+          <Typography className={classes.infoText}>
+            Schedule a full or partial inventory count to maintain accurate
+            inventory levels.
+          </Typography>
+        </Grid>
+        <Grid item xl={4} lg={4}>
+          {renderCountActionPaper()}
+        </Grid>
+      </Grid>
+      <Grid container>
+        <InventoryCountFilters brands={brands} categories={categories} />
+      </Grid>
+    </Fragment>
   );
 };
 
