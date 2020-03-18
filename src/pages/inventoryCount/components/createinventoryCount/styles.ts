@@ -1,34 +1,41 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing, palette }) => ({
-  inventoryCountContainer: {
-    height: '95vh'
+export default makeStyles(({ spacing, palette, breakpoints }) => ({
+  createInvContainer: {
+    paddingTop: spacing(3)
+  },
+  titleGrid: {
+    width: '65%'
   },
   titleDiv: {
-    margin: spacing(7, 29, 1.2),
-    display: 'flex',
-    alignItems: 'center'
+    margin: spacing(7, 0, 1.2),
+    display: 'flex'
   },
   backArrow: { color: palette.grayColors[13], cursor: 'pointer' },
   iconDiv: { display: 'flex', alignItems: 'center' },
   titleText: {
     fontSize: spacing(3.2),
-    marginLeft: spacing(0.4),
     fontWeight: 'bold',
     color: '#3a4953'
   },
+  startCountContainer: {
+    backgroundColor: '#f1f3f5',
+    display: 'flex',
+    justifyContent: 'center'
+  },
   startCountPaper: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
     height: spacing(11.25),
     padding: spacing(3),
-    backgroundColor: '#f1f3f5',
-    boxShadow: 'none'
+    backgroundColor: 'inherit',
+    boxShadow: 'none',
+    width: '65%',
+    [breakpoints.down('md')]: {
+      width: '100%'
+    }
   },
   infoText: {
     color: palette.grayColors[3],
-    paddingLeft: spacing(20)
+    paddingRight: spacing(2.3)
   },
   actionBtnDiv: {
     marginRight: spacing(4)
@@ -49,5 +56,20 @@ export default makeStyles(({ spacing, palette }) => ({
     '&:hover': {
       backgroundColor: palette.primary.light
     }
+  },
+  dividerDiv: {
+    padding: spacing(4),
+    marginTop: spacing(9)
+  },
+  divider: {
+    backgroundColor: palette.secondary.light
+  },
+  imageDiv: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: 50
+  },
+  boxesImage: {
+    height: 100
   }
 }));

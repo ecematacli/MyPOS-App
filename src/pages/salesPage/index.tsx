@@ -50,63 +50,65 @@ const SalesPage: React.FC<SalesProps> = ({
   }, []);
 
   return (
-    <Grid container spacing={3} justify="center">
-      {/*
- // @ts-ignore */}
-      <Grid item align="center" className={classes.discardSaleGridItem}>
-        <div className={classes.discardSaleBtnHolder}>
-          <IconButton
-            classes={{ root: classes.discardIconBtn }}
-            onClick={discardSale}
-          >
-            <DeleteForeverIcon className={classes.discardSaleBtn} />
-            <Typography>Discard Sale</Typography>
-          </IconButton>
-        </div>
+    <div className={classes.salesContainer}>
+      <Grid container spacing={3} justify="center">
+        {/*
+         // @ts-ignore */}
+        <Grid item align="center" className={classes.discardSaleGridItem}>
+          <div className={classes.discardSaleBtnHolder}>
+            <IconButton
+              classes={{ root: classes.discardIconBtn }}
+              onClick={discardSale}
+            >
+              <DeleteForeverIcon className={classes.discardSaleBtn} />
+              <Typography>Discard Sale</Typography>
+            </IconButton>
+          </div>
+        </Grid>
+        {/*
+        // @ts-ignore */}
+        <Grid
+          item
+          align="center"
+          xs={12}
+          sm={12}
+          md={12}
+          lg={6}
+          xl={5}
+          className={classes.searchBarGridItem}
+          zeroMinWidth
+        >
+          <ProductSearchBar addProduct={addProduct} />
+        </Grid>
+        {/*
+        // @ts-ignore */}
+        <Grid
+          item
+          align="center"
+          xs={12}
+          sm={12}
+          md={12}
+          lg={6}
+          xl={5}
+          className={classes.posTableGridItem}
+          zeroMinWidth
+        >
+          <PosTableRight
+            products={products}
+            deleteProduct={deleteProduct}
+            decreaseProductQuantity={decreaseProductQuantity}
+            increaseProductQuantity={increaseProductQuantity}
+            editPriceLocalStorageState={editProductPrice}
+            total={total}
+            tax={tax}
+            discount={discount}
+            handleDiscountChange={handleDiscountChange}
+            completeSale={completeSale}
+            discardSale={discardSale}
+          />
+        </Grid>
       </Grid>
-      {/*
- // @ts-ignore */}
-      <Grid
-        item
-        align="center"
-        xs={12}
-        sm={12}
-        md={12}
-        lg={6}
-        xl={5}
-        className={classes.searchBarGridItem}
-        zeroMinWidth
-      >
-        <ProductSearchBar addProduct={addProduct} />
-      </Grid>
-      {/*
-   // @ts-ignore */}
-      <Grid
-        item
-        align="center"
-        xs={12}
-        sm={12}
-        md={12}
-        lg={6}
-        xl={5}
-        className={classes.posTableGridItem}
-        zeroMinWidth
-      >
-        <PosTableRight
-          products={products}
-          deleteProduct={deleteProduct}
-          decreaseProductQuantity={decreaseProductQuantity}
-          increaseProductQuantity={increaseProductQuantity}
-          editPriceLocalStorageState={editProductPrice}
-          total={total}
-          tax={tax}
-          discount={discount}
-          handleDiscountChange={handleDiscountChange}
-          completeSale={completeSale}
-          discardSale={discardSale}
-        />
-      </Grid>
-    </Grid>
+    </div>
   );
 };
 

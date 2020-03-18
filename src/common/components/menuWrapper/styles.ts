@@ -76,7 +76,6 @@ export default makeStyles(({ breakpoints, spacing, palette }) => ({
   content: {
     flexGrow: 1,
     overflow: 'auto',
-    padding: spacing(3),
     backgroundColor: palette.grayColors[5]
   }
 }));

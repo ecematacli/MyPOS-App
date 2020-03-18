@@ -3,7 +3,8 @@ import { Product } from '../../../../redux/products/types';
 export const createTestProduct = (
   length: number = 1,
   prices: number[] = [],
-  discountPrices: number[] = []
+  discountPrices: number[] = [],
+  taxRate: number[] = []
 ) => {
   return Array.from({ length }).map((_, i) => {
     return {
@@ -15,7 +16,7 @@ export const createTestProduct = (
       discountPrice: discountPrices[i],
       qty: 1,
       variation: null,
-      taxRate: null,
+      taxRate: taxRate[i] || null,
       synced: true,
       brand: { name: 'Tecnifibre ', id: 14 },
       category: { name: 'Raket', id: 10 }

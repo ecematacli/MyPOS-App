@@ -9,13 +9,12 @@ import {
   InputLabel,
   FormControl,
   Select,
-  MenuItem,
-  Grid,
-  Divider
+  MenuItem
 } from '@material-ui/core';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 
 import styles from './styles';
+import {} from '../../../../assets/img/boxes.png';
 import { Category } from '../../../../redux/categories/types';
 import { Brand } from '../../../../redux/brands/types';
 import useInventoryFilters from './useInventoryFilters';
@@ -136,14 +135,9 @@ const InventoryCountFilters: React.FC<Props> = ({ brands, categories }) => {
   return (
     <Fragment>
       <div className={classes.filtersContainer}>
-        <Grid item xl={6} lg={6} md={6} sm={12}>
-          {renderInputs()}
-        </Grid>
-        <Grid item xl={6} lg={6} md={6} sm={12}>
-          {renderDropdownInputs()}
-        </Grid>
+        {renderInputs()}
+        {renderDropdownInputs()}
       </div>
-      <Divider className={classes.divider} />
     </Fragment>
   );
 };

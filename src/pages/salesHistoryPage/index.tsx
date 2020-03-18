@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { ActionTypes, StoreState } from '../../redux/types';
@@ -76,7 +76,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     }));
 
   return (
-    <Fragment>
+    <div style={{ padding: 24 }}>
       <SalesFilters
         startDate={startDate}
         endDate={endDate}
@@ -100,7 +100,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
           component={SaleDetails}
         />
       )}
-    </Fragment>
+    </div>
   );
 };
 

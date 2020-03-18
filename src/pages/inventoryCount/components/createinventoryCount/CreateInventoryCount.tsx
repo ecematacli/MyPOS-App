@@ -1,10 +1,11 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Paper, Typography, Button, Grid } from '@material-ui/core';
+import { Typography, Button, Grid, Divider } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
 import history from '../../../../history';
+import boxes from '../../../../assets/img/boxes.png';
 import { StoreState } from '../../../../redux/types';
 import { Brand } from '../../../../redux/brands/types';
 import { Category } from '../../../../redux/categories/types';
@@ -34,12 +35,12 @@ const CreateInventoryCount: React.FC<Props> = ({
 
   const renderTitle = () => (
     <div className={classes.titleDiv}>
-      <div
+      <span
         className={classes.iconDiv}
         onClick={() => history.push('/inventory/count')}
       >
         <ArrowBackIcon className={classes.backArrow} />
-      </div>
+      </span>
       <Typography className={classes.titleText}>Add Inventory Count</Typography>
     </div>
   );
@@ -56,33 +57,41 @@ const CreateInventoryCount: React.FC<Props> = ({
   );
 
   return (
-    <Fragment>
-      <Grid container>
-        <Grid item xs={12} sm={12} md={12}>
-          {renderTitle()}
-        </Grid>
+    <div className={classes.createInvContainer}>
+      <Grid justify="center" container>
+        <div className={classes.titleGrid}>
+          <Grid item xs={12}>
+            {renderTitle()}
+          </Grid>
+        </div>
       </Grid>
-      <Grid
-        container
-        justify="space-around"
-        alignItems="center"
-        component={Paper}
-        className={classes.startCountPaper}
-      >
-        <Grid item xl={6} lg={6}>
-          <Typography className={classes.infoText}>
-            Schedule a full or partial inventory count to maintain accurate
-            inventory levels.
-          </Typography>
+      <div className={classes.startCountContainer}>
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          className={classes.startCountPaper}
+        >
+          <Grid item xl={9} lg={9}>
+            <Typography className={classes.infoText}>
+              Schedule an inventory count to maintain accurate inventory levels.
+            </Typography>
+          </Grid>
+          <Grid item xl={3} lg={3}>
+            {renderCountActionPaper()}
+          </Grid>
         </Grid>
-        <Grid item xl={4} lg={4}>
-          {renderCountActionPaper()}
-        </Grid>
-      </Grid>
+      </div>
       <Grid container>
         <InventoryCountFilters brands={brands} categories={categories} />
       </Grid>
-    </Fragment>
+      <div className={classes.dividerDiv}>
+        <Divider className={classes.divider} />
+      </div>
+      <div className={classes.imageDiv}>
+        <img className={classes.boxesImage} src={boxes} />
+      </div>
+    </div>
   );
 };
 

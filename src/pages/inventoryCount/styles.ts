@@ -2,44 +2,43 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   inventoryContainer: {
-    height: '95vh'
+    paddingTop: spacing(3)
   },
   tabsPaper: {
-    width: '100%',
     boxShadow: 'none',
     marginTop: spacing(7),
     backgroundColor: 'inherit'
-  },
-  tabs: {
-    marginLeft: spacing(25)
   },
   tabRoot: {
     textTransform: 'none',
     fontSize: spacing(2)
   },
-  addCountPaper: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    height: spacing(11.25),
+  addCountContainer: {
     backgroundColor: '#f1f3f5',
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    boxShadow: 'none'
+    justifyContent: 'center'
+  },
+  addCountPaper: {
+    height: spacing(11.25),
+    boxShadow: 'none',
+    width: '40%',
+    [breakpoints.down('md')]: {
+      width: '100%'
+    },
+    backgroundColor: 'inherit'
   },
   infoText: {
-    marginLeft: 150,
-    color: palette.grayColors[3]
+    color: palette.grayColors[3],
+    paddingRight: spacing(2.3)
   },
   addCountBtnDiv: {
     textTransform: 'capitalize',
     textShadow: 'none'
   },
+  addBtn: {
+    padding: spacing(1)
+  },
   imageDiv: {
-    marginTop: spacing(18),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    marginTop: spacing(8)
   }
 }));

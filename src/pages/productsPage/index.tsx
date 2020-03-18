@@ -99,7 +99,7 @@ const ProductsPage: React.FC<ProductsProps> = ({
   }, []);
 
   return (
-    <Fragment>
+    <div style={{ padding: 24 }}>
       <ProductFilters
         filterInputs={filterInputs}
         appliedFilters={appliedFilters}
@@ -127,7 +127,7 @@ const ProductsPage: React.FC<ProductsProps> = ({
           />
         </Fragment>
       )}
-    </Fragment>
+    </div>
   );
 };
 

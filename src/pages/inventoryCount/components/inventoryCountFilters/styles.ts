@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   filtersContainer: {
-    marginTop: spacing(18),
+    marginTop: spacing(9),
     marginLeft: spacing(25),
     display: 'flex',
     flexDirection: 'column'
@@ -51,15 +51,9 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     '&:focus': {
       backgroundColor: 'transparent !important'
     }
-    // '@media (max-width:465px)': {
-    //   width: 210
-    // }
   },
   dropdownInput: {
     width: spacing(37.5)
-    // '@media (max-width:465px)': {
-    //   width: 210
-    // }
   },
   dropdownItems: {
     [breakpoints.down('sm')]: {
@@ -68,9 +62,5 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   innerInput: {
     height: spacing(5.75)
-  },
-  divider: {
-    marginTop: spacing(10),
-    backgroundColor: palette.grayColors[10]
   }
 }));

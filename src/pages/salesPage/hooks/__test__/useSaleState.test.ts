@@ -105,7 +105,7 @@ describe('[Sale State Hook]', () => {
 
   test('edits product price', () => {
     const { result } = renderHook(() => useSalesState(storage));
-    const products = createTestProduct(2, [50, 100], [0, 27.9]);
+    const products = createTestProduct(2, [50, 100], [0, 27.9], [8, 8]);
 
     act(() => {
       products.forEach(result.current.addProduct);
@@ -115,13 +115,14 @@ describe('[Sale State Hook]', () => {
     });
 
     expect(result.current.total).toBe(330.99);
+    // expect(result.current.tax).toBe(30.4792);
     expect(result.current.products[1].price).toBe(280.99);
     expect(getTotalQty(result.current.products)).toBe(2);
   });
 
   test('changes additional discount of product', () => {
     const { result } = renderHook(() => useSalesState(storage));
-    const products = createTestProduct(2, [100.55, 288.9], [68, 44]);
+    const products = createTestProduct(2, [100.55, 288.9], [68, 44], [18, 8]);
     act(() => {
       products.forEach(result.current.addProduct);
     });
@@ -130,15 +131,6 @@ describe('[Sale State Hook]', () => {
 
     expect(result.current.discount).toBe(158);
     expect(result.current.total).toBe(389.45);
-  });
-
-  test('changes product tax', () => {
-    const { result } = renderHook(() => useSalesState(storage));
-    const products = createTestProduct(2, [100.55, 288.9], [68, 44]);
-    act(() => {
-      products.forEach(result.current.addProduct);
-    });
-
-    act(() => result.current.handleDiscountChange('158'));
+    expect(result.current.tax).toBe(41.211);
   });
 });

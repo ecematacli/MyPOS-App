@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 
 import styles from './styles';
@@ -40,7 +40,7 @@ const DashboardPage: React.FC = () => {
   }, []);
 
   return (
-    <Fragment>
+    <div className={classes.dashboardContainer}>
       <Grid
         className={classes.dateGridContainer}
         container
@@ -91,7 +91,7 @@ const DashboardPage: React.FC = () => {
           />
         </Grid>
       </Grid>
-    </Fragment>
+    </div>
   );
 };
 

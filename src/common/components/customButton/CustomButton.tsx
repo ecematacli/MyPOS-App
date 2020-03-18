@@ -8,9 +8,9 @@ export interface ButtonProps {
   type?: 'submit' | 'button';
   fullWidth?: boolean;
   classes?: Partial<Record<'root', string>>;
+  className?: any;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
-
 
 const CustomButton: React.FC<ButtonProps> = ({ children, ...props }) => {
   return (
