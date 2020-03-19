@@ -5,7 +5,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     paddingTop: spacing(3)
   },
   titleGrid: {
-    width: '65%'
+    width: '50%'
   },
   titleDiv: {
     margin: spacing(7, 0, 1.2),
@@ -28,17 +28,14 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     padding: spacing(3),
     backgroundColor: 'inherit',
     boxShadow: 'none',
-    width: '65%',
+    width: '50%',
     [breakpoints.down('md')]: {
       width: '100%'
     }
   },
   infoText: {
-    color: palette.grayColors[3],
+    color: palette.secondary.main,
     paddingRight: spacing(2.3)
-  },
-  actionBtnDiv: {
-    marginRight: spacing(4)
   },
   btnText: {
     textTransform: 'capitalize',
@@ -59,15 +56,19 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   dividerDiv: {
     padding: spacing(4),
-    marginTop: spacing(9)
+    marginTop: spacing(9),
+    '& *': {
+      backgroundColor: 'palette.secondary.light'
+    }
   },
-  divider: {
-    backgroundColor: palette.secondary.light
+  filtersGridContainer: {
+    width: '50%',
+    margin: 'auto'
   },
   imageDiv: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: 50
+    marginTop: spacing(6.25)
   },
   boxesImage: {
     height: 100

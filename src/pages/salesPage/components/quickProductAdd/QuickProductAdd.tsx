@@ -19,7 +19,7 @@ import { StoreState } from '../../../../redux/types';
 import { QuickAddProps, FormValues } from './types';
 import { ProductAddSchema } from './productAddSchema';
 import useNewProductInputState from './useNewProductInputState';
-import CustomInput from '../../../../common/components/customInput/CustomInput';
+import CustomInput from '../../../../common/components/customInput';
 import NewProductInputFields from '../newProductInputFields/NewProductInputFields';
 
 const QuickProductAdd: React.FC<QuickAddProps> = ({

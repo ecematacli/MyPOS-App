@@ -15,10 +15,10 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     color: palette.secondary.main,
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
     alignItems: 'center',
     background: ({ rowIndex }: StyleProps) =>
-      rowIndex % 2 ? `${palette.whiteColors[0]}` : `${palette.greenColors[2]}`,
-    position: 'relative'
+      rowIndex % 2 ? `${palette.whiteColors[0]}` : `${palette.greenColors[2]}`
   },
   detailsCard: {
     width: '75%',

@@ -4,7 +4,7 @@ import { FieldProps } from 'formik';
 
 import styles from './styles';
 import { FormValues } from '../quickProductAdd/QuickProductAdd';
-import CustomInput from '../../../../common/components/customInput/CustomInput';
+import CustomInput from '../../../../common/components/customInput';
 
 interface InputProps {
   fieldId: string;

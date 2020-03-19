@@ -3,9 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   filtersContainer: {
     marginTop: spacing(9),
-    marginLeft: spacing(25),
+    // marginLeft: spacing(25),
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
   },
   calendarIcon: {
     color: palette.secondary.main,

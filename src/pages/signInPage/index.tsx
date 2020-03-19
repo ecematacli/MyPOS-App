@@ -8,7 +8,7 @@ import styles from './styles';
 import image from '../../assets/img/accountant.jpg';
 import useLoginState from './hooks/useLoginState';
 import { AuthContext } from '../../contexts/AuthContext';
-import CustomButton from '../../common/components/customButton/CustomButton';
+import CustomButton from '../../common/components/customButton';
 import SigninInput from './components/SigninInput';
 
 export interface FormValues {

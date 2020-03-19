@@ -6,8 +6,8 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import styles from './styles';
 import { capitalize } from '../../../../common/utils';
 import useProductFilterPopover from './useProductFilterPopover';
-import CustomInput from '../../../../common/components/customInput/CustomInput';
-import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
+import CustomInput from '../../../../common/components/customInput';
+import CustomPopover from '../../../../common/components/customPopover';
 import { Filters, AppliedFilters, FilterInput } from '../../types';
 
 interface FiltersProps {

@@ -5,8 +5,8 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import styles from './styles';
 import { AppliedFilters } from '../../types';
 import useDatePickerState from './useDatePickerState';
-import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
-import DatePickerFilter from '../../../../common/components/datePickerFilter/DatePickerFilter';
+import CustomPopover from '../../../../common/components/customPopover';
+import DatePickerFilter from '../../../../common/components/datePickerFilter';
 
 interface DateFilterProps {
   startDate: Date;

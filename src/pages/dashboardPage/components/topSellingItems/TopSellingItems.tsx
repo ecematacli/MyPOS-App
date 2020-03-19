@@ -14,7 +14,7 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 import styles from './styles';
 import { TopSellingData } from '../../types';
-import Loading from '../../../../common/components/loading/Loading';
+import Loading from '../../../../common/components/loading';
 
 interface Props {
   loading: boolean;

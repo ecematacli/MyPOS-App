@@ -11,7 +11,7 @@ import { Product } from '../../../../redux/products/types';
 import { Category } from '../../../../redux/categories/types';
 import { Brand } from '../../../../redux/brands/types';
 import useProductDetails from './useProductDetails';
-import CustomInput from '../../../../common/components/customInput/CustomInput';
+import CustomInput from '../../../../common/components/customInput';
 
 interface DetailsProps {
   product: Product;

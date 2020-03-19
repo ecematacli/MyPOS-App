@@ -16,7 +16,7 @@ export const createTestProduct = (
       discountPrice: discountPrices[i],
       qty: 1,
       variation: null,
-      taxRate: taxRate[i] || null,
+      taxRate: taxRate[i] || 8,
       synced: true,
       brand: { name: 'Tecnifibre ', id: 14 },
       category: { name: 'Raket', id: 10 }

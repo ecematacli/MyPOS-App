@@ -4,7 +4,7 @@ import {
   NotificationsContext,
   Notification
 } from '../../../contexts/NotificationsContext';
-import CustomSnackbar from './CustomSnackbar';
+import CustomSnackbar from '.';
 
 const Notifications: React.FC = () => {
   const { notifications, removeNotification } = useContext(

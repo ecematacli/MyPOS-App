@@ -3,8 +3,8 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 
 import styles from './styles';
 import useSalesFiltersPopover from './useSalesFiltersPopover';
-import DatePickerFilter from '../../../../common/components/datePickerFilter/DatePickerFilter';
-import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
+import DatePickerFilter from '../../../../common/components/datePickerFilter';
+import CustomPopover from '../../../../common/components/customPopover';
 
 interface FiltersProps {
   startDate: Date;

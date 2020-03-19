@@ -8,8 +8,8 @@ import { loadingSelector } from '../../redux/loading/loadingReducer';
 import { formatDate } from '../../common/utils';
 import useSalesFiltersState from './hooks/useSalesFiltersState';
 import { TABLE_HEADS } from './tableHeads';
-import Loading from '../../common/components/loading/Loading';
-import CustomTable from '../../common/components/customTable/CustomTable';
+import Loading from '../../common/components/loading';
+import CustomTable from '../../common/components/customTable';
 import SaleDetails from './components/saleDetails/SaleDetails';
 import SalesFilters from './components/salesFilters/SalesFilters';
 

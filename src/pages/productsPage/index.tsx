@@ -11,8 +11,8 @@ import { fetchBrands } from '../../redux/brands/brandsActions';
 import { loadingSelector } from '../../redux/loading/loadingReducer';
 import { TABLE_HEADS } from './tableHeads';
 import useProductFilters from './hooks/useProductFilters';
-import Loading from '../../common/components/loading/Loading';
-import CustomTable from '../../common/components/customTable/CustomTable';
+import Loading from '../../common/components/loading';
+import CustomTable from '../../common/components/customTable';
 import ProductDetails from './components/productDetails/ProductDetails';
 import ProductFilters from './components/productFilters/ProductFilters';
 

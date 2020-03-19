@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Typography, Button, Grid, Divider } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -46,14 +46,17 @@ const CreateInventoryCount: React.FC<Props> = ({
   );
 
   const renderCountActionPaper = () => (
-    <div className={classes.actionBtnDiv}>
+    <Fragment>
       <Button className={classes.exitBtn}>
         <Typography className={classes.btnText}>Save & Exit</Typography>
       </Button>
-      <Button className={classes.startBtn}>
+      <Button
+        onClick={() => history.push('/inventory/count/1')}
+        className={classes.startBtn}
+      >
         <Typography className={classes.btnText}>Start Count</Typography>
       </Button>
-    </div>
+    </Fragment>
   );
 
   return (
@@ -82,11 +85,13 @@ const CreateInventoryCount: React.FC<Props> = ({
           </Grid>
         </Grid>
       </div>
-      <Grid container>
-        <InventoryCountFilters brands={brands} categories={categories} />
-      </Grid>
+      <div className={classes.filtersGridContainer}>
+        <Grid container>
+          <InventoryCountFilters brands={brands} categories={categories} />
+        </Grid>
+      </div>
       <div className={classes.dividerDiv}>
-        <Divider className={classes.divider} />
+        <Divider />
       </div>
       <div className={classes.imageDiv}>
         <img className={classes.boxesImage} src={boxes} />

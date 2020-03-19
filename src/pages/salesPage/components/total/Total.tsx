@@ -5,8 +5,8 @@ import { Divider, Typography, InputAdornment } from '@material-ui/core';
 import styles from './styles';
 import { currencyFormatter } from '../../../../common/utils';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
-import CustomInput from '../../../../common/components/customInput/CustomInput';
-import CustomButton from '../../../../common/components/customButton/CustomButton';
+import CustomInput from '../../../../common/components/customInput';
+import CustomButton from '../../../../common/components/customButton';
 import { Product } from '../../../../redux/products/types';
 
 interface TotalProps {

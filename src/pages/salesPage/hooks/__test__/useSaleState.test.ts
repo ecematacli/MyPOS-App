@@ -17,6 +17,7 @@ describe('[Sale State Hook]', () => {
 
     expect(result.current.total).toBe(12399);
     expect(result.current.discount).toBe(0);
+    expect(result.current.tax).toBe(991.92);
     expect(getTotalQty(result.current.products)).toBe(1);
   });
 
@@ -27,7 +28,8 @@ describe('[Sale State Hook]', () => {
       createTestProduct(
         3,
         [115.22, 128.99, 100.9],
-        [109.99, 119.99, 99.99]
+        [109.99, 119.99, 99.99],
+        [8, 18, 8]
       ).forEach(result.current.addProduct);
     });
 
@@ -35,6 +37,7 @@ describe('[Sale State Hook]', () => {
     expect(result.current.discount.toFixed(2)).toBe(
       (345.11 - 329.96999999999997).toFixed(2)
     );
+    expect(Math.round(result.current.tax)).toBe(Math.round(40.515));
     expect(result.current.products.map(p => p.qty)).toEqual([1, 1, 1]);
   });
 
@@ -73,7 +76,12 @@ describe('[Sale State Hook]', () => {
 
   test('decreases product quantity', () => {
     const { result } = renderHook(() => useSalesState(storage));
-    const products = createTestProduct(2, [100, 299.9], [10.15, 50.99]);
+    const products = createTestProduct(
+      2,
+      [100, 299.9],
+      [10.15, 50.99],
+      [18, 8]
+    );
     act(() => {
       products.forEach(result.current.addProduct);
     });
@@ -83,6 +91,7 @@ describe('[Sale State Hook]', () => {
     });
 
     expect(result.current.total).toBe(299.9);
+    expect(Math.round(result.current.tax)).toBe(Math.round(23.992));
     expect(result.current.discount.toFixed(2)).toBe((248.91).toFixed(2));
     expect(getTotalQty(result.current.products)).toBe(1);
   });
@@ -115,7 +124,7 @@ describe('[Sale State Hook]', () => {
     });
 
     expect(result.current.total).toBe(330.99);
-    // expect(result.current.tax).toBe(30.4792);
+    expect(result.current.tax.toFixed(2)).toBe((26.4792).toFixed(2));
     expect(result.current.products[1].price).toBe(280.99);
     expect(getTotalQty(result.current.products)).toBe(2);
   });

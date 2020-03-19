@@ -23,7 +23,7 @@ import { capitalize } from '../../../../common/utils';
 import { currencyFormatter } from '../../../../common/utils';
 import { getDisabledOptions } from '../../utils';
 import useChartState from './useChartState';
-import CustomPopover from '../../../../common/components/customPopover/CustomPopover';
+import CustomPopover from '../../../../common/components/customPopover';
 
 interface ChartProps {
   revenueData: RevenueData;

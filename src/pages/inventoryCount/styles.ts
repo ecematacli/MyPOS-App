@@ -28,7 +28,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     backgroundColor: 'inherit'
   },
   infoText: {
-    color: palette.grayColors[3],
+    color: palette.secondary.main,
     paddingRight: spacing(2.3)
   },
   addCountBtnDiv: {

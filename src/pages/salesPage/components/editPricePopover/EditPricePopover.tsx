@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
-import CustomInput from '../../../../common/components/customInput/CustomInput';
+import CustomInput from '../../../../common/components/customInput';
 interface Props {
   open: boolean;
   anchorEl: null | Element;

@@ -27,7 +27,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   displayMsgCell: {
     borderBottom: 'none',
-    paddingTop: 50
+    paddingTop: spacing(6.25)
   },
   topSellingContent: {
     overflow: 'auto',
@@ -63,12 +63,12 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     }
   },
   tableBodyRow: {
-    height: 120,
-    maxHeight: 120,
+    height: spacing(15),
+    maxHeight: spacing(15),
     '& > td': {
       borderBottom: `1px solid ${palette.secondary.light}`,
       height: 'auto !important',
-      maxHeight: 120,
+      maxHeight: spacing(15),
       [breakpoints.down('md')]: {
         fontSize: 14
       }
