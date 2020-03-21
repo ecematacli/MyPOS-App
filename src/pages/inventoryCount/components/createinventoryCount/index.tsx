@@ -34,39 +34,46 @@ const CreateInventoryCount: React.FC<Props> = ({
   }, []);
 
   const renderTitle = () => (
-    <div className={classes.titleDiv}>
-      <span
-        className={classes.iconDiv}
-        onClick={() => history.push('/inventory/count')}
-      >
-        <ArrowBackIcon className={classes.backArrow} />
-      </span>
-      <Typography className={classes.titleText}>Add Inventory Count</Typography>
-    </div>
+    <Grid item xs={12}>
+      <div className={classes.titleDiv}>
+        <span
+          className={classes.iconDiv}
+          onClick={() => history.push('/inventory/count')}
+        >
+          <ArrowBackIcon className={classes.backArrow} />
+        </span>
+        <Typography className={classes.titleText}>
+          Add Inventory Count
+        </Typography>
+      </div>
+    </Grid>
   );
 
-  const renderCountActionPaper = () => (
+  const renderCountPaper = () => (
     <Fragment>
-      <Button className={classes.exitBtn}>
-        <Typography className={classes.btnText}>Save & Exit</Typography>
-      </Button>
-      <Button
-        onClick={() => history.push('/inventory/count/1')}
-        className={classes.startBtn}
-      >
-        <Typography className={classes.btnText}>Start Count</Typography>
-      </Button>
+      <Grid item xl={9} lg={9}>
+        <Typography className={classes.infoText}>
+          Schedule an inventory count to maintain accurate inventory levels.
+        </Typography>
+      </Grid>
+      <Grid item xl={3} lg={3}>
+        <Button className={classes.exitBtn}>
+          <Typography className={classes.btnText}>Save & Exit</Typography>
+        </Button>
+        <Button
+          onClick={() => history.push('/inventory/count/1')}
+          className={classes.startBtn}
+        >
+          <Typography className={classes.btnText}>Start Count</Typography>
+        </Button>
+      </Grid>
     </Fragment>
   );
 
   return (
     <div className={classes.createInvContainer}>
       <Grid justify="center" container>
-        <div className={classes.titleGrid}>
-          <Grid item xs={12}>
-            {renderTitle()}
-          </Grid>
-        </div>
+        <div className={classes.titleGrid}>{renderTitle()}</div>
       </Grid>
       <div className={classes.startCountContainer}>
         <Grid
@@ -75,14 +82,7 @@ const CreateInventoryCount: React.FC<Props> = ({
           alignItems="center"
           className={classes.startCountPaper}
         >
-          <Grid item xl={9} lg={9}>
-            <Typography className={classes.infoText}>
-              Schedule an inventory count to maintain accurate inventory levels.
-            </Typography>
-          </Grid>
-          <Grid item xl={3} lg={3}>
-            {renderCountActionPaper()}
-          </Grid>
+          {renderCountPaper()}
         </Grid>
       </div>
       <div className={classes.filtersGridContainer}>

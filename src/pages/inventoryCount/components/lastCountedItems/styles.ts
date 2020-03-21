@@ -6,15 +6,14 @@ export default makeStyles(({ spacing, palette }) => ({
     height: '100vh'
   },
   titleDiv: {
-    padding: spacing(2, 2),
-    color: palette.grayColors[3]
+    padding: spacing(2, 2)
   },
   title: {
     color: palette.secondary.main,
     fontSize: 18
   },
   divider: {
-    backgroundColor: palette.grayColors[14]
+    backgroundColor: `0.1em solid ${palette.grayColors[10]}`
   },
   imageDiv: {
     display: 'flex',

@@ -25,12 +25,6 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
   suggestionGroup: {
     display: 'flex'
   },
-  searchBarInput: {
-    width: '95%',
-    '@media (max-width:1499px) and (min-width:1390px)': {
-      width: '85%'
-    }
-  },
   inputRoot: {
     '& .MuiOutlinedInput-root': {
       paddingRight: spacing(2)

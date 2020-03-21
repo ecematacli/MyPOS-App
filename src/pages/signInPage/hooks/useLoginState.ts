@@ -26,7 +26,7 @@ export default () => {
       if (response) {
         active && saveAuthToken(response.data);
       } else {
-        active && saveAuthToken();
+        active && saveAuthToken(null);
       }
     } catch (e) {
       const { status } = e.response;

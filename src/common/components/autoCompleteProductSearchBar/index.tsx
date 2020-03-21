@@ -21,9 +21,10 @@ interface Props {
   isUsedOnSalesPage?: boolean;
   productNotFound?: boolean;
   handleOpenDialog: () => void;
+  className: any;
 }
 
-const AutoCompleteSearchBar: React.FC<Props> = ({
+const AutoCompleteProductSearchBar: React.FC<Props> = ({
   open,
   onClose,
   options,
@@ -34,6 +35,7 @@ const AutoCompleteSearchBar: React.FC<Props> = ({
   isUsedOnSalesPage,
   productNotFound,
   handleOpenDialog,
+  ...otherProps
 }) => {
   const classes = styles();
 
@@ -57,10 +59,10 @@ const AutoCompleteSearchBar: React.FC<Props> = ({
       renderInput={params => (
         <TextField
           {...params}
+          {...otherProps}
           placeholder="Search for products..."
           color="secondary"
           variant="outlined"
-          className={classes.searchBarInput}
           classes={{ root: classes.inputRoot }}
           value={query}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -70,7 +72,9 @@ const AutoCompleteSearchBar: React.FC<Props> = ({
             ...params.InputProps,
             endAdornment: (
               <React.Fragment>
-                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                {loading ? (
+                  <CircularProgress color="inherit" size={20} />
+                ) : null}
                 <InputAdornment
                   className={classes.searchIconHolder}
                   position="end"
@@ -93,13 +97,16 @@ const AutoCompleteSearchBar: React.FC<Props> = ({
         const productFields = product.name || product.variation || product.sku;
         const matches = match(productFields, inputValue);
         const parts = parse(productFields, matches);
-  
+
         return (
           <div className={classes.suggestionContainer}>
             <div>
               <div className={classes.suggestionGroup}>
                 {parts.map(
-                  (part: { text: string; highlight: boolean }, index: number) => (
+                  (
+                    part: { text: string; highlight: boolean },
+                    index: number
+                  ) => (
                     <span
                       key={index}
                       style={{ fontWeight: part.highlight ? 700 : 400 }}
@@ -120,8 +127,8 @@ const AutoCompleteSearchBar: React.FC<Props> = ({
           </div>
         );
       }}
-    />;
-  )
+    />
+  );
 };
 
-export default AutoCompleteSearchBar;
+export default AutoCompleteProductSearchBar;
