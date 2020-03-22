@@ -14,6 +14,7 @@ phases:
 artifacts:
   files:
     - public/*
+    - imgs
   discard-paths: yes
 cache:
   paths:

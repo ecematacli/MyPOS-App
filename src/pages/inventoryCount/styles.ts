@@ -34,12 +34,15 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     color: palette.secondary.main,
     paddingRight: spacing(2.3)
   },
-  addCountBtnDiv: {
+  btnText: {
     textTransform: 'capitalize',
-    textShadow: 'none'
+    color: 'white'
   },
   addBtn: {
-    padding: spacing(1)
+    backgroundColor: palette.primary.main,
+    '&:hover': {
+      backgroundColor: palette.primary.light
+    }
   },
   imageDiv: {
     ...centered,

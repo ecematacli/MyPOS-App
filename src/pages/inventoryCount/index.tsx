@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Tab, Typography } from '@material-ui/core';
+import { Tabs, Tab, Typography, Button } from '@material-ui/core';
 
 import styles from './styles';
 import history from '../../history';
@@ -38,14 +38,14 @@ const InventoryCount: React.FC = () => {
         <Typography className={classes.infoText}>
           Create, schedule and complete counts to keep track of your inventory.
         </Typography>
-        <CustomButton
-          className={classes.addBtn}
+        <Button
           onClick={() => history.push('/inventory/count_create')}
+          className={classes.addBtn}
         >
-          <Typography className={classes.addCountBtnDiv}>
+          <Typography className={classes.btnText}>
             Add Inventory Count
           </Typography>
-        </CustomButton>
+        </Button>
       </div>
     </div>
   );
