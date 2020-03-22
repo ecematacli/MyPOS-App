@@ -14,25 +14,34 @@ import {
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 
 import styles from './styles';
-import {} from '../../../../assets/img/boxes.png';
 import { Category } from '../../../../redux/categories/types';
 import { Brand } from '../../../../redux/brands/types';
-import useInventoryFilters from './useInventoryFilters';
 
+type InputChange = ({
+  target: { value, name }
+}: React.ChangeEvent<HTMLInputElement>) => void;
 interface Props {
-  brands: Brand[];
-  categories: Category[];
+  startDate: Date;
+  handleStartDateChange: React.Dispatch<React.SetStateAction<Date>>;
+  countName: string;
+  handleCountNameChange: InputChange;
+  handleDropdownInputChange: InputChange;
+  DROPDOWN_INPUT_FIELDS: {
+    label: string;
+    fieldId: string;
+    value: string;
+    dropdownItems: Category[] | Brand[];
+  }[];
 }
-const InventoryCountFilters: React.FC<Props> = ({ brands, categories }) => {
+const InventoryCountFilters: React.FC<Props> = ({
+  startDate,
+  handleStartDateChange,
+  countName,
+  handleCountNameChange,
+  handleDropdownInputChange,
+  DROPDOWN_INPUT_FIELDS
+}) => {
   const classes = styles();
-  const {
-    startDate,
-    handleStartDateChange,
-    handleDropdownInputChange,
-    countName,
-    handleCountNameChange,
-    DROPDOWN_INPUT_FIELDS
-  } = useInventoryFilters(brands, categories);
 
   const renderTextField = (props: TextFieldProps) => (
     <TextField

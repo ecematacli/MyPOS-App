@@ -1,10 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+const centered = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+};
+
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   inventoryContainer: {
     paddingTop: spacing(3)
   },
-  tabsPaper: {
+  tabs: {
     boxShadow: 'none',
     marginTop: spacing(7),
     backgroundColor: 'inherit'
@@ -18,13 +24,10 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     display: 'flex',
     justifyContent: 'center'
   },
-  addCountPaper: {
+  addCountDiv: {
+    ...centered,
     height: spacing(11.25),
     boxShadow: 'none',
-    width: '40%',
-    [breakpoints.down('md')]: {
-      width: '100%'
-    },
     backgroundColor: 'inherit'
   },
   infoText: {
@@ -39,6 +42,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     padding: spacing(1)
   },
   imageDiv: {
+    ...centered,
     marginTop: spacing(8)
   }
 }));

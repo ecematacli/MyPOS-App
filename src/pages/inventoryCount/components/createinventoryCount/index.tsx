@@ -1,16 +1,17 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Typography, Button, Grid, Divider } from '@material-ui/core';
+import { Typography, Button, Divider } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
-import history from '../../../../history';
 import boxes from '../../../../assets/img/boxes.png';
+import history from '../../../../history';
 import { StoreState } from '../../../../redux/types';
 import { Brand } from '../../../../redux/brands/types';
 import { Category } from '../../../../redux/categories/types';
 import { fetchBrands } from '../../../../redux/brands/brandsActions';
 import { fetchCategories } from '../../../../redux/categories/categoriesActions';
+import useInventoryState from '../../hooks/useInventoryState';
 import InventoryCountFilters from '../inventoryCountFilters/InventoryCountFilters';
 
 interface Props {
@@ -27,69 +28,64 @@ const CreateInventoryCount: React.FC<Props> = ({
   categories
 }) => {
   const classes = styles();
+  const {
+    startDate,
+    handleStartDateChange,
+    countName,
+    handleCountNameChange,
+    handleDropdownInputChange,
+    createCountBatches,
+    DROPDOWN_INPUT_FIELDS
+  } = useInventoryState(brands, categories);
 
   useEffect(() => {
     fetchBrands();
     fetchCategories();
   }, []);
 
+  const onStartCountClick = () => {
+    createCountBatches();
+    history.push('/inventory/count/1');
+  };
+
   const renderTitle = () => (
-    <Grid item xs={12}>
-      <div className={classes.titleDiv}>
-        <span
-          className={classes.iconDiv}
-          onClick={() => history.push('/inventory/count')}
-        >
-          <ArrowBackIcon className={classes.backArrow} />
-        </span>
-        <Typography className={classes.titleText}>
-          Add Inventory Count
-        </Typography>
-      </div>
-    </Grid>
+    <div className={classes.titleDiv}>
+      <span
+        className={classes.iconDiv}
+        onClick={() => history.push('/inventory/count')}
+      >
+        <ArrowBackIcon className={classes.backArrow} />
+      </span>
+      <Typography className={classes.titleText}>Add Inventory Count</Typography>
+    </div>
   );
 
   const renderCountPaper = () => (
-    <Fragment>
-      <Grid item xl={9} lg={9}>
-        <Typography className={classes.infoText}>
-          Schedule an inventory count to maintain accurate inventory levels.
-        </Typography>
-      </Grid>
-      <Grid item xl={3} lg={3}>
-        <Button className={classes.exitBtn}>
-          <Typography className={classes.btnText}>Save & Exit</Typography>
-        </Button>
-        <Button
-          onClick={() => history.push('/inventory/count/1')}
-          className={classes.startBtn}
-        >
-          <Typography className={classes.btnText}>Start Count</Typography>
-        </Button>
-      </Grid>
-    </Fragment>
+    <div className={classes.startCountDiv}>
+      <Typography className={classes.infoText}>
+        Schedule an inventory count to maintain accurate inventory levels.
+      </Typography>
+      <Button className={classes.exitBtn}>
+        <Typography className={classes.btnText}>Save & Exit</Typography>
+      </Button>
+      <Button onClick={onStartCountClick} className={classes.startBtn}>
+        <Typography className={classes.btnText}>Start Count</Typography>
+      </Button>
+    </div>
   );
 
   return (
     <div className={classes.createInvContainer}>
-      <Grid justify="center" container>
-        <div className={classes.titleGrid}>{renderTitle()}</div>
-      </Grid>
-      <div className={classes.startCountContainer}>
-        <Grid
-          container
-          justify="center"
-          alignItems="center"
-          className={classes.startCountPaper}
-        >
-          {renderCountPaper()}
-        </Grid>
-      </div>
-      <div className={classes.filtersGridContainer}>
-        <Grid container>
-          <InventoryCountFilters brands={brands} categories={categories} />
-        </Grid>
-      </div>
+      {renderTitle()}
+      <div className={classes.startCountContainer}>{renderCountPaper()}</div>
+      <InventoryCountFilters
+        startDate={startDate}
+        handleStartDateChange={handleStartDateChange}
+        handleDropdownInputChange={handleDropdownInputChange}
+        countName={countName}
+        handleCountNameChange={handleCountNameChange}
+        DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
+      />
       <div className={classes.dividerDiv}>
         <Divider />
       </div>

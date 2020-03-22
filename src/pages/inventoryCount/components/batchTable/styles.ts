@@ -2,8 +2,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
   tableContainer: {
-    width: '60%',
-    marginTop: spacing(4)
+    marginTop: spacing(4),
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  table: {
+    width: '60%'
   },
   tableHeadRow: {
     borderBottom: `1px solid ${palette.secondary.light} `

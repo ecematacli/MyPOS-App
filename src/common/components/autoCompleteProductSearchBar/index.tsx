@@ -21,23 +21,24 @@ interface Props {
   isUsedOnSalesPage?: boolean;
   productNotFound?: boolean;
   handleOpenDialog: () => void;
-  className: any;
+  className?: any;
 }
 
-const AutoCompleteProductSearchBar: React.FC<Props> = ({
-  open,
-  onClose,
-  options,
-  loading,
-  onProductChange,
-  query,
-  onQueryChange,
-  isUsedOnSalesPage,
-  productNotFound,
-  handleOpenDialog,
-  ...otherProps
-}) => {
-  const classes = styles();
+const AutoCompleteProductSearchBar: React.FC<Props> = props => {
+  const classes = styles(props);
+  const {
+    open,
+    onClose,
+    options,
+    loading,
+    onProductChange,
+    query,
+    onQueryChange,
+    isUsedOnSalesPage,
+    productNotFound,
+    handleOpenDialog,
+    ...otherProps
+  } = props;
 
   return (
     <Autocomplete
@@ -50,6 +51,7 @@ const AutoCompleteProductSearchBar: React.FC<Props> = ({
       loading={loading}
       disableOpenOnFocus
       noOptionsText="No product"
+      className={classes.autoSuggest}
       clearOnEscape
       onChange={(e: React.ChangeEvent<HTMLInputElement>, product: Product) =>
         product && onProductChange(product)

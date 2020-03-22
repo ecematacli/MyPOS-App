@@ -1,8 +1,13 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+
+interface StyleProps extends Theme {
+  isUsedOnSalesPage?: boolean;
+}
 
 export default makeStyles(({ palette, spacing, breakpoints }) => ({
-  suggestedCommon: {
-    color: palette.grayColors[3]
+  autoSuggest: {
+    width: ({ isUsedOnSalesPage }: StyleProps) =>
+      isUsedOnSalesPage ? '100%' : '70%'
   },
   suggestionContainer: {
     display: 'flex',
@@ -16,6 +21,9 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
         fontSize: 13
       }
     }
+  },
+  suggestedCommon: {
+    color: palette.grayColors[3]
   },
   suggestedItems: {
     display: 'flex',

@@ -1,7 +1,9 @@
 import { useState, useReducer } from 'react';
-import { Brand } from '../../../../redux/brands/types';
-import { Category } from '../../../../redux/categories/types';
-import useInputState from '../../../../common/hooks/useInputState';
+import { Brand } from '../../../redux/brands/types';
+import { Category } from '../../../redux/categories/types';
+
+import api from '../../../api';
+import { findMatchedFields } from '../../../common/utils';
 
 export interface Filters {
   category: string;
@@ -40,6 +42,8 @@ export default (brands: Brand[], categories: Category[]) => {
     setCountName(value);
   };
 
+  const createCountBatches = async () => {};
+
   //Dropdown Input fields for MU Select component
   const DROPDOWN_INPUT_FIELDS = [
     {
@@ -60,8 +64,10 @@ export default (brands: Brand[], categories: Category[]) => {
     startDate,
     handleStartDateChange,
     countName,
+    dropdownInputs,
     handleCountNameChange,
     handleDropdownInputChange,
+    createCountBatches,
     DROPDOWN_INPUT_FIELDS
   };
 };

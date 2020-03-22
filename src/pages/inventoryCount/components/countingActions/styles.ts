@@ -4,18 +4,19 @@ export default makeStyles(({ spacing, palette }) => ({
   countingContainer: {
     backgroundColor: '#f1f3f5',
     marginTop: spacing(15.8),
-    padding: spacing(3)
-  },
-  searchBarInput: {
-    width: '100%'
-  },
-  countInputContainer: {
+    padding: spacing(3),
+    width: '100%',
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center'
   },
-  inputDiv: {
+  searchBar: {
+    width: '90%',
+    margin: '0 auto'
+  },
+  countInputAction: {
     display: 'flex',
-    justifyContent: 'flex-end'
+    alignItems: 'center'
   },
   input: {
     textAlign: 'center'

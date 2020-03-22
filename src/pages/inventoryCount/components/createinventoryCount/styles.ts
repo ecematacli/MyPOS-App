@@ -1,15 +1,19 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing, palette, breakpoints }) => ({
+const centered = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+};
+
+export default makeStyles(({ spacing, palette }) => ({
   createInvContainer: {
     paddingTop: spacing(3)
   },
-  titleGrid: {
-    width: '50%'
-  },
   titleDiv: {
     margin: spacing(7, 0, 1.2),
-    display: 'flex'
+    display: 'flex',
+    justifyContent: 'center'
   },
   backArrow: { color: palette.grayColors[13], cursor: 'pointer' },
   iconDiv: { display: 'flex', alignItems: 'center' },
@@ -18,24 +22,19 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     fontWeight: 'bold',
     color: '#3a4953'
   },
-  startCountContainer: {
-    backgroundColor: '#f1f3f5',
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  startCountPaper: {
-    height: spacing(11.25),
-    padding: spacing(3),
-    backgroundColor: 'inherit',
-    boxShadow: 'none',
-    width: '50%',
-    [breakpoints.down('md')]: {
-      width: '100%'
-    }
-  },
   infoText: {
     color: palette.secondary.main,
-    paddingRight: spacing(2.3)
+    paddingRight: spacing(2.5)
+  },
+  startCountContainer: {
+    ...centered,
+    backgroundColor: '#f1f3f5',
+    height: spacing(11.25),
+    width: '100%'
+  },
+  startCountDiv: {
+    ...centered,
+    width: 'auto'
   },
   btnText: {
     textTransform: 'capitalize',
@@ -60,10 +59,6 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     '& *': {
       backgroundColor: 'palette.secondary.light'
     }
-  },
-  filtersGridContainer: {
-    width: '50%',
-    margin: 'auto'
   },
   imageDiv: {
     display: 'flex',

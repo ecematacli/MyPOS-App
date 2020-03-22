@@ -10,7 +10,7 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   title: {
     color: palette.secondary.main,
-    fontSize: 18
+    fontSize: spacing(2.25)
   },
   divider: {
     backgroundColor: `0.1em solid ${palette.grayColors[10]}`

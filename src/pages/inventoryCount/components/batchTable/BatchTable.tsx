@@ -10,9 +10,8 @@ import {
 import styles from './styles';
 import Loading from '../../../../common/components/loading';
 
-const loading = false;
-
 const InventoryCountBatchTable = () => {
+  const loading = false;
   const classes = styles();
 
   const renderTableHead = () => (
@@ -62,8 +61,8 @@ const InventoryCountBatchTable = () => {
     ));
 
   return (
-    <div className={classes.tableContainer} style={{}}>
-      <Table>
+    <div className={classes.tableContainer}>
+      <Table className={classes.table}>
         <TableHead>{renderTableHead()}</TableHead>
         <TableBody>
           {loading ? (

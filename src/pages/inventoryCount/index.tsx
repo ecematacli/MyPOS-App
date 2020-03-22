@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Tabs, Tab, Typography, Grid } from '@material-ui/core';
+import { Tabs, Tab, Typography } from '@material-ui/core';
 
 import styles from './styles';
 import history from '../../history';
@@ -11,53 +11,43 @@ const InventoryCount: React.FC = () => {
   const classes = styles();
   const [value, setValue] = useState(2);
 
-  const handleChange = (e, newValue) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    newValue: number
+  ) => {
     setValue(newValue);
   };
 
   const renderInventoryTabs = () => (
-    <Grid className={classes.tabsPaper} component={Paper} container>
-      <Grid item xs={12} sm={12} md={12} lg={12}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="secondary"
-          centered
-        >
-          <Tab classes={{ root: classes.tabRoot }} label="Opened" />
-          <Tab classes={{ root: classes.tabRoot }} label="Completed" />
-          <Tab classes={{ root: classes.tabRoot }} label="Canceled" />
-        </Tabs>
-      </Grid>
-    </Grid>
+    <Tabs
+      className={classes.tabs}
+      value={value}
+      onChange={handleChange}
+      indicatorColor="primary"
+      textColor="secondary"
+      centered
+    >
+      {['Opened', 'Completed', 'Canceled'].map((label: string) => (
+        <Tab classes={{ root: classes.tabRoot }} key={label} label={label} />
+      ))}
+    </Tabs>
   );
 
   const renderAddCountActionPaper = () => (
     <div className={classes.addCountContainer}>
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        className={classes.addCountPaper}
-      >
-        <Grid item xl={9} lg={9}>
-          <Typography className={classes.infoText}>
-            Create, schedule and complete counts to keep track of your
-            inventory.
+      <div className={classes.addCountDiv}>
+        <Typography className={classes.infoText}>
+          Create, schedule and complete counts to keep track of your inventory.
+        </Typography>
+        <CustomButton
+          className={classes.addBtn}
+          onClick={() => history.push('/inventory/count_create')}
+        >
+          <Typography className={classes.addCountBtnDiv}>
+            Add Inventory Count
           </Typography>
-        </Grid>
-        <Grid item xl={3} lg={3}>
-          <CustomButton
-            className={classes.addBtn}
-            onClick={() => history.push('/inventory/count_create')}
-          >
-            <Typography className={classes.addCountBtnDiv}>
-              Add Inventory Count
-            </Typography>
-          </CustomButton>
-        </Grid>
-      </Grid>
+        </CustomButton>
+      </div>
     </div>
   );
 
@@ -65,14 +55,10 @@ const InventoryCount: React.FC = () => {
     <div className={classes.inventoryContainer}>
       {renderInventoryTabs()}
       {renderAddCountActionPaper()}
-      <Grid container justify="center">
-        <InventoryCountBatchTable />
-      </Grid>
-      <Grid container justify="center">
-        <div className={classes.imageDiv}>
-          <img src={inventoryImage} />
-        </div>
-      </Grid>
+      <InventoryCountBatchTable />
+      {/* <div className={classes.imageDiv}>
+        <img src={inventoryImage} />
+      </div> */}
     </div>
   );
 };
