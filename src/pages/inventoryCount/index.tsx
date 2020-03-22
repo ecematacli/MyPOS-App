@@ -3,7 +3,6 @@ import { Tabs, Tab, Typography } from '@material-ui/core';
 
 import styles from './styles';
 import history from '../../history';
-import inventoryImage from '../../assets/img/stocktake-emptylist-v1.png';
 import CustomButton from '../../common/components/customButton';
 import InventoryCountBatchTable from './components/batchTable/BatchTable';
 
@@ -33,7 +32,7 @@ const InventoryCount: React.FC = () => {
     </Tabs>
   );
 
-  const renderAddCountActionPaper = () => (
+  const renderAddCountPaper = () => (
     <div className={classes.addCountContainer}>
       <div className={classes.addCountDiv}>
         <Typography className={classes.infoText}>
@@ -54,11 +53,8 @@ const InventoryCount: React.FC = () => {
   return (
     <div className={classes.inventoryContainer}>
       {renderInventoryTabs()}
-      {renderAddCountActionPaper()}
+      {renderAddCountPaper()}
       <InventoryCountBatchTable />
-      {/* <div className={classes.imageDiv}>
-        <img src={inventoryImage} />
-      </div> */}
     </div>
   );
 };

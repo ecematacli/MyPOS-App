@@ -12,7 +12,7 @@ https://retail-pos-app.herokuapp.com/
   - email: admin@admin.com
   - password: admin
 
-Currently I'm adding stock management page to inventory.
+Currently I'm adding the functionality of inventory count page of which the main layout somewhat completed.
 
 #### Pages and Features
 
@@ -40,6 +40,10 @@ Currently I'm adding stock management page to inventory.
       - If the sale is completed successfully, there is a success feedback with a snackbar appearing.
       - Once the sale is completed, they appear in sales history. 
       - Products are coming from local storage by the help of useLocalStorageReducerState hook which is utterly reusable and can be used by any useReducer hook. 
+  
+    # useSalesState hook test
+      - Used react test library to test the hook responsible for POS functionality.
+  
    # Sales History Page
     - Reusable Material UI Table.
     - When clicked it shows the sales details.

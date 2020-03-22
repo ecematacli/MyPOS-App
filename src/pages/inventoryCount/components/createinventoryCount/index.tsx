@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Typography, Button, Divider } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -48,36 +48,38 @@ const CreateInventoryCount: React.FC<Props> = ({
     history.push('/inventory/count/1');
   };
 
-  const renderTitle = () => (
-    <div className={classes.titleDiv}>
-      <span
-        className={classes.iconDiv}
-        onClick={() => history.push('/inventory/count')}
-      >
-        <ArrowBackIcon className={classes.backArrow} />
-      </span>
-      <Typography className={classes.titleText}>Add Inventory Count</Typography>
-    </div>
-  );
-
-  const renderCountPaper = () => (
-    <div className={classes.startCountDiv}>
-      <Typography className={classes.infoText}>
-        Schedule an inventory count to maintain accurate inventory levels.
-      </Typography>
-      <Button className={classes.exitBtn}>
-        <Typography className={classes.btnText}>Save & Exit</Typography>
-      </Button>
-      <Button onClick={onStartCountClick} className={classes.startBtn}>
-        <Typography className={classes.btnText}>Start Count</Typography>
-      </Button>
-    </div>
+  const renderCreateInvPaper = () => (
+    <Fragment>
+      <div className={classes.titleDiv}>
+        <span
+          className={classes.iconDiv}
+          onClick={() => history.push('/inventory/count')}
+        >
+          <ArrowBackIcon className={classes.backArrow} />
+        </span>
+        <Typography className={classes.titleText}>
+          Add Inventory Count
+        </Typography>
+      </div>
+      <div className={classes.startCountContainer}>
+        <div className={classes.startCountDiv}>
+          <Typography className={classes.infoText}>
+            Schedule an inventory count to maintain accurate inventory levels.
+          </Typography>
+          <Button className={classes.exitBtn}>
+            <Typography className={classes.btnText}>Save & Exit</Typography>
+          </Button>
+          <Button onClick={onStartCountClick} className={classes.startBtn}>
+            <Typography className={classes.btnText}>Start Count</Typography>
+          </Button>
+        </div>
+      </div>
+    </Fragment>
   );
 
   return (
     <div className={classes.createInvContainer}>
-      {renderTitle()}
-      <div className={classes.startCountContainer}>{renderCountPaper()}</div>
+      {renderCreateInvPaper()}
       <InventoryCountFilters
         startDate={startDate}
         handleStartDateChange={handleStartDateChange}

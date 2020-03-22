@@ -11,8 +11,8 @@ import styles from './styles';
 import Loading from '../../../../common/components/loading';
 
 const InventoryCountBatchTable = () => {
-  const loading = false;
   const classes = styles();
+  const loading = false;
 
   const renderTableHead = () => (
     <TableRow className={classes.tableHeadRow}>
@@ -31,24 +31,24 @@ const InventoryCountBatchTable = () => {
     [
       {
         name: 'BATCH-1',
-        started: '12.03.2020',
-        finished: '12.03.2020',
+        started: '12.01.2020',
+        finished: '14.01.2020',
         category: 'shoe',
         brand: 'nike'
       },
       {
         name: 'BATCH-2',
-        started: '12.03.2020',
-        finished: '12.03.2020',
-        category: 'shoe',
+        started: '18.02.2020',
+        finished: '18.02.2020',
+        category: 'garment',
         brand: 'nike'
       },
       {
         name: 'BATCH-3',
-        started: '12.03.2020',
-        finished: '12.03.2020',
-        category: 'shoe',
-        brand: 'nike'
+        started: '7.03.2020',
+        finished: '8.03.2020',
+        category: 'racket',
+        brand: 'babolat'
       }
     ].map(({ name, started, finished, category, brand }, i) => (
       <TableRow className={classes.tableBodyRow} key={i}>
