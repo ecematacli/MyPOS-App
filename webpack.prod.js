@@ -11,11 +11,6 @@ module.exports = env => ({
   module: {
     rules: [
       {
-        loader: 'babel-loader',
-        test: /\.js$/,
-        exclude: /node_modules/
-      },
-      {
         test: /\.html$/,
         use: ['html-loader']
       },
@@ -25,7 +20,7 @@ module.exports = env => ({
           loader: 'file-loader',
           options: {
             name: '[name].[hash].[ext]',
-            outputPath: 'imgs'
+            outputPath: '/'
           }
         }
       },
