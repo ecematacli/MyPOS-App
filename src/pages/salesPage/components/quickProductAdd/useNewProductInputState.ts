@@ -1,5 +1,4 @@
 import { useReducer, useContext } from 'react';
-import { useDispatch } from 'react-redux';
 
 import {
   ProductField,
@@ -9,17 +8,20 @@ import {
 } from './types';
 import { Category } from '../../../../redux/categories/types';
 import { Brand } from '../../../../redux/brands/types';
+import { NewProductData } from '../../hooks/types';
+import { findMatchedFields } from '../../../../common/utils';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
-import { createProduct } from '../../../../redux/products/productsActions';
 
 export default (
   brands: Brand[],
   categories: Category[],
-  handleCloseDialog: () => void
+  handleCloseDialog: () => void,
+  createProduct: (
+    productData: NewProductData,
+    addNotification: (message: string, severity: string) => void
+  ) => Promise<void>
 ) => {
   const { addNotification } = useContext(NotificationsContext);
-  const dispatch = useDispatch();
-
   const initialValues = {
     taxRate: '18',
     category: '',
@@ -43,18 +45,30 @@ export default (
   };
 
   const onAddProductClick = (inputValues: FormValues) => {
-    const values = {
+    let categoryId: string;
+    let brandId: string;
+
+    if (additionalInputs.category) {
+      categoryId = findMatchedFields(
+        categories,
+        additionalInputs.category
+      ).id.toString();
+    }
+
+    if (additionalInputs.brand) {
+      brandId = findMatchedFields(brands, additionalInputs.brand).id.toString();
+    }
+
+    const newProduct: NewProductData = {
       ...inputValues,
       price: parseFloat(inputValues.price),
-      discountPrice: parseFloat(inputValues.discountPrice)
+      discountPrice: parseFloat(inputValues.discountPrice),
+      taxRate: parseFloat(additionalInputs.taxRate),
+      categoryId,
+      brandId
     };
 
-    const additional = {
-      ...additionalInputs,
-      taxRate: parseFloat(additionalInputs.taxRate)
-    };
-
-    dispatch(createProduct(values, additional, addNotification));
+    createProduct(newProduct, addNotification);
     setAdditionalInputs(initialValues);
     handleCloseDialog();
   };

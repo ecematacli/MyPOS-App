@@ -26,7 +26,8 @@ const QuickProductAdd: React.FC<QuickAddProps> = ({
   openDialog,
   handleCloseDialog,
   brands,
-  categories
+  categories,
+  createProduct
 }) => {
   const classes = styles();
   const formRef = useRef<HTMLElement | any>();
@@ -36,7 +37,12 @@ const QuickProductAdd: React.FC<QuickAddProps> = ({
     ADDITIONAL_FIELDS,
     handleInputChange,
     onAddProductClick
-  } = useNewProductInputState(brands, categories, handleCloseDialog);
+  } = useNewProductInputState(
+    brands,
+    categories,
+    handleCloseDialog,
+    createProduct
+  );
 
   const renderAdditionalFields = () => {
     return (

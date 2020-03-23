@@ -37,6 +37,7 @@ const SalesPage: React.FC<SalesProps> = ({
     decreaseProductQuantity,
     increaseProductQuantity,
     editProductPrice,
+    createProduct,
     discardSale,
     total,
     tax,
@@ -78,7 +79,10 @@ const SalesPage: React.FC<SalesProps> = ({
           className={classes.searchBarGridItem}
           zeroMinWidth
         >
-          <ProductSearchBar addProduct={addProduct} />
+          <ProductSearchBar
+            addProduct={addProduct}
+            createProduct={createProduct}
+          />
         </Grid>
         {/*
         // @ts-ignore */}

@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import {
   calculateTotal,
   calculateTotalTax,
   calculateTotalDiscount
 } from '../utilities/';
+import api from '../../../api';
 import { Product } from '../../../redux/products/types';
-import { State, ActionTypes, Action } from './types';
+import { State, ActionTypes, Action, NewProductData } from './types';
 import useLocalStorageReducerState from '../../../common/hooks/useLocalStorageReducerState';
 
 // Products Reducer
@@ -116,6 +117,20 @@ export default (storage?: any) => {
       payload: { id, newPrice }
     });
   };
+
+  const createProduct = async (
+    productData: NewProductData,
+    addNotification: (message: string, severity: string) => void
+  ) => {
+    try {
+      const response = await api.post('/products', productData);
+      addProduct(response.data as Product);
+      addNotification('Product has been created successfully', 'success');
+    } catch (e) {
+      addNotification('Product could not be created!', 'error');
+    }
+  };
+
   const discardSale = () => {
     dispatch({
       type: ActionTypes.DiscardSale
@@ -151,6 +166,7 @@ export default (storage?: any) => {
     decreaseProductQuantity,
     increaseProductQuantity,
     editProductPrice,
+    createProduct,
     discardSale,
     total,
     tax,

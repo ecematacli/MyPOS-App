@@ -18,7 +18,7 @@ export interface Product {
   taxRate: number | null;
   brand: Brand;
   category: Category;
-  synced: boolean;
+  synced?: boolean;
 }
 
 export interface ProductsState {
@@ -46,7 +46,6 @@ export interface EditProductAction {
   payload: Product;
 }
 
-export type NotificationType = ;
 export type UpdatedField = { [key: string]: string };
 
 export interface InputValues {

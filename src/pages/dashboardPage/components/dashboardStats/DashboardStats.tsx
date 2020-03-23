@@ -36,7 +36,6 @@ const DashboardStats: React.FC<{ saleStats: SaleStatsData }> = ({
           </div>
         </Grid>
       ))}
-      ;
     </Fragment>
   );
 };

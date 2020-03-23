@@ -11,6 +11,25 @@ export enum ActionTypes {
   EditProductPrice
 }
 
+export interface NewProductData {
+  barcode: string;
+  name: string;
+  qty: number;
+  sku: string;
+  price: number;
+  variation: string;
+  discountPrice: number;
+  taxRate: number;
+  categoryId: string;
+  brandId: string;
+}
+
+export interface AdditionalInputs {
+  taxRate: number;
+  category: string;
+  brand: string;
+}
+
 export interface AddAction {
   type: ActionTypes.Add;
   payload: Product;

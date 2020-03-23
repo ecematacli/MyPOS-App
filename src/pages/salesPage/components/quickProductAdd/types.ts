@@ -1,11 +1,16 @@
 import { Category } from '../../../../redux/categories/types';
 import { Brand } from '../../../../redux/brands/types';
+import { NewProductData } from '../../hooks/types';
 
 export interface QuickAddProps {
   openDialog: boolean;
   handleCloseDialog: () => void;
   brands: Brand[];
   categories: Category[];
+  createProduct: (
+    productData: NewProductData,
+    addNotification: (message: string, severity: string) => void
+  ) => Promise<void>;
 }
 
 export interface FormValues {
