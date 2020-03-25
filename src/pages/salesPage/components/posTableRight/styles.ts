@@ -11,11 +11,8 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     fontWeight: 'bolder'
   },
   tableWrapper: {
-    paddingTop: spacing(6),
-    height: '48vh',
-    [breakpoints.down('md')]: {
-      height: '44vh'
-    },
+    paddingTop: spacing(3.5),
+    height: '45vh',
     overflow: 'auto'
   },
   tableRow: {
