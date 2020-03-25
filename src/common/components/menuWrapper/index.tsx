@@ -81,47 +81,18 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     ));
 
   const drawer = (
-    <Fragment>
-      <List className={classes.drawerListItems}>
-        <ListItem>
-          <div className={classes.logoWrapper}>
-            <img className={classes.logoImg} src={logo} alt="logo" />
-          </div>
-        </ListItem>
-        <Divider className={classes.divider} />
-        {MENU_ITEMS.map(({ label, item, url, subMenuItems, Icon }, i) => {
-          if (subMenuItems) {
-            return (
-              <div key={label}>
-                <ListItem button onClick={() => toggleOpenedItems(item)}>
-                  <IconButton className={classes.drawerIcon}>
-                    <Icon />
-                  </IconButton>
-                  <ListItemText
-                    className={classes.drawerItemText}
-                    inset
-                    primary={label}
-                  />
-                  {openedItems[item] ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                {renderSubMenuItems(subMenuItems, item)}
-              </div>
-            );
-          }
+    <List className={classes.drawerListItems}>
+      <ListItem>
+        <div className={classes.logoWrapper}>
+          <img className={classes.logoImg} src={logo} alt="logo" />
+        </div>
+      </ListItem>
+      <Divider className={classes.divider} />
+      {MENU_ITEMS.map(({ label, item, url, subMenuItems, Icon }, i) => {
+        if (subMenuItems) {
           return (
             <div key={label}>
-              {i === MENU_ITEMS.length - 1 && (
-                <Divider className={classes.divider} />
-              )}
-              <ListItem
-                onClick={() => {
-                  history.push(url);
-                  handleCloseMenu();
-                  item === 'signout' && onSignOutClick();
-                }}
-                key={label}
-                button
-              >
+              <ListItem button onClick={() => toggleOpenedItems(item)}>
                 <IconButton className={classes.drawerIcon}>
                   <Icon />
                 </IconButton>
@@ -130,12 +101,39 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   inset
                   primary={label}
                 />
+                {openedItems[item] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
+              {renderSubMenuItems(subMenuItems, item)}
             </div>
           );
-        })}
-      </List>
-    </Fragment>
+        }
+        return (
+          <div key={label}>
+            {i === MENU_ITEMS.length - 1 && (
+              <Divider className={classes.divider} />
+            )}
+            <ListItem
+              onClick={() => {
+                history.push(url);
+                handleCloseMenu();
+                item === 'signout' && onSignOutClick();
+              }}
+              key={label}
+              button
+            >
+              <IconButton className={classes.drawerIcon}>
+                <Icon />
+              </IconButton>
+              <ListItemText
+                className={classes.drawerItemText}
+                inset
+                primary={label}
+              />
+            </ListItem>
+          </div>
+        );
+      })}
+    </List>
   );
   return (
     <div className={classes.drawerRoot}>

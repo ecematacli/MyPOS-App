@@ -1,10 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import styles from './styles';
 import { Product } from '../../../../redux/products/types';
 import { NewProductData } from '../../hooks/types';
 import useSearchInput from './useSearchBarState';
-import useProductDialogState from './useProductDialogState';
 import QuickProductAdd from '../quickProductAdd/QuickProductAdd';
 import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
@@ -14,13 +13,26 @@ interface SearchBarProps {
     productData: NewProductData,
     addNotification: (message: string, severity: string) => void
   ) => Promise<void>;
+  inputRef: any;
 }
 
 const ProductSearchBar: React.FC<SearchBarProps> = ({
   addProduct,
-  createProduct
+  createProduct,
+  inputRef
 }) => {
   const classes = styles();
+
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   const {
     open,
     setOpen,
@@ -33,11 +45,6 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({
     productNotFound
   } = useSearchInput(addProduct);
 
-  const {
-    openDialog,
-    handleOpenDialog,
-    handleCloseDialog
-  } = useProductDialogState();
   return (
     <Fragment>
       <AutoCompleteProductSearchBar
@@ -56,6 +63,7 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({
         productNotFound={productNotFound}
         handleOpenDialog={handleOpenDialog}
         isUsedOnSalesPage
+        inputRef={inputRef}
       />
       <QuickProductAdd
         openDialog={openDialog}

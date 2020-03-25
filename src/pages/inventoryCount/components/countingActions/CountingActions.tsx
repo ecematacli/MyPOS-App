@@ -30,6 +30,9 @@ const InventoryCountDetail = () => {
 
   return (
     <div className={classes.countingContainer}>
+      {/*to be completed..*/}
+      {/*
+        // @ts-ignore */}
       <AutoCompleteSearchBar className={classes.searchBar} />
       {!checked && renderCountInput()}
       <div className={classes.countInputAction}>

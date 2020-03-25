@@ -22,6 +22,7 @@ interface Props {
   productNotFound?: boolean;
   handleOpenDialog: () => void;
   className?: any;
+  inputRef?: React.Ref<HTMLInputElement>;
 }
 
 const AutoCompleteProductSearchBar: React.FC<Props> = props => {
@@ -37,6 +38,7 @@ const AutoCompleteProductSearchBar: React.FC<Props> = props => {
     isUsedOnSalesPage,
     productNotFound,
     handleOpenDialog,
+    inputRef,
     ...otherProps
   } = props;
 
@@ -62,6 +64,7 @@ const AutoCompleteProductSearchBar: React.FC<Props> = props => {
         <TextField
           {...params}
           {...otherProps}
+          inputRef={inputRef}
           placeholder="Search for products..."
           color="secondary"
           variant="outlined"
@@ -72,6 +75,11 @@ const AutoCompleteProductSearchBar: React.FC<Props> = props => {
           }
           InputProps={{
             ...params.InputProps,
+            classes: {
+              root: classes.cssOutlinedInput,
+              focused: classes.cssFocused,
+              notchedOutline: classes.notchedOutline
+            },
             endAdornment: (
               <React.Fragment>
                 {loading ? (

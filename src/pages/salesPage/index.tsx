@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Grid, IconButton, Typography } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -30,6 +30,7 @@ const SalesPage: React.FC<SalesProps> = ({
   fetchCategories
 }) => {
   const classes = styles();
+  const inputRef = useRef<HTMLInputElement>();
   const {
     products,
     addProduct,
@@ -49,6 +50,10 @@ const SalesPage: React.FC<SalesProps> = ({
     fetchCategories();
     fetchBrands();
   }, []);
+
+  useEffect(() => {
+    inputRef.current && inputRef.current.focus();
+  });
 
   return (
     <div className={classes.salesContainer}>
@@ -82,6 +87,7 @@ const SalesPage: React.FC<SalesProps> = ({
           <ProductSearchBar
             addProduct={addProduct}
             createProduct={createProduct}
+            inputRef={inputRef}
           />
         </Grid>
         {/*

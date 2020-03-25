@@ -43,7 +43,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     handleEndDateChange,
     onDateSelection,
     onDateFilterClearing
-  } = useSalesFiltersState(page, rowsPerPage, setPage);
+  } = useSalesFiltersState(rowsPerPage, setPage);
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,

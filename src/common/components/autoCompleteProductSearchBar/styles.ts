@@ -9,6 +9,15 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
     width: ({ isUsedOnSalesPage }: StyleProps) =>
       isUsedOnSalesPage ? '100%' : '70%'
   },
+  cssOutlinedInput: {
+    '&$cssFocused $notchedOutline': {
+      borderColor: `${palette.grayColors[9]} !important`
+    }
+  },
+  cssFocused: {},
+  notchedOutline: {
+    borderColor: palette.grayColors[9]
+  },
   suggestionContainer: {
     display: 'flex',
     justifyContent: 'space-between',

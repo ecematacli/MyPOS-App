@@ -3,11 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { fetchSales } from '../../../redux/sales/salesActions';
 
-export default (
-  page: number,
-  rowsPerPage: number,
-  setPage: (page: number) => void
-) => {
+export default (rowsPerPage: number, setPage: (page: number) => void) => {
   const dispatch = useDispatch();
   const [startDate, handleStartDateChange] = useState<Date | null>(null);
   const [endDate, handleEndDateChange] = useState<Date | null>(null);
