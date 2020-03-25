@@ -5,6 +5,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = env => ({
   entry: __dirname + '/src/index.tsx',
+  output: {
+    filename: 'bundle.[contentHash].js',
+    path: path.resolve(__dirname, 'public'),
+    publicPath: '/'
+  },
   resolve: {
     extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.png']
   },
@@ -42,9 +47,5 @@ module.exports = env => ({
     new CleanWebpackPlugin()
   ],
   mode: 'production',
-  output: {
-    filename: 'bundle.[contentHash].js',
-    path: path.resolve(__dirname, 'public')
-  },
   devtool: 'none'
 });
