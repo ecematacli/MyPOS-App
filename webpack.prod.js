@@ -24,8 +24,7 @@ module.exports = env => ({
         use: {
           loader: 'file-loader',
           options: {
-            name: '[name].[hash].[ext]',
-            outputPath: '/'
+            name: '[name].[hash].[ext]'
           }
         }
       },
