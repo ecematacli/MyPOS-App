@@ -3,7 +3,7 @@
 #### Demo 
 Please kindly note that this app was meant to be used as a desktop app in stores. Nonetheless, it has been made somewhat responsive for ipad and iphone 6/7/8 screens.
 
-Also, the app is currently using React hooks, Redux and Context API coupled with Typescript all together in order to serve the purpose of me showing you my knowledge on all of these technologies and tools.
+Also, the app is currently using React hooks, Redux and Context API coupled with Typescript all together in order to serve the purpose showing my knowledge on all of these technologies and tools.
 
 https://retail-pos-app.herokuapp.com/
 
@@ -36,7 +36,7 @@ Currently I'm adding the functionality of inventory count page of which the main
       - The price is editable with a popover and the total is calculated again on price change. 
       - Right and left arrows increases and decreases quantities respectively.
       - Totals adjust when a product is deleted or quantity is changed.
-      - Discount input provides the possibility of implementing additional discount which is developed by considering the necessities of the store and customer relations.
+      - Discount input provides the possibility of implementing an additional discount to total price.
       - If the sale is completed successfully, there is a success feedback with a snackbar appearing.
       - Once the sale is completed, they appear in sales history. 
       - Products are coming from local storage by the help of useLocalStorageReducerState hook which is utterly reusable and can be used by any useReducer hook. 

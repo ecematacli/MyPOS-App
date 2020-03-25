@@ -52,7 +52,9 @@ const SalesPage: React.FC<SalesProps> = ({
   }, []);
 
   useEffect(() => {
-    inputRef.current && inputRef.current.focus();
+    inputRef.current &&
+      document.activeElement.id !== 'discount' &&
+      inputRef.current.focus();
   });
 
   return (

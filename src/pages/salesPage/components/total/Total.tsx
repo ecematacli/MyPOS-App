@@ -54,6 +54,7 @@ const Total: React.FC<TotalProps> = ({
       <div className={classes.totalSection}>
         <Typography>Discount</Typography>
         <CustomInput
+          id="discount"
           classesProp={{
             root: classes.discountInput,
             notchedOutline: classes.notchedOutline

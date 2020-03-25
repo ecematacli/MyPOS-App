@@ -33,6 +33,7 @@ interface Props {
   color?: string;
   value: any;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  id?: string;
 }
 
 const styles = makeStyles(({ breakpoints }) => ({
