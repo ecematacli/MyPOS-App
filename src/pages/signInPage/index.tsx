@@ -33,53 +33,42 @@ const SignInPage: React.FC = () => {
   });
 
   return (
-    <div style={{ padding: 24 }}>
-      <div className={classes.signInPageContainer}>
-        <div className={classes.signInFormContainer}>
-          <Card className={classes.signInCard}>
-            <div className={classes.cardContainer}>
-              <div>
-                <CardMedia className={classes.signInCardImg} image={image} />
-              </div>
-              <CardContent className={classes.cardContent}>
-                <div className={classes.signInTextDiv}>
-                  <Typography className={classes.signInText}>
-                    Sign In
-                  </Typography>
-                </div>
-                <Formik<FormValues>
-                  initialValues={{ email: '', password: '' }}
-                  onSubmit={values => {
-                    postSignInForm(values);
-                  }}
-                  validationSchema={SigninSchema}
-                >
-                  <Form
-                    autoComplete="new-password"
-                    className={classes.signInForm}
-                  >
-                    {SIGNIN_FIELDS.map(({ label, name }) => (
-                      <Field
-                        key={label}
-                        label={label}
-                        name={name}
-                        fieldId={name}
-                        type={name}
-                        component={SigninInput}
-                      />
-                    ))}
-                    <CustomButton type="submit">
-                      <Typography className={classes.btnText}>
-                        Sign In
-                      </Typography>
-                    </CustomButton>
-                  </Form>
-                </Formik>
-              </CardContent>
+    <div className={classes.signInPageContainer}>
+      <Card className={classes.signInCard}>
+        <div className={classes.cardContainer}>
+          <span>
+            <CardMedia className={classes.signInCardImg} image={image} />
+          </span>
+          <CardContent className={classes.cardContent}>
+            <div className={classes.signInTextDiv}>
+              <Typography className={classes.signInText}>Sign In</Typography>
             </div>
-          </Card>
+            <Formik<FormValues>
+              initialValues={{ email: '', password: '' }}
+              onSubmit={values => {
+                postSignInForm(values);
+              }}
+              validationSchema={SigninSchema}
+            >
+              <Form autoComplete="new-password" className={classes.signInForm}>
+                {SIGNIN_FIELDS.map(({ label, name }) => (
+                  <Field
+                    key={label}
+                    label={label}
+                    name={name}
+                    fieldId={name}
+                    type={name}
+                    component={SigninInput}
+                  />
+                ))}
+                <CustomButton type="submit">
+                  <Typography className={classes.btnText}>Sign In</Typography>
+                </CustomButton>
+              </Form>
+            </Formik>
+          </CardContent>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

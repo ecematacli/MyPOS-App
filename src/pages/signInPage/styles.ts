@@ -1,66 +1,79 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+const centered = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+};
+
 export default makeStyles(({ spacing, palette }) => ({
   signInPageContainer: {
     width: '100vw',
     height: '100vh',
     background: `linear-gradient(to right, ${palette.grayColors[11]}, ${palette.grayColors[12]})`,
-    margin: '-24px'
-  },
-  signInFormContainer: {
-    width: '100vw',
-    height: '80vh',
+    overflow: 'hidden',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'center'
   },
   signInCard: {
     boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.30)',
-    overflow: 'auto',
+    overflow: 'hidden',
+    marginTop: spacing(25),
     color: palette.whiteColors[0],
-    width: 700,
-    height: 450,
+    width: spacing(87.5),
+    height: spacing(56.25),
+    borderRadius: '3%',
     '@media (max-width:760px) and (min-width: 568px)': {
-      width: '75%',
-      height: '85%'
+      width: '70%',
+      height: '50%'
     },
-    '@media (max-width:567px)': {
-      width: '85%',
-      height: '90%',
-      marginTop: spacing(12.5)
+    '@media (max-width:567px) and (min-width: 421px)': {
+      width: '80%',
+      height: '55%'
     },
-    borderRadius: '3%'
+    '@media (max-width:420px) and (min-width: 409px)': {
+      marginTop: spacing(12.5),
+      width: '90%',
+      height: '75%'
+    },
+    '@media (max-width:408px)': {
+      marginTop: spacing(8),
+      width: '73%',
+      height: '68%'
+    }
   },
   cardContainer: {
+    ...centered,
     width: 'auto',
     height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     '@media (max-width:760px) and (min-width: 568px)': {
       flexDirection: 'column',
       paddingTop: spacing(5)
     },
     '@media (max-width:567px)': {
       flexDirection: 'column',
-      paddingTop: spacing(1.5)
+      paddingTop: spacing(6)
     }
   },
   cardContent: {
-    marginLeft: spacing(2.5)
+    marginLeft: spacing(2.8),
+    '@media (max-width:760px)': {
+      marginLeft: spacing(1)
+    }
   },
   signInCardImg: {
-    height: 250,
-    width: 280,
-    '@media (max-width:567px)': {
-      width: 200,
-      height: 180
+    height: spacing(31.25),
+    width: spacing(35),
+    '@media (max-width:760px) and (min-width: 568px)': {
+      width: spacing(37)
+    },
+    '@media (max-width:375px)': {
+      width: spacing(20),
+      height: spacing(15)
     }
   },
   signInTextDiv: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    ...centered
   },
   signInText: {
     color: palette.secondary.main,
@@ -68,17 +81,15 @@ export default makeStyles(({ spacing, palette }) => ({
     marginBottom: spacing(2)
   },
   signInForm: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center'
+    ...centered,
+    flexDirection: 'column'
   },
   btnText: {
     fontSize: spacing(2),
     fontWeight: 'bold',
     textTransform: 'capitalize',
     '@media (max-width:567px)': {
-      fontSize: 18,
+      fontSize: spacing(2.2),
       paddingLeft: spacing(2.5)
     }
   }

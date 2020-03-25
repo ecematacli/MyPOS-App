@@ -12,7 +12,10 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   tableWrapper: {
     paddingTop: spacing(6),
-    height: '50vh',
+    height: '48vh',
+    [breakpoints.down('md')]: {
+      height: '44vh'
+    },
     overflow: 'auto'
   },
   tableRow: {

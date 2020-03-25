@@ -21,7 +21,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   displayOptionsTitle: {
     color: palette.grayColors[9],
-    padding: spacing(3, 3)
+    padding: spacing(3, 2.5)
   },
   displayOptionsItem: {
     fontSize: spacing(2),

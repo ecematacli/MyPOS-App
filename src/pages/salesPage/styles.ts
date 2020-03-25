@@ -10,10 +10,6 @@ export default makeStyles(({ spacing, breakpoints }) => ({
   contentRoot: {
     flexGrow: 1
   },
-  paper: {
-    height: 140,
-    width: 100
-  },
   control: {
     padding: spacing(2)
   },
