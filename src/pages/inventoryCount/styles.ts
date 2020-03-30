@@ -48,5 +48,11 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   imageDiv: {
     ...centered,
     marginTop: spacing(8)
+  },
+  pageStatusMsg: {
+    color: 'red',
+    textAlign: 'center',
+    marginTop: 40,
+    fontSize: 18
   }
 }));

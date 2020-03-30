@@ -72,6 +72,10 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
       {renderInventoryTabs()}
       {renderAddCountPaper()}
       <InventoryCountBatchTable />
+      <Typography className={classes.pageStatusMsg}>
+        Please kindly note that this page is under development for the time
+        being.
+      </Typography>
     </div>
   );
 };
