@@ -10,7 +10,7 @@ import DashboardPage from '../pages/dashboardPage';
 import SalesPage from '../pages/salesPage';
 import SalesHistoryPage from '../pages/salesHistoryPage';
 import ProductsPage from '../pages/productsPage';
-import InventoryCount from '../pages/inventoryCount';
+import InventoryCountPage from '../pages/inventoryCount';
 import CreateInventoryCount from '../pages/inventoryCount/components/createinventoryCount';
 import InventoryCountDetail from '../pages/inventoryCount/components/inventoryCountDetail';
 
@@ -34,7 +34,7 @@ const AppRouter: React.FC = () => (
           <PrivateRoute
             path="/inventory/count"
             exact
-            component={InventoryCount}
+            component={InventoryCountPage}
           />
           <PrivateRoute
             path="/inventory/count/1"

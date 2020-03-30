@@ -1,16 +1,15 @@
-# Point of Sale App dubbed as MyPOS App
+# Point of Sale App dubbed as "MyPOS App"
 
 #### Demo 
-Please kindly note that this app was meant to be used as a desktop app in stores. Nonetheless, it has been made somewhat responsive for ipad and iphone 6/7/8 screens.
+Please kindly note that this app was meant to be used as a desktop app in stores. Nonetheless, it has been made somewhat responsive for the screens of ipad and iphone 6/7/8 devices.
 
 Also, the app is currently using React hooks, Redux and Context API coupled with Typescript all together in order to serve the purpose showing my knowledge on all of these technologies and tools.
 
-https://retail-pos-app.herokuapp.com/
+http://stock-management-ui-staging.s3-website.eu-central-1.amazonaws.com/
 
-(heroku servers shut down when idle on the free plan, so initial loading takes some time)
 - Login Credentials 
-  - email: admin@admin.com
-  - password: admin
+  - email: demo@demo.com
+  - password: demo
 
 Currently I'm adding the functionality of inventory count page of which the main layout somewhat completed.
 

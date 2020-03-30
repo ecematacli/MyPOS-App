@@ -3,7 +3,9 @@ import { Brand } from '../../../redux/brands/types';
 import { Category } from '../../../redux/categories/types';
 
 import api from '../../../api';
+import { BatchData } from '../types';
 import { findMatchedFields } from '../../../common/utils';
+import history from '../../../history';
 
 export interface Filters {
   category: string;
@@ -14,7 +16,7 @@ const initialState = {
   category: '',
   brand: ''
 };
-
+//name, brandId, categoryId,
 export default (brands: Brand[], categories: Category[]) => {
   const [startDate, handleStartDateChange] = useState<Date | null>(null);
   const [countName, setCountName] = useState('');
@@ -25,6 +27,7 @@ export default (brands: Brand[], categories: Category[]) => {
     }),
     initialState
   );
+  const [batches, setBatches] = useState<BatchData | {}>({});
 
   // Start Date and Count Name input handlers
   const handleDropdownInputChange = ({
@@ -42,7 +45,30 @@ export default (brands: Brand[], categories: Category[]) => {
     setCountName(value);
   };
 
-  const createCountBatches = async () => {};
+  //API Requests
+  const fetchCountBatches = async () => {
+    const response = await api.get('/inventory-count');
+  };
+
+  const createCountBatches = async () => {
+    const { category, brand } = dropdownInputs;
+    let categoryId: number;
+    let brandId: number;
+
+    if (brand) {
+      categoryId = findMatchedFields(brands, dropdownInputs.brand).id;
+    }
+    if (category) {
+      brandId = findMatchedFields(categories, dropdownInputs.category).id;
+    }
+    const response = await api.post('/inventory-count', {
+      name: countName,
+      categoryId,
+      brandId
+    });
+
+    history.push('/inventory/count/1');
+  };
 
   //Dropdown Input fields for MU Select component
   const DROPDOWN_INPUT_FIELDS = [
@@ -68,6 +94,8 @@ export default (brands: Brand[], categories: Category[]) => {
     handleCountNameChange,
     handleDropdownInputChange,
     createCountBatches,
+    fetchCountBatches,
+    batches,
     DROPDOWN_INPUT_FIELDS
   };
 };

@@ -8,9 +8,14 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
+import { BatchData } from '../../types';
 import Loading from '../../../../common/components/loading';
 
-const InventoryCountBatchTable = () => {
+interface Props {
+  batches: BatchData;
+}
+
+const InventoryCountBatchTable: React.FC<Props> = () => {
   const classes = styles();
   const loading = false;
 

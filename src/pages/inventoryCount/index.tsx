@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Tabs, Tab, Typography, Button } from '@material-ui/core';
 
 import styles from './styles';
 import history from '../../history';
-import CustomButton from '../../common/components/customButton';
+import { StoreState } from '../../redux/types';
+import { Category } from '../../redux/categories/types';
+import { Brand } from '../../redux/brands/types';
+import useInventoryState from './hooks/useInventoryState';
 import InventoryCountBatchTable from './components/batchTable/BatchTable';
 
-const InventoryCount: React.FC = () => {
+interface InventoryProps {
+  brands: Brand[];
+  categories: Category[];
+}
+
+const InventoryCountPage: React.FC<InventoryProps> = ({
+  brands,
+  categories
+}) => {
   const classes = styles();
+  const { batches, fetchCountBatches } = useInventoryState(brands, categories);
   const [value, setValue] = useState(2);
 
   const handleChange = (
@@ -16,6 +29,10 @@ const InventoryCount: React.FC = () => {
   ) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    fetchCountBatches();
+  }, []);
 
   const renderInventoryTabs = () => (
     <Tabs
@@ -59,4 +76,9 @@ const InventoryCount: React.FC = () => {
   );
 };
 
-export default InventoryCount;
+const mapStateToProps = (state: StoreState) => ({
+  brands: state.brands,
+  categories: state.categories
+});
+
+export default connect(mapStateToProps)(InventoryCountPage);

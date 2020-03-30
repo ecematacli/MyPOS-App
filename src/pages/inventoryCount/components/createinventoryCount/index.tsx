@@ -45,7 +45,6 @@ const CreateInventoryCount: React.FC<Props> = ({
 
   const onStartCountClick = () => {
     createCountBatches();
-    history.push('/inventory/count/1');
   };
 
   const renderCreateInvPaper = () => (

@@ -8,7 +8,8 @@ const centered = {
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   inventoryContainer: {
-    paddingTop: spacing(3)
+    paddingTop: spacing(3),
+    height: '100vh'
   },
   tabs: {
     boxShadow: 'none',
