@@ -1,88 +1,47 @@
-import React from 'react';
-import {
-  TableRow,
-  TableCell,
-  Table,
-  TableBody,
-  TableHead
-} from '@material-ui/core';
+import React, { Fragment } from 'react';
 
 import styles from './styles';
 import { BatchData } from '../../types';
-import Loading from '../../../../common/components/loading';
+import { formatDate } from '../../../../common/utils';
+import PlainTable from '../../../../common/components/plainTable';
+import inventoryImage from '../../../../assets/img/stocktake-emptylist-v1.png';
 
 interface Props {
-  batches: BatchData;
+  batchesData: BatchData;
+  page: number;
+  rowsPerPage: number;
 }
 
-const InventoryCountBatchTable: React.FC<Props> = () => {
+const BatchTable: React.FC<Props> = ({ batchesData, page, rowsPerPage }) => {
   const classes = styles();
-  const loading = false;
+  const { count, batches } = batchesData;
 
-  const renderTableHead = () => (
-    <TableRow className={classes.tableHeadRow}>
-      {['Name', 'Started', 'Finished', 'Category', 'Brand'].map((head, i) => (
-        <TableCell
-          className={classes[i === 0 && 'firstCell']}
-          align="left"
-          key={head}
-        >
-          {head}
-        </TableCell>
-      ))}
-    </TableRow>
-  );
-  const renderTableBody = () =>
-    [
-      {
-        name: 'BATCH-1',
-        started: '12.01.2020',
-        finished: '14.01.2020',
-        category: 'shoe',
-        brand: 'nike'
-      },
-      {
-        name: 'BATCH-2',
-        started: '18.02.2020',
-        finished: '18.02.2020',
-        category: 'garment',
-        brand: 'nike'
-      },
-      {
-        name: 'BATCH-3',
-        started: '7.03.2020',
-        finished: '8.03.2020',
-        category: 'racket',
-        brand: 'babolat'
-      }
-    ].map(({ name, started, finished, category, brand }, i) => (
-      <TableRow className={classes.tableBodyRow} key={i}>
-        <TableCell className={classes.firstCell}>{name}</TableCell>
-        <TableCell>{started}</TableCell>
-        <TableCell>{finished}</TableCell>
-        <TableCell>{category}</TableCell>
-        <TableCell>{brand}</TableCell>
-      </TableRow>
-    ));
+  const formattedBatchData = () =>
+    batches.map(batch => ({
+      ...batch,
+      started: batch.started && formatDate(batch.started, 'd MMMM y - p'),
+      finished: batch.finished && formatDate(batch.finished, 'd MMMM y - p')
+    }));
 
   return (
-    <div className={classes.tableContainer}>
-      <Table className={classes.table}>
-        <TableHead>{renderTableHead()}</TableHead>
-        <TableBody>
-          {loading ? (
-            <TableRow>
-              <TableCell colSpan={10}>
-                <Loading />
-              </TableCell>
-            </TableRow>
-          ) : (
-            renderTableBody()
-          )}
-        </TableBody>
-      </Table>
-    </div>
+    <Fragment>
+      {!count ? (
+        <div className={classes.imageDiv}>
+          <img src={inventoryImage} />
+        </div>
+      ) : (
+        <div className={classes.tableDiv}>
+          <PlainTable
+            tableHeads={['Name', 'Started', 'Finished', 'Category', 'Brand']}
+            count={count}
+            rows={{ type: 'batchTable', batches: formattedBatchData() }}
+            page={page}
+            rowsPerPage={rowsPerPage}
+          />
+        </div>
+      )}
+    </Fragment>
   );
 };
 
-export default InventoryCountBatchTable;
+export default BatchTable;

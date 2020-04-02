@@ -9,7 +9,7 @@ interface Product {
   synced: boolean;
 }
 
-interface Batch {
+export interface Batch {
   id: number;
   status: string;
   started: string;
@@ -20,7 +20,7 @@ interface Batch {
   products: Product[];
 }
 
-export interface BatchData {
-  count: number;
+export interface BatchesRow {
+  type: string;
   batches: Batch[];
 }

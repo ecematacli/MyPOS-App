@@ -8,7 +8,8 @@ import { StoreState } from '../../redux/types';
 import { Category } from '../../redux/categories/types';
 import { Brand } from '../../redux/brands/types';
 import useInventoryState from './hooks/useInventoryState';
-import InventoryCountBatchTable from './components/batchTable/BatchTable';
+import BatchTable from './components/batchTable/BatchTable';
+import Loading from '../../common/components/loading';
 
 interface InventoryProps {
   brands: Brand[];
@@ -20,8 +21,16 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
   categories
 }) => {
   const classes = styles();
-  const { batches, fetchCountBatches } = useInventoryState(brands, categories);
+  const {
+    batches,
+    fetchCountBatches,
+    rowsPerPage,
+    setRowsPerPage,
+    page,
+    setPage
+  } = useInventoryState(brands, categories);
   const [value, setValue] = useState(2);
+  const loading = false;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -71,7 +80,15 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
     <div className={classes.inventoryContainer}>
       {renderInventoryTabs()}
       {renderAddCountPaper()}
-      <InventoryCountBatchTable />
+      {loading ? (
+        <Loading />
+      ) : (
+        <BatchTable
+          batchesData={batches}
+          page={page}
+          rowsPerPage={rowsPerPage}
+        />
+      )}
       <Typography className={classes.pageStatusMsg}>
         Please kindly note that this page is under development for the time
         being.

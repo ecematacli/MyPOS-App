@@ -70,6 +70,7 @@ const CustomTable: React.FC<TableProps> = props => {
 
     if ('sales' in rows) {
       return rows.sales.map((sale: Sale, i: number) => {
+        // <SalesRows index={i} sale={sale} />;
         const { id, createdAt, discount, total, products } = sale;
         return (
           <Fragment key={id}>

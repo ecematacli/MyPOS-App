@@ -16,7 +16,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     backgroundColor: palette.secondary.light
   },
   title: {
-    padding: spacing(3, 2.5),
+    padding: spacing(3, 2.5, 3, 1.7),
     color: palette.grayColors[3]
   },
   displayMsg: {
