@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import clsx from 'clsx';
+import React, { useState } from 'react';
 import {
   TableContainer,
   Table,
@@ -7,8 +6,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TablePagination,
-  Collapse
+  TablePagination
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -17,24 +15,28 @@ import styles from './styles';
 import { Sale } from '../../../redux/sales/types';
 import { Product } from '../../../redux/products/types';
 import { TableProps, PaginationLabel } from './types';
-import { currencyFormatter, totalQty } from '../../utils';
-import useExpandedRowsState from './useExpandedRowsState';
+import SaleRow from './saleRow/SaleRow';
+import ProductRow from './productRow/ProductRow';
 
-const CustomTable: React.FC<TableProps> = props => {
-  const classes = styles(props);
-  const {
-    tableHeads,
-    rows,
-    tableType,
-    rowsPerPage,
-    page,
-    count,
-    handleChangePage,
-    handleChangeRowsPerPage,
-    component: Component
-  } = props;
+const CustomTable: React.FC<TableProps> = ({
+  tableHeads,
+  rows,
+  tableType,
+  rowsPerPage,
+  page,
+  count,
+  handleChangePage,
+  handleChangeRowsPerPage,
+  component: Component
+}) => {
+  const classes = styles();
+  const [expandedRows, setExpandedRows] = useState<{
+    [id: string]: boolean | undefined;
+  }>({});
 
-  const { toggleExpanded, expandedRows } = useExpandedRowsState();
+  const toggleExpanded = (id: number): void => {
+    setExpandedRows({ ...expandedRows, [id]: !expandedRows[id] });
+  };
 
   const renderExpandIconContainer = (id: number) => (
     <div className={classes.expandIconContainer}>
@@ -65,100 +67,32 @@ const CustomTable: React.FC<TableProps> = props => {
   );
 
   const renderTableBody = () => {
-    const rowClassName = (index: number) =>
-      clsx(classes.tableBodyRow, classes[index % 2 ? 'whiteRow' : 'greenRow']);
-
     if ('sales' in rows) {
-      return rows.sales.map((sale: Sale, i: number) => {
-        // <SalesRows index={i} sale={sale} />;
-        const { id, createdAt, discount, total, products } = sale;
-        return (
-          <Fragment key={id}>
-            <TableRow
-              className={rowClassName(i)}
-              onClick={() => toggleExpanded(id)}
-            >
-              <TableCell className={classes.tableCell}>
-                <div className={classes.firstCellContainer}>
-                  {renderExpandIconContainer(id)}
-                  <div className={classes.firstCellItem}>{createdAt}</div>
-                </div>
-              </TableCell>
-              <TableCell align="right" className={classes.tableCell}>
-                {totalQty(products)}
-              </TableCell>
-              <TableCell align="right" className={classes.tableCell}>
-                {discount ? currencyFormatter(discount) : '-'}
-              </TableCell>
-              <TableCell align="right" className={classes.tableCell}>
-                {total ? currencyFormatter(total) : '-'}
-              </TableCell>
-            </TableRow>
-            {expandedRows[id] ? (
-              <TableRow key={id}>
-                <TableCell padding="none" colSpan={12}>
-                  <Collapse in={expandedRows[id]} timeout="auto" unmountOnExit>
-                    <Component sale={sale} rowIndex={i} />
-                  </Collapse>
-                </TableCell>
-              </TableRow>
-            ) : null}
-          </Fragment>
-        );
-      });
+      return rows.sales.map((sale: Sale, i: number) => (
+        <SaleRow
+          key={sale.id}
+          index={i}
+          sale={sale}
+          toggleExpanded={toggleExpanded}
+          renderExpandIconContainer={renderExpandIconContainer}
+          expandedRows={expandedRows}
+          component={Component}
+        />
+      ));
     }
 
     if ('products' in rows) {
-      return rows.products.map((product: Product, i: number) => {
-        const {
-          id,
-          sku,
-          name,
-          category,
-          brand,
-          price,
-          discountPrice
-        } = product;
-        return (
-          <Fragment key={id}>
-            <TableRow
-              className={rowClassName(i)}
-              onClick={() => toggleExpanded(id)}
-            >
-              <TableCell className={classes.tableCell}>
-                <div className={classes.firstCellContainer}>
-                  {renderExpandIconContainer(id)}
-                  <div className={classes.firstCellItem}>{sku ? sku : '-'}</div>
-                </div>
-              </TableCell>
-              <TableCell className={classes.tableCell}>
-                {name ? name : '-'}
-              </TableCell>
-              <TableCell className={classes.tableCell}>
-                {category ? category.name : '-'}
-              </TableCell>
-              <TableCell className={classes.tableCell}>
-                {brand ? brand.name : '-'}
-              </TableCell>
-              <TableCell align="right" className={classes.tableCell}>
-                {price && currencyFormatter(price)}
-              </TableCell>
-              <TableCell align="right" className={classes.tableCell}>
-                {discountPrice ? currencyFormatter(discountPrice) : '-'}
-              </TableCell>
-            </TableRow>
-            {expandedRows[id] ? (
-              <TableRow key={id}>
-                <TableCell padding={'none'} colSpan={12}>
-                  <Collapse in={expandedRows[id]} timeout="auto" unmountOnExit>
-                    <Component product={product} rowIndex={i} />
-                  </Collapse>
-                </TableCell>
-              </TableRow>
-            ) : null}
-          </Fragment>
-        );
-      });
+      return rows.products.map((product: Product, i: number) => (
+        <ProductRow
+          key={product.id}
+          index={i}
+          product={product}
+          toggleExpanded={toggleExpanded}
+          renderExpandIconContainer={renderExpandIconContainer}
+          expandedRows={expandedRows}
+          component={Component}
+        />
+      ));
     }
   };
 

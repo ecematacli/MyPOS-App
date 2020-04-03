@@ -57,8 +57,8 @@ export default (brands: Brand[], categories: Category[]) => {
     try {
       setLoading(true);
       const response = await api[method](url);
-      return response.data;
       setLoading(false);
+      return response.data;
     } catch (e) {
       setLoading(false);
       throwError(e);
@@ -92,6 +92,10 @@ export default (brands: Brand[], categories: Category[]) => {
 
     history.push('/inventory/count/1');
   };
+
+  const handleChangeRowsPerPage = () => {};
+
+  const handleChangePage = () => {};
 
   //Dropdown Input fields for MU Select component
   const DROPDOWN_INPUT_FIELDS = [

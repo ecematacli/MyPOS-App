@@ -1,32 +1,43 @@
 import React, { Fragment } from 'react';
 import clsx from 'clsx';
-import {
-  TableContainer,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TablePagination,
-  Collapse
-} from '@material-ui/core';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import { TableCell, TableRow, Collapse } from '@material-ui/core';
 
 import styles from './styles';
+import { Sale } from '../../../../redux/sales/types';
 import { currencyFormatter, totalQty } from '../../../utils';
 
-const SalesRows = ({
+interface Props {
+  sale: Sale;
+  expandedRows: {
+    [id: string]: boolean;
+  };
+  toggleExpanded: (id: number) => void;
+  index: number;
+  renderExpandIconContainer: (id: number) => JSX.Element;
+  component: React.JSXElementConstructor<any>;
+}
+
+const SaleRow: React.FC<Props> = ({
   sale,
   expandedRows,
   toggleExpanded,
-  rowClassName,
   index,
   renderExpandIconContainer,
   component: Component
 }) => {
   const classes = styles();
+
   const { id, createdAt, discount, total, products } = sale;
+
+  const renderSaleDetails = () => (
+    <TableRow key={id}>
+      <TableCell padding="none" colSpan={12}>
+        <Collapse in={expandedRows[id]} timeout="auto" unmountOnExit>
+          <Component sale={sale} rowIndex={index} />
+        </Collapse>
+      </TableCell>
+    </TableRow>
+  );
 
   return (
     <Fragment key={id}>
@@ -53,17 +64,9 @@ const SalesRows = ({
           {total ? currencyFormatter(total) : '-'}
         </TableCell>
       </TableRow>
-      {expandedRows[id] ? (
-        <TableRow key={id}>
-          <TableCell padding="none" colSpan={12}>
-            <Collapse in={expandedRows[id]} timeout="auto" unmountOnExit>
-              <Component sale={sale} rowIndex={index} />
-            </Collapse>
-          </TableCell>
-        </TableRow>
-      ) : null}
+      {expandedRows[id] ? renderSaleDetails() : null}
     </Fragment>
   );
 };
 
-export default SalesRows;
+export default SaleRow;

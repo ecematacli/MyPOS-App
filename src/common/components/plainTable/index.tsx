@@ -11,6 +11,7 @@ import {
 
 import styles from './styles';
 import { BatchesRow, Batch } from './types';
+import BatchRow from './batchRow/BatchRow';
 
 interface Props {
   tableHeads: string[];
@@ -41,8 +42,8 @@ const BatchTable: React.FC<Props> = ({
     <TableRow className={classes.tableHeadRow}>
       {tableHeads.map((head: string, i) => (
         <TableCell
-          className={classes[i === 0 && 'firstCell']}
-          align="left"
+          className={classes[i === 0 && 'firstHeadCell']}
+          align={i === 4 ? 'right' : 'left'}
           key={head}
         >
           {head}
@@ -53,13 +54,7 @@ const BatchTable: React.FC<Props> = ({
   const renderTableBody = () => {
     if ('batches' in rows) {
       return rows.batches.map((row: Batch, i) => (
-        <TableRow className={classes.tableBodyRow} key={i}>
-          <TableCell className={classes.firstCell}>{name}</TableCell>
-          <TableCell>{row.started}</TableCell>
-          <TableCell>{row.finished}</TableCell>
-          <TableCell>{row.category}</TableCell>
-          <TableCell>{row.brand}</TableCell>
-        </TableRow>
+        <BatchRow row={row} key={row.id} />
       ));
     }
   };
