@@ -9,7 +9,7 @@ import CustomInput from '../../../../common/components/customInput';
 import CustomButton from '../../../../common/components/customButton';
 import { Product } from '../../../../redux/products/types';
 
-interface TotalProps {
+export interface TotalProps {
   products: Product[];
   total: number;
   tax: number;
@@ -32,7 +32,7 @@ const Total: React.FC<TotalProps> = ({
   discount,
   handleDiscountChange,
   completeSale,
-  discardSale
+  discardSale,
 }) => {
   const classes = styles();
   const { addNotification } = useContext(NotificationsContext);
@@ -45,23 +45,26 @@ const Total: React.FC<TotalProps> = ({
     <div className={classes.totalContentDiv}>
       <div className={classes.totalSection}>
         <Typography>Sub-Total</Typography>
-        <Typography>{currencyFormatter(total - tax)}</Typography>
+        <Typography data-testid="sub-total">
+          {currencyFormatter(total - tax)}
+        </Typography>
       </div>
       <div className={classes.totalSection}>
         <Typography>Tax</Typography>
-        <Typography>{currencyFormatter(tax)}</Typography>
+        <Typography data-testid="tax">{currencyFormatter(tax)}</Typography>
       </div>
       <div className={classes.totalSection}>
         <Typography>Discount</Typography>
         <CustomInput
+          aria-label="custom-input"
           id="discount"
           classesProp={{
             root: classes.discountInput,
-            notchedOutline: classes.notchedOutline
+            notchedOutline: classes.notchedOutline,
           }}
           inputProps={{ style: { textAlign: 'right' } }}
           value={discount}
-          onChange={e => handleDiscountChange(e.target.value)}
+          onChange={(e) => handleDiscountChange(e.target.value)}
           startAdornment={
             <InputAdornment position="start">&#x20BA;</InputAdornment>
           }
@@ -70,7 +73,9 @@ const Total: React.FC<TotalProps> = ({
       <Divider className={classes.totalDivider} />
       <div className={clsx(classes.totalSection, classes.totalAmount)}>
         <Typography>Total</Typography>
-        <Typography>{currencyFormatter(total - discount)}</Typography>
+        <Typography data-testid="total">
+          {currencyFormatter(total - discount)}
+        </Typography>
       </div>
       <div className={classes.paymentBtnContainer}>
         <CustomButton

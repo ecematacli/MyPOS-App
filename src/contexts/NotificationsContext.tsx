@@ -18,19 +18,19 @@ export const NotificationsContext = createContext<NotificationsContext | null>(
 );
 
 export const NotificationsProvider: React.FC<{ children: React.ReactNode }> = ({
-  children
+  children,
 }) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const addNotification = (message: string, severity: Color): void => {
     setNotifications([
       ...notifications,
-      { id: Math.random(), message, severity }
+      { id: Math.random(), message, severity },
     ]);
   };
 
   const removeNotification = (id: number): void => {
-    setNotifications(notifications.filter(n => n.id !== id));
+    setNotifications(notifications.filter((n) => n.id !== id));
   };
 
   return (

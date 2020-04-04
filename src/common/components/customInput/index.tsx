@@ -9,7 +9,7 @@ import {
   Select,
   MenuItem,
   InputBaseComponentProps,
-  Theme
+  Theme,
 } from '@material-ui/core';
 
 interface DropdownItems {
@@ -39,17 +39,17 @@ interface Props {
 const styles = makeStyles(({ breakpoints }) => ({
   root: {
     '&:focus': {
-      backgroundColor: 'transparent'
-    }
+      backgroundColor: 'transparent',
+    },
   },
   dropdownItems: {
     [breakpoints.down('sm')]: {
-      fontSize: 14
-    }
-  }
+      fontSize: 14,
+    },
+  },
 }));
 
-const CustomInput: React.FC<Props> = props => {
+const CustomInput: React.FC<Props> = (props) => {
   const classes = styles();
   const { palette }: Theme = useTheme();
 
