@@ -56,13 +56,15 @@ const Total: React.FC<TotalProps> = ({
       <div className={classes.totalSection}>
         <Typography>Discount</Typography>
         <CustomInput
-          aria-label="custom-input"
           id="discount"
           classesProp={{
             root: classes.discountInput,
             notchedOutline: classes.notchedOutline,
           }}
-          inputProps={{ style: { textAlign: 'right' } }}
+          inputProps={{
+            'data-testid': 'content-input',
+            style: { textAlign: 'right' },
+          }}
           value={discount}
           onChange={(e) => handleDiscountChange(e.target.value)}
           startAdornment={
@@ -79,6 +81,7 @@ const Total: React.FC<TotalProps> = ({
       </div>
       <div className={classes.paymentBtnContainer}>
         <CustomButton
+          data-testid="custom-button"
           disabled={products.length < 1}
           onClick={onCompleteSaleClick}
           fullWidth
