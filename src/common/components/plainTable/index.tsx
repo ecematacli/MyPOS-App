@@ -6,7 +6,7 @@ import {
   TableBody,
   TableHead,
   TableContainer,
-  TablePagination
+  TablePagination,
 } from '@material-ui/core';
 
 import styles from './styles';
@@ -20,6 +20,13 @@ interface Props {
   noDataMessage?: string;
   page: number;
   rowsPerPage: number;
+  handleChangeRowsPerPage: ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangePage: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newPage: number
+  ) => void;
 }
 
 export interface PaginationLabel {
@@ -28,13 +35,15 @@ export interface PaginationLabel {
   count: number;
 }
 
-const BatchTable: React.FC<Props> = ({
+const PlainTable: React.FC<Props> = ({
   tableHeads,
   count,
   rows,
   noDataMessage,
   page,
-  rowsPerPage
+  rowsPerPage,
+  handleChangeRowsPerPage,
+  handleChangePage,
 }) => {
   const classes = styles();
 
@@ -73,8 +82,8 @@ const BatchTable: React.FC<Props> = ({
         count={count}
         rowsPerPage={rowsPerPage}
         page={page - 1}
-        onChangePage={() => 'handleChangePage'}
-        onChangeRowsPerPage={() => 'handleChangeRowsPerPage'}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
         labelDisplayedRows={renderLabelDisplayRows}
       />
     </div>
@@ -101,4 +110,4 @@ const BatchTable: React.FC<Props> = ({
   );
 };
 
-export default BatchTable;
+export default PlainTable;

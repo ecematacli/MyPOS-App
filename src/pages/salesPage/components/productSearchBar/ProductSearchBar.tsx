@@ -19,7 +19,7 @@ interface SearchBarProps {
 const ProductSearchBar: React.FC<SearchBarProps> = ({
   addProduct,
   createProduct,
-  inputRef
+  inputRef,
 }) => {
   const classes = styles();
 
@@ -42,9 +42,10 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({
     query,
     setQuery,
     onProductSelect,
-    productNotFound
+    productNotFound,
   } = useSearchInput(addProduct);
 
+  console.log('search results>>', searchResults);
   return (
     <Fragment>
       <AutoCompleteProductSearchBar

@@ -57,7 +57,7 @@ const useSearchInput = (addProduct: AddProduct) => {
     query,
     setQuery,
     onProductSelect,
-    productNotFound
+    productNotFound,
   };
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { TableRow, TableCell } from '@material-ui/core';
 
 import styles from './styles';
@@ -11,11 +12,13 @@ interface Props {
 const BatchRow: React.FC<Props> = ({ row }) => {
   const classes = styles();
 
-  const { name, started, finished, category, brand } = row;
+  const { id, name, started, finished, category, brand } = row;
 
   return (
     <TableRow className={classes.tableBodyRow}>
-      <TableCell className={classes.batchNameCell}>{name}</TableCell>
+      <TableCell className={classes.batchNameCell}>
+        <Link to={`/inventory/count/${id}`}>{name}</Link>
+      </TableCell>
       <TableCell>{started}</TableCell>
       <TableCell>{finished}</TableCell>
       <TableCell>{category}</TableCell>

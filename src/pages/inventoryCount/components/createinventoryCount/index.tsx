@@ -25,7 +25,7 @@ const CreateInventoryCount: React.FC<Props> = ({
   fetchBrands,
   fetchCategories,
   brands,
-  categories
+  categories,
 }) => {
   const classes = styles();
   const {
@@ -35,7 +35,7 @@ const CreateInventoryCount: React.FC<Props> = ({
     handleCountNameChange,
     handleDropdownInputChange,
     createCountBatches,
-    DROPDOWN_INPUT_FIELDS
+    DROPDOWN_INPUT_FIELDS,
   } = useInventoryState(brands, categories);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const CreateInventoryCount: React.FC<Props> = ({
   };
 
   const renderCreateInvPaper = () => (
-    <Fragment>
+    <div style={{ position: 'relative' }}>
       <div className={classes.titleDiv}>
         <span
           className={classes.iconDiv}
@@ -73,33 +73,33 @@ const CreateInventoryCount: React.FC<Props> = ({
           </Button>
         </div>
       </div>
-    </Fragment>
-  );
-
-  return (
-    <div className={classes.createInvContainer}>
-      {renderCreateInvPaper()}
-      <InventoryCountFilters
-        startDate={startDate}
-        handleStartDateChange={handleStartDateChange}
-        handleDropdownInputChange={handleDropdownInputChange}
-        countName={countName}
-        handleCountNameChange={handleCountNameChange}
-        DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
-      />
-      <div className={classes.dividerDiv}>
-        <Divider />
+      <div style={{ position: 'absolute', top: 250 }}>
+        <InventoryCountFilters
+          startDate={startDate}
+          handleStartDateChange={handleStartDateChange}
+          handleDropdownInputChange={handleDropdownInputChange}
+          countName={countName}
+          handleCountNameChange={handleCountNameChange}
+          DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
+        />
       </div>
-      <div className={classes.imageDiv}>
+      <div
+        style={{ position: 'absolute', top: 450 }}
+        className={classes.imageDiv}
+      >
         <img className={classes.boxesImage} src={boxes} />
       </div>
     </div>
+  );
+
+  return (
+    <div className={classes.createInvContainer}>{renderCreateInvPaper()}</div>
   );
 };
 
 const mapStateToProps = (state: StoreState) => ({
   brands: state.brands,
-  categories: state.categories
+  categories: state.categories,
 });
 
 export default connect(mapStateToProps, { fetchCategories, fetchBrands })(

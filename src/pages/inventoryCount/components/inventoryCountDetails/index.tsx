@@ -4,9 +4,9 @@ import { Grid } from '@material-ui/core';
 import LastCountedItems from '../lastCountedItems/LastCountedItems';
 import CountingActions from '../countingActions/CountingActions';
 
-const InventoryCountDetail = () => {
+const InventoryCountDetails = () => {
   return (
-    <Grid container>
+    <Grid container style={{ paddingTop: 24 }}>
       <Grid item xs={9}>
         <CountingActions />
       </Grid>
@@ -17,4 +17,4 @@ const InventoryCountDetail = () => {
   );
 };
 
-export default InventoryCountDetail;
+export default InventoryCountDetails;

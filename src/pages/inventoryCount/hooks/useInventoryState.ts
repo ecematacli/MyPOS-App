@@ -15,7 +15,7 @@ export interface Filters {
 
 const initialState = {
   category: '',
-  brand: ''
+  brand: '',
 };
 //name, brandId, categoryId,
 export default (brands: Brand[], categories: Category[]) => {
@@ -25,20 +25,18 @@ export default (brands: Brand[], categories: Category[]) => {
   const [dropdownInputs, setDropdownInputs] = useReducer(
     (state: Filters, newState: Filters) => ({
       ...state,
-      ...newState
+      ...newState,
     }),
     initialState
   );
   const [batches, setBatches] = useState<BatchData>({ count: 0, batches: [] });
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [status, setStatus] = useState('opened');
 
   const throwError = useAsyncError();
 
   // Start Date and Count Name input handlers
   const handleDropdownInputChange = ({
-    target: { value, name }
+    target: { value, name },
   }: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = name;
     const newValue = value;
@@ -47,7 +45,7 @@ export default (brands: Brand[], categories: Category[]) => {
   };
 
   const handleCountNameChange = ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
     setCountName(value);
   };
@@ -66,7 +64,7 @@ export default (brands: Brand[], categories: Category[]) => {
   };
 
   //API Requests
-  const fetchCountBatches = async () => {
+  const fetchCountBatches = async (page: number, rowsPerPage: number) => {
     const url = `/inventory-count?page=${page}&rowsPerPage=${rowsPerPage}&status=${status}`;
 
     const data: BatchData = await makeApiCall(url);
@@ -87,15 +85,11 @@ export default (brands: Brand[], categories: Category[]) => {
     const response = await api.post('/inventory-count', {
       name: countName,
       categoryId,
-      brandId
+      brandId,
     });
 
     history.push('/inventory/count/1');
   };
-
-  const handleChangeRowsPerPage = () => {};
-
-  const handleChangePage = () => {};
 
   //Dropdown Input fields for MU Select component
   const DROPDOWN_INPUT_FIELDS = [
@@ -103,14 +97,14 @@ export default (brands: Brand[], categories: Category[]) => {
       label: 'Category',
       fieldId: 'category',
       value: dropdownInputs.category,
-      dropdownItems: categories
+      dropdownItems: categories,
     },
     {
       label: 'Brand',
       fieldId: 'brand',
       value: dropdownInputs.brand,
-      dropdownItems: brands
-    }
+      dropdownItems: brands,
+    },
   ];
 
   return {
@@ -122,11 +116,8 @@ export default (brands: Brand[], categories: Category[]) => {
     handleDropdownInputChange,
     createCountBatches,
     fetchCountBatches,
+    loading,
     batches,
-    page,
-    setPage,
-    rowsPerPage,
-    setRowsPerPage,
-    DROPDOWN_INPUT_FIELDS
+    DROPDOWN_INPUT_FIELDS,
   };
 };

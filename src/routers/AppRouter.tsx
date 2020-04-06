@@ -12,7 +12,7 @@ import SalesHistoryPage from '../pages/salesHistoryPage';
 import ProductsPage from '../pages/productsPage';
 import InventoryCountPage from '../pages/inventoryCount';
 import CreateInventoryCount from '../pages/inventoryCount/components/createinventoryCount';
-import InventoryCountDetail from '../pages/inventoryCount/components/inventoryCountDetail';
+import InventoryCountDetails from '../pages/inventoryCount/components/inventoryCountDetails';
 
 const AppRouter: React.FC = () => (
   <Router history={history}>
@@ -37,9 +37,9 @@ const AppRouter: React.FC = () => (
             component={InventoryCountPage}
           />
           <PrivateRoute
-            path="/inventory/count/1"
+            path="/inventory/count/:id"
             exact
-            component={InventoryCountDetail}
+            component={InventoryCountDetails}
           />
           <PrivateRoute
             path="/inventory/count_create"

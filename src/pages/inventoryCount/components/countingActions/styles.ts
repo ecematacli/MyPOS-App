@@ -1,25 +1,36 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
+  titleDiv: {
+    margin: spacing(7, 0, 1.2),
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  backArrow: { color: palette.grayColors[13], cursor: 'pointer' },
+  iconDiv: { display: 'flex', alignItems: 'center' },
+  titleText: {
+    fontSize: spacing(3.2),
+    fontWeight: 'bold',
+    color: '#3a4953',
+  },
   countingContainer: {
     backgroundColor: '#f1f3f5',
-    marginTop: spacing(15.8),
     padding: spacing(3),
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   searchBar: {
     width: '90%',
-    margin: '0 auto'
+    margin: '0 auto',
   },
   countInputAction: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   input: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   inputRoot: {
     width: spacing(8),
@@ -27,35 +38,35 @@ export default makeStyles(({ spacing, palette }) => ({
     borderRadius: 0,
     borderColor: palette.secondary.dark,
     '&:focus': {
-      backgroundColor: 'transparent !important'
-    }
+      backgroundColor: 'transparent !important',
+    },
   },
   countBtnRoot: {
     borderRadius: 0,
-    height: 55.3
+    height: 55.3,
   },
   countBtn: {
     marginRight: spacing(1),
     backgroundColor: palette.primary.main,
     '&:hover': {
-      backgroundColor: palette.primary.light
-    }
+      backgroundColor: palette.primary.light,
+    },
   },
   pauseBtn: {
     height: 56.3,
     backgroundColor: palette.grayColors[14],
     marginRight: spacing(1),
     '&:hover': {
-      backgroundColor: palette.grayColors[4]
-    }
+      backgroundColor: palette.grayColors[4],
+    },
   },
   btnText: {
     textTransform: 'capitalize',
-    color: 'white'
+    color: 'white',
   },
   modeText: {
     fontSize: spacing(1.6),
     color: palette.secondary.main,
-    marginLeft: -spacing(0.6)
-  }
+    marginLeft: -spacing(0.6),
+  },
 }));

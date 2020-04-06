@@ -1,12 +1,12 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import useSalesState from '../useSalesState';
-import { createTestProduct, getTotalQty } from './utils';
+import { createTestProduct, getTotalQty } from '../../../../testUtils';
 
 describe('[Sale State Hook]', () => {
   const storage = {
     getItem: jest.fn(),
-    setItem: jest.fn()
+    setItem: jest.fn(),
   };
 
   test('adds a single product', () => {
@@ -38,7 +38,7 @@ describe('[Sale State Hook]', () => {
       (345.11 - 329.96999999999997).toFixed(2)
     );
     expect(Math.round(result.current.tax)).toBe(Math.round(40.515));
-    expect(result.current.products.map(p => p.qty)).toEqual([1, 1, 1]);
+    expect(result.current.products.map((p) => p.qty)).toEqual([1, 1, 1]);
   });
 
   test('deletes a product', () => {

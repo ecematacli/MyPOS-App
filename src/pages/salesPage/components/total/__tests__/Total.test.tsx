@@ -72,11 +72,11 @@ describe('[Total Component]', () => {
 
     const contentInput = getByTestId('content-input') as HTMLInputElement;
 
-    fireEvent.change(contentInput, { target: { value: 250 } });
+    fireEvent.change(contentInput, { target: { value: 850.5 } });
 
     expect(contentInput).not.toBeNull();
     expect(props.handleDiscountChange).toHaveBeenCalledTimes(1);
-    expect(props.handleDiscountChange).toBeCalledWith('250');
+    expect(props.handleDiscountChange).toBeCalledWith('850.5');
   });
 
   test('calls the completeSale function with the right arguments', () => {

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Button, Typography, OutlinedInput, Checkbox } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
+import history from '../../../../history';
 import AutoCompleteSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
 const InventoryCountDetail = () => {
@@ -29,22 +31,33 @@ const InventoryCountDetail = () => {
   );
 
   return (
-    <div className={classes.countingContainer}>
-      {/*to be completed..*/}
-      {/*
-        // @ts-ignore */}
-      <AutoCompleteSearchBar className={classes.searchBar} />
-      {!checked && renderCountInput()}
-      <div className={classes.countInputAction}>
-        <Checkbox
-          color="primary"
-          checked={checked}
-          onChange={handleCheckedChange}
-          disableRipple
-        />
-        <Typography className={classes.modeText}>Quick-scan mode</Typography>
+    <Fragment>
+      <div className={classes.titleDiv}>
+        <span
+          className={classes.iconDiv}
+          onClick={() => history.push('/inventory/count')}
+        >
+          <ArrowBackIcon className={classes.backArrow} />
+        </span>
+        <Typography className={classes.titleText}>Name of the count</Typography>
       </div>
-    </div>
+      <div className={classes.countingContainer}>
+        {/*to be completed..*/}
+        {/*
+        // @ts-ignore */}
+        <AutoCompleteSearchBar className={classes.searchBar} />
+        {!checked && renderCountInput()}
+        <div className={classes.countInputAction}>
+          <Checkbox
+            color="primary"
+            checked={checked}
+            onChange={handleCheckedChange}
+            disableRipple
+          />
+          <Typography className={classes.modeText}>Quick-scan mode</Typography>
+        </div>
+      </div>
+    </Fragment>
   );
 };
 

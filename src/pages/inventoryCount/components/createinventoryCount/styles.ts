@@ -3,69 +3,77 @@ import { makeStyles } from '@material-ui/core/styles';
 const centered = {
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
 };
 
 export default makeStyles(({ spacing, palette }) => ({
   createInvContainer: {
-    paddingTop: spacing(3)
+    paddingTop: spacing(3),
+    height: '100vh',
   },
   titleDiv: {
-    margin: spacing(7, 0, 1.2),
+    // margin: spacing(7, 0, 1.2),
     display: 'flex',
-    justifyContent: 'center'
+    position: 'absolute',
+    top: 70,
+    left: 175,
   },
   backArrow: { color: palette.grayColors[13], cursor: 'pointer' },
   iconDiv: { display: 'flex', alignItems: 'center' },
   titleText: {
     fontSize: spacing(3.2),
     fontWeight: 'bold',
-    color: '#3a4953'
+    color: '#3a4953',
   },
   infoText: {
     color: palette.secondary.main,
-    paddingRight: spacing(2.5)
+    paddingRight: spacing(2.5),
   },
   startCountContainer: {
     ...centered,
     backgroundColor: '#f1f3f5',
     height: spacing(11.25),
-    width: '100%'
+    width: '100%',
+    position: 'absolute',
+    top: 110,
   },
   startCountDiv: {
-    ...centered,
-    width: 'auto'
+    display: 'flex',
+    width: 'auto',
+    position: 'absolute',
+    left: 200,
+    right: 200,
   },
   btnText: {
     textTransform: 'capitalize',
-    color: 'white'
+    color: 'white',
   },
   exitBtn: {
     backgroundColor: palette.grayColors[14],
     marginRight: spacing(1),
     '&:hover': {
-      backgroundColor: palette.grayColors[4]
-    }
+      backgroundColor: palette.grayColors[4],
+    },
   },
   startBtn: {
     backgroundColor: palette.primary.main,
     '&:hover': {
-      backgroundColor: palette.primary.light
-    }
+      backgroundColor: palette.primary.light,
+    },
   },
   dividerDiv: {
     padding: spacing(4),
     marginTop: spacing(9),
     '& *': {
-      backgroundColor: 'palette.secondary.light'
-    }
+      backgroundColor: 'palette.secondary.light',
+    },
   },
   imageDiv: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: spacing(6.25)
+    marginTop: spacing(6.25),
   },
   boxesImage: {
-    height: 100
-  }
+    height: 100,
+  },
 }));

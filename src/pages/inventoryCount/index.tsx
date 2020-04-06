@@ -21,39 +21,33 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
   categories,
 }) => {
   const classes = styles();
-  //
 
-  // const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const [page, setPage] = useState(1);
-
-  // const handleChangePage = (
-  //   event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  //   newPage: number
-  // ) => {
-  //   //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
-  //   if (newPage + 1 < 0) return;
-  //   setPage(newPage + 1);
-  //   fetchCountBatches(newPage + 1, rowsPerPage, startDate, endDate);
-  // };
-
-  // const handleChangeRowsPerPage = ({
-  //   target: { value }
-  // }: React.ChangeEvent<HTMLInputElement>) => {
-  //   const numValue = parseInt(value);
-  //   setRowsPerPage(numValue);
-  //   fetchCountBatches(page, numValue, startDate, endDate);
-  // };
-  //
-  const {
-    batches,
-    fetchCountBatches,
-    rowsPerPage,
-    setRowsPerPage,
-    page,
-    setPage,
-  } = useInventoryState(brands, categories);
   const [value, setValue] = useState(2);
-  const loading = false;
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(1);
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newPage: number
+  ) => {
+    //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
+    if (newPage + 1 < 0) return;
+    setPage(newPage + 1);
+    fetchCountBatches(newPage + 1, rowsPerPage);
+  };
+
+  const handleChangeRowsPerPage = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    const numValue = parseInt(value);
+    setRowsPerPage(numValue);
+    fetchCountBatches(page, numValue);
+  };
+
+  const { batches, fetchCountBatches, loading } = useInventoryState(
+    brands,
+    categories
+  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -63,7 +57,7 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
   };
 
   useEffect(() => {
-    fetchCountBatches();
+    fetchCountBatches(page, rowsPerPage);
   }, []);
 
   const renderInventoryTabs = () => (
@@ -114,6 +108,8 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
           batchesData={batches}
           page={page}
           rowsPerPage={rowsPerPage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          handleChangePage={handleChangePage}
         />
       )}
     </div>

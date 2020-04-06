@@ -10,17 +10,30 @@ interface Props {
   batchesData: BatchData;
   page: number;
   rowsPerPage: number;
+  handleChangeRowsPerPage: ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangePage: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newPage: number
+  ) => void;
 }
 
-const BatchTable: React.FC<Props> = ({ batchesData, page, rowsPerPage }) => {
+const BatchTable: React.FC<Props> = ({
+  batchesData,
+  page,
+  rowsPerPage,
+  handleChangeRowsPerPage,
+  handleChangePage,
+}) => {
   const classes = styles();
   const { count, batches } = batchesData;
 
   const formattedBatchData = () =>
-    batches.map(batch => ({
+    batches.map((batch) => ({
       ...batch,
       started: batch.started && formatDate(batch.started, 'd MMMM y - p'),
-      finished: batch.finished && formatDate(batch.finished, 'd MMMM y - p')
+      finished: batch.finished && formatDate(batch.finished, 'd MMMM y - p'),
     }));
 
   return (
@@ -37,6 +50,8 @@ const BatchTable: React.FC<Props> = ({ batchesData, page, rowsPerPage }) => {
             rows={{ type: 'batchTable', batches: formattedBatchData() }}
             page={page}
             rowsPerPage={rowsPerPage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            handleChangePage={handleChangePage}
           />
         </div>
       )}

@@ -1,4 +1,4 @@
-import { Product } from '../../../../redux/products/types';
+import { Product } from '../redux/products/types';
 
 export const createTestProduct = (
   length: number = 1,
@@ -19,6 +19,7 @@ export const createTestProduct = (
     synced: true,
     brand: { name: 'Tecnifibre ', id: 14 },
     category: { name: 'Raket', id: 10 },
+    deleted: false,
   }));
 };
 

@@ -9,16 +9,18 @@ import {
   InputLabel,
   FormControl,
   Select,
-  MenuItem
+  MenuItem,
+  Divider,
 } from '@material-ui/core';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 
 import styles from './styles';
 import { Category } from '../../../../redux/categories/types';
 import { Brand } from '../../../../redux/brands/types';
+import boxes from '../../../../assets/img/boxes.png';
 
 type InputChange = ({
-  target: { value, name }
+  target: { value, name },
 }: React.ChangeEvent<HTMLInputElement>) => void;
 interface Props {
   startDate: Date;
@@ -39,7 +41,7 @@ const InventoryCountFilters: React.FC<Props> = ({
   countName,
   handleCountNameChange,
   handleDropdownInputChange,
-  DROPDOWN_INPUT_FIELDS
+  DROPDOWN_INPUT_FIELDS,
 }) => {
   const classes = styles();
 
@@ -54,7 +56,7 @@ const InventoryCountFilters: React.FC<Props> = ({
               <InsertInvitationIcon className={classes.calendarIcon} />
             </InputAdornment>
           </React.Fragment>
-        )
+        ),
       }}
       variant="outlined"
     />
@@ -123,7 +125,7 @@ const InventoryCountFilters: React.FC<Props> = ({
                   <OutlinedInput
                     classes={{
                       root: classes.innerInput,
-                      input: classes.input
+                      input: classes.input,
                     }}
                   />
                 }
@@ -146,6 +148,9 @@ const InventoryCountFilters: React.FC<Props> = ({
       <div className={classes.filtersContainer}>
         {renderInputs()}
         {renderDropdownInputs()}
+        <div className={classes.dividerDiv}>
+          <Divider />
+        </div>
       </div>
     </Fragment>
   );
