@@ -41,6 +41,9 @@ const Total: React.FC<TotalProps> = ({
     completeSale(products, total, discount, addNotification, discardSale);
   };
 
+  console.log('total>>', total);
+  console.log('discount>>', discount);
+
   return (
     <div className={classes.totalContentDiv}>
       <div className={classes.totalSection}>

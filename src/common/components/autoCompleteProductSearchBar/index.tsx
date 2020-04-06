@@ -25,7 +25,7 @@ interface Props {
   inputRef?: React.Ref<HTMLInputElement>;
 }
 
-const AutoCompleteProductSearchBar: React.FC<Props> = props => {
+const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {
   const classes = styles(props);
   const {
     open,
@@ -47,11 +47,10 @@ const AutoCompleteProductSearchBar: React.FC<Props> = props => {
       open={open}
       autoComplete
       onClose={onClose}
-      filterOptions={p => p}
+      filterOptions={(p) => p}
       getOptionLabel={(product: Product) => product.name}
       options={options}
       loading={loading}
-      disableOpenOnFocus
       noOptionsText="No product"
       className={classes.autoSuggest}
       clearOnEscape
@@ -60,7 +59,7 @@ const AutoCompleteProductSearchBar: React.FC<Props> = props => {
       }
       inputValue={query}
       autoHighlight
-      renderInput={params => (
+      renderInput={(params) => (
         <TextField
           {...params}
           {...otherProps}
@@ -78,7 +77,7 @@ const AutoCompleteProductSearchBar: React.FC<Props> = props => {
             classes: {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline
+              notchedOutline: classes.notchedOutline,
             },
             endAdornment: (
               <React.Fragment>
@@ -99,7 +98,7 @@ const AutoCompleteProductSearchBar: React.FC<Props> = props => {
                   )}
                 </InputAdornment>
               </React.Fragment>
-            )
+            ),
           }}
         />
       )}

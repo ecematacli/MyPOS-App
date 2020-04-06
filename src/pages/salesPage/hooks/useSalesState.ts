@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import {
   calculateTotal,
   calculateTotalTax,
-  calculateTotalDiscount
+  calculateTotalDiscount,
 } from '../utilities/';
 import api from '../../../api';
 import { Product } from '../../../redux/products/types';
@@ -14,13 +14,13 @@ import useLocalStorageReducerState from '../../../common/hooks/useLocalStorageRe
 const productsReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ActionTypes.Add: {
-      const existingPToAdd = state.find(p => p.id === action.payload.id);
+      const existingPToAdd = state.find((p) => p.id === action.payload.id);
       if (existingPToAdd) {
-        return state.map(product =>
+        return state.map((product) =>
           product.id === action.payload.id
             ? {
                 ...product,
-                qty: product.qty + 1
+                qty: product.qty + 1,
               }
             : product
         );
@@ -29,24 +29,24 @@ const productsReducer = (state: State, action: Action): State => {
     }
 
     case ActionTypes.Delete:
-      return state.filter(p => p.id !== action.payload.id);
+      return state.filter((p) => p.id !== action.payload.id);
 
     case ActionTypes.DecreaseQuantity: {
-      const existingPToDecrease = state.find(p => p.id === action.payload.id);
+      const existingPToDecrease = state.find((p) => p.id === action.payload.id);
 
       if (existingPToDecrease.qty === 1) {
-        return state.filter(p => p.id !== action.payload.id);
+        return state.filter((p) => p.id !== action.payload.id);
       }
-      return state.map(product =>
+      return state.map((product) =>
         product.id === action.payload.id
           ? { ...product, qty: product.qty - 1 }
           : product
       );
     }
     case ActionTypes.IncreaseQuantity: {
-      const existingPToIncrease = state.find(p => p.id === action.payload.id);
+      const existingPToIncrease = state.find((p) => p.id === action.payload.id);
       if (existingPToIncrease) {
-        return state.map(product =>
+        return state.map((product) =>
           product.id === action.payload.id
             ? { ...product, qty: product.qty + 1 }
             : product
@@ -56,7 +56,7 @@ const productsReducer = (state: State, action: Action): State => {
       }
     }
     case ActionTypes.EditProductPrice: {
-      return state.map(p =>
+      return state.map((p) =>
         p.id === action.payload.id
           ? { ...p, price: action.payload.newPrice }
           : p
@@ -86,35 +86,35 @@ export default (storage?: any) => {
   const addProduct = (product: Product) => {
     dispatch({
       type: ActionTypes.Add,
-      payload: product
+      payload: product,
     });
   };
 
   const deleteProduct = (id: number) => {
     dispatch({
       type: ActionTypes.Delete,
-      payload: { id }
+      payload: { id },
     });
   };
 
   const decreaseProductQuantity = (product: Product) => {
     dispatch({
       type: ActionTypes.DecreaseQuantity,
-      payload: product
+      payload: product,
     });
   };
 
   const increaseProductQuantity = (product: Product) => {
     dispatch({
       type: ActionTypes.IncreaseQuantity,
-      payload: product
+      payload: product,
     });
   };
 
   const editProductPrice = (id: number, newPrice: number) => {
     dispatch({
       type: ActionTypes.EditProductPrice,
-      payload: { id, newPrice }
+      payload: { id, newPrice },
     });
   };
 
@@ -133,7 +133,7 @@ export default (storage?: any) => {
 
   const discardSale = () => {
     dispatch({
-      type: ActionTypes.DiscardSale
+      type: ActionTypes.DiscardSale,
     });
   };
 
@@ -171,6 +171,6 @@ export default (storage?: any) => {
     total,
     tax,
     discount,
-    handleDiscountChange
+    handleDiscountChange,
   };
 };

@@ -4,18 +4,36 @@ import '@testing-library/jest-dom';
 
 import Total, { TotalProps } from '../Total';
 import { NotificationsContext } from '../../../../../contexts/NotificationsContext';
-import { debug } from 'webpack';
+
+const addNotification = jest.fn();
+const discardSale = jest.fn();
 
 let props: TotalProps = null;
+
 beforeEach(() => {
   props = {
-    products: [],
+    products: [
+      {
+        id: 7,
+        barcode: '3490150122856',
+        sku: '14FI305842',
+        name: 'TFIGHT 305 GRIP 2',
+        price: 12399,
+        discountPrice: 50,
+        qty: 1,
+        variation: null,
+        taxRate: 8,
+        synced: true,
+        brand: { name: 'Tecnifibre ', id: 14 },
+        category: { name: 'Raket', id: 10 },
+      },
+    ],
     total: 250,
     discount: 50,
     tax: 15,
     handleDiscountChange: jest.fn(),
     completeSale: jest.fn(),
-    discardSale: jest.fn(),
+    discardSale,
   };
 });
 
@@ -24,8 +42,8 @@ const renderTotalComponent = () =>
     <NotificationsContext.Provider
       value={{
         notifications: null,
-        addNotification: jest.fn(),
         removeNotification: null,
+        addNotification,
       }}
     >
       <Total {...props} />
@@ -57,26 +75,25 @@ describe('[Total Component]', () => {
     fireEvent.change(contentInput, { target: { value: 250 } });
 
     expect(contentInput).not.toBeNull();
-    expect(props.handleDiscountChange).toBeCalledWith('250');
     expect(props.handleDiscountChange).toHaveBeenCalledTimes(1);
+    expect(props.handleDiscountChange).toBeCalledWith('250');
   });
 
-  // test('calls the completeSale function with the right values', () => {
-  //   const { getByTestId, debug } = renderTotalComponent();
+  test('calls the completeSale function with the right arguments', () => {
+    const { getByTestId } = renderTotalComponent();
 
-  //   const button = getByTestId('custom-button') as HTMLButtonElement;
-  //   debug(button);
-  //   // const addNotification = jest.fn();
-  //   fireEvent.click(button);
-  //   // products, total, discount, addNotification, discardSale
-  //   expect(button).not.toBeNull();
-  //   expect(props.completeSale).toBeCalledWith(
-  //     [],
-  //     250,
-  //     50,
-  //     jest.fn(),
-  //     jest.fn()
-  //   );
-  //   expect(props.handleDiscountChange).toHaveBeenCalledTimes(1);
-  // });
+    const button = getByTestId('custom-button') as HTMLButtonElement;
+
+    fireEvent.click(button);
+
+    expect(button).not.toBeNull();
+    expect(props.completeSale).toHaveBeenCalledTimes(1);
+    expect(props.completeSale).toBeCalledWith(
+      props.products,
+      250,
+      50,
+      addNotification,
+      discardSale
+    );
+  });
 });

@@ -6,22 +6,20 @@ export const createTestProduct = (
   discountPrices: number[] = [],
   taxRate: number[] = []
 ) => {
-  return Array.from({ length }).map((_, i) => {
-    return {
-      id: i,
-      barcode: '3490150122856',
-      sku: '14FI305842',
-      name: 'TFIGHT 305 GRIP 2',
-      price: prices[i] || 12399,
-      discountPrice: discountPrices[i],
-      qty: 1,
-      variation: null,
-      taxRate: taxRate[i] || 8,
-      synced: true,
-      brand: { name: 'Tecnifibre ', id: 14 },
-      category: { name: 'Raket', id: 10 }
-    };
-  });
+  return Array.from({ length }).map((_, i) => ({
+    id: i,
+    barcode: '3490150122856',
+    sku: '14FI305842',
+    name: 'TFIGHT 305 GRIP 2',
+    price: prices[i] || 12399,
+    discountPrice: discountPrices[i],
+    qty: 1,
+    variation: null,
+    taxRate: taxRate[i] || 8,
+    synced: true,
+    brand: { name: 'Tecnifibre ', id: 14 },
+    category: { name: 'Raket', id: 10 },
+  }));
 };
 
 export const getTotalQty = (arr: Product[]) =>
