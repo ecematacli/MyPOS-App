@@ -18,7 +18,7 @@ interface InventoryProps {
 
 const InventoryCountPage: React.FC<InventoryProps> = ({
   brands,
-  categories
+  categories,
 }) => {
   const classes = styles();
   //
@@ -50,7 +50,7 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
     rowsPerPage,
     setRowsPerPage,
     page,
-    setPage
+    setPage,
   } = useInventoryState(brands, categories);
   const [value, setValue] = useState(2);
   const loading = false;
@@ -103,6 +103,10 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
     <div className={classes.inventoryContainer}>
       {renderInventoryTabs()}
       {renderAddCountPaper()}
+      <Typography className={classes.pageStatusMsg}>
+        Please kindly note that this page is under development for the time
+        being.
+      </Typography>
       {loading ? (
         <Loading />
       ) : (
@@ -112,17 +116,13 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
           rowsPerPage={rowsPerPage}
         />
       )}
-      <Typography className={classes.pageStatusMsg}>
-        Please kindly note that this page is under development for the time
-        being.
-      </Typography>
     </div>
   );
 };
 
 const mapStateToProps = (state: StoreState) => ({
   brands: state.brands,
-  categories: state.categories
+  categories: state.categories,
 });
 
 export default connect(mapStateToProps)(InventoryCountPage);
