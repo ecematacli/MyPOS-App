@@ -21,6 +21,7 @@ const useSearchInput = (addProduct: AddProduct) => {
     setOpen(false);
     setSearchResults([]);
   };
+
   useEffect(() => {
     let active = true;
     const fetchProducts = async () => {

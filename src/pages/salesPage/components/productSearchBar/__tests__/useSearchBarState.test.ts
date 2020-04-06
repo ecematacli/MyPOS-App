@@ -18,16 +18,14 @@ describe('[Sales Search Bar Hook]', () => {
   //   get: jest.fn(() => Promise.resolve({ data: { data } })),
   // };
   const addProduct = jest.fn();
-  test('adds a single product', async () => {
+  test('calls onProduct select function', async () => {
     const { result } = renderHook(() => useSearchBarState(addProduct));
     act(() => {
-      result.current.setQuery('nike');
+      result.current.onProductSelect(createTestProduct(1, [200], [20])[0]);
     });
 
-    // result.current.
-
-    expect(axios.get).toBeCalledTimes(1);
-    // expect(result.current.discount).toBe(0);
+    expect(result.current.query).toBe('');
+    expect(result.current.loading).toBeFalsy();
     // expect(result.current.tax).toBe(991.92);
     // expect(getTotalQty(result.current.products)).toBe(1);
   });
