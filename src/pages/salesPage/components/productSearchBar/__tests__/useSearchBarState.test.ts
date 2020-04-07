@@ -1,22 +1,10 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import axios, { AxiosPromise } from 'axios';
+import { axios } from '../../../../../__mocks__/axios';
 
 import useSearchBarState from '../useSearchBarState';
-import { createTestProduct, getTotalQty } from '../../../../../testUtils';
-
-const data = createTestProduct(3, [100, 128, 111], [99, 119, 99]);
-
-beforeEach(() => {
-  //@ts-ignore
-  axios.get = jest.fn(() => Promise.resolve({ data: { data } }));
-});
+import { createTestProduct } from '../../../../../testUtils';
 
 describe('[Sales Search Bar Hook]', () => {
-  // console.log('DATA>>', data);
-
-  // const fakeAxios = {
-  //   get: jest.fn(() => Promise.resolve({ data: { data } })),
-  // };
   const addProduct = jest.fn();
   test('calls onProduct select function', async () => {
     const { result } = renderHook(() => useSearchBarState(addProduct));
@@ -26,7 +14,42 @@ describe('[Sales Search Bar Hook]', () => {
 
     expect(result.current.query).toBe('');
     expect(result.current.loading).toBeFalsy();
-    // expect(result.current.tax).toBe(991.92);
-    // expect(getTotalQty(result.current.products)).toBe(1);
+    expect(result.current.searchResults).toEqual([]);
+  });
+
+  test('calls API with a matched query', async () => {
+    const data = createTestProduct(3, [100, 128, 111], [99, 119, 99]);
+
+    axios.get = jest.fn(() => Promise.resolve({ data }));
+
+    const { result } = renderHook(() => useSearchBarState(addProduct));
+
+    await act(async () => {
+      result.current.setQuery('tecnifibre');
+    });
+
+    expect(result.current.loading).toBeFalsy();
+    expect(result.current.open).toBeTruthy();
+    expect(result.current.productNotFound).toBeFalsy();
+    expect(result.current.query).toBe('tecnifibre');
+    expect(result.current.searchResults).toEqual(data);
+    expect(axios.get).toBeCalledWith('/products/search/?q=tecnifibre');
+  });
+
+  test('calls API with an unmatched query', async () => {
+    axios.get = jest.fn(() => Promise.resolve({ data: [] }));
+
+    const { result } = renderHook(() => useSearchBarState(addProduct));
+
+    await act(async () => {
+      result.current.setQuery('qtx');
+    });
+
+    expect(result.current.loading).toBeFalsy();
+    expect(result.current.open).toBeTruthy();
+    expect(result.current.productNotFound).toBeTruthy();
+    expect(result.current.query).toBe('qtx');
+    expect(result.current.searchResults).toEqual([]);
+    expect(axios.get).toBeCalledWith('/products/search/?q=qtx');
   });
 });
