@@ -14,6 +14,7 @@ describe('[Sales Search Bar Hook]', () => {
 
     expect(result.current.query).toBe('');
     expect(result.current.loading).toBeFalsy();
+    expect(result.current.open).toBeFalsy();
     expect(result.current.searchResults).toEqual([]);
   });
 

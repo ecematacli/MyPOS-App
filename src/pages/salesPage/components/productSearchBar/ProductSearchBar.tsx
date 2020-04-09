@@ -45,7 +45,6 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({
     productNotFound,
   } = useSearchInput(addProduct);
 
-  console.log('search results>>', searchResults);
   return (
     <Fragment>
       <AutoCompleteProductSearchBar

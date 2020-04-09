@@ -9,14 +9,11 @@ const centered = {
 export default makeStyles(({ spacing, palette }) => ({
   createInvContainer: {
     paddingTop: spacing(3),
-    height: '100vh',
   },
   titleDiv: {
-    // margin: spacing(7, 0, 1.2),
+    margin: spacing(7, 0, 1.2),
     display: 'flex',
-    position: 'absolute',
-    top: 70,
-    left: 175,
+    justifyContent: 'center',
   },
   backArrow: { color: palette.grayColors[13], cursor: 'pointer' },
   iconDiv: { display: 'flex', alignItems: 'center' },
@@ -34,15 +31,10 @@ export default makeStyles(({ spacing, palette }) => ({
     backgroundColor: '#f1f3f5',
     height: spacing(11.25),
     width: '100%',
-    position: 'absolute',
-    top: 110,
   },
   startCountDiv: {
-    display: 'flex',
+    ...centered,
     width: 'auto',
-    position: 'absolute',
-    left: 200,
-    right: 200,
   },
   btnText: {
     textTransform: 'capitalize',
@@ -65,7 +57,7 @@ export default makeStyles(({ spacing, palette }) => ({
     padding: spacing(4),
     marginTop: spacing(9),
     '& *': {
-      backgroundColor: 'palette.secondary.light',
+      backgroundColor: palette.secondary.light,
     },
   },
   imageDiv: {

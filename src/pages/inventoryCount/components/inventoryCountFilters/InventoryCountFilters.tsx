@@ -10,14 +10,13 @@ import {
   FormControl,
   Select,
   MenuItem,
-  Divider,
+  Typography,
 } from '@material-ui/core';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 
 import styles from './styles';
 import { Category } from '../../../../redux/categories/types';
 import { Brand } from '../../../../redux/brands/types';
-import boxes from '../../../../assets/img/boxes.png';
 
 type InputChange = ({
   target: { value, name },
@@ -148,9 +147,6 @@ const InventoryCountFilters: React.FC<Props> = ({
       <div className={classes.filtersContainer}>
         {renderInputs()}
         {renderDropdownInputs()}
-        <div className={classes.dividerDiv}>
-          <Divider />
-        </div>
       </div>
     </Fragment>
   );

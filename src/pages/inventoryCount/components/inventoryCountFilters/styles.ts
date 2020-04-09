@@ -2,10 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   filtersContainer: {
-    // marginTop: spacing(9),
+    marginTop: spacing(9),
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   calendarIcon: {
@@ -63,14 +62,5 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   innerInput: {
     height: spacing(5.75),
-  },
-  dividerDiv: {
-    padding: spacing(4),
-    // marginTop: spacing(9),
-    // marginTop: 200,
-    height: 100,
-    '& *': {
-      backgroundColor: palette.secondary.light,
-    },
   },
 }));

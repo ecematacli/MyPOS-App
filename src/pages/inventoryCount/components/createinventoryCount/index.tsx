@@ -48,7 +48,7 @@ const CreateInventoryCount: React.FC<Props> = ({
   };
 
   const renderCreateInvPaper = () => (
-    <div style={{ position: 'relative' }}>
+    <Fragment>
       <div className={classes.titleDiv}>
         <span
           className={classes.iconDiv}
@@ -73,27 +73,27 @@ const CreateInventoryCount: React.FC<Props> = ({
           </Button>
         </div>
       </div>
-      <div style={{ position: 'absolute', top: 250 }}>
-        <InventoryCountFilters
-          startDate={startDate}
-          handleStartDateChange={handleStartDateChange}
-          handleDropdownInputChange={handleDropdownInputChange}
-          countName={countName}
-          handleCountNameChange={handleCountNameChange}
-          DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
-        />
-      </div>
-      <div
-        style={{ position: 'absolute', top: 450 }}
-        className={classes.imageDiv}
-      >
-        <img className={classes.boxesImage} src={boxes} />
-      </div>
-    </div>
+    </Fragment>
   );
 
   return (
-    <div className={classes.createInvContainer}>{renderCreateInvPaper()}</div>
+    <div className={classes.createInvContainer}>
+      {renderCreateInvPaper()}
+      <InventoryCountFilters
+        startDate={startDate}
+        handleStartDateChange={handleStartDateChange}
+        handleDropdownInputChange={handleDropdownInputChange}
+        countName={countName}
+        handleCountNameChange={handleCountNameChange}
+        DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
+      />
+      <div className={classes.dividerDiv}>
+        <Divider />
+      </div>
+      <div className={classes.imageDiv}>
+        <img className={classes.boxesImage} src={boxes} />
+      </div>
+    </div>
   );
 };
 

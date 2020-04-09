@@ -3,7 +3,7 @@ import { InputAdornment } from '@material-ui/core';
 import { FieldProps } from 'formik';
 
 import styles from './styles';
-import { FormValues } from '../quickProductAdd/QuickProductAdd';
+import { FormValues } from '../quickProductAdd/types';
 import CustomInput from '../../../../common/components/customInput';
 
 interface InputProps {
@@ -11,8 +11,9 @@ interface InputProps {
   label: string;
   type: string | undefined;
 }
-const NewProductInputFields: React.FC<FieldProps<FormValues> &
-  InputProps> = props => {
+const NewProductInputFields: React.FC<FieldProps<FormValues> & InputProps> = (
+  props
+) => {
   const classes = styles(props);
   const {
     field,
@@ -37,7 +38,7 @@ const NewProductInputFields: React.FC<FieldProps<FormValues> &
         type={type}
         classesProp={{
           root: classes.input,
-          notchedOutline: requiredFieldClasses
+          notchedOutline: requiredFieldClasses,
         }}
         inputLabel
         invalidatedField={invalidFields}

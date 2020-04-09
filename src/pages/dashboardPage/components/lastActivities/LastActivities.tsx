@@ -22,7 +22,7 @@ const LastActivities: React.FC<Props> = ({ loading, lastActivities }) => {
 
     if (!lastActivities) {
       return (
-        <Typography className={classes.noDisplayMsg}>
+        <Typography data-testid="no-display" className={classes.noDisplayMsg}>
           No activities to display
         </Typography>
       );
@@ -35,27 +35,34 @@ const LastActivities: React.FC<Props> = ({ loading, lastActivities }) => {
             <ArrowRightIcon className={classes.arrowIcon} />
           </div>
           <div className={classes.eventContent}>
-            <Typography className={classes.eventText}>{event}</Typography>
+            <Typography data-testid="activity" className={classes.eventText}>
+              {event}
+            </Typography>
           </div>
         </div>
         <div className={classes.createdContent}>
-          <Typography className={classes.createdText}>{created}</Typography>
+          <Typography data-testid="date" className={classes.createdText}>
+            {created}
+          </Typography>
         </div>
       </div>
     ));
   };
 
   return (
-    <Paper className={classes.lastActivitiesPaper}>
+    <Paper
+      data-testid="activities-paper"
+      className={classes.lastActivitiesPaper}
+    >
       <div className={classes.title}>
         <Typography>Last Activities</Typography>
       </div>
       <Divider className={classes.divider} />
       <Scrollbars
-        renderTrackHorizontal={props => (
+        renderTrackHorizontal={(props) => (
           <div {...props} style={{ display: 'none' }} />
         )}
-        renderThumbHorizontal={props => (
+        renderThumbHorizontal={(props) => (
           <div {...props} style={{ display: 'none' }} />
         )}
         style={{ width: 'auto', height: 498 }}
