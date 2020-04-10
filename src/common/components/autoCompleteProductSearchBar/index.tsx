@@ -44,7 +44,6 @@ const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {
 
   return (
     <Autocomplete
-      data-testid="auto-suggest"
       open={open}
       autoComplete
       onClose={onClose}
@@ -60,7 +59,6 @@ const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {
       }
       inputValue={query}
       autoHighlight
-      ListboxProps={{ 'data-testid': 'list-box' }}
       renderInput={(params) => (
         <TextField
           {...params}

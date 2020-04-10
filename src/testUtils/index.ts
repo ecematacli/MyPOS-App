@@ -19,7 +19,7 @@ export const createTestProduct = (
     synced: true,
     brand: { name: 'Tecnifibre ', id: 14 },
     category: { name: 'Raket', id: 10 },
-    deleted: false,
+    deleted: false
   }));
 };
 

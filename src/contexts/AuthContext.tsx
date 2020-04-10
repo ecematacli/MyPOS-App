@@ -22,7 +22,7 @@ export const AuthTokenSettingContext = createContext<AuthTokenSettingContext>(
 const initialVal = JSON.parse(localStorage.getItem('token'));
 
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
-  children
+  children,
 }) => {
   const [authToken, setAuthToken] = useState(initialVal);
 

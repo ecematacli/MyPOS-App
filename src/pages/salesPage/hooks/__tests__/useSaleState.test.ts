@@ -6,7 +6,7 @@ import { createTestProduct, getTotalQty } from '../../../../testUtils';
 describe('[Sale State Hook]', () => {
   const storage = {
     getItem: jest.fn(),
-    setItem: jest.fn(),
+    setItem: jest.fn()
   };
 
   test('adds a single product', () => {
@@ -38,7 +38,7 @@ describe('[Sale State Hook]', () => {
       (345.11 - 329.96999999999997).toFixed(2)
     );
     expect(Math.round(result.current.tax)).toBe(Math.round(40.515));
-    expect(result.current.products.map((p) => p.qty)).toEqual([1, 1, 1]);
+    expect(result.current.products.map(p => p.qty)).toEqual([1, 1, 1]);
   });
 
   test('deletes a product', () => {
@@ -141,5 +141,44 @@ describe('[Sale State Hook]', () => {
     expect(result.current.discount).toBe(158);
     expect(result.current.total).toBe(389.45);
     expect(result.current.tax).toBe(41.211);
+
+    act(() => result.current.handleDiscountChange(''));
+    expect(result.current.discount).toBe(0);
+
+    act(() => result.current.handleDiscountChange('abxd1.200'));
+    expect(result.current.discount).toBe(0);
+  });
+
+  test('adds additional discount amounts on to the existing ones', () => {
+    const { result } = renderHook(() => useSalesState(storage));
+    const products = createTestProduct(
+      4,
+      [400, 80, 1250, 50],
+      [320, 70, 1000, 0],
+      [18, 8, 18, 8]
+    );
+    act(() => {
+      result.current.addProduct(products[0]);
+    });
+
+    expect(result.current.discount).toBe(80);
+
+    act(() => {
+      result.current.addProduct(products[1]);
+    });
+
+    expect(result.current.discount).toBe(90);
+
+    act(() => {
+      result.current.addProduct(products[2]);
+    });
+
+    expect(result.current.discount).toBe(340);
+
+    act(() => {
+      result.current.addProduct(products[3]);
+    });
+
+    expect(result.current.discount).toBe(340);
   });
 });

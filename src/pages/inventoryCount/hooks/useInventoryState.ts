@@ -7,6 +7,7 @@ import { BatchData } from '../types';
 import { findMatchedFields } from '../../../common/utils';
 import useAsyncError from '../../../common/hooks/useAsyncError';
 import history from '../../../history';
+import { Batch } from '../../../common/components/plainTable/types';
 
 export interface Filters {
   category: string;
@@ -15,7 +16,7 @@ export interface Filters {
 
 const initialState = {
   category: '',
-  brand: '',
+  brand: ''
 };
 //name, brandId, categoryId,
 export default (brands: Brand[], categories: Category[]) => {
@@ -25,7 +26,7 @@ export default (brands: Brand[], categories: Category[]) => {
   const [dropdownInputs, setDropdownInputs] = useReducer(
     (state: Filters, newState: Filters) => ({
       ...state,
-      ...newState,
+      ...newState
     }),
     initialState
   );
@@ -36,7 +37,7 @@ export default (brands: Brand[], categories: Category[]) => {
 
   // Start Date and Count Name input handlers
   const handleDropdownInputChange = ({
-    target: { value, name },
+    target: { value, name }
   }: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = name;
     const newValue = value;
@@ -45,16 +46,24 @@ export default (brands: Brand[], categories: Category[]) => {
   };
 
   const handleCountNameChange = ({
-    target: { value },
+    target: { value }
   }: React.ChangeEvent<HTMLInputElement>) => {
     setCountName(value);
   };
 
   // API Call helpers being used by all functions
-  const makeApiCall = async (url: string, method: string = 'get') => {
+  const makeApiCall = async (
+    url: string,
+    method: string = 'get',
+    data: any = undefined
+  ) => {
     try {
+      let request = api[method](url);
+      if (method === 'post') {
+        request = api[method](url, data);
+      }
       setLoading(true);
-      const response = await api[method](url);
+      const response = await request;
       setLoading(false);
       return response.data;
     } catch (e) {
@@ -82,29 +91,31 @@ export default (brands: Brand[], categories: Category[]) => {
     if (category) {
       brandId = findMatchedFields(categories, dropdownInputs.category).id;
     }
-    const response = await api.post('/inventory-count', {
+
+    const data: Batch = await makeApiCall('/inventory-count', 'post', {
       name: countName,
       categoryId,
-      brandId,
+      brandId
     });
 
-    history.push('/inventory/count/1');
+    history.push(`/inventory/count/${data.id}`);
   };
 
+  const fetchCount = async () => {};
   //Dropdown Input fields for MU Select component
   const DROPDOWN_INPUT_FIELDS = [
     {
       label: 'Category',
       fieldId: 'category',
       value: dropdownInputs.category,
-      dropdownItems: categories,
+      dropdownItems: categories
     },
     {
       label: 'Brand',
       fieldId: 'brand',
       value: dropdownInputs.brand,
-      dropdownItems: brands,
-    },
+      dropdownItems: brands
+    }
   ];
 
   return {
@@ -118,6 +129,6 @@ export default (brands: Brand[], categories: Category[]) => {
     fetchCountBatches,
     loading,
     batches,
-    DROPDOWN_INPUT_FIELDS,
+    DROPDOWN_INPUT_FIELDS
   };
 };

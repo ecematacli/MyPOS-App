@@ -1,5 +1,4 @@
 import React from 'react';
-import { fireEvent, getByRole } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import LastActivities from '../LastActivities';

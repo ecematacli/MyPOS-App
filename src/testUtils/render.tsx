@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 
 import rootReducer from '../redux/index';
 import { apiMiddleware } from '../redux/middlewares';
+import { AuthContext } from '../contexts/AuthContext';
 import { NotificationsContext } from '../contexts/NotificationsContext';
 import theme from '../theme';
 
@@ -17,17 +18,19 @@ export const render = (ui: any, initialStore = {}, options = {}) => {
     applyMiddleware(thunk, apiMiddleware)
   );
   const Providers = ({ children }: any) => (
-    <NotificationsContext.Provider
-      value={{
-        notifications: null,
-        removeNotification: null,
-        addNotification: jest.fn(),
-      }}
-    >
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>{children}</Provider>
-      </ThemeProvider>
-    </NotificationsContext.Provider>
+    <AuthContext.Provider value={{ authToken: 'ab7807x' }}>
+      <NotificationsContext.Provider
+        value={{
+          notifications: null,
+          removeNotification: null,
+          addNotification: jest.fn(),
+        }}
+      >
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>{children}</Provider>
+        </ThemeProvider>
+      </NotificationsContext.Provider>
+    </AuthContext.Provider>
   );
 
   return rtlRender(ui, { wrapper: Providers, ...options });

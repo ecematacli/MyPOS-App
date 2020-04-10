@@ -1,18 +1,25 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { Button, Typography, OutlinedInput, Checkbox } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
 import history from '../../../../history';
+import { BatchData } from '../../types';
 import AutoCompleteSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
-const InventoryCountDetail = () => {
+interface Props {
+  batchesData: BatchData;
+}
+
+const InventoryCountDetail: React.FC<Props> = ({ batchesData }) => {
   const classes = styles();
   const [checked, setChecked] = useState(false);
 
   const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
   };
+
+  useEffect(() => {}, []);
 
   const renderCountInput = () => (
     <div className={classes.countInputAction}>
