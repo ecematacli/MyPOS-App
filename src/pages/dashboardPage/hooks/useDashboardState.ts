@@ -77,13 +77,13 @@ export default () => {
     method: string = 'get'
   ) => {
     try {
-      setLoading({ ...loading, [name]: true });
+      setLoading(loading => ({ ...loading, [name]: true }));
       const response = await api[method](url);
-      setLoading({ ...loading, [name]: false });
+      setLoading(loading => ({ ...loading, [name]: false }));
 
       return response.data;
     } catch (e) {
-      setLoading({ ...loading, [name]: false });
+      setLoading(loading => ({ ...loading, [name]: false }));
       throwError(new Error(e));
     }
   };

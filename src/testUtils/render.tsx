@@ -23,7 +23,7 @@ export const render = (ui: any, initialStore = {}, options = {}) => {
         value={{
           notifications: null,
           removeNotification: null,
-          addNotification: jest.fn(),
+          addNotification: jest.fn()
         }}
       >
         <ThemeProvider theme={theme}>

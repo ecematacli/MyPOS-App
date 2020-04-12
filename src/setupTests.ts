@@ -6,6 +6,6 @@ document.createRange = () => ({
   //@ts-ignore
   commonAncestorContainer: {
     nodeName: 'BODY',
-    ownerDocument: document,
-  },
+    ownerDocument: document
+  }
 });

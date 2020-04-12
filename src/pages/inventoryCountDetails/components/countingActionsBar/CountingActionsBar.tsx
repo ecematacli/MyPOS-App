@@ -4,22 +4,18 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
 import history from '../../../../history';
-import { BatchData } from '../../types';
+import { BatchData } from '../../../inventoryCountBatches/types';
 import AutoCompleteSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
-interface Props {
-  batchesData: BatchData;
-}
+interface Props {}
 
-const InventoryCountDetail: React.FC<Props> = ({ batchesData }) => {
+const CountingActionsBar: React.FC<Props> = () => {
   const classes = styles();
   const [checked, setChecked] = useState(false);
 
   const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
   };
-
-  useEffect(() => {}, []);
 
   const renderCountInput = () => (
     <div className={classes.countInputAction}>
@@ -52,7 +48,10 @@ const InventoryCountDetail: React.FC<Props> = ({ batchesData }) => {
         {/*to be completed..*/}
         {/*
         // @ts-ignore */}
-        <AutoCompleteSearchBar className={classes.searchBar} />
+        <AutoCompleteSearchBar
+          className={classes.searchBar}
+          options={['a', 'b']}
+        />
         {!checked && renderCountInput()}
         <div className={classes.countInputAction}>
           <Checkbox
@@ -68,4 +67,4 @@ const InventoryCountDetail: React.FC<Props> = ({ batchesData }) => {
   );
 };
 
-export default InventoryCountDetail;
+export default CountingActionsBar;

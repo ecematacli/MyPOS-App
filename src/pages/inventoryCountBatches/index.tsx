@@ -1,30 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { Tabs, Tab, Typography, Button } from '@material-ui/core';
 
 import styles from './styles';
 import history from '../../history';
-import { StoreState } from '../../redux/types';
-import { Category } from '../../redux/categories/types';
-import { Brand } from '../../redux/brands/types';
-import useInventoryState from './hooks/useInventoryState';
-import BatchTable from './components/batchTable/BatchTable';
+import useInventoryState from './hooks/useInventoryBatchesState';
+import BatchTable from './components/BatchTable';
 import Loading from '../../common/components/loading';
 
-interface InventoryProps {
-  brands: Brand[];
-  categories: Category[];
-}
-
-const InventoryCountPage: React.FC<InventoryProps> = ({
-  brands,
-  categories,
-}) => {
+const InventoryCountBatches: React.FC<{}> = () => {
   const classes = styles();
 
   const [value, setValue] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
+
+  const { batches, fetchCountBatches, loading } = useInventoryState();
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -37,17 +27,12 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
   };
 
   const handleChangeRowsPerPage = ({
-    target: { value },
+    target: { value }
   }: React.ChangeEvent<HTMLInputElement>) => {
     const numValue = parseInt(value);
     setRowsPerPage(numValue);
     fetchCountBatches(page, numValue);
   };
-
-  const { batches, fetchCountBatches, loading } = useInventoryState(
-    brands,
-    categories
-  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -116,9 +101,4 @@ const InventoryCountPage: React.FC<InventoryProps> = ({
   );
 };
 
-const mapStateToProps = (state: StoreState) => ({
-  brands: state.brands,
-  categories: state.categories,
-});
-
-export default connect(mapStateToProps)(InventoryCountPage);
+export default InventoryCountBatches;

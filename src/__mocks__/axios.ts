@@ -3,11 +3,11 @@ export const axios = {
   post: jest.fn(),
   interceptors: {
     request: {
-      use: jest.fn(),
-    },
-  },
+      use: jest.fn()
+    }
+  }
 };
 
 export default {
-  create: () => axios,
+  create: () => axios
 };

@@ -6,36 +6,15 @@ import {
   TableBody,
   TableHead,
   TableContainer,
-  TablePagination,
+  TablePagination
 } from '@material-ui/core';
 
 import styles from './styles';
-import { BatchesRow, Batch } from './types';
+import { PlainTableProps, Batch, BatchProduct, PaginationLabel } from './types';
 import BatchRow from './batchRow/BatchRow';
+import BatchProductsRow from './batchProductsRow/BatchProductsRow';
 
-interface Props {
-  tableHeads: string[];
-  count: number;
-  rows: BatchesRow;
-  noDataMessage?: string;
-  page: number;
-  rowsPerPage: number;
-  handleChangeRowsPerPage: ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => void;
-  handleChangePage: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number
-  ) => void;
-}
-
-export interface PaginationLabel {
-  from: number;
-  to: number;
-  count: number;
-}
-
-const PlainTable: React.FC<Props> = ({
+const PlainTable: React.FC<PlainTableProps> = ({
   tableHeads,
   count,
   rows,
@@ -43,7 +22,7 @@ const PlainTable: React.FC<Props> = ({
   page,
   rowsPerPage,
   handleChangeRowsPerPage,
-  handleChangePage,
+  handleChangePage
 }) => {
   const classes = styles();
 
@@ -62,8 +41,14 @@ const PlainTable: React.FC<Props> = ({
   );
   const renderTableBody = () => {
     if ('batches' in rows) {
-      return rows.batches.map((row: Batch, i) => (
+      return rows.batches.map((row: Batch) => (
         <BatchRow row={row} key={row.id} />
+      ));
+    }
+
+    if ('batchProducts' in rows) {
+      return rows.batchProducts.map((row: BatchProduct) => (
+        <BatchProductsRow key={row.id} row={row} />
       ));
     }
   };

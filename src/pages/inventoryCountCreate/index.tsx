@@ -4,15 +4,16 @@ import { Typography, Button, Divider } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
-import boxes from '../../../../assets/img/boxes.png';
-import history from '../../../../history';
-import { StoreState } from '../../../../redux/types';
-import { Brand } from '../../../../redux/brands/types';
-import { Category } from '../../../../redux/categories/types';
-import { fetchBrands } from '../../../../redux/brands/brandsActions';
-import { fetchCategories } from '../../../../redux/categories/categoriesActions';
-import useInventoryState from '../../hooks/useInventoryState';
-import InventoryCountFilters from '../inventoryCountFilters/InventoryCountFilters';
+import boxes from '../../assets/img/boxes.png';
+import history from '../../history';
+import { StoreState } from '../../redux/types';
+import { Brand } from '../../redux/brands/types';
+import { Category } from '../../redux/categories/types';
+import { fetchBrands } from '../../redux/brands/brandsActions';
+import { fetchCategories } from '../../redux/categories/categoriesActions';
+import useInventoryFilterState from './hooks/useInventoryFilterState';
+import { getDropdownInputFields } from './components/inventoryCountFilters/getDropdownInputFields';
+import InventoryCountFilters from './components/inventoryCountFilters/InventoryCountFilters';
 
 interface Props {
   fetchCategories: () => void;
@@ -25,7 +26,7 @@ const CreateInventoryCount: React.FC<Props> = ({
   fetchBrands,
   fetchCategories,
   brands,
-  categories,
+  categories
 }) => {
   const classes = styles();
   const {
@@ -34,10 +35,15 @@ const CreateInventoryCount: React.FC<Props> = ({
     countName,
     handleCountNameChange,
     handleDropdownInputChange,
-    createCountBatches,
-    DROPDOWN_INPUT_FIELDS,
-  } = useInventoryState(brands, categories);
+    dropdownInputs,
+    createCountBatches
+  } = useInventoryFilterState(brands, categories);
 
+  const DROPDOWN_INPUT_FIELDS = getDropdownInputFields(
+    brands,
+    categories,
+    dropdownInputs
+  );
   useEffect(() => {
     fetchBrands();
     fetchCategories();
@@ -99,7 +105,7 @@ const CreateInventoryCount: React.FC<Props> = ({
 
 const mapStateToProps = (state: StoreState) => ({
   brands: state.brands,
-  categories: state.categories,
+  categories: state.categories
 });
 
 export default connect(mapStateToProps, { fetchCategories, fetchBrands })(
