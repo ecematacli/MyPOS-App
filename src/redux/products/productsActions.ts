@@ -13,20 +13,23 @@ import { Dispatch } from 'redux';
 export const fetchProducts = (
   page: number = 1,
   rowsPerPage: number = 10,
-  categoryName?: string,
-  brandName?: string,
+  categoryId?: number,
+  brandId?: number,
   searchQuery?: string
-) => async (dispatch: Dispatch, getState: () => StoreState) => {
+) => async (dispatch: Dispatch) => {
   let url = `/products?page=${page}&rowsPerPage=${rowsPerPage}`;
 
-  if (categoryName) {
-    url += `&categoryId=${
-      findMatchedFields(getState().categories, categoryName).id
-    }`;
+  console.log('category id', categoryId);
+  console.log('brand id', brandId);
+  console.log('search query', searchQuery);
+
+  if (categoryId) {
+    url += `&categoryId=${categoryId}`;
   }
-  if (brandName) {
-    url += `&brandId=${findMatchedFields(getState().brands, brandName).id}`;
+  if (brandId) {
+    url += `&brandId=${brandId}`;
   }
+
   if (searchQuery) {
     url += `&query=${searchQuery}`;
   }

@@ -4,7 +4,6 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
 import history from '../../../../history';
-import { BatchData } from '../../../inventoryCountBatches/types';
 import AutoCompleteSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
 interface Props {}

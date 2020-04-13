@@ -10,18 +10,20 @@ import { fetchCategories } from '../../redux/categories/categoriesActions';
 import { fetchBrands } from '../../redux/brands/brandsActions';
 import { loadingSelector } from '../../redux/loading/loadingReducer';
 import { TABLE_HEADS } from './tableHeads';
+import { getFilterInputFields } from './getFilterInputFields';
 import useProductFilters from './hooks/useProductFilters';
 import Loading from '../../common/components/loading';
 import CustomTable from '../../common/components/customTable';
 import ProductDetails from './components/productDetails/ProductDetails';
 import ProductFilters from './components/productFilters/ProductFilters';
+import { findMatchedFields } from '../../common/utils';
 
 interface ProductsProps {
   fetchProducts: (
     page: number,
     rowsPerPage: number,
-    categoryName?: string,
-    brandName?: string,
+    categoryId?: number,
+    brandId?: number,
     searchQuery?: string
   ) => void;
   fetchCategories: () => void;
@@ -48,16 +50,30 @@ const ProductsPage: React.FC<ProductsProps> = ({
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
 
+  const filterStateArgs = {
+    brands,
+    categories,
+    setPage,
+    page,
+    rowsPerPage,
+    fetchProducts
+  };
+
   const {
     filterInputs,
     appliedFilters,
     cancelClick,
     clearAllFilters,
     handleInputChange,
-    FILTER_INPUT_FIELDS,
     handleApplyFilterClick,
     handleDelete
-  } = useProductFilters(brands, categories, setPage, page, rowsPerPage);
+  } = useProductFilters(filterStateArgs);
+
+  const FILTER_INPUT_FIELDS = getFilterInputFields(
+    brands,
+    categories,
+    filterInputs
+  );
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -66,11 +82,12 @@ const ProductsPage: React.FC<ProductsProps> = ({
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
     if (newPage + 1 < 0) return;
     setPage(newPage + 1);
+
     fetchProducts(
       newPage + 1,
       rowsPerPage,
-      filterInputs.category,
-      filterInputs.brand,
+      findMatchedFields(categories, filterInputs.category).id,
+      findMatchedFields(brands, filterInputs.brand).id,
       filterInputs.searchQuery
     );
   };
@@ -80,11 +97,16 @@ const ProductsPage: React.FC<ProductsProps> = ({
   }: React.ChangeEvent<HTMLInputElement>) => {
     const numValue = parseInt(value);
     setRowsPerPage(numValue);
+
+    if (Math.ceil(count / rowsPerPage) === page) {
+      setPage(1);
+    }
+
     fetchProducts(
       page,
       numValue,
-      filterInputs.category,
-      filterInputs.brand,
+      findMatchedFields(categories, filterInputs.category).id,
+      findMatchedFields(brands, filterInputs.brand).id,
       filterInputs.searchQuery
     );
   };

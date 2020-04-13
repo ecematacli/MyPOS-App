@@ -15,7 +15,8 @@ export const currencyFormatter = (num: number): string => {
 export const findMatchedFields = (
   fields: Category[] | Brand[],
   fieldToBeMatched: string
-): Category | Brand => fields.find(f => f.name === fieldToBeMatched);
+): Category | Brand =>
+  fieldToBeMatched && fields.find(f => f.name === fieldToBeMatched);
 
 export const formatDate = (dateToFormat: string | Date, formatType: string) => {
   return format(new Date(dateToFormat), formatType);

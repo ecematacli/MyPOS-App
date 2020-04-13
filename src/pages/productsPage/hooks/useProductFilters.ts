@@ -1,10 +1,9 @@
 import { useState, useReducer } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { Category } from '../../../redux/categories/types';
 import { Brand } from '../../../redux/brands/types';
-import { Filters, AppliedFilters, FilterInput } from '../types';
-import { fetchProducts } from '../../../redux/products/productsActions';
+import { Filters, AppliedFilters } from '../types';
+import { findMatchedFields } from '../../../common/utils';
 
 const initialState = {
   searchQuery: '',
@@ -12,14 +11,23 @@ const initialState = {
   brand: ''
 };
 
-export default (
-  brands: Brand[],
-  categories: Category[],
-  setPage: (page: number) => void,
-  page: number,
-  rowsPerPage: number
-) => {
-  const dispatch = useDispatch();
+export interface Args {
+  brands: Brand[];
+  categories: Category[];
+  setPage: (page: number) => void;
+  page: number;
+  rowsPerPage: number;
+  fetchProducts: (
+    page: number,
+    rowsPerPage: number,
+    categoryId?: number,
+    brandId?: number,
+    searchQuery?: string
+  ) => void;
+}
+
+export default (args: Args) => {
+  const { brands, categories, setPage, rowsPerPage, fetchProducts } = args;
 
   const [filterInputs, setFilterInputs] = useReducer(
     (state: Filters, newState: Filters) => ({
@@ -46,14 +54,13 @@ export default (
       setAppliedFilters(filterInputs);
     }, 1000);
     setPage(1);
-    dispatch(
-      fetchProducts(
-        1,
-        rowsPerPage,
-        filterInputs.category,
-        filterInputs.brand,
-        filterInputs.searchQuery
-      )
+
+    fetchProducts(
+      1,
+      rowsPerPage,
+      findMatchedFields(categories, filterInputs.category).id,
+      findMatchedFields(brands, filterInputs.brand).id,
+      filterInputs.searchQuery
     );
   };
 
@@ -71,7 +78,7 @@ export default (
     setAppliedFilters({});
     setPage(1);
     setFilterInputs(initialState);
-    dispatch(fetchProducts(1, rowsPerPage));
+    fetchProducts(1, rowsPerPage);
   };
 
   const cancelClick = () => {
@@ -81,37 +88,12 @@ export default (
     }, 1000);
   };
 
-  // Mappable filter input fields
-  const FILTER_INPUT_FIELDS: FilterInput[] = [
-    {
-      label: 'Search Query',
-      fieldId: 'searchQuery',
-      placeholder: 'Search by name, sku or barcode',
-      value: filterInputs.searchQuery
-    },
-    {
-      label: 'Category',
-      fieldId: 'category',
-      dropdown: true,
-      dropdownItems: categories,
-      value: filterInputs.category
-    },
-    {
-      label: 'Brand',
-      fieldId: 'brand',
-      dropdown: true,
-      dropdownItems: brands,
-      value: filterInputs.brand
-    }
-  ];
-
   return {
     filterInputs,
     appliedFilters,
     cancelClick,
     clearAllFilters,
     handleInputChange,
-    FILTER_INPUT_FIELDS,
     handleApplyFilterClick,
     handleDelete
   };
