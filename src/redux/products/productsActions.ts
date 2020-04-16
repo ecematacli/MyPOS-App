@@ -19,10 +19,6 @@ export const fetchProducts = (
 ) => async (dispatch: Dispatch) => {
   let url = `/products?page=${page}&rowsPerPage=${rowsPerPage}`;
 
-  console.log('category id', categoryId);
-  console.log('brand id', brandId);
-  console.log('search query', searchQuery);
-
   if (categoryId) {
     url += `&categoryId=${categoryId}`;
   }

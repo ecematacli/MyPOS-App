@@ -13,6 +13,8 @@ http://stock-management-ui-staging.s3-website.eu-central-1.amazonaws.com/
 
 Currently I'm adding the functionality of inventory count page of which the main layout somewhat completed.
 
+![Dashboard Page]('./../src/assets/img/Dashboard-page.png')
+
 #### Pages and Features
 
 # Sign in Page
@@ -27,22 +29,19 @@ Currently I'm adding the functionality of inventory count page of which the main
   
   # Sales 
     # Point of Sale / Cash Register Page
-      - Search products by name, sku and barcode.
-      - If searched product is not found, plus button appears which opens a dialog for adding new product.
-      - New product input fields uses reusable custom input and formik as well as yup for validation.
-      - Adding new product will give either success or error feedback by the reusable snackbar component.
-      - The total price, tax and discount shall be calculated automatically once the product is added.
-      - The price is editable with a popover and the total is calculated again on price change. 
-      - Right and left arrows increases and decreases quantities respectively.
-      - Totals adjust when a product is deleted or quantity is changed.
-      - Discount input provides the possibility of implementing an additional discount to total price.
-      - If the sale is completed successfully, there is a success feedback with a snackbar appearing.
-      - Once the sale is completed, they appear in sales history. 
-      - Products are coming from local storage by the help of useLocalStorageReducerState hook which is utterly reusable and can be used by any useReducer hook. 
-  
-    # useSalesState hook test
-      - Used react test library to test the hook responsible for POS functionality.
-  
+    - Search products by name, sku and barcode.
+    - If searched product is not found, plus button appears which opens a dialog for adding new product.
+    - New product input fields uses reusable custom input and formik as well as yup for validation.
+    - Adding new product will give either success or error feedback by the reusable snackbar component.
+    - The total price, tax and discount shall be calculated automatically once the product is added.
+    - The price is editable with a popover and the total is calculated again on price change. 
+    - Right and left arrows increases and decreases quantities respectively.
+    - Totals adjust when a product is deleted or quantity is changed.
+    - Discount input provides the possibility of implementing an additional discount to total price.
+    - If the sale is completed successfully, there is a success feedback with a snackbar appearing.
+    - Once the sale is completed, they appear in sales history. 
+    - Products are coming from local storage by the help of useLocalStorageReducerState hook which is utterly reusable and can be used by any useReducer hook. 
+
    # Sales History Page
     - Reusable Material UI Table.
     - When clicked it shows the sales details.
