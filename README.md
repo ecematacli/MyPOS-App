@@ -13,7 +13,7 @@ http://stock-management-ui-staging.s3-website.eu-central-1.amazonaws.com/
 
 Currently I'm adding the functionality of inventory count page of which the main layout somewhat completed.
 
-![Dashboard Page]('./../src/assets/img/Dashboard-page.png?raw=true "Dashboard Page')
+![Dashboard Page](dashboard-page.png)
 
 #### Pages and Features
 
