@@ -13,7 +13,7 @@ http://stock-management-ui-staging.s3-website.eu-central-1.amazonaws.com/
 
 Currently I'm adding the functionality of inventory count page of which the main layout somewhat completed.
 
-![Dashboard Page]('./../src/assets/img/Dashboard-page.png')
+![Dashboard Page]('./../src/assets/img/Dashboard-page.png?raw=true "Dashboard Page')
 
 #### Pages and Features
 
@@ -27,29 +27,29 @@ Currently I'm adding the functionality of inventory count page of which the main
   - All of above-mentioned data can be filtered using the date filter. The default value for the date picker is last thirty(30) days. It also has default values for the cases where one of the start or end date are not selected by the user.
   - Last activities for stock management 
   
-  # Sales 
-    # Point of Sale / Cash Register Page
-    - Search products by name, sku and barcode.
-    - If searched product is not found, plus button appears which opens a dialog for adding new product.
-    - New product input fields uses reusable custom input and formik as well as yup for validation.
-    - Adding new product will give either success or error feedback by the reusable snackbar component.
-    - The total price, tax and discount shall be calculated automatically once the product is added.
-    - The price is editable with a popover and the total is calculated again on price change. 
-    - Right and left arrows increases and decreases quantities respectively.
-    - Totals adjust when a product is deleted or quantity is changed.
-    - Discount input provides the possibility of implementing an additional discount to total price.
-    - If the sale is completed successfully, there is a success feedback with a snackbar appearing.
-    - Once the sale is completed, they appear in sales history. 
-    - Products are coming from local storage by the help of useLocalStorageReducerState hook which is utterly reusable and can be used by any useReducer hook. 
+# Sales 
+## Point of Sale / Cash Register Page
+  - Search products by name, sku and barcode.
+  - If searched product is not found, plus button appears which opens a dialog for adding new product.
+  - New product input fields uses reusable custom input and formik as well as yup for validation.
+  - Adding new product will give either success or error feedback by the reusable snackbar component.
+  - The total price, tax and discount shall be calculated automatically once the product is added.
+  - The price is editable with a popover and the total is calculated again on price change. 
+  - Right and left arrows increases and decreases quantities respectively.
+  - Totals adjust when a product is deleted or quantity is changed.
+  - Discount input provides the possibility of implementing an additional discount to total price.
+  - If the sale is completed successfully, there is a success feedback with a snackbar appearing.
+  - Once the sale is completed, they appear in sales history. 
+  - Products are coming from local storage by the help of useLocalStorageReducerState hook which is utterly reusable and can be used by any useReducer hook. 
 
-   # Sales History Page
-    - Reusable Material UI Table.
-    - When clicked it shows the sales details.
-    - Filtering sales by start and end dates.
-    - Pagination.
+## Sales History Page
+  - Reusable Material UI Table.
+  - When clicked it shows the sales details.
+  - Filtering sales by start and end dates.
+  - Pagination.
 
 # Inventory
-  # Products Page
+## Products Page
   - Reusable Material UI Table.
   - When clicked it shows product details.
   - When edit icon clicked all information for that particular product can be edited.
@@ -58,7 +58,3 @@ Currently I'm adding the functionality of inventory count page of which the main
   - Filtering by name/sku/barcode, category or brand.
   - After applying filters, chip inputs appear in order to remove the applied filters and apply new ones.
   - Pagination.
-  
- # Error Boundary component
-  - Catches all the errors from child tree.
-  - Since it was not catching async errors by nature, useAsyncError hook was created to manually throw error when API calls fail for any reason.
