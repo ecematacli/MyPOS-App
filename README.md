@@ -58,4 +58,4 @@ Currently I'm adding the functionality of inventory count page of which the main
   - Pagination.
 
 ## Inventory Count Page
- - Inventory count functionality will let them to count all of the products on their stores so that they could be in synced with their stores and e-commerce website.
+ - Inventory count functionality will let them to count all of the products in their stores so that they could be in synced with their stocks and e-commerce website.
