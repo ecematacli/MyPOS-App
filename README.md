@@ -11,23 +11,22 @@ http://stock-management-ui-staging.s3-website.eu-central-1.amazonaws.com/
   - email: demo@demo.com
   - password: demo
 
-Currently I'm adding the functionality of inventory count page of which the main layout somewhat completed.
-
 ![Dashboard Page](dashboard-page.png)
+
+Currently I'm adding the functionality of inventory count page of which the main layout somewhat completed.
 
 #### Pages and Features
 
-# Sign in Page
+## Sign in Page
   - Used Formik and Yup for validation purposes.
   
-# Dashboard Page
+## Dashboard Page
   - Stacked revenue chart both for web and store revenues.
   - Stacked revenue, products sold and sale count cards that shows data in correlation with the dates selected.
   - Top selling items 
   - All of above-mentioned data can be filtered using the date filter. The default value for the date picker is last thirty(30) days. It also has default values for the cases where one of the start or end date are not selected by the user.
   - Last activities for stock management 
   
-# Sales 
 ## Point of Sale / Cash Register Page
   - Search products by name, sku and barcode.
   - If searched product is not found, plus button appears which opens a dialog for adding new product.
@@ -48,7 +47,6 @@ Currently I'm adding the functionality of inventory count page of which the main
   - Filtering sales by start and end dates.
   - Pagination.
 
-# Inventory
 ## Products Page
   - Reusable Material UI Table.
   - When clicked it shows product details.
@@ -58,3 +56,6 @@ Currently I'm adding the functionality of inventory count page of which the main
   - Filtering by name/sku/barcode, category or brand.
   - After applying filters, chip inputs appear in order to remove the applied filters and apply new ones.
   - Pagination.
+
+## Inventory Count Page
+ - Inventory count functionality will let them to count all of the products on their stores so that they could be in synced with their stores and e-commerce website.
