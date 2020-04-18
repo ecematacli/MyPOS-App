@@ -21,7 +21,7 @@ const SalesFilters: React.FC<FiltersProps> = ({
   endDate,
   handleEndDateChange,
   onDateFilterClearing,
-  onDateSelection
+  onDateSelection,
 }) => {
   const classes = styles();
   const { open, anchorEl, handleClick, handleClose } = useSalesFiltersPopover();

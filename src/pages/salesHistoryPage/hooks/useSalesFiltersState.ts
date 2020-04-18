@@ -26,6 +26,6 @@ export default (rowsPerPage: number, setPage: (page: number) => void) => {
     endDate,
     handleEndDateChange,
     onDateSelection,
-    onDateFilterClearing
+    onDateFilterClearing,
   };
 };
