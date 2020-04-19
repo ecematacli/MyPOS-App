@@ -31,10 +31,16 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
   sales,
   count,
   ids,
-  isFetching
+  isFetching,
 }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
+
+  const args = {
+    rowsPerPage,
+    setPage,
+    fetchSales,
+  };
 
   const {
     startDate,
@@ -42,8 +48,8 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     handleStartDateChange,
     handleEndDateChange,
     onDateSelection,
-    onDateFilterClearing
-  } = useSalesFiltersState(rowsPerPage, setPage);
+    onDateFilterClearing,
+  } = useSalesFiltersState(args);
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -56,7 +62,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
   };
 
   const handleChangeRowsPerPage = ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
     const numValue = parseInt(value);
     setRowsPerPage(numValue);
@@ -72,7 +78,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
   const formattedSalesData = () =>
     salesInOrder().map((sale: Sale) => ({
       ...sale,
-      createdAt: formatDate(sale.createdAt, 'd MMMM y - p')
+      createdAt: formatDate(sale.createdAt, 'd MMMM y - p'),
     }));
 
   return (
@@ -106,13 +112,13 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
 
 const mapStateToProps = (state: StoreState) => {
   const {
-    sales: { sales, count, ids }
+    sales: { sales, count, ids },
   } = state;
   return {
     sales,
     count,
     ids,
-    isFetching: loadingSelector(ActionTypes.FETCH_SALES, state)
+    isFetching: loadingSelector(ActionTypes.FETCH_SALES, state),
   };
 };
 
