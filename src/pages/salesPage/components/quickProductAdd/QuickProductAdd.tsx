@@ -10,7 +10,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle
+  DialogTitle,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -21,27 +21,37 @@ import { ProductAddSchema } from './productAddSchema';
 import useNewProductInputState from './useNewProductInputState';
 import CustomInput from '../../../../common/components/customInput';
 import NewProductInputFields from '../newProductInputFields/NewProductInputFields';
+import {
+  NEW_PRODUCT_FIELDS,
+  getAdditionalProductFields,
+} from './productFields';
 
 const QuickProductAdd: React.FC<QuickAddProps> = ({
   openDialog,
   handleCloseDialog,
   brands,
   categories,
-  createProduct
+  createProduct,
 }) => {
   const classes = styles();
   const formRef = useRef<HTMLElement | any>();
 
-  const {
-    NEW_PRODUCT_FIELDS,
-    ADDITIONAL_FIELDS,
-    handleInputChange,
-    onAddProductClick
-  } = useNewProductInputState(
+  const args = {
     brands,
     categories,
     handleCloseDialog,
-    createProduct
+    createProduct,
+  };
+
+  const {
+    handleInputChange,
+    onAddProductClick,
+    additionalInputs,
+  } = useNewProductInputState(args);
+  const ADDITIONAL_FIELDS = getAdditionalProductFields(
+    additionalInputs,
+    brands,
+    categories
   );
 
   const renderAdditionalFields = () => {
@@ -65,7 +75,7 @@ const QuickProductAdd: React.FC<QuickAddProps> = ({
                   label={label}
                   dropdown={dropdown}
                   classesProp={{
-                    dropdownInput: { root: classes.dropdownInput }
+                    dropdownInput: { root: classes.dropdownInput },
                   }}
                   dropdownItems={dropdownItems}
                   inputLabel
@@ -90,8 +100,7 @@ const QuickProductAdd: React.FC<QuickAddProps> = ({
         classes={{ paper: classes.dialogPaper }}
         open={openDialog}
         onClose={handleCloseDialog}
-        disableBackdropClick
-      >
+        disableBackdropClick>
         <DialogTitle className={classes.dialogTitle}>Add a Product</DialogTitle>
         <DialogContent>
           <Formik<FormValues>
@@ -102,14 +111,13 @@ const QuickProductAdd: React.FC<QuickAddProps> = ({
               sku: '',
               price: '',
               variation: '',
-              discountPrice: ''
+              discountPrice: '',
             }}
-            onSubmit={values => {
+            onSubmit={(values) => {
               onAddProductClick(values);
             }}
             validationSchema={ProductAddSchema}
-            innerRef={formRef as any}
-          >
+            innerRef={formRef as any}>
             <Fragment>
               {NEW_PRODUCT_FIELDS.map(({ fieldId, label, type }) => (
                 <Field
@@ -129,7 +137,10 @@ const QuickProductAdd: React.FC<QuickAddProps> = ({
           <Button onClick={handleCloseDialog} color="secondary">
             Cancel
           </Button>
-          <Button onClick={triggerFormSubmission} color="primary">
+          <Button
+            data-testid="add-button"
+            onClick={triggerFormSubmission}
+            color="primary">
             Add Product
           </Button>
         </DialogActions>
@@ -142,7 +153,7 @@ const QuickProductAdd: React.FC<QuickAddProps> = ({
 
 const mapStateToProps = (state: StoreState) => ({
   brands: state.brands,
-  categories: state.categories
+  categories: state.categories,
 });
 
 export default connect(mapStateToProps)(QuickProductAdd);

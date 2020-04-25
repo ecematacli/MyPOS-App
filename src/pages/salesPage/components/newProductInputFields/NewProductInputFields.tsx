@@ -41,6 +41,9 @@ const NewProductInputFields: React.FC<FieldProps<FormValues> & InputProps> = (
           notchedOutline: requiredFieldClasses,
         }}
         inputLabel
+        inputProps={{
+          'data-testid': `${fieldId}`,
+        }}
         invalidatedField={invalidFields}
         startAdornment={
           (fieldId === 'price' || fieldId === 'discountPrice') && (
@@ -52,7 +55,9 @@ const NewProductInputFields: React.FC<FieldProps<FormValues> & InputProps> = (
         fieldId === 'price' ||
         fieldId === 'discountPrice') &&
       invalidFields ? (
-        <div className={classes.helperText}>{errors[fieldId]}</div>
+        <div className={classes.helperText} data-testid={`${fieldId}-error`}>
+          {errors[fieldId]}
+        </div>
       ) : null}
     </Fragment>
   );

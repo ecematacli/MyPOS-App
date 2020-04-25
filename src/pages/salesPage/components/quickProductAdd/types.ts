@@ -31,12 +31,20 @@ export interface ProductField {
   type?: string;
 }
 
+export interface ProductInputStateArgs {
+  brands: Brand[];
+  categories: Category[];
+  handleCloseDialog: () => void;
+  createProduct: (
+    productData: NewProductData,
+    addNotification: (message: string, severity: string) => void
+  ) => Promise<void>;
+}
 export interface AdditionalInputs {
   taxRate: string;
   category: string;
   brand: string;
 }
-
 export interface Tax {
   id: number;
   name: string;

@@ -80,17 +80,16 @@ const CustomInput: React.FC<Props> = (props) => {
               classes={{ root: classes.root }}
               color="secondary"
               labelId={label}
-              input={<OutlinedInput classes={classesProp.innerInput} />}
-            >
-              {dropdownItems.map(({ id, name }: DropdownItems) => (
-                <MenuItem
-                  classes={{ root: classes.dropdownItems }}
-                  key={id}
-                  value={name}
-                >
-                  {name}
-                </MenuItem>
-              ))}
+              input={<OutlinedInput classes={classesProp.innerInput} />}>
+              {dropdownItems &&
+                dropdownItems.map(({ id, name }: DropdownItems) => (
+                  <MenuItem
+                    classes={{ root: classes.dropdownItems }}
+                    key={id}
+                    value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
         </Fragment>
@@ -99,8 +98,7 @@ const CustomInput: React.FC<Props> = (props) => {
           {inputLabel && (
             <InputLabel
               color="secondary"
-              style={invalidatedField && { color: palette.error.main }}
-            >
+              style={invalidatedField && { color: palette.error.main }}>
               {label}
             </InputLabel>
           )}

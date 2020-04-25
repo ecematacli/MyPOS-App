@@ -1,5 +1,4 @@
 import React from 'react';
-import '@testing-library/jest-dom';
 
 import LastActivities from '../LastActivities';
 import { render } from '../../../../../testUtils/render';
