@@ -57,7 +57,7 @@ describe('[Quick Product Add component]', () => {
     expect(qty.value).toBe('2');
   });
 
-  it('displays an error message for price field in accordance with the Formik validation', async () => {
+  test('displays an error message for price field in accordance with the Yup validation', async () => {
     const { getByTestId, getByText } = render(<QuickProductAdd {...props} />);
 
     const price = getByTestId('price') as HTMLInputElement;
@@ -87,5 +87,53 @@ describe('[Quick Product Add component]', () => {
     expect(getByTestId('price-error')).not.toBeNull();
     expect(getByText('Please enter a valid price')).toBeInTheDocument();
     expect(getByText('This field is required')).toBeInTheDocument();
+  });
+
+  test('displays an error message for barcode field in accordance with the Yup validation', async () => {
+    const { getByTestId, getByText } = render(<QuickProductAdd {...props} />);
+
+    const barcode = getByTestId('barcode') as HTMLInputElement;
+    const submitButton = getByTestId('add-button');
+
+    fireEvent.change(barcode, {
+      target: {
+        value: '',
+      },
+    });
+
+    await waitFor(() => {
+      fireEvent.click(submitButton);
+    });
+
+    expect(getByTestId('barcode-error')).toHaveTextContent(
+      'This field is required'
+    );
+
+    fireEvent.change(barcode, {
+      target: {
+        value: '123abx9989',
+      },
+    });
+
+    await waitFor(() => {
+      fireEvent.click(submitButton);
+    });
+
+    expect(
+      getByText('Barcode can only consist of numbers')
+    ).toBeInTheDocument();
+
+    fireEvent.change(barcode, {
+      target: {
+        value: '12359',
+      },
+    });
+
+    await waitFor(() => {
+      fireEvent.click(submitButton);
+    });
+
+    expect(barcode).not.toBeNull();
+    expect(getByText('Too Short!')).toBeInTheDocument();
   });
 });
