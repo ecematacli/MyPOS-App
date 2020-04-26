@@ -6,13 +6,6 @@ import { AuthTokenSettingContext } from '../../../contexts/AuthContext';
 import { NotificationsContext } from '../../../contexts/NotificationsContext';
 import useAsyncError from '../../../common/hooks/useAsyncError';
 
-interface Field {
-  label: string;
-  name: string;
-}
-
-export type SigninFields = Field[];
-
 export default () => {
   const throwError = useAsyncError();
   const { saveAuthToken } = useContext(AuthTokenSettingContext);
@@ -43,19 +36,5 @@ export default () => {
     };
   };
 
-  const SIGNIN_FIELDS: SigninFields = [
-    {
-      label: 'Email Address*',
-      name: 'email'
-    },
-    {
-      label: 'Password*',
-      name: 'password'
-    }
-  ];
-
-  return {
-    postSignInForm,
-    SIGNIN_FIELDS
-  };
+  return { postSignInForm };
 };

@@ -11,6 +11,7 @@ import { Product } from '../../../../redux/products/types';
 import { Category } from '../../../../redux/categories/types';
 import { Brand } from '../../../../redux/brands/types';
 import useProductDetails from './useProductDetails';
+import { getProductFields } from './getProductFields';
 import CustomInput from '../../../../common/components/customInput';
 
 interface DetailsProps {
@@ -19,11 +20,10 @@ interface DetailsProps {
   categories: Category[];
 }
 // eslint-disable-next-line react/display-name
-const ProductDetails: React.FC<DetailsProps> = props => {
+const ProductDetails: React.FC<DetailsProps> = (props) => {
   const classes = styles(props);
   const { product, brands, categories } = props;
   const {
-    PRODUCT_FIELDS,
     editedRow,
     handleEditedRow,
     handleEditClick,
@@ -32,8 +32,10 @@ const ProductDetails: React.FC<DetailsProps> = props => {
     renderProductValues,
     getInputValues,
     enabledEdit,
-    completeEdit
+    completeEdit,
   } = useProductDetails(product, brands, categories);
+
+  const PRODUCT_FIELDS = getProductFields(brands, categories);
 
   const renderEditForm = (
     fieldId: string,
@@ -51,18 +53,18 @@ const ProductDetails: React.FC<DetailsProps> = props => {
           !dropdown
             ? {
                 root: classes.inputRoot,
-                input: classes.input
+                input: classes.input,
               }
             : {
                 dropdownInput: {
-                  root: classes.dropdownInput
+                  root: classes.dropdownInput,
                 },
-                innerInput: { root: classes.innerInput, input: classes.input }
+                innerInput: { root: classes.innerInput, input: classes.input },
               }
         }
         dropdownItems={dropdownItems}
         value={getInputValues(fieldId)}
-        onChange={e => handleInputChange(e, fieldId)}
+        onChange={(e) => handleInputChange(e, fieldId)}
         color="secondary"
       />
       <div className={classes.editIcons}>
@@ -71,16 +73,14 @@ const ProductDetails: React.FC<DetailsProps> = props => {
           onClick={() => {
             completeEdit(fieldId, productVal[fieldId], product.id, label);
             handleEditedRow(fieldId);
-          }}
-        >
+          }}>
           <DoneIcon className={classes.detailActionBtnIcon} />
         </IconButton>
         <IconButton
           className={classes.iconButton}
           onClick={() => {
             handleEditedRow(fieldId);
-          }}
-        >
+          }}>
           <CancelIcon className={classes.detailActionBtnIcon} />
         </IconButton>
       </div>
@@ -88,14 +88,14 @@ const ProductDetails: React.FC<DetailsProps> = props => {
   );
 
   const renderProductDetails = () =>
-    PRODUCT_FIELDS.map(productField => {
+    PRODUCT_FIELDS.map((productField) => {
       const {
         label,
         fieldId,
         dropdown,
         dropdownItems,
         currency,
-        type
+        type,
       } = productField;
 
       return (
@@ -114,8 +114,7 @@ const ProductDetails: React.FC<DetailsProps> = props => {
                   onClick={() => {
                     handleEditedRow(fieldId);
                   }}
-                  className={classes.editIcon}
-                >
+                  className={classes.editIcon}>
                   {enabledEdit ? <EditOutlinedIcon /> : null}
                 </div>
               </>
@@ -144,7 +143,7 @@ const mapStateToProps = (state: StoreState) => {
   const { brands, categories } = state;
   return {
     brands,
-    categories
+    categories,
   };
 };
 

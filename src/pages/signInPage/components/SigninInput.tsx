@@ -26,8 +26,8 @@ export const SigninInput: React.FC<FieldProps<FormValues> & InputProps> = ({
     classes: {
       root: classes.cssOutlinedInput,
       focused: classes.cssFocused,
-      notchedOutline: classes.notchedOutline
-    }
+      notchedOutline: classes.notchedOutline,
+    },
   };
 
   return (
@@ -39,6 +39,9 @@ export const SigninInput: React.FC<FieldProps<FormValues> & InputProps> = ({
         label={label}
         variant="outlined"
         className={classes.signInField}
+        inputProps={{
+          'data-testid': `${fieldId}`,
+        }}
         InputProps={errors[fieldId] && touched[fieldId] && inputClasses}
       />
       {errors[fieldId] && touched[fieldId] ? (

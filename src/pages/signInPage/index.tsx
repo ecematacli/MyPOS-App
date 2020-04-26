@@ -10,6 +10,7 @@ import useLoginState from './hooks/useLoginState';
 import { AuthContext } from '../../contexts/AuthContext';
 import CustomButton from '../../common/components/customButton';
 import SigninInput from './components/SigninInput';
+import { SIGNIN_FIELDS } from './signInFields';
 
 export interface FormValues {
   email: string;
@@ -19,7 +20,7 @@ export interface FormValues {
 const SignInPage: React.FC = () => {
   const classes = styles();
   const authenticated = useContext(AuthContext);
-  const { postSignInForm, SIGNIN_FIELDS } = useLoginState();
+  const { postSignInForm } = useLoginState();
 
   if (authenticated) {
     return <Redirect to="/" />;
@@ -29,7 +30,7 @@ const SignInPage: React.FC = () => {
     email: Yup.string()
       .email('Invalid email address')
       .required('Please enter your email address'),
-    password: Yup.string().required('Please enter your password')
+    password: Yup.string().required('Please enter your password'),
   });
 
   return (
@@ -37,7 +38,11 @@ const SignInPage: React.FC = () => {
       <Card className={classes.signInCard}>
         <div className={classes.cardContainer}>
           <span>
-            <CardMedia className={classes.signInCardImg} image={image} />
+            <CardMedia
+              component="img"
+              className={classes.signInCardImg}
+              image={image}
+            />
           </span>
           <CardContent className={classes.cardContent}>
             <div className={classes.signInTextDiv}>
@@ -45,11 +50,10 @@ const SignInPage: React.FC = () => {
             </div>
             <Formik<FormValues>
               initialValues={{ email: '', password: '' }}
-              onSubmit={values => {
+              onSubmit={(values) => {
                 postSignInForm(values);
               }}
-              validationSchema={SigninSchema}
-            >
+              validationSchema={SigninSchema}>
               <Form autoComplete="new-password" className={classes.signInForm}>
                 {SIGNIN_FIELDS.map(({ label, name }) => (
                   <Field
@@ -61,7 +65,7 @@ const SignInPage: React.FC = () => {
                     component={SigninInput}
                   />
                 ))}
-                <CustomButton type="submit">
+                <CustomButton data-testid="custom-button" type="submit">
                   <Typography className={classes.btnText}>Sign In</Typography>
                 </CustomButton>
               </Form>

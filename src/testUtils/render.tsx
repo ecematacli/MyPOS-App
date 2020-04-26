@@ -8,18 +8,24 @@ import { AuthContext } from '../contexts/AuthContext';
 import { NotificationsContext } from '../contexts/NotificationsContext';
 import theme from '../theme';
 
-export const render = (ui: any, initialState = {}, options = {}) => {
+export const render = (
+  ui: any,
+  authorized = true,
+  initialState = {},
+  options = {}
+) => {
   const store = mockStore(initialState);
 
+  const authToken = authorized ? 'ab7807x' : null;
+
   const Providers = ({ children }: any) => (
-    <AuthContext.Provider value={{ authToken: 'ab7807x' }}>
+    <AuthContext.Provider value={authToken}>
       <NotificationsContext.Provider
         value={{
           notifications: null,
           removeNotification: null,
-          addNotification: jest.fn()
-        }}
-      >
+          addNotification: jest.fn(),
+        }}>
         <ThemeProvider theme={theme}>
           <Provider store={store}>{children}</Provider>
         </ThemeProvider>

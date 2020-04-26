@@ -37,7 +37,7 @@ beforeEach(() => {
     </Provider>
   );
 });
-describe('[Quick Product Add Hook]', () => {
+describe('[useProductFields Hook]', () => {
   const initialValues = {
     brand: '',
     category: '',

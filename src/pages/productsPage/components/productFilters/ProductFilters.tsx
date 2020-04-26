@@ -1,11 +1,9 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import React, { Fragment, useState } from 'react';
 import { Button, Chip } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import styles from './styles';
 import { capitalize } from '../../../../common/utils';
-import useProductFilterPopover from './useProductFilterPopover';
 import CustomInput from '../../../../common/components/customInput';
 import CustomPopover from '../../../../common/components/customPopover';
 import { Filters, AppliedFilters, FilterInput } from '../../types';
@@ -16,7 +14,7 @@ interface FiltersProps {
   cancelClick: () => void;
   clearAllFilters: () => void;
   handleInputChange: ({
-    target: { value, name }
+    target: { value, name },
   }: React.ChangeEvent<HTMLInputElement>) => void;
   filterInputFields: FilterInput[];
   handleApplyFilterClick: () => void;
@@ -31,15 +29,23 @@ const ProductFilters: React.FC<FiltersProps> = ({
   handleInputChange,
   filterInputFields,
   handleApplyFilterClick,
-  handleDelete
+  handleDelete,
 }) => {
   const classes = styles();
-  const {
-    anchorEl,
-    handleClick,
-    handleClose,
-    open
-  } = useProductFilterPopover();
+
+  const [anchorEl, setAnchorEl] = useState<
+    null | Element | ((element: Element) => Element)
+  >(null);
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   const onCancelClick = () => {
     handleClose();
@@ -52,7 +58,7 @@ const ProductFilters: React.FC<FiltersProps> = ({
   };
 
   const renderChipInputs = () =>
-    Object.keys(appliedFilters).map(key => {
+    Object.keys(appliedFilters).map((key) => {
       if (!appliedFilters[key]) return;
       return (
         <Chip
@@ -66,75 +72,68 @@ const ProductFilters: React.FC<FiltersProps> = ({
       );
     });
 
-  const renderFilterContent = () => (
-    <div className={classes.popoverPaper}>
-      <div className={classes.filterCaption}>
-        {Object.values(appliedFilters).some(f => !!f)
-          ? renderChipInputs()
-          : 'Add Filters...'}
-      </div>
-      <div className={classes.filterInputContainer}>
-        {filterInputFields.map(
-          ({ label, fieldId, dropdown, placeholder, value, dropdownItems }) => (
-            <div key={label} className={classes.filterInputs}>
-              <div className={classes.filterLabel}>{label}</div>
-              <CustomInput
-                dropdown={dropdown}
-                name={fieldId}
-                placeholder={placeholder}
-                dropdownItems={dropdownItems}
-                value={value}
-                onChange={handleInputChange}
-                classesProp={
-                  !dropdown
-                    ? {
-                        root: classes.inputRoot,
-                        input: classes.input
-                      }
-                    : {
-                        dropdownInput: { root: classes.dropdownInput },
-                        innerInput: {
-                          root: classes.innerInput,
-                          input: classes.input
-                        }
-                      }
-                }
-              />
-            </div>
-          )
-        )}
+  const renderFilterInputs = () => (
+    <div className={classes.filterInputContainer}>
+      {filterInputFields.map(
+        ({ label, fieldId, dropdown, placeholder, value, dropdownItems }) => (
+          <div key={label} className={classes.filterInputs}>
+            <div className={classes.filterLabel}>{label}</div>
+            <CustomInput
+              dropdown={dropdown}
+              name={fieldId}
+              placeholder={placeholder}
+              dropdownItems={dropdownItems}
+              value={value}
+              onChange={handleInputChange}
+              classesProp={
+                !dropdown
+                  ? {
+                      root: classes.inputRoot,
+                      input: classes.input,
+                    }
+                  : {
+                      dropdownInput: { root: classes.dropdownInput },
+                      innerInput: {
+                        root: classes.innerInput,
+                        input: classes.input,
+                      },
+                    }
+              }
+            />
+          </div>
+        )
+      )}
+    </div>
+  );
+
+  const renderFilterButtons = () => (
+    <div className={classes.filterBtnDiv}>
+      <div>
+        <Button
+          className={classes.filterBtn}
+          color="secondary"
+          onClick={onCancelClick}>
+          Cancel
+        </Button>
       </div>
       <div className={classes.filterBtnDiv}>
-        <div>
-          <Button
-            className={classes.filterBtn}
-            color="secondary"
-            onClick={onCancelClick}
-          >
-            Cancel
-          </Button>
-        </div>
-        <div className={classes.filterBtnDiv}>
-          <Button
-            className={classes.filterBtn}
-            color="secondary"
-            disabled={Object.values(filterInputs).every(f => f === '')}
-            onClick={clearAllFilters}
-          >
-            Clear Filters
-          </Button>
-        </div>
-        <div>
-          <Button
-            onClick={onApplyFilterClick}
-            className={classes.filterBtn}
-            disabled={Object.values(filterInputs).every(f => f === '')}
-            style={{ marginRight: 16 }}
-            color="primary"
-          >
-            Apply filters
-          </Button>
-        </div>
+        <Button
+          className={classes.filterBtn}
+          color="secondary"
+          disabled={Object.values(filterInputs).every((f) => f === '')}
+          onClick={clearAllFilters}>
+          Clear Filters
+        </Button>
+      </div>
+      <div>
+        <Button
+          onClick={onApplyFilterClick}
+          className={classes.filterBtn}
+          disabled={Object.values(filterInputs).every((f) => f === '')}
+          style={{ marginRight: 16 }}
+          color="primary">
+          Apply filters
+        </Button>
       </div>
     </div>
   );
@@ -150,9 +149,16 @@ const ProductFilters: React.FC<FiltersProps> = ({
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
-        classes={{ paper: classes.popoverPaper }}
-      >
-        {renderFilterContent()}
+        classes={{ paper: classes.popoverPaper }}>
+        <div className={classes.popoverPaper}>
+          <div className={classes.filterCaption}>
+            {Object.values(appliedFilters).some((f) => !!f)
+              ? renderChipInputs()
+              : 'Add Filters...'}
+          </div>
+          {renderFilterInputs()}
+          {renderFilterButtons()}
+        </div>
       </CustomPopover>
     </Fragment>
   );

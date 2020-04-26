@@ -2,9 +2,7 @@ import React, { useState, createContext } from 'react';
 
 import history from '../history';
 
-interface AuthContext {
-  authToken?: string;
-}
+type AuthContext = string;
 
 type SaveAuthToken = (data: string | null) => void;
 type ClearAuthToken = () => void;
@@ -14,7 +12,7 @@ interface AuthTokenSettingContext {
   clearAuthToken?: ClearAuthToken;
 }
 
-export const AuthContext = createContext<AuthContext>({});
+export const AuthContext = createContext<AuthContext>(null);
 export const AuthTokenSettingContext = createContext<AuthTokenSettingContext>(
   {}
 );
@@ -40,8 +38,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <AuthContext.Provider value={authToken}>
       <AuthTokenSettingContext.Provider
-        value={{ saveAuthToken, clearAuthToken }}
-      >
+        value={{ saveAuthToken, clearAuthToken }}>
         {children}
       </AuthTokenSettingContext.Provider>
     </AuthContext.Provider>
