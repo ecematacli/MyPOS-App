@@ -4,7 +4,7 @@ import { Brand } from '../brands/types';
 export enum SuccessActionTypes {
   FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS',
   EDIT_PRODUCT_SUCCESS = 'EDIT_PRODUCT_SUCCESS',
-  CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS'
+  CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS',
 }
 export interface Product {
   id: number;
@@ -27,8 +27,15 @@ export interface ProductsState {
   ids: number[];
 }
 
-//Action Creator types
+//Action creator argumument types
+export interface EditActionArgs {
+  updatedField: { [key: string]: string };
+  productId: number;
+  label: string;
+  addNotification: (m?: string, t?: string) => void;
+}
 
+//Action Creator types
 export interface FetchProductsAction {
   type: SuccessActionTypes.FETCH_PRODUCTS_SUCCESS;
   payload: {
@@ -45,8 +52,6 @@ export interface EditProductAction {
   type: SuccessActionTypes.EDIT_PRODUCT_SUCCESS;
   payload: Product;
 }
-
-export type UpdatedField = { [key: string]: string };
 
 export interface InputValues {
   barcode: string;

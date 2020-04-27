@@ -1,9 +1,9 @@
 import { ActionTypes, ApiAction } from '../types';
 import {
+  EditActionArgs,
   AdditionalInputs,
   InputValues,
-  UpdatedField,
-  ProductData
+  ProductData,
 } from './types';
 import { StoreState } from '../types';
 import createAPIAction from '../createAPIAction';
@@ -32,32 +32,12 @@ export const fetchProducts = (
   dispatch<ApiAction>(createAPIAction(ActionTypes.FETCH_PRODUCTS, 'get', url));
 };
 
-export const editProduct = (
-  fieldId: string,
-  fieldValue: string,
-  productId: number,
-  label: string,
-  addNotification: (m?: string, t?: string) => void
-) => async (dispatch: Dispatch, getState: () => StoreState) => {
-  let updatedField: UpdatedField = {
-    [fieldId]: fieldValue
-  };
-
-  if (fieldId === 'brand') {
-    updatedField = {
-      brandId: findMatchedFields(getState().brands, fieldValue).id.toString()
-    };
-  }
-
-  if (fieldId === 'category') {
-    updatedField = {
-      categoryId: findMatchedFields(
-        getState().categories,
-        fieldValue
-      ).id.toString()
-    };
-  }
-
+export const editProduct = ({
+  updatedField,
+  productId,
+  label,
+  addNotification,
+}: EditActionArgs) => async (dispatch: Dispatch) => {
   dispatch<ApiAction>(
     createAPIAction(
       ActionTypes.EDIT_PRODUCT,
@@ -96,7 +76,7 @@ export const createProduct = (
     ...inputValues,
     taxRate: additionalInputValues.taxRate,
     categoryId,
-    brandId
+    brandId,
   };
 
   dispatch<ApiAction>(

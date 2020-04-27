@@ -1,39 +1,30 @@
-import { useState, useContext, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
-import { Product } from '../../../../redux/products/types';
-import { Brand } from '../../../../redux/brands/types';
-import { Category } from '../../../../redux/categories/types';
-import { editProduct } from '../../../../redux/products/productsActions';
-import { NotificationsContext } from '../../../../contexts/NotificationsContext';
+import { Args, EditedRow, UserProductValues } from './types';
+import { findMatchedFields } from '../../../../common/utils';
 
-interface EditedRow {
-  [key: string]: boolean | undefined;
-}
-
-export default (product: Product, brands: Brand[], categories: Category[]) => {
-  const dispatch = useDispatch();
-  const { addNotification } = useContext(NotificationsContext);
+export default ({
+  product,
+  editProduct,
+  addNotification,
+  brands,
+  categories,
+}: Args) => {
   const [editedRow, setEditedRow] = useState<EditedRow | {}>({});
-  const [productVal, setProductVal] = useState(product);
+  const [productVal, setProductVal] = useState<UserProductValues>(product);
   const [enabledEdit, setEnabledEdit] = useState(false);
 
   // Product input value handlers
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    fieldId: string
-  ) => {
-    let userInput = e.target.value;
-    if (
-      fieldId === 'price' ||
-      fieldId === 'discountPrice' ||
-      fieldId === 'barcode'
-    ) {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const userInput = e.target.value;
+    const field = e.target.name;
+
+    if (field === 'price' || field === 'discountPrice' || field === 'barcode') {
       if (isNaN(Number(userInput))) {
         return null;
       }
     }
-    setProductVal({ ...productVal, [fieldId]: userInput });
+    setProductVal({ ...productVal, [field]: userInput });
   };
 
   const renderProductValues = (fieldId: string) => {
@@ -74,28 +65,37 @@ export default (product: Product, brands: Brand[], categories: Category[]) => {
     }
   };
 
-  const dispatchEditAction = useCallback(
-    (fieldId, fieldValue, productId, label) => {
-      dispatch(
-        editProduct(fieldId, fieldValue, productId, label, addNotification)
-      );
-    },
-    [dispatch]
-  );
-
   const completeEdit = (
     fieldId: string,
     fieldValue: string,
     productId: number,
     label: string
   ) => {
+    let updatedField: { [key: string]: string } = {
+      [fieldId]: fieldValue,
+    };
+
     if (fieldId === 'brand' || fieldId === 'category') {
-      //@ts-ignore
-      if (product[fieldId].name !== productVal[fieldId]) {
-        dispatchEditAction(fieldId, fieldValue, productId, label);
+      if (fieldId === 'brand') {
+        updatedField = {
+          brandId: findMatchedFields(brands, fieldValue).id.toString(),
+        };
+      }
+
+      if (fieldId === 'category') {
+        updatedField = {
+          categoryId: findMatchedFields(categories, fieldValue).id.toString(),
+        };
+      }
+
+      if (
+        product[fieldId].name &&
+        product[fieldId].name !== productVal[fieldId]
+      ) {
+        editProduct({ updatedField, productId, label, addNotification });
       }
     } else if (product[fieldId] != productVal[fieldId]) {
-      dispatchEditAction(fieldId, fieldValue, productId, label);
+      editProduct({ updatedField, productId, label, addNotification });
     }
   };
 

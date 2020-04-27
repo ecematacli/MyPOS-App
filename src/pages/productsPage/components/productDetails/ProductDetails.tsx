@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import { Paper, Typography, IconButton, Card } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -7,22 +7,30 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 import styles from './styles';
 import { StoreState } from '../../../../redux/types';
-import { Product } from '../../../../redux/products/types';
-import { Category } from '../../../../redux/categories/types';
-import { Brand } from '../../../../redux/brands/types';
+import { DetailsProps } from './types';
+import { editProduct } from '../../../../redux/products/productsActions';
 import useProductDetails from './useProductDetails';
 import { getProductFields } from './getProductFields';
+import { NotificationsContext } from '../../../../contexts/NotificationsContext';
 import CustomInput from '../../../../common/components/customInput';
 
-interface DetailsProps {
-  product: Product;
-  brands: Brand[];
-  categories: Category[];
-}
 // eslint-disable-next-line react/display-name
 const ProductDetails: React.FC<DetailsProps> = (props) => {
   const classes = styles(props);
-  const { product, brands, categories } = props;
+  const { product, brands, categories, editProduct } = props;
+
+  const { addNotification } = useContext(NotificationsContext);
+
+  const PRODUCT_FIELDS = getProductFields(brands, categories);
+
+  const args = {
+    product,
+    editProduct,
+    addNotification,
+    brands,
+    categories,
+  };
+
   const {
     editedRow,
     handleEditedRow,
@@ -33,9 +41,7 @@ const ProductDetails: React.FC<DetailsProps> = (props) => {
     getInputValues,
     enabledEdit,
     completeEdit,
-  } = useProductDetails(product, brands, categories);
-
-  const PRODUCT_FIELDS = getProductFields(brands, categories);
+  } = useProductDetails(args);
 
   const renderEditForm = (
     fieldId: string,
@@ -46,6 +52,7 @@ const ProductDetails: React.FC<DetailsProps> = (props) => {
   ) => (
     <div className={classes.editFormContainer}>
       <CustomInput
+        name={fieldId}
         label={label}
         dropdown={dropdown}
         type={type}
@@ -64,7 +71,7 @@ const ProductDetails: React.FC<DetailsProps> = (props) => {
         }
         dropdownItems={dropdownItems}
         value={getInputValues(fieldId)}
-        onChange={(e) => handleInputChange(e, fieldId)}
+        onChange={handleInputChange}
         color="secondary"
       />
       <div className={classes.editIcons}>
@@ -147,4 +154,4 @@ const mapStateToProps = (state: StoreState) => {
   };
 };
 
-export default connect(mapStateToProps)(ProductDetails);
+export default connect(mapStateToProps, { editProduct })(ProductDetails);

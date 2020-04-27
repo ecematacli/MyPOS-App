@@ -17,14 +17,20 @@ export default (id: number, products: Product[]) => {
     setInputValue(0);
   };
 
-  const editPriceValue = (id: number): void => {
+  const editPriceValue = (productId: number): void => {
+    const updatedPrice = { price: inputValue.toString() };
     dispatch(
-      editProduct('price', inputValue.toString(), id, 'Price', addNotification)
+      editProduct({
+        updatedField: updatedPrice,
+        productId,
+        label: 'Price',
+        addNotification,
+      })
     );
   };
 
   useEffect(() => {
-    const product = products.find(product => product.id === id);
+    const product = products.find((product) => product.id === id);
     setInputValue((product && product.price) || 0);
   }, [id]);
 
@@ -32,6 +38,6 @@ export default (id: number, products: Product[]) => {
     inputValue,
     handleInputChange,
     resetInput,
-    editPriceValue
+    editPriceValue,
   };
 };

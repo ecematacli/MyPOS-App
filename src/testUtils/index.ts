@@ -17,9 +17,9 @@ export const createTestProduct = (
     variation: null,
     taxRate: taxRate[i] || 8,
     synced: true,
-    brand: { name: 'Tecnifibre ', id: 14 },
+    brand: { name: 'Tecnifibre', id: 14 },
     category: { name: 'Raket', id: 10 },
-    deleted: false
+    deleted: false,
   }));
 };
 
@@ -36,7 +36,7 @@ export const testBrands = [
   { name: 'Yonex ', id: 12 },
   { name: 'Dunlop', id: 13 },
   { name: 'Tecnifibre ', id: 14 },
-  { name: 'head', id: 15 }
+  { name: 'head', id: 15 },
 ];
 
 export const testCategories = [
@@ -53,7 +53,7 @@ export const testCategories = [
   { name: 'Kordaj', id: 12 },
   { name: 'Matara', id: 13 },
   { name: 'Nike Aksesuar', id: 14 },
-  { name: 'Nike Çocuk Ayakkabı', id: 15 }
+  { name: 'Nike Çocuk Ayakkabı', id: 15 },
 ];
 
 export const getTotalQty = (arr: Product[]) =>
