@@ -24,17 +24,19 @@ const InventoryCountDetails: React.FC<Props> = ({ match }) => {
     page,
     handleChangePage,
     rowsPerPage,
-    handleChangeRowsPerPage
+    handleChangeRowsPerPage,
   } = useCountDetails();
 
+  const batchId = match.params.id;
+
   useEffect(() => {
-    fetchBatchesProducts(Number(match.params.id));
+    fetchBatchesProducts(Number(batchId));
   }, []);
 
   return (
     <Grid container style={{ paddingTop: 24 }}>
       <Grid item xs={9}>
-        <CountingActionsBar />
+        <CountingActionsBar batchId={batchId} />
         {loading ? (
           <Loading />
         ) : (
@@ -54,9 +56,9 @@ const InventoryCountDetails: React.FC<Props> = ({ match }) => {
   );
 };
 
-const mapStateToProps = (state: StoreState) => ({
-  brands: state.brands,
-  categories: state.categories
+const mapStateToProps = ({ brands, categories }: StoreState) => ({
+  brands,
+  categories,
 });
 
 export default connect(mapStateToProps)(InventoryCountDetails);

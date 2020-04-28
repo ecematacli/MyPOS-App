@@ -11,7 +11,7 @@ interface Props {
   page: number;
   rowsPerPage: number;
   handleChangeRowsPerPage: ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangePage: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -24,17 +24,17 @@ const BatchTable: React.FC<Props> = ({
   page,
   rowsPerPage,
   handleChangeRowsPerPage,
-  handleChangePage
+  handleChangePage,
 }) => {
   const classes = styles();
 
   const { count, batches } = batchesData;
 
   const formattedBatchData = () =>
-    batches.map(batch => ({
+    batches.map((batch) => ({
       ...batch,
       started: batch.started && formatDate(batch.started, 'd MMMM y - p'),
-      finished: batch.finished && formatDate(batch.finished, 'd MMMM y - p')
+      finished: batch.finished && formatDate(batch.finished, 'd MMMM y - p'),
     }));
 
   return (
@@ -46,9 +46,17 @@ const BatchTable: React.FC<Props> = ({
       ) : (
         <div className={classes.tableDiv}>
           <PlainTable
-            tableHeads={['Name', 'Started', 'Finished', 'Category', 'Brand']}
+            tableHeads={[
+              { name: 'Name' },
+              { name: 'Started' },
+              { name: 'Finished' },
+              {
+                name: 'Category',
+              },
+              { name: 'Brand', rightAlign: true },
+            ]}
             count={count}
-            rows={{ type: 'batchTable', batches: formattedBatchData() }}
+            rows={{ type: 'batch', batches: formattedBatchData() }}
             page={page}
             rowsPerPage={rowsPerPage}
             handleChangeRowsPerPage={handleChangeRowsPerPage}

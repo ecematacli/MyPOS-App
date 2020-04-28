@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 
+import styles from './styles';
 import PlainTable from '../../../../common/components/plainTable';
 import { BatchesProductsData } from '../../types';
+import CustomTabs from '../../../../common/components/customTabs/CustomTabs';
 
 interface Props {
   batchProducts: BatchesProductsData;
@@ -12,7 +14,7 @@ interface Props {
   ) => void;
   rowsPerPage: number;
   handleChangeRowsPerPage: ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -21,22 +23,46 @@ const InventoryCountDetails: React.FC<Props> = ({
   page,
   handleChangePage,
   rowsPerPage,
-  handleChangeRowsPerPage
+  handleChangeRowsPerPage,
 }) => {
+  const classes = styles();
   const { counted, uncounted, products } = batchProducts;
 
+  const [tabsValue, setTabsValue] = useState(0);
+
+  const handleTabsChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    newValue: number
+  ) => setTabsValue(newValue);
+
   return (
-    <div>
-      <PlainTable
-        tableHeads={['Product', 'Expected', 'Counted']}
-        count={counted + uncounted}
-        rows={{ type: 'batchProductsTable', batchProducts: products }}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        handleChangeRowsPerPage={handleChangeRowsPerPage}
-        handleChangePage={handleChangePage}
-      />
-    </div>
+    <Fragment>
+      <div className={classes.tabsDiv}>
+        <CustomTabs
+          tabsValue={tabsValue}
+          handleChange={handleTabsChange}
+          className={classes.tabs}
+          classes={{ root: classes.tabRoot }}
+          tabs={['All', 'Counted', 'Uncounted']}
+        />
+      </div>
+      <div className={classes.tableDiv}>
+        <PlainTable
+          tableHeads={[
+            { name: 'Product' },
+            { name: 'Expected', rightAlign: true },
+            { name: 'Counted', rightAlign: true },
+          ]}
+          noDataMessage={'No products to show'}
+          count={counted + uncounted}
+          rows={{ type: 'batchProducts', batchProducts: products }}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          handleChangePage={handleChangePage}
+        />
+      </div>
+    </Fragment>
   );
 };
 

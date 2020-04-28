@@ -71,6 +71,7 @@ export default ({
     productId: number,
     label: string
   ) => {
+    const productField = product[fieldId];
     let updatedField: { [key: string]: string } = {
       [fieldId]: fieldValue,
     };
@@ -88,13 +89,10 @@ export default ({
         };
       }
 
-      if (
-        product[fieldId].name &&
-        product[fieldId].name !== productVal[fieldId]
-      ) {
+      if (productField.name && productField.name !== productVal[fieldId]) {
         editProduct({ updatedField, productId, label, addNotification });
       }
-    } else if (product[fieldId] != productVal[fieldId]) {
+    } else if (productField != productVal[fieldId]) {
       editProduct({ updatedField, productId, label, addNotification });
     }
   };

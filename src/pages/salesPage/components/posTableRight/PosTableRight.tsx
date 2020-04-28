@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
+import { connect } from 'react-redux';
 import {
   Table,
   TableCell,
@@ -7,37 +8,20 @@ import {
   TableRow,
   Paper,
   Divider,
-  IconButton
+  IconButton,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
-import useAddPriceInputState from './useAddPriceInputState';
+import { PosTableProps } from './types';
 import { Product } from '../../../../redux/products/types';
+import { NotificationsContext } from '../../../../contexts/NotificationsContext';
+import useAddPriceInputState from './useAddPriceInputState';
+import { editProduct } from '../../../../redux/products/productsActions';
 import { TABLE_HEAD } from './tableHead';
 import { currencyFormatter } from '../../../../common/utils';
 import EditPricePopover from '../editPricePopover/EditPricePopover';
 import Total from '../total/Total';
-
-interface PosTableProps {
-  products: Product[];
-  deleteProduct: (id: number) => void;
-  decreaseProductQuantity: (product: Product) => void;
-  increaseProductQuantity: (product: Product) => void;
-  editPriceLocalStorageState: (id: number, newPrice: number) => void;
-  total: number;
-  tax: number;
-  discount: number;
-  handleDiscountChange: (e: string) => void;
-  completeSale: (
-    products: Product[],
-    total: number,
-    discount: number,
-    addNotification: (m: string, t: string) => void,
-    discardSale: () => void
-  ) => void;
-  discardSale: () => void;
-}
 
 const PosTableRight: React.FC<PosTableProps> = ({
   products,
@@ -50,9 +34,11 @@ const PosTableRight: React.FC<PosTableProps> = ({
   discount,
   handleDiscountChange,
   completeSale,
-  discardSale
+  discardSale,
+  editProduct,
 }) => {
   const classes = styles();
+  const { addNotification } = useContext(NotificationsContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const [id, setId] = useState<number | null>(null);
   const [editedProduct, setEditedProduct] = useState<Product | null>(null);
@@ -60,8 +46,8 @@ const PosTableRight: React.FC<PosTableProps> = ({
     inputValue,
     handleInputChange,
     resetInput,
-    editPriceValue
-  } = useAddPriceInputState(id, products);
+    editPriceValue,
+  } = useAddPriceInputState({ id, products, editProduct, addNotification });
 
   const handleEditPriceClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -94,8 +80,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
       <TableCell
         className={classes[i === 0 && 'firstCell']}
         key={label}
-        align={numeric ? 'right' : 'left'}
-      >
+        align={numeric ? 'right' : 'left'}>
         {label}
       </TableCell>
     ));
@@ -109,8 +94,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
           role="checkbox"
           hover
           tabIndex={-1}
-          key={id}
-        >
+          key={id}>
           <TableCell className={classes.firstCell} component="th" scope="row">
             {name}
           </TableCell>
@@ -120,8 +104,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
                 className={classes.arrow}
                 onClick={() => {
                   decreaseProductQuantity(product);
-                }}
-              >
+                }}>
                 &#10094;
               </div>
               <div className={classes.quantityVal}>{qty}</div>
@@ -129,8 +112,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
                 className={classes.arrow}
                 onClick={() => {
                   increaseProductQuantity(product);
-                }}
-              >
+                }}>
                 &#10095;
               </div>
             </div>
@@ -139,8 +121,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
             <Fragment>
               <div
                 className={classes.noPrice}
-                onClick={e => handleEditPriceClick(e, id, product)}
-              >
+                onClick={(e) => handleEditPriceClick(e, id, product)}>
                 {currencyFormatter(price)}
               </div>
               <EditPricePopover
@@ -192,4 +173,4 @@ const PosTableRight: React.FC<PosTableProps> = ({
   );
 };
 
-export default PosTableRight;
+export default connect(null, { editProduct })(PosTableRight);

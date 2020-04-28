@@ -93,6 +93,18 @@ describe('[useProductFields Hook]', () => {
     expect(result.current.renderProductValues('price')).toBe(980);
   });
 
+  test('calls renderProductValues function with null product values', async () => {
+    const product = { ...products[2], category: null, taxRate: null } as any;
+    args = { ...args, product };
+    const { result } = renderHook(() => useProductFields(args));
+
+    await act(async () => result.current.renderProductValues('category'));
+    expect(result.current.renderProductValues('category')).toBe('-');
+
+    await act(async () => result.current.renderProductValues('taxRate'));
+    expect(result.current.renderProductValues('taxRate')).toBe('-');
+  });
+
   test('calls getInputValues function to display product values typed in by the user', async () => {
     const product = { ...products[3] } as any;
     args = { ...args, product };
@@ -179,7 +191,7 @@ describe('[useProductFields Hook]', () => {
     expect(editProduct).toHaveBeenCalledTimes(2);
   });
 
-  test('does not call editProduct action when the value is the same', async () => {
+  test('does not call editProduct action when the value is not changed', async () => {
     args = { ...args, product: products[2] };
 
     const { result } = renderHook(() => useProductFields(args));
@@ -192,6 +204,16 @@ describe('[useProductFields Hook]', () => {
 
     await act(async () =>
       result.current.completeEdit('price', '980', 2, 'Price')
+    );
+
+    act(() =>
+      result.current.handleInputChange({
+        target: { name: 'brand', value: 'Tecnifibre' },
+      } as React.ChangeEvent<HTMLInputElement>)
+    );
+
+    await act(async () =>
+      result.current.completeEdit('brandId', 'Tecnifibre', 11, 'Brand')
     );
 
     expect(editProduct).not.toBeCalled();

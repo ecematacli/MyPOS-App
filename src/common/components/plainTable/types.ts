@@ -30,14 +30,14 @@ interface BatchProductsRow {
 }
 
 export interface PlainTableProps {
-  tableHeads: string[];
+  tableHeads: { name: string; rightAlign?: boolean }[];
   count: number;
   rows: BatchesRow | BatchProductsRow;
   noDataMessage?: string;
   page: number;
   rowsPerPage: number;
   handleChangeRowsPerPage: ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangePage: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,

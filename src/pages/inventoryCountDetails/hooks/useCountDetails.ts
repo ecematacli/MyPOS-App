@@ -11,13 +11,13 @@ export default () => {
   const [batchProducts, setBatchProducts] = useState<BatchesProductsData>({
     counted: 0,
     uncounted: 0,
-    products: []
+    products: [],
   });
 
   const throwError = useAsyncError();
 
   const handleChangeRowsPerPage = ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
     const numValue = parseInt(value);
     setRowsPerPage(numValue);
@@ -25,7 +25,7 @@ export default () => {
   };
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
   ) => {
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
@@ -55,6 +55,6 @@ export default () => {
     page,
     handleChangePage,
     rowsPerPage,
-    handleChangeRowsPerPage
+    handleChangeRowsPerPage,
   };
 };

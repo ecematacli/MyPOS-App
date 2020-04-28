@@ -16,8 +16,8 @@ const BatchProductsRow: React.FC<Props> = ({ row }) => {
   return (
     <TableRow className={classes.tableBodyRow}>
       <TableCell className={classes.batchNameCell}>{name}</TableCell>
-      <TableCell>{expected}</TableCell>
-      <TableCell>{counted}</TableCell>
+      <TableCell align="right">{expected}</TableCell>
+      <TableCell align="right">{counted}</TableCell>
     </TableRow>
   );
 };

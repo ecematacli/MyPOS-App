@@ -6,7 +6,7 @@ const theme = {
     primary: {
       main: '#47C279',
       light: '#77CB60',
-      dark: '#3AA687'
+      dark: '#3AA687',
     },
     secondary: { main: '#696969', light: '#eee', dark: '#7e7e7e' },
     error: { main: pink['A400'] },
@@ -26,7 +26,8 @@ const theme = {
       '#ebedee',
       '#d8d8d8',
       '#bdbdbd',
-      '#efefef'
+      '#efefef',
+      '#353535',
     ],
     greenColors: [
       '#66bb6a',
@@ -36,68 +37,68 @@ const theme = {
       '#f0f3f4',
       '#f0f4f4',
       '#e3ece3',
-      '#efffef'
+      '#efffef',
     ],
     yellowColors: ['#ffa726', '#fb8c00'],
     blueColors: ['#26c6da', '#00acc1'],
     navyBlueColors: ['#035670', '#02394a'],
-    whiteColors: ['#fff']
+    whiteColors: ['#fff'],
   },
   typography: {
     h1: {
-      fontSize: '2em'
-    }
+      fontSize: '2em',
+    },
   },
   overrides: {
     MuiGrid: {
       'spacing-xs-3': {
         '& > $item': {
-          paddingBottom: 5
-        }
-      }
+          paddingBottom: 5,
+        },
+      },
     },
     MuiPaper: {
       root: {
-        boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.14)'
-      }
+        boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.14)',
+      },
     },
     MuiDrawer: {
       paper: {
-        color: 'white'
-      }
+        color: 'white',
+      },
     },
     MuiTableCell: {
       root: {
         fontSize: 16,
-        fontWeight: 500
-      }
+        fontWeight: 500,
+      },
     },
     MuiTypography: {
       body1: {
-        fontWeight: 500
+        fontWeight: 500,
       },
       body2: {
-        fontSize: 16
+        fontSize: 16,
       },
       h6: {
-        fontSize: 24
-      }
+        fontSize: 24,
+      },
     },
     MuiInputBase: {
       input: {
-        fontSize: 16
-      }
+        fontSize: 16,
+      },
     },
     MuiPopover: {
       paper: {
-        boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.14)'
-      }
+        boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.14)',
+      },
     },
     MuiPickersToolbar: {
       toolbar: {
-        backgroundColor: '#47C279'
-      }
-    }
+        backgroundColor: '#47C279',
+      },
+    },
   },
   breakpoints: {
     values: {
@@ -105,9 +106,9 @@ const theme = {
       sm: 600,
       md: 960,
       lg: 1500,
-      xl: 1920
-    }
-  }
+      xl: 1920,
+    },
+  },
 };
 
 export default createMuiTheme(theme as any);

@@ -16,7 +16,6 @@ export default () => {
       setLoading(true);
       const response = await api.get(url);
       const data: BatchData = response.data;
-      console.log('data from hook', data);
       setBatches(data);
       setLoading(false);
     } catch (e) {
@@ -27,6 +26,6 @@ export default () => {
   return {
     fetchCountBatches,
     loading,
-    batches
+    batches,
   };
 };

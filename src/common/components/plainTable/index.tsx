@@ -6,7 +6,7 @@ import {
   TableBody,
   TableHead,
   TableContainer,
-  TablePagination
+  TablePagination,
 } from '@material-ui/core';
 
 import styles from './styles';
@@ -22,19 +22,18 @@ const PlainTable: React.FC<PlainTableProps> = ({
   page,
   rowsPerPage,
   handleChangeRowsPerPage,
-  handleChangePage
+  handleChangePage,
 }) => {
-  const classes = styles();
+  const classes = styles(rows);
 
   const renderTableHead = () => (
     <TableRow className={classes.tableHeadRow}>
-      {tableHeads.map((head: string, i) => (
+      {tableHeads.map(({ name, rightAlign }, i) => (
         <TableCell
           className={classes[i === 0 && 'firstHeadCell']}
-          align={i === 4 ? 'right' : 'left'}
-          key={head}
-        >
-          {head}
+          align={rightAlign ? 'right' : 'left'}
+          key={name}>
+          {name}
         </TableCell>
       ))}
     </TableRow>
@@ -75,7 +74,7 @@ const PlainTable: React.FC<PlainTableProps> = ({
   );
 
   return (
-    <TableContainer className={classes.tableContainer}>
+    <TableContainer>
       <Table className={classes.table}>
         {tableHeads !== undefined ? (
           <TableHead>{renderTableHead()}</TableHead>
@@ -83,7 +82,9 @@ const PlainTable: React.FC<PlainTableProps> = ({
         <TableBody>
           {!count ? (
             <TableRow>
-              <TableCell colSpan={10}>{noDataMessage}</TableCell>
+              <TableCell className={classes.noDisplayCell} colSpan={10}>
+                <div className={classes.noDisplayMsg}>{noDataMessage}</div>
+              </TableCell>
             </TableRow>
           ) : (
             renderTableBody()

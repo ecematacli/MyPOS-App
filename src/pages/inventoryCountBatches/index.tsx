@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { Tabs, Tab, Typography, Button } from '@material-ui/core';
+import React, { useState, useEffect, Fragment } from 'react';
+import { Typography, Button } from '@material-ui/core';
 
 import styles from './styles';
 import history from '../../history';
-import useInventoryState from './hooks/useInventoryBatchesState';
+import useInventoryBatchState from './hooks/useInventoryBatchState';
 import BatchTable from './components/BatchTable';
 import Loading from '../../common/components/loading';
+import CustomTabs from '../../common/components/customTabs/CustomTabs';
 
 const InventoryCountBatches: React.FC<{}> = () => {
   const classes = styles();
 
-  const [value, setValue] = useState(2);
+  const [tabsValue, setTabsValue] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
 
-  const { batches, fetchCountBatches, loading } = useInventoryState();
+  const { batches, fetchCountBatches, loading } = useInventoryBatchState();
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
   ) => {
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
@@ -27,61 +28,56 @@ const InventoryCountBatches: React.FC<{}> = () => {
   };
 
   const handleChangeRowsPerPage = ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
     const numValue = parseInt(value);
     setRowsPerPage(numValue);
     fetchCountBatches(page, numValue);
   };
 
-  const handleChange = (
+  const handleTabsChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     newValue: number
   ) => {
-    setValue(newValue);
+    setTabsValue(newValue);
   };
 
   useEffect(() => {
     fetchCountBatches(page, rowsPerPage);
   }, []);
 
-  const renderInventoryTabs = () => (
-    <Tabs
-      className={classes.tabs}
-      value={value}
-      onChange={handleChange}
-      indicatorColor="primary"
-      textColor="secondary"
-      centered
-    >
-      {['Opened', 'Completed', 'Canceled'].map((label: string) => (
-        <Tab classes={{ root: classes.tabRoot }} key={label} label={label} />
-      ))}
-    </Tabs>
-  );
+  const renderBatchActionPaper = () => (
+    <Fragment>
+      <CustomTabs
+        centered
+        textColor="secondary"
+        tabsValue={tabsValue}
+        handleChange={handleTabsChange}
+        tabs={['Opened', 'Completed', 'Canceled']}
+        className={classes.tabs}
+        classes={{ root: classes.tabRoot }}
+      />
 
-  const renderAddCountPaper = () => (
-    <div className={classes.addCountContainer}>
-      <div className={classes.addCountDiv}>
-        <Typography className={classes.infoText}>
-          Create, schedule and complete counts to keep track of your inventory.
-        </Typography>
-        <Button
-          onClick={() => history.push('/inventory/count_create')}
-          className={classes.addBtn}
-        >
-          <Typography className={classes.btnText}>
-            Add Inventory Count
+      <div className={classes.addCountContainer}>
+        <div className={classes.addCountDiv}>
+          <Typography className={classes.infoText}>
+            Create, schedule and complete counts to keep track of your
+            inventory.
           </Typography>
-        </Button>
+          <Button
+            onClick={() => history.push('/inventory/count_create')}
+            className={classes.addBtn}>
+            <Typography className={classes.btnText}>
+              Add Inventory Count
+            </Typography>
+          </Button>
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 
-  return (
-    <div className={classes.inventoryContainer}>
-      {renderInventoryTabs()}
-      {renderAddCountPaper()}
+  const renderBatchData = () => (
+    <Fragment>
       <Typography className={classes.pageStatusMsg}>
         Please kindly note that this page is under development for the time
         being.
@@ -89,14 +85,23 @@ const InventoryCountBatches: React.FC<{}> = () => {
       {loading ? (
         <Loading />
       ) : (
-        <BatchTable
-          batchesData={batches}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          handleChangePage={handleChangePage}
-        />
+        <div className={classes.tableDiv}>
+          <BatchTable
+            batchesData={batches}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            handleChangePage={handleChangePage}
+          />
+        </div>
       )}
+    </Fragment>
+  );
+
+  return (
+    <div className={classes.inventoryContainer}>
+      {renderBatchActionPaper()}
+      {renderBatchData()}
     </div>
   );
 };

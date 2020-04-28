@@ -10,7 +10,6 @@ import {
   FormControl,
   Select,
   MenuItem,
-  Typography
 } from '@material-ui/core';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 
@@ -19,7 +18,7 @@ import { Category } from '../../../../redux/categories/types';
 import { Brand } from '../../../../redux/brands/types';
 
 type InputChange = ({
-  target: { value, name }
+  target: { value, name },
 }: React.ChangeEvent<HTMLInputElement>) => void;
 interface Props {
   startDate: Date;
@@ -40,7 +39,7 @@ const InventoryCountFilters: React.FC<Props> = ({
   countName,
   handleCountNameChange,
   handleDropdownInputChange,
-  DROPDOWN_INPUT_FIELDS
+  DROPDOWN_INPUT_FIELDS,
 }) => {
   const classes = styles();
 
@@ -50,12 +49,12 @@ const InventoryCountFilters: React.FC<Props> = ({
       InputProps={{
         classes: { root: classes.datePickerInput },
         endAdornment: (
-          <React.Fragment>
+          <Fragment>
             <InputAdornment position="start">
               <InsertInvitationIcon className={classes.calendarIcon} />
             </InputAdornment>
-          </React.Fragment>
-        )
+          </Fragment>
+        ),
       }}
       variant="outlined"
     />
@@ -80,8 +79,7 @@ const InventoryCountFilters: React.FC<Props> = ({
         <InputLabel
           classes={{ root: classes.inputLabel }}
           className={classes.inputSpace}
-          color="secondary"
-        >
+          color="secondary">
           Count Name
         </InputLabel>
         <OutlinedInput
@@ -104,15 +102,13 @@ const InventoryCountFilters: React.FC<Props> = ({
               classes.dropdownItemDiv,
               classes[i === 1 ? 'inputSpace' : '']
             )}
-            key={label}
-          >
+            key={label}>
             <InputLabel classes={{ root: classes.inputLabel }}>
               {label}
             </InputLabel>
             <FormControl
               classes={{ root: classes.dropdownInput }}
-              variant="outlined"
-            >
+              variant="outlined">
               <Select
                 classes={{ root: classes.selectRoot }}
                 name={fieldId}
@@ -124,11 +120,10 @@ const InventoryCountFilters: React.FC<Props> = ({
                   <OutlinedInput
                     classes={{
                       root: classes.innerInput,
-                      input: classes.input
+                      input: classes.input,
                     }}
                   />
-                }
-              >
+                }>
                 {dropdownItems.map(({ id, name }) => (
                   <MenuItem key={id} value={name}>
                     {name}

@@ -1,32 +1,35 @@
-import { useState, useContext, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 
-import { editProduct } from '../../../../redux/products/productsActions';
-import { NotificationsContext } from '../../../../contexts/NotificationsContext';
-import { Product } from '../../../../redux/products/types';
+import { Args } from './types';
 
-export default (id: number, products: Product[]) => {
-  const dispatch = useDispatch();
-  const { addNotification } = useContext(NotificationsContext);
+export default ({ id, products, editProduct, addNotification }: Args) => {
   const [inputValue, setInputValue] = useState(0);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setInputValue(parseInt(e.target.value || '0'));
+  // console.log('input value', inputValue);
 
-  const resetInput = (): void => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    //For handling the empty string case
+    if (parseInt(value)) {
+      setInputValue(parseInt(value));
+    } else if (value === '') {
+      setInputValue(0);
+    }
+  };
+
+  const resetInput = () => {
     setInputValue(0);
   };
 
-  const editPriceValue = (productId: number): void => {
+  const editPriceValue = (productId: number) => {
     const updatedPrice = { price: inputValue.toString() };
-    dispatch(
-      editProduct({
-        updatedField: updatedPrice,
-        productId,
-        label: 'Price',
-        addNotification,
-      })
-    );
+
+    editProduct({
+      updatedField: updatedPrice,
+      productId,
+      label: 'Price',
+      addNotification,
+    });
   };
 
   useEffect(() => {

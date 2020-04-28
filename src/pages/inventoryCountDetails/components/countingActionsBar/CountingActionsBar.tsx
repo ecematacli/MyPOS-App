@@ -6,9 +6,11 @@ import styles from './styles';
 import history from '../../../../history';
 import AutoCompleteSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
-interface Props {}
+interface Props {
+  batchId: string;
+}
 
-const CountingActionsBar: React.FC<Props> = () => {
+const CountingActionsBar: React.FC<Props> = ({ batchId }) => {
   const classes = styles();
   const [checked, setChecked] = useState(false);
 
@@ -25,8 +27,7 @@ const CountingActionsBar: React.FC<Props> = () => {
       />
       <Button
         classes={{ root: classes.countBtnRoot }}
-        className={classes.countBtn}
-      >
+        className={classes.countBtn}>
         <Typography className={classes.btnText}>Count</Typography>
       </Button>
     </div>
@@ -37,8 +38,7 @@ const CountingActionsBar: React.FC<Props> = () => {
       <div className={classes.titleDiv}>
         <span
           className={classes.iconDiv}
-          onClick={() => history.push('/inventory/count')}
-        >
+          onClick={() => history.push('/inventory/count')}>
           <ArrowBackIcon className={classes.backArrow} />
         </span>
         <Typography className={classes.titleText}>Name of the count</Typography>

@@ -8,13 +8,13 @@ export default makeStyles(({ spacing }) => ({
       borderBottom: '1px solid #e9e9e9',
       height: 'auto',
       maxHeight: spacing(10),
-      width: '15.3%',
-      '&:nth-child(2)': {
-        width: '27%',
-      },
-      '&:nth-child(3)': {
-        width: '27%',
-      },
+      // width: '15.3%',
+      // '&:nth-child(2)': {
+      //   width: '27%',
+      // },
+      // '&:nth-child(3)': {
+      //   width: '27%',
+      // },
       '&:last-child': {
         '& > td': {
           borderBottom: 'none',
@@ -23,7 +23,6 @@ export default makeStyles(({ spacing }) => ({
     },
   },
   batchNameCell: {
-    paddingLeft: spacing(2),
     textDecoration: 'underline',
     cursor: 'pointer',
   },

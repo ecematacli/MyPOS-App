@@ -5,14 +5,14 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     width: '100%',
     marginTop: spacing(3),
     overflowX: 'auto',
-    color: palette.secondary.main
+    color: palette.secondary.main,
   },
   table: {
     width: '90%',
     maxWidth: '90%',
     margin: 'auto',
     borderCollapse: 'separate',
-    borderSpacing: '0 15px'
+    borderSpacing: '0 15px',
   },
   tableHeadRow: {
     '& > th': {
@@ -20,18 +20,18 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
       paddingBottom: 6,
       color: palette.grayColors[7],
       [breakpoints.down('sm')]: {
-        fontSize: 13
-      }
-    }
+        fontSize: 13,
+      },
+    },
   },
   expandIconContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginRight: spacing(2)
+    marginRight: spacing(2),
   },
   expandIcon: {
     fontSize: spacing(3),
-    color: palette.primary.dark
+    color: palette.primary.dark,
   },
   paginationContainer: {
     marginTop: spacing(2),
@@ -39,21 +39,21 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     width: '93%',
     margin: 'auto',
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   smallPagination: {
     [breakpoints.down('sm')]: {
-      fontSize: 13
-    }
+      fontSize: 13,
+    },
+  },
+  noDisplayCell: {
+    borderBottom: 'none',
+    paddingTop: 50,
   },
   noDisplayMsg: {
     display: 'flex',
     justifyContent: 'center',
     color: palette.grayColors[3],
-    fontSize: spacing(2.25)
+    fontSize: spacing(2.25),
   },
-  noDisplayCell: {
-    borderBottom: 'none',
-    paddingTop: 50
-  }
 }));
