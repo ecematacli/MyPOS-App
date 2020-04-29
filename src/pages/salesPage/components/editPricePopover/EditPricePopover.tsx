@@ -5,7 +5,7 @@ import {
   Typography,
   Divider,
   Button,
-  InputAdornment
+  InputAdornment,
 } from '@material-ui/core';
 
 import styles from './styles';
@@ -14,8 +14,8 @@ interface Props {
   open: boolean;
   anchorEl: null | Element;
   handleClose: () => void;
-  inputValue: number;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  priceValue: number;
+  handlePriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCompleteEditClick: () => void;
 }
 
@@ -23,9 +23,9 @@ const EditPricePopover: React.FC<Props> = ({
   open,
   anchorEl,
   handleClose,
-  inputValue,
-  handleInputChange,
-  handleCompleteEditClick
+  priceValue,
+  handlePriceChange,
+  handleCompleteEditClick,
 }) => {
   const classes = styles();
 
@@ -36,13 +36,12 @@ const EditPricePopover: React.FC<Props> = ({
       onClose={handleClose}
       anchorOrigin={{
         vertical: 'bottom',
-        horizontal: 'center'
+        horizontal: 'center',
       }}
       transformOrigin={{
         vertical: 'top',
-        horizontal: 'center'
-      }}
-    >
+        horizontal: 'center',
+      }}>
       <div className={classes.popoverContentDiv}>
         <Typography className={classes.addPriceCaption}>
           Add an amount for price
@@ -56,11 +55,12 @@ const EditPricePopover: React.FC<Props> = ({
             startAdornment={
               <InputAdornment position="start">&#x20BA;</InputAdornment>
             }
-            value={inputValue}
-            onChange={handleInputChange}
+            type="number"
+            value={priceValue}
+            onChange={handlePriceChange}
             classesProp={{
               root: classes.priceInputRoot,
-              input: classes.smallScreenFont
+              input: classes.smallScreenFont,
             }}
           />
         </div>
@@ -69,15 +69,13 @@ const EditPricePopover: React.FC<Props> = ({
             style={{ marginRight: -5 }}
             className={classes.actionBtn}
             onClick={handleClose}
-            color="secondary"
-          >
+            color="secondary">
             Cancel
           </Button>
           <Button
             onClick={handleCompleteEditClick}
             className={classes.actionBtn}
-            color="primary"
-          >
+            color="primary">
             OK
           </Button>
         </div>

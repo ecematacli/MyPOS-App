@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 
 import styles from './styles';
-import { BatchData } from '../types';
+import { BatchesData } from '../types';
 import { formatDate } from '../../../common/utils';
 import PlainTable from '../../../common/components/plainTable';
 import inventoryImage from '../../../assets/img/stocktake-emptylist-v1.png';
 
 interface Props {
-  batchesData: BatchData;
+  batchesData: BatchesData;
   page: number;
   rowsPerPage: number;
   handleChangeRowsPerPage: ({

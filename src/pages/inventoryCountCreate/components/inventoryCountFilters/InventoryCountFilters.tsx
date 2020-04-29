@@ -71,6 +71,7 @@ const InventoryCountFilters: React.FC<Props> = ({
           variant="inline"
           TextFieldComponent={renderTextField}
           autoOk
+          format="dd MMM yyyy"
           value={startDate}
           onChange={handleStartDateChange}
         />

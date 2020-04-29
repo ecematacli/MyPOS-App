@@ -8,7 +8,7 @@ interface Batch {
   brand: string;
 }
 
-export interface BatchData {
+export interface BatchesData {
   count: number;
   batches: Batch[];
 }

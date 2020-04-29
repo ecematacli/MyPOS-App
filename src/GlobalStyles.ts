@@ -9,4 +9,9 @@ input:-webkit-autofill:active  {
     box-shadow: 0 0 0 30px white inset !important;
     
 }
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 `;

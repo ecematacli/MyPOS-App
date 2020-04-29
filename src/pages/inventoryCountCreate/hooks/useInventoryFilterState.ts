@@ -25,22 +25,22 @@ interface Batch {
 export default (brands: Brand[], categories: Category[]) => {
   const initialState = {
     category: '',
-    brand: ''
+    brand: '',
   };
 
-  const [startDate, handleStartDateChange] = useState<Date | null>(null);
+  const [startDate, handleStartDateChange] = useState<Date | null>(new Date());
   const [countName, setCountName] = useState('');
   const [dropdownInputs, setDropdownInputs] = useReducer(
     (state: Filters, newState: Filters) => ({
       ...state,
-      ...newState
+      ...newState,
     }),
     initialState
   );
   const throwError = useAsyncError();
 
   const handleDropdownInputChange = ({
-    target: { value, name }
+    target: { value, name },
   }: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = name;
     const newValue = value;
@@ -49,7 +49,7 @@ export default (brands: Brand[], categories: Category[]) => {
   };
 
   const handleCountNameChange = ({
-    target: { value }
+    target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
     setCountName(value);
   };
@@ -69,7 +69,7 @@ export default (brands: Brand[], categories: Category[]) => {
     const response = await api.post('/inventory-count', {
       name: countName,
       categoryId,
-      brandId
+      brandId,
     });
 
     const data: Batch = response.data;
@@ -84,6 +84,6 @@ export default (brands: Brand[], categories: Category[]) => {
     handleCountNameChange,
     handleDropdownInputChange,
     dropdownInputs,
-    createCountBatches
+    createCountBatches,
   };
 };

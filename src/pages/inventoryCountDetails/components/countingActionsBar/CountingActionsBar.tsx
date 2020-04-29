@@ -3,14 +3,25 @@ import { Button, Typography, OutlinedInput, Checkbox } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
+import { BatchData, BatchesProductsData } from '../../types';
 import history from '../../../../history';
-import AutoCompleteSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
+import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
 interface Props {
   batchId: string;
+  countBatch: BatchData;
+  batchProducts: BatchesProductsData;
+  selectedRow: {
+    [id: string]: boolean;
+  };
 }
 
-const CountingActionsBar: React.FC<Props> = ({ batchId }) => {
+const CountingActionsBar: React.FC<Props> = ({
+  batchId,
+  countBatch,
+  selectedRow,
+  batchProducts: { products },
+}) => {
   const classes = styles();
   const [checked, setChecked] = useState(false);
 
@@ -41,15 +52,17 @@ const CountingActionsBar: React.FC<Props> = ({ batchId }) => {
           onClick={() => history.push('/inventory/count')}>
           <ArrowBackIcon className={classes.backArrow} />
         </span>
-        <Typography className={classes.titleText}>Name of the count</Typography>
+        <Typography className={classes.titleText}>
+          {countBatch && countBatch.name}
+        </Typography>
       </div>
       <div className={classes.countingContainer}>
         {/*to be completed..*/}
         {/*
         // @ts-ignore */}
-        <AutoCompleteSearchBar
+        <AutoCompleteProductSearchBar
           className={classes.searchBar}
-          options={['a', 'b']}
+          options={products}
         />
         {!checked && renderCountInput()}
         <div className={classes.countInputAction}>

@@ -14,3 +14,13 @@ export interface BatchesProductsData {
   uncounted: number;
   products: Product[];
 }
+
+export interface BatchData {
+  id: number;
+  status: string;
+  started: string;
+  finished: string | null;
+  name: string;
+  category: string;
+  brand: string;
+}

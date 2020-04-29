@@ -43,8 +43,8 @@ const PosTableRight: React.FC<PosTableProps> = ({
   const [id, setId] = useState<number | null>(null);
   const [editedProduct, setEditedProduct] = useState<Product | null>(null);
   const {
-    inputValue,
-    handleInputChange,
+    priceValue,
+    handlePriceChange,
     resetInput,
     editPriceValue,
   } = useAddPriceInputState({ id, products, editProduct, addNotification });
@@ -66,9 +66,9 @@ const PosTableRight: React.FC<PosTableProps> = ({
   const open = Boolean(anchorEl);
 
   const handleCompleteEditClick = () => {
-    if (inputValue && editedProduct.price !== inputValue) {
+    if (priceValue && editedProduct.price !== priceValue) {
       editPriceValue(id);
-      editPriceLocalStorageState(id, inputValue);
+      editPriceLocalStorageState(id, priceValue);
       setId(null);
     }
     resetInput();
@@ -128,8 +128,8 @@ const PosTableRight: React.FC<PosTableProps> = ({
                 data-test="input-box"
                 open={open}
                 anchorEl={anchorEl}
-                inputValue={inputValue}
-                handleInputChange={handleInputChange}
+                priceValue={priceValue}
+                handlePriceChange={handlePriceChange}
                 handleClose={handleClose}
                 handleCompleteEditClick={handleCompleteEditClick}
               />

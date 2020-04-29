@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import api from '../../../api';
-import { BatchesProductsData } from '../types';
+import { BatchesProductsData, BatchData } from '../types';
 import useAsyncError from '../../../common/hooks/useAsyncError';
 
 export default () => {
@@ -13,6 +13,15 @@ export default () => {
     uncounted: 0,
     products: [],
   });
+  const [countBatch, setCountBatch] = useState<BatchData>(null);
+
+  const [selectedRow, setSelectedRow] = useState<{
+    [id: string]: boolean;
+  }>({});
+
+  const handleSelectedRow = (id: number) => {
+    setSelectedRow({ ...selectedRow, [id]: !selectedRow[id] });
+  };
 
   const throwError = useAsyncError();
 
@@ -48,13 +57,29 @@ export default () => {
     }
   };
 
+  const fetchCountBatch = async (id: number) => {
+    try {
+      setLoading(true);
+      const response = await api.get(`/inventory-count/${id}`);
+      const data: BatchData = response.data;
+      setCountBatch(data);
+      setLoading(false);
+    } catch (e) {
+      throwError(e);
+    }
+  };
+
   return {
     loading,
+    countBatch,
     batchProducts,
+    fetchCountBatch,
     fetchBatchesProducts,
     page,
     handleChangePage,
     rowsPerPage,
     handleChangeRowsPerPage,
+    selectedRow,
+    handleSelectedRow,
   };
 };

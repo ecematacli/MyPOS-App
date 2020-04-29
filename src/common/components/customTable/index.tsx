@@ -6,7 +6,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TablePagination
+  TablePagination,
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -27,11 +27,11 @@ const CustomTable: React.FC<TableProps> = ({
   count,
   handleChangePage,
   handleChangeRowsPerPage,
-  component: Component
+  component: Component,
 }) => {
   const classes = styles();
   const [expandedRows, setExpandedRows] = useState<{
-    [id: string]: boolean | undefined;
+    [id: string]: boolean;
   }>({});
 
   const toggleExpanded = (id: number): void => {
@@ -108,7 +108,7 @@ const CustomTable: React.FC<TableProps> = ({
         classes={{
           toolbar: classes.smallPagination,
           caption: classes.smallPagination,
-          select: classes.smallPagination
+          select: classes.smallPagination,
         }}
         rowsPerPageOptions={[10, 25, 50]}
         component="div"

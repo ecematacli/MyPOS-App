@@ -16,11 +16,10 @@ export const findMatchedFields = (
   fields: Category[] | Brand[],
   fieldToBeMatched: string
 ): Category | Brand =>
-  fieldToBeMatched && fields.find(f => f.name === fieldToBeMatched);
+  fieldToBeMatched && fields.find((f) => f.name === fieldToBeMatched);
 
-export const formatDate = (dateToFormat: string | Date, formatType: string) => {
-  return format(new Date(dateToFormat), formatType);
-};
+export const formatDate = (dateToFormat: string | Date, formatType: string) =>
+  dateToFormat && format(new Date(dateToFormat), formatType);
 
 export const capitalize = (str: string) => {
   if (typeof str !== 'string') return '';

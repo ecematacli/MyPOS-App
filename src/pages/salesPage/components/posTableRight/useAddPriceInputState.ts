@@ -3,26 +3,18 @@ import { useState, useEffect } from 'react';
 import { Args } from './types';
 
 export default ({ id, products, editProduct, addNotification }: Args) => {
-  const [inputValue, setInputValue] = useState(0);
+  const [priceValue, setPriceValue] = useState(0);
 
-  // console.log('input value', inputValue);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    //For handling the empty string case
-    if (parseInt(value)) {
-      setInputValue(parseInt(value));
-    } else if (value === '') {
-      setInputValue(0);
-    }
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPriceValue(Number(e.target.value) || 0);
   };
 
   const resetInput = () => {
-    setInputValue(0);
+    setPriceValue(0);
   };
 
   const editPriceValue = (productId: number) => {
-    const updatedPrice = { price: inputValue.toString() };
+    const updatedPrice = { price: priceValue.toString() };
 
     editProduct({
       updatedField: updatedPrice,
@@ -34,12 +26,12 @@ export default ({ id, products, editProduct, addNotification }: Args) => {
 
   useEffect(() => {
     const product = products.find((product) => product.id === id);
-    setInputValue((product && product.price) || 0);
+    setPriceValue((product && product.price) || 0);
   }, [id]);
 
   return {
-    inputValue,
-    handleInputChange,
+    priceValue,
+    handlePriceChange,
     resetInput,
     editPriceValue,
   };

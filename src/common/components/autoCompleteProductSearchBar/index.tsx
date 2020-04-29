@@ -13,7 +13,7 @@ import { currencyFormatter } from '../../utils';
 interface Props {
   open: boolean;
   onClose: () => void;
-  options: Product[] | [];
+  options: any[];
   loading: boolean;
   onProductChange: (product: Product) => void;
   query: string;
@@ -86,8 +86,7 @@ const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {
                 ) : null}
                 <InputAdornment
                   className={classes.searchIconHolder}
-                  position="end"
-                >
+                  position="end">
                   {isUsedOnSalesPage && productNotFound ? (
                     <AddCircleIcon
                       className={classes.quickAddIcon}
@@ -118,8 +117,7 @@ const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {
                   ) => (
                     <span
                       key={index}
-                      style={{ fontWeight: part.highlight ? 700 : 400 }}
-                    >
+                      style={{ fontWeight: part.highlight ? 700 : 400 }}>
                       {part.text}
                     </span>
                   )

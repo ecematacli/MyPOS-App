@@ -32,7 +32,7 @@ export default makeStyles(({ spacing, palette }) => ({
   noDisplayMsg: {
     display: 'flex',
     justifyContent: 'center',
-    color: palette.grayColors[3],
+    color: palette.secondary.main,
     fontSize: spacing(2.25),
   },
   paginationDiv: {

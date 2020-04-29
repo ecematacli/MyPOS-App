@@ -26,24 +26,44 @@ beforeEach(() => {
 });
 
 describe('[useProductFields Hook]', () => {
-  test('calls handleInputChange function and sets input values correctly', () => {
+  test('calls handleInputChange function with numbers and sets input values correctly', () => {
     const { result } = renderHook(() => useAddPriceInputState(args));
 
     act(() =>
-      result.current.handleInputChange({
+      result.current.handlePriceChange({
         target: { name: 'price', value: '970' },
       } as React.ChangeEvent<HTMLInputElement>)
     );
 
-    expect(result.current.inputValue).toBe(970);
+    expect(result.current.priceValue).toBe(970);
 
     act(() =>
-      result.current.handleInputChange({
-        target: { name: 'price', value: '' },
+      result.current.handlePriceChange({
+        target: { name: 'price', value: '70.99' },
       } as React.ChangeEvent<HTMLInputElement>)
     );
 
-    expect(result.current.inputValue).toBe(0);
+    expect(result.current.priceValue).toBe(70.99);
+  });
+
+  test('calls handleInputChange function with non-numeric characters and sets input value to 0', () => {
+    const { result } = renderHook(() => useAddPriceInputState(args));
+
+    act(() =>
+      result.current.handlePriceChange({
+        target: { name: 'price', value: 'a7aa' },
+      } as React.ChangeEvent<HTMLInputElement>)
+    );
+
+    expect(result.current.priceValue).toBe(0);
+
+    act(() =>
+      result.current.handlePriceChange({
+        target: { name: 'price', value: '7b17,9ax' },
+      } as React.ChangeEvent<HTMLInputElement>)
+    );
+
+    expect(result.current.priceValue).toBe(0);
   });
 
   test('calls resetInput function and resets input value', () => {
@@ -51,14 +71,14 @@ describe('[useProductFields Hook]', () => {
 
     act(() => result.current.resetInput());
 
-    expect(result.current.inputValue).toBe(0);
+    expect(result.current.priceValue).toBe(0);
   });
 
   test('calls editProduct action with the right arguments', () => {
     const { result } = renderHook(() => useAddPriceInputState(args));
 
     act(() =>
-      result.current.handleInputChange({
+      result.current.handlePriceChange({
         target: { name: 'price', value: '2780' },
       } as React.ChangeEvent<HTMLInputElement>)
     );
@@ -82,6 +102,6 @@ describe('[useProductFields Hook]', () => {
     };
     const { result } = renderHook(() => useAddPriceInputState(args));
 
-    expect(result.current.inputValue).toBe(280.9);
+    expect(result.current.priceValue).toBe(280.9);
   });
 });

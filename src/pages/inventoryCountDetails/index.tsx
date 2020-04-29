@@ -19,24 +19,34 @@ interface Props extends RouteComponentProps<RouterMatchProps> {}
 const InventoryCountDetails: React.FC<Props> = ({ match }) => {
   const {
     loading,
+    countBatch,
+    fetchCountBatch,
     fetchBatchesProducts,
     batchProducts,
     page,
     handleChangePage,
     rowsPerPage,
     handleChangeRowsPerPage,
+    selectedRow,
+    handleSelectedRow,
   } = useCountDetails();
 
   const batchId = match.params.id;
 
   useEffect(() => {
-    fetchBatchesProducts(Number(batchId));
+    fetchBatchesProducts(parseInt(batchId));
+    fetchCountBatch(parseInt(batchId));
   }, []);
 
   return (
-    <Grid container style={{ paddingTop: 24 }}>
-      <Grid item xs={9}>
-        <CountingActionsBar batchId={batchId} />
+    <Grid container>
+      <Grid style={{ paddingTop: 24 }} item xs={9}>
+        <CountingActionsBar
+          batchProducts={batchProducts}
+          countBatch={countBatch}
+          batchId={batchId}
+          selectedRow={selectedRow}
+        />
         {loading ? (
           <Loading />
         ) : (
@@ -46,6 +56,8 @@ const InventoryCountDetails: React.FC<Props> = ({ match }) => {
             rowsPerPage={rowsPerPage}
             handleChangePage={handleChangePage}
             handleChangeRowsPerPage={handleChangeRowsPerPage}
+            selectedRow={selectedRow}
+            handleSelectedRow={handleSelectedRow}
           />
         )}
       </Grid>

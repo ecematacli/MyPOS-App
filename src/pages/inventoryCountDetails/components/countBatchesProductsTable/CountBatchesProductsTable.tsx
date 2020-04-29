@@ -16,14 +16,20 @@ interface Props {
   handleChangeRowsPerPage: ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => void;
+  selectedRow: {
+    [id: string]: boolean;
+  };
+  handleSelectedRow: (id: number) => void;
 }
 
-const InventoryCountDetails: React.FC<Props> = ({
+const CountBatchesProductsTable: React.FC<Props> = ({
   batchProducts,
   page,
   handleChangePage,
   rowsPerPage,
   handleChangeRowsPerPage,
+  selectedRow,
+  handleSelectedRow,
 }) => {
   const classes = styles();
   const { counted, uncounted, products } = batchProducts;
@@ -43,7 +49,11 @@ const InventoryCountDetails: React.FC<Props> = ({
           handleChange={handleTabsChange}
           className={classes.tabs}
           classes={{ root: classes.tabRoot }}
-          tabs={['All', 'Counted', 'Uncounted']}
+          tabs={[
+            `All (${counted + uncounted})`,
+            `Counted (${counted})`,
+            `Uncounted (${uncounted})`,
+          ]}
         />
       </div>
       <div className={classes.tableDiv}>
@@ -60,10 +70,12 @@ const InventoryCountDetails: React.FC<Props> = ({
           rowsPerPage={rowsPerPage}
           handleChangeRowsPerPage={handleChangeRowsPerPage}
           handleChangePage={handleChangePage}
+          selectedRow={selectedRow}
+          handleSelectedRow={handleSelectedRow}
         />
       </div>
     </Fragment>
   );
 };
 
-export default InventoryCountDetails;
+export default CountBatchesProductsTable;

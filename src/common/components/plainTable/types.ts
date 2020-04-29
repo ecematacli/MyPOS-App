@@ -43,6 +43,10 @@ export interface PlainTableProps {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
   ) => void;
+  selectedRow: {
+    [id: string]: boolean;
+  };
+  handleSelectedRow: (id: number) => void;
 }
 
 export interface PaginationLabel {

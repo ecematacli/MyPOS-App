@@ -3,22 +3,23 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(({ spacing, palette }) => ({
   lastCountedContainer: {
     borderLeft: `0.1em solid ${palette.grayColors[10]}`,
-    height: '100vh'
+    height: '100vh',
   },
   titleDiv: {
-    padding: spacing(2, 2)
+    marginTop: spacing(1),
+    padding: spacing(3, 2),
   },
   title: {
     color: palette.secondary.main,
-    fontSize: spacing(2.25)
+    fontSize: spacing(2.25),
   },
   divider: {
-    backgroundColor: `0.1em solid ${palette.grayColors[10]}`
+    backgroundColor: `0.1em solid ${palette.grayColors[10]}`,
   },
   imageDiv: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: spacing(5)
-  }
+    marginTop: spacing(5),
+  },
 }));
