@@ -36,9 +36,9 @@ export default makeStyles(({ spacing, palette }) => ({
     width: spacing(8),
     height: 55,
     borderRadius: 0,
-    borderColor: palette.secondary.dark,
-    '&:focus': {
-      backgroundColor: 'transparent !important',
+    '& input:valid:focus + fieldset': {
+      borderColor: '#008ae8',
+      boxShadow: '0 0 3px #008ae8',
     },
   },
   countBtnRoot: {

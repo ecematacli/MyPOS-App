@@ -20,7 +20,7 @@ export default () => {
   }>({});
 
   const handleSelectedRow = (id: number) => {
-    setSelectedRow({ ...selectedRow, [id]: !selectedRow[id] });
+    setSelectedRow({ [id]: !selectedRow[id] });
   };
 
   const throwError = useAsyncError();

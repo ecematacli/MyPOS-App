@@ -24,3 +24,34 @@ export interface BatchData {
   category: string;
   brand: string;
 }
+
+interface SelectedRow {
+  [id: string]: boolean;
+}
+
+type CountInputRef = React.MutableRefObject<HTMLInputElement>;
+export interface CountingActionsBarProps {
+  batchId: string;
+  countBatch: BatchData;
+  batchProducts: BatchesProductsData;
+  selectedRow: SelectedRow;
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  countInputRef: CountInputRef;
+}
+export interface CountBatchesProductsTableProps {
+  batchProducts: BatchesProductsData;
+  page: number;
+  handleChangePage: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newPage: number
+  ) => void;
+  rowsPerPage: number;
+  handleChangeRowsPerPage: ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => void;
+  selectedRow: SelectedRow;
+  handleSelectedRow: (id: number) => void;
+  handleQueryChange: (query: string) => void;
+  countInputRef: CountInputRef;
+}

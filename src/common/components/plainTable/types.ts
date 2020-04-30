@@ -1,3 +1,24 @@
+export interface PlainTableProps {
+  tableHeads: { name: string; rightAlign?: boolean }[];
+  count: number;
+  rows: BatchesRow | BatchProductsRow;
+  noDataMessage?: string;
+  page: number;
+  rowsPerPage: number;
+  handleChangeRowsPerPage: ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangePage: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newPage: number
+  ) => void;
+  selectedRow?: {
+    [id: string]: boolean;
+  };
+  handleSelectedRow?: (id: number) => void;
+  handleQueryChange?: (query: string) => void;
+  countInputRef?: React.MutableRefObject<HTMLInputElement>;
+}
 export interface Batch {
   id: number;
   status: string;
@@ -27,26 +48,6 @@ interface BatchesRow {
 interface BatchProductsRow {
   type: string;
   batchProducts: BatchProduct[];
-}
-
-export interface PlainTableProps {
-  tableHeads: { name: string; rightAlign?: boolean }[];
-  count: number;
-  rows: BatchesRow | BatchProductsRow;
-  noDataMessage?: string;
-  page: number;
-  rowsPerPage: number;
-  handleChangeRowsPerPage: ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => void;
-  handleChangePage: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number
-  ) => void;
-  selectedRow: {
-    [id: string]: boolean;
-  };
-  handleSelectedRow: (id: number) => void;
 }
 
 export interface PaginationLabel {

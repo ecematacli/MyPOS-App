@@ -25,17 +25,16 @@ const PlainTable: React.FC<PlainTableProps> = ({
   handleChangePage,
   selectedRow,
   handleSelectedRow,
+  handleQueryChange,
+  countInputRef,
 }) => {
   const classes = styles(rows);
 
   const renderTableHead = () => (
     <TableRow className={classes.tableHeadRow}>
       {tableHeads.map(({ name, rightAlign }, i) => (
-        <TableCell
-          className={classes[i === 0 && 'firstHeadCell']}
-          align={rightAlign ? 'right' : 'left'}
-          key={name}>
-          {name}
+        <TableCell align={rightAlign ? 'right' : 'left'} key={name}>
+          <div className={classes[i === 0 && 'firstHeadCell']}>{name}</div>
         </TableCell>
       ))}
     </TableRow>
@@ -54,6 +53,8 @@ const PlainTable: React.FC<PlainTableProps> = ({
           row={row}
           selectedRow={selectedRow}
           handleSelectedRow={handleSelectedRow}
+          handleQueryChange={handleQueryChange}
+          countInputRef={countInputRef}
         />
       ));
     }
@@ -82,7 +83,7 @@ const PlainTable: React.FC<PlainTableProps> = ({
 
   return (
     <TableContainer>
-      <Table className={classes.table}>
+      <Table>
         {tableHeads !== undefined ? (
           <TableHead>{renderTableHead()}</TableHead>
         ) : null}

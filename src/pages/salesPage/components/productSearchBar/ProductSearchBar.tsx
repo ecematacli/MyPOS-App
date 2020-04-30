@@ -13,7 +13,7 @@ interface SearchBarProps {
     productData: NewProductData,
     addNotification: (message: string, severity: string) => void
   ) => Promise<void>;
-  inputRef: any;
+  inputRef: React.MutableRefObject<HTMLInputElement>;
 }
 
 const ProductSearchBar: React.FC<SearchBarProps> = ({

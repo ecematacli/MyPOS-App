@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(({ spacing }) => ({
+export default makeStyles(({ spacing, palette }) => ({
   tableBodyRow: {
     height: spacing(10),
     maxHeight: spacing(10),
@@ -22,5 +22,17 @@ export default makeStyles(({ spacing }) => ({
   batchNameCell: {
     paddingLeft: spacing(2),
     cursor: 'pointer',
+  },
+  batchNameCellDiv: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  adjustIconSpan: {
+    marginLeft: -8,
+    marginRight: 4.5,
+    width: 40,
+  },
+  adjustIcon: {
+    color: palette.primary.main,
   },
 }));

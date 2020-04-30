@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import { RouteComponentProps } from 'react-router-dom';
@@ -9,6 +9,7 @@ import CountingActionsBar from './components/countingActionsBar/CountingActionsB
 import CountBatchesProductsTable from './components/countBatchesProductsTable/CountBatchesProductsTable';
 import useCountDetails from './hooks/useCountDetails';
 import Loading from '../../common/components/loading';
+import { useBatchProductsSearchBarState } from './hooks/useBatchProductsSearchBarState';
 
 interface RouterMatchProps {
   id: string;
@@ -31,6 +32,14 @@ const InventoryCountDetails: React.FC<Props> = ({ match }) => {
     handleSelectedRow,
   } = useCountDetails();
 
+  const countInputRef = useRef<HTMLInputElement>();
+
+  const {
+    handleQueryChange,
+    query,
+    setQuery,
+  } = useBatchProductsSearchBarState();
+
   const batchId = match.params.id;
 
   useEffect(() => {
@@ -46,6 +55,9 @@ const InventoryCountDetails: React.FC<Props> = ({ match }) => {
           countBatch={countBatch}
           batchId={batchId}
           selectedRow={selectedRow}
+          query={query}
+          setQuery={setQuery}
+          countInputRef={countInputRef}
         />
         {loading ? (
           <Loading />
@@ -58,6 +70,8 @@ const InventoryCountDetails: React.FC<Props> = ({ match }) => {
             handleChangeRowsPerPage={handleChangeRowsPerPage}
             selectedRow={selectedRow}
             handleSelectedRow={handleSelectedRow}
+            handleQueryChange={handleQueryChange}
+            countInputRef={countInputRef}
           />
         )}
       </Grid>

@@ -22,7 +22,7 @@ interface Props {
   productNotFound?: boolean;
   handleOpenDialog: () => void;
   className?: any;
-  inputRef?: React.Ref<HTMLInputElement>;
+  inputRef?: React.MutableRefObject<HTMLInputElement>;
 }
 
 const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {

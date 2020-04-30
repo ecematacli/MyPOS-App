@@ -1,38 +1,51 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Button, Typography, OutlinedInput, Checkbox } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
-import { BatchData, BatchesProductsData } from '../../types';
+import { CountingActionsBarProps } from '../../types';
 import history from '../../../../history';
 import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
-interface Props {
-  batchId: string;
-  countBatch: BatchData;
-  batchProducts: BatchesProductsData;
-  selectedRow: {
-    [id: string]: boolean;
-  };
-}
-
-const CountingActionsBar: React.FC<Props> = ({
+const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   batchId,
   countBatch,
   selectedRow,
-  batchProducts: { products },
+  batchProducts,
+  query,
+  setQuery,
+  countInputRef,
 }) => {
   const classes = styles();
   const [checked, setChecked] = useState(false);
+
+  const { products } = batchProducts;
 
   const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
   };
 
+  const renderTitle = () => (
+    <div className={classes.titleDiv}>
+      <span
+        className={classes.iconDiv}
+        onClick={() => history.push('/inventory/count')}>
+        <ArrowBackIcon className={classes.backArrow} />
+      </span>
+      <Typography className={classes.titleText}>
+        {countBatch && countBatch.name}
+      </Typography>
+    </div>
+  );
+
   const renderCountInput = () => (
     <div className={classes.countInputAction}>
       <OutlinedInput
-        classes={{ root: classes.inputRoot, input: classes.input }}
+        inputRef={countInputRef}
+        classes={{
+          root: classes.inputRoot,
+          input: classes.input,
+        }}
         color="secondary"
         value={1}
       />
@@ -46,16 +59,7 @@ const CountingActionsBar: React.FC<Props> = ({
 
   return (
     <Fragment>
-      <div className={classes.titleDiv}>
-        <span
-          className={classes.iconDiv}
-          onClick={() => history.push('/inventory/count')}>
-          <ArrowBackIcon className={classes.backArrow} />
-        </span>
-        <Typography className={classes.titleText}>
-          {countBatch && countBatch.name}
-        </Typography>
-      </div>
+      {renderTitle()}
       <div className={classes.countingContainer}>
         {/*to be completed..*/}
         {/*
@@ -63,6 +67,8 @@ const CountingActionsBar: React.FC<Props> = ({
         <AutoCompleteProductSearchBar
           className={classes.searchBar}
           options={products}
+          query={query}
+          onQueryChange={setQuery}
         />
         {!checked && renderCountInput()}
         <div className={classes.countInputAction}>

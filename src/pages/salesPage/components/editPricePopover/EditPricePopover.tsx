@@ -56,6 +56,7 @@ const EditPricePopover: React.FC<Props> = ({
               <InputAdornment position="start">&#x20BA;</InputAdornment>
             }
             type="number"
+            className={classes.numberSpinner}
             value={priceValue}
             onChange={handlePriceChange}
             classesProp={{

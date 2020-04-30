@@ -4,16 +4,12 @@ interface StyleProps extends Theme {
   type: string;
 }
 export default makeStyles(({ spacing, palette }) => ({
-  table: {
-    '& *': {
-      color: palette.grayColors[16],
-    },
-  },
   tableHeadRow: {
     borderTop: ({ type }: StyleProps) =>
       type === 'batchProducts' ? '1.9px solid #e9e9e9' : 'unset',
     width: '15.3%',
     '& > th': {
+      color: palette.grayColors[3],
       '&:nth-child(2)': {
         width: '27%',
       },
@@ -23,7 +19,8 @@ export default makeStyles(({ spacing, palette }) => ({
     },
   },
   firstHeadCell: {
-    paddingLeft: spacing(2),
+    paddingLeft: ({ type }: StyleProps) =>
+      type === 'batchProducts' ? 40 : 'unset',
   },
   noDisplayCell: {
     borderBottom: 'none',
