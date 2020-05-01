@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
-import { RouteComponentProps } from 'react-router-dom';
 
 import { StoreState } from '../../redux/types';
+import { InventoryCountDetailsProps } from './types';
 import LastCountedItems from './components/lastCountedItems/LastCountedItems';
 import CountingActionsBar from './components/countingActionsBar/CountingActionsBar';
 import CountBatchesProductsTable from './components/countBatchesProductsTable/CountBatchesProductsTable';
@@ -11,15 +11,18 @@ import useCountDetails from './hooks/useCountDetails';
 import Loading from '../../common/components/loading';
 import { useBatchProductsSearchBarState } from './hooks/useBatchProductsSearchBarState';
 
-interface RouterMatchProps {
-  id: string;
-}
+const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
+  match,
+}) => {
+  const { query, setQuery } = useBatchProductsSearchBarState();
 
-interface Props extends RouteComponentProps<RouterMatchProps> {}
-
-const InventoryCountDetails: React.FC<Props> = ({ match }) => {
   const {
     loading,
+    itemCount,
+    setItemCount,
+    handleCountClick,
+    lastCountedItems,
+    handleLastCountedItemDeleteClick,
     countBatch,
     fetchCountBatch,
     fetchBatchesProducts,
@@ -28,17 +31,11 @@ const InventoryCountDetails: React.FC<Props> = ({ match }) => {
     handleChangePage,
     rowsPerPage,
     handleChangeRowsPerPage,
-    selectedRow,
-    handleSelectedRow,
-  } = useCountDetails();
+    selectedProduct,
+    handleSelectedProduct,
+  } = useCountDetails(setQuery);
 
   const countInputRef = useRef<HTMLInputElement>();
-
-  const {
-    handleQueryChange,
-    query,
-    setQuery,
-  } = useBatchProductsSearchBarState();
 
   const batchId = match.params.id;
 
@@ -54,10 +51,12 @@ const InventoryCountDetails: React.FC<Props> = ({ match }) => {
           batchProducts={batchProducts}
           countBatch={countBatch}
           batchId={batchId}
-          selectedRow={selectedRow}
           query={query}
           setQuery={setQuery}
           countInputRef={countInputRef}
+          itemCount={itemCount}
+          setItemCount={setItemCount}
+          handleCountClick={handleCountClick}
         />
         {loading ? (
           <Loading />
@@ -68,15 +67,17 @@ const InventoryCountDetails: React.FC<Props> = ({ match }) => {
             rowsPerPage={rowsPerPage}
             handleChangePage={handleChangePage}
             handleChangeRowsPerPage={handleChangeRowsPerPage}
-            selectedRow={selectedRow}
-            handleSelectedRow={handleSelectedRow}
-            handleQueryChange={handleQueryChange}
+            selectedProductRow={selectedProduct}
+            handleSelectedRow={handleSelectedProduct}
             countInputRef={countInputRef}
           />
         )}
       </Grid>
       <Grid item xs={3}>
-        <LastCountedItems />
+        <LastCountedItems
+          lastCountedItems={lastCountedItems}
+          handleLastCountedItemDeleteClick={handleLastCountedItemDeleteClick}
+        />
       </Grid>
     </Grid>
   );

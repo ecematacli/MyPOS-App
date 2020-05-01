@@ -7,40 +7,39 @@ import { BatchProduct } from '../types';
 
 interface Props {
   row: BatchProduct;
-  selectedRow: {
-    [id: string]: boolean;
-  };
-  handleSelectedRow: (id: number) => void;
-  handleQueryChange?: (query: string) => void;
+  selectedProductRow: BatchProduct;
+  handleSelectedRow: (product: BatchProduct) => void;
   countInputRef: React.MutableRefObject<HTMLInputElement>;
 }
 
 const BatchProductsRow: React.FC<Props> = ({
   row,
-  selectedRow,
+  selectedProductRow,
   handleSelectedRow,
-  handleQueryChange,
   countInputRef,
 }) => {
   const classes = styles();
 
-  const { id, name, expected, counted } = row;
-
-  const onRowClick = (id: number, name: string) => {
+  const onRowClick = () => {
     countInputRef.current.focus();
-    handleSelectedRow(id);
-    handleQueryChange(name);
+    handleSelectedRow(row);
   };
 
+  const { id, name, expected } = row;
+  let { counted } = row;
+
+  if (selectedProductRow && selectedProductRow.id === id) {
+    counted = selectedProductRow.counted;
+  }
+
   return (
-    <TableRow
-      onClick={() => onRowClick(id, name)}
-      hover
-      className={classes.tableBodyRow}>
+    <TableRow onClick={onRowClick} hover className={classes.tableBodyRow}>
       <TableCell className={classes.batchNameCell}>
         <div className={classes.batchNameCellDiv}>
           <span className={classes.adjustIconSpan}>
-            {selectedRow[id] && <AdjustIcon className={classes.adjustIcon} />}
+            {selectedProductRow && selectedProductRow.id === id && (
+              <AdjustIcon className={classes.adjustIcon} />
+            )}
           </span>
           <span>{name}</span>
         </div>

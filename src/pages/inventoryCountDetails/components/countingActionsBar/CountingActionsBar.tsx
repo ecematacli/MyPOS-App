@@ -8,13 +8,14 @@ import history from '../../../../history';
 import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
 const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
-  batchId,
   countBatch,
-  selectedRow,
   batchProducts,
   query,
   setQuery,
   countInputRef,
+  itemCount,
+  setItemCount,
+  handleCountClick,
 }) => {
   const classes = styles();
   const [checked, setChecked] = useState(false);
@@ -23,6 +24,12 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
 
   const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
+  };
+
+  const onCountInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    setItemCount(parseInt(value));
   };
 
   const renderTitle = () => (
@@ -42,14 +49,18 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
     <div className={classes.countInputAction}>
       <OutlinedInput
         inputRef={countInputRef}
+        className={classes.numberSpinner}
         classes={{
           root: classes.inputRoot,
           input: classes.input,
         }}
+        type="number"
         color="secondary"
-        value={1}
+        value={itemCount}
+        onChange={onCountInputChange}
       />
       <Button
+        onClick={handleCountClick}
         classes={{ root: classes.countBtnRoot }}
         className={classes.countBtn}>
         <Typography className={classes.btnText}>Count</Typography>

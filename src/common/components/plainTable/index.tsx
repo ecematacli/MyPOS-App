@@ -23,9 +23,8 @@ const PlainTable: React.FC<PlainTableProps> = ({
   rowsPerPage,
   handleChangeRowsPerPage,
   handleChangePage,
-  selectedRow,
+  selectedProductRow,
   handleSelectedRow,
-  handleQueryChange,
   countInputRef,
 }) => {
   const classes = styles(rows);
@@ -51,9 +50,8 @@ const PlainTable: React.FC<PlainTableProps> = ({
         <BatchProductsRow
           key={row.id}
           row={row}
-          selectedRow={selectedRow}
+          selectedProductRow={selectedProductRow}
           handleSelectedRow={handleSelectedRow}
-          handleQueryChange={handleQueryChange}
           countInputRef={countInputRef}
         />
       ));

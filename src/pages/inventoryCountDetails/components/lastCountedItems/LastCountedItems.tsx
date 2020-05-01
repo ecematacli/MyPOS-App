@@ -1,22 +1,56 @@
 import React, { Fragment } from 'react';
 import { Typography, Divider } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
+import { LastCountedItemsProps } from '../../types';
 import inventoryImage from '../../../../assets/img/stocktake-emptylist-v1.png';
 
-const Counting = () => {
+const LastCountedItems: React.FC<LastCountedItemsProps> = ({
+  lastCountedItems,
+  handleLastCountedItemDeleteClick,
+}) => {
   const classes = styles();
-  return (
-    <div className={classes.lastCountedContainer}>
+
+  const renderTitle = () => (
+    <Fragment>
       <div className={classes.titleDiv}>
         <Typography className={classes.title}>Last Counted Items</Typography>
       </div>
       <Divider className={classes.divider} />
-      <div className={classes.imageDiv}>
-        <img src={inventoryImage} />
-      </div>
+    </Fragment>
+  );
+
+  const renderLastCountedItems = () =>
+    lastCountedItems.map(({ id, name, counted }) => (
+      <Fragment key={id}>
+        <div className={classes.itemContainer}>
+          <div className={classes.itemInfo}>
+            <span className={classes.countNumber}>{counted}</span>
+            <div>{name}</div>
+          </div>
+          <span onClick={() => handleLastCountedItemDeleteClick(id)}>
+            <DeleteIcon className={classes.deleteIcon} />
+          </span>
+        </div>
+        <Divider />
+      </Fragment>
+    ));
+
+  const renderInventoryImg = () => (
+    <div className={classes.imageDiv}>
+      <img src={inventoryImage} />
+    </div>
+  );
+
+  return (
+    <div className={classes.lastCountedContainer}>
+      {renderTitle()}
+      {lastCountedItems.length > 0
+        ? renderLastCountedItems()
+        : renderInventoryImg()}
     </div>
   );
 };
 
-export default Counting;
+export default LastCountedItems;

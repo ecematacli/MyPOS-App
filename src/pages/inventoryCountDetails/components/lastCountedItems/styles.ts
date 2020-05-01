@@ -6,8 +6,7 @@ export default makeStyles(({ spacing, palette }) => ({
     height: '100vh',
   },
   titleDiv: {
-    marginTop: spacing(1),
-    padding: spacing(3, 2),
+    padding: spacing(3.2, 2),
   },
   title: {
     color: palette.secondary.main,
@@ -15,6 +14,23 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   divider: {
     backgroundColor: `0.1em solid ${palette.grayColors[10]}`,
+  },
+  itemContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: spacing(2, 1.4),
+  },
+  itemInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  countNumber: {
+    paddingRight: spacing(2),
+  },
+  deleteIcon: {
+    color: palette.secondary.dark,
+    cursor: 'pointer',
   },
   imageDiv: {
     display: 'flex',

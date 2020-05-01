@@ -1,29 +1,46 @@
 import { useState } from 'react';
 
 import api from '../../../api';
-import { BatchesProductsData, BatchData } from '../types';
-import useAsyncError from '../../../common/hooks/useAsyncError';
+import { BatchesProductsData, BatchProduct, BatchData } from '../types';
+import useLocalStorageState from '../../../common/hooks/useLocalStorageState';
 
-export default () => {
+type SetQuery = React.Dispatch<React.SetStateAction<string>>;
+
+export default (setQuery: SetQuery) => {
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [loading, setLoading] = useState(false);
+  const [countBatch, setCountBatch] = useState<BatchData>(null);
   const [batchProducts, setBatchProducts] = useState<BatchesProductsData>({
     counted: 0,
     uncounted: 0,
     products: [],
   });
-  const [countBatch, setCountBatch] = useState<BatchData>(null);
 
-  const [selectedRow, setSelectedRow] = useState<{
-    [id: string]: boolean;
-  }>({});
+  const [itemCount, setItemCount] = useState(1);
+  const [selectedProduct, setSelectedProduct] = useState<BatchProduct>(null);
+  const [lastCountedItems, setLastCountedItems] = useLocalStorageState<
+    BatchProduct[]
+  >('lastCountedItems', []);
 
-  const handleSelectedRow = (id: number) => {
-    setSelectedRow({ [id]: !selectedRow[id] });
+  const handleSelectedProduct = (product: BatchProduct) => {
+    setSelectedProduct(product);
+    setQuery(product.name);
   };
 
-  const throwError = useAsyncError();
+  const handleCountClick = () => {
+    const updatedProduct = { ...selectedProduct, counted: itemCount };
+    setSelectedProduct(updatedProduct);
+    setLastCountedItems([updatedProduct, ...lastCountedItems]);
+  };
+
+  const handleLastCountedItemDeleteClick = (itemId: number) => {
+    const updatedItems = lastCountedItems.filter((item) => item.id !== itemId);
+    setLastCountedItems(updatedItems);
+    // const updatedProduct = { ...selectedProduct, counted: itemCount };
+    // setSelectedProduct(updatedProduct);
+    // setLastCountedItems([updatedProduct, ...lastCountedItems]);
+  };
 
   const handleChangeRowsPerPage = ({
     target: { value },
@@ -52,9 +69,7 @@ export default () => {
       const data: BatchesProductsData = response.data;
       setBatchProducts(data);
       setLoading(false);
-    } catch (e) {
-      throwError(e);
-    }
+    } catch (e) {}
   };
 
   const fetchCountBatch = async (id: number) => {
@@ -64,13 +79,16 @@ export default () => {
       const data: BatchData = response.data;
       setCountBatch(data);
       setLoading(false);
-    } catch (e) {
-      throwError(e);
-    }
+    } catch (e) {}
   };
 
   return {
     loading,
+    itemCount,
+    setItemCount,
+    handleCountClick,
+    lastCountedItems,
+    handleLastCountedItemDeleteClick,
     countBatch,
     batchProducts,
     fetchCountBatch,
@@ -79,7 +97,7 @@ export default () => {
     handleChangePage,
     rowsPerPage,
     handleChangeRowsPerPage,
-    selectedRow,
-    handleSelectedRow,
+    selectedProduct,
+    handleSelectedProduct,
   };
 };

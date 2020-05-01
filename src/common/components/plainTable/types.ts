@@ -12,12 +12,10 @@ export interface PlainTableProps {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
   ) => void;
-  selectedRow?: {
-    [id: string]: boolean;
-  };
-  handleSelectedRow?: (id: number) => void;
-  handleQueryChange?: (query: string) => void;
+  selectedProductRow?: BatchProduct;
+  handleSelectedRow?: (product: BatchProduct) => void;
   countInputRef?: React.MutableRefObject<HTMLInputElement>;
+  itemCount?: number;
 }
 export interface Batch {
   id: number;
@@ -36,7 +34,7 @@ export interface BatchProduct {
   name: string;
   variation: string;
   expected: number;
-  counted: boolean | null;
+  counted: number | null;
   synced: boolean;
 }
 

@@ -1,18 +1,20 @@
-interface Product {
+import { RouteComponentProps } from 'react-router-dom';
+
+export interface BatchProduct {
   id: number;
   sku: string;
   barcode: string;
   name: string;
   variation: string;
   expected: number;
-  counted: boolean | null;
+  counted: number | null;
   synced: boolean;
 }
 
 export interface BatchesProductsData {
   counted: number;
   uncounted: number;
-  products: Product[];
+  products: BatchProduct[];
 }
 
 export interface BatchData {
@@ -25,19 +27,25 @@ export interface BatchData {
   brand: string;
 }
 
-interface SelectedRow {
-  [id: string]: boolean;
+type CountInputRef = React.MutableRefObject<HTMLInputElement>;
+
+//Props of the components
+interface RouterMatchProps {
+  id: string;
 }
 
-type CountInputRef = React.MutableRefObject<HTMLInputElement>;
+export interface InventoryCountDetailsProps
+  extends RouteComponentProps<RouterMatchProps> {}
 export interface CountingActionsBarProps {
   batchId: string;
   countBatch: BatchData;
   batchProducts: BatchesProductsData;
-  selectedRow: SelectedRow;
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   countInputRef: CountInputRef;
+  itemCount: number;
+  setItemCount: React.Dispatch<React.SetStateAction<number>>;
+  handleCountClick: () => void;
 }
 export interface CountBatchesProductsTableProps {
   batchProducts: BatchesProductsData;
@@ -50,8 +58,12 @@ export interface CountBatchesProductsTableProps {
   handleChangeRowsPerPage: ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => void;
-  selectedRow: SelectedRow;
-  handleSelectedRow: (id: number) => void;
-  handleQueryChange: (query: string) => void;
+  selectedProductRow: BatchProduct;
+  handleSelectedRow: (product: BatchProduct) => void;
   countInputRef: CountInputRef;
+}
+
+export interface LastCountedItemsProps {
+  lastCountedItems: BatchProduct[];
+  handleLastCountedItemDeleteClick: (id: number) => void;
 }

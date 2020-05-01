@@ -8,8 +8,8 @@ const getDefaultVal = (key: string, defaultVal: any) => {
   }
 };
 
-export default (key: string, defaultVal: any) => {
-  const [state, setState] = useState(getDefaultVal(key, defaultVal));
+export default <T>(key: string, defaultVal: any): [T, React.Dispatch<T>] => {
+  const [state, setState] = useState<T>(getDefaultVal(key, defaultVal));
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(state));
