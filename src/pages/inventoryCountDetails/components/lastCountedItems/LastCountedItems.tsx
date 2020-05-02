@@ -8,7 +8,7 @@ import inventoryImage from '../../../../assets/img/stocktake-emptylist-v1.png';
 
 const LastCountedItems: React.FC<LastCountedItemsProps> = ({
   lastCountedItems,
-  handleLastCountedItemDeleteClick,
+  handleDeleteClick,
 }) => {
   const classes = styles();
 
@@ -22,14 +22,14 @@ const LastCountedItems: React.FC<LastCountedItemsProps> = ({
   );
 
   const renderLastCountedItems = () =>
-    lastCountedItems.map(({ id, name, counted }) => (
-      <Fragment key={id}>
+    lastCountedItems.map(({ id, name, counted, barcode }, i) => (
+      <Fragment key={barcode + i}>
         <div className={classes.itemContainer}>
           <div className={classes.itemInfo}>
             <span className={classes.countNumber}>{counted}</span>
             <div>{name}</div>
           </div>
-          <span onClick={() => handleLastCountedItemDeleteClick(id)}>
+          <span onClick={() => handleDeleteClick(id)}>
             <DeleteIcon className={classes.deleteIcon} />
           </span>
         </div>

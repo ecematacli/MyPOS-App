@@ -76,7 +76,7 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
       <Grid item xs={3}>
         <LastCountedItems
           lastCountedItems={lastCountedItems}
-          handleLastCountedItemDeleteClick={handleLastCountedItemDeleteClick}
+          handleDeleteClick={handleLastCountedItemDeleteClick}
         />
       </Grid>
     </Grid>

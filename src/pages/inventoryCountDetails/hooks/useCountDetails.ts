@@ -28,18 +28,54 @@ export default (setQuery: SetQuery) => {
     setQuery(product.name);
   };
 
-  const handleCountClick = () => {
-    const updatedProduct = { ...selectedProduct, counted: itemCount };
-    setSelectedProduct(updatedProduct);
-    setLastCountedItems([updatedProduct, ...lastCountedItems]);
+  const postProductCount = async (id: number, count: number) => {
+    const response = await api.post('/inventory-count/count-product', {
+      id,
+      count,
+    });
+
+    const data: BatchProduct = response.data;
+    return data;
+  };
+
+  const handleCountClick = async () => {
+    const updatedSelectedProduct = {
+      ...selectedProduct,
+      counted: itemCount,
+    };
+    setSelectedProduct(updatedSelectedProduct);
+
+    const updatedProduct = await postProductCount(
+      updatedSelectedProduct.id,
+      updatedSelectedProduct.counted
+    );
+
+    const matchedPr = batchProducts.products.filter(
+      (p) => p.id === selectedProduct.id
+    );
+
+    if (matchedPr) {
+      const replacedProducts = batchProducts.products.map((product) =>
+        product.id === selectedProduct.id ? updatedProduct : product
+      );
+      setBatchProducts((batchProducts) => ({
+        ...batchProducts,
+        products: replacedProducts,
+      }));
+    } else {
+      setBatchProducts((batchProducts) => ({
+        ...batchProducts,
+        products: [...batchProducts.products, updatedProduct],
+      }));
+    }
+
+    setLastCountedItems([updatedSelectedProduct, ...lastCountedItems]);
+    setItemCount(1);
   };
 
   const handleLastCountedItemDeleteClick = (itemId: number) => {
     const updatedItems = lastCountedItems.filter((item) => item.id !== itemId);
     setLastCountedItems(updatedItems);
-    // const updatedProduct = { ...selectedProduct, counted: itemCount };
-    // setSelectedProduct(updatedProduct);
-    // setLastCountedItems([updatedProduct, ...lastCountedItems]);
   };
 
   const handleChangeRowsPerPage = ({

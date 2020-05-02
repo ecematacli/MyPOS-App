@@ -43,6 +43,8 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
       <div className={classes.tableDiv}>
         <PlainTable
           tableHeads={[
+            { name: 'Barcode' },
+            { name: 'Sku' },
             { name: 'Product' },
             { name: 'Expected', rightAlign: true },
             { name: 'Counted', rightAlign: true },
@@ -54,7 +56,7 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
           rowsPerPage={rowsPerPage}
           handleChangeRowsPerPage={handleChangeRowsPerPage}
           handleChangePage={handleChangePage}
-          selectedProductRow={selectedProductRow}
+          selectedRow={selectedProductRow}
           handleSelectedRow={handleSelectedRow}
           countInputRef={countInputRef}
         />

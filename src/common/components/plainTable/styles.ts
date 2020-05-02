@@ -20,7 +20,7 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   firstHeadCell: {
     paddingLeft: ({ type }: StyleProps) =>
-      type === 'batchProducts' ? 40 : 'unset',
+      type === 'batchProducts' ? 13 : 'unset',
   },
   noDisplayCell: {
     borderBottom: 'none',

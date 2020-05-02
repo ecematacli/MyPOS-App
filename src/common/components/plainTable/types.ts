@@ -12,7 +12,7 @@ export interface PlainTableProps {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
   ) => void;
-  selectedProductRow?: BatchProduct;
+  selectedRow?: BatchProduct;
   handleSelectedRow?: (product: BatchProduct) => void;
   countInputRef?: React.MutableRefObject<HTMLInputElement>;
   itemCount?: number;

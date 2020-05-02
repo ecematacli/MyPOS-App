@@ -7,14 +7,14 @@ import { BatchProduct } from '../types';
 
 interface Props {
   row: BatchProduct;
-  selectedProductRow: BatchProduct;
+  selectedRow: BatchProduct;
   handleSelectedRow: (product: BatchProduct) => void;
   countInputRef: React.MutableRefObject<HTMLInputElement>;
 }
 
 const BatchProductsRow: React.FC<Props> = ({
   row,
-  selectedProductRow,
+  selectedRow,
   handleSelectedRow,
   countInputRef,
 }) => {
@@ -25,25 +25,23 @@ const BatchProductsRow: React.FC<Props> = ({
     handleSelectedRow(row);
   };
 
-  const { id, name, expected } = row;
+  const { id, name, barcode, sku, expected } = row;
   let { counted } = row;
-
-  if (selectedProductRow && selectedProductRow.id === id) {
-    counted = selectedProductRow.counted;
-  }
 
   return (
     <TableRow onClick={onRowClick} hover className={classes.tableBodyRow}>
-      <TableCell className={classes.batchNameCell}>
-        <div className={classes.batchNameCellDiv}>
+      <TableCell>
+        <div className={classes.batchFirstCellDiv}>
           <span className={classes.adjustIconSpan}>
-            {selectedProductRow && selectedProductRow.id === id && (
+            {selectedRow && selectedRow.id === id && (
               <AdjustIcon className={classes.adjustIcon} />
             )}
           </span>
-          <span>{name}</span>
+          <span>{barcode}</span>
         </div>
       </TableCell>
+      <TableCell>{sku}</TableCell>
+      <TableCell>{name}</TableCell>
       <TableCell align="right">{expected}</TableCell>
       <TableCell align="right">{counted ? counted : '-'}</TableCell>
     </TableRow>
