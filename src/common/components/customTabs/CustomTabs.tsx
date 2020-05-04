@@ -4,10 +4,10 @@ import { Tabs, Tab } from '@material-ui/core';
 interface Props {
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement>,
-    newValue: number
+    newValue: string
   ) => void;
-  tabs: string[];
-  tabsValue: number;
+  tabs: { tab: string; value: string }[];
+  tabsValue: string;
   centered?: boolean;
   className: string;
   classes: any;
@@ -30,8 +30,8 @@ const CustomTabs: React.FC<Props> = ({
     textColor={textColor}
     indicatorColor="primary"
     centered={centered}>
-    {tabs.map((label: string) => (
-      <Tab classes={classes} key={label} label={label} />
+    {tabs.map(({ tab, value }) => (
+      <Tab value={value} classes={classes} key={tab} label={tab} />
     ))}
   </Tabs>
 );

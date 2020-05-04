@@ -18,6 +18,7 @@ const PlainTable: React.FC<PlainTableProps> = ({
   tableHeads,
   count,
   rows,
+  hasDataToShow,
   noDataMessage,
   page,
   rowsPerPage,
@@ -86,7 +87,7 @@ const PlainTable: React.FC<PlainTableProps> = ({
           <TableHead>{renderTableHead()}</TableHead>
         ) : null}
         <TableBody>
-          {!count ? (
+          {!hasDataToShow ? (
             <TableRow>
               <TableCell className={classes.noDisplayCell} colSpan={10}>
                 <div className={classes.noDisplayMsg}>{noDataMessage}</div>

@@ -36,9 +36,10 @@ interface RouterMatchProps {
 
 export interface InventoryCountDetailsProps
   extends RouteComponentProps<RouterMatchProps> {}
+
 export interface CountingActionsBarProps {
   batchId: string;
-  countBatch: BatchData;
+  batch: BatchData;
   batchProducts: BatchesProductsData;
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -47,6 +48,7 @@ export interface CountingActionsBarProps {
   setItemCount: React.Dispatch<React.SetStateAction<number>>;
   handleCountClick: () => void;
 }
+
 export interface CountBatchesProductsTableProps {
   batchProducts: BatchesProductsData;
   page: number;
@@ -61,6 +63,11 @@ export interface CountBatchesProductsTableProps {
   selectedProductRow: BatchProduct;
   handleSelectedRow: (product: BatchProduct) => void;
   countInputRef: CountInputRef;
+  tabsValue: string;
+  handleTabsChange: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    newValue: string
+  ) => void;
 }
 
 export interface LastCountedItemsProps {

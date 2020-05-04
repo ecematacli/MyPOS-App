@@ -16,15 +16,17 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
 }) => {
   const { query, setQuery } = useBatchProductsSearchBarState();
 
+  const batchId = match.params.id;
   const {
+    tabsValue,
+    handleTabsChange,
     loading,
     itemCount,
     setItemCount,
     handleCountClick,
     lastCountedItems,
     handleLastCountedItemDeleteClick,
-    countBatch,
-    fetchCountBatch,
+    batch,
     fetchBatchesProducts,
     batchProducts,
     page,
@@ -33,23 +35,22 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
     handleChangeRowsPerPage,
     selectedProduct,
     handleSelectedProduct,
-  } = useCountDetails(setQuery);
+  } = useCountDetails(setQuery, batchId);
 
   const countInputRef = useRef<HTMLInputElement>();
 
-  const batchId = match.params.id;
-
   useEffect(() => {
     fetchBatchesProducts(parseInt(batchId));
-    fetchCountBatch(parseInt(batchId));
   }, []);
+
+  console.log('tabsValue,', tabsValue);
 
   return (
     <Grid container>
       <Grid style={{ paddingTop: 24 }} item xs={9}>
         <CountingActionsBar
+          batch={batch}
           batchProducts={batchProducts}
-          countBatch={countBatch}
           batchId={batchId}
           query={query}
           setQuery={setQuery}
@@ -62,6 +63,8 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
           <Loading />
         ) : (
           <CountBatchesProductsTable
+            tabsValue={tabsValue}
+            handleTabsChange={handleTabsChange}
             batchProducts={batchProducts}
             page={page}
             rowsPerPage={rowsPerPage}

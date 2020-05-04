@@ -11,7 +11,7 @@ import CustomTabs from '../../common/components/customTabs/CustomTabs';
 const InventoryCountBatches: React.FC<{}> = () => {
   const classes = styles();
 
-  const [tabsValue, setTabsValue] = useState(2);
+  const [tabsValue, setTabsValue] = useState('opened');
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
 
@@ -37,10 +37,8 @@ const InventoryCountBatches: React.FC<{}> = () => {
 
   const handleTabsChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    newValue: number
-  ) => {
-    setTabsValue(newValue);
-  };
+    newValue: string
+  ) => setTabsValue(newValue);
 
   useEffect(() => {
     fetchCountBatches(page, rowsPerPage);
@@ -53,7 +51,11 @@ const InventoryCountBatches: React.FC<{}> = () => {
         textColor="secondary"
         tabsValue={tabsValue}
         handleChange={handleTabsChange}
-        tabs={['Opened', 'Completed', 'Canceled']}
+        tabs={[
+          { tab: 'Opened', value: 'opened' },
+          { tab: 'Completed', value: 'completed' },
+          { tab: 'Canceled', value: 'canceled' },
+        ]}
         className={classes.tabs}
         classes={{ root: classes.tabRoot }}
       />

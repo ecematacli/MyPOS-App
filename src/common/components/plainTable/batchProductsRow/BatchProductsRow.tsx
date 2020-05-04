@@ -25,8 +25,7 @@ const BatchProductsRow: React.FC<Props> = ({
     handleSelectedRow(row);
   };
 
-  const { id, name, barcode, sku, expected } = row;
-  let { counted } = row;
+  const { id, name, barcode, sku, variation, expected, counted } = row;
 
   return (
     <TableRow onClick={onRowClick} hover className={classes.tableBodyRow}>
@@ -41,7 +40,9 @@ const BatchProductsRow: React.FC<Props> = ({
         </div>
       </TableCell>
       <TableCell>{sku}</TableCell>
-      <TableCell>{name}</TableCell>
+      <TableCell>
+        {name} / {variation}
+      </TableCell>
       <TableCell align="right">{expected}</TableCell>
       <TableCell align="right">{counted ? counted : '-'}</TableCell>
     </TableRow>

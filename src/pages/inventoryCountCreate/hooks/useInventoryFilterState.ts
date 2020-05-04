@@ -5,7 +5,6 @@ import history from '../../../history';
 import { findMatchedFields } from '../../../common/utils';
 import { Brand } from '../../../redux/brands/types';
 import { Category } from '../../../redux/categories/types';
-import useAsyncError from '../../../common/hooks/useAsyncError';
 
 export interface Filters {
   category: string;
@@ -37,7 +36,6 @@ export default (brands: Brand[], categories: Category[]) => {
     }),
     initialState
   );
-  const throwError = useAsyncError();
 
   const handleDropdownInputChange = ({
     target: { value, name },

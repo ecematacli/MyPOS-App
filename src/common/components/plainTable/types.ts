@@ -2,6 +2,7 @@ export interface PlainTableProps {
   tableHeads: { name: string; rightAlign?: boolean }[];
   count: number;
   rows: BatchesRow | BatchProductsRow;
+  hasDataToShow: boolean;
   noDataMessage?: string;
   page: number;
   rowsPerPage: number;

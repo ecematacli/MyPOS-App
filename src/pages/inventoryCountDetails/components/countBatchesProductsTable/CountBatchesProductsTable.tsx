@@ -14,16 +14,21 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
   selectedProductRow,
   handleSelectedRow,
   countInputRef,
+  tabsValue,
+  handleTabsChange,
 }) => {
   const classes = styles();
   const { counted, uncounted, products } = batchProducts;
 
-  const [tabsValue, setTabsValue] = useState(0);
-
-  const handleTabsChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    newValue: number
-  ) => setTabsValue(newValue);
+  const getCountForTabStatus = () => {
+    if (tabsValue === 'all') {
+      return counted + uncounted;
+    } else if (tabsValue === 'counted') {
+      return counted;
+    } else {
+      return uncounted;
+    }
+  };
 
   return (
     <Fragment>
@@ -34,9 +39,18 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
           className={classes.tabs}
           classes={{ root: classes.tabRoot }}
           tabs={[
-            `All (${counted + uncounted})`,
-            `Counted (${counted})`,
-            `Uncounted (${uncounted})`,
+            {
+              tab: `All (${counted + uncounted})`,
+              value: 'all',
+            },
+            {
+              tab: `Counted (${counted})`,
+              value: 'counted',
+            },
+            {
+              tab: `Uncounted (${uncounted})`,
+              value: 'uncounted',
+            },
           ]}
         />
       </div>
@@ -49,8 +63,9 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
             { name: 'Expected', rightAlign: true },
             { name: 'Counted', rightAlign: true },
           ]}
-          noDataMessage={'No products to show'}
-          count={counted + uncounted}
+          hasDataToShow={products.length > 1}
+          noDataMessage="No products to show"
+          count={getCountForTabStatus()}
           rows={{ type: 'batchProducts', batchProducts: products }}
           page={page}
           rowsPerPage={rowsPerPage}

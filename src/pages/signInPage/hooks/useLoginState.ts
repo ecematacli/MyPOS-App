@@ -4,10 +4,8 @@ import api from '../../../api';
 import { FormValues } from '../index';
 import { AuthTokenSettingContext } from '../../../contexts/AuthContext';
 import { NotificationsContext } from '../../../contexts/NotificationsContext';
-import useAsyncError from '../../../common/hooks/useAsyncError';
 
 export default () => {
-  const throwError = useAsyncError();
   const { saveAuthToken } = useContext(AuthTokenSettingContext);
   const { addNotification } = useContext(NotificationsContext);
 
@@ -28,7 +26,7 @@ export default () => {
           'There was a problem logging in. Check your email and password!';
         addNotification(errorMessage, 'error');
       } else {
-        throwError(new Error(e));
+        addNotification('Something went wrong!', 'error');
       }
     }
     return () => {

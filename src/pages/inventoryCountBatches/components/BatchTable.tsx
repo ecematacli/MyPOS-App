@@ -56,6 +56,7 @@ const BatchTable: React.FC<Props> = ({
               { name: 'Brand', rightAlign: true },
             ]}
             count={count}
+            hasDataToShow={formattedBatchData().length > 0}
             rows={{ type: 'batch', batches: formattedBatchData() }}
             page={page}
             rowsPerPage={rowsPerPage}

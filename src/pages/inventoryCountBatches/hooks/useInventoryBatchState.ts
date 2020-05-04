@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import api from '../../../api';
 import { BatchesData } from '../types';
-import useAsyncError from '../../../common/hooks/useAsyncError';
 
 export default () => {
   const [loading, setLoading] = useState(false);
@@ -11,7 +10,6 @@ export default () => {
     batches: [],
   });
   const [status, setStatus] = useState('opened');
-  const throwError = useAsyncError();
 
   const fetchCountBatches = async (page: number, rowsPerPage: number) => {
     try {
@@ -22,7 +20,7 @@ export default () => {
       setBatches(data);
       setLoading(false);
     } catch (e) {
-      throwError(e);
+      console.log(e);
     }
   };
 

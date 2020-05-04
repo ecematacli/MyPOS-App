@@ -8,7 +8,7 @@ import history from '../../../../history';
 import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
 const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
-  countBatch,
+  batch,
   batchProducts,
   query,
   setQuery,
@@ -40,7 +40,7 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
         <ArrowBackIcon className={classes.backArrow} />
       </span>
       <Typography className={classes.titleText}>
-        {countBatch && countBatch.name}
+        {batch && batch.name}
       </Typography>
     </div>
   );

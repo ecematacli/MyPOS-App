@@ -1,21 +1,19 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import api from '../../../api';
 import { BatchesProductsData, BatchProduct, BatchData } from '../types';
 import useLocalStorageState from '../../../common/hooks/useLocalStorageState';
+import { usePostRequest } from '../../../common/hooks/usePostRequest';
+import { useGetRequest } from '../../../common/hooks/useGetRequest';
+import { NotificationsContext } from '../../../contexts/NotificationsContext';
 
 type SetQuery = React.Dispatch<React.SetStateAction<string>>;
 
-export default (setQuery: SetQuery) => {
+export default (setQuery: SetQuery, batchId: string) => {
+  const { addNotification } = useContext(NotificationsContext);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [countBatch, setCountBatch] = useState<BatchData>(null);
-  const [batchProducts, setBatchProducts] = useState<BatchesProductsData>({
-    counted: 0,
-    uncounted: 0,
-    products: [],
-  });
 
   const [itemCount, setItemCount] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState<BatchProduct>(null);
@@ -23,19 +21,51 @@ export default (setQuery: SetQuery) => {
     BatchProduct[]
   >('lastCountedItems', []);
 
+  const [tabsValue, setTabsValue] = useState('all');
+  const [batchProducts, setBatchProducts] = useState<BatchesProductsData>({
+    counted: 0,
+    uncounted: 0,
+    products: [],
+  });
+
+  //API Requests
+  const { value: batch } = useGetRequest<BatchData>(
+    `/inventory-count/${batchId}`
+  );
+
+  const [postProductCount] = usePostRequest();
+
+  const fetchBatchesProducts = async (
+    id: number,
+    status = 'all',
+    page = 1,
+    rowsPerPage = 10
+  ) => {
+    try {
+      setLoading(true);
+      const response = await api.get(
+        `/inventory-count/${id}/products?page=${page}&rowsPerPage=${rowsPerPage}&status=${status}`
+      );
+      const data: BatchesProductsData = response.data;
+      setBatchProducts(data);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // Helper functions
+  const handleTabsChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    newValue: string
+  ) => {
+    setTabsValue(newValue);
+    fetchBatchesProducts(parseInt(batchId), newValue, page, rowsPerPage);
+  };
+
   const handleSelectedProduct = (product: BatchProduct) => {
     setSelectedProduct(product);
     setQuery(product.name);
-  };
-
-  const postProductCount = async (id: number, count: number) => {
-    const response = await api.post('/inventory-count/count-product', {
-      id,
-      count,
-    });
-
-    const data: BatchProduct = response.data;
-    return data;
   };
 
   const handleCountClick = async () => {
@@ -45,29 +75,26 @@ export default (setQuery: SetQuery) => {
     };
     setSelectedProduct(updatedSelectedProduct);
 
-    const updatedProduct = await postProductCount(
-      updatedSelectedProduct.id,
-      updatedSelectedProduct.counted
+    const [updatedProduct] = await postProductCount(
+      '/inventory-count/count-product',
+      {
+        id: updatedSelectedProduct.id,
+        count: updatedSelectedProduct.counted,
+      }
     );
 
-    const matchedPr = batchProducts.products.filter(
-      (p) => p.id === selectedProduct.id
-    );
-
-    if (matchedPr) {
-      const replacedProducts = batchProducts.products.map((product) =>
-        product.id === selectedProduct.id ? updatedProduct : product
-      );
-      setBatchProducts((batchProducts) => ({
-        ...batchProducts,
-        products: replacedProducts,
-      }));
-    } else {
-      setBatchProducts((batchProducts) => ({
-        ...batchProducts,
-        products: [...batchProducts.products, updatedProduct],
-      }));
+    if (!updatedProduct) {
+      return addNotification('Something went wrong!', 'error');
     }
+
+    const replacedProducts = batchProducts.products.map((product) =>
+      product.id === selectedProduct.id ? updatedProduct : product
+    );
+
+    setBatchProducts((batchProducts) => ({
+      ...batchProducts,
+      products: replacedProducts,
+    }));
 
     setLastCountedItems([updatedSelectedProduct, ...lastCountedItems]);
     setItemCount(1);
@@ -93,41 +120,25 @@ export default (setQuery: SetQuery) => {
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
     if (newPage + 1 < 0) return;
     setPage(newPage + 1);
-    // fetchCountBatches(newPage + 1, rowsPerPage);
-  };
-
-  const fetchBatchesProducts = async (id: number) => {
-    try {
-      setLoading(true);
-      const response = await api.get(
-        `/inventory-count/${id}/products?page=${page}&rowsPerPage=${rowsPerPage}`
-      );
-      const data: BatchesProductsData = response.data;
-      setBatchProducts(data);
-      setLoading(false);
-    } catch (e) {}
-  };
-
-  const fetchCountBatch = async (id: number) => {
-    try {
-      setLoading(true);
-      const response = await api.get(`/inventory-count/${id}`);
-      const data: BatchData = response.data;
-      setCountBatch(data);
-      setLoading(false);
-    } catch (e) {}
+    fetchBatchesProducts(
+      parseInt(batchId),
+      tabsValue,
+      newPage + 1,
+      rowsPerPage
+    );
   };
 
   return {
+    tabsValue,
+    handleTabsChange,
     loading,
     itemCount,
     setItemCount,
     handleCountClick,
     lastCountedItems,
     handleLastCountedItemDeleteClick,
-    countBatch,
+    batch,
     batchProducts,
-    fetchCountBatch,
     fetchBatchesProducts,
     page,
     handleChangePage,
