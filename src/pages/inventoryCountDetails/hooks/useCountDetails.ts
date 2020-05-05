@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 
 import api from '../../../api';
 import { BatchesProductsData, BatchProduct, BatchData } from '../types';
@@ -71,7 +71,7 @@ export default (setQuery: SetQuery, batchId: string) => {
   const handleCountClick = async () => {
     const updatedSelectedProduct = {
       ...selectedProduct,
-      counted: itemCount,
+      counted: selectedProduct.counted + itemCount,
     };
     setSelectedProduct(updatedSelectedProduct);
 
@@ -96,13 +96,45 @@ export default (setQuery: SetQuery, batchId: string) => {
       products: replacedProducts,
     }));
 
-    setLastCountedItems([updatedSelectedProduct, ...lastCountedItems]);
+    setLastCountedItems([
+      {
+        ...selectedProduct,
+        counted: itemCount,
+      },
+      ...lastCountedItems,
+    ]);
     setItemCount(1);
   };
 
-  const handleLastCountedItemDeleteClick = (itemId: number) => {
-    const updatedItems = lastCountedItems.filter((item) => item.id !== itemId);
-    setLastCountedItems(updatedItems);
+  const handleLastCountedItemDeleteClick = async (itemId: number) => {
+    const deletedItem = lastCountedItems.find((item) => item.id === itemId);
+
+    const matchedProduct = batchProducts.products.find(
+      (item) => item.id === itemId
+    );
+
+    const [updatedProduct] = await postProductCount(
+      '/inventory-count/count-product',
+      {
+        id: itemId,
+        count: matchedProduct.counted - deletedItem.counted,
+      }
+    );
+
+    if (!updatedProduct) {
+      return addNotification('Something went wrong!', 'error');
+    }
+
+    const replacedProducts = batchProducts.products.map((product) =>
+      product.id === selectedProduct.id ? updatedProduct : product
+    );
+
+    setBatchProducts((batchProducts) => ({
+      ...batchProducts,
+      products: replacedProducts,
+    }));
+
+    setLastCountedItems(lastCountedItems.filter((item) => item.id !== itemId));
   };
 
   const handleChangeRowsPerPage = ({
@@ -110,7 +142,8 @@ export default (setQuery: SetQuery, batchId: string) => {
   }: React.ChangeEvent<HTMLInputElement>) => {
     const numValue = parseInt(value);
     setRowsPerPage(numValue);
-    // fetchCountBatches(page, numValue);
+
+    fetchBatchesProducts(parseInt(batchId), tabsValue, page, numValue);
   };
 
   const handleChangePage = (

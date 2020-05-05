@@ -43,8 +43,6 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
     fetchBatchesProducts(parseInt(batchId));
   }, []);
 
-  console.log('tabsValue,', tabsValue);
-
   return (
     <Grid container>
       <Grid style={{ paddingTop: 24 }} item xs={9}>

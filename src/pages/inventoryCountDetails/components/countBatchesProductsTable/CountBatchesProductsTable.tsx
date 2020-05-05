@@ -20,7 +20,8 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
   const classes = styles();
   const { counted, uncounted, products } = batchProducts;
 
-  const getCountForTabStatus = () => {
+  const getCountForTabs = () => {
+    const { counted, uncounted } = batchProducts;
     if (tabsValue === 'all') {
       return counted + uncounted;
     } else if (tabsValue === 'counted') {
@@ -65,7 +66,7 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
           ]}
           hasDataToShow={products.length > 1}
           noDataMessage="No products to show"
-          count={getCountForTabStatus()}
+          count={getCountForTabs()}
           rows={{ type: 'batchProducts', batchProducts: products }}
           page={page}
           rowsPerPage={rowsPerPage}

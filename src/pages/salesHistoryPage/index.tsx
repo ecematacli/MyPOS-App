@@ -66,6 +66,10 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
   }: React.ChangeEvent<HTMLInputElement>) => {
     const numValue = parseInt(value);
     setRowsPerPage(numValue);
+
+    if (Math.ceil(count / rowsPerPage) === page) {
+      setPage(1);
+    }
     fetchSales(page, numValue, startDate, endDate);
   };
 
