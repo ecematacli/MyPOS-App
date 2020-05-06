@@ -29,7 +29,7 @@ const LastCountedItems: React.FC<LastCountedItemsProps> = ({
             <span className={classes.countNumber}>{counted}</span>
             <div>{name}</div>
           </div>
-          <span onClick={() => handleDeleteClick(id)}>
+          <span onClick={() => handleDeleteClick(id, i)}>
             <DeleteIcon className={classes.deleteIcon} />
           </span>
         </div>

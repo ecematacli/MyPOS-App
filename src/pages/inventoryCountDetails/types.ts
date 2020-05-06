@@ -72,5 +72,5 @@ export interface CountBatchesProductsTableProps {
 
 export interface LastCountedItemsProps {
   lastCountedItems: BatchProduct[];
-  handleDeleteClick: (id: number) => void;
+  handleDeleteClick: (id: number, i: number) => void;
 }

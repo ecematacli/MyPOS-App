@@ -29,6 +29,11 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   const onCountInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
+    if (value === '') {
+      setItemCount(value as any);
+      return;
+    }
+
     setItemCount(parseInt(value));
   };
 

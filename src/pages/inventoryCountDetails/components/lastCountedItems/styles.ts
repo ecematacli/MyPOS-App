@@ -31,6 +31,9 @@ export default makeStyles(({ spacing, palette }) => ({
   deleteIcon: {
     color: palette.secondary.dark,
     cursor: 'pointer',
+    '&:hover': {
+      color: palette.error.light,
+    },
   },
   imageDiv: {
     display: 'flex',

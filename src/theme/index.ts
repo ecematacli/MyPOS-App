@@ -9,7 +9,7 @@ const theme = {
       dark: '#3AA687',
     },
     secondary: { main: '#696969', light: '#eee', dark: '#7e7e7e' },
-    error: { main: pink['A400'] },
+    error: { main: pink['A400'], light: '#e6643c' },
     grayColors: [
       '#e7e7e7',
       '#f4f4f4',

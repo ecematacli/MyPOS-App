@@ -15,7 +15,7 @@ export default (setQuery: SetQuery, batchId: string) => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const [itemCount, setItemCount] = useState(1);
+  const [itemCount, setItemCount] = useState<number>(1);
   const [selectedProduct, setSelectedProduct] = useState<BatchProduct>(null);
   const [lastCountedItems, setLastCountedItems] = useLocalStorageState<
     BatchProduct[]
@@ -106,11 +106,16 @@ export default (setQuery: SetQuery, batchId: string) => {
     setItemCount(1);
   };
 
-  const handleLastCountedItemDeleteClick = async (itemId: number) => {
-    const deletedItem = lastCountedItems.find((item) => item.id === itemId);
+  const handleLastCountedItemDeleteClick = async (
+    itemId: number,
+    itemIdx: number
+  ) => {
+    const deletedItem = lastCountedItems.find(
+      (item, i) => item.id + i === itemId + itemIdx
+    );
 
     const matchedProduct = batchProducts.products.find(
-      (item) => item.id === itemId
+      (item) => item.id === deletedItem.id
     );
 
     const [updatedProduct] = await postProductCount(
@@ -126,7 +131,7 @@ export default (setQuery: SetQuery, batchId: string) => {
     }
 
     const replacedProducts = batchProducts.products.map((product) =>
-      product.id === selectedProduct.id ? updatedProduct : product
+      product.id === deletedItem.id ? updatedProduct : product
     );
 
     setBatchProducts((batchProducts) => ({
@@ -134,7 +139,9 @@ export default (setQuery: SetQuery, batchId: string) => {
       products: replacedProducts,
     }));
 
-    setLastCountedItems(lastCountedItems.filter((item) => item.id !== itemId));
+    setLastCountedItems(
+      lastCountedItems.filter((item, i) => item.id + i !== itemId + itemIdx)
+    );
   };
 
   const handleChangeRowsPerPage = ({
