@@ -53,6 +53,9 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   countBtn: {
     marginRight: spacing(1),
+    '&:disabled': {
+      backgroundColor: palette.grayColors[13],
+    },
     backgroundColor: palette.primary.main,
     '&:hover': {
       backgroundColor: palette.primary.light,

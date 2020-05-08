@@ -34,6 +34,7 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
     rowsPerPage,
     handleChangeRowsPerPage,
     selectedProduct,
+    countCompletedProducts,
     handleSelectedProduct,
   } = useCountDetails(setQuery, batchId);
 
@@ -54,6 +55,7 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
           setQuery={setQuery}
           countInputRef={countInputRef}
           itemCount={itemCount}
+          selectedProduct={selectedProduct}
           setItemCount={setItemCount}
           handleCountClick={handleCountClick}
         />
@@ -69,6 +71,7 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
             handleChangePage={handleChangePage}
             handleChangeRowsPerPage={handleChangeRowsPerPage}
             selectedProductRow={selectedProduct}
+            countCompletedRows={countCompletedProducts}
             handleSelectedRow={handleSelectedProduct}
             countInputRef={countInputRef}
           />

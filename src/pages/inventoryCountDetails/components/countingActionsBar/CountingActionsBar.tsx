@@ -15,6 +15,7 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   countInputRef,
   itemCount,
   setItemCount,
+  selectedProduct,
   handleCountClick,
 }) => {
   const classes = styles();
@@ -65,6 +66,7 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
         onChange={onCountInputChange}
       />
       <Button
+        disabled={!selectedProduct}
         onClick={handleCountClick}
         classes={{ root: classes.countBtnRoot }}
         className={classes.countBtn}>

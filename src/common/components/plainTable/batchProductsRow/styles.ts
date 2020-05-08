@@ -1,5 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+interface StyleProps {
+  counted: number;
+  expected: number;
+}
 export default makeStyles(({ spacing, palette }) => ({
   tableBodyRow: {
     height: spacing(10),
@@ -8,6 +12,8 @@ export default makeStyles(({ spacing, palette }) => ({
       cursor: 'pointer',
       borderBottom: '1px solid #e9e9e9',
       height: 'auto',
+      color: ({ counted, expected }: StyleProps) =>
+        counted === expected ? `${palette.primary.main}` : 'unset',
       maxHeight: spacing(10),
     },
   },

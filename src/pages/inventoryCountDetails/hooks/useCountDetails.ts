@@ -17,6 +17,9 @@ export default (setQuery: SetQuery, batchId: string) => {
 
   const [itemCount, setItemCount] = useState<number>(1);
   const [selectedProduct, setSelectedProduct] = useState<BatchProduct>(null);
+  const [countCompletedProducts, setCountCompletedProducts] = useState<{
+    [id: string]: BatchProduct;
+  }>({});
   const [lastCountedItems, setLastCountedItems] = useLocalStorageState<
     BatchProduct[]
   >('lastCountedItems', []);
@@ -69,17 +72,15 @@ export default (setQuery: SetQuery, batchId: string) => {
   };
 
   const handleCountClick = async () => {
-    const updatedSelectedProduct = {
-      ...selectedProduct,
-      counted: selectedProduct.counted + itemCount,
-    };
-    setSelectedProduct(updatedSelectedProduct);
+    const matchedProduct = batchProducts.products.find(
+      (item) => item.id === selectedProduct.id
+    );
 
     const [updatedProduct] = await postProductCount(
       '/inventory-count/count-product',
       {
-        id: updatedSelectedProduct.id,
-        count: updatedSelectedProduct.counted,
+        id: matchedProduct.id,
+        count: matchedProduct.counted && matchedProduct.counted + itemCount,
       }
     );
 
@@ -90,6 +91,8 @@ export default (setQuery: SetQuery, batchId: string) => {
     const replacedProducts = batchProducts.products.map((product) =>
       product.id === selectedProduct.id ? updatedProduct : product
     );
+
+    setSelectedProduct(updatedProduct);
 
     setBatchProducts((batchProducts) => ({
       ...batchProducts,
@@ -185,6 +188,7 @@ export default (setQuery: SetQuery, batchId: string) => {
     rowsPerPage,
     handleChangeRowsPerPage,
     selectedProduct,
+    countCompletedProducts,
     handleSelectedProduct,
   };
 };

@@ -8,6 +8,7 @@ import { BatchProduct } from '../types';
 interface Props {
   row: BatchProduct;
   selectedRow: BatchProduct;
+  countCompletedRows: { [id: string]: BatchProduct };
   handleSelectedRow: (product: BatchProduct) => void;
   countInputRef: React.MutableRefObject<HTMLInputElement>;
 }
@@ -18,7 +19,7 @@ const BatchProductsRow: React.FC<Props> = ({
   handleSelectedRow,
   countInputRef,
 }) => {
-  const classes = styles();
+  const classes = styles(row);
 
   const onRowClick = () => {
     countInputRef.current.focus();

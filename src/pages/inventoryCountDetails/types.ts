@@ -45,6 +45,7 @@ export interface CountingActionsBarProps {
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   countInputRef: CountInputRef;
   itemCount: number;
+  selectedProduct: BatchProduct;
   setItemCount: React.Dispatch<React.SetStateAction<number>>;
   handleCountClick: () => void;
 }
@@ -61,6 +62,7 @@ export interface CountBatchesProductsTableProps {
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => void;
   selectedProductRow: BatchProduct;
+  countCompletedRows: { [id: string]: BatchProduct };
   handleSelectedRow: (product: BatchProduct) => void;
   countInputRef: CountInputRef;
   tabsValue: string;

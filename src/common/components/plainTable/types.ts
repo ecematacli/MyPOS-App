@@ -14,6 +14,7 @@ export interface PlainTableProps {
     newPage: number
   ) => void;
   selectedRow?: BatchProduct;
+  countCompletedRows: { [id: string]: BatchProduct };
   handleSelectedRow?: (product: BatchProduct) => void;
   countInputRef?: React.MutableRefObject<HTMLInputElement>;
   itemCount?: number;
