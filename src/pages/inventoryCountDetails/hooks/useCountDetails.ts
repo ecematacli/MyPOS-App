@@ -80,9 +80,14 @@ export default (setQuery: SetQuery, batchId: string) => {
       '/inventory-count/count-product',
       {
         id: matchedProduct.id,
-        count: matchedProduct.counted && matchedProduct.counted + itemCount,
+        count: (matchedProduct.counted && matchedProduct.counted) + itemCount,
       }
     );
+
+    setCountCompletedProducts({
+      ...countCompletedProducts,
+      [selectedProduct.id]: selectedProduct,
+    });
 
     if (!updatedProduct) {
       return addNotification('Something went wrong!', 'error');
@@ -188,6 +193,7 @@ export default (setQuery: SetQuery, batchId: string) => {
     rowsPerPage,
     handleChangeRowsPerPage,
     selectedProduct,
+    setSelectedProduct,
     countCompletedProducts,
     handleSelectedProduct,
   };

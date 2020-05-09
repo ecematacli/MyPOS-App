@@ -1,6 +1,7 @@
 import React from 'react';
 import { TableRow, TableCell } from '@material-ui/core';
 import AdjustIcon from '@material-ui/icons/Adjust';
+import DoneIcon from '@material-ui/icons/Done';
 
 import styles from './styles';
 import { BatchProduct } from '../types';
@@ -16,6 +17,7 @@ interface Props {
 const BatchProductsRow: React.FC<Props> = ({
   row,
   selectedRow,
+  countCompletedRows,
   handleSelectedRow,
   countInputRef,
 }) => {
@@ -45,7 +47,9 @@ const BatchProductsRow: React.FC<Props> = ({
         {name} / {variation}
       </TableCell>
       <TableCell align="right">{expected}</TableCell>
-      <TableCell align="right">{counted ? counted : '-'}</TableCell>
+      <TableCell align="right">
+        {counted || counted === 0 ? counted : '-'}
+      </TableCell>
     </TableRow>
   );
 };

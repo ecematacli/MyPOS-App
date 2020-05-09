@@ -16,7 +16,7 @@ export const useBatchProductsSearchBarState = () => {
 
   const onProductSelect = (product) => {
     // addProduct(product);
-    setQuery('');
+    // setQuery('');
     setOpen(false);
     setSearchResults([]);
   };
@@ -26,7 +26,9 @@ export const useBatchProductsSearchBarState = () => {
   //   const fetchProducts = async () => {
   //     try {
   //       setLoading(true);
-  //       const response = await api.get(`/products/search/?q=${query}`);
+  //       const response = await api.get(
+  //         `inventory-count/4/search-products?${query}`
+  //       );
   //       setSearchResults(response.data);
   //       setProductNotFound(response.data.length === 0);
   //       setLoading(false);

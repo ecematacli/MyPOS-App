@@ -16,12 +16,15 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   itemCount,
   setItemCount,
   selectedProduct,
+  setSelectedProduct,
   handleCountClick,
 }) => {
   const classes = styles();
   const [checked, setChecked] = useState(false);
 
   const { products } = batchProducts;
+
+  console.log('selected product', selectedProduct);
 
   const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);

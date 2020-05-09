@@ -10,7 +10,7 @@ export interface PlainTableProps {
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangePage: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
   ) => void;
   selectedRow?: BatchProduct;

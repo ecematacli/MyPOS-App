@@ -15,7 +15,7 @@ interface Props {
   onClose: () => void;
   options: any[];
   loading: boolean;
-  onProductChange: (product: Product) => void;
+  onProductChange: (product: any) => void;
   query: string;
   onQueryChange: React.Dispatch<React.SetStateAction<string>>;
   isUsedOnSalesPage?: boolean;

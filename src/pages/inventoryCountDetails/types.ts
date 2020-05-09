@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 export interface BatchProduct {
@@ -42,11 +43,12 @@ export interface CountingActionsBarProps {
   batch: BatchData;
   batchProducts: BatchesProductsData;
   query: string;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  setQuery: Dispatch<SetStateAction<string>>;
   countInputRef: CountInputRef;
   itemCount: number;
   selectedProduct: BatchProduct;
-  setItemCount: React.Dispatch<React.SetStateAction<number>>;
+  setSelectedProduct: Dispatch<SetStateAction<BatchProduct>>;
+  setItemCount: Dispatch<SetStateAction<number>>;
   handleCountClick: () => void;
 }
 
