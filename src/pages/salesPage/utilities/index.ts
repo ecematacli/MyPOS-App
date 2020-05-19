@@ -15,3 +15,7 @@ export const calculateTotalDiscount = (products: Product[]): number =>
     if (!discountPrice) return acc + 0;
     return acc + (price - discountPrice) * qty;
   }, 0);
+
+export const calculatePercentage = (total: number, discount: number) => {
+  return (discount / total) * 100;
+};

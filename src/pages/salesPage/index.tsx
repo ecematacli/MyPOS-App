@@ -27,7 +27,7 @@ interface SalesProps {
 const SalesPage: React.FC<SalesProps> = ({
   completeSale,
   fetchBrands,
-  fetchCategories
+  fetchCategories,
 }) => {
   const classes = styles();
   const inputRef = useRef<HTMLInputElement>();
@@ -37,13 +37,14 @@ const SalesPage: React.FC<SalesProps> = ({
     deleteProduct,
     decreaseProductQuantity,
     increaseProductQuantity,
-    editProductPrice,
+    editProductField,
     createProduct,
     discardSale,
     total,
     tax,
     discount,
-    handleDiscountChange
+    percentageDiscount,
+    handleDiscountChange,
   } = useSalesState();
 
   useEffect(() => {
@@ -66,8 +67,7 @@ const SalesPage: React.FC<SalesProps> = ({
           <div className={classes.discardSaleBtnHolder}>
             <IconButton
               classes={{ root: classes.discardIconBtn }}
-              onClick={discardSale}
-            >
+              onClick={discardSale}>
               <DeleteForeverIcon className={classes.discardSaleBtn} />
               <Typography>Discard Sale</Typography>
             </IconButton>
@@ -84,8 +84,7 @@ const SalesPage: React.FC<SalesProps> = ({
           lg={6}
           xl={5}
           className={classes.searchBarGridItem}
-          zeroMinWidth
-        >
+          zeroMinWidth>
           <ProductSearchBar
             addProduct={addProduct}
             createProduct={createProduct}
@@ -103,17 +102,17 @@ const SalesPage: React.FC<SalesProps> = ({
           lg={6}
           xl={5}
           className={classes.posTableGridItem}
-          zeroMinWidth
-        >
+          zeroMinWidth>
           <PosTableRight
             products={products}
             deleteProduct={deleteProduct}
             decreaseProductQuantity={decreaseProductQuantity}
             increaseProductQuantity={increaseProductQuantity}
-            editPriceLocalStorageState={editProductPrice}
+            editProductFieldLocalStorageState={editProductField}
             total={total}
             tax={tax}
             discount={discount}
+            percentageDiscount={percentageDiscount}
             handleDiscountChange={handleDiscountChange}
             completeSale={completeSale}
             discardSale={discardSale}
@@ -127,5 +126,5 @@ const SalesPage: React.FC<SalesProps> = ({
 export default connect(null, {
   completeSale,
   fetchBrands,
-  fetchCategories
+  fetchCategories,
 })(SalesPage);

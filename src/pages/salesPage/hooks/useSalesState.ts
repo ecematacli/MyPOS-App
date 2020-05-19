@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import {
   calculateTotal,
   calculateTotalTax,
-  calculateTotalDiscount
+  calculateTotalDiscount,
+  calculatePercentage,
 } from '../utilities/';
 import api from '../../../api';
 import { Product } from '../../../redux/products/types';
@@ -14,13 +15,13 @@ import useLocalStorageReducerState from '../../../common/hooks/useLocalStorageRe
 const productsReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ActionTypes.Add: {
-      const existingPToAdd = state.find(p => p.id === action.payload.id);
+      const existingPToAdd = state.find((p) => p.id === action.payload.id);
       if (existingPToAdd) {
-        return state.map(product =>
+        return state.map((product) =>
           product.id === action.payload.id
             ? {
                 ...product,
-                qty: product.qty + 1
+                qty: product.qty + 1,
               }
             : product
         );
@@ -29,24 +30,24 @@ const productsReducer = (state: State, action: Action): State => {
     }
 
     case ActionTypes.Delete:
-      return state.filter(p => p.id !== action.payload.id);
+      return state.filter((p) => p.id !== action.payload.id);
 
     case ActionTypes.DecreaseQuantity: {
-      const existingPToDecrease = state.find(p => p.id === action.payload.id);
+      const existingPToDecrease = state.find((p) => p.id === action.payload.id);
 
       if (existingPToDecrease.qty === 1) {
-        return state.filter(p => p.id !== action.payload.id);
+        return state.filter((p) => p.id !== action.payload.id);
       }
-      return state.map(product =>
+      return state.map((product) =>
         product.id === action.payload.id
           ? { ...product, qty: product.qty - 1 }
           : product
       );
     }
     case ActionTypes.IncreaseQuantity: {
-      const existingPToIncrease = state.find(p => p.id === action.payload.id);
+      const existingPToIncrease = state.find((p) => p.id === action.payload.id);
       if (existingPToIncrease) {
-        return state.map(product =>
+        return state.map((product) =>
           product.id === action.payload.id
             ? { ...product, qty: product.qty + 1 }
             : product
@@ -55,10 +56,10 @@ const productsReducer = (state: State, action: Action): State => {
         return state;
       }
     }
-    case ActionTypes.EditProductPrice: {
-      return state.map(p =>
+    case ActionTypes.EditProductField: {
+      return state.map((p) =>
         p.id === action.payload.id
-          ? { ...p, price: action.payload.newPrice }
+          ? { ...p, [action.payload.field]: action.payload.newValue }
           : p
       );
     }
@@ -75,6 +76,7 @@ export default (storage?: any) => {
   const [total, setTotal] = useState<number>(0);
   const [tax, setTax] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
+  const [percentageDiscount, setPercentageDiscount] = useState(0);
 
   const [products, dispatch] = useLocalStorageReducerState(
     'products',
@@ -86,35 +88,35 @@ export default (storage?: any) => {
   const addProduct = (product: Product) => {
     dispatch({
       type: ActionTypes.Add,
-      payload: product
+      payload: product,
     });
   };
 
   const deleteProduct = (id: number) => {
     dispatch({
       type: ActionTypes.Delete,
-      payload: { id }
+      payload: { id },
     });
   };
 
   const decreaseProductQuantity = (product: Product) => {
     dispatch({
       type: ActionTypes.DecreaseQuantity,
-      payload: product
+      payload: product,
     });
   };
 
   const increaseProductQuantity = (product: Product) => {
     dispatch({
       type: ActionTypes.IncreaseQuantity,
-      payload: product
+      payload: product,
     });
   };
 
-  const editProductPrice = (id: number, newPrice: number) => {
+  const editProductField = (id: number, field: string, newValue: number) => {
     dispatch({
-      type: ActionTypes.EditProductPrice,
-      payload: { id, newPrice }
+      type: ActionTypes.EditProductField,
+      payload: { id, field, newValue },
     });
   };
 
@@ -133,7 +135,7 @@ export default (storage?: any) => {
 
   const discardSale = () => {
     dispatch({
-      type: ActionTypes.DiscardSale
+      type: ActionTypes.DiscardSale,
     });
   };
 
@@ -153,10 +155,17 @@ export default (storage?: any) => {
     }
   };
 
+  const applyDiscount = (type: string, discount: string) => {};
+
+  console.log('percentage discount', percentageDiscount);
   useEffect(() => {
+    const totalAmount = calculateTotal(products);
+    const totalDiscount = calculateTotalDiscount(products);
+
     setTax(calculateTotalTax(products));
-    setTotal(calculateTotal(products));
-    setDiscount(calculateTotalDiscount(products));
+    setTotal(totalAmount);
+    setDiscount(totalDiscount);
+    setPercentageDiscount(calculatePercentage(totalAmount, totalDiscount));
   }, [products]);
 
   return {
@@ -165,12 +174,13 @@ export default (storage?: any) => {
     addProduct,
     decreaseProductQuantity,
     increaseProductQuantity,
-    editProductPrice,
+    editProductField,
     createProduct,
     discardSale,
     total,
     tax,
     discount,
-    handleDiscountChange
+    percentageDiscount,
+    handleDiscountChange,
   };
 };

@@ -7,20 +7,20 @@ type TableHead = Head[];
 
 export const TABLE_HEAD: TableHead = [
   {
-    label: 'Product'
+    label: 'Product',
   },
   {
-    label: 'Quantity'
+    label: 'Quantity',
   },
   {
     label: 'Price',
-    numeric: true
+    numeric: true,
   },
   {
     label: 'Discount Price',
-    numeric: true
+    numeric: true,
   },
   {
-    label: ''
-  }
+    label: '',
+  },
 ];

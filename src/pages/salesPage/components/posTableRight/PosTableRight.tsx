@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { connect } from 'react-redux';
 import {
   Table,
@@ -20,18 +20,21 @@ import useAddPriceInputState from './useAddPriceInputState';
 import { editProduct } from '../../../../redux/products/productsActions';
 import { TABLE_HEAD } from './tableHead';
 import { currencyFormatter } from '../../../../common/utils';
-import EditPricePopover from '../editPricePopover/EditPricePopover';
+import { capitalizeFirstLetter } from '../../../../common/utils';
+import EditPricePopover from '../editProductFieldPopover/EditProductFieldPopover';
 import Total from '../total/Total';
+import clsx from 'clsx';
 
 const PosTableRight: React.FC<PosTableProps> = ({
   products,
   deleteProduct,
   decreaseProductQuantity,
   increaseProductQuantity,
-  editPriceLocalStorageState,
+  editProductFieldLocalStorageState,
   total,
   tax,
   discount,
+  percentageDiscount,
   handleDiscountChange,
   completeSale,
   discardSale,
@@ -39,41 +42,51 @@ const PosTableRight: React.FC<PosTableProps> = ({
 }) => {
   const classes = styles();
   const { addNotification } = useContext(NotificationsContext);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [id, setId] = useState<number | null>(null);
-  const [editedProduct, setEditedProduct] = useState<Product | null>(null);
+
   const {
     priceValue,
     handlePriceChange,
-    resetInput,
-    editPriceValue,
-  } = useAddPriceInputState({ id, products, editProduct, addNotification });
+    discountedPriceValue,
+    handleDiscountedPriceChange,
+    handleEditClick,
+    handleCompleteEditClick,
+    anchorEl,
+    handleClose,
+  } = useAddPriceInputState({
+    products,
+    editProduct,
+    editProductFieldLocalStorageState,
+    addNotification,
+  });
 
-  const handleEditPriceClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    id: number,
-    product: Product
-  ) => {
-    setAnchorEl(event.currentTarget);
-    setId(id);
-    setEditedProduct(product);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-
-  const handleCompleteEditClick = () => {
-    if (priceValue && editedProduct.price !== priceValue) {
-      editPriceValue(id);
-      editPriceLocalStorageState(id, priceValue);
-      setId(null);
-    }
-    resetInput();
-    handleClose();
-  };
+  const renderEditPopover = (
+    field: string,
+    title: string,
+    value: number,
+    handleValue: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    label?: string
+  ) => (
+    <EditPricePopover
+      data-test="input-box"
+      title={title}
+      field={field}
+      open={Boolean(anchorEl && anchorEl[field])}
+      anchorEl={anchorEl ? anchorEl[field] : null}
+      inputValue={value}
+      handleInputChange={handleValue}
+      handleClose={() => handleClose(field)}
+      handleCompleteEditClick={() => handleCompleteEditClick(field, value)}
+      popoverContentElement={
+        <div
+          className={clsx(
+            classes[field === 'discountPrice' && 'discounted'],
+            classes.popoverTitle
+          )}>
+          {!label ? capitalizeFirstLetter(field) : label}
+        </div>
+      }
+    />
+  );
 
   const renderTableHead = () =>
     TABLE_HEAD.map(({ label, numeric }, i) => (
@@ -120,23 +133,35 @@ const PosTableRight: React.FC<PosTableProps> = ({
           <TableCell align="right">
             <Fragment>
               <div
-                className={classes.noPrice}
-                onClick={(e) => handleEditPriceClick(e, id, product)}>
+                className={classes.editableAmount}
+                onClick={(e) => handleEditClick(e, 'price', id, product)}>
                 {currencyFormatter(price)}
               </div>
-              <EditPricePopover
-                data-test="input-box"
-                open={open}
-                anchorEl={anchorEl}
-                priceValue={priceValue}
-                handlePriceChange={handlePriceChange}
-                handleClose={handleClose}
-                handleCompleteEditClick={handleCompleteEditClick}
-              />
+              {renderEditPopover(
+                'price',
+                'Add amount for price',
+                priceValue,
+                handlePriceChange
+              )}
             </Fragment>
           </TableCell>
           <TableCell align="right">
-            {discountPrice ? currencyFormatter(discountPrice) : '-'}
+            <Fragment>
+              <div
+                className={classes.editableAmount}
+                onClick={(e) =>
+                  handleEditClick(e, 'discountPrice', id, product)
+                }>
+                {discountPrice ? currencyFormatter(discountPrice) : '-'}
+              </div>
+              {renderEditPopover(
+                'discountPrice',
+                'Add amount for discounted price',
+                discountedPriceValue,
+                handleDiscountedPriceChange,
+                'Discounted Price'
+              )}
+            </Fragment>
           </TableCell>
           <TableCell colSpan={3} align="right">
             <IconButton onClick={() => deleteProduct(product.id)}>
@@ -165,9 +190,14 @@ const PosTableRight: React.FC<PosTableProps> = ({
         total={total}
         tax={tax}
         discount={discount}
+        percentageDiscount={percentageDiscount}
         handleDiscountChange={handleDiscountChange}
         completeSale={completeSale}
         discardSale={discardSale}
+        anchorEl={anchorEl}
+        handleEditClick={handleEditClick}
+        handleCompleteEditClick={handleCompleteEditClick}
+        handleClose={handleClose}
       />
     </Paper>
   );

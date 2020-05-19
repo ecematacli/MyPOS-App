@@ -1,9 +1,23 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+import { Props } from '../editProductFieldPopover/EditProductFieldPopover';
+
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   popoverContentDiv: {
-    width: 250,
-    height: 190,
+    width: ({ field }: Props) => {
+      if (field === 'discountPrice') {
+        return 290;
+      } else {
+        return 250;
+      }
+    },
+    height: ({ field }: Props) => {
+      if (field === 'discountPrice') {
+        return 200;
+      } else {
+        return 190;
+      }
+    },
     color: palette.secondary.main,
   },
   addPriceCaption: {
@@ -15,11 +29,12 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   addPriceDiv: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: spacing(4),
+    paddingLeft: spacing(2),
+    paddingRight: spacing(2),
   },
-  title: { fontSize: spacing(2), color: palette.secondary.main },
   smallScreenFont: {
     [breakpoints.down('sm')]: {
       fontSize: spacing(1.7),

@@ -14,15 +14,21 @@ export type EditProductAction = ({
   addNotification,
 }: EditActionArgs) => Promise<void>;
 
+type EditProductFieldLocalStorageState = (
+  id: number,
+  field: string,
+  newValue: number
+) => void;
 export interface PosTableProps {
   products: Product[];
   deleteProduct: (id: number) => void;
   decreaseProductQuantity: (product: Product) => void;
   increaseProductQuantity: (product: Product) => void;
-  editPriceLocalStorageState: (id: number, newPrice: number) => void;
+  editProductFieldLocalStorageState: EditProductFieldLocalStorageState;
   total: number;
   tax: number;
   discount: number;
+  percentageDiscount: number;
   handleDiscountChange: (e: string) => void;
   completeSale: (
     products: Product[],
@@ -36,8 +42,8 @@ export interface PosTableProps {
 }
 
 export interface Args {
-  id: number;
   products: Product[];
   editProduct: EditProductAction;
   addNotification: (message: string, severity: string) => void;
+  editProductFieldLocalStorageState: EditProductFieldLocalStorageState;
 }

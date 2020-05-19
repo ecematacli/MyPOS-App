@@ -26,6 +26,13 @@ export const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+export const capitalizeFirstLetter = (str: string) =>
+  str
+    .toLowerCase()
+    .split(' ')
+    .map((word) => capitalize(word))
+    .join(' ');
+
 export const totalQty = (products: Product[]) =>
   products.reduce((acc: number, item: Product) => {
     return acc + item.qty;

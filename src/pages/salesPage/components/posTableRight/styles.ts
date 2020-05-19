@@ -23,11 +23,21 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     },
   },
   firstCell: { paddingLeft: spacing(2.8) },
-  noPrice: {
-    color: palette.secondary.main,
+  editableAmount: {
+    color: palette.grayColors[3],
     textDecoration: 'underline',
     cursor: 'pointer',
     fontWeight: 'bold',
+  },
+  popoverTitle: {
+    fontSize: spacing(2),
+    color: palette.secondary.main,
+    [breakpoints.down('sm')]: {
+      fontSize: spacing(1.7),
+    },
+  },
+  discounted: {
+    width: 40,
   },
   quantity: {
     display: 'flex',

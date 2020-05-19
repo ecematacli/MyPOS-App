@@ -8,7 +8,7 @@ export enum ActionTypes {
   DecreaseQuantity,
   IncreaseQuantity,
   DiscardSale,
-  EditProductPrice
+  EditProductField,
 }
 
 export interface NewProductData {
@@ -51,8 +51,8 @@ export interface IncreaseQtyAction {
 }
 
 export interface EditPriceAction {
-  type: ActionTypes.EditProductPrice;
-  payload: { id: number; newPrice: number };
+  type: ActionTypes.EditProductField;
+  payload: { id: number; field: string; newValue: number };
 }
 
 export interface DiscardSaleAction {
