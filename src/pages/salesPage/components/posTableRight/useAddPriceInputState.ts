@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Args } from './types';
 import { Product } from '../../../../redux/products/types';
 import { capitalizeFirstLetter } from '../../../../common/utils';
+import { calculatePercentage, calculateTotalDiscount } from '../../utilities';
 
 export default ({
   products,
@@ -80,14 +81,22 @@ export default ({
     });
   };
 
-  const handleCompleteEditClick = (field: string, inputValue: number) => {
+  const onCompletePriceEditClick = (field: string, inputValue: number) => {
     if (inputValue && editedProduct[field] !== inputValue) {
       editProductValue(id, field, inputValue);
-      editProductFieldLocalStorageState(id, field, inputValue);
       setId(null);
+      editProductFieldLocalStorageState(id, field, inputValue);
     }
     resetInputValue(field);
     handleClose(field);
+  };
+
+  const onCompleteDiscountEditClick = (
+    products: Product[],
+    total: number,
+    discount: number
+  ) => {
+    // calculatePercentage, calculateTotalDiscount
   };
 
   useEffect(() => {
@@ -103,7 +112,8 @@ export default ({
     handleDiscountedPriceChange,
     handleEditClick,
     handleClose,
-    handleCompleteEditClick,
+    onCompletePriceEditClick,
+    onCompleteDiscountEditClick,
     anchorEl,
   };
 };

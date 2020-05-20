@@ -147,17 +147,14 @@ export default (storage?: any) => {
     if (discount === '') {
       setDiscount(0);
     } else if (
-      products.length &&
-      parseInt(discount) >= 0 &&
-      parseInt(discount) < total
+      products.length
+      // parseInt(discount) >= 0 &&
+      // parseInt(discount) < total
     ) {
       setDiscount(isNaN(Number(discount)) ? 0 : parseFloat(discount));
     }
   };
 
-  const applyDiscount = (type: string, discount: string) => {};
-
-  console.log('percentage discount', percentageDiscount);
   useEffect(() => {
     const totalAmount = calculateTotal(products);
     const totalDiscount = calculateTotalDiscount(products);

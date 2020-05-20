@@ -22,6 +22,10 @@ export interface TotalProps {
     id?: number,
     product?: Product
   ) => void;
-  handleCompleteEditClick: (field: string, inputValue: number) => void;
+  onCompleteDiscountEditClick: (
+    products: Product[],
+    total: number,
+    discount: number
+  ) => void;
   handleClose: (field: string) => void;
 }

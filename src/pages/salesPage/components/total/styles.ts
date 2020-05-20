@@ -22,16 +22,20 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  discountType: {
+  discount: {
     color: palette.grayColors[3],
+    textDecoration: 'underline',
     fontWeight: 'bold',
-    marginRight: 5,
-    marginLeft: 5,
+    cursor: 'pointer',
   },
-  discountForm: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  discountType: {
+    [breakpoints.down('sm')]: {
+      fontSize: 14,
+    },
+  },
+  percentageSign: {
+    fontWeight: 'bold',
+    paddingRight: 1.2,
   },
   formControl: {
     width: 65,

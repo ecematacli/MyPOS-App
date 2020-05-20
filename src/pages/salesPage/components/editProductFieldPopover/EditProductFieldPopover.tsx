@@ -8,7 +8,7 @@ import {
   PopoverOrigin,
 } from '@material-ui/core';
 
-import styles from '../editPricePopover/styles';
+import styles from './styles';
 import CustomInput from '../../../../common/components/customInput';
 
 export interface Props {
@@ -23,6 +23,7 @@ export interface Props {
   field: string;
   anchorOrigin?: PopoverOrigin;
   transformOrigin?: PopoverOrigin;
+  currencySign?: boolean;
 }
 
 const EditPricePopover: React.FC<Props> = (props) => {
@@ -38,6 +39,7 @@ const EditPricePopover: React.FC<Props> = (props) => {
     popoverContentElement,
     anchorOrigin,
     transformOrigin,
+    currencySign,
   } = props;
 
   const renderAnchorOrigin: PopoverOrigin = anchorOrigin
@@ -62,7 +64,9 @@ const EditPricePopover: React.FC<Props> = (props) => {
         {popoverContentElement}
         <CustomInput
           startAdornment={
-            <InputAdornment position="start">&#x20BA;</InputAdornment>
+            currencySign && (
+              <InputAdornment position="start">&#x20BA;</InputAdornment>
+            )
           }
           type="number"
           className={classes.numberSpinner}
@@ -76,7 +80,6 @@ const EditPricePopover: React.FC<Props> = (props) => {
       </div>
       <div className={classes.btnDiv}>
         <Button
-          style={{ marginRight: -5 }}
           className={classes.actionBtn}
           onClick={() => handleClose()}
           color="secondary">

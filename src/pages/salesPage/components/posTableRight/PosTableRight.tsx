@@ -1,5 +1,6 @@
 import React, { Fragment, useContext } from 'react';
 import { connect } from 'react-redux';
+import clsx from 'clsx';
 import {
   Table,
   TableCell,
@@ -23,7 +24,6 @@ import { currencyFormatter } from '../../../../common/utils';
 import { capitalizeFirstLetter } from '../../../../common/utils';
 import EditPricePopover from '../editProductFieldPopover/EditProductFieldPopover';
 import Total from '../total/Total';
-import clsx from 'clsx';
 
 const PosTableRight: React.FC<PosTableProps> = ({
   products,
@@ -49,7 +49,8 @@ const PosTableRight: React.FC<PosTableProps> = ({
     discountedPriceValue,
     handleDiscountedPriceChange,
     handleEditClick,
-    handleCompleteEditClick,
+    onCompletePriceEditClick,
+    onCompleteDiscountEditClick,
     anchorEl,
     handleClose,
   } = useAddPriceInputState({
@@ -75,7 +76,8 @@ const PosTableRight: React.FC<PosTableProps> = ({
       inputValue={value}
       handleInputChange={handleValue}
       handleClose={() => handleClose(field)}
-      handleCompleteEditClick={() => handleCompleteEditClick(field, value)}
+      currencySign
+      handleCompleteEditClick={() => onCompletePriceEditClick(field, value)}
       popoverContentElement={
         <div
           className={clsx(
@@ -196,7 +198,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
         discardSale={discardSale}
         anchorEl={anchorEl}
         handleEditClick={handleEditClick}
-        handleCompleteEditClick={handleCompleteEditClick}
+        onCompleteDiscountEditClick={onCompleteDiscountEditClick}
         handleClose={handleClose}
       />
     </Paper>
