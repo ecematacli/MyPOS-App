@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 
-import useAddPriceInputState from '../useAddPriceInputState';
+import useEditProductFieldState from '../useEditProductFieldState';
 import { Args, EditProductAction } from '../types';
 
 import { createTestProduct } from '../../../../../testUtils';
@@ -25,9 +25,9 @@ beforeEach(() => {
   };
 });
 
-describe('[useProductFields Hook]', () => {
+describe('[useEditProductFieldState Hook]', () => {
   test('calls handleInputChange function with numbers and sets input values correctly', () => {
-    const { result } = renderHook(() => useAddPriceInputState(args));
+    const { result } = renderHook(() => useEditProductFieldState(args));
 
     act(() =>
       result.current.handlePriceChange({
@@ -47,7 +47,7 @@ describe('[useProductFields Hook]', () => {
   });
 
   test('calls handleInputChange function with non-numeric characters and sets input value to 0', () => {
-    const { result } = renderHook(() => useAddPriceInputState(args));
+    const { result } = renderHook(() => useEditProductFieldState(args));
 
     act(() =>
       result.current.handlePriceChange({
@@ -67,7 +67,7 @@ describe('[useProductFields Hook]', () => {
   });
 
   test('calls resetInput function and resets input value', () => {
-    const { result } = renderHook(() => useAddPriceInputState(args));
+    const { result } = renderHook(() => useEditProductFieldState(args));
 
     act(() => result.current.resetInput());
 
@@ -75,7 +75,7 @@ describe('[useProductFields Hook]', () => {
   });
 
   test('calls editProduct action with the right arguments', () => {
-    const { result } = renderHook(() => useAddPriceInputState(args));
+    const { result } = renderHook(() => useEditProductFieldState(args));
 
     act(() =>
       result.current.handlePriceChange({
@@ -100,7 +100,7 @@ describe('[useProductFields Hook]', () => {
       addNotification,
       products,
     };
-    const { result } = renderHook(() => useAddPriceInputState(args));
+    const { result } = renderHook(() => useEditProductFieldState(args));
 
     expect(result.current.priceValue).toBe(280.9);
   });

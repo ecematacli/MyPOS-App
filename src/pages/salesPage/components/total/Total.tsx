@@ -15,6 +15,7 @@ import { currencyFormatter } from '../../../../common/utils';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
 import CustomButton from '../../../../common/components/customButton';
 import EditProductFieldPopover from '../editProductFieldPopover/EditProductFieldPopover';
+import useEditDiscountState from './hooks/useEditDiscountState';
 
 const Total: React.FC<TotalProps> = ({
   products,
@@ -34,30 +35,15 @@ const Total: React.FC<TotalProps> = ({
   const classes = styles();
   const { addNotification } = useContext(NotificationsContext);
 
-  const [discountType, setDiscountType] = useState('TL');
-
-  const discountToShow =
-    discountType === 'TL' ? discount : Number(percentageDiscount.toFixed(2));
-
-  const [discountValue, setDiscountValue] = useState(discountToShow);
-
-  const handleDiscountValueChange = (value: string) => {
-    if (value === '') {
-      return setDiscountValue(value as any);
-    }
-    setDiscountValue(Number(value));
-  };
-
-  const handleDiscountTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDiscountType(e.target.value);
-  };
+  const {
+    discountType,
+    discountValue,
+    handleDiscountTypeChange,
+    handleDiscountValueChange,
+  } = useEditDiscountState(discount, percentageDiscount);
 
   const onCompleteSaleClick = () =>
     completeSale(products, total, discount, addNotification, discardSale);
-
-  useEffect(() => {
-    setDiscountValue(discountToShow);
-  }, [discountType, discount, percentageDiscount]);
 
   const renderDiscountTypes = () => (
     <FormControl classes={{ root: classes.formControl }}>
@@ -153,7 +139,8 @@ const Total: React.FC<TotalProps> = ({
           {renderEditPricePopover()}
           <Typography>
             <span className={classes.percentageSign}>%</span>
-            {percentageDiscount.toFixed(2)} / {currencyFormatter(discount)}
+            {parseInt(percentageDiscount as any)} /{' '}
+            {currencyFormatter(discount)}
           </Typography>
         </Fragment>
       </div>

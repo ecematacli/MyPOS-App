@@ -20,10 +20,6 @@ export const calculatePercentageFromDiscount = (
   total: number,
   discount: number
 ) => {
-  console.log('total>>', total);
-  console.log('discount.....', discount);
-  console.log('result>>', (discount / total) * 100);
-
   const percentage = (discount / total) * 100;
   return isNaN(percentage) ? 0 : percentage;
 };

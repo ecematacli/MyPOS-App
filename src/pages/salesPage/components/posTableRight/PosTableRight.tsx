@@ -17,7 +17,7 @@ import styles from './styles';
 import { PosTableProps } from './types';
 import { Product } from '../../../../redux/products/types';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
-import useAddPriceInputState from './useAddPriceInputState';
+import useEditProductFieldState from './useEditProductFieldState';
 import { editProduct } from '../../../../redux/products/productsActions';
 import { TABLE_HEAD } from './tableHead';
 import { currencyFormatter } from '../../../../common/utils';
@@ -54,7 +54,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
     onCompleteDiscountEditClick,
     anchorEl,
     handleClose,
-  } = useAddPriceInputState({
+  } = useEditProductFieldState({
     products,
     editProduct,
     editProductFieldLocalStorageState,

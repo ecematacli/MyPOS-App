@@ -77,7 +77,6 @@ export default (storage?: any) => {
   const [tax, setTax] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [percentageDiscount, setPercentageDiscount] = useState(0);
-
   const [products, dispatch] = useLocalStorageReducerState(
     'products',
     [],

@@ -6,7 +6,7 @@ import { createTestProduct, getTotalQty } from '../../../../testUtils';
 describe('[Sale State Hook]', () => {
   const storage = {
     getItem: jest.fn(),
-    setItem: jest.fn()
+    setItem: jest.fn(),
   };
 
   test('adds a single product', () => {
@@ -38,7 +38,7 @@ describe('[Sale State Hook]', () => {
       (345.11 - 329.96999999999997).toFixed(2)
     );
     expect(Math.round(result.current.tax)).toBe(Math.round(40.515));
-    expect(result.current.products.map(p => p.qty)).toEqual([1, 1, 1]);
+    expect(result.current.products.map((p) => p.qty)).toEqual([1, 1, 1]);
   });
 
   test('deletes a product', () => {
@@ -112,7 +112,7 @@ describe('[Sale State Hook]', () => {
     expect(getTotalQty(result.current.products)).toBe(3);
   });
 
-  test('edits product price', () => {
+  test('edits product price with popover', () => {
     const { result } = renderHook(() => useSalesState(storage));
     const products = createTestProduct(2, [50, 100], [0, 27.9], [8, 8]);
 
@@ -120,7 +120,7 @@ describe('[Sale State Hook]', () => {
       products.forEach(result.current.addProduct);
     });
     act(() => {
-      result.current.editProductPrice(1, 280.99);
+      result.current.editProductField(1, 'price', 280.99);
     });
 
     expect(result.current.total).toBe(330.99);
@@ -129,24 +129,28 @@ describe('[Sale State Hook]', () => {
     expect(getTotalQty(result.current.products)).toBe(2);
   });
 
-  test('changes additional discount of product', () => {
+  test('edits product discounted price with popover', () => {
     const { result } = renderHook(() => useSalesState(storage));
-    const products = createTestProduct(2, [100.55, 288.9], [68, 44], [18, 8]);
+    const products = createTestProduct(3, [280.99, 150, 99], [0, 140, 55]);
+
     act(() => {
       products.forEach(result.current.addProduct);
     });
 
-    act(() => result.current.handleDiscountChange('158'));
+    act(() => {
+      result.current.editProductField(1, 'discountPrice', 135);
+    });
 
-    expect(result.current.discount).toBe(158);
-    expect(result.current.total).toBe(389.45);
-    expect(result.current.tax).toBe(41.211);
+    expect(result.current.total).toBe(529.99);
+    expect(result.current.tax.toFixed(2)).toBe((42.3992).toFixed(2));
+    expect(result.current.products[1].discountPrice).toBe(135);
+    expect(getTotalQty(result.current.products)).toBe(3);
 
-    act(() => result.current.handleDiscountChange(''));
-    expect(result.current.discount).toBe(0);
+    act(() => {
+      result.current.editProductField(2, 'discountPrice', 100.87);
+    });
 
-    act(() => result.current.handleDiscountChange('abxd1.200'));
-    expect(result.current.discount).toBe(0);
+    expect(result.current.products[2].discountPrice).toBe(100.87);
   });
 
   test('adds additional discount amounts on to the existing ones', () => {
