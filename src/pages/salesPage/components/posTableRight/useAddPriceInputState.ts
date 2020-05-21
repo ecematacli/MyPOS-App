@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import { Args } from './types';
+import { Args, ChangeEvent, ClickEvent, SetNumberState } from './types';
 import { Product } from '../../../../redux/products/types';
 import { capitalizeFirstLetter } from '../../../../common/utils';
-import { calculatePercentage, calculateTotalDiscount } from '../../utilities';
+import { calculatePercentageFromDiscount, calculateDiscountFromPercentage } from '../../utilities';
 
 export default ({
   products,
@@ -20,7 +20,7 @@ export default ({
   const [editedProduct, setEditedProduct] = useState<Product | null>(null);
 
   // Input state handlers
-  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePriceChange = (e: ) => {
     const value = e.target.value;
     if (e.target.value === '') {
       setPriceValue(value as any);
@@ -30,7 +30,7 @@ export default ({
   };
 
   const handleDiscountedPriceChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: ChangeEvent
   ) => {
     const value = e.target.value;
     if (e.target.value === '') {
@@ -50,10 +50,10 @@ export default ({
 
   // Other helpers
   const handleEditClick = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    e: ClickEvent,
     field: string,
-    id?: number,
-    product?: Product
+    id: number,
+    product: Product
   ) => {
     setAnchorEl({ [field]: e.currentTarget });
     if (field !== 'discount') {
@@ -92,11 +92,21 @@ export default ({
   };
 
   const onCompleteDiscountEditClick = (
-    products: Product[],
     total: number,
-    discount: number
+    discountType: string,
+    discountValue: number,
+    setDiscount: SetNumberState,
+    setPercentageDiscount: SetNumberState
   ) => {
-    // calculatePercentage, calculateTotalDiscount
+    if(discountType === 'TL') {
+      setDiscount(discountValue);
+      setPercentageDiscount(calculatePercentageFromDiscount(total, discountValue));
+    } else {
+      setPercentageDiscount(discountValue);
+      setDiscount(calculateDiscountFromPercentage(total, discountValue))
+    }
+    resetInputValue('discount');
+    handleClose('discount');
   };
 
   useEffect(() => {

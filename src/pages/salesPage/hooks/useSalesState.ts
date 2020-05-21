@@ -4,7 +4,7 @@ import {
   calculateTotal,
   calculateTotalTax,
   calculateTotalDiscount,
-  calculatePercentage,
+  calculatePercentageFromDiscount,
 } from '../utilities/';
 import api from '../../../api';
 import { Product } from '../../../redux/products/types';
@@ -73,9 +73,9 @@ const productsReducer = (state: State, action: Action): State => {
 
 // Products and Total state
 export default (storage?: any) => {
-  const [total, setTotal] = useState<number>(0);
-  const [tax, setTax] = useState<number>(0);
-  const [discount, setDiscount] = useState<number>(0);
+  const [total, setTotal] = useState(0);
+  const [tax, setTax] = useState(0);
+  const [discount, setDiscount] = useState(0);
   const [percentageDiscount, setPercentageDiscount] = useState(0);
 
   const [products, dispatch] = useLocalStorageReducerState(
@@ -140,21 +140,6 @@ export default (storage?: any) => {
   };
 
   // Total section
-  const handleDiscountChange = (discount: string) => {
-    if (discount.includes('.') || discount.includes(',')) {
-      return;
-    }
-    if (discount === '') {
-      setDiscount(0);
-    } else if (
-      products.length
-      // parseInt(discount) >= 0 &&
-      // parseInt(discount) < total
-    ) {
-      setDiscount(isNaN(Number(discount)) ? 0 : parseFloat(discount));
-    }
-  };
-
   useEffect(() => {
     const totalAmount = calculateTotal(products);
     const totalDiscount = calculateTotalDiscount(products);
@@ -162,7 +147,9 @@ export default (storage?: any) => {
     setTax(calculateTotalTax(products));
     setTotal(totalAmount);
     setDiscount(totalDiscount);
-    setPercentageDiscount(calculatePercentage(totalAmount, totalDiscount));
+    setPercentageDiscount(
+      calculatePercentageFromDiscount(totalAmount, totalDiscount)
+    );
   }, [products]);
 
   return {
@@ -177,7 +164,8 @@ export default (storage?: any) => {
     total,
     tax,
     discount,
+    setDiscount,
     percentageDiscount,
-    handleDiscountChange,
+    setPercentageDiscount,
   };
 };

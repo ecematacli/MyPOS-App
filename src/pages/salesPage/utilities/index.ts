@@ -16,5 +16,21 @@ export const calculateTotalDiscount = (products: Product[]): number =>
     return acc + (price - discountPrice) * qty;
   }, 0);
 
-export const calculatePercentage = (total: number, discount: number) =>
-  (discount / total) * 100;
+export const calculatePercentageFromDiscount = (
+  total: number,
+  discount: number
+) => {
+  console.log('total>>', total);
+  console.log('discount.....', discount);
+  console.log('result>>', (discount / total) * 100);
+
+  const percentage = (discount / total) * 100;
+  return isNaN(percentage) ? 0 : percentage;
+};
+
+export const calculateDiscountFromPercentage = (
+  total: number,
+  percentageDiscount: number
+) => {
+  return (total * percentageDiscount) / 100;
+};

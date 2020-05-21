@@ -43,8 +43,9 @@ const SalesPage: React.FC<SalesProps> = ({
     total,
     tax,
     discount,
+    setDiscount,
     percentageDiscount,
-    handleDiscountChange,
+    setPercentageDiscount,
   } = useSalesState();
 
   useEffect(() => {
@@ -112,8 +113,9 @@ const SalesPage: React.FC<SalesProps> = ({
             total={total}
             tax={tax}
             discount={discount}
+            setDiscount={setDiscount}
             percentageDiscount={percentageDiscount}
-            handleDiscountChange={handleDiscountChange}
+            setPercentageDiscount={setPercentageDiscount}
             completeSale={completeSale}
             discardSale={discardSale}
           />

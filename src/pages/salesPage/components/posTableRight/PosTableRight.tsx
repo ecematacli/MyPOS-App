@@ -34,8 +34,9 @@ const PosTableRight: React.FC<PosTableProps> = ({
   total,
   tax,
   discount,
+  setDiscount,
   percentageDiscount,
-  handleDiscountChange,
+  setPercentageDiscount,
   completeSale,
   discardSale,
   editProduct,
@@ -192,8 +193,9 @@ const PosTableRight: React.FC<PosTableProps> = ({
         total={total}
         tax={tax}
         discount={discount}
+        setDiscount={setDiscount}
         percentageDiscount={percentageDiscount}
-        handleDiscountChange={handleDiscountChange}
+        setPercentageDiscount={setPercentageDiscount}
         completeSale={completeSale}
         discardSale={discardSale}
         anchorEl={anchorEl}

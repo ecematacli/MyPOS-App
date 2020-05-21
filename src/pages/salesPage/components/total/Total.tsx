@@ -10,9 +10,9 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
+import { TotalProps } from '../posTableRight/types';
 import { currencyFormatter } from '../../../../common/utils';
 import { NotificationsContext } from '../../../../contexts/NotificationsContext';
-import { TotalProps } from './types';
 import CustomButton from '../../../../common/components/customButton';
 import EditProductFieldPopover from '../editProductFieldPopover/EditProductFieldPopover';
 
@@ -21,8 +21,9 @@ const Total: React.FC<TotalProps> = ({
   total,
   tax,
   discount,
+  setDiscount,
   percentageDiscount,
-  handleDiscountChange,
+  setPercentageDiscount,
   completeSale,
   discardSale,
   anchorEl,
@@ -36,12 +37,15 @@ const Total: React.FC<TotalProps> = ({
   const [discountType, setDiscountType] = useState('TL');
 
   const discountToShow =
-    discountType === 'TL' ? discount : parseInt(percentageDiscount.toFixed(2));
+    discountType === 'TL' ? discount : Number(percentageDiscount.toFixed(2));
 
   const [discountValue, setDiscountValue] = useState(discountToShow);
 
   const handleDiscountValueChange = (value: string) => {
-    setDiscountValue(parseInt(value));
+    if (value === '') {
+      return setDiscountValue(value as any);
+    }
+    setDiscountValue(Number(value));
   };
 
   const handleDiscountTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,6 +91,7 @@ const Total: React.FC<TotalProps> = ({
     <EditProductFieldPopover
       title="Apply Discount"
       field="discount"
+      popoverContentElement={renderDiscountTypes()}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
@@ -98,9 +103,14 @@ const Total: React.FC<TotalProps> = ({
       inputValue={discountValue}
       handleInputChange={(e) => handleDiscountValueChange(e.target.value)}
       handleCompleteEditClick={() =>
-        onCompleteDiscountEditClick(products, total, discount)
+        onCompleteDiscountEditClick(
+          total,
+          discountType,
+          discountValue,
+          setDiscount,
+          setPercentageDiscount
+        )
       }
-      popoverContentElement={renderDiscountTypes()}
     />
   );
 
@@ -162,22 +172,3 @@ const Total: React.FC<TotalProps> = ({
 };
 
 export default Total;
-
-{
-  /* <CustomInput
-          id="discount"
-          classesProp={{
-            root: classes.discountInput,
-            notchedOutline: classes.notchedOutline,
-          }}
-          inputProps={{
-            'data-testid': 'content-input',
-            style: { textAlign: 'right' },
-          }}
-          value={discount}
-          onChange={(e) => handleDiscountChange(e.target.value)}
-          startAdornment={
-            <InputAdornment position="start">&#x20BA;</InputAdornment>
-          }
-        /> */
-}
