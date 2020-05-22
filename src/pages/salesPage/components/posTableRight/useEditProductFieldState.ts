@@ -120,6 +120,8 @@ export default ({
 
   return {
     priceValue,
+    editedProduct,
+    id,
     handlePriceChange,
     discountedPriceValue,
     handleDiscountedPriceChange,
