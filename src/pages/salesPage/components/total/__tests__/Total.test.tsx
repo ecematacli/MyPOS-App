@@ -2,7 +2,8 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import Total, { TotalProps } from '../Total';
+import Total from '../Total';
+import { TotalProps } from '../../posTableRight/types';
 import { NotificationsContext } from '../../../../../contexts/NotificationsContext';
 
 const addNotification = jest.fn();
@@ -44,8 +45,7 @@ const renderTotalComponent = () =>
         notifications: null,
         removeNotification: null,
         addNotification,
-      }}
-    >
+      }}>
       <Total {...props} />
     </NotificationsContext.Provider>
   );

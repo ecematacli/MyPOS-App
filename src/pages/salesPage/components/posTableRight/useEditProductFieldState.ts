@@ -3,7 +3,10 @@ import { useState, useEffect } from 'react';
 import { Args, ChangeEvent, ClickEvent, SetNumberState } from './types';
 import { Product } from '../../../../redux/products/types';
 import { capitalizeFirstLetter } from '../../../../common/utils';
-import { calculatePercentageFromDiscount, calculateDiscountFromPercentage } from '../../utilities';
+import {
+  calculatePercentageFromDiscount,
+  calculateDiscountFromPercentage,
+} from '../../utilities';
 
 export default ({
   products,
@@ -20,7 +23,7 @@ export default ({
   const [editedProduct, setEditedProduct] = useState<Product | null>(null);
 
   // Input state handlers
-  const handlePriceChange = (e: ) => {
+  const handlePriceChange = (e: ChangeEvent) => {
     const value = e.target.value;
     if (e.target.value === '') {
       setPriceValue(value as any);
@@ -29,9 +32,7 @@ export default ({
     setPriceValue(Number(value));
   };
 
-  const handleDiscountedPriceChange = (
-    e: ChangeEvent
-  ) => {
+  const handleDiscountedPriceChange = (e: ChangeEvent) => {
     const value = e.target.value;
     if (e.target.value === '') {
       setDiscountedPriceValue(value as any);
@@ -98,12 +99,14 @@ export default ({
     setDiscount: SetNumberState,
     setPercentageDiscount: SetNumberState
   ) => {
-    if(discountType === 'TL') {
+    if (discountType === 'TL') {
       setDiscount(discountValue);
-      setPercentageDiscount(calculatePercentageFromDiscount(total, discountValue));
+      setPercentageDiscount(
+        calculatePercentageFromDiscount(total, discountValue)
+      );
     } else {
       setPercentageDiscount(discountValue);
-      setDiscount(calculateDiscountFromPercentage(total, discountValue))
+      setDiscount(calculateDiscountFromPercentage(total, discountValue));
     }
     resetInputValue('discount');
     handleClose('discount');
@@ -120,6 +123,7 @@ export default ({
     handlePriceChange,
     discountedPriceValue,
     handleDiscountedPriceChange,
+    resetInputValue,
     handleEditClick,
     handleClose,
     onCompletePriceEditClick,

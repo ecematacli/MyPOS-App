@@ -153,7 +153,7 @@ describe('[Sale State Hook]', () => {
     expect(result.current.products[2].discountPrice).toBe(100.87);
   });
 
-  test('adds additional discount amounts on to the existing ones', () => {
+  test('adds additional discount amounts on to the existing ones in TL', () => {
     const { result } = renderHook(() => useSalesState(storage));
     const products = createTestProduct(
       4,
@@ -161,28 +161,113 @@ describe('[Sale State Hook]', () => {
       [320, 70, 1000, 0],
       [18, 8, 18, 8]
     );
+
+    // Adding the first product
     act(() => {
       result.current.addProduct(products[0]);
     });
 
     expect(result.current.discount).toBe(80);
 
+    // Adding the second product
     act(() => {
       result.current.addProduct(products[1]);
     });
 
     expect(result.current.discount).toBe(90);
 
+    // Adding the third product
     act(() => {
       result.current.addProduct(products[2]);
     });
 
     expect(result.current.discount).toBe(340);
 
+    // Adding the fourth product
     act(() => {
       result.current.addProduct(products[3]);
     });
 
     expect(result.current.discount).toBe(340);
+  });
+
+  test('calculates % discount amount out of the discount on TL on every product addition', () => {
+    const { result } = renderHook(() => useSalesState(storage));
+    const products = createTestProduct(
+      3,
+      [500, 80, 1700],
+      [400.99, 70, 1000],
+      [8, 8, 18]
+    );
+
+    // Adding the first product
+    act(() => {
+      result.current.addProduct(products[0]);
+    });
+
+    expect(result.current.total).toBe(500);
+    expect(parseFloat(result.current.discount.toFixed(2))).toBe(99.01);
+    expect(parseFloat(result.current.percentageDiscount.toFixed(3))).toBe(
+      19.802
+    );
+
+    // Adding the second product
+    act(() => {
+      result.current.addProduct(products[1]);
+    });
+
+    expect(result.current.total).toBe(580);
+    expect(parseFloat(result.current.discount.toFixed(2))).toBe(109.01);
+    expect(parseFloat(result.current.percentageDiscount.toFixed(3))).toBe(
+      18.795
+    );
+
+    // Adding the third product
+    act(() => {
+      result.current.addProduct(products[2]);
+    });
+
+    expect(result.current.total).toBe(2280);
+    expect(result.current.discount).toBe(809.01);
+    expect(parseFloat(result.current.percentageDiscount.toFixed(3))).toBe(
+      35.483
+    );
+
+    // Deleting the second product and adding the new one
+    act(() => {
+      result.current.deleteProduct(products[0].id);
+    });
+
+    const newProducts = createTestProduct();
+
+    act(() => {
+      result.current.addProduct(newProducts[0]);
+    });
+
+    expect(result.current.products[2].discountPrice).toBe(null);
+    expect(result.current.total).toBe(14179);
+    expect(result.current.discount).toBe(710);
+    expect(parseFloat(result.current.percentageDiscount.toFixed(3))).toBe(
+      5.007
+    );
+  });
+
+  test('sets TL and % discount to 0 after the completion of the payment', () => {
+    const { result } = renderHook(() => useSalesState(storage));
+    const products = createTestProduct(
+      2,
+      [5784, 2899.98, 1780, 55],
+      [5000, 1850.99, 990.99, null]
+    );
+    act(() => {
+      products.forEach(result.current.addProduct);
+    });
+
+    act(() => {
+      result.current.discardSale();
+    });
+
+    expect(result.current.discount).toBe(0);
+    expect(result.current.percentageDiscount).toBe(0);
   });
 });

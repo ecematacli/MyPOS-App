@@ -12,7 +12,7 @@ export const createTestProduct = (
     sku: '14FI305842',
     name: 'TFIGHT 305 GRIP 2',
     price: prices[i] || 12399,
-    discountPrice: discountPrices[i],
+    discountPrice: discountPrices[i] || null,
     qty: 1,
     variation: null,
     taxRate: taxRate[i] || 8,

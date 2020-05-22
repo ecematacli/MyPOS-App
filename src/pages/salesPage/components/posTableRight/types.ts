@@ -19,7 +19,7 @@ export type EditProductAction = ({
   addNotification,
 }: EditActionArgs) => Promise<void>;
 
-type EditProductFieldLocalStorageState = (
+export type EditProductFieldLocalStorageState = (
   id: number,
   field: string,
   newValue: number

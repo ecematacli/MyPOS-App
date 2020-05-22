@@ -1,16 +1,16 @@
 import { Product } from '../../../redux/products/types';
 
-export const calculateTotal = (products: Product[]): number =>
+export const calculateTotal = (products: Product[]) =>
   products.reduce((acc, { price, qty }) => {
     return acc + price * qty;
   }, 0);
 
-export const calculateTotalTax = (products: Product[]): number =>
+export const calculateTotalTax = (products: Product[]) =>
   products.reduce((acc, { price, taxRate, qty }) => {
     return acc + ((price * taxRate) / 100) * qty;
   }, 0);
 
-export const calculateTotalDiscount = (products: Product[]): number =>
+export const calculateTotalDiscount = (products: Product[]) =>
   products.reduce((acc, { price, discountPrice, qty }) => {
     if (!discountPrice) return acc + 0;
     return acc + (price - discountPrice) * qty;
