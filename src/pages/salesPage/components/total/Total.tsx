@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useState, useEffect } from 'react';
+import React, { useContext, Fragment } from 'react';
 import clsx from 'clsx';
 import {
   Divider,
@@ -137,7 +137,7 @@ const Total: React.FC<TotalProps> = ({
             <Typography className={classes.discount}>Discount</Typography>
           </div>
           {renderEditPricePopover()}
-          <Typography>
+          <Typography data-testid="discount">
             <span className={classes.percentageSign}>%</span>
             {parseInt(percentageDiscount as any)} /{' '}
             {currencyFormatter(discount)}

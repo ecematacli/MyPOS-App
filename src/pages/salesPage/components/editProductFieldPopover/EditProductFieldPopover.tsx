@@ -63,15 +63,18 @@ const EditPricePopover: React.FC<Props> = (props) => {
       <div className={classes.addPriceDiv}>
         {popoverContentElement}
         <CustomInput
+          type="number"
+          className={classes.numberSpinner}
+          value={inputValue}
+          onChange={handleInputChange}
           startAdornment={
             currencySign && (
               <InputAdornment position="start">&#x20BA;</InputAdornment>
             )
           }
-          type="number"
-          className={classes.numberSpinner}
-          value={inputValue}
-          onChange={handleInputChange}
+          inputProps={{
+            'data-testid': 'discount-type-input',
+          }}
           classesProp={{
             root: classes.priceInputRoot,
             input: classes.smallScreenFont,

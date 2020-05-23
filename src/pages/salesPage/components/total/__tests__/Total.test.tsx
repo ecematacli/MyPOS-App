@@ -1,13 +1,16 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { ThemeProvider } from '@material-ui/styles';
 
 import Total from '../Total';
 import { TotalProps } from '../../posTableRight/types';
 import { NotificationsContext } from '../../../../../contexts/NotificationsContext';
+import theme from '../../../../../theme';
 
 const addNotification = jest.fn();
 const discardSale = jest.fn();
+const completeSale = jest.fn();
 
 let props: TotalProps = null;
 
@@ -30,24 +33,32 @@ beforeEach(() => {
       },
     ],
     total: 250,
-    discount: 50,
     tax: 15,
-    handleDiscountChange: jest.fn(),
-    completeSale: jest.fn(),
+    discount: 50,
+    setDiscount: jest.fn(),
+    percentageDiscount: 20,
+    setPercentageDiscount: jest.fn(),
+    completeSale,
     discardSale,
+    anchorEl: { discount: null },
+    handleEditClick: jest.fn(),
+    onCompleteDiscountEditClick: jest.fn(),
+    handleClose: jest.fn(),
   };
 });
 
 const renderTotalComponent = () =>
   render(
-    <NotificationsContext.Provider
-      value={{
-        notifications: null,
-        removeNotification: null,
-        addNotification,
-      }}>
-      <Total {...props} />
-    </NotificationsContext.Provider>
+    <ThemeProvider theme={theme}>
+      <NotificationsContext.Provider
+        value={{
+          notifications: null,
+          removeNotification: null,
+          addNotification,
+        }}>
+        <Total {...props} />
+      </NotificationsContext.Provider>
+    </ThemeProvider>
   );
 
 describe('[Total Component]', () => {
@@ -67,16 +78,9 @@ describe('[Total Component]', () => {
     expect(getByTestId('total')).toHaveTextContent('200');
   });
 
-  test('calls the handleDiscountChange function with the right value', () => {
+  test('renders the discount in TL and % correctly', () => {
     const { getByTestId } = renderTotalComponent();
-
-    const contentInput = getByTestId('content-input') as HTMLInputElement;
-
-    fireEvent.change(contentInput, { target: { value: 850.5 } });
-
-    expect(contentInput).not.toBeNull();
-    expect(props.handleDiscountChange).toHaveBeenCalledTimes(1);
-    expect(props.handleDiscountChange).toBeCalledWith('850.5');
+    expect(getByTestId('discount')).toHaveTextContent('%20 / TRY 50.00');
   });
 
   test('calls the completeSale function with the right arguments', () => {
