@@ -78,7 +78,7 @@ describe('[useEditProductFieldState Hook]', () => {
     expect(result.current.priceValue).toBe(580.99);
   });
 
-  test('calls resetInput function with an argument and resets that input value', () => {
+  test('calls resetInput function with a field argument and resets that input value', () => {
     const { result } = renderHook(() => useEditProductFieldState(args));
 
     act(() => result.current.resetInputValue('discountPrice'));
@@ -107,17 +107,27 @@ describe('[useEditProductFieldState Hook]', () => {
     expect(result.current.editedProduct).toBe(products[2]);
   });
 
-  test('calls editProduct action with the right arguments', () => {
+  test('calls handleClose function with a field argument and sets that field from anchorEl state to null', () => {
+    const { result } = renderHook(() => useEditProductFieldState(args));
+
+    act(() => result.current.handleClose('discountPrice'));
+
+    expect(result.current.anchorEl.discountPrice).toBe(null);
+
+    act(() => result.current.handleClose('price'));
+
+    expect(result.current.anchorEl.price).toBeNull();
+    expect(result.current.anchorEl).toEqual({
+      discountPrice: null,
+      price: null,
+    });
+  });
+
+  test('calls onCompletePriceEditClick function and local storage & editProduct action with the right arguments if the value has changed', () => {
     const { result } = renderHook(() => useEditProductFieldState(args));
 
     act(() =>
       result.current.handleEditClick(event, 'price', 0, createTestProduct()[0])
-    );
-
-    act(() =>
-      result.current.handlePriceChange({
-        target: { name: 'price', value: '2780' },
-      } as ChangeEvent)
     );
 
     act(() => result.current.onCompletePriceEditClick('price', 2780));
@@ -128,21 +138,63 @@ describe('[useEditProductFieldState Hook]', () => {
       label: 'Price',
       addNotification,
     });
+    expect(result.current.id).toBeNull();
+    expect(editProductFieldLocalStorageState).toBeCalledWith(0, 'price', 2780);
   });
 
-  // updatedField,
-  // productId,
-  // label: capitalizeFirstLetter(field),
-  // addNotification,
-  // test('resets price input value to the price of product every time id changes', () => {
-  //   args = {
-  //     id: 2,
-  //     editProduct,
-  //     addNotification,
-  //     products,
-  //   };
-  //   const { result } = renderHook(() => useEditProductFieldState(args));
+  test('calls onCompletePriceEditClick function, it does not call local storage & editProduct action if the value has not changed', () => {
+    const { result } = renderHook(() => useEditProductFieldState(args));
 
-  //   expect(result.current.priceValue).toBe(280.9);
-  // });
+    act(() =>
+      result.current.handleEditClick(
+        event,
+        'discountPrice',
+        1,
+        createTestProduct(2, [120, 50], [110, 40])[1]
+      )
+    );
+
+    act(() => result.current.onCompletePriceEditClick('discountPrice', 40));
+    expect(editProduct).toBeCalledTimes(0);
+    expect(result.current.id).not.toBeNull();
+    expect(editProductFieldLocalStorageState).toBeCalledTimes(0);
+  });
+
+  test('resets discountedPrice input value to the discountPrice of the edited product every time id changes', () => {
+    const { result } = renderHook(() => useEditProductFieldState(args));
+
+    act(() =>
+      result.current.handleEditClick(event, 'discountPrice', 0, products[0])
+    );
+
+    expect(result.current.discountedPriceValue).toBe(67);
+
+    act(() =>
+      result.current.handleEditClick(event, 'discountPrice', 1, products[1])
+    );
+
+    expect(result.current.discountedPriceValue).toBe(25);
+
+    act(() =>
+      result.current.handleEditClick(event, 'discountPrice', 3, products[3])
+    );
+
+    expect(result.current.discountedPriceValue).toBe(0);
+  });
+
+  test('resets price input value to the price of the edited product every time id changes', () => {
+    const { result } = renderHook(() => useEditProductFieldState(args));
+
+    act(() => result.current.handleEditClick(event, 'price', 0, products[0]));
+
+    expect(result.current.priceValue).toBe(1880);
+
+    act(() => result.current.handleEditClick(event, 'price', 1, products[1]));
+
+    expect(result.current.priceValue).toBe(99.56);
+
+    act(() => result.current.handleEditClick(event, 'price', 2, products[2]));
+
+    expect(result.current.priceValue).toBe(280.9);
+  });
 });

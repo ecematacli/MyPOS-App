@@ -67,27 +67,20 @@ export default ({
     setAnchorEl({ ...anchorEl, [field]: null });
   };
 
-  const editProductValue = (
-    productId: number,
-    field: string,
-    value: number
-  ) => {
-    const updatedField = { [field]: value.toString() };
-
-    editProduct({
-      updatedField,
-      productId,
-      label: capitalizeFirstLetter(field),
-      addNotification,
-    });
-  };
-
   const onCompletePriceEditClick = (field: string, inputValue: number) => {
     if (inputValue && editedProduct[field] !== inputValue) {
-      editProductValue(id, field, inputValue);
+      const updatedField = { [field]: inputValue.toString() };
+
+      editProduct({
+        updatedField,
+        productId: id,
+        label: capitalizeFirstLetter(field),
+        addNotification,
+      });
       setId(null);
       editProductFieldLocalStorageState(id, field, inputValue);
     }
+
     resetInputValue(field);
     handleClose(field);
   };
