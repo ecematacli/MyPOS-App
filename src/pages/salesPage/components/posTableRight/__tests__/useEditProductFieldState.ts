@@ -160,6 +160,72 @@ describe('[useEditProductFieldState Hook]', () => {
     expect(editProductFieldLocalStorageState).toBeCalledTimes(0);
   });
 
+  test('calls onCompleteDiscountEditClick function with TL discount type and it sets input values on TL and % properly', () => {
+    const { result } = renderHook(() => useEditProductFieldState(args));
+
+    let setDiscount: () => void;
+    let setPercentageDiscount: () => void;
+
+    act(() =>
+      result.current.onCompleteDiscountEditClick(
+        7000,
+        'TL',
+        1000,
+        (setDiscount = jest.fn()),
+        (setPercentageDiscount = jest.fn())
+      )
+    );
+
+    expect(setDiscount).toBeCalledWith(1000);
+    expect(setPercentageDiscount).toBeCalledWith(14.285714285714285);
+
+    act(() =>
+      result.current.onCompleteDiscountEditClick(
+        980,
+        'TL',
+        80,
+        (setDiscount = jest.fn()),
+        (setPercentageDiscount = jest.fn())
+      )
+    );
+
+    expect(setDiscount).toBeCalledWith(80);
+    expect(setPercentageDiscount).toBeCalledWith(8.16326530612245);
+  });
+
+  test('calls onCompleteDiscountEditClick function with % discount type and it sets input values on % and TL properly', () => {
+    const { result } = renderHook(() => useEditProductFieldState(args));
+
+    let setPercentageDiscount: () => void;
+    let setDiscount: () => void;
+
+    act(() =>
+      result.current.onCompleteDiscountEditClick(
+        9980,
+        '%',
+        38.99,
+        (setDiscount = jest.fn()),
+        (setPercentageDiscount = jest.fn())
+      )
+    );
+
+    expect(setPercentageDiscount).toBeCalledWith(38.99);
+    expect(setDiscount).toBeCalledWith(3891.202);
+
+    act(() =>
+      result.current.onCompleteDiscountEditClick(
+        580.55,
+        '%',
+        2.8,
+        (setDiscount = jest.fn()),
+        (setPercentageDiscount = jest.fn())
+      )
+    );
+
+    expect(setPercentageDiscount).toBeCalledWith(2.8);
+    expect(setDiscount).toBeCalledWith(16.255399999999998);
+  });
+
   test('resets discountedPrice input value to the discountPrice of the edited product every time id changes', () => {
     const { result } = renderHook(() => useEditProductFieldState(args));
 

@@ -9,22 +9,8 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
+import { Props } from './types';
 import CustomInput from '../../../../common/components/customInput';
-
-export interface Props {
-  open: boolean;
-  anchorEl: null | Element;
-  handleClose: () => void;
-  inputValue: number;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCompleteEditClick: () => void;
-  popoverContentElement: JSX.Element;
-  title: string;
-  field: string;
-  anchorOrigin?: PopoverOrigin;
-  transformOrigin?: PopoverOrigin;
-  currencySign?: boolean;
-}
 
 const EditPricePopover: React.FC<Props> = (props) => {
   const classes = styles(props);
@@ -40,6 +26,7 @@ const EditPricePopover: React.FC<Props> = (props) => {
     anchorOrigin,
     transformOrigin,
     currencySign,
+    testId,
   } = props;
 
   const renderAnchorOrigin: PopoverOrigin = anchorOrigin
@@ -73,7 +60,7 @@ const EditPricePopover: React.FC<Props> = (props) => {
             )
           }
           inputProps={{
-            'data-testid': 'discount-type-input',
+            'data-testid': testId,
           }}
           classesProp={{
             root: classes.priceInputRoot,

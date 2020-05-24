@@ -40,7 +40,9 @@ beforeEach(() => {
     setPercentageDiscount: jest.fn(),
     completeSale,
     discardSale,
-    anchorEl: { discount: null },
+    anchorEl: {
+      discount: null,
+    },
     handleEditClick: jest.fn(),
     onCompleteDiscountEditClick: jest.fn(),
     handleClose: jest.fn(),

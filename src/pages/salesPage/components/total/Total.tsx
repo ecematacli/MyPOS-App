@@ -82,6 +82,7 @@ const Total: React.FC<TotalProps> = ({
         vertical: 'top',
         horizontal: 'right',
       }}
+      testId="discount-type-input"
       transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
       open={Boolean(anchorEl && anchorEl.discount)}
       anchorEl={anchorEl ? anchorEl.discount : null}
@@ -139,7 +140,7 @@ const Total: React.FC<TotalProps> = ({
           {renderEditPricePopover()}
           <Typography data-testid="discount">
             <span className={classes.percentageSign}>%</span>
-            {parseInt(percentageDiscount as any)} /{' '}
+            {parseFloat(percentageDiscount.toFixed(2))} /{' '}
             {currencyFormatter(discount)}
           </Typography>
         </Fragment>
