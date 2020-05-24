@@ -191,7 +191,7 @@ describe('[Sale State Hook]', () => {
     expect(result.current.discount).toBe(340);
   });
 
-  test('calculates % discount amount out of the discount on TL on every product addition', () => {
+  test('recalculates % discount amount out of the discount on TL on every product addition', () => {
     const { result } = renderHook(() => useSalesState(storage));
     const products = createTestProduct(
       3,
@@ -252,10 +252,112 @@ describe('[Sale State Hook]', () => {
     );
   });
 
+  test('recalculates % discount amount out of the discount on TL when the quantity increases', () => {
+    const { result } = renderHook(() => useSalesState(storage));
+    const products = createTestProduct(2, [1000, 5099.98], [null, 1850.99]);
+
+    act(() => {
+      products.forEach(result.current.addProduct);
+    });
+
+    act(() => {
+      result.current.increaseProductQuantity(products[0]);
+    });
+
+    expect(result.current.total).toBe(7099.98);
+    expect(result.current.discount).toBe(3248.99);
+    expect(Number(result.current.percentageDiscount.toFixed(3))).toBe(
+      Number((45.761).toFixed(3))
+    );
+
+    act(() => {
+      result.current.increaseProductQuantity(products[1]);
+    });
+
+    expect(result.current.total).toBe(12199.96);
+    expect(result.current.discount).toBe(6497.98);
+    expect(Number(result.current.percentageDiscount.toFixed(3))).toBe(
+      Number((53.262).toFixed(3))
+    );
+  });
+
+  test('recalculates % discount amount out of the discount on TL when the quantity decreases', () => {
+    const { result } = renderHook(() => useSalesState(storage));
+    const products = createTestProduct(
+      3,
+      [99.8, 3000, 590.8],
+      [90.5, 2850.99, null]
+    );
+
+    act(() => {
+      products.forEach(result.current.addProduct);
+    });
+
+    act(() => {
+      result.current.decreaseProductQuantity(products[1]);
+    });
+
+    expect(Number(result.current.total.toFixed(1))).toBe(690.6);
+    expect(Number(result.current.discount.toFixed(1))).toBe(9.3);
+    expect(Number(result.current.percentageDiscount.toFixed(3))).toBe(
+      Number((1.347).toFixed(3))
+    );
+  });
+
+  test('recalculates % discount amount out of the discount on TL when a quantity of a product decreases and the quantity of another product increases', () => {
+    const { result } = renderHook(() => useSalesState(storage));
+    const products = createTestProduct(3, [5000, 240, 99], [null, 243, 58]);
+
+    act(() => {
+      products.forEach(result.current.addProduct);
+    });
+
+    act(() => {
+      result.current.increaseProductQuantity(products[0]);
+    });
+
+    act(() => {
+      result.current.decreaseProductQuantity(products[1]);
+    });
+
+    expect(result.current.total).toBe(10099);
+    expect(result.current.discount).toBe(41);
+    expect(Number(result.current.percentageDiscount.toFixed(3))).toBe(
+      Number((0.406).toFixed(3))
+    );
+
+    act(() => {
+      result.current.increaseProductQuantity(products[2]);
+    });
+
+    expect(result.current.total).toBe(10198);
+    expect(result.current.discount).toBe(82);
+    expect(Number(result.current.percentageDiscount.toFixed(3))).toBe(
+      Number((0.804).toFixed(3))
+    );
+  });
+
+  test('recalculates % discount amount out of the discount on TL when a product is deleted', () => {
+    const { result } = renderHook(() => useSalesState(storage));
+    const products = createTestProduct(2, [100, 888], [40, 850.97]);
+
+    act(() => {
+      products.forEach(result.current.addProduct);
+    });
+
+    act(() => {
+      result.current.deleteProduct(products[1].id);
+    });
+
+    expect(result.current.total).toBe(100);
+    expect(result.current.discount).toBe(60);
+    expect(result.current.percentageDiscount).toBe(60);
+  });
+
   test('sets TL and % discount to 0 after the completion of the payment', () => {
     const { result } = renderHook(() => useSalesState(storage));
     const products = createTestProduct(
-      2,
+      4,
       [5784, 2899.98, 1780, 55],
       [5000, 1850.99, 990.99, null]
     );
