@@ -14,9 +14,20 @@ import { useBatchProductsSearchBarState } from './hooks/useBatchProductsSearchBa
 const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
   match,
 }) => {
-  const { query, setQuery } = useBatchProductsSearchBarState();
-
   const batchId = match.params.id;
+
+  const {
+    query,
+    setQuery,
+    searchResults,
+    setSearchResults,
+    open,
+    setOpen,
+    productSearchLoading,
+    onProductSelect,
+    productNotFound,
+  } = useBatchProductsSearchBarState(batchId);
+
   const {
     tabsValue,
     handleTabsChange,
@@ -52,8 +63,15 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
           batch={batch}
           batchProducts={batchProducts}
           batchId={batchId}
+          open={open}
+          setOpen={setOpen}
+          loading={productSearchLoading}
+          onProductSelect={onProductSelect}
           query={query}
           setQuery={setQuery}
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+          productNotFound={productNotFound}
           countInputRef={countInputRef}
           itemCount={itemCount}
           selectedProduct={selectedProduct}

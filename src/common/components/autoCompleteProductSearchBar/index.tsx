@@ -20,7 +20,7 @@ interface Props {
   onQueryChange: React.Dispatch<React.SetStateAction<string>>;
   isUsedOnSalesPage?: boolean;
   productNotFound?: boolean;
-  handleOpenDialog: () => void;
+  handleOpenDialog?: () => void;
   className?: any;
   inputRef?: React.MutableRefObject<HTMLInputElement>;
 }

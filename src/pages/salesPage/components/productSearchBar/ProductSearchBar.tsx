@@ -55,11 +55,11 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({
           setQuery('');
           setSearchResults([]);
         }}
-        options={searchResults}
         loading={loading}
+        options={searchResults}
         onProductChange={onProductSelect}
-        onQueryChange={setQuery}
         query={query}
+        onQueryChange={setQuery}
         productNotFound={productNotFound}
         handleOpenDialog={handleOpenDialog}
         isUsedOnSalesPage

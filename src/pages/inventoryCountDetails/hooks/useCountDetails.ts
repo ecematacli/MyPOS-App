@@ -67,8 +67,21 @@ export default (setQuery: SetQuery, batchId: string) => {
   };
 
   const handleSelectedProduct = (product: BatchProduct) => {
+    console.log('product on handleSelectedProduct', product);
     setSelectedProduct(product);
     setQuery(product.name);
+
+    setCountCompletedProducts((countedPr) => {
+      if (countedPr[product.id]) {
+        countedPr[product.id].counted !== product.counted;
+        return {
+          ...countCompletedProducts,
+          [product.id]: product,
+        };
+      } else {
+        return countCompletedProducts;
+      }
+    });
   };
 
   const handleCountClick = async () => {
@@ -83,11 +96,6 @@ export default (setQuery: SetQuery, batchId: string) => {
         count: (matchedProduct.counted && matchedProduct.counted) + itemCount,
       }
     );
-
-    setCountCompletedProducts({
-      ...countCompletedProducts,
-      [selectedProduct.id]: selectedProduct,
-    });
 
     if (!updatedProduct) {
       return addNotification('Something went wrong!', 'error');
@@ -152,6 +160,7 @@ export default (setQuery: SetQuery, batchId: string) => {
     );
   };
 
+  // Input handlers on pagination
   const handleChangeRowsPerPage = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {

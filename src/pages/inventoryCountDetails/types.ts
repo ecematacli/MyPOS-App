@@ -9,6 +9,7 @@ export interface BatchProduct {
   variation: string;
   expected: number;
   counted: number | null;
+  updatedAt: string;
   synced: boolean;
 }
 
@@ -42,8 +43,15 @@ export interface CountingActionsBarProps {
   batchId: string;
   batch: BatchData;
   batchProducts: BatchesProductsData;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
+  onProductSelect: (product: BatchProduct) => void;
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
+  searchResults: BatchProduct[];
+  setSearchResults: React.Dispatch<React.SetStateAction<BatchProduct[]>>;
+  productNotFound: boolean;
   countInputRef: CountInputRef;
   itemCount: number;
   selectedProduct: BatchProduct;

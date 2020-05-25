@@ -10,21 +10,25 @@ import AutoCompleteProductSearchBar from '../../../../common/components/autoComp
 const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   batch,
   batchProducts,
+  open,
+  setOpen,
   query,
   setQuery,
+  loading,
+  onProductSelect,
+  productNotFound,
   countInputRef,
   itemCount,
   setItemCount,
   selectedProduct,
-  setSelectedProduct,
+  searchResults,
+  setSearchResults,
   handleCountClick,
 }) => {
   const classes = styles();
   const [checked, setChecked] = useState(false);
 
   const { products } = batchProducts;
-
-  console.log('selected product', selectedProduct);
 
   const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
@@ -82,14 +86,20 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
     <Fragment>
       {renderTitle()}
       <div className={classes.countingContainer}>
-        {/*to be completed..*/}
-        {/*
-        // @ts-ignore */}
         <AutoCompleteProductSearchBar
           className={classes.searchBar}
-          options={products}
+          open={open}
+          onClose={() => {
+            setOpen(false);
+            setQuery('');
+            setSearchResults([]);
+          }}
+          loading={loading}
+          options={searchResults}
+          onProductChange={onProductSelect}
           query={query}
           onQueryChange={setQuery}
+          productNotFound={productNotFound}
         />
         {!checked && renderCountInput()}
         <div className={classes.countInputAction}>
