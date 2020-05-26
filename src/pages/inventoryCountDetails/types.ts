@@ -49,6 +49,7 @@ export interface CountingActionsBarProps {
   onProductSelect: (product: BatchProduct) => void;
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
+  handleQueryChange: (productName: string) => void;
   searchResults: BatchProduct[];
   setSearchResults: React.Dispatch<React.SetStateAction<BatchProduct[]>>;
   productNotFound: boolean;

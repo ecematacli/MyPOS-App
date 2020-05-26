@@ -67,7 +67,6 @@ export default (setQuery: SetQuery, batchId: string) => {
   };
 
   const handleSelectedProduct = (product: BatchProduct) => {
-    console.log('product on handleSelectedProduct', product);
     setSelectedProduct(product);
     setQuery(product.name);
 

@@ -13,7 +13,7 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   open,
   setOpen,
   query,
-  setQuery,
+  handleQueryChange,
   loading,
   onProductSelect,
   productNotFound,
@@ -27,8 +27,6 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
 }) => {
   const classes = styles();
   const [checked, setChecked] = useState(false);
-
-  const { products } = batchProducts;
 
   const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
@@ -91,14 +89,13 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
           open={open}
           onClose={() => {
             setOpen(false);
-            setQuery('');
             setSearchResults([]);
           }}
           loading={loading}
           options={searchResults}
           onProductChange={onProductSelect}
           query={query}
-          onQueryChange={setQuery}
+          onQueryChange={handleQueryChange}
           productNotFound={productNotFound}
         />
         {!checked && renderCountInput()}

@@ -34,7 +34,10 @@ const useSearchInput = (addProduct: AddProduct) => {
       }
     };
 
-    active && query && fetchProducts();
+    const whiteSpaceBeforeQuery = query.match(/^\s+/);
+
+    active && query && !whiteSpaceBeforeQuery && fetchProducts();
+
     if (!query) {
       setProductNotFound(false);
     }

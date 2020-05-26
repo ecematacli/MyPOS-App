@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import api from '../../../api';
 import { BatchProduct } from '../types';
-import useCountDetails from './useCountDetails';
 
 export const useBatchProductsSearchBarState = (batchId: string) => {
   const [query, setQuery] = useState('');
@@ -11,32 +10,14 @@ export const useBatchProductsSearchBarState = (batchId: string) => {
   const [productSearchLoading, setProductSearchLoading] = useState(false);
   const [productNotFound, setProductNotFound] = useState(false);
 
-  const [userQueryVal, setUserQueryVal] = useState('');
+  const handleQueryChange = (userQuery: string) => {
+    setQuery(userQuery);
 
-  const { handleCountClick, handleSelectedProduct } = useCountDetails(
-    setQuery,
-    batchId
-  );
-
-  const handleQueryChange = (productName: string) => {
-    setQuery(productName);
-  };
-
-  const onProductSelect = (product: BatchProduct) => {
-    handleSelectedProduct(product);
-    handleCountClick();
-    setQuery('');
-    setOpen(false);
-    setSearchResults([]);
-  };
-
-  useEffect(() => {
-    let active = true;
     const fetchBatchProducts = async () => {
       try {
         setProductSearchLoading(true);
         const response = await api.get(
-          `inventory-count/${batchId}/search-products?query=${query}`
+          `inventory-count/${batchId}/search-products?query=${userQuery}`
         );
         setSearchResults(response.data);
         setProductNotFound(response.data.length === 0);
@@ -48,15 +29,10 @@ export const useBatchProductsSearchBarState = (batchId: string) => {
       }
     };
 
-    active && query && fetchBatchProducts();
-    if (!query) {
-      setProductNotFound(false);
-    }
+    const whiteSpaceBeforeQuery = userQuery.match(/^\s+/);
 
-    return () => {
-      active = false;
-    };
-  }, [query]);
+    userQuery && !whiteSpaceBeforeQuery && fetchBatchProducts();
+  };
 
   return {
     open,
@@ -68,7 +44,6 @@ export const useBatchProductsSearchBarState = (batchId: string) => {
     query,
     setQuery,
     handleQueryChange,
-    onProductSelect,
     productNotFound,
   };
 };
