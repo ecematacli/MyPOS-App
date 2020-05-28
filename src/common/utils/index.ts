@@ -26,7 +26,7 @@ export const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-export const capitalizeFirstLetter = (str: string) =>
+export const capitalizeFirstLetters = (str: string) =>
   str
     .toLowerCase()
     .split(' ')

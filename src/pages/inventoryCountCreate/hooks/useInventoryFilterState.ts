@@ -58,10 +58,10 @@ export default (brands: Brand[], categories: Category[]) => {
     let brandId: number;
 
     if (brand) {
-      categoryId = findMatchedFields(brands, dropdownInputs.brand).id;
+      brandId = findMatchedFields(brands, dropdownInputs.brand).id;
     }
     if (category) {
-      brandId = findMatchedFields(categories, dropdownInputs.category).id;
+      categoryId = findMatchedFields(categories, dropdownInputs.category).id;
     }
 
     const response = await api.post('/inventory-count', {

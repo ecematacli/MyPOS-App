@@ -6,7 +6,7 @@ const centered = {
   justifyContent: 'center',
 };
 
-export default makeStyles(({ spacing, palette, breakpoints }) => ({
+export default makeStyles(({ spacing, palette }) => ({
   inventoryContainer: {
     paddingTop: spacing(3),
     height: '100vh',
@@ -52,11 +52,5 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   imageDiv: {
     ...centered,
     marginTop: spacing(8),
-  },
-  pageStatusMsg: {
-    color: 'red',
-    textAlign: 'center',
-    marginTop: 40,
-    fontSize: 18,
   },
 }));

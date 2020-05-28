@@ -22,11 +22,11 @@ interface Props {
   brands: Brand[];
 }
 
-const CreateInventoryCount: React.FC<Props> = ({
+const InventoryCountCreate: React.FC<Props> = ({
   fetchBrands,
   fetchCategories,
   brands,
-  categories
+  categories,
 }) => {
   const classes = styles();
   const {
@@ -36,7 +36,7 @@ const CreateInventoryCount: React.FC<Props> = ({
     handleCountNameChange,
     handleDropdownInputChange,
     dropdownInputs,
-    createCountBatches
+    createCountBatches,
   } = useInventoryFilterState(brands, categories);
 
   const DROPDOWN_INPUT_FIELDS = getDropdownInputFields(
@@ -58,8 +58,7 @@ const CreateInventoryCount: React.FC<Props> = ({
       <div className={classes.titleDiv}>
         <span
           className={classes.iconDiv}
-          onClick={() => history.push('/inventory/count')}
-        >
+          onClick={() => history.push('/inventory/count')}>
           <ArrowBackIcon className={classes.backArrow} />
         </span>
         <Typography className={classes.titleText}>
@@ -105,9 +104,9 @@ const CreateInventoryCount: React.FC<Props> = ({
 
 const mapStateToProps = (state: StoreState) => ({
   brands: state.brands,
-  categories: state.categories
+  categories: state.categories,
 });
 
 export default connect(mapStateToProps, { fetchCategories, fetchBrands })(
-  CreateInventoryCount
+  InventoryCountCreate
 );

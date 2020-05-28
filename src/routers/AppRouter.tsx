@@ -11,7 +11,7 @@ import SalesPage from '../pages/salesPage';
 import SalesHistoryPage from '../pages/salesHistoryPage';
 import ProductsPage from '../pages/productsPage';
 import InventoryCountBatches from '../pages/inventoryCountBatches';
-import CreateInventoryCount from '../pages/inventoryCountCreate';
+import InventoryCountCreate from '../pages/inventoryCountCreate';
 import InventoryCountDetails from '../pages/inventoryCountDetails';
 
 const AppRouter: React.FC = () => (
@@ -44,7 +44,7 @@ const AppRouter: React.FC = () => (
           <PrivateRoute
             path="/inventory/count_create"
             exact
-            component={CreateInventoryCount}
+            component={InventoryCountCreate}
           />
           <PrivateRoute path="/" exact component={DashboardPage} />
         </Switch>

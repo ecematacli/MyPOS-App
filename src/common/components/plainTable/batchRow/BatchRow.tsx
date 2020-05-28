@@ -4,6 +4,7 @@ import { TableRow, TableCell } from '@material-ui/core';
 
 import styles from './styles';
 import { Batch } from '../types';
+import { capitalizeFirstLetters } from '../../../utils';
 
 interface Props {
   row: Batch;
@@ -17,7 +18,9 @@ const BatchRow: React.FC<Props> = ({ row }) => {
   return (
     <TableRow className={classes.tableBodyRow}>
       <TableCell className={classes.batchNameCell}>
-        <Link to={`/inventory/count/${id}`}>{name}</Link>
+        <Link to={`/inventory/count/${id}`}>
+          {capitalizeFirstLetters(name)}
+        </Link>
       </TableCell>
       <TableCell>{started}</TableCell>
       <TableCell>{finished}</TableCell>

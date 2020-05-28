@@ -21,7 +21,7 @@ import useEditProductFieldState from './useEditProductFieldState';
 import { editProduct } from '../../../../redux/products/productsActions';
 import { TABLE_HEAD } from './tableHead';
 import { currencyFormatter } from '../../../../common/utils';
-import { capitalizeFirstLetter } from '../../../../common/utils';
+import { capitalizeFirstLetters } from '../../../../common/utils';
 import EditPricePopover from '../editProductFieldPopover/EditProductFieldPopover';
 import Total from '../total/Total';
 
@@ -85,7 +85,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
             classes[field === 'discountPrice' && 'discounted'],
             classes.popoverTitle
           )}>
-          {!label ? capitalizeFirstLetter(field) : label}
+          {!label ? capitalizeFirstLetters(field) : label}
         </div>
       }
     />

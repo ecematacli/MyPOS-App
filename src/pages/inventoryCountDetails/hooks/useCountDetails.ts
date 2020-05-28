@@ -20,9 +20,10 @@ export default (setQuery: SetQuery, batchId: string) => {
   const [countCompletedProducts, setCountCompletedProducts] = useState<{
     [id: string]: BatchProduct;
   }>({});
+
   const [lastCountedItems, setLastCountedItems] = useLocalStorageState<
     BatchProduct[]
-  >('lastCountedItems', []);
+  >(`lastCountedItem-batch${batchId}`, []);
 
   const [tabsValue, setTabsValue] = useState('all');
   const [batchProducts, setBatchProducts] = useState<BatchesProductsData>({
@@ -118,6 +119,7 @@ export default (setQuery: SetQuery, batchId: string) => {
       },
       ...lastCountedItems,
     ]);
+
     setItemCount(1);
   };
 
@@ -154,9 +156,11 @@ export default (setQuery: SetQuery, batchId: string) => {
       products: replacedProducts,
     }));
 
-    setLastCountedItems(
-      lastCountedItems.filter((item, i) => item.id + i !== itemId + itemIdx)
+    const filtered = lastCountedItems.filter(
+      (item, i) => item.id + i !== itemId + itemIdx
     );
+
+    setLastCountedItems(filtered);
   };
 
   // Input handlers on pagination

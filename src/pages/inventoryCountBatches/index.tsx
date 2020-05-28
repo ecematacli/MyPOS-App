@@ -80,10 +80,6 @@ const InventoryCountBatches: React.FC<{}> = () => {
 
   const renderBatchData = () => (
     <Fragment>
-      <Typography className={classes.pageStatusMsg}>
-        Please kindly note that this page is under development for the time
-        being.
-      </Typography>
       {loading ? (
         <Loading />
       ) : (

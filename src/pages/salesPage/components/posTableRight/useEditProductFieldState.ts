@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { Args, ChangeEvent, ClickEvent, SetNumberState } from './types';
 import { Product } from '../../../../redux/products/types';
-import { capitalizeFirstLetter } from '../../../../common/utils';
+import { capitalizeFirstLetters } from '../../../../common/utils';
 import {
   calculatePercentageFromDiscount,
   calculateDiscountFromPercentage,
@@ -74,7 +74,7 @@ export default ({
       editProduct({
         updatedField,
         productId: id,
-        label: capitalizeFirstLetter(field),
+        label: capitalizeFirstLetters(field),
         addNotification,
       });
       setId(null);

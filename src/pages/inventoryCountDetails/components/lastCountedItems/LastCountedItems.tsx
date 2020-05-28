@@ -3,8 +3,8 @@ import { Typography, Divider } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import styles from './styles';
-import { LastCountedItemsProps } from '../../types';
 import inventoryImage from '../../../../assets/img/stocktake-emptylist-v1.png';
+import { LastCountedItemsProps } from '../../types';
 
 const LastCountedItems: React.FC<LastCountedItemsProps> = ({
   lastCountedItems,
@@ -22,7 +22,7 @@ const LastCountedItems: React.FC<LastCountedItemsProps> = ({
   );
 
   const renderLastCountedItems = () =>
-    lastCountedItems.map(({ id, name, counted, barcode }, i) => (
+    lastCountedItems.slice(0, 30).map(({ id, name, counted, barcode }, i) => (
       <Fragment key={barcode + i}>
         <div className={classes.itemContainer}>
           <div className={classes.itemInfo}>
