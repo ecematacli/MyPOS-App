@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { Typography, Button } from '@material-ui/core';
 
 import styles from './styles';
@@ -11,34 +11,17 @@ import CustomTabs from '../../common/components/customTabs/CustomTabs';
 const InventoryCountBatches: React.FC<{}> = () => {
   const classes = styles();
 
-  const [tabsValue, setTabsValue] = useState('opened');
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [page, setPage] = useState(1);
-
-  const { batches, fetchCountBatches, loading } = useInventoryBatchState();
-
-  const handleChangePage = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number
-  ) => {
-    //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
-    if (newPage + 1 < 0) return;
-    setPage(newPage + 1);
-    fetchCountBatches(newPage + 1, rowsPerPage);
-  };
-
-  const handleChangeRowsPerPage = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    const numValue = parseInt(value);
-    setRowsPerPage(numValue);
-    fetchCountBatches(page, numValue);
-  };
-
-  const handleTabsChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    newValue: string
-  ) => setTabsValue(newValue);
+  const {
+    batches,
+    fetchCountBatches,
+    loading,
+    page,
+    handleChangePage,
+    rowsPerPage,
+    handleChangeRowsPerPage,
+    tabsValue,
+    handleTabsChange,
+  } = useInventoryBatchState();
 
   useEffect(() => {
     fetchCountBatches(page, rowsPerPage);
