@@ -3,48 +3,48 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-module.exports = env => ({
+module.exports = (env) => ({
   entry: __dirname + '/src/index.tsx',
   output: {
     filename: 'bundle.[contentHash].js',
     path: path.resolve(__dirname, 'public'),
-    publicPath: '/'
+    publicPath: '/',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.png']
+    extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.png'],
   },
   module: {
     rules: [
       {
         test: /\.html$/,
-        use: ['html-loader']
+        use: ['html-loader'],
       },
       {
         test: /\.(png|svg|jpg|ico|gif)$/,
         use: {
           loader: 'file-loader',
           options: {
-            name: '[name].[hash].[ext]'
-          }
-        }
+            name: '[name].[hash].[ext]',
+          },
+        },
       },
       {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './template.html',
-      favicon: path.join(__dirname, 'src/assets/img/app-logo.png')
+      favicon: path.join(__dirname, 'src/assets/img/merit.png'),
     }),
     new webpack.DefinePlugin({
-      'process.env.API_URL': JSON.stringify(env.API_URL)
+      'process.env.API_URL': JSON.stringify(env.API_URL),
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
   ],
   mode: 'production',
-  devtool: 'none'
+  devtool: 'none',
 });

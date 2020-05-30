@@ -6,76 +6,78 @@ const drawerWidth = 255;
 
 export default makeStyles(({ breakpoints, spacing, palette }) => ({
   drawerRoot: {
-    display: 'flex'
+    display: 'flex',
   },
   appBar: {
-    height: 0
+    height: 0,
   },
   menuIconContainer: {
     marginTop: spacing(3),
     marginLeft: spacing(3.5),
-    width: 30
+    width: 30,
   },
   menuIcon: {
-    fontSize: 35
+    fontSize: 35,
   },
   menuButton: {
     color: palette.secondary.dark,
     [breakpoints.up('lg')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   logoWrapper: {
     width: '100%',
     height: spacing(8),
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: -spacing(2)
+    marginTop: spacing(0.8),
+    marginBottom: -spacing(0.6),
   },
   logoImg: {
-    width: 60,
-    height: 60
+    width: 120,
+    height: 60,
   },
   drawer: {
     [breakpoints.up('lg')]: {
       width: drawerWidth,
-      flexShrink: 0
-    }
+      flexShrink: 0,
+    },
   },
   drawerPaper: {
     width: drawerWidth,
     paddingTop: spacing(2),
     backgroundSize: 'cover',
     backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url(${backgroundImage})`,
-    backgroundPosition: 'center center'
+    backgroundPosition: 'center center',
   },
   drawerIcon: {
-    color: palette.secondary.light
+    color: palette.secondary.light,
   },
   drawerListItems: {
-    paddingTop: 2
+    paddingTop: 2,
   },
   drawerItemText: {
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   subMenuItems: {
-    paddingLeft: spacing(4)
+    paddingLeft: spacing(4),
   },
   subMenuFirstItem: {
-    paddingBottom: spacing(2)
+    paddingBottom: spacing(2),
   },
   subMenuIcons: {
     color: palette.secondary.light,
-    paddingLeft: spacing(3)
+    paddingLeft: spacing(3),
   },
   divider: {
-    backgroundColor: palette.grayColors[3],
+    backgroundColor: palette.grayColors[6],
+    opacity: 0.6,
     marginTop: spacing(1),
-    marginBottom: spacing(1)
+    marginBottom: spacing(1),
   },
   content: {
     flexGrow: 1,
     overflow: 'auto',
-    backgroundColor: palette.grayColors[5]
-  }
+    backgroundColor: palette.grayColors[5],
+  },
 }));

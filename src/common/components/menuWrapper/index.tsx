@@ -11,20 +11,20 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
-  Collapse
+  Collapse,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import styles from './styles';
-import logo from '../../../assets/img/app-logo.png';
-import { MENU_ITEMS, SubMenuItem, MenuItem } from './menuItemList';
+import logo from '../../../assets/img/merit.png';
+import { MENU_ITEMS, SubMenuItem } from './menuItemList';
 import history from '../../../history';
 import Notifications from '../notifications/Notifications';
 import {
   AuthContext,
-  AuthTokenSettingContext
+  AuthTokenSettingContext,
 } from '../../../contexts/AuthContext';
 
 const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -59,8 +59,7 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         onClick={() => {
           history.push(url);
           handleCloseMenu();
-        }}
-      >
+        }}>
         <Collapse in={openedItems[item]} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem
@@ -68,8 +67,7 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               className={clsx(
                 i === 0 && classes.subMenuFirstItem,
                 classes.subMenuItems
-              )}
-            >
+              )}>
               <ListItemIcon className={classes.subMenuIcons}>
                 <Icon />
               </ListItemIcon>
@@ -119,8 +117,7 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 item === 'signout' && onSignOutClick();
               }}
               key={label}
-              button
-            >
+              button>
               <IconButton className={classes.drawerIcon}>
                 <Icon />
               </IconButton>
@@ -147,8 +144,7 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 edge="start"
                 color="inherit"
                 aria-label="open drawer"
-                onClick={handleMobileOpenToggle}
-              >
+                onClick={handleMobileOpenToggle}>
                 <MenuIcon className={classes.menuIcon} />
               </IconButton>
             </div>
@@ -160,23 +156,21 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 open={mobileOpen}
                 onClose={handleMobileOpenToggle}
                 ModalProps={{
-                  keepMounted: true // Better open performance on mobile.
+                  keepMounted: true, // Better open performance on mobile.
                 }}
                 classes={{
-                  paper: classes.drawerPaper
-                }}
-              >
+                  paper: classes.drawerPaper,
+                }}>
                 {drawer}
               </Drawer>
             </Hidden>
             <Hidden mdDown implementation="css">
               <Drawer
                 classes={{
-                  paper: classes.drawerPaper
+                  paper: classes.drawerPaper,
                 }}
                 variant="permanent"
-                open
-              >
+                open>
                 {drawer}
               </Drawer>
             </Hidden>

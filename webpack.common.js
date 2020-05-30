@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = {
   entry: './src/index.tsx',
   resolve: {
-    extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.png']
+    extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.png'],
   },
   module: {
     rules: [
@@ -15,22 +15,22 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: '[name].[hash].[ext]',
-            outputPath: 'imgs'
-          }
-        }
+            outputPath: 'imgs',
+          },
+        },
       },
       {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'template.html'),
-      favicon: path.join(__dirname, 'src/assets/img/app-logo.png')
+      favicon: path.join(__dirname, 'src/assets/img/merit.png'),
     }),
-    new Dotenv()
-  ]
+    new Dotenv(),
+  ],
 };
