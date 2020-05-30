@@ -1,7 +1,6 @@
 import React from 'react';
 import { TableRow, TableCell } from '@material-ui/core';
 import AdjustIcon from '@material-ui/icons/Adjust';
-import DoneIcon from '@material-ui/icons/Done';
 
 import styles from './styles';
 import { BatchProduct } from '../types';
@@ -9,7 +8,6 @@ import { BatchProduct } from '../types';
 interface Props {
   row: BatchProduct;
   selectedRow: BatchProduct;
-  countCompletedRows: { [id: string]: BatchProduct };
   handleSelectedRow: (product: BatchProduct) => void;
   countInputRef: React.MutableRefObject<HTMLInputElement>;
 }
@@ -17,7 +15,6 @@ interface Props {
 const BatchProductsRow: React.FC<Props> = ({
   row,
   selectedRow,
-  countCompletedRows,
   handleSelectedRow,
   countInputRef,
 }) => {

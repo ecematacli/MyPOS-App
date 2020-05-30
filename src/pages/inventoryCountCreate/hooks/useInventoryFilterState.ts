@@ -21,7 +21,11 @@ interface Batch {
   brand: string;
 }
 
-export default (brands: Brand[], categories: Category[]) => {
+export default (
+  brands: Brand[],
+  categories: Category[],
+  addNotification: (message: string, severity: string) => void
+) => {
   const initialState = {
     category: '',
     brand: '',
@@ -52,27 +56,32 @@ export default (brands: Brand[], categories: Category[]) => {
     setCountName(value);
   };
 
+  // API Request
   const createCountBatches = async () => {
-    const { category, brand } = dropdownInputs;
-    let categoryId: number;
-    let brandId: number;
+    try {
+      const { category, brand } = dropdownInputs;
+      let categoryId: number;
+      let brandId: number;
 
-    if (brand) {
-      brandId = findMatchedFields(brands, dropdownInputs.brand).id;
+      if (brand) {
+        brandId = findMatchedFields(brands, dropdownInputs.brand).id;
+      }
+      if (category) {
+        categoryId = findMatchedFields(categories, dropdownInputs.category).id;
+      }
+
+      const response = await api.post('/inventory-count', {
+        name: countName,
+        categoryId,
+        brandId,
+      });
+
+      const data: Batch = response.data;
+
+      history.push(`/inventory/count/${data.id}`);
+    } catch (err) {
+      addNotification(err.response.data + '!', 'error');
     }
-    if (category) {
-      categoryId = findMatchedFields(categories, dropdownInputs.category).id;
-    }
-
-    const response = await api.post('/inventory-count', {
-      name: countName,
-      categoryId,
-      brandId,
-    });
-
-    const data: Batch = response.data;
-
-    history.push(`/inventory/count/${data.id}`);
   };
 
   return {

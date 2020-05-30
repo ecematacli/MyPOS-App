@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment, useContext } from 'react';
 import { connect } from 'react-redux';
 import { Typography, Button, Divider } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -11,6 +11,7 @@ import { Brand } from '../../redux/brands/types';
 import { Category } from '../../redux/categories/types';
 import { fetchBrands } from '../../redux/brands/brandsActions';
 import { fetchCategories } from '../../redux/categories/categoriesActions';
+import { NotificationsContext } from '../../contexts/NotificationsContext';
 import useInventoryFilterState from './hooks/useInventoryFilterState';
 import { getDropdownInputFields } from './components/inventoryCountFilters/getDropdownInputFields';
 import InventoryCountFilters from './components/inventoryCountFilters/InventoryCountFilters';
@@ -29,6 +30,9 @@ const InventoryCountCreate: React.FC<Props> = ({
   categories,
 }) => {
   const classes = styles();
+
+  const { addNotification } = useContext(NotificationsContext);
+
   const {
     startDate,
     handleStartDateChange,
@@ -37,7 +41,7 @@ const InventoryCountCreate: React.FC<Props> = ({
     handleDropdownInputChange,
     dropdownInputs,
     createCountBatches,
-  } = useInventoryFilterState(brands, categories);
+  } = useInventoryFilterState(brands, categories, addNotification);
 
   const DROPDOWN_INPUT_FIELDS = getDropdownInputFields(
     brands,

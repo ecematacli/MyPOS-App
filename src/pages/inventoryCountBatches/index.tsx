@@ -37,7 +37,7 @@ const InventoryCountBatches: React.FC<{}> = () => {
         tabs={[
           { tab: 'Opened', value: 'opened' },
           { tab: 'Completed', value: 'completed' },
-          { tab: 'Canceled', value: 'canceled' },
+          { tab: 'Cancelled', value: 'cancelled' },
         ]}
         className={classes.tabs}
         classes={{ root: classes.tabRoot }}

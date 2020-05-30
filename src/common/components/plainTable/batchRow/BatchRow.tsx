@@ -19,7 +19,7 @@ const BatchRow: React.FC<Props> = ({ row }) => {
     <TableRow className={classes.tableBodyRow}>
       <TableCell className={classes.batchNameCell}>
         <Link to={`/inventory/count/${id}`}>
-          {capitalizeFirstLetters(name)}
+          {name ? capitalizeFirstLetters(name) : `Count on ${started}`}
         </Link>
       </TableCell>
       <TableCell>{started}</TableCell>

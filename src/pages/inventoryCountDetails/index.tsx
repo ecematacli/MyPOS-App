@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Grid } from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
 
+import styles from './styles';
 import { StoreState } from '../../redux/types';
 import { InventoryCountDetailsProps } from './types';
 import { BatchProduct } from './types';
@@ -15,6 +16,7 @@ import { useBatchProductsSearchBarState } from './hooks/useBatchProductsSearchBa
 const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
   match,
 }) => {
+  const classes = styles();
   const batchId = match.params.id;
 
   const {
@@ -67,7 +69,7 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
 
   return (
     <Grid container>
-      <Grid style={{ paddingTop: 24 }} item xs={9}>
+      <Grid className={classes.gridItem} item xs={9}>
         <CountingActionsBar
           batch={batch}
           batchProducts={batchProducts}
@@ -89,6 +91,11 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
           setItemCount={setItemCount}
           handleCountClick={handleCountClick}
         />
+        <div className={classes.reviewBtnDiv}>
+          <Button className={classes.reviewBtn}>
+            <Typography className={classes.btnText}>Review</Typography>
+          </Button>
+        </div>
         {loading ? (
           <Loading />
         ) : (

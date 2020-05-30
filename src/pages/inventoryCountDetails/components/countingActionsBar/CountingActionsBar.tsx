@@ -5,13 +5,11 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from './styles';
 import { CountingActionsBarProps } from '../../types';
 import history from '../../../../history';
-import { capitalizeFirstLetters } from '../../../../common/utils';
-
+import { capitalizeFirstLetters, formatDate } from '../../../../common/utils';
 import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
 
 const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   batch,
-  batchProducts,
   open,
   setOpen,
   query,
@@ -53,7 +51,10 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
         <ArrowBackIcon className={classes.backArrow} />
       </span>
       <Typography className={classes.titleText}>
-        {batch && capitalizeFirstLetters(batch.name)}
+        {batch &&
+          (batch.name
+            ? capitalizeFirstLetters(batch.name)
+            : `Count on ${formatDate(batch.started, 'd MMMM y - p')}`)}
       </Typography>
     </div>
   );

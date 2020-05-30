@@ -74,7 +74,6 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
           handleChangeRowsPerPage={handleChangeRowsPerPage}
           handleChangePage={handleChangePage}
           selectedRow={selectedProductRow}
-          countCompletedRows={countCompletedRows}
           handleSelectedRow={handleSelectedRow}
           countInputRef={countInputRef}
         />

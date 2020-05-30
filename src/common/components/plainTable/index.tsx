@@ -25,7 +25,6 @@ const PlainTable: React.FC<PlainTableProps> = ({
   handleChangeRowsPerPage,
   handleChangePage,
   selectedRow,
-  countCompletedRows,
   handleSelectedRow,
   countInputRef,
 }) => {
@@ -54,7 +53,6 @@ const PlainTable: React.FC<PlainTableProps> = ({
           row={row}
           selectedRow={selectedRow}
           handleSelectedRow={handleSelectedRow}
-          countCompletedRows={countCompletedRows}
           countInputRef={countInputRef}
         />
       ));
@@ -100,7 +98,7 @@ const PlainTable: React.FC<PlainTableProps> = ({
           )}
         </TableBody>
       </Table>
-      {count > 1 && renderPagination()}
+      {count > 0 && renderPagination()}
     </TableContainer>
   );
 };

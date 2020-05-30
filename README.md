@@ -13,7 +13,6 @@ http://stock-management-ui-staging.s3-website.eu-central-1.amazonaws.com/
 
 ![Dashboard Page](dashboard-page.png)
 
-Currently I'm adding the functionality of inventory count page of which the main layout somewhat completed.
 
 #### Pages and Features
 
@@ -58,4 +57,4 @@ Currently I'm adding the functionality of inventory count page of which the main
   - Pagination.
 
 ## Inventory Count Page
- - Inventory count functionality will let them to count all of the products in their stores so that they could be in synced with their stocks and e-commerce website.
+ - Inventory count functionality lets them to count all of the products in their stores so that they could be in synced with the stocks of the stores and e-commerce website.
