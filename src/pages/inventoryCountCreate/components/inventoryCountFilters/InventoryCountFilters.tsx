@@ -10,6 +10,7 @@ import {
   FormControl,
   Select,
   MenuItem,
+  Typography,
 } from '@material-ui/core';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 
@@ -62,6 +63,11 @@ const InventoryCountFilters: React.FC<Props> = ({
 
   const renderInputs = () => (
     <div className={classes.inputContainer}>
+      <div className={classes.filtersInfoDiv}>
+        <Typography className={classes.infoText}>
+          Please select filters to start an inventory count
+        </Typography>
+      </div>
       <div>
         <InputLabel classes={{ root: classes.inputLabel }}>
           Start Date

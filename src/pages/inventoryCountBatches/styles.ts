@@ -11,25 +11,22 @@ export default makeStyles(({ spacing, palette }) => ({
     paddingTop: spacing(3),
     height: '100vh',
   },
+  titleWrapDiv: {
+    display: 'block',
+    margin: '0 auto',
+    maxWidth: '1100px',
+  },
   tabs: {
     boxShadow: 'none',
-    marginTop: spacing(7),
     backgroundColor: 'inherit',
   },
   tabRoot: {
     textTransform: 'none',
     fontSize: spacing(2),
   },
-  addCountContainer: {
-    backgroundColor: '#f1f3f5',
-    display: 'flex',
-    justifyContent: 'center',
-  },
   addCountDiv: {
     ...centered,
-    height: spacing(11.25),
     boxShadow: 'none',
-    backgroundColor: 'inherit',
   },
   infoText: {
     color: palette.secondary.main,

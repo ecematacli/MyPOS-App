@@ -1,11 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
-  titleDiv: {
-    margin: spacing(7, 0, 1.2),
-    display: 'flex',
-    justifyContent: 'center',
-  },
   backArrow: { color: palette.grayColors[13], cursor: 'pointer' },
   iconDiv: { display: 'flex', alignItems: 'center' },
   titleText: {
@@ -14,12 +9,10 @@ export default makeStyles(({ spacing, palette }) => ({
     color: '#3a4953',
   },
   countingContainer: {
-    backgroundColor: '#f1f3f5',
-    padding: spacing(3),
-    width: '100%',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    flex: 1,
   },
   searchBar: {
     width: '90%',

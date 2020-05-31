@@ -14,6 +14,7 @@ import { fetchCategories } from '../../redux/categories/categoriesActions';
 import { NotificationsContext } from '../../contexts/NotificationsContext';
 import useInventoryFilterState from './hooks/useInventoryFilterState';
 import { getDropdownInputFields } from './components/inventoryCountFilters/getDropdownInputFields';
+import InventoryCountTopBar from '../../common/components/inventoryCountTopBar';
 import InventoryCountFilters from './components/inventoryCountFilters/InventoryCountFilters';
 
 interface Props {
@@ -57,45 +58,59 @@ const InventoryCountCreate: React.FC<Props> = ({
     createCountBatches();
   };
 
-  const renderCreateInvPaper = () => (
+  const renderInventoryCountTopBar = () => (
     <Fragment>
-      <div className={classes.titleDiv}>
-        <span
-          className={classes.iconDiv}
-          onClick={() => history.push('/inventory/count')}>
-          <ArrowBackIcon className={classes.backArrow} />
-        </span>
-        <Typography className={classes.titleText}>
-          Add Inventory Count
-        </Typography>
-      </div>
-      <div className={classes.startCountContainer}>
-        <div className={classes.startCountDiv}>
-          <Typography className={classes.infoText}>
-            Schedule an inventory count to maintain accurate inventory levels.
-          </Typography>
-          <Button className={classes.exitBtn}>
-            <Typography className={classes.btnText}>Save & Exit</Typography>
-          </Button>
-          <Button onClick={onStartCountClick} className={classes.startBtn}>
-            <Typography className={classes.btnText}>Start Count</Typography>
-          </Button>
-        </div>
-      </div>
+      <InventoryCountTopBar
+        title={
+          <Fragment>
+            <span
+              className={classes.iconDiv}
+              onClick={() => history.push('/inventory/count')}>
+              <ArrowBackIcon className={classes.backArrow} />
+            </span>
+            <Typography className={classes.titleText}>
+              Add Inventory Count
+            </Typography>
+          </Fragment>
+        }
+        inventoryCountActionsPaper={
+          <div className={classes.startCountDiv}>
+            <Typography className={classes.infoText}>
+              Schedule an inventory count to maintain accurate inventory levels.
+            </Typography>
+            <div>
+              <Button className={classes.exitBtn}>
+                <Typography className={classes.btnText}>Save & Exit</Typography>
+              </Button>
+              <Button onClick={onStartCountClick} className={classes.startBtn}>
+                <Typography className={classes.btnText}>Start Count</Typography>
+              </Button>
+            </div>
+          </div>
+        }
+      />
     </Fragment>
+  );
+
+  const renderInventoryCountFilters = () => (
+    <div className={classes.filtersContainer}>
+      <div className={classes.filterSectionWrapper}>
+        <InventoryCountFilters
+          startDate={startDate}
+          handleStartDateChange={handleStartDateChange}
+          handleDropdownInputChange={handleDropdownInputChange}
+          countName={countName}
+          handleCountNameChange={handleCountNameChange}
+          DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
+        />
+      </div>
+    </div>
   );
 
   return (
     <div className={classes.createInvContainer}>
-      {renderCreateInvPaper()}
-      <InventoryCountFilters
-        startDate={startDate}
-        handleStartDateChange={handleStartDateChange}
-        handleDropdownInputChange={handleDropdownInputChange}
-        countName={countName}
-        handleCountNameChange={handleCountNameChange}
-        DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
-      />
+      {renderInventoryCountTopBar()}
+      {renderInventoryCountFilters()}
       <div className={classes.dividerDiv}>
         <Divider />
       </div>

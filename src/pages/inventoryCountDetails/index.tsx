@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 import styles from './styles';
 import { StoreState } from '../../redux/types';
@@ -91,11 +91,6 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
           setItemCount={setItemCount}
           handleCountClick={handleCountClick}
         />
-        <div className={classes.reviewBtnDiv}>
-          <Button className={classes.reviewBtn}>
-            <Typography className={classes.btnText}>Review</Typography>
-          </Button>
-        </div>
         {loading ? (
           <Loading />
         ) : (

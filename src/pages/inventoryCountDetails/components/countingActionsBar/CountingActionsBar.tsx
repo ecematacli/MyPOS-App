@@ -7,6 +7,7 @@ import { CountingActionsBarProps } from '../../types';
 import history from '../../../../history';
 import { capitalizeFirstLetters, formatDate } from '../../../../common/utils';
 import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
+import InventoryCountTopBar from '../../../../common/components/inventoryCountTopBar';
 
 const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   batch,
@@ -43,22 +44,6 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
     setItemCount(parseInt(value));
   };
 
-  const renderTitle = () => (
-    <div className={classes.titleDiv}>
-      <span
-        className={classes.iconDiv}
-        onClick={() => history.push('/inventory/count')}>
-        <ArrowBackIcon className={classes.backArrow} />
-      </span>
-      <Typography className={classes.titleText}>
-        {batch &&
-          (batch.name
-            ? capitalizeFirstLetters(batch.name)
-            : `Count on ${formatDate(batch.started, 'd MMMM y - p')}`)}
-      </Typography>
-    </div>
-  );
-
   const renderCountInput = () => (
     <div className={classes.countInputAction}>
       <OutlinedInput
@@ -84,35 +69,53 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   );
 
   return (
-    <Fragment>
-      {renderTitle()}
-      <div className={classes.countingContainer}>
-        <AutoCompleteProductSearchBar
-          className={classes.searchBar}
-          open={open}
-          onClose={() => {
-            setOpen(false);
-            setSearchResults([]);
-          }}
-          loading={loading}
-          options={searchResults}
-          onProductChange={onProductSelect}
-          query={query}
-          onQueryChange={handleQueryChange}
-          productNotFound={productNotFound}
-        />
-        {!checked && renderCountInput()}
-        <div className={classes.countInputAction}>
-          <Checkbox
-            color="primary"
-            checked={checked}
-            onChange={handleCheckedChange}
-            disableRipple
+    <InventoryCountTopBar
+      title={
+        <Fragment>
+          <span
+            className={classes.iconDiv}
+            onClick={() => history.push('/inventory/count')}>
+            <ArrowBackIcon className={classes.backArrow} />
+          </span>
+          <Typography className={classes.titleText}>
+            {batch &&
+              (batch.name
+                ? capitalizeFirstLetters(batch.name)
+                : `Count on ${formatDate(batch.started, 'd MMMM y - p')}`)}
+          </Typography>
+        </Fragment>
+      }
+      inventoryCountActionsPaper={
+        <div className={classes.countingContainer}>
+          <AutoCompleteProductSearchBar
+            className={classes.searchBar}
+            open={open}
+            onClose={() => {
+              setOpen(false);
+              setSearchResults([]);
+            }}
+            loading={loading}
+            options={searchResults}
+            onProductChange={onProductSelect}
+            query={query}
+            onQueryChange={handleQueryChange}
+            productNotFound={productNotFound}
           />
-          <Typography className={classes.modeText}>Quick-scan mode</Typography>
+          {!checked && renderCountInput()}
+          <div className={classes.countInputAction}>
+            <Checkbox
+              color="primary"
+              checked={checked}
+              onChange={handleCheckedChange}
+              disableRipple
+            />
+            <Typography className={classes.modeText}>
+              Quick-scan mode
+            </Typography>
+          </div>
         </div>
-      </div>
-    </Fragment>
+      }
+    />
   );
 };
 

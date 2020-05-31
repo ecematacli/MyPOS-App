@@ -6,7 +6,8 @@ import history from '../../history';
 import useInventoryBatchState from './hooks/useInventoryBatchState';
 import BatchTable from './components/BatchTable';
 import Loading from '../../common/components/loading';
-import CustomTabs from '../../common/components/customTabs/CustomTabs';
+import CustomTabs from '../../common/components/customTabs';
+import InventoryCountTopBar from '../../common/components/inventoryCountTopBar';
 
 const InventoryCountBatches: React.FC<{}> = () => {
   const classes = styles();
@@ -27,23 +28,27 @@ const InventoryCountBatches: React.FC<{}> = () => {
     fetchCountBatches(page, rowsPerPage);
   }, []);
 
-  const renderBatchActionPaper = () => (
-    <Fragment>
-      <CustomTabs
-        centered
-        textColor="secondary"
-        tabsValue={tabsValue}
-        handleChange={handleTabsChange}
-        tabs={[
-          { tab: 'Opened', value: 'opened' },
-          { tab: 'Completed', value: 'completed' },
-          { tab: 'Cancelled', value: 'cancelled' },
-        ]}
-        className={classes.tabs}
-        classes={{ root: classes.tabRoot }}
-      />
-
-      <div className={classes.addCountContainer}>
+  const renderInventoryCountTopBar = () => (
+    <InventoryCountTopBar
+      type="countBatches"
+      title={
+        <div className={classes.titleWrapDiv}>
+          <CustomTabs
+            centered
+            textColor="secondary"
+            tabsValue={tabsValue}
+            handleChange={handleTabsChange}
+            tabs={[
+              { tab: 'Opened', value: 'opened' },
+              { tab: 'Completed', value: 'completed' },
+              { tab: 'Canceled', value: 'cancelled' },
+            ]}
+            className={classes.tabs}
+            classes={{ root: classes.tabRoot }}
+          />
+        </div>
+      }
+      inventoryCountActionsPaper={
         <div className={classes.addCountDiv}>
           <Typography className={classes.infoText}>
             Create, schedule and complete counts to keep track of your
@@ -57,8 +62,8 @@ const InventoryCountBatches: React.FC<{}> = () => {
             </Typography>
           </Button>
         </div>
-      </div>
-    </Fragment>
+      }
+    />
   );
 
   const renderBatchData = () => (
@@ -81,7 +86,7 @@ const InventoryCountBatches: React.FC<{}> = () => {
 
   return (
     <div className={classes.inventoryContainer}>
-      {renderBatchActionPaper()}
+      {renderInventoryCountTopBar()}
       {renderBatchData()}
     </div>
   );

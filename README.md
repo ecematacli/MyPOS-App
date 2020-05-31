@@ -1,7 +1,7 @@
 # Point of Sale App dubbed as "MyPOS App"
 
 #### Demo 
-Please kindly note that this app was meant to be used as a desktop app in stores. Nonetheless, it has been made somewhat responsive for the screens of ipad and iphone 6/7/8 devices.
+Please kindly note that this app was meant to be used as a desktop app in stores.
 
 Also, the app is currently using React hooks, Redux and Context API coupled with Typescript all together in order to serve the purpose showing my knowledge on all of these technologies and tools.
 

@@ -1,19 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const centered = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
 export default makeStyles(({ spacing, palette }) => ({
   createInvContainer: {
     paddingTop: spacing(3),
-  },
-  titleDiv: {
-    margin: spacing(7, 0, 1.2),
-    display: 'flex',
-    justifyContent: 'center',
+    height: '100vh',
   },
   backArrow: { color: palette.grayColors[13], cursor: 'pointer' },
   iconDiv: { display: 'flex', alignItems: 'center' },
@@ -26,15 +16,11 @@ export default makeStyles(({ spacing, palette }) => ({
     color: palette.secondary.main,
     paddingRight: spacing(2.5),
   },
-  startCountContainer: {
-    ...centered,
-    backgroundColor: '#f1f3f5',
-    height: spacing(11.25),
-    width: '100%',
-  },
   startCountDiv: {
-    ...centered,
-    width: 'auto',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flex: 1,
   },
   btnText: {
     textTransform: 'capitalize',
@@ -53,6 +39,15 @@ export default makeStyles(({ spacing, palette }) => ({
       backgroundColor: palette.primary.light,
     },
   },
+  filtersContainer: {
+    position: 'relative',
+    padding: spacing(3.5, 6),
+  },
+  filterSectionWrapper: {
+    margin: '0 auto',
+    maxWidth: '1100px',
+    display: 'flex',
+  },
   dividerDiv: {
     padding: spacing(4),
     marginTop: spacing(9),
@@ -64,6 +59,8 @@ export default makeStyles(({ spacing, palette }) => ({
     display: 'flex',
     justifyContent: 'center',
     marginTop: spacing(6.25),
+    margin: '0 auto',
+    maxWidth: '1100px',
   },
   boxesImage: {
     height: 100,

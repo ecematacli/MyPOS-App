@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import styles from './styles';
 import PlainTable from '../../../../common/components/plainTable';
 import { CountBatchesProductsTableProps } from '../../types';
-import CustomTabs from '../../../../common/components/customTabs/CustomTabs';
+import CustomTabs from '../../../../common/components/customTabs';
 
 const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
   batchProducts,

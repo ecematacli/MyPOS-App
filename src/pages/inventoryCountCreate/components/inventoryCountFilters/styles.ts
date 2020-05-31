@@ -2,10 +2,17 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   filtersContainer: {
-    marginTop: spacing(9),
+    marginTop: spacing(5.5),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+  },
+  filtersInfoDiv: {
+    width: 170,
+    height: 67,
+    marginRight: 25,
+  },
+  infoText: {
+    color: palette.secondary.main,
   },
   calendarIcon: {
     color: palette.secondary.main,
@@ -34,6 +41,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   dropdownInputContainer: {
     marginTop: spacing(4),
     display: 'flex',
+    marginLeft: 195,
   },
   dropdownItemDiv: {
     display: 'flex',
