@@ -92,15 +92,18 @@ export default ({
     setDiscount: SetNumberState,
     setPercentageDiscount: SetNumberState
   ) => {
-    if (discountType === 'TL') {
+    const isDiscountNumber = discountValue || discountValue === 0;
+
+    if (isDiscountNumber && discountType === 'TL') {
       setDiscount(discountValue);
       setPercentageDiscount(
         calculatePercentageFromDiscount(total, discountValue)
       );
-    } else {
+    } else if (isDiscountNumber && discountType === '%') {
       setPercentageDiscount(discountValue);
       setDiscount(calculateDiscountFromPercentage(total, discountValue));
     }
+
     resetInputValue('discount');
     handleClose('discount');
   };
