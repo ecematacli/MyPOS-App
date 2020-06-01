@@ -1,7 +1,7 @@
-# Point of Sale App dubbed as "MyPOS App"
+# Point of Sale App 
 
 #### Demo 
-Please kindly note that this app was meant to be used as a desktop app in stores.
+Please kindly note that this app was meant to be used in the stores of a retail company and it serves the purpose of managing their stocks.
 
 Also, the app is currently using React hooks, Redux and Context API coupled with Typescript all together in order to serve the purpose showing my knowledge on all of these technologies and tools.
 
@@ -12,6 +12,8 @@ http://stock-management-ui-staging.s3-website.eu-central-1.amazonaws.com/
   - password: demo
 
 ![Dashboard Page](dashboard-page.png)
+
+![Inventory Counting](inventory-count-page.png)
 
 
 #### Pages and Features
@@ -57,4 +59,8 @@ http://stock-management-ui-staging.s3-website.eu-central-1.amazonaws.com/
   - Pagination.
 
 ## Inventory Count Page
- - Inventory count functionality lets them to count all of the products in their stores so that they could be in synced with the stocks of the stores and e-commerce website.
+ - Inventory count functionality lets them to count all of the products in their stores so that they could be synced with the stocks of the stores and e-commerce website.
+ - The ability filter products that will be counted by the product name, brand or category.
+ - When filters selected, a batch is created upon filtered products and counting page, on which the actual counting happens, opens up automatically.
+ - Products will be counted and then send back to the server.
+ - All batches can be seen on the home page of the inventory count.

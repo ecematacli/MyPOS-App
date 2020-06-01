@@ -3,7 +3,7 @@ import { Button, Typography, OutlinedInput, Checkbox } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import styles from './styles';
-import { CountingActionsBarProps } from '../../types';
+import { CountingActionsBarProps, ChangeEvent } from '../../types';
 import history from '../../../../history';
 import { capitalizeFirstLetters, formatDate } from '../../../../common/utils';
 import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
@@ -26,14 +26,15 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   setSearchResults,
   handleCountClick,
 }) => {
-  const classes = styles();
-  const [checked, setChecked] = useState(false);
+  const [isQuickScanMode, setIsQuickScanMode] = useState(false);
 
-  const handleCheckedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
+  const classes = styles(isQuickScanMode);
+
+  const handleCheckedChange = (e: ChangeEvent) => {
+    setIsQuickScanMode(e.target.checked);
   };
 
-  const onCountInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onCountInputChange = (e: ChangeEvent) => {
     const value = e.target.value;
 
     if (value === '') {
@@ -101,11 +102,11 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
             onQueryChange={handleQueryChange}
             productNotFound={productNotFound}
           />
-          {!checked && renderCountInput()}
+          {!isQuickScanMode && renderCountInput()}
           <div className={classes.countInputAction}>
             <Checkbox
               color="primary"
-              checked={checked}
+              checked={isQuickScanMode}
               onChange={handleCheckedChange}
               disableRipple
             />

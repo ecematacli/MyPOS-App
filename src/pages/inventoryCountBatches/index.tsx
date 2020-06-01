@@ -32,21 +32,18 @@ const InventoryCountBatches: React.FC<{}> = () => {
     <InventoryCountTopBar
       type="countBatches"
       title={
-        <div className={classes.titleWrapDiv}>
-          <CustomTabs
-            centered
-            textColor="secondary"
-            tabsValue={tabsValue}
-            handleChange={handleTabsChange}
-            tabs={[
-              { tab: 'Opened', value: 'opened' },
-              { tab: 'Completed', value: 'completed' },
-              { tab: 'Canceled', value: 'cancelled' },
-            ]}
-            className={classes.tabs}
-            classes={{ root: classes.tabRoot }}
-          />
-        </div>
+        <CustomTabs
+          textColor="secondary"
+          tabsValue={tabsValue}
+          handleChange={handleTabsChange}
+          tabs={[
+            { tab: 'Opened', value: 'opened' },
+            { tab: 'Completed', value: 'completed' },
+            { tab: 'Canceled', value: 'cancelled' },
+          ]}
+          className={classes.tabs}
+          classes={{ root: classes.tabRoot }}
+        />
       }
       inventoryCountActionsPaper={
         <div className={classes.addCountDiv}>
@@ -71,14 +68,16 @@ const InventoryCountBatches: React.FC<{}> = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className={classes.tableDiv}>
-          <BatchTable
-            batchesData={batches}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            handleChangeRowsPerPage={handleChangeRowsPerPage}
-            handleChangePage={handleChangePage}
-          />
+        <div className={classes.tableContainer}>
+          <div className={classes.tableSectionWrapper}>
+            <BatchTable
+              batchesData={batches}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
+              handleChangePage={handleChangePage}
+            />
+          </div>
         </div>
       )}
     </Fragment>

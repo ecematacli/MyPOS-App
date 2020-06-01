@@ -1,11 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette }) => ({
-  tabsDiv: {
-    width: '80%',
-    maxWidth: '80%',
-    margin: 'auto',
-  },
   tabs: {
     boxShadow: 'none',
     marginTop: spacing(7),
@@ -16,9 +11,12 @@ export default makeStyles(({ spacing, palette }) => ({
     textTransform: 'none',
     fontSize: spacing(2),
   },
-  tableDiv: {
-    width: '80%',
-    maxWidth: '80%',
-    margin: 'auto',
+  tableContainer: {
+    position: 'relative',
+    padding: spacing(3.5, 6),
+  },
+  tableSectionWrapper: {
+    margin: '0 auto',
+    maxWidth: spacing(137.5),
   },
 }));

@@ -5,11 +5,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     marginTop: spacing(5.5),
     display: 'flex',
     flexDirection: 'column',
-  },
-  filtersInfoDiv: {
-    width: 170,
-    height: 67,
-    marginRight: 25,
+    width: '100%',
   },
   infoText: {
     color: palette.secondary.main,
@@ -32,6 +28,12 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   inputContainer: {
     display: 'flex',
+    flex: 1,
+  },
+  filtersInfoDiv: {
+    width: 170,
+    height: 67,
+    marginRight: 40,
   },
   selectRoot: {
     '&:focus': {
@@ -41,7 +43,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   dropdownInputContainer: {
     marginTop: spacing(4),
     display: 'flex',
-    marginLeft: 195,
+    marginLeft: 210,
   },
   dropdownItemDiv: {
     display: 'flex',

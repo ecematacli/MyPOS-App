@@ -15,8 +15,8 @@ export default makeStyles(({ spacing, palette }) => ({
     flex: 1,
   },
   searchBar: {
-    width: '90%',
     margin: '0 auto',
+    width: (quickScanMode: boolean) => (quickScanMode ? '115%' : '90%'),
   },
   countInputAction: {
     display: 'flex',

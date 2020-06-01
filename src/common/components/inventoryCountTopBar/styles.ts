@@ -4,20 +4,22 @@ import { Props } from './index';
 
 export default makeStyles(({ spacing, breakpoints }) => ({
   titleContainer: {
-    height: 50,
+    height: spacing(6.25),
+    display: 'block',
+    position: 'relative',
+    paddingLeft: spacing(3),
+    paddingRight: spacing(6),
     margin: spacing(7, 0, 1.2),
     marginBottom: ({ type }: Props) => (type === 'countBatches' ? -2 : 'unset'),
     [breakpoints.down('md')]: {
-      marginTop: spacing(8),
+      marginTop: spacing(8.5),
     },
-    position: 'relative',
-    display: 'block',
   },
   titleWrapperDiv: {
     display: 'flex',
     alignItems: 'center',
     margin: '0 auto',
-    maxWidth: '1100px',
+    maxWidth: spacing(137.5),
   },
   inventoryCountActionsContainer: {
     backgroundColor: '#f1f3f5',
@@ -28,6 +30,6 @@ export default makeStyles(({ spacing, breakpoints }) => ({
   actionSectionWrapper: {
     display: 'block',
     margin: '0 auto',
-    maxWidth: '1100px',
+    maxWidth: spacing(137.5),
   },
 }));

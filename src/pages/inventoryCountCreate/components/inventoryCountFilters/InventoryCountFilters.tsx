@@ -68,34 +68,36 @@ const InventoryCountFilters: React.FC<Props> = ({
           Please select filters to start an inventory count
         </Typography>
       </div>
-      <div>
-        <InputLabel classes={{ root: classes.inputLabel }}>
-          Start Date
-        </InputLabel>
-        <DatePicker
-          color="secondary"
-          variant="inline"
-          TextFieldComponent={renderTextField}
-          autoOk
-          format="dd MMM yyyy"
-          value={startDate}
-          onChange={handleStartDateChange}
-        />
-      </div>
-      <div>
-        <InputLabel
-          classes={{ root: classes.inputLabel }}
-          className={classes.inputSpace}
-          color="secondary">
-          Count Name
-        </InputLabel>
-        <OutlinedInput
-          className={classes.inputSpace}
-          classes={{ root: classes.inputRoot, input: classes.input }}
-          value={countName}
-          onChange={handleCountNameChange}
-          color="secondary"
-        />
+      <div style={{ display: 'flex' }}>
+        <div>
+          <InputLabel classes={{ root: classes.inputLabel }}>
+            Start Date
+          </InputLabel>
+          <DatePicker
+            color="secondary"
+            variant="inline"
+            TextFieldComponent={renderTextField}
+            autoOk
+            format="dd MMM yyyy"
+            value={startDate}
+            onChange={handleStartDateChange}
+          />
+        </div>
+        <div>
+          <InputLabel
+            classes={{ root: classes.inputLabel }}
+            className={classes.inputSpace}
+            color="secondary">
+            Count Name
+          </InputLabel>
+          <OutlinedInput
+            className={classes.inputSpace}
+            classes={{ root: classes.inputRoot, input: classes.input }}
+            value={countName}
+            onChange={handleCountNameChange}
+            color="secondary"
+          />
+        </div>
       </div>
     </div>
   );

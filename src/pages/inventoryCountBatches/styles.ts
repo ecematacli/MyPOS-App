@@ -1,20 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const centered = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
 export default makeStyles(({ spacing, palette }) => ({
   inventoryContainer: {
     paddingTop: spacing(3),
     height: '100vh',
-  },
-  titleWrapDiv: {
-    display: 'block',
-    margin: '0 auto',
-    maxWidth: '1100px',
   },
   tabs: {
     boxShadow: 'none',
@@ -25,7 +14,10 @@ export default makeStyles(({ spacing, palette }) => ({
     fontSize: spacing(2),
   },
   addCountDiv: {
-    ...centered,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flex: 1,
     boxShadow: 'none',
   },
   infoText: {
@@ -42,12 +34,19 @@ export default makeStyles(({ spacing, palette }) => ({
       backgroundColor: palette.primary.light,
     },
   },
-  tableDiv: {
-    width: '65%',
-    margin: 'auto',
+  tableContainer: {
+    position: 'relative',
+    padding: spacing(3.5, 6),
+  },
+  tableSectionWrapper: {
+    margin: '0 auto',
+    maxWidth: spacing(137.5),
+    display: 'flex',
   },
   imageDiv: {
-    ...centered,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: spacing(8),
   },
 }));

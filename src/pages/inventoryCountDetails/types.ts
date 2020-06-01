@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
+export type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+
 export interface BatchProduct {
   id: number;
   sku: string;
