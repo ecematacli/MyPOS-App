@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import { Grid, IconButton, Typography } from '@material-ui/core';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import React, { useEffect, useRef } from 'react'
+import { connect } from 'react-redux'
+import { Grid, IconButton, Typography } from '@material-ui/core'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 
-import styles from './styles';
-import { completeSale } from '../../redux/sales/salesActions';
-import { Product } from '../../redux/products/types';
-import { fetchCategories } from '../../redux/categories/categoriesActions';
-import { fetchBrands } from '../../redux/brands/brandsActions';
-import useSalesState from './hooks/useSalesState';
-import ProductSearchBar from './components/productSearchBar/ProductSearchBar';
-import PosTableRight from './components/posTableRight/PosTableRight';
+import styles from './styles'
+import { completeSale } from '../../redux/sales/salesActions'
+import { Product } from '../../redux/products/types'
+import { fetchCategories } from '../../redux/categories/categoriesActions'
+import { fetchBrands } from '../../redux/brands/brandsActions'
+import useSalesState from './hooks/useSalesState'
+import ProductSearchBar from './components/productSearchBar/ProductSearchBar'
+import PosTableRight from './components/posTableRight/PosTableRight'
 
 interface SalesProps {
   completeSale: (
@@ -19,18 +19,14 @@ interface SalesProps {
     discount: number,
     addNotification: (m: string, t: string) => void,
     discardSale: () => void
-  ) => void;
-  fetchBrands: () => void;
-  fetchCategories: () => void;
+  ) => void
+  fetchBrands: () => void
+  fetchCategories: () => void
 }
 
-const SalesPage: React.FC<SalesProps> = ({
-  completeSale,
-  fetchBrands,
-  fetchCategories,
-}) => {
-  const classes = styles();
-  const inputRef = useRef<HTMLInputElement>();
+const SalesPage: React.FC<SalesProps> = ({ completeSale, fetchBrands, fetchCategories }) => {
+  const classes = styles()
+  const inputRef = useRef<HTMLInputElement>()
   const {
     products,
     addProduct,
@@ -46,29 +42,25 @@ const SalesPage: React.FC<SalesProps> = ({
     setDiscount,
     percentageDiscount,
     setPercentageDiscount,
-  } = useSalesState();
+  } = useSalesState()
 
   useEffect(() => {
-    fetchCategories();
-    fetchBrands();
-  }, []);
+    fetchCategories()
+    fetchBrands()
+  }, [])
 
   useEffect(() => {
-    inputRef.current &&
-      document.activeElement.id !== 'discount' &&
-      inputRef.current.focus();
-  });
+    inputRef.current && document.activeElement.id !== 'discount' && inputRef.current.focus()
+  })
 
   return (
     <div className={classes.salesContainer}>
-      <Grid container spacing={3} justify="center">
+      <Grid container spacing={3} justify='center'>
         {/*
          // @ts-ignore */}
-        <Grid item align="center" className={classes.discardSaleGridItem}>
+        <Grid item align='center' className={classes.discardSaleGridItem}>
           <div className={classes.discardSaleBtnHolder}>
-            <IconButton
-              classes={{ root: classes.discardIconBtn }}
-              onClick={discardSale}>
+            <IconButton classes={{ root: classes.discardIconBtn }} onClick={discardSale}>
               <DeleteForeverIcon className={classes.discardSaleBtn} />
               <Typography>Discard Sale</Typography>
             </IconButton>
@@ -78,7 +70,7 @@ const SalesPage: React.FC<SalesProps> = ({
         // @ts-ignore */}
         <Grid
           item
-          align="center"
+          align='center'
           xs={12}
           sm={12}
           md={12}
@@ -96,7 +88,7 @@ const SalesPage: React.FC<SalesProps> = ({
         // @ts-ignore */}
         <Grid
           item
-          align="center"
+          align='center'
           xs={12}
           sm={12}
           md={12}
@@ -122,11 +114,11 @@ const SalesPage: React.FC<SalesProps> = ({
         </Grid>
       </Grid>
     </div>
-  );
-};
+  )
+}
 
 export default connect(null, {
   completeSale,
   fetchBrands,
   fetchCategories,
-})(SalesPage);
+})(SalesPage)

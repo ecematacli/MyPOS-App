@@ -1,27 +1,31 @@
 interface TableHead {
-  label: string;
-  numeric?: boolean;
+  label: string
+  numeric?: boolean
 }
 
 export const TABLE_HEADS: TableHead[] = [
+  { label: '' },
   {
-    label: 'Sku'
+    label: 'Sku',
   },
   {
-    label: 'Product Name'
+    label: 'Name',
   },
   {
-    label: 'Category'
+    label: 'Variation'
   },
   {
-    label: 'Brand'
+    label: 'Category',
+  },
+  {
+    label: 'Brand',
   },
   {
     label: 'Price',
-    numeric: true
+    numeric: true,
   },
   {
     label: 'Discounted Price',
-    numeric: true
-  }
-];
+    numeric: true,
+  },
+]

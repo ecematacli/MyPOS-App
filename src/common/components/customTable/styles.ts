@@ -19,6 +19,8 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
       borderBottom: 'none',
       paddingBottom: 6,
       color: palette.grayColors[7],
+      fontSize: 14,
+      fontWeight: 600,
       [breakpoints.down('sm')]: {
         fontSize: 13,
       },

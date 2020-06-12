@@ -1,6 +1,6 @@
-import React, { Fragment, useContext } from 'react';
-import { connect } from 'react-redux';
-import clsx from 'clsx';
+import React, { Fragment, useContext } from 'react'
+import { connect } from 'react-redux'
+import clsx from 'clsx'
 import {
   Table,
   TableCell,
@@ -10,20 +10,20 @@ import {
   Paper,
   Divider,
   IconButton,
-} from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+} from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 
-import styles from './styles';
-import { PosTableProps } from './types';
-import { Product } from '../../../../redux/products/types';
-import { NotificationsContext } from '../../../../contexts/NotificationsContext';
-import useEditProductFieldState from './useEditProductFieldState';
-import { editProduct } from '../../../../redux/products/productsActions';
-import { TABLE_HEAD } from './tableHead';
-import { currencyFormatter } from '../../../../common/utils';
-import { capitalizeFirstLetters } from '../../../../common/utils';
-import EditPricePopover from '../editProductFieldPopover/EditProductFieldPopover';
-import Total from '../total/Total';
+import styles from './styles'
+import { PosTableProps } from './types'
+import { Product } from '../../../../redux/products/types'
+import { NotificationsContext } from '../../../../contexts/NotificationsContext'
+import useEditProductFieldState from './useEditProductFieldState'
+import { editProduct } from '../../../../redux/products/productsActions'
+import { TABLE_HEAD } from './tableHead'
+import { currencyFormatter } from '../../../../common/utils'
+import { capitalizeFirstLetters } from '../../../../common/utils'
+import EditPricePopover from '../editProductFieldPopover/EditProductFieldPopover'
+import Total from '../total/Total'
 
 const PosTableRight: React.FC<PosTableProps> = ({
   products,
@@ -41,8 +41,8 @@ const PosTableRight: React.FC<PosTableProps> = ({
   discardSale,
   editProduct,
 }) => {
-  const classes = styles();
-  const { addNotification } = useContext(NotificationsContext);
+  const classes = styles()
+  const { addNotification } = useContext(NotificationsContext)
 
   const {
     priceValue,
@@ -59,7 +59,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
     editProduct,
     editProductFieldLocalStorageState,
     addNotification,
-  });
+  })
 
   const renderEditPopover = (
     field: string,
@@ -69,7 +69,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
     label?: string
   ) => (
     <EditPricePopover
-      data-test="input-box"
+      data-test='input-box'
       title={title}
       field={field}
       open={Boolean(anchorEl && anchorEl[field])}
@@ -89,7 +89,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
         </div>
       }
     />
-  );
+  )
 
   const renderTableHead = () =>
     TABLE_HEAD.map(({ label, numeric }, i) => (
@@ -99,27 +99,23 @@ const PosTableRight: React.FC<PosTableProps> = ({
         align={numeric ? 'right' : 'left'}>
         {label}
       </TableCell>
-    ));
+    ))
 
   const renderTableBody = () =>
     products.map((product: Product) => {
-      const { id, name, qty, price, discountPrice } = product;
+      const { id, name, qty, price, discountPrice, variation } = product
       return (
-        <TableRow
-          className={classes.tableRow}
-          role="checkbox"
-          hover
-          tabIndex={-1}
-          key={id}>
-          <TableCell className={classes.firstCell} component="th" scope="row">
+        <TableRow className={classes.tableRow} role='checkbox' hover tabIndex={-1} key={id}>
+          <TableCell className={classes.firstCell} component='td' scope='row'>
             {name}
+            {variation ? ` | ${variation}` : ''}
           </TableCell>
-          <TableCell align="right" padding="none">
+          <TableCell align='right' padding='none'>
             <div className={classes.quantity}>
               <div
                 className={classes.arrow}
                 onClick={() => {
-                  decreaseProductQuantity(product);
+                  decreaseProductQuantity(product)
                 }}>
                 &#10094;
               </div>
@@ -127,17 +123,17 @@ const PosTableRight: React.FC<PosTableProps> = ({
               <div
                 className={classes.arrow}
                 onClick={() => {
-                  increaseProductQuantity(product);
+                  increaseProductQuantity(product)
                 }}>
                 &#10095;
               </div>
             </div>
           </TableCell>
-          <TableCell align="right">
+          <TableCell align='right'>
             <Fragment>
               <div
                 className={classes.editableAmount}
-                onClick={(e) => handleEditClick(e, 'price', id, product)}>
+                onClick={e => handleEditClick(e, 'price', id, product)}>
                 {currencyFormatter(price)}
               </div>
               {renderEditPopover(
@@ -148,13 +144,11 @@ const PosTableRight: React.FC<PosTableProps> = ({
               )}
             </Fragment>
           </TableCell>
-          <TableCell align="right">
+          <TableCell align='right'>
             <Fragment>
               <div
                 className={classes.editableAmount}
-                onClick={(e) =>
-                  handleEditClick(e, 'discountPrice', id, product)
-                }>
+                onClick={e => handleEditClick(e, 'discountPrice', id, product)}>
                 {discountPrice ? currencyFormatter(discountPrice) : '-'}
               </div>
               {renderEditPopover(
@@ -166,23 +160,21 @@ const PosTableRight: React.FC<PosTableProps> = ({
               )}
             </Fragment>
           </TableCell>
-          <TableCell colSpan={3} align="right">
+          <TableCell colSpan={3} align='right'>
             <IconButton onClick={() => deleteProduct(product.id)}>
               <DeleteIcon className={classes.deleteIcon} />
             </IconButton>
           </TableCell>
         </TableRow>
-      );
-    });
+      )
+    })
 
   return (
     <Paper className={classes.paperRoot}>
       <div className={classes.tableWrapper}>
-        <Table size="medium">
+        <Table size='medium'>
           <TableHead>
-            <TableRow className={classes.tableRow}>
-              {renderTableHead()}
-            </TableRow>
+            <TableRow className={classes.tableRow}>{renderTableHead()}</TableRow>
           </TableHead>
           <TableBody>{renderTableBody()}</TableBody>
         </Table>
@@ -204,7 +196,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
         handleClose={handleClose}
       />
     </Paper>
-  );
-};
+  )
+}
 
-export default connect(null, { editProduct })(PosTableRight);
+export default connect(null, { editProduct })(PosTableRight)

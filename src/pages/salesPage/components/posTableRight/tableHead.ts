@@ -1,9 +1,9 @@
 interface Head {
-  label: string;
-  numeric?: boolean;
+  label: string
+  numeric?: boolean
 }
 
-type TableHead = Head[];
+type TableHead = Head[]
 
 export const TABLE_HEAD: TableHead = [
   {
@@ -17,10 +17,10 @@ export const TABLE_HEAD: TableHead = [
     numeric: true,
   },
   {
-    label: 'Discount Price',
+    label: 'Discounted',
     numeric: true,
   },
   {
     label: '',
   },
-];
+]

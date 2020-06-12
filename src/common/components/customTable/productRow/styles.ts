@@ -10,6 +10,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     paddingBottom: spacing(4),
     height: spacing(14.37),
     maxHeight: spacing(14.37),
+    fontSize: 14,
     [breakpoints.down('sm')]: {
       fontSize: 13
     },

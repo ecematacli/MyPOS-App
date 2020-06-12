@@ -1,19 +1,19 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react'
 
-import styles from './styles';
-import { Product } from '../../../../redux/products/types';
-import { NewProductData } from '../../hooks/types';
-import useSearchInput from './useSearchBarState';
-import QuickProductAdd from '../quickProductAdd/QuickProductAdd';
-import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
+import styles from './styles'
+import { Product } from '../../../../redux/products/types'
+import { NewProductData } from '../../hooks/types'
+import useSearchInput from './useSearchBarState'
+import QuickProductAdd from '../quickProductAdd/QuickProductAdd'
+import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar'
 
 interface SearchBarProps {
-  addProduct: (product: Product) => void;
+  addProduct: (product: Product) => void
   createProduct: (
     productData: NewProductData,
     addNotification: (message: string, severity: string) => void
-  ) => Promise<void>;
-  inputRef: React.MutableRefObject<HTMLInputElement>;
+  ) => Promise<void>
+  inputRef: React.MutableRefObject<HTMLInputElement>
 }
 
 const ProductSearchBar: React.FC<SearchBarProps> = ({
@@ -21,17 +21,17 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({
   createProduct,
   inputRef,
 }) => {
-  const classes = styles();
+  const classes = styles()
 
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false)
 
   const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
+    setOpenDialog(true)
+  }
 
   const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
+    setOpenDialog(false)
+  }
 
   const {
     open,
@@ -43,7 +43,7 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({
     setQuery,
     onProductSelect,
     productNotFound,
-  } = useSearchInput(addProduct);
+  } = useSearchInput(addProduct)
 
   return (
     <Fragment>
@@ -51,9 +51,9 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({
         className={classes.searchBarInput}
         open={open}
         onClose={() => {
-          setOpen(false);
-          setQuery('');
-          setSearchResults([]);
+          setOpen(false)
+          setQuery('')
+          setSearchResults([])
         }}
         loading={loading}
         options={searchResults}
@@ -71,7 +71,7 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({
         createProduct={createProduct}
       />
     </Fragment>
-  );
-};
+  )
+}
 
-export default ProductSearchBar;
+export default ProductSearchBar

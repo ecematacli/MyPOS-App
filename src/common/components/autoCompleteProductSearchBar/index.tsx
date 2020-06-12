@@ -1,32 +1,32 @@
-import React from 'react';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { CircularProgress, InputAdornment, TextField } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import parse from 'autosuggest-highlight/parse';
-import match from 'autosuggest-highlight/match';
+import React from 'react'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import { CircularProgress, InputAdornment, TextField } from '@material-ui/core'
+import { Search } from '@material-ui/icons'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import parse from 'autosuggest-highlight/parse'
+import match from 'autosuggest-highlight/match'
 
-import styles from './styles';
-import { Product } from '../../../redux/products/types';
-import { currencyFormatter } from '../../utils';
+import styles from './styles'
+import { Product } from '../../../redux/products/types'
+import { currencyFormatter } from '../../utils'
 
 interface Props {
-  open: boolean;
-  onClose: () => void;
-  options: any[];
-  loading: boolean;
-  onProductChange: (product: any) => void;
-  query: string;
-  onQueryChange: React.Dispatch<React.SetStateAction<string>>;
-  isUsedOnSalesPage?: boolean;
-  productNotFound?: boolean;
-  handleOpenDialog?: () => void;
-  className?: any;
-  inputRef?: React.MutableRefObject<HTMLInputElement>;
+  open: boolean
+  onClose: () => void
+  options: any[]
+  loading: boolean
+  onProductChange: (product: any) => void
+  query: string
+  onQueryChange: React.Dispatch<React.SetStateAction<string>>
+  isUsedOnSalesPage?: boolean
+  productNotFound?: boolean
+  handleOpenDialog?: () => void
+  className?: any
+  inputRef?: React.MutableRefObject<HTMLInputElement>
 }
 
-const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {
-  const classes = styles(props);
+const AutoCompleteProductSearchBar: React.FC<Props> = props => {
+  const classes = styles(props)
   const {
     open,
     onClose,
@@ -40,18 +40,18 @@ const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {
     handleOpenDialog,
     inputRef,
     ...otherProps
-  } = props;
+  } = props
 
   return (
     <Autocomplete
       open={open}
       autoComplete
       onClose={onClose}
-      filterOptions={(p) => p}
+      filterOptions={p => p}
       getOptionLabel={(product: Product) => product.name}
       options={options}
       loading={loading}
-      noOptionsText="No product"
+      noOptionsText='No product'
       className={classes.autoSuggest}
       clearOnEscape
       onChange={(e: React.ChangeEvent<HTMLInputElement>, product: Product) =>
@@ -59,19 +59,17 @@ const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {
       }
       inputValue={query}
       autoHighlight
-      renderInput={(params) => (
+      renderInput={params => (
         <TextField
           {...params}
           {...otherProps}
           inputRef={inputRef}
-          placeholder="Search for products..."
-          color="secondary"
-          variant="outlined"
+          placeholder='Search for products...'
+          color='secondary'
+          variant='outlined'
           classes={{ root: classes.inputRoot }}
           value={query}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            onQueryChange(e.target.value)
-          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => onQueryChange(e.target.value)}
           InputProps={{
             ...params.InputProps,
             classes: {
@@ -81,12 +79,8 @@ const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {
             },
             endAdornment: (
               <React.Fragment>
-                {loading ? (
-                  <CircularProgress color="inherit" size={20} />
-                ) : null}
-                <InputAdornment
-                  className={classes.searchIconHolder}
-                  position="end">
+                {loading ? <CircularProgress color='inherit' size={20} /> : null}
+                <InputAdornment className={classes.searchIconHolder} position='end'>
                   {isUsedOnSalesPage && productNotFound ? (
                     <AddCircleIcon
                       className={classes.quickAddIcon}
@@ -102,40 +96,31 @@ const AutoCompleteProductSearchBar: React.FC<Props> = (props) => {
         />
       )}
       renderOption={(product: Product, { inputValue }) => {
-        const productFields = product.name || product.variation || product.sku;
-        const matches = match(productFields, inputValue);
-        const parts = parse(productFields, matches);
+        const productFields = product.name || product.variation || product.sku
+        const matches = match(productFields, inputValue)
+        const parts = parse(productFields, matches)
 
         return (
           <div className={classes.suggestionContainer}>
             <div>
               <div className={classes.suggestionGroup}>
-                {parts.map(
-                  (
-                    part: { text: string; highlight: boolean },
-                    index: number
-                  ) => (
-                    <span
-                      key={index}
-                      style={{ fontWeight: part.highlight ? 700 : 400 }}>
-                      {part.text}
-                    </span>
-                  )
-                )}
+                {parts.map((part: { text: string; highlight: boolean }, index: number) => (
+                  <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
+                    {part.text}
+                  </span>
+                ))}
                 <span> / {product.variation}</span>
               </div>
               <span> {product.sku}</span>
             </div>
             <div>
-              <span>
-                {product.price ? currencyFormatter(product.price) : '-'}
-              </span>
+              <span>{product.price ? currencyFormatter(product.price) : '-'}</span>
             </div>
           </div>
-        );
+        )
       }}
     />
-  );
-};
+  )
+}
 
-export default AutoCompleteProductSearchBar;
+export default AutoCompleteProductSearchBar

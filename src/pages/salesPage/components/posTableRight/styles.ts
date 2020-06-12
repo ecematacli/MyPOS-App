@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   paperRoot: {
@@ -11,15 +11,20 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     fontWeight: 'bolder',
   },
   tableWrapper: {
-    paddingTop: spacing(3.5),
+    paddingTop: spacing(2.5),
     height: '45vh',
     overflow: 'auto',
   },
   tableRow: {
     '& > th, td': {
+      fontSize: 14,
       [breakpoints.down('sm')]: {
-        fontSize: 14,
+        fontSize: 13,
       },
+    },
+    '& > th': {
+      color: palette.grey[700],
+      fontWeight: 600,
     },
   },
   firstCell: { paddingLeft: spacing(2.8) },
@@ -57,8 +62,9 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   deleteIcon: {
     color: palette.secondary.dark,
+    fontSize: 18,
   },
   totalDivider: {
     backgroundColor: palette.secondary.light,
   },
-}));
+}))
