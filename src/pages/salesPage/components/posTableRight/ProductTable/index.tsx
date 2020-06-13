@@ -1,65 +1,52 @@
-import React, { Fragment, useContext } from 'react'
-import { connect } from 'react-redux'
-import clsx from 'clsx'
+import React, { FC, ChangeEvent, Fragment } from 'react'
+
 import {
   Table,
-  TableCell,
   TableHead,
-  TableBody,
   TableRow,
-  Paper,
-  Divider,
+  TableBody,
+  TableCell,
   IconButton,
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import clsx from 'clsx'
 
 import styles from './styles'
-import { PosTableProps } from './types'
-import { Product } from '../../../../redux/products/types'
-import { NotificationsContext } from '../../../../contexts/NotificationsContext'
-import useEditProductFieldState from './useEditProductFieldState'
-import { editProduct } from '../../../../redux/products/productsActions'
 import { TABLE_HEAD } from './tableHead'
-import { currencyFormatter } from '../../../../common/utils'
-import { capitalizeFirstLetters } from '../../../../common/utils'
-import EditPricePopover from '../editProductFieldPopover/EditProductFieldPopover'
-import Total from '../total/Total'
+import { Product } from '../../../../../redux/products/types'
+import EditPricePopover from '../../editProductFieldPopover/EditProductFieldPopover'
+import { capitalizeFirstLetters, currencyFormatter } from '../../../../../common/utils'
 
-const PosTableRight: React.FC<PosTableProps> = ({
+interface Props {
+  priceValue: number
+  handlePriceChange: (e: ChangeEvent) => void
+  handleDiscountedPriceChange: (e: ChangeEvent) => void
+  onCompletePriceEditClick: (field: string, inputValue: number) => void
+  discountedPriceValue: number
+  anchorEl: { [key: string]: EventTarget & HTMLDivElement }
+  handleClose: (field: string) => void
+  products: Product[]
+  deleteProduct: (id: number) => void
+  decreaseProductQuantity: (product: Product) => void
+  increaseProductQuantity: (product: Product) => void
+  handleEditClick: (e: any, field: string, id: number, product: Product) => void
+}
+
+export const POSProductTable: FC<Props> = ({
+  priceValue,
+  handleDiscountedPriceChange,
+  handlePriceChange,
+  onCompletePriceEditClick,
+  discountedPriceValue,
+  anchorEl,
+  handleClose,
   products,
-  deleteProduct,
   decreaseProductQuantity,
+  deleteProduct,
   increaseProductQuantity,
-  editProductFieldLocalStorageState,
-  total,
-  tax,
-  discount,
-  setDiscount,
-  percentageDiscount,
-  setPercentageDiscount,
-  completeSale,
-  discardSale,
-  editProduct,
+  handleEditClick,
 }) => {
   const classes = styles()
-  const { addNotification } = useContext(NotificationsContext)
-
-  const {
-    priceValue,
-    handlePriceChange,
-    discountedPriceValue,
-    handleDiscountedPriceChange,
-    handleEditClick,
-    onCompletePriceEditClick,
-    onCompleteDiscountEditClick,
-    anchorEl,
-    handleClose,
-  } = useEditProductFieldState({
-    products,
-    editProduct,
-    editProductFieldLocalStorageState,
-    addNotification,
-  })
 
   const renderEditPopover = (
     field: string,
@@ -90,7 +77,6 @@ const PosTableRight: React.FC<PosTableProps> = ({
       }
     />
   )
-
   const renderTableHead = () =>
     TABLE_HEAD.map(({ label, numeric }, i) => (
       <TableCell
@@ -168,35 +154,14 @@ const PosTableRight: React.FC<PosTableProps> = ({
         </TableRow>
       )
     })
-
   return (
-    <Paper className={classes.paperRoot}>
-      <div className={classes.tableWrapper}>
-        <Table size='medium'>
-          <TableHead>
-            <TableRow className={classes.tableRow}>{renderTableHead()}</TableRow>
-          </TableHead>
-          <TableBody>{renderTableBody()}</TableBody>
-        </Table>
-      </div>
-      <Divider className={classes.totalDivider} />
-      <Total
-        products={products}
-        total={total}
-        tax={tax}
-        discount={discount}
-        setDiscount={setDiscount}
-        percentageDiscount={percentageDiscount}
-        setPercentageDiscount={setPercentageDiscount}
-        completeSale={completeSale}
-        discardSale={discardSale}
-        anchorEl={anchorEl}
-        handleEditClick={handleEditClick}
-        onCompleteDiscountEditClick={onCompleteDiscountEditClick}
-        handleClose={handleClose}
-      />
-    </Paper>
+    <div className={classes.tableWrapper}>
+      <Table size='medium'>
+        <TableHead>
+          <TableRow className={classes.tableRow}>{renderTableHead()}</TableRow>
+        </TableHead>
+        <TableBody>{renderTableBody()}</TableBody>
+      </Table>
+    </div>
   )
 }
-
-export default connect(null, { editProduct })(PosTableRight)

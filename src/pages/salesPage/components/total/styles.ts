@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   totalDivider: {
@@ -92,4 +92,4 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
       margin: 'auto',
     },
   },
-}));
+}))

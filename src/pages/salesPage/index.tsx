@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import { Grid, IconButton, Typography } from '@material-ui/core'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
@@ -10,7 +10,7 @@ import { fetchCategories } from '../../redux/categories/categoriesActions'
 import { fetchBrands } from '../../redux/brands/brandsActions'
 import useSalesState from './hooks/useSalesState'
 import ProductSearchBar from './components/productSearchBar/ProductSearchBar'
-import PosTableRight from './components/posTableRight/PosTableRight'
+import PosTableRight from './components/posTableRight'
 
 interface SalesProps {
   completeSale: (

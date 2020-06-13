@@ -1,15 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core'
 
-export default makeStyles(({ spacing, palette, breakpoints }) => ({
-  paperRoot: {
-    width: '95%',
-    '@media (max-width:1499px) and (min-width:1390px)': {
-      width: '85%',
-    },
-    boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.15) ',
-    marginBottom: spacing(2),
-    fontWeight: 'bolder',
-  },
+export default makeStyles(({ spacing, breakpoints, palette }) => ({
   tableWrapper: {
     paddingTop: spacing(2.5),
     height: '45vh',
