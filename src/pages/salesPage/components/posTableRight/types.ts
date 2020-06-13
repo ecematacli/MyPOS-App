@@ -1,5 +1,5 @@
 import { Product } from '../../../../redux/products/types'
-import { PaymentMethod } from '../../hooks/types'
+import { PaymentMethod } from '../../../../redux/sales/types'
 
 export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 

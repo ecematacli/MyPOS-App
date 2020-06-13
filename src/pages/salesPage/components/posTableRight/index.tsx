@@ -19,11 +19,11 @@ import Total from '../total/Total'
 import { ExpandMore } from '@material-ui/icons'
 import CustomInput from '../../../../common/components/customInput'
 import { POSProductTable } from './ProductTable'
-import { PAYMENT_METHODS } from '../../hooks/types'
 import clsx from 'clsx'
 import CustomButton from '../../../../common/components/customButton'
-import { currencyFormatter } from '../../../../common/utils'
+import { currencyFormatter, getPaymentMethodLabel } from '../../../../common/utils'
 import { Align } from '../../../../common/components/Align'
+import { PAYMENT_METHODS } from '../../../../redux/sales/types'
 
 const PosTableRight: React.FC<PosTableProps> = ({
   products,
@@ -73,7 +73,6 @@ const PosTableRight: React.FC<PosTableProps> = ({
       discardSale
     )
 
-  const pM = PAYMENT_METHODS.find(p => p.value === paymentMethod)
   return (
     <Paper elevation={0} className={classes.root}>
       <div className={classes.paperRoot}>
@@ -105,7 +104,9 @@ const PosTableRight: React.FC<PosTableProps> = ({
         </ExpansionPanel>
         <ExpansionPanel className={classes.expansionPanelRoot} elevation={0}>
           <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <Typography>Payment Method{`: ${pM?.label}`}</Typography>
+            <Typography>
+              Payment Method{`: ${getPaymentMethodLabel(paymentMethod)}`}
+            </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             {PAYMENT_METHODS.map(({ label, value }) => (

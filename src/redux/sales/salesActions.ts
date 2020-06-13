@@ -1,10 +1,9 @@
 import { Dispatch } from 'redux'
 import { ActionTypes, ApiAction } from '../types'
 
-import { SaleData } from './types'
+import { SaleData, PaymentMethod } from './types'
 import createAPIAction from '../createAPIAction'
 import { Product } from '../products/types'
-import { PaymentMethod } from '../../pages/salesPage/hooks/types'
 
 export const completeSale = (
   products: Product[],

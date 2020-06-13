@@ -8,8 +8,9 @@ import {
 } from '../utilities/'
 import api from '../../../api'
 import { Product } from '../../../redux/products/types'
-import { State, ActionTypes, Action, NewProductData, PaymentMethod } from './types'
+import { State, ActionTypes, Action, NewProductData } from './types'
 import useLocalStorageReducerState from '../../../common/hooks/useLocalStorageReducerState'
+import { PaymentMethod } from '../../../redux/sales/types'
 
 // Products Reducer
 const productsReducer = (state: State, action: Action): State => {

@@ -2,18 +2,6 @@ import { Product } from '../../../redux/products/types'
 
 export type State = Product[]
 
-export enum PaymentMethod {
-  Cash = 'Cash',
-  CreditCard = 'CreditCard',
-  OnCredit = 'OnCredit',
-}
-
-export const PAYMENT_METHODS = [
-  { label: 'Cash', value: PaymentMethod.Cash },
-  { label: 'Credit Card', value: PaymentMethod.CreditCard },
-  { label: 'On Credit', value: PaymentMethod.OnCredit },
-]
-
 export enum ActionTypes {
   Add,
   Delete,

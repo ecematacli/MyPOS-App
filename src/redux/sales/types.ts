@@ -1,5 +1,16 @@
 import { Product } from '../products/types'
-import { PaymentMethod } from '../../pages/salesPage/hooks/types'
+
+export enum PaymentMethod {
+  Cash = 'Cash',
+  CreditCard = 'CreditCard',
+  OnCredit = 'OnCredit',
+}
+
+export const PAYMENT_METHODS = [
+  { label: 'Cash', value: PaymentMethod.Cash },
+  { label: 'Credit Card', value: PaymentMethod.CreditCard },
+  { label: 'On Credit', value: PaymentMethod.OnCredit },
+]
 
 export enum SuccessActionTypes {
   FETCH_SALES_SUCCESS = 'FETCH_SALES_SUCCESS',
@@ -12,6 +23,7 @@ export interface Sale {
   orderNo: null
   total: number
   discount: number
+  paymentMethod: PaymentMethod
   products: Product[]
 }
 
