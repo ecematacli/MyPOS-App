@@ -11,12 +11,15 @@ import { fetchBrands } from '../../redux/brands/brandsActions'
 import useSalesState from './hooks/useSalesState'
 import ProductSearchBar from './components/productSearchBar/ProductSearchBar'
 import PosTableRight from './components/posTableRight'
+import { PaymentMethod } from './hooks/types'
 
 interface SalesProps {
   completeSale: (
     products: Product[],
     total: number,
     discount: number,
+    description: string,
+    paymentMethod: PaymentMethod,
     addNotification: (m: string, t: string) => void,
     discardSale: () => void
   ) => void
@@ -42,6 +45,7 @@ const SalesPage: React.FC<SalesProps> = ({ completeSale, fetchBrands, fetchCateg
     setDiscount,
     percentageDiscount,
     setPercentageDiscount,
+    ...rest
   } = useSalesState()
 
   useEffect(() => {
@@ -50,12 +54,16 @@ const SalesPage: React.FC<SalesProps> = ({ completeSale, fetchBrands, fetchCateg
   }, [])
 
   useEffect(() => {
-    inputRef.current && document.activeElement.id !== 'discount' && inputRef.current.focus()
+    inputRef.current &&
+      document.activeElement.id !== 'discount' &&
+      document.activeElement.id !== 'description' &&
+      document.activeElement.id !== 'edit-total' &&
+      inputRef.current.focus()
   })
 
   return (
     <div className={classes.salesContainer}>
-      <Grid container spacing={3} justify='center'>
+      <Grid container spacing={0} justify='center'>
         {/*
          // @ts-ignore */}
         <Grid item align='center' className={classes.discardSaleGridItem}>
@@ -110,6 +118,7 @@ const SalesPage: React.FC<SalesProps> = ({ completeSale, fetchBrands, fetchCateg
             setPercentageDiscount={setPercentageDiscount}
             completeSale={completeSale}
             discardSale={discardSale}
+            {...rest}
           />
         </Grid>
       </Grid>

@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React, { Fragment } from 'react'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 import {
   OutlinedInput,
@@ -8,8 +8,8 @@ import {
   Select,
   MenuItem,
   Theme,
-} from '@material-ui/core';
-import { Props, DropdownItems } from './types';
+} from '@material-ui/core'
+import { Props, DropdownItems } from './types'
 
 const styles = makeStyles(({ breakpoints }) => ({
   root: {
@@ -22,11 +22,11 @@ const styles = makeStyles(({ breakpoints }) => ({
       fontSize: 14,
     },
   },
-}));
+}))
 
-const CustomInput: React.FC<Props> = (props) => {
-  const classes = styles();
-  const { palette }: Theme = useTheme();
+const CustomInput: React.FC<Props> = props => {
+  const classes = styles()
+  const { palette }: Theme = useTheme()
 
   const {
     label,
@@ -38,30 +38,27 @@ const CustomInput: React.FC<Props> = (props) => {
     required,
     invalidatedField,
     ...otherProps
-  } = props;
+  } = props
 
   return (
-    <div>
+    <Fragment>
       {dropdown ? (
         <Fragment>
           {inputLabel && (
-            <InputLabel color="secondary" id={label}>
+            <InputLabel color='secondary' id={label}>
               {label}
             </InputLabel>
           )}
-          <FormControl variant="outlined" classes={classesProp.dropdownInput}>
+          <FormControl variant='outlined' classes={classesProp.dropdownInput}>
             <Select
               {...otherProps}
               classes={{ root: classes.root }}
-              color="secondary"
+              color='secondary'
               labelId={label}
               input={<OutlinedInput classes={classesProp.innerInput} />}>
               {dropdownItems &&
                 dropdownItems.map(({ id, name }: DropdownItems) => (
-                  <MenuItem
-                    classes={{ root: classes.dropdownItems }}
-                    key={id}
-                    value={name}>
+                  <MenuItem classes={{ root: classes.dropdownItems }} key={id} value={name}>
                     {name}
                   </MenuItem>
                 ))}
@@ -72,7 +69,7 @@ const CustomInput: React.FC<Props> = (props) => {
         <Fragment>
           {inputLabel && (
             <InputLabel
-              color="secondary"
+              color='secondary'
               style={invalidatedField && { color: palette.error.main }}>
               {label}
             </InputLabel>
@@ -80,14 +77,14 @@ const CustomInput: React.FC<Props> = (props) => {
           <OutlinedInput
             {...otherProps}
             classes={!dropdown && classesProp}
-            color="secondary"
+            color='secondary'
             type={type}
             required={required}
           />
         </Fragment>
       )}
-    </div>
-  );
-};
+    </Fragment>
+  )
+}
 
-export default CustomInput;
+export default CustomInput

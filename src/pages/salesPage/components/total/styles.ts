@@ -9,8 +9,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: spacing(6),
-    padding: spacing(2, 3),
+    padding: spacing(0, 3),
     margin: spacing(1),
     [breakpoints.down('sm')]: {
       ' & > * ': {
@@ -71,25 +70,14 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     paddingTop: spacing(2),
     paddingBottom: spacing(1),
   },
-  paymentBtnContainer: {
-    padding: spacing(2),
-    [breakpoints.down('sm')]: {
-      padding: 10,
-    },
+  totalContainer: {},
+  totalEditIcon: {
+    fontSize: 14,
+    marginLeft: spacing(0.5),
+    cursor: 'pointer',
   },
-  paymentBtnTextHolder: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  paymentBtnTxt: {
-    fontWeight: 'bold',
-    fontSize: spacing(2.5),
-    [breakpoints.down('sm')]: {
-      fontSize: 16,
-    },
-    '@media (max-width:405px)': {
-      margin: 'auto',
-    },
+  totalInput: {
+    height: spacing(0.5),
+    width: spacing(7),
   },
 }))

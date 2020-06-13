@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import clsx from 'clsx'
 import {
   Divider,
@@ -12,10 +12,11 @@ import {
 import styles from './styles'
 import { TotalProps } from '../posTableRight/types'
 import { currencyFormatter } from '../../../../common/utils'
-import { NotificationsContext } from '../../../../contexts/NotificationsContext'
-import CustomButton from '../../../../common/components/customButton'
 import EditProductFieldPopover from '../editProductFieldPopover/EditProductFieldPopover'
 import useEditDiscountState from './hooks/useEditDiscountState'
+import { Edit } from '@material-ui/icons'
+import CustomInput from '../../../../common/components/customInput'
+import { Align } from '../../../../common/components/Align'
 
 const Total: React.FC<TotalProps> = ({
   products,
@@ -25,15 +26,16 @@ const Total: React.FC<TotalProps> = ({
   setDiscount,
   percentageDiscount,
   setPercentageDiscount,
-  completeSale,
   discardSale,
   anchorEl,
   handleEditClick,
   onCompleteDiscountEditClick,
   handleClose,
+  setTotal,
+  ...props
 }) => {
   const classes = styles()
-  const { addNotification } = useContext(NotificationsContext)
+  const [editingTotal, setEditingTotal] = useState(false)
 
   const {
     discountType,
@@ -41,9 +43,6 @@ const Total: React.FC<TotalProps> = ({
     handleDiscountTypeChange,
     handleDiscountValueChange,
   } = useEditDiscountState(discount, percentageDiscount)
-
-  const onCompleteSaleClick = () =>
-    completeSale(products, total, discount, addNotification, discardSale)
 
   const renderDiscountTypes = () => (
     <FormControl classes={{ root: classes.formControl }}>
@@ -97,19 +96,26 @@ const Total: React.FC<TotalProps> = ({
     />
   )
 
-  const renderCompletePaymentBtn = () => (
-    <CustomButton
-      data-testid='custom-button'
-      disabled={products.length < 1}
-      onClick={onCompleteSaleClick}
-      fullWidth>
-      <div className={classes.paymentBtnTextHolder}>
-        <Typography className={classes.paymentBtnTxt}>Complete Payment</Typography>
-        <Typography className={classes.paymentBtnTxt}>
-          {currencyFormatter(total - discount)}
-        </Typography>
-      </div>
-    </CustomButton>
+  const renderTotal = () => (
+    <div className={classes.totalContainer}>
+      {!products.length && editingTotal ? (
+        <CustomInput
+          value={total - discount}
+          onChange={({ target }) => setTotal((parseFloat(target.value) || 0) + discount)}
+          classesProp={{ input: classes.totalInput }}
+          id='edit-total'
+        />
+      ) : (
+        <Align align='center'>
+          <Typography data-testid='total'>{currencyFormatter(total - discount)}</Typography>
+          {!products.length ? (
+            <div>
+              <Edit className={classes.totalEditIcon} onClick={() => setEditingTotal(true)} />
+            </div>
+          ) : null}
+        </Align>
+      )}
+    </div>
   )
 
   return (
@@ -139,9 +145,8 @@ const Total: React.FC<TotalProps> = ({
       <Divider className={classes.totalDivider} />
       <div className={clsx(classes.totalSection, classes.totalAmount)}>
         <Typography>Total</Typography>
-        <Typography data-testid='total'>{currencyFormatter(total - discount)}</Typography>
+        {renderTotal()}
       </div>
-      <div className={classes.paymentBtnContainer}>{renderCompletePaymentBtn()}</div>
     </div>
   )
 }

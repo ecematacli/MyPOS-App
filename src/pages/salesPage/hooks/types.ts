@@ -1,6 +1,18 @@
-import { Product } from '../../../redux/products/types';
+import { Product } from '../../../redux/products/types'
 
-export type State = Product[];
+export type State = Product[]
+
+export enum PaymentMethod {
+  Cash = 'Cash',
+  CreditCard = 'CreditCard',
+  OnCredit = 'OnCredit',
+}
+
+export const PAYMENT_METHODS = [
+  { label: 'Cash', value: PaymentMethod.Cash },
+  { label: 'Credit Card', value: PaymentMethod.CreditCard },
+  { label: 'On Credit', value: PaymentMethod.OnCredit },
+]
 
 export enum ActionTypes {
   Add,
@@ -12,51 +24,51 @@ export enum ActionTypes {
 }
 
 export interface NewProductData {
-  barcode: string;
-  name: string;
-  qty: number;
-  sku: string;
-  price: number;
-  variation: string;
-  discountPrice: number;
-  taxRate: number;
-  categoryId: string;
-  brandId: string;
+  barcode: string
+  name: string
+  qty: number
+  sku: string
+  price: number
+  variation: string
+  discountPrice: number
+  taxRate: number
+  categoryId: string
+  brandId: string
 }
 
 export interface AdditionalInputs {
-  taxRate: number;
-  category: string;
-  brand: string;
+  taxRate: number
+  category: string
+  brand: string
 }
 
 export interface AddAction {
-  type: ActionTypes.Add;
-  payload: Product;
+  type: ActionTypes.Add
+  payload: Product
 }
 
 export interface DeleteAction {
-  type: ActionTypes.Delete;
-  payload: { id: number };
+  type: ActionTypes.Delete
+  payload: { id: number }
 }
 
 export interface DecreaseQtyAction {
-  type: ActionTypes.DecreaseQuantity;
-  payload: Product;
+  type: ActionTypes.DecreaseQuantity
+  payload: Product
 }
 
 export interface IncreaseQtyAction {
-  type: ActionTypes.IncreaseQuantity;
-  payload: Product;
+  type: ActionTypes.IncreaseQuantity
+  payload: Product
 }
 
 export interface EditPriceAction {
-  type: ActionTypes.EditProductField;
-  payload: { id: number; field: string; newValue: number };
+  type: ActionTypes.EditProductField
+  payload: { id: number; field: string; newValue: number }
 }
 
 export interface DiscardSaleAction {
-  type: ActionTypes.DiscardSale;
+  type: ActionTypes.DiscardSale
 }
 
 export type Action =
@@ -65,4 +77,4 @@ export type Action =
   | DecreaseQtyAction
   | IncreaseQtyAction
   | EditPriceAction
-  | DiscardSaleAction;
+  | DiscardSaleAction

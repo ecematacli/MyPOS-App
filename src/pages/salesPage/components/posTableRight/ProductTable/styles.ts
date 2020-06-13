@@ -2,8 +2,8 @@ import { makeStyles } from '@material-ui/core'
 
 export default makeStyles(({ spacing, breakpoints, palette }) => ({
   tableWrapper: {
-    paddingTop: spacing(2.5),
-    height: '45vh',
+    paddingTop: spacing(1.5),
+    minHeight: '45vh',
     overflow: 'auto',
   },
   tableRow: {

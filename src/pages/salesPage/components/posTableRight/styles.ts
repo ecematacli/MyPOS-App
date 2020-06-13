@@ -1,18 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
+  root: {
+    boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.15) ',
+  },
   paperRoot: {
-    width: '95%',
+    // width: '95%',
     '@media (max-width:1499px) and (min-width:1390px)': {
       width: '85%',
     },
-    boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.15) ',
-    marginBottom: spacing(2),
     fontWeight: 'bolder',
-  },
-  tableWrapper: {
-    paddingTop: spacing(2.5),
-    height: '45vh',
+    height: '78vh',
     overflow: 'auto',
   },
   tableRow: {
@@ -67,14 +65,48 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   totalDivider: {
     backgroundColor: palette.secondary.light,
   },
-  noteContainer: {
+  expansionPanelRoot: {
     '& > .MuiPaper': {
       boxShadow: 'none',
     },
+    padding: spacing(0, 1),
   },
   noteInput: {
-    width: spacing(70),
     height: spacing(3),
     padding: spacing(1),
+  },
+  paymentMethodBtn: {
+    marginRight: spacing(2),
+    background: palette.greenColors[2],
+    color: palette.primary.main,
+    '&:hover': {
+      color: '#fff',
+    },
+  },
+  selectedPayment: {
+    background: palette.primary.main,
+    color: '#fff',
+  },
+  paymentBtnContainer: {
+    padding: spacing(2),
+    margin: spacing(0, 2),
+    [breakpoints.down('sm')]: {
+      padding: 10,
+    },
+  },
+  paymentBtnTextHolder: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  paymentBtnTxt: {
+    fontWeight: 'bold',
+    fontSize: spacing(2.5),
+    [breakpoints.down('sm')]: {
+      fontSize: 16,
+    },
+    '@media (max-width:405px)': {
+      margin: 'auto',
+    },
   },
 }))

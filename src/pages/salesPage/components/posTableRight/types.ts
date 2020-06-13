@@ -1,4 +1,5 @@
 import { Product } from '../../../../redux/products/types'
+import { PaymentMethod } from '../../hooks/types'
 
 export type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -31,6 +32,7 @@ export interface PosTableProps {
   increaseProductQuantity: (product: Product) => void
   editProductFieldLocalStorageState: EditProductFieldLocalStorageState
   total: number
+  setTotal: (t: number) => void
   tax: number
   discount: number
   setDiscount: SetNumberState
@@ -40,28 +42,28 @@ export interface PosTableProps {
     products: Product[],
     total: number,
     discount: number,
+    description: string,
+    paymentMethod: PaymentMethod,
     addNotification: (m: string, t: string) => void,
     discardSale: () => void
   ) => void
   discardSale: () => void
   editProduct: EditProductAction
+  paymentMethod: PaymentMethod
+  setPaymentMethod: (p: PaymentMethod) => void
+  description: string
+  setDescription: (d: string) => void
 }
 
 export interface TotalProps {
   products: Product[]
   total: number
+  setTotal: (t: number) => void
   tax: number
   discount: number
   setDiscount: SetNumberState
   percentageDiscount: number
   setPercentageDiscount: SetNumberState
-  completeSale: (
-    products: Product[],
-    total: number,
-    discount: number,
-    addNotification: (m: string, t: string) => void,
-    discardSale: () => void
-  ) => void
   discardSale: () => void
   anchorEl: { [key: string]: EventTarget & HTMLDivElement }
   handleEditClick: (e: ClickEvent, field: string, id?: number, product?: Product) => void
