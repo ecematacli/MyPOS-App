@@ -1,13 +1,33 @@
-import React, { useState, Fragment } from 'react';
-import { Button, Typography, OutlinedInput, Checkbox } from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import React, { useState, Fragment, SetStateAction, Dispatch, useEffect } from 'react'
+import { Button, Typography, OutlinedInput, Checkbox } from '@material-ui/core'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
-import styles from './styles';
-import { CountingActionsBarProps, ChangeEvent } from '../../types';
-import history from '../../../../history';
-import { capitalizeFirstLetters, formatDate } from '../../../../common/utils';
-import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar';
-import InventoryCountTopBar from '../../../../common/components/inventoryCountTopBar';
+import styles from './styles'
+import { ChangeEvent, BatchData, BatchProduct } from '../../types'
+import history from '../../../../history'
+import { capitalizeFirstLetters, formatDate } from '../../../../common/utils'
+import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar'
+import InventoryCountTopBar from '../../../../common/components/inventoryCountTopBar'
+
+interface CountingActionsBarProps {
+  batch: BatchData
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  loading: boolean
+  onProductSelect: (product: BatchProduct) => void
+  query: string
+  handleQueryChange: (productName: string) => void
+  searchResults: BatchProduct[]
+  setSearchResults: React.Dispatch<React.SetStateAction<BatchProduct[]>>
+  productNotFound: boolean
+  countInputRef: React.MutableRefObject<HTMLInputElement>
+  itemCount: number
+  selectedProduct: BatchProduct
+  setItemCount: Dispatch<SetStateAction<number>>
+  countProduct: (p: BatchProduct) => void
+  isQuickScanMode: boolean
+  setIsQuickScanMode: (m: boolean) => void
+}
 
 const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   batch,
@@ -24,26 +44,26 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   selectedProduct,
   searchResults,
   setSearchResults,
-  handleCountClick,
+  countProduct,
+  isQuickScanMode,
+  setIsQuickScanMode,
 }) => {
-  const [isQuickScanMode, setIsQuickScanMode] = useState(false);
-
-  const classes = styles(isQuickScanMode);
+  const classes = styles(isQuickScanMode)
 
   const handleCheckedChange = (e: ChangeEvent) => {
-    setIsQuickScanMode(e.target.checked);
-  };
+    setIsQuickScanMode(e.target.checked)
+  }
 
   const onCountInputChange = (e: ChangeEvent) => {
-    const value = e.target.value;
+    const value = e.target.value
 
     if (value === '') {
-      setItemCount(value as any);
-      return;
+      setItemCount(value as any)
+      return
     }
 
-    setItemCount(parseInt(value));
-  };
+    setItemCount(parseInt(value))
+  }
 
   const renderCountInput = () => (
     <div className={classes.countInputAction}>
@@ -54,28 +74,26 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
           root: classes.inputRoot,
           input: classes.input,
         }}
-        type="number"
-        color="secondary"
+        type='number'
+        color='secondary'
         value={itemCount}
         onChange={onCountInputChange}
       />
       <Button
         disabled={!selectedProduct}
-        onClick={handleCountClick}
+        onClick={() => countProduct(selectedProduct)}
         classes={{ root: classes.countBtnRoot }}
         className={classes.countBtn}>
         <Typography className={classes.btnText}>Count</Typography>
       </Button>
     </div>
-  );
+  )
 
   return (
     <InventoryCountTopBar
       title={
         <Fragment>
-          <span
-            className={classes.iconDiv}
-            onClick={() => history.push('/inventory/count')}>
+          <span className={classes.iconDiv} onClick={() => history.push('/inventory/count')}>
             <ArrowBackIcon className={classes.backArrow} />
           </span>
           <Typography className={classes.titleText}>
@@ -92,8 +110,8 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
             className={classes.searchBar}
             open={open}
             onClose={() => {
-              setOpen(false);
-              setSearchResults([]);
+              setOpen(false)
+              setSearchResults([])
             }}
             loading={loading}
             options={searchResults}
@@ -105,19 +123,17 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
           {!isQuickScanMode && renderCountInput()}
           <div className={classes.countInputAction}>
             <Checkbox
-              color="primary"
+              color='primary'
               checked={isQuickScanMode}
               onChange={handleCheckedChange}
               disableRipple
             />
-            <Typography className={classes.modeText}>
-              Quick-scan mode
-            </Typography>
+            <Typography className={classes.modeText}>Quick-scan mode</Typography>
           </div>
         </div>
       }
     />
-  );
-};
+  )
+}
 
-export default CountingActionsBar;
+export default CountingActionsBar

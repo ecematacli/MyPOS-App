@@ -47,3 +47,6 @@ export const getPaymentMethodLabel = (pm: PaymentMethod) => {
   const paymentMethod = PAYMENT_METHODS.find(p => p.value === pm)
   return paymentMethod ? paymentMethod.label : ''
 }
+
+export const productNameWithVariation = (name: string, variation?: string) =>
+  `${name}${variation ? ` / ${variation}` : ''}`

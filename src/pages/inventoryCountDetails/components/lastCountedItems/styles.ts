@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(({ spacing, palette }) => ({
   lastCountedContainer: {
@@ -20,13 +20,18 @@ export default makeStyles(({ spacing, palette }) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: spacing(2, 1.4),
+    width: '100%',
   },
-  itemInfo: {
-    display: 'flex',
-    alignItems: 'center',
+  bold: {
+    fontWeight: 600,
   },
   countNumber: {
     paddingRight: spacing(2),
+    fontSize: 20,
+  },
+  barcodeAndSku: {
+    fontSize: 13,
+    width: '100%',
   },
   deleteIcon: {
     color: palette.secondary.dark,
@@ -41,4 +46,4 @@ export default makeStyles(({ spacing, palette }) => ({
     alignItems: 'center',
     marginTop: spacing(5),
   },
-}));
+}))

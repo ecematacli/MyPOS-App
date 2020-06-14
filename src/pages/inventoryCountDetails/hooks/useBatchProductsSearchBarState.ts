@@ -1,38 +1,36 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import api from '../../../api';
-import { BatchProduct } from '../types';
+import api from '../../../api'
+import { BatchProduct } from '../types'
 
 export const useBatchProductsSearchBarState = (batchId: string) => {
-  const [query, setQuery] = useState('');
-  const [open, setOpen] = useState(false);
-  const [searchResults, setSearchResults] = useState<BatchProduct[]>([]);
-  const [productSearchLoading, setProductSearchLoading] = useState(false);
-  const [productNotFound, setProductNotFound] = useState(false);
+  const [query, setQuery] = useState('')
+  const [open, setOpen] = useState(false)
+  const [searchResults, setSearchResults] = useState<BatchProduct[]>([])
+  const [productSearchLoading, setProductSearchLoading] = useState(false)
+  const [productNotFound, setProductNotFound] = useState(false)
 
   const handleQueryChange = (userQuery: string) => {
-    setQuery(userQuery);
+    setQuery(userQuery)
 
     const fetchBatchProducts = async () => {
       try {
-        setProductSearchLoading(true);
-        const response = await api.get(
-          `inventory-count/${batchId}/search-products?query=${userQuery}`
-        );
-        setSearchResults(response.data);
-        setProductNotFound(response.data.length === 0);
-        setProductSearchLoading(false);
-        setOpen(true);
+        setProductSearchLoading(true)
+        const { data } = await api.get(
+          `inventory-count/${batchId}/search-products?query=${userQuery.trim()}`
+        )
+        setSearchResults(data)
+        setProductNotFound(data.length === 0)
+        setProductSearchLoading(false)
+        setOpen(true)
       } catch (e) {
-        console.log('Error from batch products search bar hook', e);
-        setProductSearchLoading(false);
+        console.log('Error from batch products search bar hook', e)
+        setProductSearchLoading(false)
       }
-    };
+    }
 
-    const whiteSpaceBeforeQuery = userQuery.match(/^\s+/);
-
-    userQuery && !whiteSpaceBeforeQuery && fetchBatchProducts();
-  };
+    userQuery.trim() && fetchBatchProducts()
+  }
 
   return {
     open,
@@ -45,5 +43,5 @@ export const useBatchProductsSearchBarState = (batchId: string) => {
     setQuery,
     handleQueryChange,
     productNotFound,
-  };
-};
+  }
+}

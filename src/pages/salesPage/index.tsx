@@ -11,7 +11,7 @@ import { fetchBrands } from '../../redux/brands/brandsActions'
 import useSalesState from './hooks/useSalesState'
 import ProductSearchBar from './components/productSearchBar/ProductSearchBar'
 import PosTableRight from './components/posTableRight'
-import { PaymentMethod } from './hooks/types'
+import { PaymentMethod } from '../../redux/sales/types'
 
 interface SalesProps {
   completeSale: (

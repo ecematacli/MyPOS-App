@@ -5,6 +5,9 @@ export default makeStyles(({ spacing, breakpoints, palette }) => ({
     paddingTop: spacing(1.5),
     minHeight: '45vh',
     overflow: 'auto',
+    [breakpoints.up('lg')]: {
+      minHeight: '55vh',
+    },
   },
   tableRow: {
     '& > th, td': {

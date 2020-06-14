@@ -1,14 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
-import { GlobalStyles } from './GlobalStyles';
-import configureStore from './redux/store';
-import { AuthContextProvider } from './contexts/AuthContext';
-import { NotificationsProvider } from './contexts/NotificationsContext';
-import App from './App';
+import { GlobalStyles } from './GlobalStyles'
+import configureStore from './redux/store'
+import { AuthContextProvider } from './contexts/AuthContext'
+import { NotificationsProvider } from './contexts/NotificationsContext'
+import App from './App'
 
-const store = configureStore();
+const store = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>
@@ -20,8 +20,8 @@ ReactDOM.render(
     </AuthContextProvider>
   </Provider>,
   document.getElementById('root')
-);
+)
 
 // if (process.env.NODE_ENV !== 'production' && module.hot) {
-//   module.hot.accept('./App', renderApp);
+//   module.hot.accept('./App', renderApp)
 // }

@@ -1,15 +1,16 @@
-import React from 'react';
-import { TableRow, TableCell } from '@material-ui/core';
-import AdjustIcon from '@material-ui/icons/Adjust';
+import React from 'react'
+import { TableRow, TableCell } from '@material-ui/core'
+import AdjustIcon from '@material-ui/icons/Adjust'
 
-import styles from './styles';
-import { BatchProduct } from '../types';
+import styles from './styles'
+import { BatchProduct } from '../types'
+import { productNameWithVariation } from '../../../utils'
 
 interface Props {
-  row: BatchProduct;
-  selectedRow: BatchProduct;
-  handleSelectedRow: (product: BatchProduct) => void;
-  countInputRef: React.MutableRefObject<HTMLInputElement>;
+  row: BatchProduct
+  selectedRow: BatchProduct
+  handleSelectedRow: (product: BatchProduct) => void
+  countInputRef: React.MutableRefObject<HTMLInputElement>
 }
 
 const BatchProductsRow: React.FC<Props> = ({
@@ -18,14 +19,14 @@ const BatchProductsRow: React.FC<Props> = ({
   handleSelectedRow,
   countInputRef,
 }) => {
-  const classes = styles(row);
+  const classes = styles(row)
 
   const onRowClick = () => {
-    countInputRef.current.focus();
-    handleSelectedRow(row);
-  };
+    countInputRef.current.focus()
+    handleSelectedRow(row)
+  }
 
-  const { id, name, barcode, sku, variation, expected, counted } = row;
+  const { id, name, barcode, sku, variation, expected, counted } = row
 
   return (
     <TableRow onClick={onRowClick} hover className={classes.tableBodyRow}>
@@ -40,15 +41,11 @@ const BatchProductsRow: React.FC<Props> = ({
         </div>
       </TableCell>
       <TableCell>{sku}</TableCell>
-      <TableCell>
-        {name} / {variation}
-      </TableCell>
-      <TableCell align="right">{expected}</TableCell>
-      <TableCell align="right">
-        {counted || counted === 0 ? counted : '-'}
-      </TableCell>
+      <TableCell>{productNameWithVariation(name, variation)}</TableCell>
+      <TableCell align='right'>{expected}</TableCell>
+      <TableCell align='right'>{counted || counted === 0 ? counted : '-'}</TableCell>
     </TableRow>
-  );
-};
+  )
+}
 
-export default BatchProductsRow;
+export default BatchProductsRow

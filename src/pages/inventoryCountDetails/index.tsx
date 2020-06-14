@@ -1,23 +1,21 @@
-import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import { Grid } from '@material-ui/core';
+import React, { useEffect, useRef } from 'react'
+import { connect } from 'react-redux'
+import { Grid } from '@material-ui/core'
 
-import styles from './styles';
-import { StoreState } from '../../redux/types';
-import { InventoryCountDetailsProps } from './types';
-import { BatchProduct } from './types';
-import LastCountedItems from './components/lastCountedItems/LastCountedItems';
-import CountingActionsBar from './components/countingActionsBar/CountingActionsBar';
-import CountBatchesProductsTable from './components/countBatchesProductsTable/CountBatchesProductsTable';
-import useCountDetails from './hooks/useCountDetails';
-import Loading from '../../common/components/loading';
-import { useBatchProductsSearchBarState } from './hooks/useBatchProductsSearchBarState';
+import styles from './styles'
+import { StoreState } from '../../redux/types'
+import { InventoryCountDetailsProps } from './types'
+import { BatchProduct } from './types'
+import LastCountedItems from './components/lastCountedItems/LastCountedItems'
+import CountingActionsBar from './components/countingActionsBar/CountingActionsBar'
+import CountBatchesProductsTable from './components/countBatchesProductsTable/CountBatchesProductsTable'
+import useCountDetails from './hooks/useCountDetails'
+import Loading from '../../common/components/loading'
+import { useBatchProductsSearchBarState } from './hooks/useBatchProductsSearchBarState'
 
-const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
-  match,
-}) => {
-  const classes = styles();
-  const batchId = match.params.id;
+const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({ match }) => {
+  const classes = styles()
+  const batchId = match.params.id
 
   const {
     query,
@@ -29,7 +27,7 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
     setOpen,
     productSearchLoading,
     productNotFound,
-  } = useBatchProductsSearchBarState(batchId);
+  } = useBatchProductsSearchBarState(batchId)
 
   const {
     tabsValue,
@@ -37,9 +35,8 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
     loading,
     itemCount,
     setItemCount,
-    handleCountClick,
+    countProduct,
     lastCountedItems,
-    handleLastCountedItemDeleteClick,
     batch,
     fetchBatchesProducts,
     batchProducts,
@@ -48,38 +45,39 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
     rowsPerPage,
     handleChangeRowsPerPage,
     selectedProduct,
-    setSelectedProduct,
-    countCompletedProducts,
     handleSelectedProduct,
-  } = useCountDetails(setQuery, batchId);
+    isQuickScanMode,
+    setIsQuickScanMode,
+  } = useCountDetails(setQuery, batchId)
 
-  const onProductSearchBarSelect = (product: BatchProduct) => {
-    handleSelectedProduct(product);
-    countInputRef.current.focus();
-    setQuery(product.name);
-    setOpen(false);
-    setSearchResults([]);
-  };
+  const onProductSelect = (product: BatchProduct) => {
+    if (!isQuickScanMode) {
+      countInputRef.current.focus()
+      setQuery(product.name)
+      handleSelectedProduct(product)
+    } else {
+      countProduct(product)
+    }
+    setOpen(false)
+    setSearchResults([])
+  }
 
-  const countInputRef = useRef<HTMLInputElement>();
+  const countInputRef = useRef<HTMLInputElement>()
 
   useEffect(() => {
-    fetchBatchesProducts(parseInt(batchId));
-  }, []);
+    fetchBatchesProducts(parseInt(batchId))
+  }, [])
 
   return (
     <Grid container>
       <Grid className={classes.gridItem} item xs={9}>
         <CountingActionsBar
           batch={batch}
-          batchProducts={batchProducts}
-          batchId={batchId}
           open={open}
           setOpen={setOpen}
           loading={productSearchLoading}
-          onProductSelect={onProductSearchBarSelect}
+          onProductSelect={onProductSelect}
           query={query}
-          setQuery={setQuery}
           handleQueryChange={handleQueryChange}
           searchResults={searchResults}
           setSearchResults={setSearchResults}
@@ -87,9 +85,10 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
           countInputRef={countInputRef}
           itemCount={itemCount}
           selectedProduct={selectedProduct}
-          setSelectedProduct={setSelectedProduct}
           setItemCount={setItemCount}
-          handleCountClick={handleCountClick}
+          countProduct={countProduct}
+          isQuickScanMode={isQuickScanMode}
+          setIsQuickScanMode={setIsQuickScanMode}
         />
         {loading ? (
           <Loading />
@@ -103,25 +102,21 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({
             handleChangePage={handleChangePage}
             handleChangeRowsPerPage={handleChangeRowsPerPage}
             selectedProductRow={selectedProduct}
-            countCompletedRows={countCompletedProducts}
-            handleSelectedRow={handleSelectedProduct}
+            handleSelectedRow={onProductSelect}
             countInputRef={countInputRef}
           />
         )}
       </Grid>
       <Grid item xs={3}>
-        <LastCountedItems
-          lastCountedItems={lastCountedItems}
-          handleDeleteClick={handleLastCountedItemDeleteClick}
-        />
+        <LastCountedItems lastCountedItems={lastCountedItems} />
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
 const mapStateToProps = ({ brands, categories }: StoreState) => ({
   brands,
   categories,
-});
+})
 
-export default connect(mapStateToProps)(InventoryCountDetails);
+export default connect(mapStateToProps)(InventoryCountDetails)

@@ -1,9 +1,25 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from 'react'
 
-import styles from './styles';
-import PlainTable from '../../../../common/components/plainTable';
-import { CountBatchesProductsTableProps } from '../../types';
-import CustomTabs from '../../../../common/components/customTabs';
+import styles from './styles'
+import PlainTable from '../../../../common/components/plainTable'
+import CustomTabs from '../../../../common/components/customTabs'
+import { BatchesProductsData, BatchProduct } from '../../types'
+
+export interface CountBatchesProductsTableProps {
+  batchProducts: BatchesProductsData
+  page: number
+  handleChangePage: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newPage: number
+  ) => void
+  rowsPerPage: number
+  handleChangeRowsPerPage: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void
+  selectedProductRow: BatchProduct
+  handleSelectedRow: (product: BatchProduct) => void
+  countInputRef: React.MutableRefObject<HTMLInputElement>
+  tabsValue: string
+  handleTabsChange: (e: React.ChangeEvent<HTMLInputElement>, newValue: string) => void
+}
 
 const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
   batchProducts,
@@ -17,19 +33,19 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
   tabsValue,
   handleTabsChange,
 }) => {
-  const classes = styles();
-  const { counted, uncounted, products } = batchProducts;
+  const classes = styles()
+  const { counted, uncounted, products } = batchProducts
 
   const getCountForTabs = () => {
-    const { counted, uncounted } = batchProducts;
+    const { counted, uncounted } = batchProducts
     if (tabsValue === 'all') {
-      return counted + uncounted;
+      return counted + uncounted
     } else if (tabsValue === 'counted') {
-      return counted;
+      return counted
     } else {
-      return uncounted;
+      return uncounted
     }
-  };
+  }
 
   return (
     <Fragment>
@@ -64,7 +80,7 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
               { name: 'Counted', rightAlign: true },
             ]}
             hasDataToShow={products.length > 1}
-            noDataMessage="No products to show"
+            noDataMessage='No products to show'
             count={getCountForTabs()}
             rows={{ type: 'batchProducts', batchProducts: products }}
             page={page}
@@ -78,7 +94,7 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
         </div>
       </div>
     </Fragment>
-  );
-};
+  )
+}
 
-export default CountBatchesProductsTable;
+export default CountBatchesProductsTable
