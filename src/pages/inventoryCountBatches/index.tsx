@@ -51,7 +51,7 @@ const InventoryCountBatches: React.FC<{}> = () => {
             Create, schedule and complete counts to keep track of your inventory.
           </Typography>
           <Button
-            onClick={() => history.push('/inventory/count_create')}
+            onClick={() => history.push('/inventory/inventory-count/create')}
             className={classes.addBtn}>
             <Typography className={classes.btnText}>Add Inventory Count</Typography>
           </Button>

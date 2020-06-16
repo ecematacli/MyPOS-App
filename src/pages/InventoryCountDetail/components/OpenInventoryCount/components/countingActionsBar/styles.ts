@@ -1,8 +1,17 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(({ spacing, palette }) => ({
+  container: {
+    position: 'sticky',
+    top: 0,
+  },
   backArrow: { color: palette.grayColors[13], cursor: 'pointer' },
-  iconDiv: { display: 'flex', alignItems: 'center' },
+  iconDiv: {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: spacing(1),
+    marginLeft: spacing(1.5),
+  },
   titleText: {
     fontSize: spacing(3.2),
     fontWeight: 'bold',
@@ -71,4 +80,4 @@ export default makeStyles(({ spacing, palette }) => ({
     color: palette.secondary.main,
     marginLeft: -spacing(0.6),
   },
-}));
+}))

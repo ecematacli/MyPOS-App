@@ -11,6 +11,7 @@ interface Props {
   selectedRow: BatchProduct
   handleSelectedRow: (product: BatchProduct) => void
   countInputRef: React.MutableRefObject<HTMLInputElement>
+  isQuickScanMode?: boolean
 }
 
 const BatchProductsRow: React.FC<Props> = ({
@@ -18,30 +19,35 @@ const BatchProductsRow: React.FC<Props> = ({
   selectedRow,
   handleSelectedRow,
   countInputRef,
+  isQuickScanMode,
 }) => {
-  const classes = styles(row)
+  const classes = styles({ ...row, isQuickScanMode })
 
   const onRowClick = () => {
-    countInputRef.current.focus()
-    handleSelectedRow(row)
+    if (!isQuickScanMode) {
+      countInputRef.current.focus()
+      handleSelectedRow(row)
+    }
   }
 
   const { id, name, barcode, sku, variation, expected, counted } = row
 
   return (
     <TableRow onClick={onRowClick} hover className={classes.tableBodyRow}>
-      <TableCell>
+      <TableCell style={{ width: '15%' }}>
         <div className={classes.batchFirstCellDiv}>
           <span className={classes.adjustIconSpan}>
             {selectedRow && selectedRow.id === id && (
               <AdjustIcon className={classes.adjustIcon} />
             )}
           </span>
-          <span>{barcode}</span>
+          {barcode}
         </div>
       </TableCell>
-      <TableCell>{sku}</TableCell>
-      <TableCell>{productNameWithVariation(name, variation)}</TableCell>
+      <TableCell style={{ width: '15%' }}>{sku}</TableCell>
+      <TableCell style={{ width: '60%' }}>
+        {productNameWithVariation(name, variation)}
+      </TableCell>
       <TableCell align='right'>{expected}</TableCell>
       <TableCell align='right'>{counted || counted === 0 ? counted : '-'}</TableCell>
     </TableRow>

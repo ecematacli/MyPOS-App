@@ -9,6 +9,7 @@ export interface LastCountedProduct {
   name: string
   variation: string
   counted: number
+  countedAt: string
 }
 
 export interface BatchProduct {
@@ -26,6 +27,8 @@ export interface BatchProduct {
 export interface BatchesProductsData {
   counted: number
   uncounted: number
+  synced?: number
+  notSynced?: number
   products: BatchProduct[]
 }
 
@@ -38,10 +41,3 @@ export interface BatchData {
   category: string
   brand: string
 }
-
-//Props of the components
-interface RouterMatchProps {
-  id: string
-}
-
-export interface InventoryCountDetailsProps extends RouteComponentProps<RouterMatchProps> {}

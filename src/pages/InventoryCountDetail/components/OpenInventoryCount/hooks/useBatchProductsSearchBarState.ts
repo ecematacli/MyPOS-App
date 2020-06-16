@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import api from '../../../api'
+import api from '../../../../../api'
 import { BatchProduct } from '../types'
 
 export const useBatchProductsSearchBarState = (batchId: string) => {

@@ -1,8 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(({ spacing }) => ({
   gridItem: {
-    paddingTop: 24,
+    paddingTop: 0,
+    height: '100vh',
+    overflow: 'auto',
   },
   btnText: {
     textTransform: 'capitalize',
@@ -17,4 +19,4 @@ export default makeStyles(({ spacing }) => ({
     maxWidth: spacing(137.5),
     display: 'flex',
   },
-}));
+}))

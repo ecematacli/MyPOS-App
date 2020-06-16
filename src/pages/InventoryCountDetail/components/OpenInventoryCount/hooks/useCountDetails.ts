@@ -1,11 +1,12 @@
 import { useState, useContext, useEffect } from 'react'
 
-import api from '../../../api'
+import api from '../../../../../api'
 import { BatchesProductsData, BatchProduct, BatchData, LastCountedProduct } from '../types'
-import useLocalStorageState from '../../../common/hooks/useLocalStorageState'
-import { usePostRequest } from '../../../common/hooks/usePostRequest'
-import { useGetRequest } from '../../../common/hooks/useGetRequest'
-import { NotificationsContext } from '../../../contexts/NotificationsContext'
+import { NotificationsContext } from '../../../../../contexts/NotificationsContext'
+import useLocalStorageState from '../../../../../common/hooks/useLocalStorageState'
+import { useGetRequest } from '../../../../../common/hooks/useGetRequest'
+import { usePostRequest } from '../../../../../common/hooks/usePostRequest'
+import history from '../../../../../history'
 
 type SetQuery = React.Dispatch<React.SetStateAction<string>>
 
@@ -30,6 +31,7 @@ export default (setQuery: SetQuery, batchId: string) => {
     uncounted: 0,
     products: [],
   })
+  const [completeInvCountError, setCompleteInvCountError] = useState('')
 
   //API Requests
   const { value: batch } = useGetRequest<BatchData>(`/inventory-count/${batchId}`)
@@ -58,7 +60,8 @@ export default (setQuery: SetQuery, batchId: string) => {
   // Helper functions
   const handleTabsChange = (e: React.ChangeEvent<HTMLInputElement>, newValue: string) => {
     setTabsValue(newValue)
-    fetchBatchesProducts(parseInt(batchId), newValue, page, rowsPerPage)
+    setPage(1)
+    fetchBatchesProducts(parseInt(batchId), newValue, 1, rowsPerPage)
   }
 
   const handleSelectedProduct = (product: BatchProduct) => {
@@ -77,8 +80,10 @@ export default (setQuery: SetQuery, batchId: string) => {
   const countProduct = async (p: BatchProduct) => {
     const count = p.counted + (isQuickScanMode ? 1 : itemCount)
     const [updatedProduct] = await postProductCount('/inventory-count/count-product', {
-      id: p.id,
-      count,
+      payload: {
+        id: p.id,
+        count,
+      },
     })
 
     if (!updatedProduct) {
@@ -98,11 +103,16 @@ export default (setQuery: SetQuery, batchId: string) => {
     if (!p.counted) {
       setBatchProducts(bp => ({ ...bp, counted: bp.counted + 1, uncounted: bp.uncounted - 1 }))
     }
-
+    const { id, sku, name, barcode, variation } = p
     setLastCountedItems([
       {
-        ...p,
+        id,
+        sku,
+        name,
+        barcode,
+        variation,
         counted: isQuickScanMode ? 1 : itemCount,
+        countedAt: new Date().toISOString(),
       },
       ...lastCountedItems,
     ])
@@ -136,6 +146,17 @@ export default (setQuery: SetQuery, batchId: string) => {
     fetchBatchesProducts(parseInt(batchId), tabsValue, newPage + 1, rowsPerPage)
   }
 
+  const [completeInvCount] = usePostRequest()
+  const complete = async () => {
+    await completeInvCount(`/inventory-count/${batchId}/complete?force=true`, {
+      onSuccess: res => {
+        localStorage.removeItem(`lastCountedItem-batch${batchId}`)
+        history.push(`/inventory-count`)
+      },
+      onError: e => setCompleteInvCountError(e),
+    })
+  }
+
   return {
     tabsValue,
     handleTabsChange,
@@ -156,5 +177,7 @@ export default (setQuery: SetQuery, batchId: string) => {
     handleSelectedProduct,
     isQuickScanMode,
     setIsQuickScanMode,
+    complete,
+    completeInvCountError,
   }
 }

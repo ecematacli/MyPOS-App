@@ -1,21 +1,26 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, Fragment, useState } from 'react'
 import { connect } from 'react-redux'
 import { Grid } from '@material-ui/core'
 
 import styles from './styles'
-import { StoreState } from '../../redux/types'
-import { InventoryCountDetailsProps } from './types'
 import { BatchProduct } from './types'
 import LastCountedItems from './components/lastCountedItems/LastCountedItems'
 import CountingActionsBar from './components/countingActionsBar/CountingActionsBar'
 import CountBatchesProductsTable from './components/countBatchesProductsTable/CountBatchesProductsTable'
 import useCountDetails from './hooks/useCountDetails'
-import Loading from '../../common/components/loading'
 import { useBatchProductsSearchBarState } from './hooks/useBatchProductsSearchBarState'
+import Loading from '../../../../common/components/loading'
+import { BatchStats } from '../BatchStats'
+import { Align } from '../../../../common/components/Align'
+import { ConfirmCompleteModal } from './components/ConfirmCompleteModal'
 
-const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({ match }) => {
+interface Props {
+  batchId: string
+}
+
+const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
   const classes = styles()
-  const batchId = match.params.id
+  const [completeModalOpen, setCompleteModalOpen] = useState(false)
 
   const {
     query,
@@ -48,6 +53,8 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({ match }) 
     handleSelectedProduct,
     isQuickScanMode,
     setIsQuickScanMode,
+    complete,
+    completeInvCountError,
   } = useCountDetails(setQuery, batchId)
 
   const onProductSelect = (product: BatchProduct) => {
@@ -70,6 +77,13 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({ match }) 
 
   return (
     <Grid container>
+      <ConfirmCompleteModal
+        open={completeModalOpen}
+        onClose={() => setCompleteModalOpen(false)}
+        batchProducts={batchProducts}
+        complete={complete}
+        error={completeInvCountError}
+      />
       <Grid className={classes.gridItem} item xs={9}>
         <CountingActionsBar
           batch={batch}
@@ -89,22 +103,30 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({ match }) 
           countProduct={countProduct}
           isQuickScanMode={isQuickScanMode}
           setIsQuickScanMode={setIsQuickScanMode}
+          setQuery={setQuery}
+          openConfirmationModal={() => setCompleteModalOpen(true)}
         />
-        {loading ? (
+        {loading || !batch ? (
           <Loading />
         ) : (
-          <CountBatchesProductsTable
-            tabsValue={tabsValue}
-            handleTabsChange={handleTabsChange}
-            batchProducts={batchProducts}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            handleChangePage={handleChangePage}
-            handleChangeRowsPerPage={handleChangeRowsPerPage}
-            selectedProductRow={selectedProduct}
-            handleSelectedRow={onProductSelect}
-            countInputRef={countInputRef}
-          />
+          <Fragment>
+            <Align padding={[0, 0, 0, 6]}>
+              <BatchStats batch={batch} />
+            </Align>
+            <CountBatchesProductsTable
+              tabsValue={tabsValue}
+              handleTabsChange={handleTabsChange}
+              batchProducts={batchProducts}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              handleChangePage={handleChangePage}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
+              selectedProductRow={selectedProduct}
+              handleSelectedRow={onProductSelect}
+              countInputRef={countInputRef}
+              isQuickScanMode={isQuickScanMode}
+            />
+          </Fragment>
         )}
       </Grid>
       <Grid item xs={3}>
@@ -114,9 +136,4 @@ const InventoryCountDetails: React.FC<InventoryCountDetailsProps> = ({ match }) 
   )
 }
 
-const mapStateToProps = ({ brands, categories }: StoreState) => ({
-  brands,
-  categories,
-})
-
-export default connect(mapStateToProps)(InventoryCountDetails)
+export default OpenInventoryCountDetail

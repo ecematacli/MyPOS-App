@@ -1,17 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactNode } from 'react'
 
-import styles from './styles';
+import styles from './styles'
 
 export interface Props {
-  title: JSX.Element;
-  inventoryCountActionsPaper: JSX.Element;
-  type?: string;
+  title: ReactNode
+  inventoryCountActionsPaper: JSX.Element
+  type?: string
 }
 
-const InventoryCountTopBar: React.FC<Props> = (props) => {
-  const classes = styles(props);
+const InventoryCountTopBar: React.FC<Props> = props => {
+  const classes = styles(props)
 
-  const { title, inventoryCountActionsPaper } = props;
+  const { title, inventoryCountActionsPaper } = props
 
   return (
     <Fragment>
@@ -19,12 +19,10 @@ const InventoryCountTopBar: React.FC<Props> = (props) => {
         <div className={classes.titleWrapperDiv}>{title}</div>
       </div>
       <div className={classes.inventoryCountActionsContainer}>
-        <div className={classes.actionSectionWrapper}>
-          {inventoryCountActionsPaper}
-        </div>
+        <div className={classes.actionSectionWrapper}>{inventoryCountActionsPaper}</div>
       </div>
     </Fragment>
-  );
-};
+  )
+}
 
-export default InventoryCountTopBar;
+export default InventoryCountTopBar

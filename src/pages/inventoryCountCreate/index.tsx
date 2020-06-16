@@ -1,27 +1,27 @@
-import React, { useEffect, Fragment, useContext } from 'react';
-import { connect } from 'react-redux';
-import { Typography, Button, Divider } from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import React, { useEffect, Fragment, useContext } from 'react'
+import { connect } from 'react-redux'
+import { Typography, Button, Divider } from '@material-ui/core'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
-import styles from './styles';
-import boxes from '../../assets/img/boxes.png';
-import history from '../../history';
-import { StoreState } from '../../redux/types';
-import { Brand } from '../../redux/brands/types';
-import { Category } from '../../redux/categories/types';
-import { fetchBrands } from '../../redux/brands/brandsActions';
-import { fetchCategories } from '../../redux/categories/categoriesActions';
-import { NotificationsContext } from '../../contexts/NotificationsContext';
-import useInventoryFilterState from './hooks/useInventoryFilterState';
-import { getDropdownInputFields } from './components/inventoryCountFilters/getDropdownInputFields';
-import InventoryCountTopBar from '../../common/components/inventoryCountTopBar';
-import InventoryCountFilters from './components/inventoryCountFilters/InventoryCountFilters';
+import styles from './styles'
+import boxes from '../../assets/img/boxes.png'
+import history from '../../history'
+import { StoreState } from '../../redux/types'
+import { Brand } from '../../redux/brands/types'
+import { Category } from '../../redux/categories/types'
+import { fetchBrands } from '../../redux/brands/brandsActions'
+import { fetchCategories } from '../../redux/categories/categoriesActions'
+import { NotificationsContext } from '../../contexts/NotificationsContext'
+import useInventoryFilterState from './hooks/useInventoryFilterState'
+import { getDropdownInputFields } from './components/inventoryCountFilters/getDropdownInputFields'
+import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
+import InventoryCountFilters from './components/inventoryCountFilters/InventoryCountFilters'
 
 interface Props {
-  fetchCategories: () => void;
-  fetchBrands: () => void;
-  categories: Category[];
-  brands: Brand[];
+  fetchCategories: () => void
+  fetchBrands: () => void
+  categories: Category[]
+  brands: Brand[]
 }
 
 const InventoryCountCreate: React.FC<Props> = ({
@@ -30,9 +30,9 @@ const InventoryCountCreate: React.FC<Props> = ({
   brands,
   categories,
 }) => {
-  const classes = styles();
+  const classes = styles()
 
-  const { addNotification } = useContext(NotificationsContext);
+  const { addNotification } = useContext(NotificationsContext)
 
   const {
     startDate,
@@ -41,22 +41,14 @@ const InventoryCountCreate: React.FC<Props> = ({
     handleCountNameChange,
     handleDropdownInputChange,
     dropdownInputs,
-    createCountBatches,
-  } = useInventoryFilterState(brands, categories, addNotification);
+    createCountBatch,
+  } = useInventoryFilterState(brands, categories, addNotification)
 
-  const DROPDOWN_INPUT_FIELDS = getDropdownInputFields(
-    brands,
-    categories,
-    dropdownInputs
-  );
+  const DROPDOWN_INPUT_FIELDS = getDropdownInputFields(brands, categories, dropdownInputs)
   useEffect(() => {
-    fetchBrands();
-    fetchCategories();
-  }, []);
-
-  const onStartCountClick = () => {
-    createCountBatches();
-  };
+    fetchBrands()
+    fetchCategories()
+  }, [])
 
   const renderInventoryCountTopBar = () => (
     <Fragment>
@@ -65,12 +57,10 @@ const InventoryCountCreate: React.FC<Props> = ({
           <Fragment>
             <span
               className={classes.iconDiv}
-              onClick={() => history.push('/inventory/count')}>
+              onClick={() => history.push('/inventory/inventory-count')}>
               <ArrowBackIcon className={classes.backArrow} />
             </span>
-            <Typography className={classes.titleText}>
-              Add Inventory Count
-            </Typography>
+            <Typography className={classes.titleText}>Add Inventory Count</Typography>
           </Fragment>
         }
         inventoryCountActionsPaper={
@@ -79,10 +69,7 @@ const InventoryCountCreate: React.FC<Props> = ({
               Schedule an inventory count to maintain accurate inventory levels.
             </Typography>
             <div>
-              <Button className={classes.exitBtn}>
-                <Typography className={classes.btnText}>Save & Exit</Typography>
-              </Button>
-              <Button onClick={onStartCountClick} className={classes.startBtn}>
+              <Button onClick={createCountBatch} className={classes.startBtn}>
                 <Typography className={classes.btnText}>Start Count</Typography>
               </Button>
             </div>
@@ -90,7 +77,7 @@ const InventoryCountCreate: React.FC<Props> = ({
         }
       />
     </Fragment>
-  );
+  )
 
   const renderInventoryCountFilters = () => (
     <div className={classes.filtersContainer}>
@@ -105,7 +92,7 @@ const InventoryCountCreate: React.FC<Props> = ({
         />
       </div>
     </div>
-  );
+  )
 
   return (
     <div className={classes.createInvContainer}>
@@ -118,14 +105,12 @@ const InventoryCountCreate: React.FC<Props> = ({
         <img className={classes.boxesImage} src={boxes} />
       </div>
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state: StoreState) => ({
   brands: state.brands,
   categories: state.categories,
-});
+})
 
-export default connect(mapStateToProps, { fetchCategories, fetchBrands })(
-  InventoryCountCreate
-);
+export default connect(mapStateToProps, { fetchCategories, fetchBrands })(InventoryCountCreate)

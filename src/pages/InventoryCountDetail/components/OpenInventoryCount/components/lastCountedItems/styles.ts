@@ -4,6 +4,7 @@ export default makeStyles(({ spacing, palette }) => ({
   lastCountedContainer: {
     borderLeft: `0.1em solid ${palette.grayColors[10]}`,
     height: '100vh',
+    overflow: 'auto',
   },
   titleDiv: {
     padding: spacing(3.2, 2),
@@ -24,6 +25,7 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   bold: {
     fontWeight: 600,
+    marginRight: spacing(1),
   },
   countNumber: {
     paddingRight: spacing(2),
@@ -31,7 +33,9 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   barcodeAndSku: {
     fontSize: 13,
-    width: '100%',
+    '& > span:nth-child(2)': {
+      marginLeft: spacing(1.5),
+    },
   },
   deleteIcon: {
     color: palette.secondary.dark,

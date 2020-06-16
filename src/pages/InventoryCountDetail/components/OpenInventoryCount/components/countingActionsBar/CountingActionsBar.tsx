@@ -4,10 +4,12 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import styles from './styles'
 import { ChangeEvent, BatchData, BatchProduct } from '../../types'
-import history from '../../../../history'
-import { capitalizeFirstLetters, formatDate } from '../../../../common/utils'
-import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar'
-import InventoryCountTopBar from '../../../../common/components/inventoryCountTopBar'
+import InventoryCountTopBar from '../../../../../../common/components/inventoryCountTopBar'
+import { capitalizeFirstLetters, formatDate } from '../../../../../../common/utils'
+import AutoCompleteProductSearchBar from '../../../../../../common/components/autoCompleteProductSearchBar'
+import history from '../../../../../../history'
+import { Align } from '../../../../../../common/components/Align'
+import CustomButton from '../../../../../../common/components/customButton'
 
 interface CountingActionsBarProps {
   batch: BatchData
@@ -27,6 +29,8 @@ interface CountingActionsBarProps {
   countProduct: (p: BatchProduct) => void
   isQuickScanMode: boolean
   setIsQuickScanMode: (m: boolean) => void
+  setQuery: (q: string) => void
+  openConfirmationModal: () => void
 }
 
 const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
@@ -47,11 +51,14 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   countProduct,
   isQuickScanMode,
   setIsQuickScanMode,
+  setQuery,
+  openConfirmationModal,
 }) => {
   const classes = styles(isQuickScanMode)
 
   const handleCheckedChange = (e: ChangeEvent) => {
     setIsQuickScanMode(e.target.checked)
+    setQuery('')
   }
 
   const onCountInputChange = (e: ChangeEvent) => {
@@ -89,21 +96,28 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
     </div>
   )
 
+  const Title = () => (
+    <Align justify='space-between' align='center' fullWidth>
+      <Align align='center'>
+        <span
+          className={classes.iconDiv}
+          onClick={() => history.push('/inventory/inventory-count')}>
+          <ArrowBackIcon className={classes.backArrow} />
+        </span>
+        <Typography className={classes.titleText}>
+          {batch &&
+            (batch.name
+              ? capitalizeFirstLetters(batch.name)
+              : `Count on ${formatDate(batch.started, 'd MMMM y - p')}`)}
+        </Typography>
+      </Align>
+      <CustomButton onClick={openConfirmationModal}>Complete</CustomButton>
+    </Align>
+  )
+
   return (
     <InventoryCountTopBar
-      title={
-        <Fragment>
-          <span className={classes.iconDiv} onClick={() => history.push('/inventory/count')}>
-            <ArrowBackIcon className={classes.backArrow} />
-          </span>
-          <Typography className={classes.titleText}>
-            {batch &&
-              (batch.name
-                ? capitalizeFirstLetters(batch.name)
-                : `Count on ${formatDate(batch.started, 'd MMMM y - p')}`)}
-          </Typography>
-        </Fragment>
-      }
+      title={<Title />}
       inventoryCountActionsPaper={
         <div className={classes.countingContainer}>
           <AutoCompleteProductSearchBar

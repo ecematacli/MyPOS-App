@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 
 import styles from './styles'
-import PlainTable from '../../../../common/components/plainTable'
-import CustomTabs from '../../../../common/components/customTabs'
 import { BatchesProductsData, BatchProduct } from '../../types'
+import CustomTabs from '../../../../../../common/components/customTabs'
+import PlainTable from '../../../../../../common/components/plainTable'
 
 export interface CountBatchesProductsTableProps {
   batchProducts: BatchesProductsData
@@ -19,6 +19,7 @@ export interface CountBatchesProductsTableProps {
   countInputRef: React.MutableRefObject<HTMLInputElement>
   tabsValue: string
   handleTabsChange: (e: React.ChangeEvent<HTMLInputElement>, newValue: string) => void
+  isQuickScanMode?: boolean
 }
 
 const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
@@ -32,6 +33,7 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
   countInputRef,
   tabsValue,
   handleTabsChange,
+  isQuickScanMode,
 }) => {
   const classes = styles()
   const { counted, uncounted, products } = batchProducts
@@ -90,6 +92,7 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
             selectedRow={selectedProductRow}
             handleSelectedRow={handleSelectedRow}
             countInputRef={countInputRef}
+            isQuickScanMode={isQuickScanMode}
           />
         </div>
       </div>

@@ -1,25 +1,25 @@
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
-import SportsTennisRoundedIcon from '@material-ui/icons/SportsTennisRounded';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import HistoryIcon from '@material-ui/icons/History';
-import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
-import ExposureOutlinedIcon from '@material-ui/icons/ExposureOutlined';
-import { SvgIconProps } from '@material-ui/core';
+import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined'
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
+import SportsTennisRoundedIcon from '@material-ui/icons/SportsTennisRounded'
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
+import HistoryIcon from '@material-ui/icons/History'
+import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined'
+import ExposureOutlinedIcon from '@material-ui/icons/ExposureOutlined'
+import { SvgIconProps } from '@material-ui/core'
 
 export interface MenuItem {
-  label: string;
-  item: string;
-  url?: string;
-  subMenuItems?: SubMenuItem[];
-  Icon: (props: SvgIconProps) => JSX.Element;
+  label: string
+  item: string
+  url?: string
+  subMenuItems?: SubMenuItem[]
+  Icon: (props: SvgIconProps) => JSX.Element
 }
 
 export interface SubMenuItem {
-  subLabel: string;
-  url: string;
-  Icon: (props: SvgIconProps) => JSX.Element;
+  subLabel: string
+  url: string
+  Icon: (props: SvgIconProps) => JSX.Element
 }
 
 export const MENU_ITEMS: MenuItem[] = [
@@ -27,7 +27,7 @@ export const MENU_ITEMS: MenuItem[] = [
     label: 'Dashboard',
     item: 'dashboard',
     url: '/',
-    Icon: DashboardIcon
+    Icon: DashboardIcon,
   },
   {
     label: 'Sales',
@@ -37,14 +37,14 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         subLabel: 'Sales POS',
         url: '/sales/pos',
-        Icon: AddShoppingCartIcon
+        Icon: AddShoppingCartIcon,
       },
       {
         subLabel: 'Sales History',
         url: '/sales/history',
-        Icon: HistoryIcon
-      }
-    ]
+        Icon: HistoryIcon,
+      },
+    ],
   },
   {
     label: 'Inventory',
@@ -54,18 +54,18 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         subLabel: 'Products',
         url: '/inventory/products',
-        Icon: SportsTennisRoundedIcon
+        Icon: SportsTennisRoundedIcon,
       },
       {
         subLabel: 'Inventory Count',
-        url: '/inventory/count',
-        Icon: ExposureOutlinedIcon
-      }
-    ]
+        url: '/inventory/inventory-count',
+        Icon: ExposureOutlinedIcon,
+      },
+    ],
   },
   {
     label: 'Sign Out',
     item: 'signout',
-    Icon: PowerSettingsNew
-  }
-];
+    Icon: PowerSettingsNew,
+  },
+]

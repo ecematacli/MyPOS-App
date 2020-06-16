@@ -1,9 +1,9 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(({ spacing, palette }) => ({
   tabs: {
     boxShadow: 'none',
-    marginTop: spacing(7),
+    marginTop: spacing(2),
     color: palette.grayColors[3],
     backgroundColor: 'inherit',
   },
@@ -19,4 +19,4 @@ export default makeStyles(({ spacing, palette }) => ({
     margin: '0 auto',
     maxWidth: spacing(137.5),
   },
-}));
+}))

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   TableRow,
   TableCell,
@@ -7,12 +7,13 @@ import {
   TableHead,
   TableContainer,
   TablePagination,
-} from '@material-ui/core';
+} from '@material-ui/core'
 
-import styles from './styles';
-import { PlainTableProps, Batch, BatchProduct, PaginationLabel } from './types';
-import BatchRow from './batchRow/BatchRow';
-import BatchProductsRow from './batchProductsRow/BatchProductsRow';
+import styles from './styles'
+import { PlainTableProps, Batch, BatchProduct, PaginationLabel } from './types'
+import BatchRow from './batchRow/BatchRow'
+import BatchProductsRow from './batchProductsRow/BatchProductsRow'
+import CompletedBatchProductRow from './completedBatchProductRow'
 
 const PlainTable: React.FC<PlainTableProps> = ({
   tableHeads,
@@ -27,8 +28,10 @@ const PlainTable: React.FC<PlainTableProps> = ({
   selectedRow,
   handleSelectedRow,
   countInputRef,
+  completedBatch,
+  isQuickScanMode
 }) => {
-  const classes = styles(rows);
+  const classes = styles(rows)
 
   const renderTableHead = () => (
     <TableRow className={classes.tableHeadRow}>
@@ -38,12 +41,14 @@ const PlainTable: React.FC<PlainTableProps> = ({
         </TableCell>
       ))}
     </TableRow>
-  );
+  )
   const renderTableBody = () => {
     if ('batches' in rows) {
-      return rows.batches.map((row: Batch) => (
-        <BatchRow row={row} key={row.id} />
-      ));
+      return rows.batches.map((row: Batch) => <BatchRow row={row} key={row.id} />)
+    }
+
+    if ('batchProducts' in rows && completedBatch) {
+      return rows.batchProducts.map(row => <CompletedBatchProductRow key={row.id} row={row} />)
     }
 
     if ('batchProducts' in rows) {
@@ -54,22 +59,21 @@ const PlainTable: React.FC<PlainTableProps> = ({
           selectedRow={selectedRow}
           handleSelectedRow={handleSelectedRow}
           countInputRef={countInputRef}
+          isQuickScanMode={isQuickScanMode}
         />
-      ));
+      ))
     }
-  };
+  }
 
   const renderLabelDisplayRows = ({ from, to, count }: PaginationLabel) => {
-    return `Page ${page} of ${Math.ceil(
-      count / rowsPerPage
-    )}  -  ${count} items`;
-  };
+    return `Page ${page} of ${Math.ceil(count / rowsPerPage)}  -  ${count} items`
+  }
 
   const renderPagination = () => (
     <div className={classes.paginationDiv}>
       <TablePagination
         rowsPerPageOptions={[10, 25, 50]}
-        component="div"
+        component='div'
         count={count}
         rowsPerPage={rowsPerPage}
         page={page - 1}
@@ -78,14 +82,12 @@ const PlainTable: React.FC<PlainTableProps> = ({
         labelDisplayedRows={renderLabelDisplayRows}
       />
     </div>
-  );
+  )
 
   return (
     <TableContainer>
       <Table>
-        {tableHeads !== undefined ? (
-          <TableHead>{renderTableHead()}</TableHead>
-        ) : null}
+        {tableHeads !== undefined ? <TableHead>{renderTableHead()}</TableHead> : null}
         <TableBody>
           {!hasDataToShow ? (
             <TableRow>
@@ -100,7 +102,7 @@ const PlainTable: React.FC<PlainTableProps> = ({
       </Table>
       {count > 0 && renderPagination()}
     </TableContainer>
-  );
-};
+  )
+}
 
-export default PlainTable;
+export default PlainTable
