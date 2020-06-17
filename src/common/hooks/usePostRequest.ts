@@ -9,7 +9,7 @@ interface Props {
 export const usePostRequest = () => {
   const submit = async (url: string, { payload, onError, onSuccess }: Props) => {
     try {
-      const { data } = await api({ url, method: 'post', data: payload })
+      const { data } = await api.post(url, payload)
       onSuccess && onSuccess(data)
       return [data]
     } catch (e) {

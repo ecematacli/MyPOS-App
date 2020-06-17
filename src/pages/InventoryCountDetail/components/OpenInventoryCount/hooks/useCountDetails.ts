@@ -103,6 +103,7 @@ export default (setQuery: SetQuery, batchId: string) => {
     if (!p.counted) {
       setBatchProducts(bp => ({ ...bp, counted: bp.counted + 1, uncounted: bp.uncounted - 1 }))
     }
+
     const { id, sku, name, barcode, variation } = p
     setLastCountedItems([
       {
