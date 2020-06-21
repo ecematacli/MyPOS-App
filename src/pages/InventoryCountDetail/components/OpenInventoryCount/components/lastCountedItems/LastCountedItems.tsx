@@ -26,7 +26,7 @@ const LastCountedItems: React.FC<LastCountedItemsProps> = ({ lastCountedItems })
     lastCountedItems
       .slice(0, 30)
       .map(({ id, name, counted, variation, sku, barcode, countedAt }, i) => (
-        <ExpansionPanel key={id + i}>
+        <ExpansionPanel key={id + countedAt}>
           <ExpansionPanelSummary expandIcon={<ExpandMore />}>
             <Align align='center'>
               <span className={classes.countNumber}>{counted}</span>

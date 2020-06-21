@@ -115,7 +115,7 @@ export default (setQuery: SetQuery, batchId: string) => {
         counted: isQuickScanMode ? 1 : itemCount,
         countedAt: new Date().toISOString(),
       },
-      ...lastCountedItems,
+      ...lastCountedItems.slice(0, 59),
     ])
 
     if (isQuickScanMode) {
