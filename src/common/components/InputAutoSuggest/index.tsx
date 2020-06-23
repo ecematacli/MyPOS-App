@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, useRef } from 'react'
 import AsyncSelect from 'react-select/async'
 import makeAnimated from 'react-select/animated'
 import { ActionMeta, OptionsType } from 'react-select'
@@ -31,6 +31,7 @@ export const InputAutoSuggest: FC<Props> = ({
 }) => {
   const theme = useTheme()
   const classes = styles()
+  const ref: any = useRef()
   const [inputKey, setInputKey] = useState(1)
 
   const onChange = (v: any, { action }: ActionMeta<any>) => {
@@ -39,6 +40,8 @@ export const InputAutoSuggest: FC<Props> = ({
         selectOption(v)
         if (isQuickScanMode) {
           setInputKey(inputKey + 1)
+          console.log(ref.current)
+          ref.current && ref.current.focus()
         }
     }
   }
@@ -81,6 +84,7 @@ export const InputAutoSuggest: FC<Props> = ({
           primary: theme.palette.grayColors[1],
         },
       })}
+      autoFocus={isQuickScanMode}
     />
   )
 }

@@ -1,6 +1,6 @@
-import React, { Fragment, useRef } from 'react';
-import { connect } from 'react-redux';
-import { Formik, Field } from 'formik';
+import React, { Fragment, useRef } from 'react'
+import { connect } from 'react-redux'
+import { Formik, Field } from 'formik'
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -11,56 +11,59 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+} from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-import styles from './styles';
-import { StoreState } from '../../../../redux/types';
-import { QuickAddProps, FormValues } from './types';
-import { ProductAddSchema } from './productAddSchema';
-import useNewProductInputState from './useNewProductInputState';
-import CustomInput from '../../../../common/components/customInput';
-import NewProductInputFields from '../newProductInputFields/NewProductInputFields';
-import {
-  NEW_PRODUCT_FIELDS,
-  getAdditionalProductFields,
-} from './productFields';
+import styles from './styles'
+import { StoreState } from '../../../../redux/types'
+import { FormValues } from './types'
+import { ProductAddSchema } from './productAddSchema'
+import useNewProductInputState from './useNewProductInputState'
+import CustomInput from '../../../../common/components/customInput'
+import NewProductInputFields from '../newProductInputFields/NewProductInputFields'
+import { NEW_PRODUCT_FIELDS, getAdditionalProductFields } from './productFields'
+import { NewProductData } from '../../hooks/types'
+import { Brand } from '../../../../redux/brands/types'
+import { Category } from '../../../../redux/categories/types'
 
-const QuickProductAdd: React.FC<QuickAddProps> = ({
-  openDialog,
-  handleCloseDialog,
+export interface Props {
+  open: boolean
+  onClose: () => void
+  brands: Brand[]
+  categories: Category[]
+  createProduct: (
+    productData: NewProductData,
+    addNotification: (message: string, severity: string) => void
+  ) => Promise<void>
+}
+
+const CreateProductModal: React.FC<Props> = ({
+  open,
+  onClose,
   brands,
   categories,
   createProduct,
 }) => {
-  const classes = styles();
-  const formRef = useRef<HTMLElement | any>();
+  const classes = styles()
+  const formRef = useRef<HTMLElement | any>()
 
   const args = {
     brands,
     categories,
-    handleCloseDialog,
+    onClose,
     createProduct,
-  };
+  }
 
-  const {
-    handleInputChange,
-    onAddProductClick,
-    additionalInputs,
-  } = useNewProductInputState(args);
-  const ADDITIONAL_FIELDS = getAdditionalProductFields(
-    additionalInputs,
-    brands,
-    categories
-  );
+  const { handleInputChange, onAddProductClick, additionalInputs } = useNewProductInputState(
+    args
+  )
+  const ADDITIONAL_FIELDS = getAdditionalProductFields(additionalInputs, brands, categories)
 
   const renderAdditionalFields = () => {
     return (
       <ExpansionPanel classes={{ root: classes.expansionRoot }}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.expansionText}>
-            Expand for more fields
-          </Typography>
+          <Typography className={classes.expansionText}>Expand for more fields</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails classes={{ root: classes.expansionDetails }}>
           {ADDITIONAL_FIELDS.map(
@@ -80,26 +83,27 @@ const QuickProductAdd: React.FC<QuickAddProps> = ({
                   dropdownItems={dropdownItems}
                   inputLabel
                 />
-              );
+              )
             }
           )}
         </ExpansionPanelDetails>
       </ExpansionPanel>
-    );
-  };
+    )
+  }
 
   const triggerFormSubmission = () => {
     if (formRef.current) {
-      formRef.current.handleSubmit();
+      formRef.current.handleSubmit()
     }
-  };
+  }
 
   const renderDialog = () => {
     return (
       <Dialog
         classes={{ paper: classes.dialogPaper }}
-        open={openDialog}
-        onClose={handleCloseDialog}
+        open={open}
+        onClose={onClose}
+        scroll='body'
         disableBackdropClick>
         <DialogTitle className={classes.dialogTitle}>Add a Product</DialogTitle>
         <DialogContent>
@@ -113,8 +117,8 @@ const QuickProductAdd: React.FC<QuickAddProps> = ({
               variation: '',
               discountPrice: '',
             }}
-            onSubmit={(values) => {
-              onAddProductClick(values);
+            onSubmit={values => {
+              onAddProductClick(values)
             }}
             validationSchema={ProductAddSchema}
             innerRef={formRef as any}>
@@ -134,26 +138,23 @@ const QuickProductAdd: React.FC<QuickAddProps> = ({
         </DialogContent>
         <div>{renderAdditionalFields()}</div>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="secondary">
+          <Button onClick={onClose} color='secondary'>
             Cancel
           </Button>
-          <Button
-            data-testid="add-button"
-            onClick={triggerFormSubmission}
-            color="primary">
+          <Button data-testid='add-button' onClick={triggerFormSubmission} color='primary'>
             Add Product
           </Button>
         </DialogActions>
       </Dialog>
-    );
-  };
+    )
+  }
 
-  return <Fragment>{renderDialog()}</Fragment>;
-};
+  return <Fragment>{renderDialog()}</Fragment>
+}
 
 const mapStateToProps = (state: StoreState) => ({
   brands: state.brands,
   categories: state.categories,
-});
+})
 
-export default connect(mapStateToProps)(QuickProductAdd);
+export default connect(mapStateToProps)(CreateProductModal)

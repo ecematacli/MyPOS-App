@@ -15,7 +15,11 @@ import styles from './styles'
 import { TABLE_HEAD } from './tableHead'
 import { Product } from '../../../../../redux/products/types'
 import EditPricePopover from '../../editProductFieldPopover/EditProductFieldPopover'
-import { capitalizeFirstLetters, currencyFormatter } from '../../../../../common/utils'
+import {
+  capitalizeFirstLetters,
+  currencyFormatter,
+  productNameWithVariation,
+} from '../../../../../common/utils'
 
 interface Props {
   priceValue: number
@@ -93,8 +97,7 @@ export const POSProductTable: FC<Props> = ({
       return (
         <TableRow className={classes.tableRow} role='checkbox' hover tabIndex={-1} key={id}>
           <TableCell className={classes.firstCell} component='td' scope='row'>
-            {name}
-            {variation ? ` | ${variation}` : ''}
+            {productNameWithVariation(name, variation)}
           </TableCell>
           <TableCell align='right' padding='none'>
             <div className={classes.quantity}>

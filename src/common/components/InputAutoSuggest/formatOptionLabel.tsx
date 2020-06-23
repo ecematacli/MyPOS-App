@@ -6,6 +6,7 @@ import { productNameWithVariation, currencyFormatter } from '../../utils'
 
 import React from 'react'
 import { Align } from '../Align'
+import { Grid } from '@material-ui/core'
 
 export const formatOptionLabel = (classes: any) => (
   { name, variation, sku, price, barcode }: AutoSuggestProduct,
@@ -27,20 +28,20 @@ export const formatOptionLabel = (classes: any) => (
   }
 
   return (
-    <div className={classes.suggestionContainer}>
-      <div>
-        <div className={classes.suggestionGroup}>
+    <Grid container>
+      <Grid item xs={11}>
+        <Align justify='flex-start'>
           {renderParts(name)}
           {variation && <span> / {variation}</span>}
-        </div>
-        <Align vertical>
-          <span>{renderParts(sku)}</span>
-          <span>{renderParts(barcode)}</span>
         </Align>
-      </div>
-      <div>
-        <span>{price ? currencyFormatter(price) : '-'}</span>
-      </div>
-    </div>
+        <Align vertical align='flex-start'>
+          <div>{renderParts(sku)}</div>
+          <div>{renderParts(barcode)}</div>
+        </Align>
+      </Grid>
+      <Grid item xs={1}>
+        <div>{price ? currencyFormatter(price) : '-'}</div>
+      </Grid>
+    </Grid>
   )
 }

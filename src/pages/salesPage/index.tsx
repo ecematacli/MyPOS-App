@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Grid, IconButton, Typography } from '@material-ui/core'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
@@ -12,6 +12,8 @@ import useSalesState from './hooks/useSalesState'
 import ProductSearchBar from './components/productSearchBar/ProductSearchBar'
 import PosTableRight from './components/posTableRight'
 import { PaymentMethod } from '../../redux/sales/types'
+import CreateProductModal from './components/CreateProductModal'
+import { Add } from '@material-ui/icons'
 
 interface SalesProps {
   completeSale: (
@@ -29,7 +31,7 @@ interface SalesProps {
 
 const SalesPage: React.FC<SalesProps> = ({ completeSale, fetchBrands, fetchCategories }) => {
   const classes = styles()
-  const inputRef = useRef<HTMLInputElement>()
+  const [createProductModalOpen, setCreateProductModalOpen] = useState(false)
   const {
     products,
     addProduct,
@@ -53,76 +55,77 @@ const SalesPage: React.FC<SalesProps> = ({ completeSale, fetchBrands, fetchCateg
     fetchBrands()
   }, [])
 
-  useEffect(() => {
-    inputRef.current &&
-      document.activeElement.id !== 'discount' &&
-      document.activeElement.id !== 'description' &&
-      document.activeElement.id !== 'edit-total' &&
-      inputRef.current.focus()
-  })
-
   return (
-    <div className={classes.salesContainer}>
-      <Grid container spacing={0} justify='center'>
-        {/*
+    <Fragment>
+      <CreateProductModal
+        open={createProductModalOpen}
+        onClose={() => setCreateProductModalOpen(false)}
+        createProduct={createProduct}
+      />
+      <div className={classes.salesContainer}>
+        <Grid container spacing={0} justify='center'>
+          {/*
          // @ts-ignore */}
-        <Grid item align='center' className={classes.discardSaleGridItem}>
-          <div className={classes.discardSaleBtnHolder}>
-            <IconButton classes={{ root: classes.discardIconBtn }} onClick={discardSale}>
-              <DeleteForeverIcon className={classes.discardSaleBtn} />
-              <Typography>Discard Sale</Typography>
-            </IconButton>
-          </div>
-        </Grid>
-        {/*
+          <Grid item align='center' className={classes.discardSaleGridItem}>
+            <div className={classes.discardSaleBtnHolder}>
+              <IconButton classes={{ root: classes.discardIconBtn }} onClick={discardSale}>
+                <DeleteForeverIcon className={classes.discardSaleBtn} />
+                <Typography>Discard Sale</Typography>
+              </IconButton>
+              <IconButton
+                classes={{ root: classes.discardIconBtn }}
+                onClick={() => setCreateProductModalOpen(true)}>
+                <Add className={classes.discardSaleBtn} />
+                <Typography>Add Product</Typography>
+              </IconButton>
+            </div>
+          </Grid>
+          {/*
         // @ts-ignore */}
-        <Grid
-          item
-          align='center'
-          xs={12}
-          sm={12}
-          md={12}
-          lg={6}
-          xl={5}
-          className={classes.searchBarGridItem}
-          zeroMinWidth>
-          <ProductSearchBar
-            addProduct={addProduct}
-            createProduct={createProduct}
-            inputRef={inputRef}
-          />
-        </Grid>
-        {/*
+          <Grid
+            item
+            align='center'
+            xs={12}
+            sm={12}
+            md={12}
+            lg={6}
+            xl={5}
+            className={classes.searchBarGridItem}
+            zeroMinWidth>
+            <ProductSearchBar addProduct={addProduct} />
+          </Grid>
+          {/*
         // @ts-ignore */}
-        <Grid
-          item
-          align='center'
-          xs={12}
-          sm={12}
-          md={12}
-          lg={6}
-          xl={5}
-          className={classes.posTableGridItem}
-          zeroMinWidth>
-          <PosTableRight
-            products={products}
-            deleteProduct={deleteProduct}
-            decreaseProductQuantity={decreaseProductQuantity}
-            increaseProductQuantity={increaseProductQuantity}
-            editProductFieldLocalStorageState={editProductField}
-            total={total}
-            tax={tax}
-            discount={discount}
-            setDiscount={setDiscount}
-            percentageDiscount={percentageDiscount}
-            setPercentageDiscount={setPercentageDiscount}
-            completeSale={completeSale}
-            discardSale={discardSale}
-            {...rest}
-          />
+          <Grid
+            item
+            align='center'
+            xs={12}
+            sm={12}
+            md={12}
+            lg={6}
+            xl={6}
+            className={classes.posTableGridItem}
+            zeroMinWidth>
+            <PosTableRight
+              products={products}
+              deleteProduct={deleteProduct}
+              decreaseProductQuantity={decreaseProductQuantity}
+              increaseProductQuantity={increaseProductQuantity}
+              editProductFieldLocalStorageState={editProductField}
+              total={total}
+              tax={tax}
+              discount={discount}
+              setDiscount={setDiscount}
+              percentageDiscount={percentageDiscount}
+              setPercentageDiscount={setPercentageDiscount}
+              completeSale={completeSale}
+              discardSale={discardSale}
+              {...rest}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </div>
+    </Fragment>
   )
 }
 

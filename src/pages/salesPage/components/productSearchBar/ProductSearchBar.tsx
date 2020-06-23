@@ -1,76 +1,35 @@
-import React, { Fragment, useState } from 'react'
+import React from 'react'
 
+import api from '../../../../api'
 import styles from './styles'
 import { Product } from '../../../../redux/products/types'
 import { NewProductData } from '../../hooks/types'
-import useSearchInput from './useSearchBarState'
-import QuickProductAdd from '../quickProductAdd/QuickProductAdd'
-import AutoCompleteProductSearchBar from '../../../../common/components/autoCompleteProductSearchBar'
+import { InputAutoSuggest } from '../../../../common/components/InputAutoSuggest'
 
 interface SearchBarProps {
   addProduct: (product: Product) => void
-  createProduct: (
-    productData: NewProductData,
-    addNotification: (message: string, severity: string) => void
-  ) => Promise<void>
-  inputRef: React.MutableRefObject<HTMLInputElement>
 }
 
-const ProductSearchBar: React.FC<SearchBarProps> = ({
-  addProduct,
-  createProduct,
-  inputRef,
-}) => {
+const ProductSearchBar: React.FC<SearchBarProps> = ({ addProduct }) => {
   const classes = styles()
 
-  const [openDialog, setOpenDialog] = useState(false)
-
-  const handleOpenDialog = () => {
-    setOpenDialog(true)
+  const fetchProducts = async (query: string): Promise<Product[]> => {
+    try {
+      const { data } = await api.get(`/products/search/?q=${query}`)
+      return data
+    } catch (e) {
+      return []
+    }
   }
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false)
-  }
-
-  const {
-    open,
-    setOpen,
-    searchResults,
-    setSearchResults,
-    loading,
-    query,
-    setQuery,
-    onProductSelect,
-    productNotFound,
-  } = useSearchInput(addProduct)
 
   return (
-    <Fragment>
-      <AutoCompleteProductSearchBar
-        className={classes.searchBarInput}
-        open={open}
-        onClose={() => {
-          setOpen(false)
-          setQuery('')
-          setSearchResults([])
-        }}
-        loading={loading}
-        options={searchResults}
-        onProductChange={onProductSelect}
-        query={query}
-        onQueryChange={setQuery}
-        productNotFound={productNotFound}
-        handleOpenDialog={handleOpenDialog}
-        isUsedOnSalesPage
-        inputRef={inputRef}
+    <div className={classes.searchBarInput}>
+      <InputAutoSuggest
+        selectOption={addProduct}
+        isQuickScanMode
+        loadOptions={fetchProducts}
       />
-      <QuickProductAdd
-        openDialog={openDialog}
-        handleCloseDialog={handleCloseDialog}
-        createProduct={createProduct}
-      />
-    </Fragment>
+    </div>
   )
 }
 

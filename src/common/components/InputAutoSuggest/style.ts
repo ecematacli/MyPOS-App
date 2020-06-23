@@ -4,7 +4,7 @@ import { Styles } from 'react-select'
 export default makeStyles(({ spacing, breakpoints, palette }) => ({
   suggestionContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     alignItems: 'center',
     height: spacing(8),
     width: '100%',
@@ -20,17 +20,6 @@ export default makeStyles(({ spacing, breakpoints, palette }) => ({
       },
     },
   },
-  suggestedCommon: {
-    color: palette.grayColors[3],
-  },
-  suggestedItems: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  suggestionGroup: {
-    display: 'flex',
-  },
 }))
 
 export const selectStyles = ({ spacing, palette }: Theme): Partial<Styles> => ({
@@ -39,7 +28,6 @@ export const selectStyles = ({ spacing, palette }: Theme): Partial<Styles> => ({
     zIndex: 999,
     marginTop: '.2em',
   }),
-
   container: provided => ({
     ...provided,
     width: '100%',
