@@ -1,6 +1,7 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
-const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
+const path = require('path')
 
 module.exports = {
   entry: './src/index.tsx',
@@ -21,7 +22,8 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
+        loader: 'ts-loader',
+        options: { transpileOnly: true },
         exclude: /node_modules/,
       },
     ],
@@ -31,6 +33,7 @@ module.exports = {
       template: path.resolve(__dirname, 'template.html'),
       favicon: path.join(__dirname, 'src/assets/img/merit.png'),
     }),
+    new ForkTsCheckerWebpackPlugin({}),
     new Dotenv(),
   ],
-};
+}

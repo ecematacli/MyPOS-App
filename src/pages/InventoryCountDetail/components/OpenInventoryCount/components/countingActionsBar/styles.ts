@@ -30,6 +30,7 @@ export default makeStyles(({ spacing, palette }) => ({
   countInputAction: {
     display: 'flex',
     alignItems: 'center',
+    marginLeft: spacing(3),
   },
   numberSpinner: {
     '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {

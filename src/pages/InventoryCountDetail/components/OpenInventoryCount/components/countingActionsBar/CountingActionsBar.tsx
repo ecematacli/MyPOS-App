@@ -1,4 +1,4 @@
-import React, { useState, Fragment, SetStateAction, Dispatch, useEffect } from 'react'
+import React, { SetStateAction, Dispatch } from 'react'
 import { Button, Typography, OutlinedInput, Checkbox } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
@@ -10,6 +10,8 @@ import AutoCompleteProductSearchBar from '../../../../../../common/components/au
 import history from '../../../../../../history'
 import { Align } from '../../../../../../common/components/Align'
 import CustomButton from '../../../../../../common/components/customButton'
+import { InputAutoSuggest } from '../../../../../../common/components/InputAutoSuggest'
+import { OptionsType } from 'react-select'
 
 interface CountingActionsBarProps {
   batch: BatchData
@@ -31,6 +33,10 @@ interface CountingActionsBarProps {
   setIsQuickScanMode: (m: boolean) => void
   setQuery: (q: string) => void
   openConfirmationModal: () => void
+  fetchBatchProducts: (
+    query: string,
+    callback: (options: OptionsType<BatchProduct>) => void
+  ) => Promise<void>
 }
 
 const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
@@ -53,6 +59,7 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   setIsQuickScanMode,
   setQuery,
   openConfirmationModal,
+  fetchBatchProducts,
 }) => {
   const classes = styles(isQuickScanMode)
 
@@ -120,19 +127,10 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
       title={<Title />}
       inventoryCountActionsPaper={
         <div className={classes.countingContainer}>
-          <AutoCompleteProductSearchBar
-            className={classes.searchBar}
-            open={open}
-            onClose={() => {
-              setOpen(false)
-              setSearchResults([])
-            }}
-            loading={loading}
-            options={searchResults}
-            onProductChange={onProductSelect}
-            query={query}
-            onQueryChange={handleQueryChange}
-            productNotFound={productNotFound}
+          <InputAutoSuggest
+            loadOptions={fetchBatchProducts}
+            selectOption={onProductSelect}
+            isQuickScanMode={isQuickScanMode}
           />
           {!isQuickScanMode && renderCountInput()}
           <div className={classes.countInputAction}>

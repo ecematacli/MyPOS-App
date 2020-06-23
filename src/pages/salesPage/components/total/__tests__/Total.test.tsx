@@ -45,6 +45,7 @@ beforeEach(() => {
     handleEditClick: jest.fn(),
     onCompleteDiscountEditClick: jest.fn(),
     handleClose: jest.fn(),
+    setTotal: null,
   }
 })
 

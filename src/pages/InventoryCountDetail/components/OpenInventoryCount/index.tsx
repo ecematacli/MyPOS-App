@@ -32,6 +32,7 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
     setOpen,
     productSearchLoading,
     productNotFound,
+    fetchBatchProducts
   } = useBatchProductsSearchBarState(batchId)
 
   const {
@@ -105,6 +106,7 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
           setIsQuickScanMode={setIsQuickScanMode}
           setQuery={setQuery}
           openConfirmationModal={() => setCompleteModalOpen(true)}
+          fetchBatchProducts={fetchBatchProducts}
         />
         {loading || !batch ? (
           <Loading />
