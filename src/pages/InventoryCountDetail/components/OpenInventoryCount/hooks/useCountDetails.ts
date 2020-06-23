@@ -152,7 +152,7 @@ export default (batchId: string) => {
     await completeInvCount(`/inventory-count/${batchId}/complete?force=true`, {
       onSuccess: res => {
         localStorage.removeItem(`lastCountedItem-batch${batchId}`)
-        history.push(`/inventory-count`)
+        history.push(`/inventory/inventory-count`)
       },
       onError: e => setCompleteInvCountError(e),
     })

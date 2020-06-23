@@ -31,7 +31,6 @@ export const InputAutoSuggest: FC<Props> = ({
 }) => {
   const theme = useTheme()
   const classes = styles()
-  const ref: any = useRef()
   const [inputKey, setInputKey] = useState(1)
 
   const onChange = (v: any, { action }: ActionMeta<any>) => {
@@ -40,8 +39,7 @@ export const InputAutoSuggest: FC<Props> = ({
         selectOption(v)
         if (isQuickScanMode) {
           setInputKey(inputKey + 1)
-          console.log(ref.current)
-          ref.current && ref.current.focus()
+          // changing the key of the select input will force it to re-render and reset
         }
     }
   }

@@ -25,6 +25,8 @@ interface Props {
   inputRef?: React.MutableRefObject<HTMLInputElement>
 }
 
+/// ** NOT USED ** //
+// ** --------**//
 const AutoCompleteProductSearchBar: React.FC<Props> = props => {
   const classes = styles(props)
   const {

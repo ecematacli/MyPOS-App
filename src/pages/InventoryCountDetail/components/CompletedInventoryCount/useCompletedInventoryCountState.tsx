@@ -52,7 +52,8 @@ export const useCompletedInventoryCountState = (batchId: string) => {
 
   const handleTabsChange = (e: React.ChangeEvent<HTMLInputElement>, newValue: string) => {
     setCurrentTab(newValue)
-    fetchBatchProducts(batchId, newValue, page, rowsPerPage, tabValToSyncFilter(newValue))
+    setPage(1)
+    fetchBatchProducts(batchId, newValue, 1, rowsPerPage, tabValToSyncFilter(newValue))
   }
 
   // Input handlers on pagination
