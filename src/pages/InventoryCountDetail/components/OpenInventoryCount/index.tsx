@@ -1,14 +1,11 @@
-import React, { useEffect, useRef, Fragment, useState } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect, Fragment, useState } from 'react'
 import { Grid } from '@material-ui/core'
 
 import styles from './styles'
-import { BatchProduct } from './types'
 import LastCountedItems from './components/lastCountedItems/LastCountedItems'
 import CountingActionsBar from './components/countingActionsBar/CountingActionsBar'
 import CountBatchesProductsTable from './components/countBatchesProductsTable/CountBatchesProductsTable'
 import useCountDetails from './hooks/useCountDetails'
-import { useBatchProductsSearchBarState } from './hooks/useBatchProductsSearchBarState'
 import Loading from '../../../../common/components/loading'
 import { BatchStats } from '../BatchStats'
 import { Align } from '../../../../common/components/Align'
@@ -21,19 +18,6 @@ interface Props {
 const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
   const classes = styles()
   const [completeModalOpen, setCompleteModalOpen] = useState(false)
-
-  const {
-    query,
-    setQuery,
-    handleQueryChange,
-    searchResults,
-    setSearchResults,
-    open,
-    setOpen,
-    productSearchLoading,
-    productNotFound,
-    fetchBatchProducts
-  } = useBatchProductsSearchBarState(batchId)
 
   const {
     tabsValue,
@@ -51,26 +35,14 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
     rowsPerPage,
     handleChangeRowsPerPage,
     selectedProduct,
-    handleSelectedProduct,
+    onProductSelect,
     isQuickScanMode,
     setIsQuickScanMode,
     complete,
     completeInvCountError,
-  } = useCountDetails(setQuery, batchId)
-
-  const onProductSelect = (product: BatchProduct) => {
-    if (!isQuickScanMode) {
-      countInputRef.current.focus()
-      setQuery(product.name)
-      handleSelectedProduct(product)
-    } else {
-      countProduct(product)
-    }
-    setOpen(false)
-    setSearchResults([])
-  }
-
-  const countInputRef = useRef<HTMLInputElement>()
+    searchProducts,
+    countInputRef,
+  } = useCountDetails(batchId)
 
   useEffect(() => {
     fetchBatchesProducts(parseInt(batchId))
@@ -88,15 +60,7 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
       <Grid className={classes.gridItem} item xs={9}>
         <CountingActionsBar
           batch={batch}
-          open={open}
-          setOpen={setOpen}
-          loading={productSearchLoading}
           onProductSelect={onProductSelect}
-          query={query}
-          handleQueryChange={handleQueryChange}
-          searchResults={searchResults}
-          setSearchResults={setSearchResults}
-          productNotFound={productNotFound}
           countInputRef={countInputRef}
           itemCount={itemCount}
           selectedProduct={selectedProduct}
@@ -104,9 +68,8 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
           countProduct={countProduct}
           isQuickScanMode={isQuickScanMode}
           setIsQuickScanMode={setIsQuickScanMode}
-          setQuery={setQuery}
           openConfirmationModal={() => setCompleteModalOpen(true)}
-          fetchBatchProducts={fetchBatchProducts}
+          searchProducts={searchProducts}
         />
         {loading || !batch ? (
           <Loading />
@@ -124,9 +87,6 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
               handleChangePage={handleChangePage}
               handleChangeRowsPerPage={handleChangeRowsPerPage}
               selectedProductRow={selectedProduct}
-              handleSelectedRow={onProductSelect}
-              countInputRef={countInputRef}
-              isQuickScanMode={isQuickScanMode}
             />
           </Fragment>
         )}

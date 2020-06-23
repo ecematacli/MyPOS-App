@@ -15,15 +15,7 @@ import { OptionsType } from 'react-select'
 
 interface CountingActionsBarProps {
   batch: BatchData
-  open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  loading: boolean
   onProductSelect: (product: BatchProduct) => void
-  query: string
-  handleQueryChange: (productName: string) => void
-  searchResults: BatchProduct[]
-  setSearchResults: React.Dispatch<React.SetStateAction<BatchProduct[]>>
-  productNotFound: boolean
   countInputRef: React.MutableRefObject<HTMLInputElement>
   itemCount: number
   selectedProduct: BatchProduct
@@ -31,41 +23,27 @@ interface CountingActionsBarProps {
   countProduct: (p: BatchProduct) => void
   isQuickScanMode: boolean
   setIsQuickScanMode: (m: boolean) => void
-  setQuery: (q: string) => void
   openConfirmationModal: () => void
-  fetchBatchProducts: (
-    query: string,
-    callback: (options: OptionsType<BatchProduct>) => void
-  ) => Promise<void>
+  searchProducts: (query: string) => Promise<any[]>
 }
 
 const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   batch,
-  open,
-  setOpen,
-  query,
-  handleQueryChange,
-  loading,
   onProductSelect,
-  productNotFound,
   countInputRef,
   itemCount,
   setItemCount,
   selectedProduct,
-  searchResults,
-  setSearchResults,
   countProduct,
   isQuickScanMode,
   setIsQuickScanMode,
-  setQuery,
   openConfirmationModal,
-  fetchBatchProducts,
+  searchProducts,
 }) => {
   const classes = styles(isQuickScanMode)
 
   const handleCheckedChange = (e: ChangeEvent) => {
     setIsQuickScanMode(e.target.checked)
-    setQuery('')
   }
 
   const onCountInputChange = (e: ChangeEvent) => {
@@ -128,7 +106,7 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
       inventoryCountActionsPaper={
         <div className={classes.countingContainer}>
           <InputAutoSuggest
-            loadOptions={fetchBatchProducts}
+            loadOptions={searchProducts}
             selectOption={onProductSelect}
             isQuickScanMode={isQuickScanMode}
           />

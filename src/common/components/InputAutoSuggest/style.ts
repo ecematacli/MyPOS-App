@@ -62,4 +62,8 @@ export const selectStyles = ({ spacing, palette }: Theme): Partial<Styles> => ({
       backgroundColor: state.isSelected ? palette.grayColors[0] : palette.grayColors[1],
     },
   }),
+  indicatorsContainer: p => ({
+    ...p,
+    cursor: 'pointer',
+  }),
 })

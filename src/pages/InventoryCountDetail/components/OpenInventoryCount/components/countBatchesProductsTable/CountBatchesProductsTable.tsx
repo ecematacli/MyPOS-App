@@ -15,11 +15,8 @@ export interface CountBatchesProductsTableProps {
   rowsPerPage: number
   handleChangeRowsPerPage: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void
   selectedProductRow: BatchProduct
-  handleSelectedRow: (product: BatchProduct) => void
-  countInputRef: React.MutableRefObject<HTMLInputElement>
   tabsValue: string
   handleTabsChange: (e: React.ChangeEvent<HTMLInputElement>, newValue: string) => void
-  isQuickScanMode?: boolean
 }
 
 const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
@@ -29,11 +26,8 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
   rowsPerPage,
   handleChangeRowsPerPage,
   selectedProductRow,
-  handleSelectedRow,
-  countInputRef,
   tabsValue,
   handleTabsChange,
-  isQuickScanMode,
 }) => {
   const classes = styles()
   const { counted, uncounted, products } = batchProducts
@@ -90,9 +84,6 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
             handleChangeRowsPerPage={handleChangeRowsPerPage}
             handleChangePage={handleChangePage}
             selectedRow={selectedProductRow}
-            handleSelectedRow={handleSelectedRow}
-            countInputRef={countInputRef}
-            isQuickScanMode={isQuickScanMode}
           />
         </div>
       </div>

@@ -3,15 +3,13 @@ import AsyncSelect from 'react-select/async'
 import makeAnimated from 'react-select/animated'
 import { ActionMeta, OptionsType } from 'react-select'
 import { useTheme } from '@material-ui/core'
-import { debounce } from 'lodash'
 
 import styles, { selectStyles } from './style'
 import { formatOptionLabel } from './formatOptionLabel'
+import { debounce } from 'lodash'
 
 export interface AutoSuggestProduct {
   id: string
-  value: string // id
-  label: string // name + variation
   sku: string
   barcode: string
   name: string
@@ -20,7 +18,7 @@ export interface AutoSuggestProduct {
 }
 
 interface Props {
-  loadOptions: (query: string, callback: (options: OptionsType<any>) => void) => Promise<void>
+  loadOptions: (query: string) => Promise<any[]>
   selectOption: (option: any) => void
   isQuickScanMode: boolean
 }
@@ -49,6 +47,15 @@ export const InputAutoSuggest: FC<Props> = ({
     return options.find(o => o.id === option.id)
   }
 
+  const debounced = debounce((searchTerm, callback) => {
+    loadOptions(searchTerm)
+      .then(result => callback(result))
+      .catch(error => {
+        console.log(error)
+        callback(null)
+      })
+  }, 500)
+
   return (
     <AsyncSelect
       key={`select_key__${inputKey}`}
@@ -58,7 +65,7 @@ export const InputAutoSuggest: FC<Props> = ({
         IndicatorSeparator: () => null,
         DropdownIndicator: () => null,
       }}
-      loadOptions={debounce(loadOptions, 400)}
+      loadOptions={debounced}
       onChange={onChange}
       formatOptionLabel={formatOptionLabel(classes)}
       placeholder='Search for products...'

@@ -1,4 +1,5 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useRef } from 'react'
+import { debounce } from 'lodash'
 
 import api from '../../../../../api'
 import { BatchesProductsData, BatchProduct, BatchData, LastCountedProduct } from '../types'
@@ -7,10 +8,9 @@ import useLocalStorageState from '../../../../../common/hooks/useLocalStorageSta
 import { useGetRequest } from '../../../../../common/hooks/useGetRequest'
 import { usePostRequest } from '../../../../../common/hooks/usePostRequest'
 import history from '../../../../../history'
+import { OptionsType } from 'react-select'
 
-type SetQuery = React.Dispatch<React.SetStateAction<string>>
-
-export default (setQuery: SetQuery, batchId: string) => {
+export default (batchId: string) => {
   const { addNotification } = useContext(NotificationsContext)
   const [isQuickScanMode, setIsQuickScanMode] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -32,6 +32,7 @@ export default (setQuery: SetQuery, batchId: string) => {
     products: [],
   })
   const [completeInvCountError, setCompleteInvCountError] = useState('')
+  const countInputRef = useRef<HTMLInputElement>()
 
   //API Requests
   const { value: batch } = useGetRequest<BatchData>(`/inventory-count/${batchId}`)
@@ -120,7 +121,6 @@ export default (setQuery: SetQuery, batchId: string) => {
 
     if (isQuickScanMode) {
       setSelectedProduct(null)
-      setQuery('')
     } else {
       setSelectedProduct(updatedProduct)
       setItemCount(1)
@@ -158,6 +158,27 @@ export default (setQuery: SetQuery, batchId: string) => {
     })
   }
 
+  const searchProducts = async (query: string): Promise<BatchProduct[]> => {
+    try {
+      const { data } = await api.get(
+        `inventory-count/${batchId}/search-products?query=${query}`
+      )
+      return data
+    } catch (e) {
+      console.log('Error from batch products search bar hook', e)
+      return []
+    }
+  }
+
+  const onProductSelect = (product: BatchProduct) => {
+    if (!isQuickScanMode) {
+      countInputRef.current.focus()
+      handleSelectedProduct(product)
+    } else {
+      countProduct(product)
+    }
+  }
+
   return {
     tabsValue,
     handleTabsChange,
@@ -180,5 +201,8 @@ export default (setQuery: SetQuery, batchId: string) => {
     setIsQuickScanMode,
     complete,
     completeInvCountError,
+    searchProducts,
+    onProductSelect,
+    countInputRef,
   }
 }

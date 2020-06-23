@@ -26,10 +26,7 @@ const PlainTable: React.FC<PlainTableProps> = ({
   handleChangeRowsPerPage,
   handleChangePage,
   selectedRow,
-  handleSelectedRow,
-  countInputRef,
   completedBatch,
-  isQuickScanMode
 }) => {
   const classes = styles(rows)
 
@@ -53,14 +50,7 @@ const PlainTable: React.FC<PlainTableProps> = ({
 
     if ('batchProducts' in rows) {
       return rows.batchProducts.map((row: BatchProduct) => (
-        <BatchProductsRow
-          key={row.id}
-          row={row}
-          selectedRow={selectedRow}
-          handleSelectedRow={handleSelectedRow}
-          countInputRef={countInputRef}
-          isQuickScanMode={isQuickScanMode}
-        />
+        <BatchProductsRow key={row.id} row={row} selectedRow={selectedRow} />
       ))
     }
   }

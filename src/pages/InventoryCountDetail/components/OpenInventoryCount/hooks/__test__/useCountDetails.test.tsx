@@ -48,7 +48,7 @@ describe('[Inventory Count Details Hook]', () => {
     )
     let result
     await act(async () => {
-      result = renderHook(() => useCountDetails(jest.fn(), batchId), { wrapper }).result
+      result = renderHook(() => useCountDetails(batchId), { wrapper }).result
     })
     expect(result.current.batch).toBe(batch)
   })
@@ -56,7 +56,7 @@ describe('[Inventory Count Details Hook]', () => {
   test('should fetch batch products', async () => {
     const batchId = '1'
     const productsData = invCountTestUtils.createBatchProductsData(10)
-    const { result } = renderHook(() => useCountDetails(jest.fn(), batchId), { wrapper })
+    const { result } = renderHook(() => useCountDetails(batchId), { wrapper })
     await fetchBatchProducts(result, productsData)
 
     expect(result.current.batchProducts).toBe(productsData)
@@ -67,7 +67,7 @@ describe('[Inventory Count Details Hook]', () => {
 
   test('should count product in quick scan mode', async () => {
     const productsData = invCountTestUtils.createBatchProductsData(10)
-    const { result } = renderHook(() => useCountDetails(jest.fn(), '1'), { wrapper })
+    const { result } = renderHook(() => useCountDetails('1'), { wrapper })
     await fetchBatchProducts(result, productsData)
     const product = productsData.products[0]
     axios.post = jest.fn(() =>
@@ -95,7 +95,7 @@ describe('[Inventory Count Details Hook]', () => {
   test('should count product in normal mode', async () => {
     localStorage.clear()
     const productsData = invCountTestUtils.createBatchProductsData(10)
-    const { result } = renderHook(() => useCountDetails(jest.fn(), '1'), { wrapper })
+    const { result } = renderHook(() => useCountDetails('1'), { wrapper })
     await fetchBatchProducts(result, productsData)
     act(() => {
       result.current.setItemCount(1000)
@@ -125,7 +125,7 @@ describe('[Inventory Count Details Hook]', () => {
   test('should change tab and count product on uncounted tab', async () => {
     localStorage.clear()
     const productsData = invCountTestUtils.createBatchProductsData(10)
-    const { result } = renderHook(() => useCountDetails(jest.fn(), '1'), { wrapper })
+    const { result } = renderHook(() => useCountDetails('1'), { wrapper })
     await fetchBatchProducts(result, productsData)
 
     const uncountedPData = { ...productsData, products: productsData.products.slice(0, 5) }
@@ -168,7 +168,7 @@ describe('[Inventory Count Details Hook]', () => {
 
   test('should change page and call api', async () => {
     const productsData = invCountTestUtils.createBatchProductsData(10)
-    const { result } = renderHook(() => useCountDetails(jest.fn(), '1'), { wrapper })
+    const { result } = renderHook(() => useCountDetails('1'), { wrapper })
     await fetchBatchProducts(result, productsData)
 
     await act(async () => {
@@ -182,7 +182,7 @@ describe('[Inventory Count Details Hook]', () => {
 
   test('should change rows per page and call api', async () => {
     const productsData = invCountTestUtils.createBatchProductsData(10)
-    const { result } = renderHook(() => useCountDetails(jest.fn(), '1'), { wrapper })
+    const { result } = renderHook(() => useCountDetails('1'), { wrapper })
     await fetchBatchProducts(result, productsData)
 
     await act(async () => {
@@ -197,7 +197,7 @@ describe('[Inventory Count Details Hook]', () => {
   })
 
   test('should complete inventory count', async () => {
-    const { result } = renderHook(() => useCountDetails(jest.fn(), '1'), { wrapper })
+    const { result } = renderHook(() => useCountDetails('1'), { wrapper })
 
     await act(async () => {
       result.current.complete()
@@ -208,5 +208,23 @@ describe('[Inventory Count Details Hook]', () => {
       undefined
     )
     expect(localStorage.getItem('lastCountedItem-batch1')).toBeUndefined()
+  })
+
+  test('should search for products in batch', async () => {
+    const productsData = invCountTestUtils.createBatchProductsData(10)
+    const { result } = renderHook(() => useCountDetails('2'), { wrapper })
+
+    axios.get = jest.fn(() =>
+      Promise.resolve({
+        data: productsData.products,
+      })
+    )
+
+    await act(async () => {
+      const res = await result.current.searchProducts('query123')
+      expect(res).toEqual(productsData.products)
+    })
+
+    expect(axios.get).toHaveBeenCalledWith('inventory-count/2/search-products?query=query123')
   })
 })

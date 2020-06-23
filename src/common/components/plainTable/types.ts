@@ -12,11 +12,8 @@ export interface PlainTableProps {
     newPage: number
   ) => void
   selectedRow?: BatchProduct
-  handleSelectedRow?: (product: BatchProduct) => void
-  countInputRef?: React.MutableRefObject<HTMLInputElement>
   itemCount?: number
   completedBatch?: boolean
-  isQuickScanMode?: boolean
 }
 export interface Batch {
   id: number
