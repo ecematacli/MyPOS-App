@@ -5,25 +5,28 @@ interface TableHead {
 
 export const TABLE_HEAD: TableHead[] = [
   {
-    label: 'Sku'
+    label: 'Sku',
   },
   {
-    label: 'Product Name'
+    label: 'Product Name',
+  },
+  {
+    label: 'Synced',
   },
   {
     label: 'Variation',
-    numeric: true
+    numeric: true,
   },
   {
     label: 'Quantity',
-    numeric: true
+    numeric: true,
   },
   {
     label: 'Price',
-    numeric: true
+    numeric: true,
   },
   {
     label: 'Discounted Price',
-    numeric: true
-  }
+    numeric: true,
+  },
 ];

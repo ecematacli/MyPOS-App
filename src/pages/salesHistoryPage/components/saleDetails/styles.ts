@@ -18,13 +18,13 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     flexDirection: 'column',
     alignItems: 'center',
     background: ({ rowIndex }: StyleProps) =>
-      rowIndex % 2 ? `${palette.whiteColors[0]}` : `${palette.greenColors[2]}`
+      rowIndex % 2 ? `${palette.whiteColors[0]}` : `${palette.greenColors[2]}`,
   },
   table: {
     marginBottom: 0,
-    width: '90%',
+    width: '95%',
     borderSpacing: 0,
-    borderCollapse: 'collapse'
+    borderCollapse: 'collapse',
   },
   tableHeadRow: {
     '& > th': {
@@ -34,16 +34,16 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
       fontWeight: 700,
       color: palette.grayColors[7],
       [breakpoints.down('sm')]: {
-        fontSize: 14
-      }
-    }
+        fontSize: 14,
+      },
+    },
   },
   tableBodyRow: {
     height: spacing(3),
     '&:last-child': {
       '& > td': {
-        borderBottom: 'none'
-      }
+        borderBottom: 'none',
+      },
     },
     '& > td': {
       fontWeight: 545,
@@ -52,9 +52,9 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
       borderBottom: `0.5px solid ${palette.secondary.light}`,
       color: 'inherit',
       [breakpoints.down('sm')]: {
-        fontSize: 14
-      }
-    }
+        fontSize: 14,
+      },
+    },
   },
   detailTotal: {
     width: '90%',
@@ -66,13 +66,13 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     marginBottom: spacing(2),
     display: 'flex',
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   total: {
     width: '100%',
     paddingRight: spacing(5),
     color: 'inherit',
     fontWeight: 'bold',
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 }));

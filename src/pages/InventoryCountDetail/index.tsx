@@ -1,9 +1,9 @@
-import React, { FC, Fragment } from 'react'
-import { useGetRequest } from '../../common/hooks/useGetRequest'
-import { RouteComponentProps } from 'react-router-dom'
-import { BatchData } from '../inventoryCountDetail/components/OpenInventoryCount/types'
-import InventoryCountDetails from './components/OpenInventoryCount'
-import { CompletedInventoryCountDetail } from './components/CompletedInventoryCount'
+import React, { FC, Fragment } from 'react';
+import { useGetRequest } from '../../common/hooks/useGetRequest';
+import { RouteComponentProps } from 'react-router-dom';
+import InventoryCountDetails from './components/OpenInventoryCount';
+import { CompletedInventoryCountDetail } from './components/CompletedInventoryCount';
+import { BatchData } from './components/OpenInventoryCount/types';
 
 interface Props extends RouteComponentProps<{ id: string }> {}
 
@@ -12,10 +12,12 @@ export const InventoryCountDetail: FC<Props> = ({
     params: { id },
   },
 }) => {
-  const { value: batch, loading } = useGetRequest<BatchData>(`/inventory-count/${id}`)
+  const { value: batch, loading } = useGetRequest<BatchData>(
+    `/inventory-count/${id}`
+  );
 
   if (!batch || loading) {
-    return null
+    return null;
   }
 
   return (
@@ -26,5 +28,5 @@ export const InventoryCountDetail: FC<Props> = ({
         <CompletedInventoryCountDetail batchId={id} />
       )}
     </Fragment>
-  )
-}
+  );
+};

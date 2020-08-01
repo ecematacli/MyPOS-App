@@ -1,24 +1,24 @@
-import { useState, useReducer } from 'react'
+import { useState, useReducer } from 'react';
 
-import api from '../../../api'
-import history from '../../../history'
-import { findMatchedFields } from '../../../common/utils'
-import { Brand } from '../../../redux/brands/types'
-import { Category } from '../../../redux/categories/types'
+import api from '../../../api';
+import history from '../../../history';
+import { findMatchedFields } from '../../../common/utils';
+import { Brand } from '../../../redux/brands/types';
+import { Category } from '../../../redux/categories/types';
 
 export interface Filters {
-  category: string
-  brand: string
+  category: string;
+  brand: string;
 }
 
 interface Batch {
-  id: number
-  status: string
-  started: string
-  finished: string | null
-  name: string
-  category: string
-  brand: string
+  id: number;
+  status: string;
+  started: string;
+  finished: string | null;
+  name: string;
+  category: string;
+  brand: string;
 }
 
 export default (
@@ -29,60 +29,60 @@ export default (
   const initialState = {
     category: '',
     brand: '',
-  }
+  };
 
-  const [startDate, handleStartDateChange] = useState<Date | null>(new Date())
-  const [countName, setCountName] = useState('')
+  const [startDate, handleStartDateChange] = useState<Date | null>(new Date());
+  const [countName, setCountName] = useState('');
   const [dropdownInputs, setDropdownInputs] = useReducer(
     (state: Filters, newState: Filters) => ({
       ...state,
       ...newState,
     }),
     initialState
-  )
+  );
 
   const handleDropdownInputChange = ({
     target: { value, name },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    const fieldName = name
-    const newValue = value
+    const fieldName = name;
+    const newValue = value;
 
-    setDropdownInputs({ ...dropdownInputs, [fieldName]: newValue })
-  }
+    setDropdownInputs({ ...dropdownInputs, [fieldName]: newValue });
+  };
 
   const handleCountNameChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    setCountName(value)
-  }
+    setCountName(value);
+  };
 
   // API Request
   const createCountBatch = async () => {
     try {
-      const { category, brand } = dropdownInputs
-      let categoryId: number
-      let brandId: number
+      const { category, brand } = dropdownInputs;
+      let categoryId: number;
+      let brandId: number;
 
       if (brand) {
-        brandId = findMatchedFields(brands, dropdownInputs.brand).id
+        brandId = findMatchedFields(brands, dropdownInputs.brand).id;
       }
       if (category) {
-        categoryId = findMatchedFields(categories, dropdownInputs.category).id
+        categoryId = findMatchedFields(categories, dropdownInputs.category).id;
       }
 
       const response = await api.post('/inventory-count', {
         name: countName,
         categoryId,
         brandId,
-      })
+      });
 
-      const data: Batch = response.data
+      const data: Batch = response.data;
 
-      history.push(`/inventory/inventory-count/${data.id}`)
+      history.push(`/inventory/inventory-count/${data.id}`);
     } catch (err) {
-      addNotification(err.response.data + '!', 'error')
+      addNotification(err.response.data + '!', 'error');
     }
-  }
+  };
 
   return {
     startDate,
@@ -92,5 +92,5 @@ export default (
     handleDropdownInputChange,
     dropdownInputs,
     createCountBatch,
-  }
-}
+  };
+};

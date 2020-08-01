@@ -1,19 +1,19 @@
-import React from 'react'
-import { TableRow, TableCell, Typography } from '@material-ui/core'
+import React from 'react';
+import { TableRow, TableCell } from '@material-ui/core';
 
-import styles from './styles'
-import { BatchProduct } from '../types'
-import { productNameWithVariation } from '../../../utils'
-import { SyncedIcon } from '../../SyncedIcon'
+import styles from './styles';
+import { BatchProduct } from '../types';
+import { productNameWithVariation } from '../../../utils';
+import { SyncedIcon } from '../../syncedIcon';
 
 interface Props {
-  row: BatchProduct
+  row: BatchProduct;
 }
 
 const CompletedBatchProductRow: React.FC<Props> = ({ row }) => {
-  const classes = styles()
+  const classes = styles();
 
-  const { id, name, barcode, sku, variation, expected, counted, synced } = row
+  const { id, name, barcode, sku, variation, expected, counted, synced } = row;
 
   return (
     <TableRow hover className={classes.tableBodyRow}>
@@ -22,13 +22,15 @@ const CompletedBatchProductRow: React.FC<Props> = ({ row }) => {
       <TableCell style={{ width: '60%' }}>
         {productNameWithVariation(name, variation)}
       </TableCell>
-      <TableCell align='right'>{expected}</TableCell>
-      <TableCell align='right'>{counted || counted === 0 ? counted : '-'}</TableCell>
-      <TableCell align='right'>
+      <TableCell align="right">{expected}</TableCell>
+      <TableCell align="right">
+        {counted || counted === 0 ? counted : '-'}
+      </TableCell>
+      <TableCell align="right">
         <SyncedIcon synced={synced} />
       </TableCell>
     </TableRow>
-  )
-}
+  );
+};
 
-export default CompletedBatchProductRow
+export default CompletedBatchProductRow;
