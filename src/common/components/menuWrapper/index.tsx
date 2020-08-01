@@ -1,5 +1,4 @@
 import React, { useContext, useState, Fragment } from 'react'
-import clsx from 'clsx'
 import {
   CssBaseline,
   Drawer,
@@ -59,7 +58,7 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <List component='div' disablePadding>
             <ListItem
               button
-              className={clsx(i === 0 && classes.subMenuFirstItem, classes.subMenuItems)}>
+              className={classes.subMenuItems}>
               <ListItemIcon className={classes.subMenuIcons}>
                 <Icon />
               </ListItemIcon>

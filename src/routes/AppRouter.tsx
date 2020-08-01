@@ -12,6 +12,7 @@ import SalesHistoryPage from '../pages/salesHistoryPage'
 import ProductsPage from '../pages/productsPage'
 import InventoryCountBatches from '../pages/inventoryCountBatches'
 import InventoryCountCreate from '../pages/inventoryCountCreate'
+import StockOrdersPage from '../pages/stockOrdersPage'
 import { InventoryCountDetail } from '../pages/InventoryCountDetail'
 
 const AppRouter: React.FC = () => (
@@ -37,6 +38,11 @@ const AppRouter: React.FC = () => (
             path='/inventory/inventory-count/:id'
             exact
             component={InventoryCountDetail}
+          />
+          <PrivateRoute
+            path='/inventory/stock-orders'
+            exact
+            component={StockOrdersPage}
           />
           <PrivateRoute path='/' exact component={DashboardPage} />
         </Switch>
