@@ -1,35 +1,30 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 
-import styles from './styles';
-import api from '../../../../api'
+import styles from './styles'
+import { formatDate } from '../../../../common/utils'
 
-const FileUpload = () => {
-  const classes = styles();
+interface Props {
+  getUploadedFile: (file: FormData) => void
+}
+
+const FileUpload: React.FC<Props> = ({ getUploadedFile }) => {
+  const classes = styles()
+
   const onDrop = useCallback(acceptedFiles => {
-    console.log('accepted files>', acceptedFiles[0])
-    // Do something with the files
-    const promises = Array.from(acceptedFiles).map(file => {
-      const formData = new FormData();
-      console.log('file>>', file)
-      formData.append('file', file as any);
-      formData.append('date', new Date() as any)
+    const formData = new FormData()
 
-      // return api.post('/stock-orders/import', formData);
-    });
-
-    return Promise.all(promises);
+    formData.append('file', acceptedFiles[0] as any)
+    formData.append('date', formatDate(new Date(), 'yyyy-M-dd'))
+    getUploadedFile(formData)
   }, [])
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   return (
     <div className={classes.dropper} {...getRootProps()}>
-      <input className={classes.dropInput}  {...getInputProps()} />
-      {
-        isDragActive ?
-          <p>Drop files here!</p> :
-          <p>Drag files here!</p>
-      }
+      <input className={classes.dropInput} {...getInputProps()} />
+      {isDragActive ? <p>Drop files here!</p> : <p>Drag files here!</p>}
     </div>
   )
 }
