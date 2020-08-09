@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Typography, Button } from '@material-ui/core';
 
 import styles from './styles';
@@ -34,11 +34,23 @@ const StockOrdersPage = () => {
   )
 
   const renderStockOrdersContent = () => (
-    <div>
+    <div className={classes.content}>
+      <div className={classes.instructions}>
+        <Typography>- Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque .</Typography>
+        <Typography>- Nemo enim ipsam voluptatem quia voluptas.</Typography>
+        <Typography>- Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut.</Typography>
+        <Typography>- Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis.</Typography>
+        <Typography>- Uis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</Typography>
+      </div>
       <FileUpload
         uploadedFileName={uploadedFileName}
         removeUploadedFile={removeUploadedFile}
         getUploadedFile={getUploadedFile} />
+    </div>
+  )
+
+  const renderFileFeedback = () => (
+    <Fragment>
       {(uploadSuccess || uploadError) && (
         <Alert
           open={openAlert}
@@ -51,13 +63,13 @@ const StockOrdersPage = () => {
           }
         />
       )}
-
-    </div>
+    </Fragment>
   )
   return (
     <div className={classes.stockOrdersContainer}>
       {renderInventoryCountTopBar()}
       {renderStockOrdersContent()}
+      {renderFileFeedback()}
     </div>
   )
 }

@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(({ palette, spacing }) => ({
   fileUploadDiv: {
     cursor: 'pointer',
-    height: '150px',
+    height: spacing(28),
+    width: spacing(53),
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.14)',
-    width: spacing(63),
-    margin: '20px auto',
-    border: `1px dashed ${palette.secondary.main}`,
+    margin: '20px',
+    border: `0.7px solid ${palette.grayColors[9]}`,
     borderRadius: '5px',
     display: 'flex',
     flexDirection: 'column',

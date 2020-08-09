@@ -9,6 +9,16 @@ export default makeStyles(({ palette, spacing }) => ({
     fontWeight: 'bold',
     color: '#3a4953',
   },
+  content: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  instructions: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
   uploadFileDiv: {
     display: 'flex',
     justifyContent: 'space-between',

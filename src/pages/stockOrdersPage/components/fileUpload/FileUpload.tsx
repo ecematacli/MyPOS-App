@@ -20,7 +20,7 @@ const FileUpload: React.FC<Props> = ({ getUploadedFile, removeUploadedFile, uplo
     console.log('accepted files?', acceptedFiles[0].name)
     formData.append('file', acceptedFiles[0] as any)
     formData.append('date', formatDate(new Date(), 'yyyy-M-dd'))
-    // getUploadedFile(formData)
+
     getUploadedFile(acceptedFiles[0].name)
   }, [])
 
@@ -33,20 +33,17 @@ const FileUpload: React.FC<Props> = ({ getUploadedFile, removeUploadedFile, uplo
         <div onClick={removeUploadedFile}><ClearIcon className={classes.clearIcon} /></div>
       </div>
     ) : (
-        isDragActive ?
-          <p className={classes.infoText}>Drop files here!</p> : (
-            <Fragment>
-              <p className={classes.infoText}>Select a file or drag here!</p>
-              <button className={classes.selectBtn} > Select a file</button>
-            </Fragment>
-          )
+        <Fragment>
+          <p className={classes.infoText}>Select a file or drag here!</p>
+          <input className={classes.dropInput} {...getInputProps()} />
+        </Fragment>
+
       )
   );
 
   return (
     <div className={classes.fileUploadDiv} {...getRootProps()}>
       <div><GetAppIcon className={classes.uploadIcon} /></div>
-      <input className={classes.dropInput} {...getInputProps()} />
       {renderFileUploadBoxContent()}
     </div>
   )
