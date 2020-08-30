@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(({ palette, spacing }) => ({
   stockOrdersContainer: {
@@ -13,6 +13,8 @@ export default makeStyles(({ palette, spacing }) => ({
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
+    maxWidth: spacing(137.5),
+    margin: '0 auto',
   },
   instructions: {
     display: 'flex',
@@ -39,4 +41,4 @@ export default makeStyles(({ palette, spacing }) => ({
     textTransform: 'capitalize',
     color: 'white',
   },
-}));
+}))

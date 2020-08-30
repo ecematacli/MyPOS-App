@@ -1,4 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles'
+
+interface StyleProps extends Theme {
+  uploadedFileName: { uploadedFileName: string }
+}
 
 export default makeStyles(({ palette, spacing }) => ({
   fileUploadDiv: {
@@ -7,6 +11,7 @@ export default makeStyles(({ palette, spacing }) => ({
     width: spacing(53),
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.14)',
     margin: '20px',
+    marginRight: 0,
     border: `0.7px solid ${palette.grayColors[9]}`,
     borderRadius: '5px',
     display: 'flex',
@@ -14,8 +19,12 @@ export default makeStyles(({ palette, spacing }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
+    '&:focus': {
+      outline: 'none',
+    },
     '&:hover': {
-      backgroundColor: '#eee',
+      backgroundColor: ({ uploadedFileName }: StyleProps) =>
+        uploadedFileName ? 'unset' : '#eee',
     },
   },
   dropInput: {
@@ -38,9 +47,11 @@ export default makeStyles(({ palette, spacing }) => ({
   uploadedFileInfo: {
     display: 'flex',
     alignItems: 'center',
+    width: '100%',
   },
   fileName: {
     marginRight: spacing(1.5),
+    //  overflowX: 'auto',
   },
   clearIcon: {
     color: palette.grayColors[7],
@@ -48,4 +59,4 @@ export default makeStyles(({ palette, spacing }) => ({
     alignItems: 'center',
     fontSize: spacing(2.5),
   },
-}));
+}))
