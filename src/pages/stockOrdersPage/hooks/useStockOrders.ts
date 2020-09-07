@@ -6,10 +6,13 @@ import { UploadSuccess, UploadError } from './types'
 export default () => {
   const [openAlert, setOpenAlert] = useState(true)
   const [uploadedFileName, setUploadedFileName] = useState('')
+  const [uploadedFileData, setUploadedFileData] = useState<FormData>(null)
   const [uploadSuccess, setUploadSuccess] = useState<UploadSuccess>(null)
   const [uploadError, setErrorSuccess] = useState<UploadError>(null)
 
-  const getUploadedFileName = (fileName: string) => setUploadedFileName(fileName)
+  const handleUploadedFileName = (fileName: string) => setUploadedFileName(fileName)
+
+  const handleUploadedFile = (formData: FormData) => setUploadedFileData(formData)
 
   const removeUploadedFile = () => setUploadedFileName('')
 
@@ -29,7 +32,9 @@ export default () => {
   return {
     openAlert,
     setOpenAlert,
-    getUploadedFileName,
+    handleUploadedFileName,
+    handleUploadedFile,
+    uploadedFileData,
     removeUploadedFile,
     uploadedFileName,
     uploadSuccess,

@@ -7,17 +7,17 @@ import styles from './styles'
 import { formatDate } from '../../../../common/utils'
 
 interface Props {
-  getUploadedFileName: (fileName: string) => void
+  setUploadedFileName: (fileName: string) => void
   removeUploadedFile: () => void
   uploadedFileName: string
-  sendFormData: (file: FormData) => Promise<void>
+  setUploadedFile: (formData: FormData) => void
 }
 
 const FileUpload: React.FC<Props> = ({
-  getUploadedFileName,
+  setUploadedFileName,
+  setUploadedFile,
   removeUploadedFile,
   uploadedFileName,
-  sendFormData,
 }) => {
   const classes = styles({ uploadedFileName })
 
@@ -25,8 +25,9 @@ const FileUpload: React.FC<Props> = ({
     const formData = new FormData()
     formData.append('file', acceptedFiles[0] as any)
     formData.append('date', formatDate(new Date(), 'yyyy-M-dd'))
-    getUploadedFileName(acceptedFiles[0].name)
-    sendFormData(formData)
+
+    setUploadedFileName(acceptedFiles[0].name)
+    setUploadedFile(formData)
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
@@ -48,9 +49,7 @@ const FileUpload: React.FC<Props> = ({
 
   return (
     <div className={classes.fileUploadDiv} {...getRootProps()}>
-      <div>
-        <GetAppIcon className={classes.uploadIcon} />
-      </div>
+      <GetAppIcon className={classes.uploadIcon} />
       {renderFileUploadBoxContent()}
     </div>
   )

@@ -13,7 +13,9 @@ const StockOrdersPage = () => {
     openAlert,
     setOpenAlert,
     uploadedFileName,
-    getUploadedFileName,
+    handleUploadedFileName,
+    uploadedFileData,
+    handleUploadedFile,
     removeUploadedFile,
     uploadSuccess,
     uploadError,
@@ -29,7 +31,7 @@ const StockOrdersPage = () => {
           <Typography className={classes.infoText}>
             Upload and validate files to keep track of your stock orders.
           </Typography>
-          <Button onClick={() => ''} className={classes.uploadBtn}>
+          <Button onClick={() => sendFile(uploadedFileData)} className={classes.uploadBtn}>
             <Typography className={classes.btnText}>Validate File</Typography>
           </Button>
         </div>
@@ -39,54 +41,33 @@ const StockOrdersPage = () => {
 
   const renderStockOrdersContent = () => (
     <div className={classes.content}>
-      <div className={classes.instructions}>
-        <Typography>
-          - Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-          doloremque .
-        </Typography>
-        <Typography>- Nemo enim ipsam voluptatem quia voluptas.</Typography>
-        <Typography>
-          - Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-          adipisci velit, sed quia non numquam eius modi tempora incidunt ut.
-        </Typography>
-        <Typography>
-          - Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis.
-        </Typography>
-        <Typography>
-          - Uis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
-          molestiae consequatur.
-        </Typography>
-      </div>
+      {(uploadSuccess || uploadError) && (
+        <div className={classes.uploadFeedback}>
+          <Alert
+            open={openAlert}
+            setOpen={setOpenAlert}
+            severity={uploadSuccess ? 'success' : 'error'}
+            alertMessage={
+              uploadSuccess
+                ? 'The validation of rows has been successful!'
+                : 'The validation of some rows has been failed!'
+            }
+          />
+        </div>
+      )}
       <FileUpload
         uploadedFileName={uploadedFileName}
         removeUploadedFile={removeUploadedFile}
-        getUploadedFileName={getUploadedFileName}
-        sendFormData={sendFile}
+        setUploadedFileName={handleUploadedFileName}
+        setUploadedFile={handleUploadedFile}
       />
     </div>
   )
 
-  const renderFileFeedback = () => (
-    <Fragment>
-      {(uploadSuccess || uploadError) && (
-        <Alert
-          open={openAlert}
-          setOpen={setOpenAlert}
-          severity={uploadSuccess ? 'success' : 'error'}
-          alertMessage={
-            uploadSuccess
-              ? 'The validation of rows has been successful!'
-              : 'The validation of some rows has been failed!'
-          }
-        />
-      )}
-    </Fragment>
-  )
   return (
     <div className={classes.stockOrdersContainer}>
       {renderInventoryCountTopBar()}
       {renderStockOrdersContent()}
-      {renderFileFeedback()}
     </div>
   )
 }

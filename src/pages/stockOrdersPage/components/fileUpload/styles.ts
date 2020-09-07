@@ -9,10 +9,10 @@ export default makeStyles(({ palette, spacing }) => ({
     cursor: 'pointer',
     height: spacing(28),
     width: spacing(53),
+    maxWidth: spacing(53),
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.14)',
-    margin: '20px',
-    marginRight: 0,
-    border: `0.7px solid ${palette.grayColors[9]}`,
+    marginTop: '20px',
+    border: `0.7px dashed ${palette.grayColors[14]}`,
     borderRadius: '5px',
     display: 'flex',
     flexDirection: 'column',
@@ -47,11 +47,10 @@ export default makeStyles(({ palette, spacing }) => ({
   uploadedFileInfo: {
     display: 'flex',
     alignItems: 'center',
-    width: '100%',
+    maxWidth: '100%',
   },
   fileName: {
     marginRight: spacing(1.5),
-    //  overflowX: 'auto',
   },
   clearIcon: {
     color: palette.grayColors[7],

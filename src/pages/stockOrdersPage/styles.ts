@@ -11,21 +11,19 @@ export default makeStyles(({ palette, spacing }) => ({
   },
   content: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     maxWidth: spacing(137.5),
     margin: '0 auto',
   },
-  instructions: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+  uploadFeedback: {
+    width: '85%',
+    paddingRight: spacing(3.75),
   },
   uploadFileDiv: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    flex: 1,
   },
   infoText: {
     color: palette.secondary.main,
