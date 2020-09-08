@@ -26,6 +26,6 @@ export default makeStyles(({ palette, spacing }) => ({
   titleText: {
     fontSize: spacing(3.2),
     fontWeight: 'bold',
-    color: '#3a4953',
+    color: palette.grayColors[17],
   },
 }))

@@ -7,12 +7,11 @@ export default makeStyles(({ palette, spacing }) => ({
   titleText: {
     fontSize: spacing(3.2),
     fontWeight: 'bold',
-    color: '#3a4953',
+    color: palette.grayColors[17],
   },
   content: {
     display: 'flex',
     justifyContent: 'flex-end',
-    alignItems: 'center',
     maxWidth: spacing(137.5),
     margin: '0 auto',
   },
@@ -40,3 +39,4 @@ export default makeStyles(({ palette, spacing }) => ({
     color: 'white',
   },
 }))
+

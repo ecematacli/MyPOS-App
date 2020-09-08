@@ -1,4 +1,4 @@
-export const transformErrorResponse = (errorMessage: string) => {
+export const transformInvalidRowTypes = (errorMessage: string) => {
   switch (errorMessage) {
     case 'DuplicateBarcodeError':
       return 'Duplicate Barcode';
@@ -24,3 +24,29 @@ export const transformErrorResponse = (errorMessage: string) => {
       return 'Some Error';
   }
 };
+
+const some = {
+  "message": "Stock order import contains invalid rows",
+  "validationErrors": [
+    {
+      "rows": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9
+      ],
+      "errorType": "InvalidBarcodeError"
+    },
+    {
+      "rows": [
+        2,
+        3,
+        4
+      ],
+      "errorType": "InvalidQtyError"
+    }
+  ]
+}

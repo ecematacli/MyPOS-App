@@ -15,7 +15,7 @@ export default makeStyles(({ spacing, palette }) => ({
   titleText: {
     fontSize: spacing(3.2),
     fontWeight: 'bold',
-    color: '#3a4953',
+    color: palette.grayColors[17],
   },
   countingContainer: {
     display: 'flex',

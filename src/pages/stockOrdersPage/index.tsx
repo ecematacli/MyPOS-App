@@ -41,20 +41,20 @@ const StockOrdersPage = () => {
 
   const renderStockOrdersContent = () => (
     <div className={classes.content}>
-      {(uploadSuccess || uploadError) && (
-        <div className={classes.uploadFeedback}>
-          <Alert
-            open={openAlert}
-            setOpen={setOpenAlert}
-            severity={uploadSuccess ? 'success' : 'error'}
-            alertMessage={
-              uploadSuccess
-                ? 'The validation of rows has been successful!'
-                : 'The validation of some rows has been failed!'
-            }
-          />
-        </div>
-      )}
+      {/* {(uploadSuccess || uploadError) && ( */}
+      <div className={classes.uploadFeedback}>
+        <Alert
+          open={openAlert}
+          setOpen={setOpenAlert}
+          severity={uploadSuccess ? 'success' : 'error'}
+          alertMessage={
+            uploadSuccess
+              ? 'The validation of rows has been successful!'
+              : 'The validation of some rows has been failed!'
+          }
+        />
+      </div>
+      {/* )} */}
       <FileUpload
         uploadedFileName={uploadedFileName}
         removeUploadedFile={removeUploadedFile}

@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import api from '../../../api'
 import { UploadSuccess, UploadError } from './types'
+import { transformInvalidRowTypes } from '../transformInvalidRowTypes'
 
 export default () => {
   const [openAlert, setOpenAlert] = useState(true)
@@ -25,7 +26,16 @@ export default () => {
       setUploadSuccess(response.data)
     } catch (e) {
       console.log('Something went wrong with sending the file...', e)
-      setErrorSuccess(e.response)
+      // setErrorSuccess(e.response)
+
+      const { data } = e.response
+
+      const respErrorType = data.validationErrors.map(({ errorType, rows }) => {
+        // console.log('errortype:', errorType, 'rows::', rows)
+        return { errorType, rows }
+      })
+
+      transformInvalidRowTypes(respErrorType)
     }
   }
 
