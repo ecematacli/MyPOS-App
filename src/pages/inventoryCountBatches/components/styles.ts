@@ -5,10 +5,4 @@ export default makeStyles(({ spacing }) => ({
     marginTop: spacing(4),
     width: '100%',
   },
-  imageDiv: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: spacing(5),
-  },
 }));

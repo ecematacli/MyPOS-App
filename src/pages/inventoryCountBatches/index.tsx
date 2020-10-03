@@ -8,6 +8,7 @@ import BatchTable from './components/BatchTable'
 import Loading from '../../common/components/loading'
 import CustomTabs from '../../common/components/customTabs'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
+import inventoryImage from '../../assets/img/stocktake-emptylist-v1.png';
 
 const InventoryCountBatches: React.FC<{}> = () => {
   const classes = styles()
@@ -61,10 +62,11 @@ const InventoryCountBatches: React.FC<{}> = () => {
   )
 
   const renderBatchData = () => (
-    <Fragment>
-      {loading ? (
-        <Loading />
-      ) : (
+    !batches.count ? (
+      <div className={classes.imageDiv}>
+        <img src={inventoryImage} />
+      </div>
+    ) : (
         <div className={classes.tableContainer}>
           <div className={classes.tableSectionWrapper}>
             <BatchTable
@@ -76,14 +78,13 @@ const InventoryCountBatches: React.FC<{}> = () => {
             />
           </div>
         </div>
-      )}
-    </Fragment>
+      )
   )
 
   return (
     <div className={classes.inventoryContainer}>
       {renderInventoryCountTopBar()}
-      {renderBatchData()}
+      {loading ? <Loading /> : renderBatchData()}
     </div>
   )
 }

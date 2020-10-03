@@ -1,10 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import styles from './styles';
 import { BatchesData } from '../types';
 import { formatDate } from '../../../common/utils';
 import PlainTable from '../../../common/components/plainTable';
-import inventoryImage from '../../../assets/img/stocktake-emptylist-v1.png';
 
 interface Props {
   batchesData: BatchesData;
@@ -38,34 +37,26 @@ const BatchTable: React.FC<Props> = ({
     }));
 
   return (
-    <Fragment>
-      {!count ? (
-        <div className={classes.imageDiv}>
-          <img src={inventoryImage} />
-        </div>
-      ) : (
-        <div className={classes.tableDiv}>
-          <PlainTable
-            tableHeads={[
-              { name: 'Name' },
-              { name: 'Started' },
-              { name: 'Finished' },
-              {
-                name: 'Category',
-              },
-              { name: 'Brand', rightAlign: true },
-            ]}
-            count={count}
-            hasDataToShow={formattedBatchData().length > 0}
-            rows={{ type: 'batch', batches: formattedBatchData() }}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            handleChangeRowsPerPage={handleChangeRowsPerPage}
-            handleChangePage={handleChangePage}
-          />
-        </div>
-      )}
-    </Fragment>
+    <div className={classes.tableDiv}>
+      <PlainTable
+        tableHeads={[
+          { name: 'Name' },
+          { name: 'Started' },
+          { name: 'Finished' },
+          {
+            name: 'Category',
+          },
+          { name: 'Brand', rightAlign: true },
+        ]}
+        count={count}
+        hasDataToShow={formattedBatchData().length > 0}
+        rows={{ type: 'batch', batches: formattedBatchData() }}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        handleChangePage={handleChangePage}
+      />
+    </div>
   );
 };
 

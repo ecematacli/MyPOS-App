@@ -1,13 +1,13 @@
-import React, { FC, Fragment } from 'react';
+import React from 'react';
 import { useGetRequest } from '../../common/hooks/useGetRequest';
 import { RouteComponentProps } from 'react-router-dom';
 import InventoryCountDetails from './components/OpenInventoryCount';
 import { CompletedInventoryCountDetail } from './components/CompletedInventoryCount';
 import { BatchData } from './components/OpenInventoryCount/types';
 
-interface Props extends RouteComponentProps<{ id: string }> {}
+interface Props extends RouteComponentProps<{ id: string }> { }
 
-export const InventoryCountDetail: FC<Props> = ({
+export const InventoryCountDetail: React.FC<Props> = ({
   match: {
     params: { id },
   },
@@ -21,12 +21,12 @@ export const InventoryCountDetail: FC<Props> = ({
   }
 
   return (
-    <Fragment>
+    <div style={{ paddingTop: 24 }}>
       {batch.status === 'Open' ? (
         <InventoryCountDetails batchId={id} />
       ) : (
-        <CompletedInventoryCountDetail batchId={id} />
-      )}
-    </Fragment>
+          <CompletedInventoryCountDetail batchId={id} />
+        )}
+    </div>
   );
 };

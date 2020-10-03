@@ -24,7 +24,6 @@ const StockOrdersPage = () => {
 
   const renderInventoryCountTopBar = () => (
     <InventoryCountTopBar
-      type='countBatches'
       title={<span className={classes.titleText}>Upload Stock Orders</span>}
       inventoryCountActionsPaper={
         <div className={classes.uploadFileDiv}>

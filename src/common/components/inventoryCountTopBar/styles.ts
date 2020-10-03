@@ -1,15 +1,14 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
 
-import { Props } from './index'
+import { Props } from './index';
 
-export default makeStyles(({ spacing, breakpoints }) => ({
+export default makeStyles(({ palette, spacing, breakpoints }) => ({
   titleContainer: {
-    height: spacing(6.25),
     display: 'block',
     position: 'relative',
-    paddingLeft: spacing(3),
-    margin: spacing(7, 0, 7.2),
-    marginBottom: ({ type }: Props) => (type === 'countBatches' ? -2 : 'unset'),
+    padding: ({ type }: Props) =>
+      type === 'countBatches' ? spacing(0.8, 6, 0) : spacing(0.8, 6, 2),
+    marginTop: spacing(5),
     [breakpoints.down('md')]: {
       marginTop: spacing(8.5),
     },
@@ -21,8 +20,7 @@ export default makeStyles(({ spacing, breakpoints }) => ({
     maxWidth: spacing(137.5),
   },
   inventoryCountActionsContainer: {
-    backgroundColor: '#f1f3f5',
-    // position: 'relative',
+    backgroundColor: palette.grayColors[18],
     display: 'block',
     padding: spacing(3.5, 6),
     position: 'sticky',
@@ -34,4 +32,4 @@ export default makeStyles(({ spacing, breakpoints }) => ({
     margin: '0 auto',
     maxWidth: spacing(137.5),
   },
-}))
+}));

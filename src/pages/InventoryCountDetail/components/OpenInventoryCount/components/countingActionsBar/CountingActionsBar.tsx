@@ -6,12 +6,9 @@ import styles from './styles'
 import { ChangeEvent, BatchData, BatchProduct } from '../../types'
 import InventoryCountTopBar from '../../../../../../common/components/inventoryCountTopBar'
 import { capitalizeFirstLetters, formatDate } from '../../../../../../common/utils'
-import AutoCompleteProductSearchBar from '../../../../../../common/components/autoCompleteProductSearchBar'
 import history from '../../../../../../history'
-import { Align } from '../../../../../../common/components/Align'
 import CustomButton from '../../../../../../common/components/customButton'
 import { InputAutoSuggest } from '../../../../../../common/components/InputAutoSuggest'
-import { OptionsType } from 'react-select'
 
 interface CountingActionsBarProps {
   batch: BatchData
@@ -53,7 +50,6 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
       setItemCount(value as any)
       return
     }
-
     setItemCount(parseInt(value))
   }
 
@@ -82,8 +78,8 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   )
 
   const Title = () => (
-    <Align justify='space-between' align='center' fullWidth>
-      <Align align='center'>
+    <div className={classes.countTitle}>
+      <div className={classes.countNameDiv}>
         <span
           className={classes.iconDiv}
           onClick={() => history.push('/inventory/inventory-count')}>
@@ -95,9 +91,9 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
               ? capitalizeFirstLetters(batch.name)
               : `Count on ${formatDate(batch.started, 'd MMMM y - p')}`)}
         </Typography>
-      </Align>
+      </div>
       <CustomButton onClick={openConfirmationModal}>Complete</CustomButton>
-    </Align>
+    </div>
   )
 
   return (

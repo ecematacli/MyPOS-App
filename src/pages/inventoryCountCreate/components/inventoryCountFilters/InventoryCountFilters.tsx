@@ -63,41 +63,34 @@ const InventoryCountFilters: React.FC<Props> = ({
 
   const renderInputs = () => (
     <div className={classes.inputContainer}>
-      <div className={classes.filtersInfoDiv}>
-        <Typography className={classes.infoText}>
-          Please select filters to start an inventory count
-        </Typography>
+      <div>
+        <InputLabel classes={{ root: classes.inputLabel }}>
+          Start Date
+          </InputLabel>
+        <DatePicker
+          color="secondary"
+          variant="inline"
+          TextFieldComponent={renderTextField}
+          autoOk
+          format="dd MMM yyyy"
+          value={startDate}
+          onChange={handleStartDateChange}
+        />
       </div>
-      <div style={{ display: 'flex' }}>
-        <div>
-          <InputLabel classes={{ root: classes.inputLabel }}>
-            Start Date
+      <div>
+        <InputLabel
+          classes={{ root: classes.inputLabel }}
+          className={classes.inputSpace}
+          color="secondary">
+          Count Name
           </InputLabel>
-          <DatePicker
-            color="secondary"
-            variant="inline"
-            TextFieldComponent={renderTextField}
-            autoOk
-            format="dd MMM yyyy"
-            value={startDate}
-            onChange={handleStartDateChange}
-          />
-        </div>
-        <div>
-          <InputLabel
-            classes={{ root: classes.inputLabel }}
-            className={classes.inputSpace}
-            color="secondary">
-            Count Name
-          </InputLabel>
-          <OutlinedInput
-            className={classes.inputSpace}
-            classes={{ root: classes.inputRoot, input: classes.input }}
-            value={countName}
-            onChange={handleCountNameChange}
-            color="secondary"
-          />
-        </div>
+        <OutlinedInput
+          className={classes.inputSpace}
+          classes={{ root: classes.inputRoot, input: classes.input }}
+          value={countName}
+          onChange={handleCountNameChange}
+          color="secondary"
+        />
       </div>
     </div>
   );
@@ -147,12 +140,17 @@ const InventoryCountFilters: React.FC<Props> = ({
   );
 
   return (
-    <Fragment>
-      <div className={classes.filtersContainer}>
+    <div className={classes.filtersContainer}>
+      <div className={classes.filtersInfoDiv}>
+        <Typography className={classes.infoText}>
+          Please select filters to start an inventory count
+        </Typography>
+      </div>
+      <div>
         {renderInputs()}
         {renderDropdownInputs()}
       </div>
-    </Fragment>
+    </div>
   );
 };
 
