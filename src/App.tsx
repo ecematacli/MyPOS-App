@@ -10,6 +10,7 @@ import configureStore from './redux/store'
 import { AuthContextProvider } from './contexts/AuthContext'
 import { NotificationsProvider } from './contexts/NotificationsContext'
 import { GlobalStyles } from './GlobalStyles'
+
 const store = configureStore()
 
 const App = () => (

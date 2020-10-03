@@ -21,11 +21,10 @@ module.exports = {
         },
       },
       {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: { transpileOnly: true },
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-      },
+        loader: 'babel-loader',
+      }
     ],
   },
   plugins: [
