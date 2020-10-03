@@ -11,11 +11,13 @@ export default makeStyles(({ palette, spacing }) => ({
   },
   content: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     maxWidth: spacing(137.5),
     margin: '0 auto',
   },
   uploadFeedback: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '85%',
     paddingRight: spacing(3.75),
   },
@@ -39,4 +41,3 @@ export default makeStyles(({ palette, spacing }) => ({
     color: 'white',
   },
 }))
-

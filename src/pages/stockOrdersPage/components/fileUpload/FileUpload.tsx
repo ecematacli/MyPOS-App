@@ -30,7 +30,7 @@ const FileUpload: React.FC<Props> = ({
     setUploadedFile(formData)
   }, [])
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
   const renderFileUploadBoxContent = () =>
     uploadedFileName ? (

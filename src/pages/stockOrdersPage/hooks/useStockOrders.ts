@@ -8,8 +8,8 @@ export default () => {
   const [openAlert, setOpenAlert] = useState(true)
   const [uploadedFileName, setUploadedFileName] = useState('')
   const [uploadedFileData, setUploadedFileData] = useState<FormData>(null)
-  const [uploadSuccess, setUploadSuccess] = useState<UploadSuccess>(null)
-  const [uploadError, setErrorSuccess] = useState<UploadError>(null)
+  const [validFile, setValidFile] = useState<UploadSuccess>(null)
+  const [invalidFile, setInvalidFile] = useState<UploadError>(null)
 
   const handleUploadedFileName = (fileName: string) => setUploadedFileName(fileName)
 
@@ -23,19 +23,21 @@ export default () => {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       })
 
-      setUploadSuccess(response.data)
+      setValidFile(response.data)
+      setUploadedFileName('')
+      setUploadedFileData(null)
     } catch (e) {
-      console.log('Something went wrong with sending the file...', e)
-      // setErrorSuccess(e.response)
+      console.log(e.response.message, e)
 
       const { data } = e.response
 
-      const respErrorType = data.validationErrors.map(({ errorType, rows }) => {
-        // console.log('errortype:', errorType, 'rows::', rows)
-        return { errorType, rows }
+      const transformedRespError = data.validationErrors.map(({ errorType, rows }) => {
+        return { errorType: transformInvalidRowTypes(errorType), rows }
       })
 
-      transformInvalidRowTypes(respErrorType)
+      setInvalidFile({ ...data, validationErrors: transformedRespError })
+      setUploadedFileName('')
+      setUploadedFileData(null)
     }
   }
 
@@ -47,8 +49,8 @@ export default () => {
     uploadedFileData,
     removeUploadedFile,
     uploadedFileName,
-    uploadSuccess,
-    uploadError,
+    validFile,
+    invalidFile,
     sendFile,
   }
 }

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Typography, Button } from '@material-ui/core'
 
 import styles from './styles'
@@ -17,8 +17,8 @@ const StockOrdersPage = () => {
     uploadedFileData,
     handleUploadedFile,
     removeUploadedFile,
-    uploadSuccess,
-    uploadError,
+    validFile,
+    invalidFile,
     sendFile,
   } = useStockOrders()
 
@@ -31,7 +31,10 @@ const StockOrdersPage = () => {
           <Typography className={classes.infoText}>
             Upload and validate files to keep track of your stock orders.
           </Typography>
-          <Button onClick={() => sendFile(uploadedFileData)} className={classes.uploadBtn}>
+          <Button
+            onClick={() => sendFile(uploadedFileData)}
+            disabled={!uploadedFileName}
+            className={classes.uploadBtn}>
             <Typography className={classes.btnText}>Validate File</Typography>
           </Button>
         </div>
@@ -39,22 +42,35 @@ const StockOrdersPage = () => {
     />
   )
 
-  const renderStockOrdersContent = () => (
-    <div className={classes.content}>
-      {/* {(uploadSuccess || uploadError) && ( */}
-      <div className={classes.uploadFeedback}>
+  const renderValidFileFeedback = () => (
+    <Alert
+      open={openAlert}
+      setOpen={setOpenAlert}
+      severity='success'
+      alertMessage='File validation was successful!'
+    />
+  )
+
+  const renderInvalidFileFeedback = () => {
+    return invalidFile.validationErrors.map(file => {
+      return file.rows.map(row => (
         <Alert
+          key={file.errorType}
           open={openAlert}
           setOpen={setOpenAlert}
-          severity={uploadSuccess ? 'success' : 'error'}
-          alertMessage={
-            uploadSuccess
-              ? 'The validation of rows has been successful!'
-              : 'The validation of some rows has been failed!'
-          }
+          severity='error'
+          alertMessage={`${file.errorType}: In row ${row}`}
         />
+      ))
+    })
+  }
+
+  const renderStockOrdersContent = () => (
+    <div className={classes.content}>
+      <div className={classes.uploadFeedback}>
+        {validFile && renderValidFileFeedback()}
+        {invalidFile && renderInvalidFileFeedback()}
       </div>
-      {/* )} */}
       <FileUpload
         uploadedFileName={uploadedFileName}
         removeUploadedFile={removeUploadedFile}
