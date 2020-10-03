@@ -47,6 +47,7 @@ const StockOrdersPage = () => {
       setOpen={setOpenAlert}
       severity='success'
       alertMessage='File validation was successful!'
+      alertContentComponent={<span>HIII</span>}
     />
   )
 
@@ -65,17 +66,19 @@ const StockOrdersPage = () => {
   }
 
   const renderStockOrdersContent = () => (
-    <div className={classes.content}>
-      <div className={classes.uploadFeedback}>
-        {validFile && renderValidFileFeedback()}
-        {invalidFile && renderInvalidFileFeedback()}
+    <div className={classes.uploadFileContainer}>
+      <div className={classes.uploadFileWrapper}>
+        <div className={classes.uploadFeedback}>
+          {validFile && renderValidFileFeedback()}
+          {invalidFile && renderInvalidFileFeedback()}
+        </div>
+        <FileUpload
+          uploadedFileName={uploadedFileName}
+          removeUploadedFile={removeUploadedFile}
+          setUploadedFileName={handleUploadedFileName}
+          setUploadedFile={handleUploadedFile}
+        />
       </div>
-      <FileUpload
-        uploadedFileName={uploadedFileName}
-        removeUploadedFile={removeUploadedFile}
-        setUploadedFileName={handleUploadedFileName}
-        setUploadedFile={handleUploadedFile}
-      />
     </div>
   )
 

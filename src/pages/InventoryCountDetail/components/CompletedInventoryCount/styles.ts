@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core';
 
 export default makeStyles(({ palette, spacing }) => ({
   tabs: {
@@ -21,11 +21,18 @@ export default makeStyles(({ palette, spacing }) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  backArrow: { color: palette.grayColors[13], cursor: 'pointer' },
-  iconDiv: { display: 'flex', alignItems: 'center', marginRight: spacing(1) },
+  backArrow: {
+    color: palette.grayColors[13],
+    cursor: 'pointer',
+  },
+  iconDiv: {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: spacing(1),
+  },
   titleText: {
     fontSize: spacing(3.2),
     fontWeight: 'bold',
     color: palette.grayColors[17],
   },
-}))
+}));

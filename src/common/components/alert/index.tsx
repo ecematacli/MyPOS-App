@@ -12,9 +12,16 @@ interface Props {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   alertMessage: string
+  alertContentComponent?: JSX.Element
 }
 
-const AlertComponent: React.FC<Props> = ({ severity, open, setOpen, alertMessage }) => {
+const AlertComponent: React.FC<Props> = ({
+  severity,
+  open,
+  setOpen,
+  alertMessage,
+  alertContentComponent
+}) => {
   const classes = styles()
 
   return (
@@ -33,7 +40,8 @@ const AlertComponent: React.FC<Props> = ({ severity, open, setOpen, alertMessage
               <CloseIcon fontSize='inherit' />
             </IconButton>
           }>
-          {alertMessage}
+          <span>{alertMessage}</span>
+          {alertContentComponent && alertContentComponent}
         </Alert>
       </Collapse>
     </div>

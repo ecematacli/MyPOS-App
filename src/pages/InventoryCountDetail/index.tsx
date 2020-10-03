@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGetRequest } from '../../common/hooks/useGetRequest';
 import { RouteComponentProps } from 'react-router-dom';
-import InventoryCountDetails from './components/OpenInventoryCount';
+import OpenInventoryCount from './components/OpenInventoryCount';
 import { CompletedInventoryCountDetail } from './components/CompletedInventoryCount';
 import { BatchData } from './components/OpenInventoryCount/types';
 
@@ -23,7 +23,7 @@ export const InventoryCountDetail: React.FC<Props> = ({
   return (
     <div style={{ paddingTop: 24 }}>
       {batch.status === 'Open' ? (
-        <InventoryCountDetails batchId={id} />
+        <OpenInventoryCount batchId={id} />
       ) : (
           <CompletedInventoryCountDetail batchId={id} />
         )}

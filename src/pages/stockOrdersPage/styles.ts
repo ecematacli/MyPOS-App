@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ palette, spacing }) => ({
   stockOrdersContainer: {
@@ -9,7 +9,11 @@ export default makeStyles(({ palette, spacing }) => ({
     fontWeight: 'bold',
     color: palette.grayColors[17],
   },
-  content: {
+  uploadFileContainer: {
+    position: 'relative',
+    padding: spacing(3.5, 6),
+  },
+  uploadFileWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     maxWidth: spacing(137.5),
@@ -40,4 +44,4 @@ export default makeStyles(({ palette, spacing }) => ({
     textTransform: 'capitalize',
     color: 'white',
   },
-}))
+}));
