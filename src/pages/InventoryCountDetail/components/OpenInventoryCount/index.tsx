@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 
 import styles from './styles'
@@ -8,7 +8,6 @@ import CountBatchesProductsTable from './components/countBatchesProductsTable/Co
 import useCountDetails from './hooks/useCountDetails'
 import Loading from '../../../../common/components/loading'
 import { BatchStats } from '../BatchStats'
-import { Align } from '../../../../common/components/Align'
 import { ConfirmCompleteModal } from './components/ConfirmCompleteModal'
 
 interface Props {
@@ -74,22 +73,20 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
         {loading || !batch ? (
           <Loading />
         ) : (
-          <Fragment>
-            <Align padding={[0, 0, 0, 6]}>
+            <div className={classes.countTableDiv}>
               <BatchStats batch={batch} />
-            </Align>
-            <CountBatchesProductsTable
-              tabsValue={tabsValue}
-              handleTabsChange={handleTabsChange}
-              batchProducts={batchProducts}
-              page={page}
-              rowsPerPage={rowsPerPage}
-              handleChangePage={handleChangePage}
-              handleChangeRowsPerPage={handleChangeRowsPerPage}
-              selectedProductRow={selectedProduct}
-            />
-          </Fragment>
-        )}
+              <CountBatchesProductsTable
+                tabsValue={tabsValue}
+                handleTabsChange={handleTabsChange}
+                batchProducts={batchProducts}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                handleChangePage={handleChangePage}
+                handleChangeRowsPerPage={handleChangeRowsPerPage}
+                selectedProductRow={selectedProduct}
+              />
+            </div>
+          )}
       </Grid>
       <Grid item xs={3}>
         <LastCountedItems lastCountedItems={lastCountedItems} />

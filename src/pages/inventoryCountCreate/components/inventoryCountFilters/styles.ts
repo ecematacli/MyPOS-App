@@ -4,7 +4,6 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   filtersContainer: {
     marginTop: spacing(5.5),
     display: 'flex',
-    flexDirection: 'column',
     width: '100%',
   },
   infoText: {
@@ -23,7 +22,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   inputLabel: {
     color: palette.secondary.main,
-    fontSize: 15,
+    fontSize: spacing(1.87),
     fontWeight: 'bold',
   },
   inputContainer: {
@@ -31,9 +30,9 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     flex: 1,
   },
   filtersInfoDiv: {
-    width: 170,
-    height: 67,
-    marginRight: 40,
+    width: spacing(21.25),
+    height: spacing(8.37),
+    marginRight: spacing(7),
   },
   selectRoot: {
     '&:focus': {
@@ -43,7 +42,6 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   dropdownInputContainer: {
     marginTop: spacing(4),
     display: 'flex',
-    marginLeft: 210,
   },
   dropdownItemDiv: {
     display: 'flex',
@@ -67,7 +65,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   dropdownItems: {
     [breakpoints.down('sm')]: {
-      fontSize: 14,
+      fontSize: spacing(1.75),
     },
   },
   innerInput: {

@@ -28,11 +28,6 @@ module.exports = (env) => ({
           },
         },
       },
-      {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
-        exclude: /node_modules/,
-      },
     ],
   },
   plugins: [

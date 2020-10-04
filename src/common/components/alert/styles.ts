@@ -1,8 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing }) => ({
-  tableDiv: {
-    marginTop: spacing(4),
+  root: {
+    marginTop: spacing(3),
     width: '100%',
+    '&:first-child': {
+      marginTop: 0,
+    },
   },
 }));

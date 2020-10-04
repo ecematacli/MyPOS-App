@@ -66,23 +66,23 @@ const CustomInput: React.FC<Props> = props => {
           </FormControl>
         </Fragment>
       ) : (
-        <Fragment>
-          {inputLabel && (
-            <InputLabel
+          <Fragment>
+            {inputLabel && (
+              <InputLabel
+                color='secondary'
+                style={invalidatedField && { color: palette.error.main }}>
+                {label}
+              </InputLabel>
+            )}
+            <OutlinedInput
+              {...otherProps}
+              classes={!dropdown && classesProp}
               color='secondary'
-              style={invalidatedField && { color: palette.error.main }}>
-              {label}
-            </InputLabel>
-          )}
-          <OutlinedInput
-            {...otherProps}
-            classes={!dropdown && classesProp}
-            color='secondary'
-            type={type}
-            required={required}
-          />
-        </Fragment>
-      )}
+              type={type}
+              required={required}
+            />
+          </Fragment>
+        )}
     </Fragment>
   )
 }

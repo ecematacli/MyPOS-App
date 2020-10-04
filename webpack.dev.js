@@ -14,6 +14,13 @@ module.exports = merge(common, {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
+    inline: true,
+    hot: true
+  },
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    }
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
 })

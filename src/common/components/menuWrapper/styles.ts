@@ -1,8 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
 
-import backgroundImage from '../../../assets/img/sidebar-2.jpg'
+import backgroundImage from '../../../assets/img/sidebar-2.jpg';
 
-const drawerWidth = 255
+const drawerWidth = 255;
 
 export default makeStyles(({ breakpoints, spacing, palette }) => ({
   drawerRoot: {
@@ -61,8 +61,6 @@ export default makeStyles(({ breakpoints, spacing, palette }) => ({
   },
   subMenuItems: {
     paddingLeft: spacing(4),
-  },
-  subMenuFirstItem: {
     paddingBottom: spacing(2),
   },
   subMenuIcons: {
@@ -80,4 +78,4 @@ export default makeStyles(({ breakpoints, spacing, palette }) => ({
     overflow: 'auto',
     backgroundColor: palette.grayColors[5],
   },
-}))
+}));

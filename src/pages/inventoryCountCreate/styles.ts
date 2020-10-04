@@ -5,12 +5,18 @@ export default makeStyles(({ spacing, palette }) => ({
     paddingTop: spacing(3),
     height: '100vh',
   },
-  backArrow: { color: palette.grayColors[13], cursor: 'pointer' },
-  iconDiv: { display: 'flex', alignItems: 'center' },
+  iconDiv: {
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: -spacing(0.8),
+  },
+  backArrow: {
+    color: palette.grayColors[13],
+    cursor: 'pointer',
+  },
   titleText: {
     fontSize: spacing(3.2),
     fontWeight: 'bold',
-    color: '#3a4953',
   },
   infoText: {
     color: palette.secondary.main,
@@ -45,7 +51,7 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   filterSectionWrapper: {
     margin: '0 auto',
-    maxWidth: '1100px',
+    maxWidth: spacing(137.5),
     display: 'flex',
   },
   dividerDiv: {
@@ -60,7 +66,7 @@ export default makeStyles(({ spacing, palette }) => ({
     justifyContent: 'center',
     marginTop: spacing(6.25),
     margin: '0 auto',
-    maxWidth: '1100px',
+    maxWidth: spacing(137.5),
   },
   boxesImage: {
     height: 100,

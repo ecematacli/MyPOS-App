@@ -18,7 +18,6 @@ export const StyledButton = styled(withTheme(Button))(
       paddingLeft: spacing(0.8),
       paddingRight: spacing(3),
     },
-    marginBottom: spacing(1),
     textShadow: '0px -1px 1px rgba(0, 0, 0, 0.5)',
     overflow: 'auto',
     transition: 'all .9',

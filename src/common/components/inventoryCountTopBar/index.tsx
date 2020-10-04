@@ -4,7 +4,7 @@ import styles from './styles'
 
 export interface Props {
   title: ReactNode
-  inventoryCountActionsPaper: JSX.Element
+  inventoryCountActionsPaper: ReactNode
   type?: string
 }
 

@@ -45,8 +45,8 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   imageDiv: {
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'center',
-    marginTop: spacing(8),
+    alignItems: 'center',
+    marginTop: spacing(5),
   },
 }));

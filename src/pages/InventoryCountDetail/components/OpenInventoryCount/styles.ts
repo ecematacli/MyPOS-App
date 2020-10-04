@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing }) => ({
   gridItem: {
@@ -10,7 +10,7 @@ export default makeStyles(({ spacing }) => ({
     textTransform: 'capitalize',
     color: 'white',
   },
-  tableContainer: {
+  countTableDiv: {
     position: 'relative',
     padding: spacing(3.5, 6),
   },
@@ -19,4 +19,4 @@ export default makeStyles(({ spacing }) => ({
     maxWidth: spacing(137.5),
     display: 'flex',
   },
-}))
+}));
