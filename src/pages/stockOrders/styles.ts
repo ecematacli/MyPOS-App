@@ -9,23 +9,6 @@ export default makeStyles(({ palette, spacing }) => ({
     fontWeight: 'bold',
     color: palette.grayColors[17],
   },
-  uploadFileContainer: {
-    position: 'relative',
-    padding: spacing(3.5, 6),
-    marginTop: spacing(2.5),
-  },
-  uploadFileWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    maxWidth: spacing(137.5),
-    margin: '0 auto',
-  },
-  uploadFeedback: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '85%',
-    paddingRight: spacing(3.75),
-  },
   uploadFileDiv: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -44,5 +27,16 @@ export default makeStyles(({ palette, spacing }) => ({
   btnText: {
     textTransform: 'capitalize',
     color: 'white',
+  },
+  tableContainer: {
+    position: 'relative',
+    padding: spacing(3.5, 6),
+    marginTop: spacing(2.5),
+  },
+  tableSectionWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    maxWidth: spacing(137.5),
+    margin: '0 auto',
   },
 }));

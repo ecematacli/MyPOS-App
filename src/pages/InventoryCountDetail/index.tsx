@@ -7,7 +7,7 @@ import { BatchData } from './components/OpenInventoryCount/types';
 
 interface Props extends RouteComponentProps<{ id: string }> { }
 
-export const InventoryCountDetail: React.FC<Props> = ({
+const InventoryCountDetail: React.FC<Props> = ({
   match: {
     params: { id },
   },
@@ -30,3 +30,5 @@ export const InventoryCountDetail: React.FC<Props> = ({
     </div>
   );
 };
+
+export default InventoryCountDetail;

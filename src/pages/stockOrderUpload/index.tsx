@@ -2,10 +2,12 @@ import React, { Fragment } from 'react'
 import { Typography, Button } from '@material-ui/core'
 
 import styles from './styles'
+import history from '../../history'
 import useStockOrders from './hooks/useStockOrders'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
 import FileUpload from './components/fileUpload/FileUpload'
 import Alert from '../../common/components/alert'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 const StockOrdersPage = () => {
   const classes = styles()
@@ -19,9 +21,19 @@ const StockOrdersPage = () => {
     sendFile,
   } = useStockOrders()
 
-  const renderInventoryCountTopBar = () => (
+  const renderStockOrderUploadTopBar = () => (
     <InventoryCountTopBar
-      title={<span className={classes.titleText}>Upload Stock Orders</span>}
+      title={
+        <Fragment>
+          <span
+            className={classes.iconDiv}
+            onClick={() => history.push('/inventory/stock-orders')}>
+            <ArrowBackIcon className={classes.backArrow} />
+          </span>
+          <Typography className={classes.titleText}
+          >Upload Stock Order File</Typography>
+        </Fragment>
+      }
       inventoryCountActionsPaper={
         <div className={classes.uploadFileDiv}>
           <Typography className={classes.infoText}>
@@ -30,7 +42,7 @@ const StockOrdersPage = () => {
           <Button
             onClick={() => sendFile(uploadedFileData)}
             disabled={!uploadedFileName}
-            className={classes.uploadBtn}>
+            className={classes.validateBtn}>
             <Typography className={classes.btnText}>Validate File</Typography>
           </Button>
         </div>
@@ -61,7 +73,7 @@ const StockOrdersPage = () => {
       </Fragment>
     )
   }
-  const renderStockOrdersContent = () => (
+  const renderStockOrderUploadContent = () => (
     <div className={classes.uploadFileContainer}>
       <div className={classes.uploadFileWrapper}>
         <div className={classes.uploadFeedback}>
@@ -84,9 +96,9 @@ const StockOrdersPage = () => {
   )
 
   return (
-    <div className={classes.stockOrdersContainer}>
-      {renderInventoryCountTopBar()}
-      {renderStockOrdersContent()}
+    <div className={classes.stockOrderUploadContainer}>
+      {renderStockOrderUploadTopBar()}
+      {renderStockOrderUploadContent()}
     </div>
   )
 }

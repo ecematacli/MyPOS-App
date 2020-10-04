@@ -5,25 +5,42 @@ import history from '../history'
 import PrivateRoute from './PrivateRoute'
 import MenuWrapper from '../common/components/menuWrapper'
 import ErrorBoundary from '../common/components/errorBoundary'
-import SignInPage from '../pages/signInPage'
-import DashboardPage from '../pages/dashboardPage'
-import SalesPage from '../pages/salesPage'
-import SalesHistoryPage from '../pages/salesHistoryPage'
-import ProductsPage from '../pages/productsPage'
+import SignInPage from '../pages/signIn'
+import DashboardPage from '../pages/dashboard'
+import SalesPage from '../pages/sales'
+import SalesHistoryPage from '../pages/salesHistory'
+import ProductsPage from '../pages/products'
 import InventoryCountBatches from '../pages/inventoryCountBatches'
 import InventoryCountCreate from '../pages/inventoryCountCreate'
-import StockOrdersPage from '../pages/stockOrdersPage'
-import { InventoryCountDetail } from '../pages/InventoryCountDetail'
+import InventoryCountDetail from '../pages/InventoryCountDetail'
+import StockOrders from '../pages/stockOrders'
+import StockOrderUpload from '../pages/stockOrderUpload'
 
 const AppRouter: React.FC = () => (
   <Router history={history}>
     <MenuWrapper>
       <ErrorBoundary>
         <Switch>
-          <Route path='/signin' exact component={SignInPage} />
-          <PrivateRoute path='/sales/pos' exact component={SalesPage} />
-          <PrivateRoute path='/sales/history' exact component={SalesHistoryPage} />
-          <PrivateRoute path='/inventory/products' exact component={ProductsPage} />
+          <Route
+            path='/signin'
+            exact
+            component={SignInPage}
+          />
+          <PrivateRoute
+            path='/sales/pos'
+            exact
+            component={SalesPage}
+          />
+          <PrivateRoute
+            path='/sales/history'
+            exact
+            component={SalesHistoryPage}
+          />
+          <PrivateRoute
+            path='/inventory/products'
+            exact
+            component={ProductsPage}
+          />
           <PrivateRoute
             path='/inventory/inventory-count'
             exact
@@ -42,9 +59,18 @@ const AppRouter: React.FC = () => (
           <PrivateRoute
             path='/inventory/stock-orders'
             exact
-            component={StockOrdersPage}
+            component={StockOrders}
           />
-          <PrivateRoute path='/' exact component={DashboardPage} />
+          <PrivateRoute
+            path='/inventory/stock-orders/upload'
+            exact
+            component={StockOrderUpload}
+          />
+          <PrivateRoute
+            path='/'
+            exact
+            component={DashboardPage}
+          />
         </Switch>
       </ErrorBoundary>
     </MenuWrapper>
