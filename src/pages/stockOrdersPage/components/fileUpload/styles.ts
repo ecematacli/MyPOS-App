@@ -1,7 +1,7 @@
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
 interface StyleProps extends Theme {
-  uploadedFileName: { uploadedFileName: string }
+  uploadedFileName: { uploadedFileName: string };
 }
 
 export default makeStyles(({ palette, spacing }) => ({
@@ -9,10 +9,9 @@ export default makeStyles(({ palette, spacing }) => ({
     cursor: 'pointer',
     height: spacing(28),
     width: spacing(53),
-    maxWidth: spacing(53),
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.14)',
-    marginTop: '20px',
     border: `0.7px dashed ${palette.grayColors[14]}`,
+    padding: spacing(1, 1.5),
     borderRadius: '5px',
     display: 'flex',
     flexDirection: 'column',
@@ -47,10 +46,10 @@ export default makeStyles(({ palette, spacing }) => ({
   uploadedFileInfo: {
     display: 'flex',
     alignItems: 'center',
-    maxWidth: '100%',
   },
   fileName: {
     marginRight: spacing(1.5),
+    wordBreak: 'break-all',
   },
   clearIcon: {
     color: palette.grayColors[7],
@@ -58,4 +57,4 @@ export default makeStyles(({ palette, spacing }) => ({
     alignItems: 'center',
     fontSize: spacing(2.5),
   },
-}))
+}));

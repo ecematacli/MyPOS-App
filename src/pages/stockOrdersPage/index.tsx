@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Typography, Button } from '@material-ui/core'
 
 import styles from './styles'
@@ -10,14 +10,11 @@ import Alert from '../../common/components/alert'
 const StockOrdersPage = () => {
   const classes = styles()
   const {
-    openAlert,
-    setOpenAlert,
     uploadedFileName,
     handleUploadedFileName,
     uploadedFileData,
     handleUploadedFile,
-    removeUploadedFile,
-    validFile,
+    isUploadSuccess,
     invalidFile,
     sendFile,
   } = useStockOrders()
@@ -41,40 +38,44 @@ const StockOrdersPage = () => {
     />
   )
 
-  const renderValidFileFeedback = () => (
-    <Alert
-      open={openAlert}
-      setOpen={setOpenAlert}
-      severity='success'
-      alertMessage='File validation was successful!'
-      alertContentComponent={<span>HIII</span>}
-    />
-  )
-
   const renderInvalidFileFeedback = () => {
-    return invalidFile.validationErrors.map(file => {
-      return file.rows.map(row => (
+    const validationErrorRow = invalidFile && invalidFile.validationErrors.map(file => {
+      const errRow = file.rows?.length > 1 ? 'rows' : 'row'
+      return (
         <Alert
           key={file.errorType}
-          open={openAlert}
-          setOpen={setOpenAlert}
+          open
           severity='error'
-          alertMessage={`${file.errorType}: In row ${row}`}
+          alertMessage={`${file.errorType}: In ${errRow} ${file.rows.join(', ')}`}
         />
-      ))
+      )
     })
+    return (
+      <Fragment>
+        <Alert
+          open
+          severity='error'
+          alertMessage={`${invalidFile.message} :`}
+        />
+        {validationErrorRow}
+      </Fragment>
+    )
   }
-
   const renderStockOrdersContent = () => (
     <div className={classes.uploadFileContainer}>
       <div className={classes.uploadFileWrapper}>
         <div className={classes.uploadFeedback}>
-          {validFile && renderValidFileFeedback()}
+          {isUploadSuccess && (
+            <Alert
+              open
+              severity='success'
+              alertMessage='File validation was successful!'
+            />
+          )}
           {invalidFile && renderInvalidFileFeedback()}
         </div>
         <FileUpload
           uploadedFileName={uploadedFileName}
-          removeUploadedFile={removeUploadedFile}
           setUploadedFileName={handleUploadedFileName}
           setUploadedFile={handleUploadedFile}
         />

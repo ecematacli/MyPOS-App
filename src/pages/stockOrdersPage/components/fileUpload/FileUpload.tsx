@@ -8,7 +8,6 @@ import { formatDate } from '../../../../common/utils'
 
 interface Props {
   setUploadedFileName: (fileName: string) => void
-  removeUploadedFile: () => void
   uploadedFileName: string
   setUploadedFile: (formData: FormData) => void
 }
@@ -16,7 +15,6 @@ interface Props {
 const FileUpload: React.FC<Props> = ({
   setUploadedFileName,
   setUploadedFile,
-  removeUploadedFile,
   uploadedFileName,
 }) => {
   const classes = styles({ uploadedFileName })
@@ -25,7 +23,6 @@ const FileUpload: React.FC<Props> = ({
     const formData = new FormData()
     formData.append('file', acceptedFiles[0] as any)
     formData.append('date', formatDate(new Date(), 'yyyy-M-dd'))
-
     setUploadedFileName(acceptedFiles[0].name)
     setUploadedFile(formData)
   }, [])
@@ -36,16 +33,16 @@ const FileUpload: React.FC<Props> = ({
     uploadedFileName ? (
       <div className={classes.uploadedFileInfo}>
         <div className={classes.fileName}>{uploadedFileName}</div>
-        <div onClick={removeUploadedFile}>
+        <div onClick={() => setUploadedFileName('')}>
           <ClearIcon className={classes.clearIcon} />
         </div>
       </div>
     ) : (
-      <Fragment>
-        <p className={classes.infoText}>Select a file or drag here!</p>
-        <input className={classes.dropInput} {...getInputProps()} />
-      </Fragment>
-    )
+        <Fragment>
+          <p className={classes.infoText}>Select a file or drag here!</p>
+          <input className={classes.dropInput} {...getInputProps()} />
+        </Fragment>
+      )
 
   return (
     <div className={classes.fileUploadDiv} {...getRootProps()}>

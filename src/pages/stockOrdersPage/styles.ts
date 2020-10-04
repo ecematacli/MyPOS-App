@@ -12,6 +12,7 @@ export default makeStyles(({ palette, spacing }) => ({
   uploadFileContainer: {
     position: 'relative',
     padding: spacing(3.5, 6),
+    marginTop: spacing(2.5),
   },
   uploadFileWrapper: {
     display: 'flex',
