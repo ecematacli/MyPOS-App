@@ -14,6 +14,7 @@ import { PlainTableProps, Batch, BatchProduct, PaginationLabel } from './types'
 import BatchRow from './batchRow/BatchRow'
 import BatchProductsRow from './batchProductsRow/BatchProductsRow'
 import CompletedBatchProductRow from './completedBatchProductRow'
+import StockOrdersRow from './stockOrdersRow'
 
 const PlainTable: React.FC<PlainTableProps> = ({
   tableHeads,
@@ -53,6 +54,12 @@ const PlainTable: React.FC<PlainTableProps> = ({
         <BatchProductsRow key={row.id} row={row} selectedRow={selectedRow} />
       ))
     }
+
+    if ('stockOrders' in rows) {
+      return rows.stockOrders.map(row => (
+        <StockOrdersRow key={row.id} row={row} />
+      ))
+    }
   }
 
   const renderLabelDisplayRows = ({ from, to, count }: PaginationLabel) => {
@@ -86,8 +93,8 @@ const PlainTable: React.FC<PlainTableProps> = ({
               </TableCell>
             </TableRow>
           ) : (
-            renderTableBody()
-          )}
+              renderTableBody()
+            )}
         </TableBody>
       </Table>
       {count > 0 && renderPagination()}

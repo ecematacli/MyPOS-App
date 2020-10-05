@@ -2,12 +2,12 @@ import React from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import useProductFields from '../useProductDetails';
-import { Args, EditProductAction } from '../types';
+import { Args, EditProductAction } from '../../types';
 import {
   createTestProduct,
   testBrands,
   testCategories,
-} from '../../../../../testUtils';
+} from '../../../../../../testUtils';
 
 let args: Args;
 let editProduct: EditProductAction;

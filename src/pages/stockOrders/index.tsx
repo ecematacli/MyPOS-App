@@ -3,10 +3,15 @@ import { Typography, Button } from '@material-ui/core'
 
 import styles from './styles'
 import history from '../../history'
+import Loading from '../../common/components/loading'
+import PlainTable from '../../common/components/plainTable'
+import useStockOrders from './hooks/useStockOrders'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
 
 const StockOrdersPage = () => {
   const classes = styles()
+
+  const { stockOrders, loading, page, handleChangePage, rowsPerPage, handleChangeRowsPerPage } = useStockOrders()
 
   const renderStockOrdersTopBar = () => (
     <InventoryCountTopBar
@@ -26,10 +31,22 @@ const StockOrdersPage = () => {
     />
   )
 
-  const renderStockOrdersContent = () => (
+  const renderStockOrdersTable = () => (
     <div className={classes.tableContainer}>
       <div className={classes.tableSectionWrapper}>
-        Stock orders table..
+        <PlainTable
+          tableHeads={[
+            { name: 'Creation Date' },
+            { name: 'Total products' },
+          ]}
+          count={10}
+          hasDataToShow={!!stockOrders}
+          rows={{ type: 'stockOrders', stockOrders }}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          handleChangePage={handleChangePage}
+        />
       </div>
     </div>
   )
@@ -37,7 +54,7 @@ const StockOrdersPage = () => {
   return (
     <div className={classes.stockOrdersContainer}>
       {renderStockOrdersTopBar()}
-      {renderStockOrdersContent()}
+      {loading ? <Loading /> : renderStockOrdersTable()}
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Args, EditedRow, UserProductValues } from './types';
-import { findMatchedFields } from '../../../../common/utils';
+import { Args, EditedRow, UserProductValues } from '../types';
+import { findMatchedFields } from '../../../../../common/utils';
 
 export default ({
   product,
