@@ -3,15 +3,16 @@ import { TableRow, TableCell } from '@material-ui/core';
 
 import styles from './styles';
 import { StockOrders } from '../types';
+import { currencyFormatter } from '../../../utils'
 
 interface Props {
   row: StockOrders;
 }
 
-const CompletedBatchProductRow: React.FC<Props> = ({ row }) => {
+const StockOrdersRow: React.FC<Props> = ({ row }) => {
   const classes = styles();
 
-  const { createdAt, products } = row;
+  const { createdAt, products, totalQty, totalPrice } = row;
 
   return (
     <TableRow hover className={classes.tableBodyRow}>
@@ -19,8 +20,14 @@ const CompletedBatchProductRow: React.FC<Props> = ({ row }) => {
       <TableCell>
         {products.length}
       </TableCell>
+      <TableCell>
+        {totalQty}
+      </TableCell>
+      <TableCell align="right">
+        {currencyFormatter(totalPrice)}
+      </TableCell>
     </TableRow>
   );
 };
 
-export default CompletedBatchProductRow;
+export default StockOrdersRow;

@@ -40,7 +40,7 @@ export default () => {
 
   useEffect(() => {
     fetchStockOrders();
-  });
+  }, []);
 
   return {
     loading,

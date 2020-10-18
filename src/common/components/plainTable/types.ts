@@ -43,6 +43,8 @@ export interface StockOrders {
   id: number;
   createdAt: string;
   products: Product[];
+  totalQty: number;
+  totalPrice: number;
 }
 
 interface BatchesRow {

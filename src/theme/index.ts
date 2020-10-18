@@ -30,6 +30,7 @@ const theme = {
       '#353535',
       '#3a4953',
       '#f1f3f5',
+      '#e9e9e9',
     ],
     greenColors: [
       '#66bb6a',

@@ -6,7 +6,7 @@ export default makeStyles(({ spacing, palette }) => ({
     maxHeight: spacing(10),
     '& > td': {
       cursor: 'pointer',
-      borderBottom: '1px solid #e9e9e9',
+      borderBottom: `1px solid ${palette.grayColors[19]}`,
       height: 'auto',
       maxHeight: spacing(10),
     },

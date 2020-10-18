@@ -3,6 +3,7 @@ import { Typography, Button } from '@material-ui/core'
 
 import styles from './styles'
 import history from '../../history'
+import { formatDate } from '../../common/utils'
 import Loading from '../../common/components/loading'
 import PlainTable from '../../common/components/plainTable'
 import useStockOrders from './hooks/useStockOrders'
@@ -12,6 +13,17 @@ const StockOrdersPage = () => {
   const classes = styles()
 
   const { stockOrders, loading, page, handleChangePage, rowsPerPage, handleChangeRowsPerPage } = useStockOrders()
+
+  const transformedOrdersData = () => stockOrders.reverse().map(order => {
+    const total = order.products.reduce((acc, pr) => {
+      return { totalQty: acc.totalQty + pr.qty, totalPrice: acc.totalPrice + pr.price }
+    }, { totalQty: 0, totalPrice: 0 })
+    return {
+      ...order,
+      createdAt: formatDate(order.createdAt, 'd MMMM y - p'),
+      ...total
+    }
+  })
 
   const renderStockOrdersTopBar = () => (
     <InventoryCountTopBar
@@ -37,11 +49,13 @@ const StockOrdersPage = () => {
         <PlainTable
           tableHeads={[
             { name: 'Creation Date' },
-            { name: 'Total products' },
+            { name: 'Total Products' },
+            { name: 'Total Quantity' },
+            { name: 'Total Price', rightAlign: true },
           ]}
           count={10}
           hasDataToShow={!!stockOrders}
-          rows={{ type: 'stockOrders', stockOrders }}
+          rows={{ type: 'stockOrders', stockOrders: transformedOrdersData() }}
           page={page}
           rowsPerPage={rowsPerPage}
           handleChangeRowsPerPage={handleChangeRowsPerPage}
