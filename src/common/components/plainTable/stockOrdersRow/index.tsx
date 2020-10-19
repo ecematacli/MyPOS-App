@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { TableRow, TableCell } from '@material-ui/core';
 
 import styles from './styles';
 import { StockOrders } from '../types';
 import { currencyFormatter } from '../../../utils'
+import history from '../../../../history'
 
 interface Props {
   row: StockOrders;
@@ -12,11 +14,16 @@ interface Props {
 const StockOrdersRow: React.FC<Props> = ({ row }) => {
   const classes = styles();
 
-  const { createdAt, products, totalQty, totalPrice } = row;
+  const { id, createdAt, products, totalQty, totalPrice } = row;
 
   return (
-    <TableRow hover className={classes.tableBodyRow}>
-      <TableCell>{createdAt}</TableCell>
+    <TableRow
+      hover
+      onClick={() => history.push({ pathname: `/inventory/stock-order/${id}`, state: products })}
+      className={classes.tableBodyRow}>
+      <TableCell>
+        {createdAt}
+      </TableCell>
       <TableCell>
         {products.length}
       </TableCell>

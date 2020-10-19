@@ -14,6 +14,7 @@ import InventoryCountBatches from '../pages/inventoryCountBatches'
 import InventoryCountCreate from '../pages/inventoryCountCreate'
 import InventoryCountDetail from '../pages/InventoryCountDetail'
 import StockOrders from '../pages/stockOrders'
+import StockOrderPage from '../pages/stockOrder'
 import StockOrderUpload from '../pages/stockOrderUpload'
 
 const AppRouter: React.FC = () => (
@@ -65,6 +66,11 @@ const AppRouter: React.FC = () => (
             path='/inventory/stock-orders/upload'
             exact
             component={StockOrderUpload}
+          />
+          <PrivateRoute
+            path='/inventory/stock-order/:id'
+            exact
+            component={StockOrderPage}
           />
           <PrivateRoute
             path='/'

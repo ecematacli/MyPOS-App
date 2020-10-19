@@ -26,12 +26,12 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
       },
     },
   },
-  expandIconContainer: {
+  iconContainer: {
     display: 'flex',
     alignItems: 'center',
     marginRight: spacing(2),
   },
-  expandIcon: {
+  icon: {
     fontSize: spacing(3),
     color: palette.primary.dark,
   },

@@ -1,12 +1,13 @@
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
 
-interface StyleProps extends Theme {
-  isUsedOnSalesPage?: boolean
+interface StyleProps {
+  isUsedOnSalesPage?: boolean;
 }
 
 export default makeStyles(({ palette, spacing, breakpoints }) => ({
   autoSuggest: {
-    width: ({ isUsedOnSalesPage }: StyleProps) => (isUsedOnSalesPage ? '100%' : '70%'),
+    width: ({ isUsedOnSalesPage }: StyleProps) =>
+      isUsedOnSalesPage ? '100%' : '70%',
   },
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
@@ -60,4 +61,4 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
     cursor: 'pointer',
     marginRight: -spacing(1),
   },
-}))
+}));

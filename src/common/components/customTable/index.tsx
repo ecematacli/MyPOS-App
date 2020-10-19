@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import styles from './styles';
 import { Sale } from '../../../redux/sales/types';
@@ -39,12 +40,12 @@ const CustomTable: React.FC<TableProps> = ({
   };
 
   const renderExpandIconContainer = (id: number) => (
-    <div className={classes.expandIconContainer}>
+    <div className={classes.iconContainer}>
       {expandedRows[id] ? (
-        <ExpandLess className={classes.expandIcon} />
+        <ExpandLess className={classes.icon} />
       ) : (
-        <ExpandMore className={classes.expandIcon} />
-      )}
+          <ExpandMore className={classes.icon} />
+        )}
     </div>
   );
 
@@ -82,17 +83,34 @@ const CustomTable: React.FC<TableProps> = ({
     }
 
     if ('products' in rows) {
-      return rows.products.map((product: Product, i: number) => (
-        <ProductRow
-          key={product.id}
-          index={i}
-          product={product}
-          toggleExpanded={toggleExpanded}
-          renderExpandIconContainer={renderExpandIconContainer}
-          expandedRows={expandedRows}
-          component={Component}
-        />
-      ));
+      if (rows.type === 'products') {
+        return rows.products.map((product: Product, i: number) => (
+          <ProductRow
+            key={product.id}
+            index={i}
+            product={product}
+            toggleExpanded={toggleExpanded}
+            renderIconContainer={renderExpandIconContainer}
+            expandedRows={expandedRows}
+            component={Component}
+          />
+        ));
+      }
+      if (rows.type === 'stockOrderProducts') {
+        return rows.products.map((product: Product, i: number) => (
+          <ProductRow
+            stockOrderProducts
+            key={product.id}
+            index={i}
+            product={product}
+            renderIconContainer={() => (
+              <div className={classes.iconContainer}>
+                <ChevronRightIcon className={classes.icon} />
+              </div>
+            )}
+          />
+        ));
+      }
     }
   };
 

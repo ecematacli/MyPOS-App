@@ -28,7 +28,7 @@ export interface TableProps {
     newPage: number
   ) => void;
   handleChangeRowsPerPage: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  component: React.JSXElementConstructor<any>;
+  component?: React.JSXElementConstructor<any>;
 }
 
 export interface PaginationLabel {

@@ -1,6 +1,6 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-interface StyleProps extends Theme {
+interface StyleProps {
   rowIndex: number;
 }
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
@@ -18,7 +18,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     position: 'relative',
     alignItems: 'center',
     background: ({ rowIndex }: StyleProps) =>
-      rowIndex % 2 ? `${palette.whiteColors[0]}` : `${palette.greenColors[2]}`
+      rowIndex % 2 ? `${palette.whiteColors[0]}` : `${palette.greenColors[2]}`,
   },
   detailsCard: {
     width: '75%',
@@ -28,7 +28,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     paddingLeft: spacing(2.5),
     paddingRight: spacing(2),
     border: `1px solid ${palette.secondary.light}`,
-    marginBottom: 15
+    marginBottom: 15,
   },
   paperHead: {
     borderRadius: 3,
@@ -40,19 +40,19 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     justifyContent: 'space-between',
     zIndex: 5,
     background: ({ rowIndex }: StyleProps) =>
-      rowIndex % 2 ? `${palette.grayColors[10]}` : `${palette.greenColors[6]}`
+      rowIndex % 2 ? `${palette.grayColors[10]}` : `${palette.greenColors[6]}`,
   },
   paperTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: palette.secondary.dark
+    color: palette.secondary.dark,
   },
   productDetails: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     '&:first-child': {
-      marginTop: 40
+      marginTop: 40,
     },
     paddingTop: spacing(1),
     paddingBottom: spacing(1),
@@ -60,9 +60,9 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     color: palette.secondary.main,
     [breakpoints.down('sm')]: {
       ' & > p ': {
-        fontSize: 14
-      }
-    }
+        fontSize: 14,
+      },
+    },
   },
   editIcon: {
     marginLeft: spacing(2),
@@ -70,15 +70,15 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     color: palette.secondary.dark,
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   detailContent: {
     [breakpoints.down('sm')]: {
-      fontSize: 13
-    }
+      fontSize: 13,
+    },
   },
   detailAction: {
-    display: 'flex'
+    display: 'flex',
   },
   iconButton: {
     width: 35,
@@ -86,39 +86,39 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     padding: 0,
     '& > span': {
       display: 'flex',
-      alignItems: 'center'
-    }
+      alignItems: 'center',
+    },
   },
   detailActionBtnIcon: {
     width: 25,
     height: 25,
     fontSize: spacing(3.5),
     backgroundColor: 'transparent',
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   editFormContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   editIcons: {
-    marginLeft: spacing(1)
+    marginLeft: spacing(1),
   },
   inputRoot: {
     width: 246,
-    height: 35
+    height: 35,
   },
   input: {
     [breakpoints.down('sm')]: {
-      fontSize: 13
-    }
+      fontSize: 13,
+    },
   },
   dropdownInput: {
-    width: 246
+    width: 246,
   },
   innerInput: {
     height: 35,
-    backgroundColor: 'none'
-  }
+    backgroundColor: 'none',
+  },
 }));

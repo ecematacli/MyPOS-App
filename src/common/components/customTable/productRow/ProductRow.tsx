@@ -7,14 +7,15 @@ import { Product } from '../../../../redux/products/types'
 import { currencyFormatter } from '../../../utils'
 
 interface Props {
-  product: Product
-  expandedRows: {
-    [id: string]: boolean
+  product: Product;
+  renderIconContainer: (id?: number) => JSX.Element;
+  index: number;
+  stockOrderProducts?: boolean;
+  expandedRows?: {
+    [id: string]: boolean;
   }
-  toggleExpanded: (id: number) => void
-  index: number
-  renderExpandIconContainer: (id: number) => JSX.Element
-  component: React.JSXElementConstructor<any>
+  toggleExpanded?: (id: number) => void;
+  component?: React.JSXElementConstructor<any>;
 }
 
 const ProductRow: React.FC<Props> = ({
@@ -22,10 +23,11 @@ const ProductRow: React.FC<Props> = ({
   expandedRows,
   toggleExpanded,
   index,
-  renderExpandIconContainer,
+  renderIconContainer,
+  stockOrderProducts,
   component: Component,
 }) => {
-  const classes = styles()
+  const classes = styles({ type: stockOrderProducts })
 
   const { id, sku, name, category, brand, price, discountPrice, variation } = product
 
@@ -44,7 +46,7 @@ const ProductRow: React.FC<Props> = ({
       <TableRow
         className={clsx(classes.tableBodyRow, classes[index % 2 ? 'whiteRow' : 'greenRow'])}
         onClick={() => toggleExpanded(id)}>
-        <TableCell className={classes.tableCell}>{renderExpandIconContainer(id)}</TableCell>
+        <TableCell className={classes.tableCell}>{renderIconContainer(id)}</TableCell>
         <TableCell className={classes.tableCell}>
           <div className={classes.firstCellContainer}>
             <div className={classes.firstCellItem}>{sku || '-'}</div>
@@ -61,7 +63,7 @@ const ProductRow: React.FC<Props> = ({
           {discountPrice ? currencyFormatter(discountPrice) : '-'}
         </TableCell>
       </TableRow>
-      {expandedRows[id] ? renderProductDetails() : null}
+      {expandedRows && expandedRows[id] ? renderProductDetails() : null}
     </Fragment>
   )
 }
