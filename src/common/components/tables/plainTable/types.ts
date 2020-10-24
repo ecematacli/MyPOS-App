@@ -1,16 +1,17 @@
-import { Product } from '../../../redux/products/types';
+import { Product } from '../../../../redux/products/types';
 export interface PlainTableProps {
   tableHeads: { name: string; rightAlign?: boolean }[];
-  count: number;
   rows: BatchesRow | BatchProductsRow | StockOrdersRow;
   hasDataToShow: boolean;
+  noPagination?: boolean;
   noDataMessage?: string;
-  page: number;
-  rowsPerPage: number;
-  handleChangeRowsPerPage: ({
+  count?: number;
+  page?: number;
+  rowsPerPage?: number;
+  handleChangeRowsPerPage?: ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => void;
-  handleChangePage: (
+  handleChangePage?: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
   ) => void;

@@ -4,7 +4,7 @@ import { TableRow, TableCell } from '@material-ui/core'
 
 import styles from './styles'
 import { Batch } from '../types'
-import { capitalizeFirstLetters } from '../../../utils'
+import { capitalizeFirstLetters } from '../../../../utils'
 
 interface Props {
   row: Batch

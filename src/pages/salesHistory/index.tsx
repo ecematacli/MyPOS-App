@@ -9,7 +9,7 @@ import { formatDate } from '../../common/utils';
 import { TABLE_HEADS } from './tableHeads';
 import useSalesFiltersState from './hooks/useSalesFiltersState';
 import Loading from '../../common/components/loading';
-import CustomTable from '../../common/components/customTable';
+import CustomTable from '../../common/components/tables/customTable';
 import SaleDetails from './components/saleDetails/SaleDetails';
 import SalesFilters from './components/salesFilters/SalesFilters';
 

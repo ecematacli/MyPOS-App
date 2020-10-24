@@ -13,7 +13,7 @@ import { TABLE_HEADS } from './tableHeads';
 import { getFilterInputFields } from './getFilterInputFields';
 import useProductFilters from './hooks/useProductFilters';
 import Loading from '../../common/components/loading';
-import CustomTable from '../../common/components/customTable';
+import CustomTable from '../../common/components/tables/customTable';
 import ProductDetails from './components/productDetails/ProductDetails';
 import ProductFilters from './components/productFilters/ProductFilters';
 import { findMatchedFields } from '../../common/utils';

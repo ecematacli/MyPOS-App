@@ -1,16 +1,16 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
 
 interface StyleProps {
-  counted: number
-  expected: number
-  isQuickScanMode: boolean
+  counted: number;
+  expected: number;
+  isQuickScanMode: boolean;
 }
 export default makeStyles(({ spacing, palette }) => ({
   tableBodyRow: {
     height: spacing(10),
     maxHeight: spacing(10),
     '& > td': {
-      borderBottom: '1px solid #e9e9e9',
+      borderBottom: `1px solid ${palette.grayColors[19]}`,
       height: 'auto',
       color: ({ counted, expected }: StyleProps) =>
         counted === expected ? `${palette.primary.main}` : 'unset',
@@ -31,4 +31,4 @@ export default makeStyles(({ spacing, palette }) => ({
   adjustIcon: {
     color: palette.primary.main,
   },
-}))
+}));

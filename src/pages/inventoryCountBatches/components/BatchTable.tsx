@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './styles';
 import { BatchesData } from '../types';
 import { formatDate } from '../../../common/utils';
-import PlainTable from '../../../common/components/plainTable';
+import PlainTable from '../../../common/components/tables/plainTable';
 
 interface Props {
   batchesData: BatchesData;

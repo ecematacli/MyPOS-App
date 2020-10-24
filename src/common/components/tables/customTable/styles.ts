@@ -1,5 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+interface StyleProps {
+  noPagination?: boolean;
+}
+
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   tableContainer: {
     width: '100%',
@@ -13,6 +17,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     margin: 'auto',
     borderCollapse: 'separate',
     borderSpacing: '0 15px',
+    marginBottom: ({ noPagination }: StyleProps) => (noPagination ? 35 : 0),
   },
   tableHeadRow: {
     '& > th': {

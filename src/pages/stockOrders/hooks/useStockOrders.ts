@@ -10,32 +10,14 @@ interface StockOrders {
 }
 
 export default () => {
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
   const [stockOrders, setStockOrders] = useState<StockOrders[]>([]);
 
   const fetchStockOrders = async () => {
+    setLoading(true);
     const response = await api.get('/stock-orders');
     setStockOrders(response.data);
-  };
-
-  const handleChangePage = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number
-  ) => {
-    //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
-    if (newPage + 1 < 0) return;
-    setPage(newPage + 1);
-    fetchStockOrders();
-  };
-
-  const handleChangeRowsPerPage = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    const numValue = parseInt(value);
-    setRowsPerPage(numValue);
-    fetchStockOrders();
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -45,9 +27,5 @@ export default () => {
   return {
     loading,
     stockOrders,
-    page,
-    handleChangePage,
-    rowsPerPage,
-    handleChangeRowsPerPage,
   };
 };

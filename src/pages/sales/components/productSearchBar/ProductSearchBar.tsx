@@ -3,7 +3,6 @@ import React from 'react'
 import api from '../../../../api'
 import styles from './styles'
 import { Product } from '../../../../redux/products/types'
-import { NewProductData } from '../../hooks/types'
 import { InputAutoSuggest } from '../../../../common/components/InputAutoSuggest'
 
 interface SearchBarProps {

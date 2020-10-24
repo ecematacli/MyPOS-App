@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Grid, IconButton, Typography } from '@material-ui/core'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
@@ -56,7 +56,7 @@ const SalesPage: React.FC<SalesProps> = ({ completeSale, fetchBrands, fetchCateg
   }, [])
 
   return (
-    <Fragment>
+    <div className={classes.salesPage}>
       <CreateProductModal
         open={createProductModalOpen}
         onClose={() => setCreateProductModalOpen(false)}
@@ -125,7 +125,7 @@ const SalesPage: React.FC<SalesProps> = ({ completeSale, fetchBrands, fetchCateg
           </Grid>
         </Grid>
       </div>
-    </Fragment>
+    </div>
   )
 }
 

@@ -24,12 +24,13 @@ const PlainTable: React.FC<PlainTableProps> = ({
   noDataMessage,
   page,
   rowsPerPage,
+  noPagination,
   handleChangeRowsPerPage,
   handleChangePage,
   selectedRow,
   completedBatch,
 }) => {
-  const classes = styles(rows)
+  const classes = styles({ type: rows.type, noPagination })
 
   const renderTableHead = () => (
     <TableRow className={classes.tableHeadRow}>
@@ -83,7 +84,7 @@ const PlainTable: React.FC<PlainTableProps> = ({
 
   return (
     <TableContainer>
-      <Table>
+      <Table className={classes.table}>
         {tableHeads !== undefined ? <TableHead>{renderTableHead()}</TableHead> : null}
         <TableBody>
           {!hasDataToShow ? (
@@ -97,9 +98,12 @@ const PlainTable: React.FC<PlainTableProps> = ({
             )}
         </TableBody>
       </Table>
-      {count > 0 && renderPagination()}
+      {(!noPagination && count > 0) && renderPagination()}
     </TableContainer>
   )
 }
 
 export default PlainTable
+interface StyleProps {
+  noPagination?: boolean;
+}

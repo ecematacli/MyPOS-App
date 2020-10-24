@@ -3,8 +3,8 @@ import { TableRow, TableCell } from '@material-ui/core';
 
 import styles from './styles';
 import { BatchProduct } from '../types';
-import { productNameWithVariation } from '../../../utils';
-import { SyncedIcon } from '../../syncedIcon';
+import { productNameWithVariation } from '../../../../utils';
+import { SyncedIcon } from '../../../syncedIcon';
 
 interface Props {
   row: BatchProduct;

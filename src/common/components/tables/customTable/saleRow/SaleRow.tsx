@@ -3,8 +3,8 @@ import clsx from 'clsx'
 import { TableCell, TableRow, Collapse, Chip, Tooltip } from '@material-ui/core'
 
 import styles from './styles'
-import { Sale } from '../../../../redux/sales/types'
-import { currencyFormatter, totalQty, getPaymentMethodLabel } from '../../../utils'
+import { Sale } from '../../../../../redux/sales/types'
+import { currencyFormatter, totalQty, getPaymentMethodLabel } from '../../../../utils'
 
 interface Props {
   sale: Sale

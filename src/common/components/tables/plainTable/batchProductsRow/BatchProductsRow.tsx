@@ -4,7 +4,7 @@ import AdjustIcon from '@material-ui/icons/Adjust'
 
 import styles from './styles'
 import { BatchProduct } from '../types'
-import { productNameWithVariation } from '../../../utils'
+import { productNameWithVariation } from '../../../../utils'
 
 interface Props {
   row: BatchProduct

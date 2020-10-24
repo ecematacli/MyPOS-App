@@ -13,8 +13,8 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import styles from './styles';
-import { Sale } from '../../../redux/sales/types';
-import { Product } from '../../../redux/products/types';
+import { Sale } from '../../../../redux/sales/types';
+import { Product } from '../../../../redux/products/types';
 import { TableProps, PaginationLabel } from './types';
 import SaleRow from './saleRow/SaleRow';
 import ProductRow from './productRow/ProductRow';
@@ -23,6 +23,7 @@ const CustomTable: React.FC<TableProps> = ({
   tableHeads,
   rows,
   tableType,
+  noPagination,
   rowsPerPage,
   page,
   count,
@@ -30,7 +31,7 @@ const CustomTable: React.FC<TableProps> = ({
   handleChangeRowsPerPage,
   component: Component,
 }) => {
-  const classes = styles();
+  const classes = styles({ noPagination });
   const [expandedRows, setExpandedRows] = useState<{
     [id: string]: boolean;
   }>({});
@@ -156,7 +157,7 @@ const CustomTable: React.FC<TableProps> = ({
           </TableBody>
         </Table>
       </div>
-      {count > 1 && renderPagination()}
+      {(!noPagination && count > 0) && renderPagination()}
     </TableContainer>
   );
 };

@@ -1,11 +1,13 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   root: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.15) ',
+    [breakpoints.down('md')]: {
+      marginBottom: spacing(2),
+    },
   },
   paperRoot: {
-    // width: '95%',
     '@media (max-width:1499px) and (min-width:1390px)': {
       width: '85%',
     },
@@ -109,4 +111,4 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
       margin: 'auto',
     },
   },
-}))
+}));

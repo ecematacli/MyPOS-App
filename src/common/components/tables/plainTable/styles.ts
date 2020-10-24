@@ -2,8 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 interface StyleProps {
   type: string;
+  noPagination?: boolean;
 }
+
 export default makeStyles(({ spacing, palette }) => ({
+  table: {
+    marginBottom: ({ noPagination }: StyleProps) => (noPagination ? 35 : 0),
+  },
   tableHeadRow: {
     borderTop: ({ type }: StyleProps) =>
       type === 'batchProducts' ? '1.9px solid #e9e9e9' : 'unset',

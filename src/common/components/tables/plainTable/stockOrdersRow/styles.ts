@@ -11,4 +11,7 @@ export default makeStyles(({ spacing, palette }) => ({
       maxHeight: spacing(10),
     },
   },
+  firstCell: {
+    textDecoration: 'underline',
+  },
 }));

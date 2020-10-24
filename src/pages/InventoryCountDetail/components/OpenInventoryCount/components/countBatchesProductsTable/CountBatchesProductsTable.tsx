@@ -3,7 +3,7 @@ import React, { Fragment } from 'react'
 import styles from './styles'
 import { BatchesProductsData, BatchProduct } from '../../types'
 import CustomTabs from '../../../../../../common/components/customTabs'
-import PlainTable from '../../../../../../common/components/plainTable'
+import PlainTable from '../../../../../../common/components/tables/plainTable'
 
 export interface CountBatchesProductsTableProps {
   batchProducts: BatchesProductsData
