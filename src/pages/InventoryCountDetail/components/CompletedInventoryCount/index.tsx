@@ -98,15 +98,15 @@ export const CompletedInventoryCountDetail: FC<Props> = ({ batchId }) => {
               { name: 'Counted', rightAlign: true },
               { name: 'Synced', rightAlign: true },
             ]}
-            hasDataToShow={products.length > 1}
+            hasDataToShow={products.length >= 1}
             noDataMessage='No products to show'
             count={getCountForTabs()}
-            rows={{ type: 'batchProducts', batchProducts: products }}
+            rows={products}
+            tableFor='CompletedInventoryCountProducts'
             page={page}
             rowsPerPage={rowsPerPage}
             handleChangeRowsPerPage={handleChangeRowsPerPage}
             handleChangePage={handleChangePage}
-            completedBatch
           />
         </div>
       </div>

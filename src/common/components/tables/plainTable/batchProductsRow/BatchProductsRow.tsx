@@ -13,7 +13,6 @@ interface Props {
 
 const BatchProductsRow: React.FC<Props> = ({ row, selectedRow }) => {
   const classes = styles(row)
-
   const { id, name, barcode, sku, variation, expected, counted } = row
 
   return (

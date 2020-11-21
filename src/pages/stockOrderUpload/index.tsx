@@ -30,8 +30,7 @@ const StockOrdersPage = () => {
             onClick={() => history.push('/inventory/stock-orders')}>
             <ArrowBackIcon className={classes.backArrow} />
           </span>
-          <Typography className={classes.titleText}
-          >Upload Stock Order File</Typography>
+          <Typography className={classes.titleText}>Upload Stock Order File</Typography>
         </Fragment>
       }
       inventoryCountActionsPaper={
@@ -43,7 +42,7 @@ const StockOrdersPage = () => {
             onClick={() => sendFile(uploadedFileData)}
             disabled={!uploadedFileName}
             className={classes.validateBtn}>
-            <Typography className={classes.btnText}>Validate File</Typography>
+            <Typography className={classes.btnText}>Upload File</Typography>
           </Button>
         </div>
       }
@@ -51,7 +50,7 @@ const StockOrdersPage = () => {
   )
 
   const renderInvalidFileFeedback = () => {
-    const validationErrorRow = invalidFile && invalidFile.validationErrors.map(file => {
+    const validationErrorRow = invalidFile?.validationErrors.map(file => {
       const errRow = file.rows?.length > 1 ? 'rows' : 'row'
       return (
         <Alert
@@ -67,7 +66,9 @@ const StockOrdersPage = () => {
         <Alert
           open
           severity='error'
-          alertMessage={`${invalidFile.message} :`}
+          alertMessage={`${invalidFile.message} ${
+            invalidFile?.validationErrors.length ? ':' : ''
+          }`}
         />
         {validationErrorRow}
       </Fragment>
@@ -78,11 +79,7 @@ const StockOrdersPage = () => {
       <div className={classes.uploadFileWrapper}>
         <div className={classes.uploadFeedback}>
           {isUploadSuccess && (
-            <Alert
-              open
-              severity='success'
-              alertMessage='File validation was successful!'
-            />
+            <Alert open severity='success' alertMessage='Stock order uploaded successfully!' />
           )}
           {invalidFile && renderInvalidFileFeedback()}
         </div>

@@ -42,7 +42,6 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
       return uncounted
     }
   }
-
   return (
     <Fragment>
       <div className={classes.tableSectionWrapper}>
@@ -74,10 +73,11 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
             { name: 'Expected', rightAlign: true },
             { name: 'Counted', rightAlign: true },
           ]}
-          hasDataToShow={products.length > 1}
+          hasDataToShow={products.length >= 1}
           noDataMessage='No products to show'
           count={getCountForTabs()}
-          rows={{ type: 'batchProducts', batchProducts: products }}
+          tableFor='InventoryCountProducts'
+          rows={products}
           page={page}
           rowsPerPage={rowsPerPage}
           handleChangeRowsPerPage={handleChangeRowsPerPage}

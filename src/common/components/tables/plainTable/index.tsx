@@ -17,6 +17,7 @@ import CompletedBatchProductRow from './completedBatchProductRow'
 import StockOrdersRow from './stockOrdersRow'
 
 const PlainTable: React.FC<PlainTableProps> = ({
+  tableFor,
   tableHeads,
   count,
   rows,
@@ -28,9 +29,8 @@ const PlainTable: React.FC<PlainTableProps> = ({
   handleChangeRowsPerPage,
   handleChangePage,
   selectedRow,
-  completedBatch,
 }) => {
-  const classes = styles({ type: rows.type, noPagination })
+  const classes = styles({ type: tableFor, noPagination })
 
   const renderTableHead = () => (
     <TableRow className={classes.tableHeadRow}>
@@ -42,24 +42,22 @@ const PlainTable: React.FC<PlainTableProps> = ({
     </TableRow>
   )
   const renderTableBody = () => {
-    if ('batches' in rows) {
-      return rows.batches.map((row: Batch) => <BatchRow row={row} key={row.id} />)
+    if (tableFor === 'CompletedInventoryCountProducts') {
+      return rows.map(row => <CompletedBatchProductRow key={row.id} row={row} />)
     }
 
-    if ('batchProducts' in rows && completedBatch) {
-      return rows.batchProducts.map(row => <CompletedBatchProductRow key={row.id} row={row} />)
+    if (tableFor === 'InventoryCountBatches') {
+      return rows.map((row: Batch) => <BatchRow row={row} key={row.id} />)
     }
 
-    if ('batchProducts' in rows) {
-      return rows.batchProducts.map((row: BatchProduct) => (
+    if (tableFor === 'InventoryCountProducts') {
+      return rows.map((row: BatchProduct) => (
         <BatchProductsRow key={row.id} row={row} selectedRow={selectedRow} />
       ))
     }
 
-    if ('stockOrders' in rows) {
-      return rows.stockOrders.map(row => (
-        <StockOrdersRow key={row.id} row={row} />
-      ))
+    if (tableFor === 'StockOrders') {
+      return rows.map(row => <StockOrdersRow key={row.id} row={row} />)
     }
   }
 
@@ -94,16 +92,16 @@ const PlainTable: React.FC<PlainTableProps> = ({
               </TableCell>
             </TableRow>
           ) : (
-              renderTableBody()
-            )}
+            renderTableBody()
+          )}
         </TableBody>
       </Table>
-      {(!noPagination && count > 0) && renderPagination()}
+      {!noPagination && count > 0 && renderPagination()}
     </TableContainer>
   )
 }
 
 export default PlainTable
 interface StyleProps {
-  noPagination?: boolean;
+  noPagination?: boolean
 }

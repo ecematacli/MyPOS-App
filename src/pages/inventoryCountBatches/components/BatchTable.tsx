@@ -1,21 +1,19 @@
-import React from 'react';
+import React from 'react'
 
-import styles from './styles';
-import { BatchesData } from '../types';
-import { formatDate } from '../../../common/utils';
-import PlainTable from '../../../common/components/tables/plainTable';
+import styles from './styles'
+import { BatchesData } from '../types'
+import { formatDate } from '../../../common/utils'
+import PlainTable from '../../../common/components/tables/plainTable'
 
 interface Props {
-  batchesData: BatchesData;
-  page: number;
-  rowsPerPage: number;
-  handleChangeRowsPerPage: ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => void;
+  batchesData: BatchesData
+  page: number
+  rowsPerPage: number
+  handleChangeRowsPerPage: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void
   handleChangePage: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
-  ) => void;
+  ) => void
 }
 
 const BatchTable: React.FC<Props> = ({
@@ -25,16 +23,16 @@ const BatchTable: React.FC<Props> = ({
   handleChangeRowsPerPage,
   handleChangePage,
 }) => {
-  const classes = styles();
+  const classes = styles()
 
-  const { count, batches } = batchesData;
+  const { count, batches } = batchesData
 
   const formattedBatchData = () =>
-    batches.map((batch) => ({
+    batches.map(batch => ({
       ...batch,
       started: batch.started && formatDate(batch.started, 'd MMMM y - p'),
       finished: batch.finished && formatDate(batch.finished, 'd MMMM y - p'),
-    }));
+    }))
 
   return (
     <div className={classes.tableDiv}>
@@ -50,14 +48,15 @@ const BatchTable: React.FC<Props> = ({
         ]}
         count={count}
         hasDataToShow={formattedBatchData().length > 0}
-        rows={{ type: 'batch', batches: formattedBatchData() }}
+        tableFor='InventoryCountBatches'
+        rows={formattedBatchData()}
         page={page}
         rowsPerPage={rowsPerPage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
         handleChangePage={handleChangePage}
       />
     </div>
-  );
-};
+  )
+}
 
-export default BatchTable;
+export default BatchTable

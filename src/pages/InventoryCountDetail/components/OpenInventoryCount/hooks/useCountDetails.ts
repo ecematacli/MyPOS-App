@@ -1,5 +1,4 @@
-import { useState, useContext, useEffect, useRef } from 'react'
-import { debounce } from 'lodash'
+import { useState, useContext, useRef } from 'react'
 
 import api from '../../../../../api'
 import { BatchesProductsData, BatchProduct, BatchData, LastCountedProduct } from '../types'
@@ -8,7 +7,6 @@ import useLocalStorageState from '../../../../../common/hooks/useLocalStorageSta
 import { useGetRequest } from '../../../../../common/hooks/useGetRequest'
 import { usePostRequest } from '../../../../../common/hooks/usePostRequest'
 import history from '../../../../../history'
-import { OptionsType } from 'react-select'
 
 export default (batchId: string) => {
   const { addNotification } = useContext(NotificationsContext)

@@ -20,8 +20,8 @@ export interface NewProductData {
   variation: string
   discountPrice: number
   taxRate: number
-  categoryId: string
-  brandId: string
+  categoryId: number | null
+  brandId: number | null
 }
 
 export interface AdditionalInputs {

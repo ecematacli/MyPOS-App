@@ -12,19 +12,32 @@ import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
 const StockOrdersPage = () => {
   const classes = styles()
 
-  const { stockOrders, loading } = useStockOrders()
+  const {
+    stockOrders,
+    loading,
+    page,
+    handleChangePage,
+    rowsPerPage,
+    handleChangeRowsPerPage,
+  } = useStockOrders()
 
-  const transformedOrdersData = () => stockOrders.reverse().map(order => {
-    console.log(formatDate(order.createdAt, 'd MMMM y - p'), '-->>', order.createdAt)
-    const total = order.products.reduce((acc, pr) => {
-      return { totalQty: acc.totalQty + pr.qty, totalPrice: acc.totalPrice + pr.price }
-    }, { totalQty: 0, totalPrice: 0 })
-    return {
-      ...order,
-      createdAt: formatDate(order.createdAt, 'd MMMM y - p'),
-      ...total
-    }
-  })
+  const transformedOrdersData = () =>
+    stockOrders.map(order => {
+      const total = order.products.reduce(
+        (acc, pr) => {
+          return {
+            totalQty: acc.totalQty + pr.qty,
+            totalPrice: acc.totalPrice + (pr.price - pr.discountPrice) * pr.qty,
+          }
+        },
+        { totalQty: 0, totalPrice: 0 }
+      )
+      return {
+        ...order,
+        createdAt: formatDate(order.createdAt, 'd MMMM y - p'),
+        ...total,
+      }
+    })
 
   const renderStockOrdersTopBar = () => (
     <InventoryCountTopBar
@@ -57,7 +70,8 @@ const StockOrdersPage = () => {
           noPagination
           hasDataToShow={!!stockOrders.length}
           noDataMessage='No stock orders to show'
-          rows={{ type: 'stockOrders', stockOrders: transformedOrdersData() }}
+          rows={transformedOrdersData()}
+          tableFor='StockOrders'
         />
       </div>
     </div>
