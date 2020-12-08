@@ -29,6 +29,10 @@ export interface Sale {
 
 export interface SalesState {
   count: number
+  cursors: {
+    before: string
+    after: string
+  }
   sales: { [id: string]: Sale }
   ids: number[]
 }
@@ -47,5 +51,9 @@ export interface FetchSalesAction {
   payload: {
     count: number
     sales: Sale[]
+    cursors: {
+      before: string
+      after: string
+    }
   }
 }

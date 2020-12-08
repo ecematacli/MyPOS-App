@@ -1,31 +1,32 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 export interface Args {
-  rowsPerPage: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  rowsPerPage: number
+  setPage: React.Dispatch<React.SetStateAction<number>>
   fetchSales: (
-    page: number,
     rowsPerPage: number,
+    afterCursor?: string,
+    beforeCursor?: string,
     startDate?: Date,
     endDate?: Date
-  ) => void;
+  ) => void
 }
 
 export default ({ rowsPerPage, setPage, fetchSales }: Args) => {
-  const [startDate, handleStartDateChange] = useState<Date | null>(null);
-  const [endDate, handleEndDateChange] = useState<Date | null>(null);
+  const [startDate, handleStartDateChange] = useState<Date | null>(null)
+  const [endDate, handleEndDateChange] = useState<Date | null>(null)
 
   const onDateSelection = () => {
-    setPage(1);
-    fetchSales(1, rowsPerPage, startDate, endDate);
-  };
+    setPage(1)
+    fetchSales(rowsPerPage, null, null, startDate, endDate)
+  }
 
   const onDateFilterClearing = () => {
-    setPage(1);
-    handleStartDateChange(null);
-    handleEndDateChange(null);
-    fetchSales(1, rowsPerPage, null, null);
-  };
+    setPage(1)
+    handleStartDateChange(null)
+    handleEndDateChange(null)
+    fetchSales(rowsPerPage)
+  }
 
   return {
     startDate,
@@ -34,5 +35,5 @@ export default ({ rowsPerPage, setPage, fetchSales }: Args) => {
     handleEndDateChange,
     onDateSelection,
     onDateFilterClearing,
-  };
-};
+  }
+}

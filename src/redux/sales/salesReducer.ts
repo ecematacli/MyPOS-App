@@ -1,39 +1,36 @@
-import {
-  SalesState,
-  Sale,
-  FetchSalesAction,
-  SuccessActionTypes
-} from './types';
+import { SalesState, Sale, FetchSalesAction, SuccessActionTypes } from './types'
 
 const initialState = {
   count: 0,
+  cursors: {
+    before: '',
+    after: '',
+  },
   sales: {},
-  ids: []
-};
+  ids: [],
+}
 
-export default (
-  state: SalesState = initialState,
-  action: FetchSalesAction
-): SalesState => {
+export default (state: SalesState = initialState, action: FetchSalesAction): SalesState => {
   switch (action.type) {
     case SuccessActionTypes.FETCH_SALES_SUCCESS: {
-      const { sales, count } = action.payload;
+      const { sales, count, cursors } = action.payload
       const objSalesData = sales.reduce(
         (obj: { [id: string]: Sale }, currSale: Sale) => ({
           ...obj,
-          [currSale.id]: currSale
+          [currSale.id]: currSale,
         }),
         {}
-      );
+      )
       return {
         count,
+        cursors,
         sales: {
-          ...objSalesData
+          ...objSalesData,
         },
-        ids: sales.map((sale: Sale) => sale.id)
-      };
+        ids: sales.map((sale: Sale) => sale.id),
+      }
     }
     default:
-      return state;
+      return state
   }
-};
+}

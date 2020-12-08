@@ -41,12 +41,19 @@ export const completeSale = (
 }
 
 export const fetchSales = (
-  page: number = 1,
   rowsPerPage: number = 10,
+  afterCursor?: string,
+  beforeCursor?: string,
   startDate?: Date,
   endDate?: Date
 ) => async (dispatch: Dispatch) => {
-  let url = `/sales?page=${page}&rowsPerPage=${rowsPerPage}`
+  let url = `/sales?rowsPerPage=${rowsPerPage}`
+  if (afterCursor) {
+    url += `&after=${afterCursor}`
+  }
+  if (beforeCursor) {
+    url += `&before=${beforeCursor}`
+  }
 
   if (startDate) {
     url += `&startDate=${startDate.toISOString()}`
