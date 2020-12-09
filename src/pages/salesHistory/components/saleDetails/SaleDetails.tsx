@@ -35,7 +35,7 @@ const SaleDetails: React.FC<DetailsProps> = props => {
   };
 
   const tableBody = () => {
-    return products.map(
+    return products?.map(
       ({ sku, name, variation, qty, price, discountPrice, synced }, key) => (
         <TableRow
           role="checkbox"

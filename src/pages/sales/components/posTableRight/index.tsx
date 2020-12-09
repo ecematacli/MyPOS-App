@@ -143,7 +143,11 @@ const PosTableRight: React.FC<PosTableProps> = ({
       </div>
       <Divider className={classes.totalDivider} />
       <Align padding={[1]}>
-        <CustomButton data-testid='custom-button' onClick={onCompleteSaleClick} fullWidth>
+        <CustomButton
+          data-testid='custom-button'
+          onClick={onCompleteSaleClick}
+          fullWidth
+          disabled={!products.length}>
           <div className={classes.paymentBtnTextHolder}>
             <Typography className={classes.paymentBtnTxt}>Complete Sale</Typography>
             <Typography className={classes.paymentBtnTxt}>

@@ -34,9 +34,9 @@ export const capitalizeFirstLetters = (str: string) =>
     .join(' ')
 
 export const totalQty = (products: Product[]) =>
-  products.reduce((acc: number, item: Product) => {
+  products?.reduce((acc: number, item: Product) => {
     return acc + item.qty
-  }, 0)
+  }, 0) || 0
 
 export const totalDiscount = (products: Product[]) =>
   products.reduce((acc: number, item: Product) => {
