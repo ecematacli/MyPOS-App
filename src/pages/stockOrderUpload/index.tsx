@@ -48,9 +48,9 @@ const StockOrdersPage = () => {
       }
     />
   )
-  console.log(uploadError)
+
   const renderInvalidFileFeedback = () => {
-    const validationErrorRow = uploadError?.validationErrors.map(err => {
+    const validationErrorRow = uploadError?.validationErrors?.map(err => {
       const errRow = err.rows?.length > 1 ? 'rows' : 'row'
       return (
         <Alert
@@ -66,8 +66,8 @@ const StockOrdersPage = () => {
         <Alert
           open
           severity='error'
-          alertMessage={`${uploadError.message} ${
-            uploadError?.validationErrors.length ? ':' : ''
+          alertMessage={`${uploadError.message}${
+            uploadError?.validationErrors?.length ? ':' : ''
           }`}
         />
         {validationErrorRow}

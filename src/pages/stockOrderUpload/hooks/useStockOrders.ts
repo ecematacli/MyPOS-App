@@ -4,7 +4,7 @@ import api from '../../../api'
 
 export interface UploadError {
   message: string
-  validationErrors: {
+  validationErrors?: {
     rows: number[]
     kind: string
   }[]
