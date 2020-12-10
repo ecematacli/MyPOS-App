@@ -17,7 +17,7 @@ const StockOrdersPage = () => {
     uploadedFileData,
     handleUploadedFile,
     isUploadSuccess,
-    invalidFile,
+    uploadError,
     sendFile,
   } = useStockOrders()
 
@@ -48,16 +48,16 @@ const StockOrdersPage = () => {
       }
     />
   )
-
+  console.log(uploadError)
   const renderInvalidFileFeedback = () => {
-    const validationErrorRow = invalidFile?.validationErrors.map(file => {
-      const errRow = file.rows?.length > 1 ? 'rows' : 'row'
+    const validationErrorRow = uploadError?.validationErrors.map(err => {
+      const errRow = err.rows?.length > 1 ? 'rows' : 'row'
       return (
         <Alert
-          key={file.errorType}
+          key={err.kind}
           open
           severity='error'
-          alertMessage={`${file.errorType}: In ${errRow} ${file.rows.join(', ')}`}
+          alertMessage={`${err.kind}: In ${errRow} ${err.rows.join(', ')}`}
         />
       )
     })
@@ -66,8 +66,8 @@ const StockOrdersPage = () => {
         <Alert
           open
           severity='error'
-          alertMessage={`${invalidFile.message} ${
-            invalidFile?.validationErrors.length ? ':' : ''
+          alertMessage={`${uploadError.message} ${
+            uploadError?.validationErrors.length ? ':' : ''
           }`}
         />
         {validationErrorRow}
@@ -81,7 +81,7 @@ const StockOrdersPage = () => {
           {isUploadSuccess && (
             <Alert open severity='success' alertMessage='Stock order uploaded successfully!' />
           )}
-          {invalidFile && renderInvalidFileFeedback()}
+          {uploadError && renderInvalidFileFeedback()}
         </div>
         <FileUpload
           uploadedFileName={uploadedFileName}
