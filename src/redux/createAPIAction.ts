@@ -6,7 +6,7 @@ export default (
   url: string,
   data?: any,
   successMessage?: () => void,
-  errorMessage?: () => void
+  errorMessage?: (m: string, t: string) => void
 ): ApiAction => ({
   type,
   callApi: {
@@ -14,6 +14,6 @@ export default (
     url,
     data,
     successMessage,
-    errorMessage
-  }
+    errorMessage,
+  },
 });

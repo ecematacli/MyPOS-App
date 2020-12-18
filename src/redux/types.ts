@@ -11,7 +11,7 @@ export enum ActionTypes {
   EDIT_PRODUCT = 'EDIT_PRODUCT',
   CREATE_PRODUCT = 'CREATE_PRODUCT',
   CREATE_SALE = 'CREATE_SALE',
-  FETCH_SALES = 'FETCH_SALES'
+  FETCH_SALES = 'FETCH_SALES',
 }
 
 export interface CallApi {
@@ -19,7 +19,7 @@ export interface CallApi {
   url: string;
   data?: any;
   successMessage?: () => void;
-  errorMessage?: () => void;
+  errorMessage?: (m: string, t: string) => void;
 }
 export interface ApiAction {
   type: string;

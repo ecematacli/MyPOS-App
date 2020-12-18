@@ -1,9 +1,9 @@
-import { Dispatch } from 'redux'
-import { ActionTypes, ApiAction } from '../types'
+import { Dispatch } from 'redux';
+import { ActionTypes, ApiAction } from '../types';
 
-import { SaleData, PaymentMethod } from './types'
-import createAPIAction from '../createAPIAction'
-import { Product } from '../products/types'
+import { SaleData, PaymentMethod } from './types';
+import createAPIAction from '../createAPIAction';
+import { Product } from '../products/types';
 
 export const completeSale = (
   products: Product[],
@@ -19,10 +19,10 @@ export const completeSale = (
     total: total - discount,
     discount,
     paymentMethod,
-  }
+  };
 
   if (description) {
-    saleData.description = description
+    saleData.description = description;
   }
 
   dispatch<ApiAction>(
@@ -32,13 +32,13 @@ export const completeSale = (
       '/sales',
       saleData,
       () => {
-        addNotification('Sale has been completed successfully', 'success')
-        discardSale()
+        addNotification('Sale has been completed successfully', 'success');
+        discardSale();
       },
-      () => addNotification('Sale could not been created!', 'error')
+      addNotification
     )
-  )
-}
+  );
+};
 
 export const fetchSales = (
   rowsPerPage: number = 10,
@@ -47,20 +47,20 @@ export const fetchSales = (
   startDate?: Date,
   endDate?: Date
 ) => async (dispatch: Dispatch) => {
-  let url = `/sales?rowsPerPage=${rowsPerPage}`
+  let url = `/sales?rowsPerPage=${rowsPerPage}`;
   if (afterCursor) {
-    url += `&after=${afterCursor}`
+    url += `&after=${afterCursor}`;
   }
   if (beforeCursor) {
-    url += `&before=${beforeCursor}`
+    url += `&before=${beforeCursor}`;
   }
 
   if (startDate) {
-    url += `&startDate=${startDate.toISOString()}`
+    url += `&startDate=${startDate.toISOString()}`;
   }
   if (endDate) {
-    url += `&endDate=${endDate.toISOString()}`
+    url += `&endDate=${endDate.toISOString()}`;
   }
 
-  dispatch<ApiAction>(createAPIAction(ActionTypes.FETCH_SALES, 'get', url))
-}
+  dispatch<ApiAction>(createAPIAction(ActionTypes.FETCH_SALES, 'get', url));
+};

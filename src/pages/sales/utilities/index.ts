@@ -13,7 +13,8 @@ export const calculateTotalTax = (products: Product[]) =>
 export const calculateTotalDiscount = (products: Product[]) =>
   products.reduce((acc, { price, discountPrice, qty }) => {
     if (!discountPrice) return acc + 0;
-    return acc + (price - discountPrice) * qty;
+    const result = acc + (price - discountPrice) * qty;
+    return result <= 0 ? 0 : result;
   }, 0);
 
 export const calculatePercentageFromDiscount = (

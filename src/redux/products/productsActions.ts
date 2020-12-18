@@ -46,7 +46,7 @@ export const editProduct = ({
       updatedField,
       () =>
         addNotification(`${label} has been successfully updated`, 'success'),
-      () => addNotification(`${label} could not be updated!`, 'error')
+      addNotification
     )
   );
 };
@@ -86,7 +86,7 @@ export const createProduct = (
       '/products',
       productData,
       () => addNotification('Product has been created successfully', 'success'),
-      () => addNotification('Product could not be created!', 'error')
+      addNotification
     )
   );
 };

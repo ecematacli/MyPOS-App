@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(({ spacing, breakpoints }) => ({
   salesPage: {
-    padding: spacing(4),
+    padding: spacing(4, 4, 0),
     [breakpoints.down('md')]: {
       paddingTop: 0,
     },
@@ -33,12 +33,13 @@ export default makeStyles(({ spacing, breakpoints }) => ({
   searchBarGridItem: {
     [breakpoints.down('md')]: {
       order: 1,
-      marginTop: spacing(15),
+      marginTop: spacing(12),
     },
   },
   posTableGridItem: {
     [breakpoints.down('md')]: {
       order: 3,
+      marginBottom: spacing(3),
     },
   },
   discardSaleBtnHolder: {

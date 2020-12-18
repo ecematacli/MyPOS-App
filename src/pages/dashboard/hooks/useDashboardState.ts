@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import api from '../../../api';
 import {
@@ -15,8 +15,10 @@ import {
   formatChartDate,
   formatActivitiesData,
 } from '../utils';
+import { AuthTokenSettingContext } from '../../../contexts/AuthContext';
 
 export default () => {
+  const { clearAuthToken } = useContext(AuthTokenSettingContext);
   const { initialStart, initialEnd }: InitialDates = getInitialLastThirtyDays();
 
   const initialValues = {
@@ -78,11 +80,13 @@ export default () => {
       setLoading(loading => ({ ...loading, [name]: true }));
       const response = await api[method](url);
       setLoading(loading => ({ ...loading, [name]: false }));
-
       return response.data;
     } catch (e) {
-      setLoading(loading => ({ ...loading, [name]: false }));
       console.log(e);
+      setLoading(loading => ({ ...loading, [name]: false }));
+      if (e.response?.status === 401) {
+        clearAuthToken();
+      }
     }
   };
 

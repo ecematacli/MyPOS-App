@@ -2,7 +2,7 @@ import { Middleware, Dispatch, AnyAction } from 'redux';
 
 import api from '../../api';
 
-import { ApiAction, CallApi } from '../types';
+import { ApiAction } from '../types';
 
 export interface EnhancedAction {
   type: string;
@@ -10,16 +10,6 @@ export interface EnhancedAction {
   response?: string;
   requestPayload?: any;
   requestUrl?: string;
-}
-
-export interface CallApiAction {
-  callApi: CallApi;
-  type: string;
-  method: string;
-  url: string;
-  data?: any;
-  successMessage?: (message: string, messageType: string) => void;
-  errorMessage?: (message: string, messageType: string) => void;
 }
 
 export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
@@ -32,7 +22,7 @@ export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
   }
 
   const actionWith = (dataObj: EnhancedAction) => {
-    const { callApi, type } = action;
+    const { type } = action;
     const finalAction = { type, ...dataObj };
     return finalAction;
   };
@@ -49,15 +39,16 @@ export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
         type: type + '_SUCCESS',
         payload: response.data,
         requestPayload: data,
-        requestUrl: url
+        requestUrl: url,
       })
     );
-
     successMessage && successMessage();
   } catch (error) {
     const response = error.response;
-    const { status } = response;
-
+    const {
+      status,
+      data: { message },
+    } = response;
     const errStatus = status === 401 || status === 403;
 
     if (response && errStatus) {
@@ -65,14 +56,14 @@ export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
       localStorage.removeItem('token');
     }
 
-    errorMessage && errorMessage();
+    errorMessage && errorMessage(message, 'error');
 
     next(
       actionWith({
         type: type + '_FAILURE',
         response: response,
         requestPayload: data,
-        requestUrl: url
+        requestUrl: url,
       })
     );
   }

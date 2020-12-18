@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react'
+import React, { useContext } from 'react'
 import { connect } from 'react-redux'
 import {
   Paper,
@@ -9,6 +9,7 @@ import {
   Typography,
   Button,
 } from '@material-ui/core'
+import clsx from 'clsx'
 
 import styles from './styles'
 import { PosTableProps } from './types'
@@ -19,7 +20,6 @@ import Total from '../total/Total'
 import { ExpandMore } from '@material-ui/icons'
 import CustomInput from '../../../../common/components/customInput'
 import { POSProductTable } from './ProductTable'
-import clsx from 'clsx'
 import CustomButton from '../../../../common/components/customButton'
 import { currencyFormatter, getPaymentMethodLabel } from '../../../../common/utils'
 import { Align } from '../../../../common/components/Align'
@@ -147,7 +147,8 @@ const PosTableRight: React.FC<PosTableProps> = ({
           data-testid='custom-button'
           onClick={onCompleteSaleClick}
           fullWidth
-          disabled={!products.length}>
+          disabled={!products.length}
+        >
           <div className={classes.paymentBtnTextHolder}>
             <Typography className={classes.paymentBtnTxt}>Complete Sale</Typography>
             <Typography className={classes.paymentBtnTxt}>
