@@ -31,7 +31,9 @@ export default makeStyles(({ spacing, breakpoints }) => ({
     },
   },
   searchBarGridItem: {
+    marginRight: spacing(3),
     [breakpoints.down('md')]: {
+      marginRight: spacing(0),
       order: 1,
       marginTop: spacing(12),
     },

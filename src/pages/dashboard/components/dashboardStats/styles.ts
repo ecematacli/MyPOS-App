@@ -5,14 +5,14 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     width: '100%',
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.14)',
     borderRadius: 6,
-    position: 'relative'
+    position: 'relative',
   },
   dashboardStatDiv: {
     display: 'flex',
     minHeight: 135,
     [breakpoints.down('sm')]: {
-      marginTop: spacing(3)
-    }
+      marginTop: spacing(3),
+    },
   },
   iconDiv: {
     color: palette.whiteColors[0],
@@ -31,41 +31,41 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
       textAlign: 'center',
       width: '36px',
       height: '36px',
-      margin: '10px 10px 4px'
-    }
+      margin: '10px 10px 4px',
+    },
   },
   dashboardStatContent: {
     paddingRight: spacing(2),
     paddingTop: 48,
     '@media (max-width:1050px) and (min-width:959px)': {
-      paddingRight: 5
-    }
+      paddingRight: 5,
+    },
   },
   statLabel: {
     color: palette.grayColors[9],
     fontSize: 14,
-    paddingBottom: spacing(0.3)
+    paddingBottom: spacing(0.3),
   },
 
   statValue: { color: palette.secondary.dark, fontSize: 24 },
   revenueIconContainer: {
     background: `linear-gradient(60deg, ${palette.greenColors[0]}, ${palette.greenColors[1]})`,
     boxShadow:
-      '0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(76, 175, 80,.4)'
+      '0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(76, 175, 80,.4)',
   },
   profitIconContainer: {
     background: `linear-gradient(60deg, ${palette.yellowColors[0]}, ${palette.yellowColors[1]})`,
     boxShadow:
-      '0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(255, 152, 0,.4)'
+      '0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(255, 152, 0,.4)',
   },
   saleCountIconContainer: {
     background: `linear-gradient(60deg, ${palette.navyBlueColors[0]}, ${palette.navyBlueColors[1]})`,
     boxShadow:
-      '0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(2,55,70,.2)'
+      '0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(2,55,70,.2)',
   },
   itemsSoldIconContainer: {
     background: `linear-gradient(60deg, ${palette.blueColors[0]}, ${palette.blueColors[1]})`,
     boxShadow:
-      '0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(0, 172, 193,.4)'
-  }
+      '0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(0, 172, 193,.4)',
+  },
 }));
