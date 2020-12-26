@@ -22,7 +22,7 @@ export const calculatePercentageFromDiscount = (
   discount: number
 ) => {
   const percentage = (discount / total) * 100;
-  return isNaN(percentage) ? 0 : percentage;
+  return isNaN(percentage) || percentage <= 0 ? 0 : percentage;
 };
 
 export const calculateDiscountFromPercentage = (

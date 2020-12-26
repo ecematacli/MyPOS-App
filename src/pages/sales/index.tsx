@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Grid, IconButton, Typography } from '@material-ui/core'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+import { Add } from '@material-ui/icons'
 
 import styles from './styles'
 import { completeSale } from '../../redux/sales/salesActions'
@@ -13,7 +14,6 @@ import ProductSearchBar from './components/productSearchBar/ProductSearchBar'
 import PosTableRight from './components/posTableRight'
 import { PaymentMethod } from '../../redux/sales/types'
 import CreateProductModal from './components/CreateProductModal'
-import { Add } from '@material-ui/icons'
 
 interface SalesProps {
   completeSale: (

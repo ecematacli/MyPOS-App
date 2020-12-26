@@ -45,18 +45,17 @@ export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
     successMessage && successMessage();
   } catch (error) {
     const response = error.response;
-    const {
-      status,
-      data: { message },
-    } = response;
-    const errStatus = status === 401 || status === 403;
 
-    if (response && errStatus) {
+    const status = response?.status;
+    const message = response?.data?.message;
+    const unauthorized = status === 401 || status === 403;
+
+    if (response && unauthorized) {
       location.replace('/signin');
       localStorage.removeItem('token');
     }
 
-    errorMessage && errorMessage(message, 'error');
+    errorMessage && errorMessage(message || 'Something went wrong...', 'error');
 
     next(
       actionWith({

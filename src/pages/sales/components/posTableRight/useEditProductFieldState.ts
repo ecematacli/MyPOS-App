@@ -95,12 +95,12 @@ export default ({
     const isDiscountNumber = discountValue || discountValue === 0;
 
     if (isDiscountNumber && discountType === 'TL') {
-      setDiscount(discountValue);
+      setDiscount(discountValue <= 0 ? 0 : discountValue);
       setPercentageDiscount(
         calculatePercentageFromDiscount(total, discountValue)
       );
     } else if (isDiscountNumber && discountType === '%') {
-      setPercentageDiscount(discountValue);
+      setPercentageDiscount(discountValue <= 0 ? 0 : discountValue);
       setDiscount(calculateDiscountFromPercentage(total, discountValue));
     }
 
@@ -109,7 +109,7 @@ export default ({
   };
 
   useEffect(() => {
-    const product = products.find((product) => product.id === id);
+    const product = products.find(product => product.id === id);
     setPriceValue((product && product.price) || 0);
     setDiscountedPriceValue((product && product.discountPrice) || 0);
   }, [id]);
