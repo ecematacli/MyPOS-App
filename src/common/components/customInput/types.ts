@@ -12,7 +12,7 @@ export interface Props {
   dropdownItems?: DropdownItems[]
   inputLabel?: boolean
   className?: string
-  classesProp: any
+  classesProp?: any
   name?: string
   type?: string
   placeholder?: string

@@ -41,23 +41,23 @@ const PlainTable: React.FC<PlainTableProps> = ({
       ))}
     </TableRow>
   )
+
   const renderTableBody = () => {
-    if (tableFor === 'CompletedInventoryCountProducts') {
-      return rows.map(row => <CompletedBatchProductRow key={row.id} row={row} />)
-    }
-
-    if (tableFor === 'InventoryCountBatches') {
-      return rows.map((row: Batch) => <BatchRow row={row} key={row.id} />)
-    }
-
-    if (tableFor === 'InventoryCountProducts') {
-      return rows.map((row: BatchProduct) => (
-        <BatchProductsRow key={row.id} row={row} selectedRow={selectedRow} />
-      ))
-    }
-
-    if (tableFor === 'StockOrders') {
-      return rows.map(row => <StockOrdersRow key={row.id} row={row} />)
+    switch (tableFor) {
+      case 'CompletedInventoryCountProducts':
+        return rows.map(row => <CompletedBatchProductRow key={row.id} row={row} />)
+      case 'InventoryCountBatches':
+        return rows.map((row: Batch) => <BatchRow row={row} key={row.id} />)
+      case 'InventoryCountProducts':
+        return rows.map((row: BatchProduct) => (
+          <BatchProductsRow key={row.id} row={row} selectedRow={selectedRow} />
+        ))
+      case 'StockOrders':
+        return rows.map(row => <StockOrdersRow key={row.id} row={row} />)
+      case 'NewStockTransferProducts':
+      case 'StockTransfers':
+      case 'StockTransferProducts':
+        return rows
     }
   }
 
@@ -102,6 +102,3 @@ const PlainTable: React.FC<PlainTableProps> = ({
 }
 
 export default PlainTable
-interface StyleProps {
-  noPagination?: boolean
-}

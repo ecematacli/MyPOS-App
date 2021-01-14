@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef } from 'react'
+import React, { FC, useState } from 'react'
 import AsyncSelect from 'react-select/async'
 import makeAnimated from 'react-select/animated'
 import { ActionMeta, OptionsType } from 'react-select'

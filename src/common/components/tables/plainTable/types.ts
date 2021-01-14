@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { Product } from '../../../../redux/products/types'
 export interface PlainTableProps {
   tableHeads: { name: string; rightAlign?: boolean }[]
@@ -22,6 +23,9 @@ export interface PlainTableProps {
     | 'InventoryCountProducts'
     | 'CompletedInventoryCountProducts'
     | 'StockOrders'
+    | 'StockTransfers'
+    | 'NewStockTransferProducts'
+    | 'StockTransferProducts'
 }
 export interface Batch {
   id: number
