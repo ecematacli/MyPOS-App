@@ -1,7 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 interface StyleProps {
-  rowIndex: number;
+  rowIndex: number
 }
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
@@ -57,7 +57,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     },
   },
   detailTotal: {
-    width: '90%',
+    width: '95%',
     height: spacing(6),
     background: ({ rowIndex }: StyleProps) =>
       rowIndex % 2 ? `${palette.grayColors[8]}` : `${palette.greenColors[7]}`,
@@ -65,7 +65,7 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     marginTop: spacing(4),
     marginBottom: spacing(2),
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   total: {
@@ -75,4 +75,4 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     fontWeight: 'bold',
     fontSize: 16,
   },
-}));
+}))
