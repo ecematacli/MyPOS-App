@@ -6,10 +6,7 @@ interface StyleProps {
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   tableBodyRow: {
-    cursor: ({ type }: StyleProps) => {
-      console.log(type);
-      return !type ? 'pointer' : 'unset';
-    },
+    cursor: ({ type }: StyleProps) =>  !type ? 'pointer' : 'unset',
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
   },
   tableCell: {

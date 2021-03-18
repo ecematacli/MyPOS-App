@@ -30,7 +30,7 @@ interface Props {
 
 const TopSellingItems: React.FC<Props> = ({
   loading,
-  topSellingProducts: { products, count },
+  topSellingProducts,
   fetchTopSellingProducts,
   startDate,
   endDate
@@ -43,7 +43,7 @@ const TopSellingItems: React.FC<Props> = ({
   }, [startDate, endDate]);
 
   const onRightArrowClick = () => {
-    const totalPageToShow = count / 3;
+    const totalPageToShow = topSellingProducts?.count / 3 || 0;
     if (pageNumber >= totalPageToShow) return;
     setPageNumber(prevPageNumber => prevPageNumber + 1);
     fetchTopSellingProducts(pageNumber, startDate, endDate);
@@ -67,7 +67,7 @@ const TopSellingItems: React.FC<Props> = ({
   );
 
   const renderTopSellingItems = () =>
-    products
+    topSellingProducts?.products
       .filter((product, i) => i < 3)
       .map(({ sku, name, variation, soldQty }, i) => (
         <TableRow className={classes.tableBodyRow} key={i}>
@@ -92,25 +92,25 @@ const TopSellingItems: React.FC<Props> = ({
         <Table>
           <TableHead>{renderTableHead()}</TableHead>
           <TableBody>
-            {loading || !products ? (
+            {loading || !topSellingProducts?.products ? (
               <TableRow>
                 <TableCell className={classes.displayMsgCell} colSpan={10}>
                   {loading ? (
                     <Loading />
                   ) : (
-                    <div className={classes.displayMsg}>
-                      No top selling item to display
+                      <div className={classes.displayMsg}>
+                        No top selling item to display
                     </div>
-                  )}
+                    )}
                 </TableCell>
               </TableRow>
             ) : (
-              renderTopSellingItems()
-            )}
+                renderTopSellingItems()
+              )}
           </TableBody>
         </Table>
       </div>
-      {!loading && products && (
+      {!loading && topSellingProducts?.products && (
         <div className={classes.paginationContainer}>
           <div onClick={onLeftArrowClick} className={classes.arrowDiv}>
             <KeyboardArrowLeftIcon className={classes.arrowIcon} />

@@ -106,7 +106,7 @@ const DatePickerFilter: React.FC<Props> = ({
       <div>
         <Button
           onClick={onDateSelectClick}
-          disabled={noAppliedFilter}
+          disabled={!startDate || !endDate}
           className={classes.filterBtn}
           color="primary"
         >

@@ -16,7 +16,6 @@ import {
   formatActivitiesData,
 } from '../utils';
 import { AuthTokenSettingContext } from '../../../contexts/AuthContext';
-
 export default () => {
   const { clearAuthToken } = useContext(AuthTokenSettingContext);
   const { initialStart, initialEnd }: InitialDates = getInitialLastThirtyDays();
@@ -27,8 +26,8 @@ export default () => {
   };
 
   const [loading, setLoading] = useState<Loading>({});
-  const [startDate, handleStartDateChange] = useState<Date | null>(null);
-  const [endDate, handleEndDateChange] = useState<Date | null>(null);
+  const [startDate, handleStartDateChange] = useState<Date | null>(initialStart);
+  const [endDate, handleEndDateChange] = useState<Date | null>(initialEnd);
   const [topSellingProducts, setTopSellingProducts] = useState<TopSellingData>({
     count: 0,
     products: [],
