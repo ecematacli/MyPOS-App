@@ -1,39 +1,39 @@
-import React, { useEffect, Fragment, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, Fragment, useState } from 'react'
+import { connect } from 'react-redux'
 
-import { ActionTypes, StoreState } from '../../redux/types';
-import { Product } from '../../redux/products/types';
-import { Category } from '../../redux/categories/types';
-import { Brand } from '../../redux/brands/types';
-import { fetchProducts } from '../../redux/products/productsActions';
-import { fetchCategories } from '../../redux/categories/categoriesActions';
-import { fetchBrands } from '../../redux/brands/brandsActions';
-import { loadingSelector } from '../../redux/loading/loadingReducer';
-import { TABLE_HEADS } from './tableHeads';
-import { getFilterInputFields } from './getFilterInputFields';
-import useProductFilters from './hooks/useProductFilters';
-import Loading from '../../common/components/loading';
-import CustomTable from '../../common/components/tables/customTable';
-import ProductDetails from './components/productDetails/ProductDetails';
-import ProductFilters from './components/productFilters/ProductFilters';
-import { findMatchedFields } from '../../common/utils';
+import { ActionTypes, StoreState } from '../../redux/types'
+import { Product } from '../../redux/products/types'
+import { Category } from '../../redux/categories/types'
+import { Brand } from '../../redux/brands/types'
+import { fetchProducts } from '../../redux/products/productsActions'
+import { fetchCategories } from '../../redux/categories/categoriesActions'
+import { fetchBrands } from '../../redux/brands/brandsActions'
+import { loadingSelector } from '../../redux/loading/loadingReducer'
+import { TABLE_HEADS } from './tableHeads'
+import { getFilterInputFields } from './getFilterInputFields'
+import useProductFilters from './hooks/useProductFilters'
+import Loading from '../../common/components/loading'
+import CustomTable from '../../common/components/tables/customTable'
+import ProductDetails from './components/productDetails/ProductDetails'
+import ProductFilters from './components/productFilters/ProductFilters'
+import { findMatchedFields } from '../../common/utils'
 
 interface ProductsProps {
   fetchProducts: (
     page: number,
     rowsPerPage: number,
-    categoryId?: number,
-    brandId?: number,
+    categoryId?: string,
+    brandId?: string,
     searchQuery?: string
-  ) => void;
-  fetchCategories: () => void;
-  fetchBrands: () => void;
-  products: { [id: string]: Product };
-  count: number;
-  ids: number[];
-  categories: Category[];
-  brands: Brand[];
-  isFetching: boolean;
+  ) => void
+  fetchCategories: () => void
+  fetchBrands: () => void
+  products: { [id: string]: Product }
+  count: number
+  ids: string[]
+  categories: Category[]
+  brands: Brand[]
+  isFetching: boolean
 }
 
 const ProductsPage: React.FC<ProductsProps> = ({
@@ -45,10 +45,10 @@ const ProductsPage: React.FC<ProductsProps> = ({
   ids,
   isFetching,
   categories,
-  brands
+  brands,
 }) => {
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [page, setPage] = useState(1)
 
   const filterStateArgs = {
     brands,
@@ -56,8 +56,8 @@ const ProductsPage: React.FC<ProductsProps> = ({
     setPage,
     page,
     rowsPerPage,
-    fetchProducts
-  };
+    fetchProducts,
+  }
 
   const {
     filterInputs,
@@ -66,22 +66,15 @@ const ProductsPage: React.FC<ProductsProps> = ({
     clearAllFilters,
     handleInputChange,
     handleApplyFilterClick,
-    handleDelete
-  } = useProductFilters(filterStateArgs);
+    handleDelete,
+  } = useProductFilters(filterStateArgs)
 
-  const FILTER_INPUT_FIELDS = getFilterInputFields(
-    brands,
-    categories,
-    filterInputs
-  );
+  const FILTER_INPUT_FIELDS = getFilterInputFields(brands, categories, filterInputs)
 
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number
-  ) => {
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, newPage: number) => {
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
-    if (newPage + 1 < 0) return;
-    setPage(newPage + 1);
+    if (newPage + 1 < 0) return
+    setPage(newPage + 1)
 
     fetchProducts(
       newPage + 1,
@@ -89,17 +82,15 @@ const ProductsPage: React.FC<ProductsProps> = ({
       findMatchedFields(categories, filterInputs.category).id,
       findMatchedFields(brands, filterInputs.brand).id,
       filterInputs.searchQuery
-    );
-  };
+    )
+  }
 
-  const handleChangeRowsPerPage = ({
-    target: { value }
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    const numValue = parseInt(value);
-    setRowsPerPage(numValue);
+  const handleChangeRowsPerPage = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+    const numValue = parseInt(value)
+    setRowsPerPage(numValue)
 
     if (Math.ceil(count / rowsPerPage) === page) {
-      setPage(1);
+      setPage(1)
     }
 
     fetchProducts(
@@ -108,17 +99,16 @@ const ProductsPage: React.FC<ProductsProps> = ({
       findMatchedFields(categories, filterInputs.category).id,
       findMatchedFields(brands, filterInputs.brand).id,
       filterInputs.searchQuery
-    );
-  };
+    )
+  }
 
-  const productsInOrder = () =>
-    ids.map((productId: number) => products[productId]);
+  const productsInOrder = () => ids.map((productId: string) => products[productId])
 
   useEffect(() => {
-    fetchProducts(page, rowsPerPage);
-    fetchCategories();
-    fetchBrands();
-  }, []);
+    fetchProducts(page, rowsPerPage)
+    fetchCategories()
+    fetchBrands()
+  }, [])
 
   return (
     <div style={{ padding: 24 }}>
@@ -138,7 +128,7 @@ const ProductsPage: React.FC<ProductsProps> = ({
         <Fragment>
           <CustomTable
             tableHeads={TABLE_HEADS}
-            tableType="products"
+            tableType='products'
             rows={{ type: 'products', products: productsInOrder() }}
             page={page}
             rowsPerPage={rowsPerPage}
@@ -150,27 +140,27 @@ const ProductsPage: React.FC<ProductsProps> = ({
         </Fragment>
       )}
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state: StoreState) => {
   const {
     products: { products, count, ids },
     categories,
-    brands
-  } = state;
+    brands,
+  } = state
   return {
     products,
     count,
     ids,
     categories,
     brands,
-    isFetching: loadingSelector(ActionTypes.FETCH_PRODUCTS, state)
-  };
-};
+    isFetching: loadingSelector(ActionTypes.FETCH_PRODUCTS, state),
+  }
+}
 
 export default connect(mapStateToProps, {
   fetchProducts,
   fetchCategories,
-  fetchBrands
-})(ProductsPage);
+  fetchBrands,
+})(ProductsPage)

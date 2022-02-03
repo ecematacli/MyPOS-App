@@ -16,7 +16,7 @@ export enum SuccessActionTypes {
   FETCH_SALES_SUCCESS = 'FETCH_SALES_SUCCESS',
 }
 export interface Sale {
-  id: number
+  id: string
   createdAt: string
   outlet: string
   status: string
@@ -34,7 +34,7 @@ export interface SalesState {
     after: string
   }
   sales: { [id: string]: Sale }
-  ids: number[]
+  ids: string[]
 }
 
 export interface SaleData {

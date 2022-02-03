@@ -44,7 +44,7 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
   } = useCountDetails(batchId)
 
   useEffect(() => {
-    fetchBatchesProducts(parseInt(batchId))
+    fetchBatchesProducts(batchId)
   }, [])
 
   return (
@@ -73,20 +73,20 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
         {loading || !batch ? (
           <Loading />
         ) : (
-            <div className={classes.countTableDiv}>
-              <BatchStats batch={batch} />
-              <CountBatchesProductsTable
-                tabsValue={tabsValue}
-                handleTabsChange={handleTabsChange}
-                batchProducts={batchProducts}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                handleChangePage={handleChangePage}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-                selectedProductRow={selectedProduct}
-              />
-            </div>
-          )}
+          <div className={classes.countTableDiv}>
+            <BatchStats batch={batch} />
+            <CountBatchesProductsTable
+              tabsValue={tabsValue}
+              handleTabsChange={handleTabsChange}
+              batchProducts={batchProducts}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              handleChangePage={handleChangePage}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
+              selectedProductRow={selectedProduct}
+            />
+          </div>
+        )}
       </Grid>
       <Grid item xs={3}>
         <LastCountedItems lastCountedItems={lastCountedItems} />

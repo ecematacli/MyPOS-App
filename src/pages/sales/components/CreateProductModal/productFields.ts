@@ -1,6 +1,6 @@
-import { ProductField, AdditionalInputField, AdditionalInputs } from './types';
-import { Category } from '../../../../redux/categories/types';
-import { Brand } from '../../../../redux/brands/types';
+import { ProductField, AdditionalInputField, AdditionalInputs } from './types'
+import { Category } from '../../../../redux/categories/types'
+import { Brand } from '../../../../redux/brands/types'
 
 export const NEW_PRODUCT_FIELDS: ProductField[] = [
   {
@@ -27,7 +27,7 @@ export const NEW_PRODUCT_FIELDS: ProductField[] = [
   { label: 'Variation', fieldId: 'variation' },
 
   { label: 'Sku', fieldId: 'sku' },
-];
+]
 
 export const getAdditionalProductFields = (
   additionalInputs: AdditionalInputs,
@@ -39,8 +39,8 @@ export const getAdditionalProductFields = (
     fieldId: 'taxRate',
     dropdown: true,
     dropdownItems: [
-      { id: 1, name: '18' },
-      { id: 2, name: '8' },
+      { id: '1', name: '18' },
+      { id: '2', name: '8' },
     ],
     value: additionalInputs.taxRate,
     additionalField: true,
@@ -62,4 +62,4 @@ export const getAdditionalProductFields = (
     value: additionalInputs.category,
     additionalField: true,
   },
-];
+]

@@ -46,8 +46,8 @@ export default ({ brands, categories, onClose, createProduct }: ProductInputStat
       price: parseFloat(inputValues.price),
       discountPrice: parseFloat(inputValues.discountPrice),
       taxRate: parseFloat(additionalInputs.taxRate),
-      categoryId: categoryId ? parseInt(categoryId) : null,
-      brandId: brandId ? parseInt(brandId) : null,
+      categoryId: categoryId,
+      brandId: brandId,
     }
 
     createProduct(newProduct, addNotification)

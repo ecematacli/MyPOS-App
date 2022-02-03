@@ -9,13 +9,8 @@ export interface PlainTableProps {
   count?: number
   page?: number
   rowsPerPage?: number
-  handleChangeRowsPerPage?: ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => void
-  handleChangePage?: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number
-  ) => void
+  handleChangeRowsPerPage?: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void
+  handleChangePage?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, newPage: number) => void
   selectedRow?: BatchProduct
   itemCount?: number
   tableFor:
@@ -28,7 +23,7 @@ export interface PlainTableProps {
     | 'StockTransferProducts'
 }
 export interface Batch {
-  id: number
+  id: string
   status: string
   started: string
   finished: string | null
@@ -38,7 +33,7 @@ export interface Batch {
 }
 
 export interface BatchProduct {
-  id: number
+  id: string
   sku: string
   barcode: string
   name: string
@@ -49,7 +44,7 @@ export interface BatchProduct {
 }
 
 export interface StockOrders {
-  id: number
+  id: string
   createdAt: string
   products: Product[]
   totalQty: number

@@ -1,27 +1,27 @@
-import React, { useContext } from 'react';
-import { connect } from 'react-redux';
-import { Paper, Typography, IconButton, Card } from '@material-ui/core';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import DoneIcon from '@material-ui/icons/Done';
-import CancelIcon from '@material-ui/icons/Cancel';
+import React, { useContext } from 'react'
+import { connect } from 'react-redux'
+import { Paper, Typography, IconButton, Card } from '@material-ui/core'
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
+import DoneIcon from '@material-ui/icons/Done'
+import CancelIcon from '@material-ui/icons/Cancel'
 
-import styles from './styles';
-import { StoreState } from '../../../../redux/types';
-import { DetailsProps } from './types';
-import { editProduct } from '../../../../redux/products/productsActions';
-import useProductDetails from './hooks/useProductDetails';
-import { getProductFields } from './getProductFields';
-import { NotificationsContext } from '../../../../contexts/NotificationsContext';
-import CustomInput from '../../../../common/components/customInput';
+import styles from './styles'
+import { StoreState } from '../../../../redux/types'
+import { DetailsProps } from './types'
+import { editProduct } from '../../../../redux/products/productsActions'
+import useProductDetails from './hooks/useProductDetails'
+import { getProductFields } from './getProductFields'
+import { NotificationsContext } from '../../../../contexts/NotificationsContext'
+import CustomInput from '../../../../common/components/customInput'
 
 // eslint-disable-next-line react/display-name
-const ProductDetails: React.FC<DetailsProps> = (props) => {
-  const classes = styles(props);
-  const { product, brands, categories, editProduct } = props;
+const ProductDetails: React.FC<DetailsProps> = props => {
+  const classes = styles(props)
+  const { product, brands, categories, editProduct } = props
 
-  const { addNotification } = useContext(NotificationsContext);
+  const { addNotification } = useContext(NotificationsContext)
 
-  const PRODUCT_FIELDS = getProductFields(brands, categories);
+  const PRODUCT_FIELDS = getProductFields(brands, categories)
 
   const args = {
     product,
@@ -29,7 +29,7 @@ const ProductDetails: React.FC<DetailsProps> = (props) => {
     addNotification,
     brands,
     categories,
-  };
+  }
 
   const {
     editedRow,
@@ -41,13 +41,13 @@ const ProductDetails: React.FC<DetailsProps> = (props) => {
     getInputValues,
     enabledEdit,
     completeEdit,
-  } = useProductDetails(args);
+  } = useProductDetails(args)
 
   const renderEditForm = (
     fieldId: string,
     label: string,
     dropdown: boolean,
-    dropdownItems: { name: string; id: number }[],
+    dropdownItems: { name: string; id: string }[],
     type: string
   ) => (
     <div className={classes.editFormContainer}>
@@ -72,38 +72,31 @@ const ProductDetails: React.FC<DetailsProps> = (props) => {
         dropdownItems={dropdownItems}
         value={getInputValues(fieldId)}
         onChange={handleInputChange}
-        color="secondary"
+        color='secondary'
       />
       <div className={classes.editIcons}>
         <IconButton
           className={classes.iconButton}
           onClick={() => {
-            completeEdit(fieldId, productVal[fieldId], product.id, label);
-            handleEditedRow(fieldId);
+            completeEdit(fieldId, productVal[fieldId], product.id, label)
+            handleEditedRow(fieldId)
           }}>
           <DoneIcon className={classes.detailActionBtnIcon} />
         </IconButton>
         <IconButton
           className={classes.iconButton}
           onClick={() => {
-            handleEditedRow(fieldId);
+            handleEditedRow(fieldId)
           }}>
           <CancelIcon className={classes.detailActionBtnIcon} />
         </IconButton>
       </div>
     </div>
-  );
+  )
 
   const renderProductDetails = () =>
-    PRODUCT_FIELDS.map((productField) => {
-      const {
-        label,
-        fieldId,
-        dropdown,
-        dropdownItems,
-        currency,
-        type,
-      } = productField;
+    PRODUCT_FIELDS.map(productField => {
+      const { label, fieldId, dropdown, dropdownItems, currency, type } = productField
 
       return (
         <div key={label} className={classes.productDetails}>
@@ -114,12 +107,10 @@ const ProductDetails: React.FC<DetailsProps> = (props) => {
             ) : (
               <>
                 {currency && <div>&#x20BA;</div>}
-                <Typography className={classes.detailContent}>
-                  {renderProductValues(fieldId)}
-                </Typography>
+                <Typography className={classes.detailContent}>{renderProductValues(fieldId)}</Typography>
                 <div
                   onClick={() => {
-                    handleEditedRow(fieldId);
+                    handleEditedRow(fieldId)
                   }}
                   className={classes.editIcon}>
                   {enabledEdit ? <EditOutlinedIcon /> : null}
@@ -128,13 +119,13 @@ const ProductDetails: React.FC<DetailsProps> = (props) => {
             )}
           </div>
         </div>
-      );
-    });
+      )
+    })
 
   return (
     <Paper className={classes.productDetailsContainer}>
       <div className={classes.paperHead}>
-        <Typography color="secondary" className={classes.paperTitle}>
+        <Typography color='secondary' className={classes.paperTitle}>
           Details
         </Typography>
         <IconButton className={classes.iconButton} onClick={handleEditClick}>
@@ -143,15 +134,15 @@ const ProductDetails: React.FC<DetailsProps> = (props) => {
       </div>
       <Card className={classes.detailsCard}>{renderProductDetails()}</Card>
     </Paper>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state: StoreState) => {
-  const { brands, categories } = state;
+  const { brands, categories } = state
   return {
     brands,
     categories,
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, { editProduct })(ProductDetails);
+export default connect(mapStateToProps, { editProduct })(ProductDetails)

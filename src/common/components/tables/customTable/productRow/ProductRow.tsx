@@ -7,15 +7,15 @@ import { Product } from '../../../../../redux/products/types'
 import { currencyFormatter } from '../../../../utils'
 
 interface Props {
-  product: Product;
-  renderIconContainer: (id?: number) => JSX.Element;
-  index: number;
-  stockOrderProducts?: boolean;
+  product: Product
+  renderIconContainer: (id?: string) => JSX.Element
+  index: number
+  stockOrderProducts?: boolean
   expandedRows?: {
-    [id: string]: boolean;
+    [id: string]: boolean
   }
-  toggleExpanded?: (id: number) => void;
-  component?: React.JSXElementConstructor<any>;
+  toggleExpanded?: (id: string) => void
+  component?: React.JSXElementConstructor<any>
 }
 
 const ProductRow: React.FC<Props> = ({

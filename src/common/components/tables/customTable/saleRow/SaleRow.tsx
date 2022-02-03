@@ -11,9 +11,9 @@ interface Props {
   expandedRows: {
     [id: string]: boolean
   }
-  toggleExpanded: (id: number) => void
+  toggleExpanded: (id: string) => void
   index: number
-  renderExpandIconContainer: (id: number) => JSX.Element
+  renderExpandIconContainer: (id: string) => JSX.Element
   component: React.JSXElementConstructor<any>
 }
 
@@ -48,11 +48,7 @@ const SaleRow: React.FC<Props> = ({
         <TableCell>{createdAt}</TableCell>
         <TableCell>
           <Tooltip title={orderNo} placement='top'>
-            <Chip
-              variant='outlined'
-              label={outlet}
-              className={outlet === 'Web' ? classes.blueChip : classes.redChip}
-            />
+            <Chip variant='outlined' label={outlet} className={outlet === 'Web' ? classes.blueChip : classes.redChip} />
           </Tooltip>
         </TableCell>
         <TableCell>{getPaymentMethodLabel(paymentMethod)}</TableCell>

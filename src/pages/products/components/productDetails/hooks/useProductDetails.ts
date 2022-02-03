@@ -25,9 +25,7 @@ export default ({ product, editProduct, addNotification, brands, categories }: A
     if (!product[fieldId]) {
       return '-'
     } else if (fieldId === 'brand' || fieldId === 'category') {
-      return product[fieldId] && product[fieldId].name
-        ? product[fieldId].name
-        : product[fieldId]
+      return product[fieldId] && product[fieldId].name ? product[fieldId].name : product[fieldId]
     } else {
       return product[fieldId]
     }
@@ -37,9 +35,7 @@ export default ({ product, editProduct, addNotification, brands, categories }: A
     if (!productVal[fieldId]) {
       return ''
     } else if (fieldId === 'brand' || fieldId === 'category') {
-      return productVal[fieldId] && productVal[fieldId].name
-        ? productVal[fieldId].name
-        : productVal[fieldId]
+      return productVal[fieldId] && productVal[fieldId].name ? productVal[fieldId].name : productVal[fieldId]
     } else {
       return productVal[fieldId]
     }
@@ -59,14 +55,7 @@ export default ({ product, editProduct, addNotification, brands, categories }: A
     }
   }
 
-  const completeEdit = (
-    fieldId: string,
-    fieldValue: string,
-    productId: number,
-    label: string
-  ) => {
-    console.log(product)
-    console.log(fieldId)
+  const completeEdit = (fieldId: string, fieldValue: string, productId: string, label: string) => {
     const productField = product[fieldId]
     let updatedField: { [key: string]: string } = {
       [fieldId]: fieldValue,

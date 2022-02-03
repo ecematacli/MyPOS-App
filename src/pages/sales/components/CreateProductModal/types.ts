@@ -35,7 +35,7 @@ export interface AdditionalInputs {
   brand: string
 }
 export interface Tax {
-  id: number
+  id: string
   name: string
 }
 

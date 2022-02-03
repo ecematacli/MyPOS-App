@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-} from 'recharts'
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 import { Paper, IconButton, Typography, Divider, ListItem } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
@@ -30,14 +22,11 @@ const Chart: React.FC<ChartProps> = ({ revenueData, fetchRevenueData, appliedFil
 
   const disabledOptions = getDisabledOptions(appliedFilters.startDate, appliedFilters.endDate)
 
-  const {
-    handleClick,
-    handleClose,
-    open,
-    anchorEl,
-    displayOption,
-    onDisplayOptionClick,
-  } = useChartState(fetchRevenueData, disabledOptions, appliedFilters)
+  const { handleClick, handleClose, open, anchorEl, displayOption, onDisplayOptionClick } = useChartState(
+    fetchRevenueData,
+    disabledOptions,
+    appliedFilters
+  )
 
   const labelStyle = {
     color: '#696969',
@@ -50,18 +39,12 @@ const Chart: React.FC<ChartProps> = ({ revenueData, fetchRevenueData, appliedFil
         <IconButton onClick={handleClick} className={classes.iconButton}>
           <MoreVertIcon />
         </IconButton>
-        <CustomPopover
-          open={open}
-          classes={{ paper: classes.popoverPaper }}
-          anchorEl={anchorEl}
-          onClose={handleClose}>
+        <CustomPopover open={open} classes={{ paper: classes.popoverPaper }} anchorEl={anchorEl} onClose={handleClose}>
           <Paper className={classes.popoverPaper}>
-            <Typography className={classes.displayOptionsTitle}>
-              Choose a display type for date
-            </Typography>
+            <Typography className={classes.displayOptionsTitle}>Choose a display type for date</Typography>
             <Divider />
             <div>
-              {['daily', 'weekly', 'monthly'].map(option => (
+              {['daily', 'monthly'].map(option => (
                 <ListItem
                   className={classes.displayOptionsItem}
                   disabled={disabledOptions[option]}

@@ -3,7 +3,7 @@ import { Category } from '../../../../redux/categories/types';
 
 interface DropdownItem {
   name: string;
-  id: number;
+  id: string;
 }
 interface ProductField {
   label: string;
@@ -33,8 +33,8 @@ export const getProductFields = (
     fieldId: 'taxRate',
     dropdown: true,
     dropdownItems: [
-      { id: 1, name: '8' },
-      { id: 2, name: '18' },
+      { id: "1", name: '8' },
+      { id: "2", name: '18' },
     ],
   },
   { label: 'Sku', fieldId: 'sku' },

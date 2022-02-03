@@ -1,10 +1,10 @@
 export interface Outlet {
-  id: number
+  id: string
   name: string
 }
 
 export interface StockTransfer {
-  id: number
+  id: string
   origin: Outlet
   destination: Outlet
   createdAt: string
@@ -12,7 +12,7 @@ export interface StockTransfer {
 }
 
 export interface StockTransferProduct {
-  id: number
+  id: string
   barcode: string
   sku: string
   name: string
@@ -27,7 +27,7 @@ export interface StockTransferProduct {
 }
 
 export interface ProductToTransfer {
-  id: number
+  id: string
   sku: string
   barcode: string
   name: string

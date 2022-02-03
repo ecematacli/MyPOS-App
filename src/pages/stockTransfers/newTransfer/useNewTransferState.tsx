@@ -10,27 +10,23 @@ export const useNewTransferState = () => {
   const { addNotification } = useContext(NotificationsContext)
   const [products, setProducts] = useState<ProductToTransfer[]>([])
   const { error, value: outlets } = useGetRequest<Outlet[]>('/outlets')
-  const [selectedOrigin, setSelectedOrigin] = useState<number>(0)
-  const [selectedDestination, setSelectedDestination] = useState<number>(0)
+  const [selectedOrigin, setSelectedOrigin] = useState<string>('0')
+  const [selectedDestination, setSelectedDestination] = useState<string>('0')
 
   const addProduct = (newP: ProductToTransfer) => {
     const existing = products.find(p => p.id === newP.id)
 
     if (existing) {
       setProducts(pp =>
-        pp.map(p =>
-          p.id === existing.id ? { ...existing, qtyToTransfer: existing.qtyToTransfer + 1 } : p
-        )
+        pp.map(p => (p.id === existing.id ? { ...existing, qtyToTransfer: existing.qtyToTransfer + 1 } : p))
       )
     } else {
       setProducts(pp => [...pp, { ...newP, qtyToTransfer: 1 }])
     }
   }
 
-  const changeQtyToTransfer = (id: number) => (change: number) => {
-    setProducts(
-      products.map(p => (p.id === id ? { ...p, qtyToTransfer: p.qtyToTransfer + change } : p))
-    )
+  const changeQtyToTransfer = (id: string) => (change: number) => {
+    setProducts(products.map(p => (p.id === id ? { ...p, qtyToTransfer: p.qtyToTransfer + change } : p)))
   }
 
   const searchProducts = async (query: string): Promise<ProductToTransfer[]> => {
@@ -70,9 +66,9 @@ export const useNewTransferState = () => {
   const changeOutlet = ({ target: { value, name } }: React.ChangeEvent<HTMLInputElement>) => {
     switch (name) {
       case 'origin':
-        return setSelectedOrigin(parseInt(value))
+        return setSelectedOrigin(value)
       case 'destination':
-        return setSelectedDestination(parseInt(value))
+        return setSelectedDestination(value)
     }
   }
 

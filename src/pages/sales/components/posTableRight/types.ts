@@ -8,26 +8,17 @@ export type ClickEvent = React.MouseEvent<HTMLDivElement, MouseEvent>
 export type SetNumberState = React.Dispatch<React.SetStateAction<number>>
 export interface EditActionArgs {
   updatedField: { [key: string]: string }
-  productId: number
+  productId: string
   label: string
   addNotification: (m?: string, t?: string) => void
 }
 
-export type EditProductAction = ({
-  updatedField,
-  productId,
-  label,
-  addNotification,
-}: EditActionArgs) => Promise<void>
+export type EditProductAction = ({ updatedField, productId, label, addNotification }: EditActionArgs) => Promise<void>
 
-export type EditProductFieldLocalStorageState = (
-  id: number,
-  field: string,
-  newValue: number
-) => void
+export type EditProductFieldLocalStorageState = (id: string, field: string, newValue: number) => void
 export interface PosTableProps {
   products: Product[]
-  deleteProduct: (id: number) => void
+  deleteProduct: (id: string) => void
   decreaseProductQuantity: (product: Product) => void
   increaseProductQuantity: (product: Product) => void
   editProductFieldLocalStorageState: EditProductFieldLocalStorageState
@@ -66,7 +57,7 @@ export interface TotalProps {
   setPercentageDiscount: SetNumberState
   discardSale: () => void
   anchorEl: { [key: string]: EventTarget & HTMLDivElement }
-  handleEditClick: (e: ClickEvent, field: string, id?: number, product?: Product) => void
+  handleEditClick: (e: ClickEvent, field: string, id?: string, product?: Product) => void
   onCompleteDiscountEditClick: (
     total: number,
     discountType: string,

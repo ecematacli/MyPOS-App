@@ -7,7 +7,7 @@ export enum SuccessActionTypes {
   CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS',
 }
 export interface Product {
-  id: number;
+  id: string;
   barcode: string;
   sku: string;
   name: string;
@@ -24,13 +24,13 @@ export interface Product {
 export interface ProductsState {
   count: number;
   products: { [id: string]: Product };
-  ids: number[];
+  ids: string[];
 }
 
-//Action creator argumument types
+//Action creator argument types
 export interface EditActionArgs {
   updatedField: { [key: string]: string };
-  productId: number;
+  productId: string;
   label: string;
   addNotification: (m?: string, t?: string) => void;
 }

@@ -20,8 +20,8 @@ export interface NewProductData {
   variation: string
   discountPrice: number
   taxRate: number
-  categoryId: number | null
-  brandId: number | null
+  categoryId: string | null
+  brandId: string | null
 }
 
 export interface AdditionalInputs {
@@ -37,7 +37,7 @@ export interface AddAction {
 
 export interface DeleteAction {
   type: ActionTypes.Delete
-  payload: { id: number }
+  payload: { id: string }
 }
 
 export interface DecreaseQtyAction {
@@ -52,7 +52,7 @@ export interface IncreaseQtyAction {
 
 export interface EditPriceAction {
   type: ActionTypes.EditProductField
-  payload: { id: number; field: string; newValue: number }
+  payload: { id: string; field: string; newValue: number }
 }
 
 export interface DiscardSaleAction {

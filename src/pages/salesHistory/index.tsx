@@ -23,19 +23,12 @@ interface SalesHistoryProps {
   ) => void
   sales: { [id: string]: Sale }
   count: number
-  ids: number[]
+  ids: string[]
   isFetching: boolean
   cursors: { before: string; after: string }
 }
 
-const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
-  fetchSales,
-  sales,
-  count,
-  ids,
-  isFetching,
-  cursors,
-}) => {
+const SalesHistoryPage: React.FC<SalesHistoryProps> = ({ fetchSales, sales, count, ids, isFetching, cursors }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [page, setPage] = useState(1)
 
@@ -52,10 +45,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     fetchSales,
   })
 
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number
-  ) => {
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, newPage: number) => {
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
     if (newPage + 1 < 0) return
 
@@ -70,9 +60,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     setPage(newPage + 1)
   }
 
-  const handleChangeRowsPerPage = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     const numValue = parseInt(value)
     setRowsPerPage(numValue)
 
@@ -86,7 +74,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     fetchSales(rowsPerPage)
   }, [])
 
-  const salesInOrder = (): Sale[] => ids.map((saleId: number) => sales[saleId])
+  const salesInOrder = (): Sale[] => ids.map((saleId: string) => sales[saleId])
 
   const formattedSalesData = () =>
     salesInOrder().map((sale: Sale) => ({

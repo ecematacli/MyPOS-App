@@ -20,8 +20,8 @@ export interface Args {
   fetchProducts: (
     page: number,
     rowsPerPage: number,
-    categoryId?: number,
-    brandId?: number,
+    categoryId?: string,
+    brandId?: string,
     searchQuery?: string
   ) => void;
 }

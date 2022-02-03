@@ -3,7 +3,7 @@ import { FormikTouched } from 'formik'
 
 export interface DropdownItems {
   name: string
-  id: number
+  id: string
 }
 
 export interface Props {
