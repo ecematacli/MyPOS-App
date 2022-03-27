@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  TableRow,
-  TableCell,
-  Table,
-  TableBody,
-  TableHead,
-  TableContainer,
-  TablePagination,
-} from '@material-ui/core'
+import { TableRow, TableCell, Table, TableBody, TableHead, TableContainer, TablePagination } from '@material-ui/core'
 
 import styles from './styles'
 import { PlainTableProps, Batch, BatchProduct, PaginationLabel } from './types'
@@ -15,6 +7,7 @@ import BatchRow from './batchRow/BatchRow'
 import BatchProductsRow from './batchProductsRow/BatchProductsRow'
 import CompletedBatchProductRow from './completedBatchProductRow'
 import StockOrdersRow from './stockOrdersRow'
+import OrderedProductRow from './OrderedProductRow'
 
 const PlainTable: React.FC<PlainTableProps> = ({
   tableFor,
@@ -49,11 +42,11 @@ const PlainTable: React.FC<PlainTableProps> = ({
       case 'InventoryCountBatches':
         return rows.map((row: Batch) => <BatchRow row={row} key={row.id} />)
       case 'InventoryCountProducts':
-        return rows.map((row: BatchProduct) => (
-          <BatchProductsRow key={row.id} row={row} selectedRow={selectedRow} />
-        ))
+        return rows.map((row: BatchProduct) => <BatchProductsRow key={row.id} row={row} selectedRow={selectedRow} />)
       case 'StockOrders':
         return rows.map(row => <StockOrdersRow key={row.id} row={row} />)
+      case 'OrderedProducts':
+        return rows.map(row => <OrderedProductRow key={row.id} row={row} />)
       case 'NewStockTransferProducts':
       case 'StockTransfers':
       case 'StockTransferProducts':

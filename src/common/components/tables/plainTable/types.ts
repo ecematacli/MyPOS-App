@@ -1,4 +1,5 @@
-import { ReactNode } from 'react'
+import { Brand } from '../../../../redux/brands/types'
+import { Category } from '../../../../redux/categories/types'
 import { Product } from '../../../../redux/products/types'
 export interface PlainTableProps {
   tableHeads: { name: string; rightAlign?: boolean }[]
@@ -9,13 +10,8 @@ export interface PlainTableProps {
   count?: number
   page?: number
   rowsPerPage?: number
-  handleChangeRowsPerPage?: ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => void
-  handleChangePage?: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number
-  ) => void
+  handleChangeRowsPerPage?: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void
+  handleChangePage?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, newPage: number) => void
   selectedRow?: BatchProduct
   itemCount?: number
   tableFor:
@@ -23,6 +19,7 @@ export interface PlainTableProps {
     | 'InventoryCountProducts'
     | 'CompletedInventoryCountProducts'
     | 'StockOrders'
+    | 'OrderedProducts'
     | 'StockTransfers'
     | 'NewStockTransferProducts'
     | 'StockTransferProducts'
@@ -54,6 +51,21 @@ export interface StockOrders {
   products: Product[]
   totalQty: number
   totalPrice: number
+}
+
+export interface OrderedProduct {
+  id: number
+  barcode: string
+  sku: string
+  name: string
+  price: number
+  discountPrice: number | null
+  qty: number
+  variation: string | null
+  taxRate: number | null
+  brand: Brand | null
+  category: Category | null
+  synced?: boolean
 }
 
 export interface PaginationLabel {

@@ -12,14 +12,7 @@ import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
 const StockOrdersPage = () => {
   const classes = styles()
 
-  const {
-    stockOrders,
-    loading,
-    page,
-    handleChangePage,
-    rowsPerPage,
-    handleChangeRowsPerPage,
-  } = useStockOrders()
+  const { stockOrders, loading, page, handleChangePage, rowsPerPage, handleChangeRowsPerPage } = useStockOrders()
 
   const transformedOrdersData = () =>
     stockOrders.map(order => {
@@ -47,9 +40,7 @@ const StockOrdersPage = () => {
           <Typography className={classes.infoText}>
             Upload and validate files to keep track of your stock orders.
           </Typography>
-          <Button
-            onClick={() => history.push('stock-orders/upload')}
-            className={classes.uploadBtn}>
+          <Button onClick={() => history.push('stock-orders/upload')} className={classes.uploadBtn}>
             <Typography className={classes.btnText}>Upload File</Typography>
           </Button>
         </div>
