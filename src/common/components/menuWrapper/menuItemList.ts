@@ -8,7 +8,7 @@ import HistoryIcon from '@material-ui/icons/History'
 import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined'
 import ExposureOutlinedIcon from '@material-ui/icons/ExposureOutlined'
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile'
-import { SyncAlt } from '@material-ui/icons'
+import { MonetizationOn, SyncAlt } from '@material-ui/icons'
 
 export interface MenuItem {
   label: string
@@ -72,6 +72,11 @@ export const MENU_ITEMS: MenuItem[] = [
         subLabel: 'Stock Transfers',
         url: '/inventory/stock-transfers',
         Icon: SyncAlt,
+      },
+      {
+        subLabel: 'Price Updates',
+        url: '/inventory/price-updates',
+        Icon: MonetizationOn,
       },
     ],
   },

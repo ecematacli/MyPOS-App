@@ -18,6 +18,7 @@ import StockOrderPage from '../pages/stockOrder'
 import StockOrderUpload from '../pages/stockOrderUpload'
 import { NewTransfer } from '../pages/stockTransfers/newTransfer'
 import { StockTransfers } from '../pages/stockTransfers'
+import PriceUpdatePage from '../pages/priceUpdate'
 
 const AppRouter: React.FC = () => (
   <Router history={history}>
@@ -28,35 +29,16 @@ const AppRouter: React.FC = () => (
           <PrivateRoute path='/sales/pos' exact component={SalesPage} />
           <PrivateRoute path='/sales/history' exact component={SalesHistoryPage} />
           <PrivateRoute path='/inventory/products' exact component={ProductsPage} />
-          <PrivateRoute
-            path='/inventory/inventory-count'
-            exact
-            component={InventoryCountBatches}
-          />
-          <PrivateRoute
-            path='/inventory/inventory-count/create'
-            exact
-            component={InventoryCountCreate}
-          />
-          <PrivateRoute
-            path='/inventory/inventory-count/:id'
-            exact
-            component={InventoryCountDetail}
-          />
+          <PrivateRoute path='/inventory/price-updates' exact component={PriceUpdatePage} />
+          <PrivateRoute path='/inventory/inventory-count' exact component={InventoryCountBatches} />
+          <PrivateRoute path='/inventory/inventory-count/create' exact component={InventoryCountCreate} />
+          <PrivateRoute path='/inventory/inventory-count/:id' exact component={InventoryCountDetail} />
           <PrivateRoute path='/inventory/stock-orders' exact component={StockOrders} />
-          <PrivateRoute
-            path='/inventory/stock-orders/upload'
-            exact
-            component={StockOrderUpload}
-          />
+          <PrivateRoute path='/inventory/stock-orders/upload' exact component={StockOrderUpload} />
           <PrivateRoute path='/inventory/stock-order/:id' exact component={StockOrderPage} />
           <PrivateRoute path='/inventory/stock-transfers' exact component={StockTransfers} />
           <PrivateRoute path='/inventory/stock-transfers/new' exact component={NewTransfer} />
-          <PrivateRoute
-            path='/inventory/stock-transfers/:id'
-            exact
-            component={StockTransfers}
-          />
+          <PrivateRoute path='/inventory/stock-transfers/:id' exact component={StockTransfers} />
           <PrivateRoute path='/' exact component={DashboardPage} />
         </Switch>
       </ErrorBoundary>
