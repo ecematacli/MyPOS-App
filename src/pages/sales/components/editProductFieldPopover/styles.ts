@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
-import { Props } from './types';
+import { Props } from './types'
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   popoverContentDiv: {
@@ -54,5 +54,9 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     fontSize: 14,
     textTransform: 'capitalize',
     marginRight: -8,
+
+    '&:first-child': {
+      marginRight: spacing(1),
+    },
   },
-}));
+}))

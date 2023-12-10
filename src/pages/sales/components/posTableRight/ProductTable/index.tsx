@@ -52,6 +52,17 @@ export const POSProductTable: FC<Props> = ({
 }) => {
   const classes = styles()
 
+  const translateText = (text: string) => {
+    switch (text) {
+      case 'price':
+        return 'Fiyat'
+      case 'discountPrice':
+        return 'İndirimli Fiyat'
+      default:
+        return text
+    }
+  }
+
   const renderEditPopover = (
     field: string,
     title: string,
@@ -76,7 +87,7 @@ export const POSProductTable: FC<Props> = ({
             classes[field === 'discountPrice' && 'discounted'],
             classes.popoverTitle
           )}>
-          {!label ? capitalizeFirstLetters(field) : label}
+          {label ? label : translateText(field)}
         </div>
       }
     />
@@ -95,7 +106,12 @@ export const POSProductTable: FC<Props> = ({
     products.map((product: Product) => {
       const { id, name, qty, price, discountPrice, variation } = product
       return (
-        <TableRow className={classes.tableRow} role='checkbox' hover tabIndex={-1} key={id}>
+        <TableRow
+          className={classes.tableRow}
+          role='checkbox'
+          hover
+          tabIndex={-1}
+          key={id}>
           <TableCell className={classes.firstCell} component='td' scope='row'>
             {productNameWithVariation(name, variation)}
           </TableCell>
@@ -127,7 +143,7 @@ export const POSProductTable: FC<Props> = ({
               </div>
               {renderEditPopover(
                 'price',
-                'Add amount for price',
+                'Fiyat için miktar ekleyin',
                 priceValue,
                 handlePriceChange
               )}
@@ -142,10 +158,9 @@ export const POSProductTable: FC<Props> = ({
               </div>
               {renderEditPopover(
                 'discountPrice',
-                'Add amount for discounted price',
+                'İndirimli fiyat için miktar ekleyin',
                 discountedPriceValue,
-                handleDiscountedPriceChange,
-                'Discounted Price'
+                handleDiscountedPriceChange
               )}
             </Fragment>
           </TableCell>

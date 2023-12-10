@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 import { Product } from '../../redux/products/types'
 import { Category } from '../../redux/categories/types'
 import { Brand } from '../../redux/brands/types'
+import { translatePaymentMethodLabel } from './translation'
 import { PaymentMethod, PAYMENT_METHODS } from '../../redux/sales/types'
 
 export const currencyFormatter = (num: number): string => {
@@ -16,7 +17,8 @@ export const currencyFormatter = (num: number): string => {
 export const findMatchedFields = (
   fields: Category[] | Brand[],
   fieldToBeMatched: string
-): Category | Brand => fieldToBeMatched && fields.find(f => f.name === fieldToBeMatched)
+): Category | Brand =>
+  fieldToBeMatched && fields.find(f => f.name === fieldToBeMatched)
 
 export const formatDate = (dateToFormat: string | Date, formatType: string) =>
   dateToFormat && format(new Date(dateToFormat), formatType)
@@ -45,7 +47,7 @@ export const totalDiscount = (products: Product[]) =>
 
 export const getPaymentMethodLabel = (pm: PaymentMethod) => {
   const paymentMethod = PAYMENT_METHODS.find(p => p.value === pm)
-  return paymentMethod ? paymentMethod.label : ''
+  return paymentMethod ? translatePaymentMethodLabel(paymentMethod.label) : ''
 }
 
 export const productNameWithVariation = (name: string, variation?: string) =>

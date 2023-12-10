@@ -1,5 +1,5 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import pink from '@material-ui/core/colors/pink';
+import { createMuiTheme } from '@material-ui/core/styles'
+import pink from '@material-ui/core/colors/pink'
 
 const theme = {
   palette: {
@@ -53,6 +53,11 @@ const theme = {
     },
   },
   overrides: {
+    MuiButton: {
+      root: {
+        textTransform: 'none',
+      },
+    },
     MuiGrid: {
       'spacing-xs-3': {
         '& > $item': {
@@ -112,6 +117,6 @@ const theme = {
       xl: 1920,
     },
   },
-};
+}
 
-export default createMuiTheme(theme as any);
+export default createMuiTheme(theme as any)

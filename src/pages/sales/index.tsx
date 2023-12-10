@@ -29,7 +29,11 @@ interface SalesProps {
   fetchCategories: () => void
 }
 
-const SalesPage: React.FC<SalesProps> = ({ completeSale, fetchBrands, fetchCategories }) => {
+const SalesPage: React.FC<SalesProps> = ({
+  completeSale,
+  fetchBrands,
+  fetchCategories,
+}) => {
   const classes = styles()
   const [createProductModalOpen, setCreateProductModalOpen] = useState(false)
   const {
@@ -68,15 +72,17 @@ const SalesPage: React.FC<SalesProps> = ({ completeSale, fetchBrands, fetchCateg
          // @ts-ignore */}
           <Grid item align='center' className={classes.discardSaleGridItem}>
             <div className={classes.discardSaleBtnHolder}>
-              <IconButton classes={{ root: classes.discardIconBtn }} onClick={discardSale}>
+              <IconButton
+                classes={{ root: classes.discardIconBtn }}
+                onClick={discardSale}>
                 <DeleteForeverIcon className={classes.discardSaleBtn} />
-                <Typography>Discard Sale</Typography>
+                <Typography>Satışı İptal Et</Typography>
               </IconButton>
               <IconButton
                 classes={{ root: classes.discardIconBtn }}
                 onClick={() => setCreateProductModalOpen(true)}>
                 <Add className={classes.discardSaleBtn} />
-                <Typography>Add Product</Typography>
+                <Typography>Ürün Ekle</Typography>
               </IconButton>
             </div>
           </Grid>

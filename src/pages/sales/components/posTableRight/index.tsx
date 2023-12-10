@@ -21,9 +21,13 @@ import { ExpandMore } from '@material-ui/icons'
 import CustomInput from '../../../../common/components/customInput'
 import { POSProductTable } from './ProductTable'
 import CustomButton from '../../../../common/components/customButton'
-import { currencyFormatter, getPaymentMethodLabel } from '../../../../common/utils'
+import {
+  currencyFormatter,
+  getPaymentMethodLabel,
+} from '../../../../common/utils'
 import { Align } from '../../../../common/components/Align'
 import { PAYMENT_METHODS } from '../../../../redux/sales/types'
+import { translatePaymentMethodLabel } from '../../../../common/utils/translation'
 
 const PosTableRight: React.FC<PosTableProps> = ({
   products,
@@ -88,7 +92,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
         />
         <ExpansionPanel className={classes.expansionPanelRoot} elevation={0}>
           <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <Typography>Note</Typography>
+            <Typography>Notlar</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <CustomInput
@@ -96,7 +100,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
               onChange={({ target }) => setDescription(target.value)}
               classesProp={{ input: classes.noteInput }}
               id='description'
-              placeholder='Enter a note about this sale'
+              placeholder='Bu satışla ilgili bir not ekleyin'
               fullWidth
               multiline
             />
@@ -105,7 +109,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
         <ExpansionPanel className={classes.expansionPanelRoot} elevation={0}>
           <ExpansionPanelSummary expandIcon={<ExpandMore />}>
             <Typography>
-              Payment Method{`: ${getPaymentMethodLabel(paymentMethod)}`}
+              Ödeme Yöntemi{`: ${getPaymentMethodLabel(paymentMethod)}`}
             </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
@@ -119,7 +123,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
                   [classes.selectedPayment]: value === paymentMethod,
                   [classes.paymentMethodBtn]: true,
                 })}>
-                {label}
+                {translatePaymentMethodLabel(label).toLocaleUpperCase('tr-TR')}
               </Button>
             ))}
           </ExpansionPanelDetails>
@@ -147,10 +151,11 @@ const PosTableRight: React.FC<PosTableProps> = ({
           data-testid='custom-button'
           onClick={onCompleteSaleClick}
           fullWidth
-          disabled={!products.length}
-        >
+          disabled={!products.length}>
           <div className={classes.paymentBtnTextHolder}>
-            <Typography className={classes.paymentBtnTxt}>Complete Sale</Typography>
+            <Typography className={classes.paymentBtnTxt}>
+              {'Satış Tamamla'.toLocaleUpperCase('tr-TR')}
+            </Typography>
             <Typography className={classes.paymentBtnTxt}>
               {currencyFormatter(total - discount)}
             </Typography>

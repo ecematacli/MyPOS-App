@@ -44,7 +44,10 @@ export const InputAutoSuggest: FC<Props> = ({
     }
   }
 
-  const isOptionSelected = (option: any, options: OptionsType<any>): boolean => {
+  const isOptionSelected = (
+    option: any,
+    options: OptionsType<any>
+  ): boolean => {
     return options.find(o => o.id === option.id)
   }
 
@@ -69,9 +72,9 @@ export const InputAutoSuggest: FC<Props> = ({
       loadOptions={debounced}
       onChange={onChange}
       formatOptionLabel={formatOptionLabel(classes)}
-      placeholder='Search for products...'
+      placeholder='Ürün ara...'
       openMenuOnClick={false}
-      noOptionsMessage={() => 'Not Found'}
+      noOptionsMessage={() => 'Ürün Bulunamadı'}
       isClearable
       isOptionSelected={isOptionSelected}
       styles={selectStyles(theme)}

@@ -60,7 +60,10 @@ const Total: React.FC<TotalProps> = ({
         value={discountType}
         onChange={handleDiscountTypeChange}>
         {['%', 'TL'].map(label => (
-          <MenuItem classes={{ root: classes.discountType }} key={label} value={label}>
+          <MenuItem
+            classes={{ root: classes.discountType }}
+            key={label}
+            value={label}>
             {label}
           </MenuItem>
         ))}
@@ -70,7 +73,7 @@ const Total: React.FC<TotalProps> = ({
 
   const renderEditPricePopover = () => (
     <EditProductFieldPopover
-      title='Apply Discount'
+      title='İndirim Uygula'
       field='discount'
       popoverContentElement={renderDiscountTypes()}
       anchorOrigin={{
@@ -101,16 +104,23 @@ const Total: React.FC<TotalProps> = ({
       {!products.length && editingTotal ? (
         <CustomInput
           value={total - discount}
-          onChange={({ target }) => setTotal((parseFloat(target.value) || 0) + discount)}
+          onChange={({ target }) =>
+            setTotal((parseFloat(target.value) || 0) + discount)
+          }
           classesProp={{ input: classes.totalInput }}
           id='edit-total'
         />
       ) : (
         <Align align='center'>
-          <Typography data-testid='total'>{currencyFormatter(total - discount)}</Typography>
+          <Typography data-testid='total'>
+            {currencyFormatter(total - discount)}
+          </Typography>
           {!products.length ? (
             <div>
-              <Edit className={classes.totalEditIcon} onClick={() => setEditingTotal(true)} />
+              <Edit
+                className={classes.totalEditIcon}
+                onClick={() => setEditingTotal(true)}
+              />
             </div>
           ) : null}
         </Align>
@@ -121,11 +131,13 @@ const Total: React.FC<TotalProps> = ({
   return (
     <div className={classes.totalContentDiv}>
       <div className={classes.totalSection}>
-        <Typography>Sub-Total</Typography>
-        <Typography data-testid='sub-total'>{currencyFormatter(total - tax)}</Typography>
+        <Typography>Ara Toplam</Typography>
+        <Typography data-testid='sub-total'>
+          {currencyFormatter(total - tax)}
+        </Typography>
       </div>
       <div className={classes.totalSection}>
-        <Typography>Tax</Typography>
+        <Typography>Vergi</Typography>
         <Typography data-testid='tax'>{currencyFormatter(tax)}</Typography>
       </div>
       <div className={classes.totalSection}>
@@ -133,18 +145,19 @@ const Total: React.FC<TotalProps> = ({
           <div
             className={classes.discountContainer}
             onClick={e => handleEditClick(e, 'discount')}>
-            <Typography className={classes.discount}>Discount</Typography>
+            <Typography className={classes.discount}>İndirim</Typography>
           </div>
           {renderEditPricePopover()}
           <Typography data-testid='discount'>
             <span className={classes.percentageSign}>%</span>
-            {parseFloat(percentageDiscount.toFixed(2))} / {currencyFormatter(discount)}
+            {parseFloat(percentageDiscount.toFixed(2))} /{' '}
+            {currencyFormatter(discount)}
           </Typography>
         </Fragment>
       </div>
       <Divider className={classes.totalDivider} />
       <div className={clsx(classes.totalSection, classes.totalAmount)}>
-        <Typography>Total</Typography>
+        <Typography>Toplam</Typography>
         {renderTotal()}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Popover,
   Typography,
@@ -6,14 +6,14 @@ import {
   Button,
   InputAdornment,
   PopoverOrigin,
-} from '@material-ui/core';
+} from '@material-ui/core'
 
-import styles from './styles';
-import { Props } from './types';
-import CustomInput from '../../../../common/components/customInput';
+import styles from './styles'
+import { Props } from './types'
+import CustomInput from '../../../../common/components/customInput'
 
-const EditPricePopover: React.FC<Props> = (props) => {
-  const classes = styles(props);
+const EditPricePopover: React.FC<Props> = props => {
+  const classes = styles(props)
   const {
     open,
     anchorEl,
@@ -27,21 +27,21 @@ const EditPricePopover: React.FC<Props> = (props) => {
     transformOrigin,
     currencySign,
     testId,
-  } = props;
+  } = props
 
   const renderAnchorOrigin: PopoverOrigin = anchorOrigin
     ? anchorOrigin
     : {
         vertical: 'bottom',
         horizontal: 'center',
-      };
+      }
 
   const renderTransformOrigin: PopoverOrigin = transformOrigin
     ? transformOrigin
     : {
         vertical: 'top',
         horizontal: 'center',
-      };
+      }
 
   const renderContent = () => (
     <div className={classes.popoverContentDiv}>
@@ -50,13 +50,13 @@ const EditPricePopover: React.FC<Props> = (props) => {
       <div className={classes.addPriceDiv}>
         {popoverContentElement}
         <CustomInput
-          type="number"
+          type='number'
           className={classes.numberSpinner}
           value={inputValue}
           onChange={handleInputChange}
           startAdornment={
             currencySign && (
-              <InputAdornment position="start">&#x20BA;</InputAdornment>
+              <InputAdornment position='start'>&#x20BA;</InputAdornment>
             )
           }
           inputProps={{
@@ -72,18 +72,18 @@ const EditPricePopover: React.FC<Props> = (props) => {
         <Button
           className={classes.actionBtn}
           onClick={() => handleClose()}
-          color="secondary">
-          Cancel
+          color='secondary'>
+          İptal et
         </Button>
         <Button
           onClick={() => handleCompleteEditClick()}
           className={classes.actionBtn}
-          color="primary">
-          OK
+          color='primary'>
+          Kaydet
         </Button>
       </div>
     </div>
-  );
+  )
 
   return (
     <Popover
@@ -94,7 +94,7 @@ const EditPricePopover: React.FC<Props> = (props) => {
       transformOrigin={renderTransformOrigin}>
       {renderContent()}
     </Popover>
-  );
-};
+  )
+}
 
-export default EditPricePopover;
+export default EditPricePopover
