@@ -58,6 +58,21 @@ const theme = {
         textTransform: 'none',
       },
     },
+    MuiSelect: {
+      select: {
+        '&:focus': {
+          borderRadius: 0,
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+    MuiFormLabel: {
+      root: {
+        '&$focused': {
+          color: 'inherit',
+        },
+      },
+    },
     MuiGrid: {
       'spacing-xs-3': {
         '& > $item': {

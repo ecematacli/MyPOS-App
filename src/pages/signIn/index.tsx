@@ -1,37 +1,31 @@
-import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Card, CardContent, Typography, CardMedia } from '@material-ui/core';
-import { Formik, Field, Form } from 'formik';
-import * as Yup from 'yup';
+import React, { useContext } from 'react'
+import { Redirect } from 'react-router-dom'
+import { Card, CardContent, Typography, CardMedia } from '@material-ui/core'
+import { Formik, Field, Form } from 'formik'
+import * as Yup from 'yup'
 
-import styles from './styles';
-import image from '../../assets/img/accountant.jpg';
-import useLoginState from './hooks/useLoginState';
-import { AuthContext } from '../../contexts/AuthContext';
-import CustomButton from '../../common/components/customButton';
-import SigninInput from './components/SigninInput';
-import { SIGNIN_FIELDS } from './signInFields';
+import styles from './styles'
+import image from '../../assets/img/accountant.jpg'
+import useLoginState from './hooks/useLoginState'
+import CustomButton from '../../common/components/customButton'
+import SigninInput from './components/SigninInput'
+import { SIGNIN_FIELDS } from './signInFields'
 
 export interface FormValues {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 const SignInPage: React.FC = () => {
-  const classes = styles();
-  const authenticated = useContext(AuthContext);
-  const { postSignInForm } = useLoginState();
-
-  if (authenticated) {
-    return <Redirect to="/" />;
-  }
+  const classes = styles()
+  const { postSignInForm } = useLoginState()
 
   const SigninSchema = Yup.object().shape({
     email: Yup.string()
       .email('Invalid email address')
       .required('Please enter your email address'),
     password: Yup.string().required('Please enter your password'),
-  });
+  })
 
   return (
     <div className={classes.signInPageContainer}>
@@ -39,7 +33,7 @@ const SignInPage: React.FC = () => {
         <div className={classes.cardContainer}>
           <span>
             <CardMedia
-              component="img"
+              component='img'
               className={classes.signInCardImg}
               image={image}
             />
@@ -50,11 +44,11 @@ const SignInPage: React.FC = () => {
             </div>
             <Formik<FormValues>
               initialValues={{ email: '', password: '' }}
-              onSubmit={(values) => {
-                postSignInForm(values);
+              onSubmit={values => {
+                postSignInForm(values)
               }}
               validationSchema={SigninSchema}>
-              <Form autoComplete="new-password" className={classes.signInForm}>
+              <Form autoComplete='new-password' className={classes.signInForm}>
                 {SIGNIN_FIELDS.map(({ label, name }) => (
                   <Field
                     key={label}
@@ -65,7 +59,7 @@ const SignInPage: React.FC = () => {
                     component={SigninInput}
                   />
                 ))}
-                <CustomButton data-testid="custom-button" type="submit">
+                <CustomButton data-testid='custom-button' type='submit'>
                   <Typography className={classes.btnText}>Sign In</Typography>
                 </CustomButton>
               </Form>
@@ -74,7 +68,7 @@ const SignInPage: React.FC = () => {
         </div>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default SignInPage;
+export default SignInPage

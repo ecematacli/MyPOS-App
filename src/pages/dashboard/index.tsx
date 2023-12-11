@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import React, { useEffect } from 'react'
+import { Grid } from '@material-ui/core'
 
-import styles from './styles';
-import { getInitialLastThirtyDays } from './utils';
-import DashboardDateFilter from './components/dashboardDateFilter/DashboardDateFilter';
-import useDashboardState from './hooks/useDashboardState';
-import DashboardStats from './components/dashboardStats/DashboardStats';
-import Chart from './components/chart/Chart';
-import LastActivities from './components/lastActivities/LastActivities';
-import TopSellingItems from './components/topSellingItems/TopSellingItems';
+import styles from './styles'
+import { getInitialLastThirtyDays } from './utils'
+import DashboardDateFilter from './components/dashboardDateFilter/DashboardDateFilter'
+import useDashboardState from './hooks/useDashboardState'
+import DashboardStats from './components/dashboardStats/DashboardStats'
+import Chart from './components/chart/Chart'
+import LastActivities from './components/lastActivities/LastActivities'
+import TopSellingItems from './components/topSellingItems/TopSellingItems'
 
-const DashboardPage: React.FC = () => {
-  const classes = styles();
-  const { initialStart, initialEnd } = getInitialLastThirtyDays();
+const DashboardPage = () => {
+  const classes = styles()
+  const { initialStart, initialEnd } = getInitialLastThirtyDays()
   const {
     loading: { topSellings, activities },
     startDate,
@@ -29,24 +29,23 @@ const DashboardPage: React.FC = () => {
     fetchRevenueData,
     saleStats,
     fetchSaleStats,
-    revenue
-  } = useDashboardState();
+    revenue,
+  } = useDashboardState()
 
   useEffect(() => {
-    fetchRevenueData('daily', initialStart, initialEnd);
-    fetchSaleStats(initialStart, initialEnd);
-    fetchTopSellingProducts(1, initialStart, initialEnd);
-    fetchLastActivities();
-  }, []);
+    fetchRevenueData('daily', initialStart, initialEnd)
+    fetchSaleStats(initialStart, initialEnd)
+    fetchTopSellingProducts(1, initialStart, initialEnd)
+    fetchLastActivities()
+  }, [])
 
   return (
     <div className={classes.dashboardContainer}>
       <Grid
         className={classes.dateGridContainer}
         container
-        justify="flex-end"
-        spacing={3}
-      >
+        justify='flex-end'
+        spacing={3}>
         <DashboardDateFilter
           startDate={startDate}
           endDate={endDate}
@@ -60,9 +59,8 @@ const DashboardPage: React.FC = () => {
       <Grid
         className={classes.gridContainer}
         container
-        justify="center"
-        spacing={3}
-      >
+        justify='center'
+        spacing={3}>
         <DashboardStats saleStats={saleStats} />
       </Grid>
       <Grid className={classes.gridContainer} container>
@@ -92,7 +90,7 @@ const DashboardPage: React.FC = () => {
         </Grid>
       </Grid>
     </div>
-  );
-};
+  )
+}
 
-export default DashboardPage;
+export default DashboardPage

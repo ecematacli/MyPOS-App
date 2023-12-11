@@ -21,11 +21,14 @@ import logo from '../../../assets/img/merit.png'
 import { MENU_ITEMS, SubMenuItem } from './menuItemList'
 import history from '../../../history'
 import Notifications from '../notifications/Notifications'
-import { AuthContext, AuthTokenSettingContext } from '../../../contexts/AuthContext'
+import {
+  AuthContext,
+  AuthTokenSettingContext,
+} from '../../../contexts/AuthContext'
 
 const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const classes = styles()
-  const authenticated = useContext(AuthContext)
+  const { isAuthenticated, user } = useContext(AuthContext)
   const { clearAuthToken } = useContext(AuthTokenSettingContext)
   const [openedItems, setOpenedItems] = useState<{ [key: string]: boolean }>({})
   const [mobileOpen, setMobileOpen] = useState<boolean>(false)
@@ -56,9 +59,7 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         }}>
         <Collapse in={openedItems[item]} timeout='auto' unmountOnExit>
           <List component='div' disablePadding>
-            <ListItem
-              button
-              className={classes.subMenuItems}>
+            <ListItem button className={classes.subMenuItems}>
               <ListItemIcon className={classes.subMenuIcons}>
                 <Icon />
               </ListItemIcon>
@@ -77,46 +78,62 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </div>
       </ListItem>
       <Divider className={classes.divider} />
-      {MENU_ITEMS.map(({ label, item, url, subMenuItems, Icon }, i) => {
-        if (subMenuItems) {
+      {MENU_ITEMS.map(
+        ({ label, item, url, subMenuItems, allowedRoles, Icon }, i) => {
+          if (!allowedRoles.includes(user?.role)) {
+            return <React.Fragment key={label} />
+          }
+
+          if (subMenuItems) {
+            return (
+              <div key={label}>
+                <ListItem button onClick={() => toggleOpenedItems(item)}>
+                  <IconButton className={classes.drawerIcon}>
+                    <Icon />
+                  </IconButton>
+                  <ListItemText
+                    className={classes.drawerItemText}
+                    inset
+                    primary={label}
+                  />
+                  {openedItems[item] ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                {renderSubMenuItems(subMenuItems, item)}
+              </div>
+            )
+          }
           return (
             <div key={label}>
-              <ListItem button onClick={() => toggleOpenedItems(item)}>
+              {i === MENU_ITEMS.length - 1 && (
+                <Divider className={classes.divider} />
+              )}
+              <ListItem
+                onClick={() => {
+                  history.push(url)
+                  handleCloseMenu()
+                  item === 'signout' && onSignOutClick()
+                }}
+                key={label}
+                button>
                 <IconButton className={classes.drawerIcon}>
                   <Icon />
                 </IconButton>
-                <ListItemText className={classes.drawerItemText} inset primary={label} />
-                {openedItems[item] ? <ExpandLess /> : <ExpandMore />}
+                <ListItemText
+                  className={classes.drawerItemText}
+                  inset
+                  primary={label}
+                />
               </ListItem>
-              {renderSubMenuItems(subMenuItems, item)}
             </div>
           )
         }
-        return (
-          <div key={label}>
-            {i === MENU_ITEMS.length - 1 && <Divider className={classes.divider} />}
-            <ListItem
-              onClick={() => {
-                history.push(url)
-                handleCloseMenu()
-                item === 'signout' && onSignOutClick()
-              }}
-              key={label}
-              button>
-              <IconButton className={classes.drawerIcon}>
-                <Icon />
-              </IconButton>
-              <ListItemText className={classes.drawerItemText} inset primary={label} />
-            </ListItem>
-          </div>
-        )
-      })}
+      )}
     </List>
   )
   return (
     <div className={classes.drawerRoot}>
       <CssBaseline />
-      {authenticated ? (
+      {isAuthenticated ? (
         <Fragment>
           <AppBar classes={{ root: classes.appBar }}>
             <div className={classes.menuIconContainer}>

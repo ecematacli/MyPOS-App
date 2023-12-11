@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { connect } from 'react-redux'
-import { Grid, IconButton, Typography } from '@material-ui/core'
+import { Grid, IconButton, Typography, Box } from '@material-ui/core'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+import StoreIcon from '@material-ui/icons/StoreOutlined'
 import { Add } from '@material-ui/icons'
 
 import styles from './styles'
@@ -14,6 +15,8 @@ import ProductSearchBar from './components/productSearchBar/ProductSearchBar'
 import PosTableRight from './components/posTableRight'
 import { PaymentMethod } from '../../redux/sales/types'
 import CreateProductModal from './components/CreateProductModal'
+import { AuthContext } from '../../contexts/AuthContext'
+import { OutletName } from './components/outlet-name/OutletName'
 
 interface SalesProps {
   completeSale: (
@@ -35,6 +38,7 @@ const SalesPage: React.FC<SalesProps> = ({
   fetchCategories,
 }) => {
   const classes = styles()
+  const { user } = useContext(AuthContext)
   const [createProductModalOpen, setCreateProductModalOpen] = useState(false)
   const {
     products,
@@ -66,25 +70,28 @@ const SalesPage: React.FC<SalesProps> = ({
         onClose={() => setCreateProductModalOpen(false)}
         createProduct={createProduct}
       />
-      <div className={classes.salesContainer}>
+      <Box className={classes.salesContainer}>
         <Grid container spacing={0} justify='center'>
           {/*
          // @ts-ignore */}
           <Grid item align='center' className={classes.discardSaleGridItem}>
-            <div className={classes.discardSaleBtnHolder}>
-              <IconButton
-                classes={{ root: classes.discardIconBtn }}
-                onClick={discardSale}>
-                <DeleteForeverIcon className={classes.discardSaleBtn} />
-                <Typography>Satışı İptal Et</Typography>
-              </IconButton>
-              <IconButton
-                classes={{ root: classes.discardIconBtn }}
-                onClick={() => setCreateProductModalOpen(true)}>
-                <Add className={classes.discardSaleBtn} />
-                <Typography>Ürün Ekle</Typography>
-              </IconButton>
-            </div>
+            <Box className={classes.discardSaleBtnHolder}>
+              <OutletName />
+              <Box>
+                <IconButton
+                  classes={{ root: classes.iconBtn }}
+                  onClick={discardSale}>
+                  <DeleteForeverIcon />
+                  <Typography>Satışı İptal Et</Typography>
+                </IconButton>
+                <IconButton
+                  classes={{ root: classes.iconBtn }}
+                  onClick={() => setCreateProductModalOpen(true)}>
+                  <Add />
+                  <Typography>Ürün Ekle</Typography>
+                </IconButton>
+              </Box>
+            </Box>
           </Grid>
           {/*
         // @ts-ignore */}
@@ -130,7 +137,7 @@ const SalesPage: React.FC<SalesProps> = ({
             />
           </Grid>
         </Grid>
-      </div>
+      </Box>
     </div>
   )
 }
