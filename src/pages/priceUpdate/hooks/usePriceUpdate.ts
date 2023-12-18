@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import api from '../../../api'
+import api from '../../../api/api-client'
 
 export interface UploadError {
   message: string
@@ -22,9 +22,11 @@ export default () => {
   const [uploadError, setUploadError] = useState<UploadError>(null)
   const [result, setResult] = useState<PriceUpdateResponse>(null)
 
-  const handleUploadedFileName = (fileName: string) => setUploadedFileName(fileName)
+  const handleUploadedFileName = (fileName: string) =>
+    setUploadedFileName(fileName)
 
-  const handleUploadedFile = (formData: FormData) => setUploadedFileData(formData)
+  const handleUploadedFile = (formData: FormData) =>
+    setUploadedFileData(formData)
 
   const sendFile = async (file: FormData) => {
     try {

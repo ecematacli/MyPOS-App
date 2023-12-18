@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 
-import api from '../../../api'
-import { FormValues } from '../index'
+import api from '../../../api/api-client'
 import { AuthTokenSettingContext } from '../../../contexts/AuthContext'
 import { NotificationsContext } from '../../../contexts/NotificationsContext'
 import history from '../../../history'
+import { FormValues } from '..'
 
 export default () => {
   const { saveAuthToken } = useContext(AuthTokenSettingContext)

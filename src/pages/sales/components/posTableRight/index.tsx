@@ -8,6 +8,7 @@ import {
   ExpansionPanelDetails,
   Typography,
   Button,
+  Box,
 } from '@material-ui/core'
 import clsx from 'clsx'
 
@@ -28,6 +29,7 @@ import {
 import { Align } from '../../../../common/components/Align'
 import { PAYMENT_METHODS } from '../../../../redux/sales/types'
 import { translatePaymentMethodLabel } from '../../../../common/utils/translation'
+import { AuthContext } from '../../../../contexts/AuthContext'
 
 const PosTableRight: React.FC<PosTableProps> = ({
   products,
@@ -52,6 +54,9 @@ const PosTableRight: React.FC<PosTableProps> = ({
 }) => {
   const classes = styles()
   const { addNotification } = useContext(NotificationsContext)
+  const {
+    user: { role },
+  } = useContext(AuthContext)
 
   const {
     handleEditClick,
@@ -67,19 +72,20 @@ const PosTableRight: React.FC<PosTableProps> = ({
   })
 
   const onCompleteSaleClick = () =>
-    completeSale(
+    completeSale({
       products,
       total,
       discount,
       description,
       paymentMethod,
       addNotification,
-      discardSale
-    )
+      discardSale,
+      outletId: role.outletId,
+    })
 
   return (
     <Paper elevation={0} className={classes.root}>
-      <div className={classes.paperRoot}>
+      <Box className={classes.paperRoot}>
         <POSProductTable
           products={products}
           deleteProduct={deleteProduct}
@@ -144,7 +150,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
           handleClose={handleClose}
           setTotal={setTotal}
         />
-      </div>
+      </Box>
       <Divider className={classes.totalDivider} />
       <Align padding={[1]}>
         <CustomButton
@@ -152,14 +158,14 @@ const PosTableRight: React.FC<PosTableProps> = ({
           onClick={onCompleteSaleClick}
           fullWidth
           disabled={!products.length}>
-          <div className={classes.paymentBtnTextHolder}>
+          <Box className={classes.paymentBtnTextHolder}>
             <Typography className={classes.paymentBtnTxt}>
               {'Satış Tamamla'.toLocaleUpperCase('tr-TR')}
             </Typography>
             <Typography className={classes.paymentBtnTxt}>
               {currencyFormatter(total - discount)}
             </Typography>
-          </div>
+          </Box>
         </CustomButton>
       </Align>
     </Paper>

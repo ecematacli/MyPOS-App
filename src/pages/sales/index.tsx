@@ -18,16 +18,17 @@ import CreateProductModal from './components/CreateProductModal'
 import { AuthContext } from '../../contexts/AuthContext'
 import { OutletName } from './components/outlet-name/OutletName'
 
+interface SalesArgs {
+  products: Product[]
+  total: number
+  discount: number
+  description: string
+  paymentMethod: PaymentMethod
+  addNotification: (m: string, t: string) => void
+  discardSale: () => void
+}
 interface SalesProps {
-  completeSale: (
-    products: Product[],
-    total: number,
-    discount: number,
-    description: string,
-    paymentMethod: PaymentMethod,
-    addNotification: (m: string, t: string) => void,
-    discardSale: () => void
-  ) => void
+  completeSale: (args: SalesArgs) => void
   fetchBrands: () => void
   fetchCategories: () => void
 }

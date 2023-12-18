@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 
 import { NotificationsContext } from '../../../contexts/NotificationsContext'
-import api from '../../../api'
+import api from '../../../api/api-client'
 import { Outlet, ProductToTransfer } from '../types'
 import { useGetRequest } from '../../../common/hooks/useGetRequest'
 import history from '../../../history'
@@ -19,7 +19,9 @@ export const useNewTransferState = () => {
     if (existing) {
       setProducts(pp =>
         pp.map(p =>
-          p.id === existing.id ? { ...existing, qtyToTransfer: existing.qtyToTransfer + 1 } : p
+          p.id === existing.id
+            ? { ...existing, qtyToTransfer: existing.qtyToTransfer + 1 }
+            : p
         )
       )
     } else {
@@ -29,11 +31,15 @@ export const useNewTransferState = () => {
 
   const changeQtyToTransfer = (id: number) => (change: number) => {
     setProducts(
-      products.map(p => (p.id === id ? { ...p, qtyToTransfer: p.qtyToTransfer + change } : p))
+      products.map(p =>
+        p.id === id ? { ...p, qtyToTransfer: p.qtyToTransfer + change } : p
+      )
     )
   }
 
-  const searchProducts = async (query: string): Promise<ProductToTransfer[]> => {
+  const searchProducts = async (
+    query: string
+  ): Promise<ProductToTransfer[]> => {
     try {
       const { data } = await api.get(`/products/search/?q=${query}`)
       return data
@@ -67,7 +73,9 @@ export const useNewTransferState = () => {
     }
   }
 
-  const changeOutlet = ({ target: { value, name } }: React.ChangeEvent<HTMLInputElement>) => {
+  const changeOutlet = ({
+    target: { value, name },
+  }: React.ChangeEvent<HTMLInputElement>) => {
     switch (name) {
       case 'origin':
         return setSelectedOrigin(parseInt(value))

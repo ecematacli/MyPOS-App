@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 
-import api from '../../api'
+import api from '../../api/api-client'
 
-export const useGetRequest = <R>(url: string): { loading: boolean; value: R; error: any } => {
+export const useGetRequest = <R>(
+  url: string
+): { loading: boolean; value: R; error: any } => {
   const [loading, setLoading] = useState(false)
   const [value, setValue] = useState(null)
   const [error, setError] = useState(null)

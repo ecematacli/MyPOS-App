@@ -10,37 +10,31 @@ import {
   Box,
 } from '@material-ui/core'
 import { AuthContext } from '../../../../contexts/AuthContext'
-
-const outlets = [
-  {
-    id: 0,
-    name: 'Enka',
-  },
-  {
-    id: 1,
-    name: 'Koza',
-  },
-]
+import { useCatalogInfo } from '../../../../contexts/CatalogInfoContext'
 
 export const OutletName = () => {
   const classes = styles()
   const { user } = useContext(AuthContext)
+  const { outlets } = useCatalogInfo()
 
-  const [selectedOutlet, setSelectedOutlet] = useState(user.outlet.name)
-  console.log(user.outlet.name)
+  const [selectedOutletId, setSelectedOutletId] = useState(user.role.outletId)
+
   const handleChange = (event: React.ChangeEvent<{ value: string }>) => {
-    console.log({ value: event.target.value })
-    setSelectedOutlet(event.target.value as string)
+    setSelectedOutletId(parseInt(event.target.value))
+
+    // todo make the API request when admin changes the outlet
   }
+
+  const outlet = outlets.find(outlet => outlet.id === user.role.outletId)
 
   return (
     <React.Fragment>
-      {user.role === 'admin' && (
+      {/* {isAdmin && (
         <TextField
           id='standard-select-currency'
           select
           label='Şube Seç'
-          value={selectedOutlet}
+          value={selectedOutletId}
           onChange={handleChange}
           InputProps={{ classes: { root: classes.dropdownInput } }}
           InputLabelProps={{
@@ -50,21 +44,19 @@ export const OutletName = () => {
             },
           }}>
           {outlets.map(outlet => (
-            <MenuItem key={outlet.id} value={outlet.name}>
+            <MenuItem key={outlet.id} value={outlet.id}>
               {outlet.name}
             </MenuItem>
           ))}
         </TextField>
-      )}
+      )} */}
       <Box className={classes.outletWrapper}>
         <StoreIcon className={classes.iconBtn} />
         <IconButton
           classes={{ root: classes.iconBtn }}
           disableFocusRipple
           disableRipple>
-          <Typography className={classes.outletName}>
-            {user.outlet.name.toLocaleUpperCase('tr-TR')}
-          </Typography>
+          <Typography className={classes.outletName}>{outlet?.name}</Typography>
         </IconButton>
       </Box>
     </React.Fragment>

@@ -10,20 +10,23 @@ import configureStore from './redux/store'
 import { AuthContextProvider } from './contexts/AuthContext'
 import { NotificationsProvider } from './contexts/NotificationsContext'
 import { GlobalStyles } from './GlobalStyles'
+import { CatalogInfoProvider } from './contexts/CatalogInfoContext'
 
 const store = configureStore()
 
 export const App = () => (
   <Provider store={store}>
     <AuthContextProvider>
-      <NotificationsProvider>
-        <GlobalStyles />
-        <ThemeProvider theme={theme}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <AppRouter />
-          </MuiPickersUtilsProvider>
-        </ThemeProvider>
-      </NotificationsProvider>
+      <CatalogInfoProvider>
+        <NotificationsProvider>
+          <GlobalStyles />
+          <ThemeProvider theme={theme}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <AppRouter />
+            </MuiPickersUtilsProvider>
+          </ThemeProvider>
+        </NotificationsProvider>
+      </CatalogInfoProvider>
     </AuthContextProvider>
   </Provider>
 )

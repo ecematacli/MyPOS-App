@@ -1,4 +1,4 @@
-import api from '../../api'
+import api from '../../api/api-client'
 
 interface Props {
   onSuccess?: (data: any) => void
@@ -7,7 +7,10 @@ interface Props {
 }
 
 export const usePostRequest = () => {
-  const submit = async (url: string, { payload, onError, onSuccess }: Props) => {
+  const submit = async (
+    url: string,
+    { payload, onError, onSuccess }: Props
+  ) => {
     try {
       const { data } = await api.post(url, payload)
       onSuccess && onSuccess(data)

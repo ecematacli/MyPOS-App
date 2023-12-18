@@ -13,6 +13,17 @@ export interface EditActionArgs {
   addNotification: (m?: string, t?: string) => void
 }
 
+export interface SalesArgs {
+  products: Product[]
+  total: number
+  discount: number
+  description: string
+  paymentMethod: PaymentMethod
+  addNotification: (m: string, t: string) => void
+  discardSale: () => void
+  outletId: number
+}
+
 export type EditProductAction = ({
   updatedField,
   productId,
@@ -38,15 +49,7 @@ export interface PosTableProps {
   setDiscount: SetNumberState
   percentageDiscount: number
   setPercentageDiscount: SetNumberState
-  completeSale: (
-    products: Product[],
-    total: number,
-    discount: number,
-    description: string,
-    paymentMethod: PaymentMethod,
-    addNotification: (m: string, t: string) => void,
-    discardSale: () => void
-  ) => void
+  completeSale: (args: SalesArgs) => void
   discardSale: () => void
   editProduct: EditProductAction
   paymentMethod: PaymentMethod
@@ -66,7 +69,12 @@ export interface TotalProps {
   setPercentageDiscount: SetNumberState
   discardSale: () => void
   anchorEl: { [key: string]: EventTarget & HTMLDivElement }
-  handleEditClick: (e: ClickEvent, field: string, id?: number, product?: Product) => void
+  handleEditClick: (
+    e: ClickEvent,
+    field: string,
+    id?: number,
+    product?: Product
+  ) => void
   onCompleteDiscountEditClick: (
     total: number,
     discountType: string,

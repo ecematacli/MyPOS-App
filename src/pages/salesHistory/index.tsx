@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { connect } from 'react-redux'
 
 import { ActionTypes, StoreState } from '../../redux/types'
@@ -7,20 +7,25 @@ import { Sale } from '../../redux/sales/types'
 import { loadingSelector } from '../../redux/loading/loadingReducer'
 import { formatDate } from '../../common/utils'
 import { TABLE_HEADS } from './tableHeads'
-import useSalesFiltersState from './hooks/useSalesFiltersState'
+import { useSalesFilterState } from './hooks/useSalesFiltersState'
 import Loading from '../../common/components/loading'
 import CustomTable from '../../common/components/tables/customTable'
 import SaleDetails from './components/saleDetails/SaleDetails'
 import SalesFilters from './components/salesFilters/SalesFilters'
+import { Box } from '@material-ui/core'
+import { fetchOutlets } from '../../api/outlets/outlets'
+import { Outlets } from '../../api/outlets/types'
 
+export interface IFetchSalesArgs {
+  rowsPerPage: number
+  afterCursor?: string
+  beforeCursor?: string
+  startDate?: Date
+  endDate?: Date
+  outletId?: number
+}
 interface SalesHistoryProps {
-  fetchSales: (
-    rowsPerPage: number,
-    afterCursor?: string,
-    beforeCursor?: string,
-    startDate?: Date,
-    endDate?: Date
-  ) => void
+  fetchSales: (args: IFetchSalesArgs) => void
   sales: { [id: string]: Sale }
   count: number
   ids: number[]
@@ -38,6 +43,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
 }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [page, setPage] = useState(1)
+  const [outlets, setOutlets] = useState<Outlets>([])
 
   const {
     startDate,
@@ -46,26 +52,29 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     handleEndDateChange,
     onDateSelection,
     onDateFilterClearing,
-  } = useSalesFiltersState({
+    handleOutletChange,
+    selectedOutlet,
+  } = useSalesFilterState({
     rowsPerPage,
     setPage,
     fetchSales,
   })
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
   ) => {
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
     if (newPage + 1 < 0) return
 
-    fetchSales(
+    fetchSales({
       rowsPerPage,
-      newPage + 1 > page && cursors.after,
-      newPage + 1 < page && cursors.before,
+      afterCursor: newPage + 1 > page && cursors.after,
+      beforeCursor: newPage + 1 < page && cursors.before,
       startDate,
-      endDate
-    )
+      endDate,
+      outletId: selectedOutlet?.id,
+    })
 
     setPage(newPage + 1)
   }
@@ -79,11 +88,25 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     if (Math.ceil(count / rowsPerPage) === page) {
       setPage(1)
     }
-    fetchSales(numValue, null, null, startDate, endDate)
+    fetchSales({
+      rowsPerPage: numValue,
+      afterCursor: null,
+      beforeCursor: null,
+      startDate,
+      endDate,
+      outletId: selectedOutlet?.id,
+    })
   }
 
   useEffect(() => {
-    fetchSales(rowsPerPage)
+    const fetchSalesAndOutlets = async () => {
+      fetchSales({ rowsPerPage, outletId: selectedOutlet?.id })
+
+      const outlets = await fetchOutlets()
+      setOutlets(outlets)
+    }
+
+    fetchSalesAndOutlets()
   }, [])
 
   const salesInOrder = (): Sale[] => ids.map((saleId: number) => sales[saleId])
@@ -95,14 +118,17 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     }))
 
   return (
-    <div style={{ padding: 24 }}>
+    <Box style={{ padding: 24 }}>
       <SalesFilters
+        outlets={outlets}
         startDate={startDate}
         endDate={endDate}
         handleStartDateChange={handleStartDateChange}
         handleEndDateChange={handleEndDateChange}
         onDateSelection={onDateSelection}
         onDateFilterClearing={onDateFilterClearing}
+        handleOutletChange={handleOutletChange}
+        selectedOutlet={selectedOutlet}
       />
       {isFetching ? (
         <Loading />
@@ -119,7 +145,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
           component={SaleDetails}
         />
       )}
-    </div>
+    </Box>
   )
 }
 

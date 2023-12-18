@@ -1,25 +1,14 @@
 import React, { useState, createContext, useEffect } from 'react'
 
 import history from '../history'
-// import api from '../api'
-
-export type UserRole = 'admin' | 'employee'
-
-interface User {
-  email: string
-  id: string
-  name: string
-  role: UserRole
-  outlet: {
-    id: number
-    name: string
-  }
-}
+import { fetchUser } from '../api/user/user'
+import { User, UserRoles } from '../api/user/types'
 
 type AuthContext = {
   isAuthenticated: boolean
   user: User | null
   isUserDataLoaded: boolean
+  isAdmin: boolean
 }
 
 type SaveAuthToken = (data: string | null) => void
@@ -43,6 +32,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isAuthenticated, setIsAuthenticated] = useState(initialToken)
   const [user, setUser] = useState<User | null>(null)
   const [isUserDataLoaded, setIsUserDataLoaded] = useState<boolean>(false)
+  const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
   const saveAuthToken: SaveAuthToken = async (data = null) => {
     localStorage.setItem('token', JSON.stringify(data))
@@ -59,31 +49,20 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   useEffect(() => {
-    try {
-      // TODO: Fetch user role from the API
-      // const response = await api.get<string>('/user')
-      // response && setUser(response.data)
-      const { data } = {
-        data: {
-          email: '',
-          id: '',
-          name: '',
-          role: 'employee' as UserRole,
-          outlet: {
-            id: 0,
-            name: 'Koza',
-          },
-        },
-      }
-      setUser(data)
+    const fetchUserOnAppLoad = async () => {
+      const user = await fetchUser()
+      user && setUser(user)
+      setIsAdmin(user.role.name === UserRoles.Admin)
+
       setIsUserDataLoaded(true)
-    } catch (e) {
-      console.log(e)
     }
+
+    fetchUserOnAppLoad()
   }, [isAuthenticated])
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, isUserDataLoaded }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, user, isUserDataLoaded, isAdmin }}>
       <AuthTokenSettingContext.Provider
         value={{ saveAuthToken, clearAuthToken }}>
         {children}

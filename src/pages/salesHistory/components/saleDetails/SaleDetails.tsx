@@ -11,7 +11,6 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import api from '../../../../api'
 import styles from './styles'
 import { Sale } from '../../../../redux/sales/types'
 import { currencyFormatter } from '../../../../common/utils'
@@ -52,9 +51,22 @@ const SaleDetails: React.FC<DetailsProps> = props => {
 
   const tableBody = () => {
     return products?.map((product, key) => {
-      const { sku, name, variation, qty, price, discountPrice, synced } = product
+      const {
+        sku,
+        name,
+        variation,
+        qty,
+        price,
+        discountPrice,
+        synced,
+      } = product
       return (
-        <TableRow role='checkbox' hover tabIndex={-1} key={key} className={classes.tableBodyRow}>
+        <TableRow
+          role='checkbox'
+          hover
+          tabIndex={-1}
+          key={key}
+          className={classes.tableBodyRow}>
           <TableCell>{sku}</TableCell>
           <TableCell>{name ? name : '-'}</TableCell>
           <TableCell align='center'>
@@ -62,15 +74,23 @@ const SaleDetails: React.FC<DetailsProps> = props => {
               <SyncedIcon synced={synced} />
               {!synced && (
                 <IconButton size='small'>
-                  <Refresh onClick={() => reSync({ id, type: 'sale', products: [product] })} />
+                  <Refresh
+                    onClick={() =>
+                      reSync({ id, type: 'sale', products: [product] })
+                    }
+                  />
                 </IconButton>
               )}
             </Align>
           </TableCell>
           <TableCell align='right'>{variation ? variation : '-'}</TableCell>
           <TableCell align='right'>{qty}</TableCell>
-          <TableCell align='right'>{price ? currencyFormatter(price) : '-'}</TableCell>
-          <TableCell align='right'>{discountPrice ? currencyFormatter(discountPrice) : '-'}</TableCell>
+          <TableCell align='right'>
+            {price ? currencyFormatter(price) : '-'}
+          </TableCell>
+          <TableCell align='right'>
+            {discountPrice ? currencyFormatter(discountPrice) : '-'}
+          </TableCell>
         </TableRow>
       )
     })
@@ -87,7 +107,7 @@ const SaleDetails: React.FC<DetailsProps> = props => {
         </Table>
       </div>
       <div className={classes.detailTotal}>
-        {!reSyncBtnClicked && outlet != 'Web' && products?.length ? (
+        {!reSyncBtnClicked && outlet.name != 'Web' && products?.length ? (
           <Button
             variant='contained'
             color='primary'
@@ -100,7 +120,9 @@ const SaleDetails: React.FC<DetailsProps> = props => {
           <div />
         )}
         <div>
-          <Typography className={classes.total}>Total &nbsp; {currencyFormatter(total)}</Typography>
+          <Typography className={classes.total}>
+            Total &nbsp; {currencyFormatter(total)}
+          </Typography>
         </div>
       </div>
     </Paper>

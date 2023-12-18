@@ -19,9 +19,10 @@ import StockOrderUpload from '../pages/stockOrderUpload'
 import { NewTransfer } from '../pages/stockTransfers/newTransfer'
 import { StockTransfers } from '../pages/stockTransfers'
 import { AuthContext } from '../contexts/AuthContext'
+import PriceUpdatePage from '../pages/priceUpdate'
 
 export const AppRouter = () => {
-  const { user } = useContext(AuthContext)
+  const { isAdmin } = useContext(AuthContext)
 
   return (
     <Router history={history}>
@@ -93,7 +94,7 @@ export const AppRouter = () => {
             <PrivateRoute
               path='/'
               exact
-              component={user?.role === 'admin' ? DashboardPage : SalesPage}
+              component={isAdmin ? DashboardPage : SalesPage}
             />
           </Switch>
         </ErrorBoundary>

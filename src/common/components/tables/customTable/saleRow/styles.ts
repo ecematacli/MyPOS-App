@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   tableBodyRow: {
@@ -34,4 +34,8 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     color: '#d84545',
     borderColor: '#d84545',
   },
-}));
+  greenChip: {
+    color: '#4caf50',
+    borderColor: '#4caf50',
+  },
+}))

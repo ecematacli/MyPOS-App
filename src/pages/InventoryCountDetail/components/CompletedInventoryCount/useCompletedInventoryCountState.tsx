@@ -1,11 +1,13 @@
 import { useGetRequest } from '../../../../common/hooks/useGetRequest'
 import { BatchData, BatchesProductsData } from '../OpenInventoryCount/types'
 import { useState, useEffect } from 'react'
-import api from '../../../../api'
+import api from '../../../../api/api-client'
 
 export const useCompletedInventoryCountState = (batchId: string) => {
   const [loading, setLoading] = useState(false)
-  const { value: batch } = useGetRequest<BatchData>(`/inventory-count/${batchId}`)
+  const { value: batch } = useGetRequest<BatchData>(
+    `/inventory-count/${batchId}`
+  )
   const [currentTab, setCurrentTab] = useState('all')
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
@@ -50,10 +52,19 @@ export const useCompletedInventoryCountState = (batchId: string) => {
     }
   }
 
-  const handleTabsChange = (e: React.ChangeEvent<HTMLInputElement>, newValue: string) => {
+  const handleTabsChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    newValue: string
+  ) => {
     setCurrentTab(newValue)
     setPage(1)
-    fetchBatchProducts(batchId, newValue, 1, rowsPerPage, tabValToSyncFilter(newValue))
+    fetchBatchProducts(
+      batchId,
+      newValue,
+      1,
+      rowsPerPage,
+      tabValToSyncFilter(newValue)
+    )
   }
 
   // Input handlers on pagination
@@ -63,7 +74,13 @@ export const useCompletedInventoryCountState = (batchId: string) => {
     const numValue = parseInt(value)
     setRowsPerPage(numValue)
 
-    fetchBatchProducts(batchId, currentTab, page, numValue, tabValToSyncFilter(currentTab))
+    fetchBatchProducts(
+      batchId,
+      currentTab,
+      page,
+      numValue,
+      tabValToSyncFilter(currentTab)
+    )
   }
 
   const handleChangePage = (

@@ -1,24 +1,26 @@
 import { Dispatch } from 'redux'
 import { ActionTypes, ApiAction } from '../types'
 
-import { SaleData, PaymentMethod } from './types'
+import { SaleData } from './types'
 import createAPIAction from '../createAPIAction'
-import { Product } from '../products/types'
+import { SalesArgs } from '../../pages/sales/components/posTableRight/types'
 
-export const completeSale = (
-  products: Product[],
-  total: number,
-  discount: number,
-  description: string,
-  paymentMethod: PaymentMethod,
-  addNotification: (m: string, t: string) => void,
-  discardSale: () => void
-) => async (dispatch: Dispatch) => {
+export const completeSale = ({
+  products,
+  total,
+  discount,
+  description,
+  paymentMethod,
+  addNotification,
+  discardSale,
+  outletId,
+}: SalesArgs) => async (dispatch: Dispatch) => {
   const saleData: SaleData = {
     products,
     total: total - discount,
     discount,
     paymentMethod,
+    outletId,
   }
 
   if (description) {
@@ -40,19 +42,32 @@ export const completeSale = (
   )
 }
 
-export const fetchSales = (
-  rowsPerPage: number = 10,
-  afterCursor?: string,
-  beforeCursor?: string,
-  startDate?: Date,
+export const fetchSales = ({
+  rowsPerPage = 10,
+  afterCursor,
+  beforeCursor,
+  startDate,
+  endDate,
+  outletId,
+}: {
+  rowsPerPage: number
+  afterCursor?: string
+  beforeCursor?: string
+  startDate?: Date
   endDate?: Date
-) => async (dispatch: Dispatch) => {
+  outletId?: number
+}) => async (dispatch: Dispatch) => {
   let url = `/sales?rowsPerPage=${rowsPerPage}`
+
   if (afterCursor) {
     url += `&after=${afterCursor}`
   }
   if (beforeCursor) {
     url += `&before=${beforeCursor}`
+  }
+
+  if (outletId) {
+    url += `&outletId=${outletId}`
   }
 
   if (startDate) {

@@ -4,7 +4,6 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
   filterPaper: {
     minWidth: 400,
     height: 220,
-    padding: spacing(3.4, 4),
     overflowY: 'auto',
     [breakpoints.down('sm')]: {
       width: 400,
@@ -43,18 +42,5 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
     borderBottom: `1px solid ${palette.secondary.light}`,
     fontSize: spacing(2),
     color: 'rgba(0, 0, 0, 0.54)',
-  },
-  filterBtnDiv: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: spacing(6),
-    '@media (max-width:420px)': {
-      paddingRight: spacing(7),
-      marginBottom: -spacing(3),
-    },
-  },
-  filterBtn: {
-    textTransform: 'capitalize',
-    fontSize: spacing(2),
   },
 }))

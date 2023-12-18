@@ -11,6 +11,8 @@ import {
   ListItemText,
   IconButton,
   Collapse,
+  Box,
+  Typography,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import ExpandLess from '@material-ui/icons/ExpandLess'
@@ -25,14 +27,16 @@ import {
   AuthContext,
   AuthTokenSettingContext,
 } from '../../../contexts/AuthContext'
+import Loading from '../loading'
 
 const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const classes = styles()
-  const { isAuthenticated, user } = useContext(AuthContext)
+  const { isAuthenticated, user, isUserDataLoaded } = useContext(AuthContext)
   const { clearAuthToken } = useContext(AuthTokenSettingContext)
   const [openedItems, setOpenedItems] = useState<{ [key: string]: boolean }>({})
   const [mobileOpen, setMobileOpen] = useState<boolean>(false)
 
+  // console.log({ isUserDataLoaded })
   const onSignOutClick = (): void => {
     clearAuthToken()
   }
@@ -47,6 +51,10 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   const handleCloseMenu = (): void => {
     setMobileOpen(false)
+  }
+
+  if (!isUserDataLoaded) {
+    return <Loading />
   }
 
   const renderSubMenuItems = (subMenuItems: SubMenuItem[], item: string) =>
@@ -71,23 +79,51 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     ))
 
   const drawer = (
-    <List className={classes.drawerListItems}>
-      <ListItem>
-        <div className={classes.logoWrapper}>
-          <img className={classes.logoImg} src={logo} alt='logo' />
-        </div>
-      </ListItem>
-      <Divider className={classes.divider} />
-      {MENU_ITEMS.map(
-        ({ label, item, url, subMenuItems, allowedRoles, Icon }, i) => {
-          if (!allowedRoles.includes(user?.role)) {
-            return <React.Fragment key={label} />
-          }
+    <Box className={classes.drawerListContainer}>
+      <List className={classes.drawerListItems}>
+        <ListItem>
+          <div className={classes.logoWrapper}>
+            <img className={classes.logoImg} src={logo} alt='logo' />
+          </div>
+        </ListItem>
+        <Divider className={classes.divider} />
+        {MENU_ITEMS.map(
+          ({ label, item, url, subMenuItems, allowedRoles, Icon }, i) => {
+            if (!allowedRoles.includes(user?.role.name)) {
+              return <React.Fragment key={label} />
+            }
 
-          if (subMenuItems) {
+            if (subMenuItems) {
+              return (
+                <div key={label}>
+                  <ListItem button onClick={() => toggleOpenedItems(item)}>
+                    <IconButton className={classes.drawerIcon}>
+                      <Icon />
+                    </IconButton>
+                    <ListItemText
+                      className={classes.drawerItemText}
+                      inset
+                      primary={label}
+                    />
+                    {openedItems[item] ? <ExpandLess /> : <ExpandMore />}
+                  </ListItem>
+                  {renderSubMenuItems(subMenuItems, item)}
+                </div>
+              )
+            }
             return (
               <div key={label}>
-                <ListItem button onClick={() => toggleOpenedItems(item)}>
+                {i === MENU_ITEMS.length - 1 && (
+                  <Divider className={classes.divider} />
+                )}
+                <ListItem
+                  onClick={() => {
+                    history.push(url)
+                    handleCloseMenu()
+                    item === 'signout' && onSignOutClick()
+                  }}
+                  key={label}
+                  button>
                   <IconButton className={classes.drawerIcon}>
                     <Icon />
                   </IconButton>
@@ -96,39 +132,16 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     inset
                     primary={label}
                   />
-                  {openedItems[item] ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
-                {renderSubMenuItems(subMenuItems, item)}
               </div>
             )
           }
-          return (
-            <div key={label}>
-              {i === MENU_ITEMS.length - 1 && (
-                <Divider className={classes.divider} />
-              )}
-              <ListItem
-                onClick={() => {
-                  history.push(url)
-                  handleCloseMenu()
-                  item === 'signout' && onSignOutClick()
-                }}
-                key={label}
-                button>
-                <IconButton className={classes.drawerIcon}>
-                  <Icon />
-                </IconButton>
-                <ListItemText
-                  className={classes.drawerItemText}
-                  inset
-                  primary={label}
-                />
-              </ListItem>
-            </div>
-          )
-        }
-      )}
-    </List>
+        )}
+      </List>
+      <Box className={classes.userInfoBox}>
+        <Typography className={classes.emailAddress}>{user.email}</Typography>
+      </Box>
+    </Box>
   )
   return (
     <div className={classes.drawerRoot}>
