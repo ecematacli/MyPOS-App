@@ -15,6 +15,7 @@ http://stock-management-ui-staging.s3-website.eu-central-1.amazonaws.com/
 
 ![Inventory Counting](inventory-count-page.png)
 
+test
 
 #### Pages and Features
 
