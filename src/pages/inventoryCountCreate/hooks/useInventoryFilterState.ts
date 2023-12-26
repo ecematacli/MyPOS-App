@@ -1,7 +1,7 @@
 import { useState, useReducer } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import api from '../../../api/api-client'
-import history from '../../../history'
 import { findMatchedFields } from '../../../common/utils'
 import { Brand } from '../../../redux/brands/types'
 import { Category } from '../../../redux/categories/types'
@@ -30,6 +30,7 @@ export default (
     category: '',
     brand: '',
   }
+  const history = useHistory()
 
   const [startDate, handleStartDateChange] = useState<Date | null>(new Date())
   const [countName, setCountName] = useState('')

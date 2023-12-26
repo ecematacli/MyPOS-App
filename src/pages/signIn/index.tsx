@@ -1,12 +1,11 @@
-import React, { useContext } from 'react'
-import { Redirect } from 'react-router-dom'
+import React from 'react'
 import { Card, CardContent, Typography, CardMedia } from '@material-ui/core'
 import { Formik, Field, Form } from 'formik'
 import * as Yup from 'yup'
 
 import styles from './styles'
 import image from '../../assets/img/accountant.jpg'
-import useLoginState from './hooks/useLoginState'
+import { useLoginState } from './hooks/useLoginState'
 import CustomButton from '../../common/components/customButton'
 import SigninInput from './components/SigninInput'
 import { SIGNIN_FIELDS } from './signInFields'
@@ -16,7 +15,7 @@ export interface FormValues {
   password: string
 }
 
-const SignInPage: React.FC = () => {
+export const SignInPage = () => {
   const classes = styles()
   const { postSignInForm } = useLoginState()
 
@@ -70,5 +69,3 @@ const SignInPage: React.FC = () => {
     </div>
   )
 }
-
-export default SignInPage

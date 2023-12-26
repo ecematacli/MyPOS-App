@@ -69,7 +69,10 @@ export default makeStyles(({ breakpoints, spacing, palette }) => ({
     marginBottom: spacing(5),
   },
   emailAddress: {
+    padding: spacing(0.5),
     color: palette.secondary.light,
+    fontWeight: 'bold',
+    fontSize: 18,
   },
   drawerItemText: {
     paddingLeft: 10,

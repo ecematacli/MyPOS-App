@@ -1,17 +1,17 @@
-import React from 'react';
-import { Tabs, Tab } from '@material-ui/core';
+import React from 'react'
+import { Tabs, Tab } from '@material-ui/core'
 
 interface Props {
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement>,
     newValue: string
-  ) => void;
-  tabs: { tab: string; value: string }[];
-  tabsValue: string;
-  centered?: boolean;
-  className: string;
-  classes: any;
-  textColor?: string;
+  ) => void
+  tabs: { tab: string; value: string }[]
+  tabsValue: string
+  centered?: boolean
+  className: string
+  classes: any
+  textColor?: 'inherit' | 'primary' | 'secondary'
 }
 
 const CustomTabs: React.FC<Props> = ({
@@ -28,12 +28,12 @@ const CustomTabs: React.FC<Props> = ({
     value={tabsValue}
     onChange={handleChange}
     textColor={textColor}
-    indicatorColor="primary"
+    indicatorColor='primary'
     centered={centered}>
     {tabs.map(({ tab, value }) => (
       <Tab value={value} classes={classes} key={tab} label={tab} />
     ))}
   </Tabs>
-);
+)
 
-export default CustomTabs;
+export default CustomTabs

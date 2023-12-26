@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Typography, Button } from '@material-ui/core'
 
 import styles from './styles'
-import history from '../../history'
 import usePriceUpdate from './hooks/usePriceUpdate'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
 import FileUpload from './components/fileUpload/FileUpload'
@@ -10,6 +10,8 @@ import Alert from '../../common/components/alert'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 const PriceUpdatePage = () => {
+  const history = useHistory()
+
   const classes = styles()
   const {
     uploadedFileName,
@@ -26,15 +28,21 @@ const PriceUpdatePage = () => {
     <InventoryCountTopBar
       title={
         <Fragment>
-          <span className={classes.iconDiv} onClick={() => history.push('/inventory/stock-orders')}>
+          <span
+            className={classes.iconDiv}
+            onClick={() => history.push('/inventory/stock-orders')}>
             <ArrowBackIcon className={classes.backArrow} />
           </span>
-          <Typography className={classes.titleText}>Upload the Products Export File</Typography>
+          <Typography className={classes.titleText}>
+            Upload the Products Export File
+          </Typography>
         </Fragment>
       }
       inventoryCountActionsPaper={
         <div className={classes.uploadFileDiv}>
-          <Typography className={classes.infoText}>Upload a products export file to update the prices.</Typography>
+          <Typography className={classes.infoText}>
+            Upload a products export file to update the prices.
+          </Typography>
           <Button
             onClick={() => sendFile(uploadedFileData)}
             disabled={!uploadedFileName}
@@ -50,7 +58,12 @@ const PriceUpdatePage = () => {
     const validationErrorRow = uploadError?.validationErrors?.map(err => {
       const errRow = err.rows?.length > 1 ? 'rows' : 'row'
       return (
-        <Alert key={err.kind} open severity='error' alertMessage={`${err.kind}: In ${errRow} ${err.rows.join(', ')}`} />
+        <Alert
+          key={err.kind}
+          open
+          severity='error'
+          alertMessage={`${err.kind}: In ${errRow} ${err.rows.join(', ')}`}
+        />
       )
     })
     return (
@@ -58,7 +71,9 @@ const PriceUpdatePage = () => {
         <Alert
           open
           severity='error'
-          alertMessage={`${uploadError.message}${uploadError?.validationErrors?.length ? ':' : ''}`}
+          alertMessage={`${uploadError.message}${
+            uploadError?.validationErrors?.length ? ':' : ''
+          }`}
         />
         {validationErrorRow}
       </Fragment>

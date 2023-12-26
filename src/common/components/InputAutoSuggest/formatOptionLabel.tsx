@@ -8,9 +8,9 @@ import React from 'react'
 import { Align } from '../Align'
 import { Grid } from '@material-ui/core'
 
-export const formatOptionLabel = (classes: any) => (
+export const formatOptionLabel = () => (
   { name, variation, sku, price, barcode }: AutoSuggestProduct,
-  { inputValue, context }: FormatOptionLabelMeta<any>
+  { inputValue, context }: FormatOptionLabelMeta<AutoSuggestProduct, boolean>
 ): React.ReactNode => {
   if (context === 'value') {
     return productNameWithVariation(name, variation)
@@ -20,11 +20,13 @@ export const formatOptionLabel = (classes: any) => (
     const matches = match(field, inputValue)
     const parts = parse(field, matches)
 
-    return parts.map((part: { text: string; highlight: boolean }, index: number) => (
-      <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
-        {part.text}
-      </span>
-    ))
+    return parts.map(
+      (part: { text: string; highlight: boolean }, index: number) => (
+        <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
+          {part.text}
+        </span>
+      )
+    )
   }
 
   return (

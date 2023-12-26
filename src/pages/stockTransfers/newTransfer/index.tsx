@@ -1,3 +1,5 @@
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import {
   Button,
   FormControl,
@@ -7,11 +9,9 @@ import {
   Select,
   Typography,
 } from '@material-ui/core'
-import React, { FC } from 'react'
 import { Align } from '../../../common/components/Align'
 import { InputAutoSuggest } from '../../../common/components/InputAutoSuggest'
 import { Page } from '../../../common/components/page'
-import history from '../../../history'
 import { useNewTransferState } from './useNewTransferState'
 import styles from './styles'
 import PlainTable from '../../../common/components/tables/plainTable'
@@ -19,9 +19,8 @@ import Alert from '@material-ui/lab/Alert'
 import { Space } from '../../../common/components/Space'
 import NewTransferProductRow from './NewStockTransferProductRow'
 
-interface Props {}
-
-export const NewTransfer: FC<Props> = ({}) => {
+export const NewTransfer = () => {
+  const history = useHistory()
   const classes = styles()
   const {
     products,
@@ -44,7 +43,11 @@ export const NewTransfer: FC<Props> = ({}) => {
         style={{ marginRight: 8, color: 'white', background: 'red' }}>
         Back
       </Button>
-      <Button onClick={submit} variant='contained' color='primary' style={{ color: 'white' }}>
+      <Button
+        onClick={submit}
+        variant='contained'
+        color='primary'
+        style={{ color: 'white' }}>
         Submit
       </Button>
     </Align>
@@ -75,7 +78,10 @@ export const NewTransfer: FC<Props> = ({}) => {
               value={selectedOrigin}
               input={
                 <OutlinedInput
-                  classes={{ root: classes.dropdownInnerInput, input: classes.dropdownInput }}
+                  classes={{
+                    root: classes.dropdownInnerInput,
+                    input: classes.dropdownInput,
+                  }}
                 />
               }>
               <MenuItem hidden value={0}>
@@ -101,7 +107,10 @@ export const NewTransfer: FC<Props> = ({}) => {
               value={selectedDestination}
               input={
                 <OutlinedInput
-                  classes={{ root: classes.dropdownInnerInput, input: classes.dropdownInput }}
+                  classes={{
+                    root: classes.dropdownInnerInput,
+                    input: classes.dropdownInput,
+                  }}
                 />
               }>
               <MenuItem hidden value={0}>
@@ -122,7 +131,9 @@ export const NewTransfer: FC<Props> = ({}) => {
           </Align>
           <Align align='center'>
             <Typography>Total quantity: </Typography>
-            <Typography>{products.reduce((sum, p) => sum + p.qtyToTransfer, 0)}</Typography>
+            <Typography>
+              {products.reduce((sum, p) => sum + p.qtyToTransfer, 0)}
+            </Typography>
           </Align>
         </Align>
         <InputAutoSuggest
@@ -140,7 +151,11 @@ export const NewTransfer: FC<Props> = ({}) => {
           ]}
           hasDataToShow={products.length > 0}
           rows={products.map(p => (
-            <NewTransferProductRow key={p.id} row={p} changeQty={changeQtyToTransfer(p.id)} />
+            <NewTransferProductRow
+              key={p.id}
+              row={p}
+              changeQty={changeQtyToTransfer(p.id)}
+            />
           ))}
           tableFor='StockTransferProducts'
         />

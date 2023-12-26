@@ -1,11 +1,11 @@
-import React, { FC, Fragment, useState } from 'react'
+import React, { FC, Fragment } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useCompletedInventoryCountState } from './useCompletedInventoryCountState'
 import styles from './styles'
 import CustomTabs from '../../../../common/components/customTabs'
 import PlainTable from '../../../../common/components/tables/plainTable'
 import InventoryCountTopBar from '../../../../common/components/inventoryCountTopBar'
 import { ArrowBack } from '@material-ui/icons'
-import history from '../../../../history'
 import { Typography } from '@material-ui/core'
 import { capitalizeFirstLetters, formatDate } from '../../../../common/utils'
 import { Align } from '../../../../common/components/Align'
@@ -17,7 +17,9 @@ interface Props {
 }
 
 export const CompletedInventoryCountDetail: FC<Props> = ({ batchId }) => {
+  const history = useHistory()
   const classes = styles()
+
   const {
     currentTab,
     batch,

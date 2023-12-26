@@ -1,8 +1,8 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { Typography, Button } from '@material-ui/core'
 
 import styles from './styles'
-import history from '../../history'
 import { formatDate } from '../../common/utils'
 import Loading from '../../common/components/loading'
 import PlainTable from '../../common/components/tables/plainTable'
@@ -11,8 +11,9 @@ import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
 
 const StockOrdersPage = () => {
   const classes = styles()
+  const history = useHistory()
 
-  const { stockOrders, loading, page, handleChangePage, rowsPerPage, handleChangeRowsPerPage } = useStockOrders()
+  const { stockOrders, loading } = useStockOrders()
 
   const transformedOrdersData = () =>
     stockOrders.map(order => {
@@ -40,7 +41,9 @@ const StockOrdersPage = () => {
           <Typography className={classes.infoText}>
             Upload and validate files to keep track of your stock orders.
           </Typography>
-          <Button onClick={() => history.push('stock-orders/upload')} className={classes.uploadBtn}>
+          <Button
+            onClick={() => history.push('stock-orders/upload')}
+            className={classes.uploadBtn}>
             <Typography className={classes.btnText}>Upload File</Typography>
           </Button>
         </div>

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch, connect } from 'react-redux'
 import {
   Paper,
   Divider,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Typography,
   Button,
   Box,
@@ -15,8 +15,7 @@ import clsx from 'clsx'
 import styles from './styles'
 import { PosTableProps } from './types'
 import { NotificationsContext } from '../../../../contexts/NotificationsContext'
-import useEditProductFieldState from './useEditProductFieldState'
-import { editProduct } from '../../../../redux/products/productsActions'
+import { useEditProductFieldState } from './useEditProductFieldState'
 import Total from '../total/Total'
 import { ExpandMore } from '@material-ui/icons'
 import CustomInput from '../../../../common/components/customInput'
@@ -30,8 +29,10 @@ import { Align } from '../../../../common/components/Align'
 import { PAYMENT_METHODS } from '../../../../redux/sales/types'
 import { translatePaymentMethodLabel } from '../../../../common/utils/translation'
 import { AuthContext } from '../../../../contexts/AuthContext'
+import { completeSale } from '../../../../redux/sales/salesActions'
+import { editProduct } from '../../../../redux/products/productsActions'
 
-const PosTableRight: React.FC<PosTableProps> = ({
+const PosTableRightComponent: React.FC<PosTableProps> = ({
   products,
   deleteProduct,
   decreaseProductQuantity,
@@ -43,9 +44,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
   setDiscount,
   percentageDiscount,
   setPercentageDiscount,
-  completeSale,
   discardSale,
-  editProduct,
   paymentMethod,
   setPaymentMethod,
   description,
@@ -53,6 +52,7 @@ const PosTableRight: React.FC<PosTableProps> = ({
   setTotal,
 }) => {
   const classes = styles()
+  const dispatch = useDispatch()
   const { addNotification } = useContext(NotificationsContext)
   const {
     user: { role },
@@ -66,22 +66,24 @@ const PosTableRight: React.FC<PosTableProps> = ({
     ...rest
   } = useEditProductFieldState({
     products,
-    editProduct,
     editProductFieldLocalStorageState,
+    editProduct,
     addNotification,
   })
 
   const onCompleteSaleClick = () =>
-    completeSale({
-      products,
-      total,
-      discount,
-      description,
-      paymentMethod,
-      addNotification,
-      discardSale,
-      outletId: role.outletId,
-    })
+    dispatch(
+      completeSale({
+        products,
+        total,
+        discount,
+        description,
+        paymentMethod,
+        addNotification,
+        discardSale,
+        outletId: role.outletId,
+      })
+    )
 
   return (
     <Paper elevation={0} className={classes.root}>
@@ -96,11 +98,11 @@ const PosTableRight: React.FC<PosTableProps> = ({
           handleEditClick={handleEditClick}
           {...rest}
         />
-        <ExpansionPanel className={classes.expansionPanelRoot} elevation={0}>
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+        <Accordion className={classes.expansionPanelRoot} elevation={0}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
             <Typography>Notlar</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          </AccordionSummary>
+          <AccordionDetails>
             <CustomInput
               value={description}
               onChange={({ target }) => setDescription(target.value)}
@@ -110,15 +112,15 @@ const PosTableRight: React.FC<PosTableProps> = ({
               fullWidth
               multiline
             />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel className={classes.expansionPanelRoot} elevation={0}>
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion className={classes.expansionPanelRoot} elevation={0}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
             <Typography>
               Ödeme Yöntemi{`: ${getPaymentMethodLabel(paymentMethod)}`}
             </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          </AccordionSummary>
+          <AccordionDetails>
             {PAYMENT_METHODS.map(({ label, value }) => (
               <Button
                 key={value}
@@ -132,8 +134,8 @@ const PosTableRight: React.FC<PosTableProps> = ({
                 {translatePaymentMethodLabel(label).toLocaleUpperCase('tr-TR')}
               </Button>
             ))}
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+          </AccordionDetails>
+        </Accordion>
         <Divider className={classes.totalDivider} />
         <Total
           products={products}
@@ -172,4 +174,6 @@ const PosTableRight: React.FC<PosTableProps> = ({
   )
 }
 
-export default connect(null, { editProduct })(PosTableRight)
+export const PosTableRight = connect(null, { editProduct })(
+  PosTableRightComponent
+)

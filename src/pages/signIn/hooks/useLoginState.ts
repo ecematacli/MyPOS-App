@@ -1,26 +1,24 @@
 import { useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import api from '../../../api/api-client'
 import { AuthTokenSettingContext } from '../../../contexts/AuthContext'
 import { NotificationsContext } from '../../../contexts/NotificationsContext'
-import history from '../../../history'
 import { FormValues } from '..'
 
-export default () => {
+export const useLoginState = () => {
   const { saveAuthToken } = useContext(AuthTokenSettingContext)
   const { addNotification } = useContext(NotificationsContext)
+  const history = useHistory()
 
   const postSignInForm = async (userCredentials: FormValues) => {
-    let active = true
-
     try {
       const response = await api.post<string>('/login', userCredentials)
       if (response) {
-        active && saveAuthToken(response.data)
-
+        saveAuthToken(response.data)
         history.push('/')
       } else {
-        active && saveAuthToken(null)
+        saveAuthToken(null)
       }
     } catch (e) {
       const { status } = e.response
@@ -31,9 +29,6 @@ export default () => {
       } else {
         addNotification('Something went wrong!', 'error')
       }
-    }
-    return () => {
-      active = false
     }
   }
 

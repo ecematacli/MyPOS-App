@@ -1,12 +1,15 @@
 import React, { SetStateAction, Dispatch } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Button, Typography, OutlinedInput, Checkbox } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import styles from './styles'
 import { ChangeEvent, BatchData, BatchProduct } from '../../types'
 import InventoryCountTopBar from '../../../../../../common/components/inventoryCountTopBar'
-import { capitalizeFirstLetters, formatDate } from '../../../../../../common/utils'
-import history from '../../../../../../history'
+import {
+  capitalizeFirstLetters,
+  formatDate,
+} from '../../../../../../common/utils'
 import CustomButton from '../../../../../../common/components/customButton'
 import { InputAutoSuggest } from '../../../../../../common/components/InputAutoSuggest'
 
@@ -37,7 +40,9 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
   openConfirmationModal,
   searchProducts,
 }) => {
-  const classes = styles(isQuickScanMode)
+  const history = useHistory()
+
+  const classes = styles({ isQuickScanMode })
 
   const handleCheckedChange = (e: ChangeEvent) => {
     setIsQuickScanMode(e.target.checked)
@@ -114,7 +119,9 @@ const CountingActionsBar: React.FC<CountingActionsBarProps> = ({
               onChange={handleCheckedChange}
               disableRipple
             />
-            <Typography className={classes.modeText}>Quick-scan mode</Typography>
+            <Typography className={classes.modeText}>
+              Quick-scan mode
+            </Typography>
           </div>
         </div>
       }

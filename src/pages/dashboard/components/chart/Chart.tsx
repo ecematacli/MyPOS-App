@@ -8,7 +8,13 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts'
-import { Paper, IconButton, Typography, Divider, ListItem } from '@material-ui/core'
+import {
+  Paper,
+  IconButton,
+  Typography,
+  Divider,
+  ListItem,
+} from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
 import styles from './styles'
@@ -21,14 +27,25 @@ import CustomPopover from '../../../../common/components/customPopover'
 
 interface ChartProps {
   revenueData: RevenueData
-  fetchRevenueData: (displayOption: string, start: Date, end: Date) => Promise<void>
+  fetchRevenueData: (
+    displayOption: string,
+    start: Date,
+    end: Date
+  ) => Promise<void>
   appliedFilters: AppliedFilters
 }
 
-const Chart: React.FC<ChartProps> = ({ revenueData, fetchRevenueData, appliedFilters }) => {
+const Chart: React.FC<ChartProps> = ({
+  revenueData,
+  fetchRevenueData,
+  appliedFilters,
+}) => {
   const classes = styles()
 
-  const disabledOptions = getDisabledOptions(appliedFilters.startDate, appliedFilters.endDate)
+  const disabledOptions = getDisabledOptions(
+    appliedFilters.startDate,
+    appliedFilters.endDate
+  )
 
   const {
     handleClick,
@@ -61,7 +78,7 @@ const Chart: React.FC<ChartProps> = ({ revenueData, fetchRevenueData, appliedFil
             </Typography>
             <Divider />
             <div>
-              {['daily', 'weekly', 'monthly'].map(option => (
+              {(['daily', 'weekly', 'monthly'] as const).map(option => (
                 <ListItem
                   className={classes.displayOptionsItem}
                   disabled={disabledOptions[option]}
@@ -80,7 +97,9 @@ const Chart: React.FC<ChartProps> = ({ revenueData, fetchRevenueData, appliedFil
 
   const renderAreaChart = () => (
     <ResponsiveContainer width='100%' height='90%'>
-      <AreaChart data={revenueData} margin={{ top: 30, right: 30, left: 0, bottom: 25 }}>
+      <AreaChart
+        data={revenueData}
+        margin={{ top: 30, right: 30, left: 0, bottom: 25 }}>
         <defs>
           <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
             <stop offset='10%' stopColor='#00acc1' stopOpacity={0.3} />

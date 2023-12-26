@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
-import { Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
 
-import history from '../history'
 import PrivateRoute from './PrivateRoute'
-import MenuWrapper from '../common/components/menuWrapper'
+import { MenuWrapper } from '../common/components/menu-wrapper/menu-wrapper'
 import ErrorBoundary from '../common/components/errorBoundary'
-import SignInPage from '../pages/signIn'
+import { SignInPage } from '../pages/signIn'
 import DashboardPage from '../pages/dashboard'
-import SalesPage from '../pages/sales'
+import { Sales } from '../pages/sales/sales'
 import SalesHistoryPage from '../pages/salesHistory'
 import ProductsPage from '../pages/products'
 import InventoryCountBatches from '../pages/inventoryCountBatches'
@@ -22,15 +22,16 @@ import { AuthContext } from '../contexts/AuthContext'
 import PriceUpdatePage from '../pages/priceUpdate'
 
 export const AppRouter = () => {
+  const history = createBrowserHistory()
   const { isAdmin } = useContext(AuthContext)
 
   return (
-    <Router history={history}>
+    <Router>
       <MenuWrapper>
-        <ErrorBoundary>
+        <ErrorBoundary history={history}>
           <Switch>
             <Route path='/signin' exact component={SignInPage} />
-            <PrivateRoute path='/sales/pos' exact component={SalesPage} />
+            <PrivateRoute path='/sales/pos' exact component={Sales} />
             <PrivateRoute
               path='/sales/history'
               exact
@@ -94,7 +95,7 @@ export const AppRouter = () => {
             <PrivateRoute
               path='/'
               exact
-              component={isAdmin ? DashboardPage : SalesPage}
+              component={isAdmin ? DashboardPage : Sales}
             />
           </Switch>
         </ErrorBoundary>

@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Typography, Button } from '@material-ui/core'
 
 import styles from './styles'
-import history from '../../history'
 import useStockOrders from './hooks/useStockOrders'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
 import FileUpload from './components/fileUpload/FileUpload'
@@ -11,6 +11,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 const StockOrdersPage = () => {
   const classes = styles()
+  const history = useHistory()
+
   const {
     uploadedFileName,
     handleUploadedFileName,
@@ -30,7 +32,9 @@ const StockOrdersPage = () => {
             onClick={() => history.push('/inventory/stock-orders')}>
             <ArrowBackIcon className={classes.backArrow} />
           </span>
-          <Typography className={classes.titleText}>Upload Stock Order File</Typography>
+          <Typography className={classes.titleText}>
+            Upload Stock Order File
+          </Typography>
         </Fragment>
       }
       inventoryCountActionsPaper={
@@ -79,7 +83,11 @@ const StockOrdersPage = () => {
       <div className={classes.uploadFileWrapper}>
         <div className={classes.uploadFeedback}>
           {isUploadSuccess && (
-            <Alert open severity='success' alertMessage='Stock order uploaded successfully!' />
+            <Alert
+              open
+              severity='success'
+              alertMessage='Stock order uploaded successfully!'
+            />
           )}
           {uploadError && renderInvalidFileFeedback()}
         </div>

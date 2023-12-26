@@ -9,7 +9,7 @@ import Loading from '../../../../common/components/loading'
 
 interface Props {
   loading: boolean
-  lastActivities: LastActivitiesData
+  lastActivities: LastActivitiesData | null
 }
 
 const LastActivities: React.FC<Props> = ({ loading, lastActivities }) => {
@@ -50,16 +50,24 @@ const LastActivities: React.FC<Props> = ({ loading, lastActivities }) => {
   }
 
   return (
-    <Paper data-testid='activities-paper' className={classes.lastActivitiesPaper}>
+    <Paper
+      data-testid='activities-paper'
+      className={classes.lastActivitiesPaper}>
       <div className={classes.title}>
         <Typography>Last Activities</Typography>
       </div>
       <Divider className={classes.divider} />
       <Scrollbars
-        renderTrackHorizontal={props => <div {...props} style={{ display: 'none' }} />}
-        renderThumbHorizontal={props => <div {...props} style={{ display: 'none' }} />}
+        renderTrackHorizontal={props => (
+          <div {...props} style={{ display: 'none' }} />
+        )}
+        renderThumbHorizontal={props => (
+          <div {...props} style={{ display: 'none' }} />
+        )}
         style={{ width: 'auto', height: 498 }}>
-        <div className={classes.lastActivitiesContainer}>{renderLastActivities()}</div>
+        <div className={classes.lastActivitiesContainer}>
+          {renderLastActivities()}
+        </div>
       </Scrollbars>
     </Paper>
   )

@@ -1,7 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 interface StyleProps {
-  uploadedFileName: { uploadedFileName: string };
+  uploadedFileName: string
 }
 
 export default makeStyles(({ palette, spacing }) => ({
@@ -57,4 +57,4 @@ export default makeStyles(({ palette, spacing }) => ({
     alignItems: 'center',
     fontSize: spacing(2.5),
   },
-}));
+}))

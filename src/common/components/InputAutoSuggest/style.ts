@@ -22,7 +22,10 @@ export default makeStyles(({ spacing, breakpoints, palette }) => ({
   },
 }))
 
-export const selectStyles = ({ spacing, palette }: Theme): Partial<Styles> => ({
+export const selectStyles = ({
+  spacing,
+  palette,
+}: Theme): Partial<Styles<any, boolean>> => ({
   menu: provided => ({
     ...provided,
     zIndex: 999,
@@ -43,11 +46,15 @@ export const selectStyles = ({ spacing, palette }: Theme): Partial<Styles> => ({
     ...base,
     cursor: 'pointer',
     ':active': {
-      backgroundColor: state.isSelected ? palette.grayColors[0] : palette.grayColors[1],
+      backgroundColor: state.isSelected
+        ? palette.grayColors[0]
+        : palette.grayColors[1],
       cursor: state.isSelected ? 'auto' : 'pointer',
     },
     ':hover': {
-      backgroundColor: state.isSelected ? palette.grayColors[0] : palette.grayColors[1],
+      backgroundColor: state.isSelected
+        ? palette.grayColors[0]
+        : palette.grayColors[1],
     },
   }),
   indicatorsContainer: p => ({

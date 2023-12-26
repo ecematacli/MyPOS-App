@@ -1,11 +1,11 @@
 import React, { useEffect, Fragment, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Typography, Button, Divider } from '@material-ui/core'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import styles from './styles'
 import boxes from '../../assets/img/boxes.png'
-import history from '../../history'
 import { StoreState } from '../../redux/types'
 import { Brand } from '../../redux/brands/types'
 import { Category } from '../../redux/categories/types'
@@ -30,6 +30,7 @@ const InventoryCountCreate: React.FC<Props> = ({
   brands,
   categories,
 }) => {
+  const history = useHistory()
   const classes = styles()
 
   const { addNotification } = useContext(NotificationsContext)
@@ -44,7 +45,11 @@ const InventoryCountCreate: React.FC<Props> = ({
     createCountBatch,
   } = useInventoryFilterState(brands, categories, addNotification)
 
-  const DROPDOWN_INPUT_FIELDS = getDropdownInputFields(brands, categories, dropdownInputs)
+  const DROPDOWN_INPUT_FIELDS = getDropdownInputFields(
+    brands,
+    categories,
+    dropdownInputs
+  )
   useEffect(() => {
     fetchBrands()
     fetchCategories()
@@ -60,7 +65,9 @@ const InventoryCountCreate: React.FC<Props> = ({
               onClick={() => history.push('/inventory/inventory-count')}>
               <ArrowBackIcon className={classes.backArrow} />
             </span>
-            <Typography className={classes.titleText}>Add Inventory Count</Typography>
+            <Typography className={classes.titleText}>
+              Add Inventory Count
+            </Typography>
           </Fragment>
         }
         inventoryCountActionsPaper={
@@ -113,4 +120,6 @@ const mapStateToProps = (state: StoreState) => ({
   categories: state.categories,
 })
 
-export default connect(mapStateToProps, { fetchCategories, fetchBrands })(InventoryCountCreate)
+export default connect(mapStateToProps, { fetchCategories, fetchBrands })(
+  InventoryCountCreate
+)

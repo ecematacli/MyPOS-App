@@ -1,4 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
+
+interface StylesProps {
+  isQuickScanMode: boolean
+}
 
 export default makeStyles(({ spacing, palette }) => ({
   container: {
@@ -37,7 +41,8 @@ export default makeStyles(({ spacing, palette }) => ({
   },
   searchBar: {
     margin: '0 auto',
-    width: (quickScanMode: boolean) => (quickScanMode ? '115%' : '90%'),
+    width: ({ isQuickScanMode }: StylesProps) =>
+      isQuickScanMode ? '115%' : '90%',
   },
   confirmationBtnDiv: {
     display: 'flex',
@@ -97,4 +102,4 @@ export default makeStyles(({ spacing, palette }) => ({
     color: palette.secondary.main,
     marginLeft: -spacing(0.6),
   },
-}));
+}))

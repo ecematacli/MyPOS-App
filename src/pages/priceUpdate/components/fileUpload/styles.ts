@@ -1,10 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles'
 
 interface StyleProps {
-  uploadedFileName: { uploadedFileName: string };
+  uploadedFileName: string
 }
 
-export default makeStyles(({ palette, spacing }) => ({
+export default makeStyles<Theme, StyleProps>(({ palette, spacing }) => ({
   fileUploadDiv: {
     cursor: 'pointer',
     height: spacing(28),
@@ -22,7 +22,7 @@ export default makeStyles(({ palette, spacing }) => ({
       outline: 'none',
     },
     '&:hover': {
-      backgroundColor: ({ uploadedFileName }: StyleProps) =>
+      backgroundColor: ({ uploadedFileName }) =>
         uploadedFileName ? 'unset' : '#eee',
     },
   },
@@ -57,4 +57,4 @@ export default makeStyles(({ palette, spacing }) => ({
     alignItems: 'center',
     fontSize: spacing(2.5),
   },
-}));
+}))

@@ -12,7 +12,7 @@ interface Props {
 }
 
 const BatchProductsRow: React.FC<Props> = ({ row, selectedRow }) => {
-  const classes = styles(row)
+  const classes = styles({ counted: row.counted, expected: row.expected })
   const { id, name, barcode, sku, variation, expected, counted } = row
 
   return (
@@ -32,7 +32,9 @@ const BatchProductsRow: React.FC<Props> = ({ row, selectedRow }) => {
         {productNameWithVariation(name, variation)}
       </TableCell>
       <TableCell align='right'>{expected}</TableCell>
-      <TableCell align='right'>{counted || counted === 0 ? counted : '-'}</TableCell>
+      <TableCell align='right'>
+        {counted || counted === 0 ? counted : '-'}
+      </TableCell>
     </TableRow>
   )
 }

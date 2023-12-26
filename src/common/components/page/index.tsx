@@ -9,22 +9,35 @@ interface Props {
   title: string
   description?: string
   actions?: ReactNode
+  children: ReactNode
 }
 
-export const Page: FC<Props> = ({ loading, title, actions, description, children }) => {
+export const Page: FC<Props> = ({
+  loading,
+  title,
+  actions,
+  description,
+  children,
+}) => {
   const classes = styles()
   return (
     <div className={classes.container}>
       <Align className={classes.titleContainer}>
         <Typography className={classes.title}>{title}</Typography>
       </Align>
-      <Align justify='space-between' align='center' fullWidth className={classes.actionsBar}>
+      <Align
+        justify='space-between'
+        align='center'
+        fullWidth
+        className={classes.actionsBar}>
         <Align
           justify='space-between'
           align='center'
           className={classes.actionSectionWrapper}
           fullWidth>
-          {description && <Typography className={classes.infoText}>{description}</Typography>}
+          {description && (
+            <Typography className={classes.infoText}>{description}</Typography>
+          )}
           {actions}
         </Align>
       </Align>

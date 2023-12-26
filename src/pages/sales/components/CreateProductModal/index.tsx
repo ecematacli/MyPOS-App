@@ -2,15 +2,15 @@ import React, { Fragment, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Formik, Field } from 'formik'
 import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
+  AccordionDetails,
   Typography,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Accordion,
+  AccordionSummary,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
@@ -54,18 +54,31 @@ const CreateProductModal: React.FC<Props> = ({
     createProduct,
   }
 
-  const { handleInputChange, onAddProductClick, additionalInputs } = useNewProductInputState(
-    args
+  const {
+    handleInputChange,
+    onAddProductClick,
+    additionalInputs,
+  } = useNewProductInputState(args)
+  const ADDITIONAL_FIELDS = getAdditionalProductFields(
+    additionalInputs,
+    brands,
+    categories
   )
-  const ADDITIONAL_FIELDS = getAdditionalProductFields(additionalInputs, brands, categories)
 
+  const handleClose = (_: any, reason: string) => {
+    if (reason !== 'backdropClick') {
+      onClose()
+    }
+  }
   const renderAdditionalFields = () => {
     return (
-      <ExpansionPanel classes={{ root: classes.expansionRoot }}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.expansionText}>Expand for more fields</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails classes={{ root: classes.expansionDetails }}>
+      <Accordion classes={{ root: classes.expansionRoot }}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography className={classes.expansionText}>
+            Expand for more fields
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails classes={{ root: classes.expansionDetails }}>
           {ADDITIONAL_FIELDS.map(
             ({ label, dropdown, dropdownItems, fieldId, value, type }) => {
               return (
@@ -86,8 +99,8 @@ const CreateProductModal: React.FC<Props> = ({
               )
             }
           )}
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     )
   }
 
@@ -102,9 +115,8 @@ const CreateProductModal: React.FC<Props> = ({
       <Dialog
         classes={{ paper: classes.dialogPaper }}
         open={open}
-        onClose={onClose}
-        scroll='body'
-        disableBackdropClick>
+        onClose={handleClose}
+        scroll='body'>
         <DialogTitle className={classes.dialogTitle}>Add a Product</DialogTitle>
         <DialogContent>
           <Formik<FormValues>
@@ -141,7 +153,10 @@ const CreateProductModal: React.FC<Props> = ({
           <Button onClick={onClose} color='secondary'>
             Cancel
           </Button>
-          <Button data-testid='add-button' onClick={triggerFormSubmission} color='primary'>
+          <Button
+            data-testid='add-button'
+            onClick={triggerFormSubmission}
+            color='primary'>
             Add Product
           </Button>
         </DialogActions>

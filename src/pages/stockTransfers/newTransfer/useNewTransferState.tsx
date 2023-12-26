@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { NotificationsContext } from '../../../contexts/NotificationsContext'
 import api from '../../../api/api-client'
 import { Outlet, ProductToTransfer } from '../types'
 import { useGetRequest } from '../../../common/hooks/useGetRequest'
-import history from '../../../history'
 
 export const useNewTransferState = () => {
+  const history = useHistory()
   const { addNotification } = useContext(NotificationsContext)
   const [products, setProducts] = useState<ProductToTransfer[]>([])
   const { error, value: outlets } = useGetRequest<Outlet[]>('/outlets')

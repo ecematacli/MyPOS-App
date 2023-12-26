@@ -7,15 +7,15 @@ import { Product } from '../../../../../redux/products/types'
 import { currencyFormatter } from '../../../../utils'
 
 interface Props {
-  product: Product;
-  renderIconContainer: (id?: number) => JSX.Element;
-  index: number;
-  stockOrderProducts?: boolean;
+  product: Product
+  renderIconContainer: (id?: number) => JSX.Element
+  index: number
+  stockOrderProducts?: boolean
   expandedRows?: {
-    [id: string]: boolean;
+    [id: string]: boolean
   }
-  toggleExpanded?: (id: number) => void;
-  component?: React.JSXElementConstructor<any>;
+  toggleExpanded?: (id: number) => void
+  component?: React.JSXElementConstructor<any>
 }
 
 const ProductRow: React.FC<Props> = ({
@@ -29,7 +29,16 @@ const ProductRow: React.FC<Props> = ({
 }) => {
   const classes = styles({ type: stockOrderProducts })
 
-  const { id, sku, name, category, brand, price, discountPrice, variation } = product
+  const {
+    id,
+    sku,
+    name,
+    category,
+    brand,
+    price,
+    discountPrice,
+    variation,
+  } = product
 
   const renderProductDetails = () => (
     <TableRow key={id}>
@@ -44,9 +53,14 @@ const ProductRow: React.FC<Props> = ({
   return (
     <Fragment key={id}>
       <TableRow
-        className={clsx(classes.tableBodyRow, classes[index % 2 ? 'whiteRow' : 'greenRow'])}
+        className={clsx(
+          classes.tableBodyRow,
+          classes[index % 2 ? 'whiteRow' : 'greenRow']
+        )}
         onClick={() => toggleExpanded(id)}>
-        <TableCell className={classes.tableCell}>{renderIconContainer(id)}</TableCell>
+        <TableCell className={classes.tableCell}>
+          {renderIconContainer(id)}
+        </TableCell>
         <TableCell className={classes.tableCell}>
           <div className={classes.firstCellContainer}>
             <div className={classes.firstCellItem}>{sku || '-'}</div>
@@ -54,8 +68,12 @@ const ProductRow: React.FC<Props> = ({
         </TableCell>
         <TableCell className={classes.tableCell}>{name || '-'}</TableCell>
         <TableCell className={classes.tableCell}>{variation || '-'}</TableCell>
-        <TableCell className={classes.tableCell}>{category ? category.name : '-'}</TableCell>
-        <TableCell className={classes.tableCell}>{brand ? brand.name : '-'}</TableCell>
+        <TableCell className={classes.tableCell}>
+          {category ? category.name : '-'}
+        </TableCell>
+        <TableCell className={classes.tableCell}>
+          {brand ? brand.name : '-'}
+        </TableCell>
         <TableCell align='right' className={classes.tableCell}>
           {price && currencyFormatter(price)}
         </TableCell>

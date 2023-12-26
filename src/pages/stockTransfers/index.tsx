@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
 
@@ -6,7 +7,6 @@ import { Align } from '../../common/components/Align'
 import { Page } from '../../common/components/page'
 import PlainTable from '../../common/components/tables/plainTable'
 import { useGetRequest } from '../../common/hooks/useGetRequest'
-import history from '../../history'
 import StockTransferRow from './StockTransferRow'
 import { TransferDetail } from './transferDetail'
 import { StockTransfer } from './types'
@@ -18,8 +18,13 @@ type Response = {
 interface Props {}
 
 export const StockTransfers: FC<Props> = () => {
+  const history = useHistory()
+
   const { loading, error, value } = useGetRequest<Response>('/stock-transfers')
-  const [selectedTransfer, setSelectedTransfer] = useState<StockTransfer | null>(null)
+  const [
+    selectedTransfer,
+    setSelectedTransfer,
+  ] = useState<StockTransfer | null>(null)
 
   const Actions = (
     <Align justify='flex-end' fullWidth>
@@ -35,7 +40,10 @@ export const StockTransfers: FC<Props> = () => {
 
   if (selectedTransfer) {
     return (
-      <TransferDetail transfer={selectedTransfer} goBack={() => setSelectedTransfer(null)} />
+      <TransferDetail
+        transfer={selectedTransfer}
+        goBack={() => setSelectedTransfer(null)}
+      />
     )
   }
 

@@ -4,7 +4,7 @@ import {
   Divider,
   ExpansionPanel,
   ExpansionPanelSummary,
-  ExpansionPanelDetails,
+  AccordionDetails,
 } from '@material-ui/core'
 
 import styles from './styles'
@@ -19,7 +19,9 @@ export interface LastCountedItemsProps {
   lastCountedItems: LastCountedProduct[]
 }
 
-const LastCountedItems: React.FC<LastCountedItemsProps> = ({ lastCountedItems }) => {
+const LastCountedItems: React.FC<LastCountedItemsProps> = ({
+  lastCountedItems,
+}) => {
   const classes = styles()
 
   const renderItems = () =>
@@ -35,7 +37,7 @@ const LastCountedItems: React.FC<LastCountedItemsProps> = ({ lastCountedItems })
               </Typography>
             </Align>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          <AccordionDetails>
             <Align vertical>
               <Typography variant='caption'>
                 <span className={classes.bold}>Sku:</span>
@@ -47,10 +49,13 @@ const LastCountedItems: React.FC<LastCountedItemsProps> = ({ lastCountedItems })
               </Typography>
               <Typography variant='caption'>
                 <span className={classes.bold}>Counted At:</span>
-                {formatDistance(new Date(countedAt), new Date(), { includeSeconds: true })} ago
+                {formatDistance(new Date(countedAt), new Date(), {
+                  includeSeconds: true,
+                })}{' '}
+                ago
               </Typography>
             </Align>
-          </ExpansionPanelDetails>
+          </AccordionDetails>
         </ExpansionPanel>
       ))
 

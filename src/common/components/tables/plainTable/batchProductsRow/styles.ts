@@ -1,10 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 interface StyleProps {
-  counted: number;
-  expected: number;
-  isQuickScanMode: boolean;
+  counted: number
+  expected: number
 }
+
 export default makeStyles(({ spacing, palette }) => ({
   tableBodyRow: {
     height: spacing(10),
@@ -31,4 +31,4 @@ export default makeStyles(({ spacing, palette }) => ({
   adjustIcon: {
     color: palette.primary.main,
   },
-}));
+}))

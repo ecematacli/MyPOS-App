@@ -7,6 +7,7 @@ import { mockStore } from '../__mocks__/store'
 import { AuthContext } from '../contexts/AuthContext'
 import { NotificationsContext } from '../contexts/NotificationsContext'
 import theme from '../theme'
+import { UserRoles } from 'api/user/types'
 
 export const render = (
   ui: any,
@@ -19,7 +20,18 @@ export const render = (
   const isAuthenticated = Boolean(authorized ? 'ab7807x' : null)
 
   const Providers = ({ children }: any) => (
-    <AuthContext.Provider value={{ isAuthenticated }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        isUserDataLoaded: true,
+        isAdmin: true,
+        user: {
+          email: 'Ecem',
+          id: '7',
+          name: 'Ecem',
+          role: { id: 27, name: UserRoles.Admin, outletId: 1 },
+        },
+      }}>
       <NotificationsContext.Provider
         value={{
           notifications: null,

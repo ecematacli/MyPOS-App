@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { ExpansionPanelSummary } from '@material-ui/core';
+import React, { Component } from 'react'
+import { ExpansionPanelSummary } from '@material-ui/core'
 
 import {
   ErrorBoundaryContainer,
@@ -11,42 +11,42 @@ import {
   ShowMoreText,
   ExpansionPanelContent,
   MoreErrorInfoDiv,
-  ShortErrorInfo
-} from './ErrorBoundaryStyles';
-import history from '../../../history';
+  ShortErrorInfo,
+} from './ErrorBoundaryStyles'
 
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactNode
+  history: any
 }
 interface State {
-  hasError: boolean;
-  error: any;
-  errorInfo: string;
+  hasError: boolean
+  error: any
+  errorInfo: string
 }
 export default class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
-    super(props);
-    this.state = { hasError: false, error: '', errorInfo: '' };
+    super(props)
+    this.state = { hasError: false, error: '', errorInfo: '' }
     // To render the child tree that are error-free
-    history.listen(() => {
+    this.props.history.listen(() => {
       if (this.state.hasError) {
         this.setState({
           hasError: false,
           error: '',
-          errorInfo: ''
-        });
+          errorInfo: '',
+        })
       }
-    });
-    this.showMore = this.showMore.bind(this);
+    })
+    this.showMore = this.showMore.bind(this)
   }
 
   componentDidCatch(error: any, errorInfo: { componentStack: string }) {
-    const { componentStack } = errorInfo;
+    const { componentStack } = errorInfo
     this.setState({
       hasError: true,
       error,
-      errorInfo: componentStack
-    });
+      errorInfo: componentStack,
+    })
   }
 
   showMore() {
@@ -59,10 +59,10 @@ export default class ErrorBoundary extends Component<Props, State> {
           <MoreErrorInfoDiv>{this.state.errorInfo}</MoreErrorInfoDiv>
         )}
       </ExpansionPanelContent>
-    );
+    )
   }
 
-  render() {
+  render(): React.ReactNode {
     if (this.state.hasError) {
       return (
         <ErrorBoundaryContainer>
@@ -85,9 +85,9 @@ export default class ErrorBoundary extends Component<Props, State> {
             </div>
           </ErrorMessageDiv>
         </ErrorBoundaryContainer>
-      );
+      )
     }
 
-    return this.props.children;
+    return this.props.children
   }
 }

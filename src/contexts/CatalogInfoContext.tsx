@@ -14,7 +14,9 @@ export const CatalogInfoContext = createContext<CatalogInfoContextProps>({
   // brands: [],
 })
 
-export const CatalogInfoProvider: React.FC = ({ children }) => {
+export const CatalogInfoProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [outlets, setOutlets] = useState<Outlet[]>([])
 
   useEffect(() => {

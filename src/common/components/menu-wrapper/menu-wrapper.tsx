@@ -1,4 +1,5 @@
 import React, { useContext, useState, Fragment } from 'react'
+import { useHistory } from 'react-router-dom'
 import {
   CssBaseline,
   Drawer,
@@ -20,8 +21,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore'
 
 import styles from './styles'
 import logo from '../../../assets/img/merit.png'
-import { MENU_ITEMS, SubMenuItem } from './menuItemList'
-import history from '../../../history'
+import { MENU_ITEMS, SubMenuItem } from './menu-item-list'
 import Notifications from '../notifications/Notifications'
 import {
   AuthContext,
@@ -29,14 +29,17 @@ import {
 } from '../../../contexts/AuthContext'
 import Loading from '../loading'
 
-const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const classes = styles()
+  const history = useHistory()
+
   const { isAuthenticated, user, isUserDataLoaded } = useContext(AuthContext)
   const { clearAuthToken } = useContext(AuthTokenSettingContext)
   const [openedItems, setOpenedItems] = useState<{ [key: string]: boolean }>({})
   const [mobileOpen, setMobileOpen] = useState<boolean>(false)
 
-  // console.log({ isUserDataLoaded })
   const onSignOutClick = (): void => {
     clearAuthToken()
   }
@@ -139,7 +142,7 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         )}
       </List>
       <Box className={classes.userInfoBox}>
-        <Typography className={classes.emailAddress}>{user.email}</Typography>
+        <Typography className={classes.emailAddress}>{user?.email}</Typography>
       </Box>
     </Box>
   )
@@ -193,5 +196,3 @@ const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     </div>
   )
 }
-
-export default MenuWrapper

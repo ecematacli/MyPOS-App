@@ -1,4 +1,5 @@
 import { useState, useContext, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import api from '../../../../../api/api-client'
 import {
@@ -11,9 +12,10 @@ import { NotificationsContext } from '../../../../../contexts/NotificationsConte
 import useLocalStorageState from '../../../../../common/hooks/useLocalStorageState'
 import { useGetRequest } from '../../../../../common/hooks/useGetRequest'
 import { usePostRequest } from '../../../../../common/hooks/usePostRequest'
-import history from '../../../../../history'
 
 export default (batchId: string) => {
+  const history = useHistory()
+
   const { addNotification } = useContext(NotificationsContext)
   const [isQuickScanMode, setIsQuickScanMode] = useState(false)
   const [loading, setLoading] = useState(false)

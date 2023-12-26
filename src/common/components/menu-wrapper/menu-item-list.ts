@@ -42,7 +42,7 @@ export const MENU_ITEMS: MenuItem[] = [
     allowedRoles: [UserRoles.Admin, UserRoles.Employee],
     subMenuItems: [
       {
-        subLabel: 'Satış POS',
+        subLabel: 'Kasa',
         url: '/sales/pos',
         Icon: AddShoppingCartIcon,
         allowedRoles: [UserRoles.Admin, UserRoles.Employee],

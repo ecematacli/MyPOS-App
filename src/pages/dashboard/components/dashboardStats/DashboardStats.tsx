@@ -1,16 +1,29 @@
-import React, { Fragment } from 'react';
-import clsx from 'clsx';
-import { Typography, Tooltip, Grid, Paper } from '@material-ui/core';
+import React, { Fragment } from 'react'
+import clsx from 'clsx'
+import { Typography, Tooltip, Grid, Paper } from '@material-ui/core'
 
-import styles from './styles';
-import { currencyFormatter } from '../../../../common/utils';
-import { statsData } from './statsData';
-import { SaleStatsData } from '../../types';
+import styles from './styles'
+import { currencyFormatter } from '../../../../common/utils'
+import { statsData } from './statsData'
+import { SaleStatsData } from '../../types'
+
+type ClassKey =
+  | 'dashboardStatPaper'
+  | 'dashboardStatDiv'
+  | 'iconDiv'
+  | 'dashboardStatContent'
+  | 'statLabel'
+  | 'statValue'
+  | 'revenueIconContainer'
+  | 'profitIconContainer'
+  | 'saleCountIconContainer'
+  | 'itemsSoldIconContainer'
 
 const DashboardStats: React.FC<{ saleStats: SaleStatsData }> = ({
-  saleStats
+  saleStats,
 }) => {
-  const classes = styles();
+  const classes = styles()
+
   return (
     <Fragment>
       {statsData(saleStats).map(({ label, id, Icon, value, currency }) => (
@@ -18,17 +31,19 @@ const DashboardStats: React.FC<{ saleStats: SaleStatsData }> = ({
           <div className={classes.dashboardStatDiv}>
             <Paper className={classes.dashboardStatPaper}>
               <div
-                className={clsx(classes.iconDiv, classes[`${id}IconContainer`])}
-              >
+                className={clsx(
+                  classes.iconDiv,
+                  classes[`${id}IconContainer` as keyof typeof classes]
+                )}>
                 <Tooltip title={label}>
                   <Icon />
                 </Tooltip>
               </div>
               <div className={classes.dashboardStatContent}>
-                <Typography align="right" className={classes.statLabel}>
+                <Typography align='right' className={classes.statLabel}>
                   {label}
                 </Typography>
-                <Typography align="right" className={classes.statValue}>
+                <Typography align='right' className={classes.statValue}>
                   {currency ? currencyFormatter(value) : value}
                 </Typography>
               </div>
@@ -37,7 +52,7 @@ const DashboardStats: React.FC<{ saleStats: SaleStatsData }> = ({
         </Grid>
       ))}
     </Fragment>
-  );
-};
+  )
+}
 
-export default DashboardStats;
+export default DashboardStats

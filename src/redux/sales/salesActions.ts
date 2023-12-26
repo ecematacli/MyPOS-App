@@ -3,7 +3,7 @@ import { ActionTypes, ApiAction } from '../types'
 
 import { SaleData } from './types'
 import createAPIAction from '../createAPIAction'
-import { SalesArgs } from '../../pages/sales/components/posTableRight/types'
+import { SalesArgs } from '../../pages/sales/components/pos-table-right/types'
 
 export const completeSale = ({
   products,

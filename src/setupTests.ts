@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom/extend-expect'
 
 document.createRange = () => ({
   setStart: () => {},
@@ -6,6 +6,6 @@ document.createRange = () => ({
   //@ts-ignore
   commonAncestorContainer: {
     nodeName: 'BODY',
-    ownerDocument: document
-  }
-});
+    ownerDocument: document,
+  },
+})

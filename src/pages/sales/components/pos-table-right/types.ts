@@ -1,3 +1,5 @@
+import { Dispatch } from 'redux'
+
 import { Product } from '../../../../redux/products/types'
 import { PaymentMethod } from '../../../../redux/sales/types'
 
@@ -49,9 +51,7 @@ export interface PosTableProps {
   setDiscount: SetNumberState
   percentageDiscount: number
   setPercentageDiscount: SetNumberState
-  completeSale: (args: SalesArgs) => void
   discardSale: () => void
-  editProduct: EditProductAction
   paymentMethod: PaymentMethod
   setPaymentMethod: (p: PaymentMethod) => void
   description: string
@@ -85,9 +85,12 @@ export interface TotalProps {
   handleClose: (field: string) => void
 }
 
+export type EditProductThunk = (
+  args: EditActionArgs
+) => (dispatch: Dispatch) => void
 export interface Args {
   products: Product[]
-  editProduct: EditProductAction
   addNotification: (message: string, severity: string) => void
+  editProduct: EditProductThunk
   editProductFieldLocalStorageState: EditProductFieldLocalStorageState
 }

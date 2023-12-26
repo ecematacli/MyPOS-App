@@ -71,7 +71,7 @@ export const InputAutoSuggest: FC<Props> = ({
       }}
       loadOptions={debounced}
       onChange={onChange}
-      formatOptionLabel={formatOptionLabel(classes)}
+      formatOptionLabel={formatOptionLabel()}
       placeholder='Ürün ara...'
       openMenuOnClick={false}
       noOptionsMessage={() => 'Ürün Bulunamadı'}

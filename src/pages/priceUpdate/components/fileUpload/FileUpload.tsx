@@ -38,11 +38,11 @@ const FileUpload: React.FC<Props> = ({
         </div>
       </div>
     ) : (
-        <Fragment>
-          <p className={classes.infoText}>Select a file or drag here!</p>
-          <input className={classes.dropInput} {...getInputProps()} />
-        </Fragment>
-      )
+      <Fragment>
+        <p className={classes.infoText}>Select a file or drag here!</p>
+        <input className={classes.dropInput} {...getInputProps()} />
+      </Fragment>
+    )
 
   return (
     <div className={classes.fileUploadDiv} {...getRootProps()}>

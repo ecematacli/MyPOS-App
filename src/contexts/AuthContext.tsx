@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import history from '../history'
 import { fetchUser } from '../api/user/user'
 import { User, UserRoles } from '../api/user/types'
 
@@ -29,7 +29,9 @@ const initialToken = JSON.parse(localStorage.getItem('token'))
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(initialToken)
+  const history = useHistory()
+
+  const [isAuthenticated, setIsAuthenticated] = useState(Boolean(initialToken))
   const [user, setUser] = useState<User | null>(null)
   const [isUserDataLoaded, setIsUserDataLoaded] = useState<boolean>(false)
   const [isAdmin, setIsAdmin] = useState<boolean>(false)
@@ -52,7 +54,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
     const fetchUserOnAppLoad = async () => {
       const user = await fetchUser()
       user && setUser(user)
-      setIsAdmin(user.role.name === UserRoles.Admin)
+      user && setIsAdmin(user.role.name === UserRoles.Admin)
 
       setIsUserDataLoaded(true)
     }

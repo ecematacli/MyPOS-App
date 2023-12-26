@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 
 import styles from './styles'
-import { TotalProps } from '../posTableRight/types'
+import { TotalProps } from '../pos-table-right/types'
 import { currencyFormatter } from '../../../../common/utils'
 import EditProductFieldPopover from '../editProductFieldPopover/EditProductFieldPopover'
 import useEditDiscountState from './hooks/useEditDiscountState'

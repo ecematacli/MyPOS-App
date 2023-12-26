@@ -1,5 +1,13 @@
 import React from 'react'
-import { TableRow, TableCell, Table, TableBody, TableHead, TableContainer, TablePagination } from '@material-ui/core'
+import {
+  TableRow,
+  TableCell,
+  Table,
+  TableBody,
+  TableHead,
+  TableContainer,
+  TablePagination,
+} from '@material-ui/core'
 
 import styles from './styles'
 import { PlainTableProps, Batch, BatchProduct, PaginationLabel } from './types'
@@ -29,7 +37,9 @@ const PlainTable: React.FC<PlainTableProps> = ({
     <TableRow className={classes.tableHeadRow}>
       {tableHeads.map(({ name, rightAlign }, i) => (
         <TableCell align={rightAlign ? 'right' : 'left'} key={name}>
-          <div className={classes[i === 0 && 'firstHeadCell']}>{name}</div>
+          <div className={classes[i === 0 ? 'firstHeadCell' : undefined]}>
+            {name}
+          </div>
         </TableCell>
       ))}
     </TableRow>
@@ -38,11 +48,15 @@ const PlainTable: React.FC<PlainTableProps> = ({
   const renderTableBody = () => {
     switch (tableFor) {
       case 'CompletedInventoryCountProducts':
-        return rows.map(row => <CompletedBatchProductRow key={row.id} row={row} />)
+        return rows.map(row => (
+          <CompletedBatchProductRow key={row.id} row={row} />
+        ))
       case 'InventoryCountBatches':
         return rows.map((row: Batch) => <BatchRow row={row} key={row.id} />)
       case 'InventoryCountProducts':
-        return rows.map((row: BatchProduct) => <BatchProductsRow key={row.id} row={row} selectedRow={selectedRow} />)
+        return rows.map((row: BatchProduct) => (
+          <BatchProductsRow key={row.id} row={row} selectedRow={selectedRow} />
+        ))
       case 'StockOrders':
         return rows.map(row => <StockOrdersRow key={row.id} row={row} />)
       case 'OrderedProducts':
@@ -55,18 +69,19 @@ const PlainTable: React.FC<PlainTableProps> = ({
   }
 
   const renderLabelDisplayRows = ({ from, to, count }: PaginationLabel) => {
-    return `Page ${page} of ${Math.ceil(count / rowsPerPage)}  -  ${count} items`
+    return `Page ${page} of ${Math.ceil(
+      count / rowsPerPage
+    )}  -  ${count} items`
   }
 
   const renderPagination = () => (
     <div className={classes.paginationDiv}>
       <TablePagination
         rowsPerPageOptions={[10, 25, 50]}
-        component='div'
         count={count}
         rowsPerPage={rowsPerPage}
         page={page - 1}
-        onChangePage={handleChangePage}
+        onPageChange={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
         labelDisplayedRows={renderLabelDisplayRows}
       />
@@ -76,7 +91,9 @@ const PlainTable: React.FC<PlainTableProps> = ({
   return (
     <TableContainer>
       <Table className={classes.table}>
-        {tableHeads !== undefined ? <TableHead>{renderTableHead()}</TableHead> : null}
+        {tableHeads !== undefined ? (
+          <TableHead>{renderTableHead()}</TableHead>
+        ) : null}
         <TableBody>
           {!hasDataToShow ? (
             <TableRow>

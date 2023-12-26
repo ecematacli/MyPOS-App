@@ -1,12 +1,12 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 interface StyleProps {
-  type: string;
+  type: boolean
 }
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   tableBodyRow: {
-    cursor: ({ type }: StyleProps) =>  !type ? 'pointer' : 'unset',
+    cursor: ({ type }: StyleProps) => (!type ? 'pointer' : 'unset'),
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
   },
   tableCell: {
@@ -36,4 +36,4 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
   whiteRow: {
     background: palette.whiteColors[0],
   },
-}));
+}))

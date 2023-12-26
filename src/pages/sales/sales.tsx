@@ -1,45 +1,22 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect, useState } from 'react'
 import { Grid, IconButton, Typography, Box } from '@material-ui/core'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
-import StoreIcon from '@material-ui/icons/StoreOutlined'
 import { Add } from '@material-ui/icons'
+import { useDispatch } from 'react-redux'
 
 import styles from './styles'
-import { completeSale } from '../../redux/sales/salesActions'
-import { Product } from '../../redux/products/types'
 import { fetchCategories } from '../../redux/categories/categoriesActions'
 import { fetchBrands } from '../../redux/brands/brandsActions'
 import useSalesState from './hooks/useSalesState'
 import ProductSearchBar from './components/productSearchBar/ProductSearchBar'
-import PosTableRight from './components/posTableRight'
-import { PaymentMethod } from '../../redux/sales/types'
+import { PosTableRight } from './components/pos-table-right/pos-table-right'
 import CreateProductModal from './components/CreateProductModal'
-import { AuthContext } from '../../contexts/AuthContext'
 import { OutletName } from './components/outlet-name/OutletName'
 
-interface SalesArgs {
-  products: Product[]
-  total: number
-  discount: number
-  description: string
-  paymentMethod: PaymentMethod
-  addNotification: (m: string, t: string) => void
-  discardSale: () => void
-}
-interface SalesProps {
-  completeSale: (args: SalesArgs) => void
-  fetchBrands: () => void
-  fetchCategories: () => void
-}
-
-const SalesPage: React.FC<SalesProps> = ({
-  completeSale,
-  fetchBrands,
-  fetchCategories,
-}) => {
+export const Sales = () => {
   const classes = styles()
-  const { user } = useContext(AuthContext)
+  const dispatch = useDispatch()
+
   const [createProductModalOpen, setCreateProductModalOpen] = useState(false)
   const {
     products,
@@ -60,12 +37,12 @@ const SalesPage: React.FC<SalesProps> = ({
   } = useSalesState()
 
   useEffect(() => {
-    fetchCategories()
-    fetchBrands()
+    dispatch(fetchCategories())
+    dispatch(fetchBrands())
   }, [])
 
   return (
-    <div className={classes.salesPage}>
+    <Box className={classes.salesPage}>
       <CreateProductModal
         open={createProductModalOpen}
         onClose={() => setCreateProductModalOpen(false)}
@@ -132,19 +109,12 @@ const SalesPage: React.FC<SalesProps> = ({
               setDiscount={setDiscount}
               percentageDiscount={percentageDiscount}
               setPercentageDiscount={setPercentageDiscount}
-              completeSale={completeSale}
               discardSale={discardSale}
               {...rest}
             />
           </Grid>
         </Grid>
       </Box>
-    </div>
+    </Box>
   )
 }
-
-export default connect(null, {
-  completeSale,
-  fetchBrands,
-  fetchCategories,
-})(SalesPage)

@@ -1,8 +1,9 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 interface StyleProps {
-  rowIndex: number;
+  rowIndex?: number
 }
+
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   productDetailsContainer: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.08)',
@@ -121,4 +122,4 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     height: 35,
     backgroundColor: 'none',
   },
-}));
+}))
