@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { Align } from '../../../common/components/Align'
-import { InputAutoSuggest } from '../../../common/components/InputAutoSuggest'
+import { InputAutoSuggest } from '../../../common/components/input-auto-suggest/input-auto-suggest'
 import { Page } from '../../../common/components/page'
 import { useNewTransferState } from './useNewTransferState'
 import styles from './styles'

@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import api from '../../../../api/api-client'
 import styles from './styles'
 import { Product } from '../../../../redux/products/types'
-import { InputAutoSuggest } from '../../../../common/components/InputAutoSuggest'
+import { InputAutoSuggest } from '../../../../common/components/input-auto-suggest/input-auto-suggest'
 import { NotificationsContext } from '../../../../contexts/NotificationsContext'
 
 interface SearchBarProps {

@@ -11,7 +11,7 @@ import {
   formatDate,
 } from '../../../../../../common/utils'
 import CustomButton from '../../../../../../common/components/customButton'
-import { InputAutoSuggest } from '../../../../../../common/components/InputAutoSuggest'
+import { InputAutoSuggest } from '../../../../../../common/components/input-auto-suggest/input-auto-suggest'
 
 interface CountingActionsBarProps {
   batch: BatchData

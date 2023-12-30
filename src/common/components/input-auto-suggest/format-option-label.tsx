@@ -1,4 +1,4 @@
-import { AutoSuggestProduct } from '.'
+import { AutoSuggestProduct } from './input-auto-suggest'
 import { FormatOptionLabelMeta } from 'react-select'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
