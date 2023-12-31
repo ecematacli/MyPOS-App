@@ -1443,7 +1443,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:^7.0.3, @types/json-schema@npm:^7.0.5":
+"@types/json-schema@npm:^7.0.3":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
   checksum: a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
@@ -1582,13 +1582,13 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:*":
-  version: 16.14.55
-  resolution: "@types/react@npm:16.14.55"
+  version: 18.2.46
+  resolution: "@types/react@npm:18.2.46"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 392eb1fb22b606d00393722bad31a6fe7e01ea99585e807885dee13c88fc4f9db7d71928cb8d5ae0cf53c14bfd38908e5ad22826a81efcfcc4ffc4f6846f78ea
+  checksum: 814cc67107e5e69501d65bfc371cc2c716665d2a3608d395a2f81e24c3a2875db28e2cad717dfb17017eabcffd1d68ee2c9e09ecaba3f7108d5b7fbb9888ebab
   languageName: node
   linkType: hard
 
@@ -1881,16 +1881,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv-keywords@npm:^3.5.2":
-  version: 3.5.2
-  resolution: "ajv-keywords@npm:3.5.2"
-  peerDependencies:
-    ajv: ^6.9.1
-  checksum: 0c57a47cbd656e8cdfd99d7c2264de5868918ffa207c8d7a72a7f63379d4333254b2ba03d69e3c035e996a3fd3eb6d5725d7a1597cca10694296e32510546360
-  languageName: node
-  linkType: hard
-
-"ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4":
+"ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3":
   version: 6.12.6
   resolution: "ajv@npm:6.12.6"
   dependencies:
@@ -4290,18 +4281,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-loader@npm:^5.0.2":
-  version: 5.1.0
-  resolution: "file-loader@npm:5.1.0"
-  dependencies:
-    loader-utils: "npm:^1.4.0"
-    schema-utils: "npm:^2.5.0"
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 72195fc1e80665eadfff4d9376eead060450d5c68d2145a7108883bec985e91542b6fc1950d06ff1a37c41fb24f69ee55c350b2110150cfd015b3ecc956d1efd
-  languageName: node
-  linkType: hard
-
 "file-selector@npm:^0.4.0":
   version: 0.4.0
   resolution: "file-selector@npm:0.4.0"
@@ -6164,7 +6143,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^1.1.0, loader-utils@npm:^1.2.3, loader-utils@npm:^1.4.0":
+"loader-utils@npm:^1.1.0":
   version: 1.4.2
   resolution: "loader-utils@npm:1.4.2"
   dependencies:
@@ -6459,15 +6438,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:^2.4.4":
-  version: 2.6.0
-  resolution: "mime@npm:2.6.0"
-  bin:
-    mime: cli.js
-  checksum: a7f2589900d9c16e3bdf7672d16a6274df903da958c1643c9c45771f0478f3846dcb1097f31eb9178452570271361e2149310931ec705c037210fc69639c8e6c
-  languageName: node
-  linkType: hard
-
 "mimic-fn@npm:^2.1.0":
   version: 2.1.0
   resolution: "mimic-fn@npm:2.1.0"
@@ -6689,7 +6659,6 @@ __metadata:
     eslint: "npm:^6.8.0"
     eslint-config-prettier: "npm:^6.10.0"
     eslint-plugin-react-hooks: "npm:^2.5.0"
-    file-loader: "npm:^5.0.2"
     formik: "npm:^2.1.4"
     html-loader: "npm:^0.5.5"
     jest: "npm:^25.1.0"
@@ -6711,7 +6680,6 @@ __metadata:
     styled-components: "npm:^5.0.1"
     ts-jest: "npm:^25.2.1"
     typescript: "npm:^3.8.3"
-    url-loader: "npm:^3.0.0"
     vite: "npm:3.2.2"
     vite-plugin-handlebars: "npm:^1.6.0"
     vite-tsconfig-paths: "npm:^4.2.2"
@@ -8187,17 +8155,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"schema-utils@npm:^2.5.0":
-  version: 2.7.1
-  resolution: "schema-utils@npm:2.7.1"
-  dependencies:
-    "@types/json-schema": "npm:^7.0.5"
-    ajv: "npm:^6.12.4"
-    ajv-keywords: "npm:^3.5.2"
-  checksum: f484f34464edd8758712d5d3ba25a306e367dac988aecaf4ce112e99baae73f33a807b5cf869240bb6648c80720b36af2d7d72be3a27faa49a2d4fc63fa3f85f
-  languageName: node
-  linkType: hard
-
 "semver@npm:2 || 3 || 4 || 5, semver@npm:^5.5.0":
   version: 5.7.2
   resolution: "semver@npm:5.7.2"
@@ -9248,23 +9205,6 @@ __metadata:
   version: 0.1.0
   resolution: "urix@npm:0.1.0"
   checksum: 264f1b29360c33c0aec5fb9819d7e28f15d1a3b83175d2bcc9131efe8583f459f07364957ae3527f1478659ec5b2d0f1ad401dfb625f73e4d424b3ae35fc5fc0
-  languageName: node
-  linkType: hard
-
-"url-loader@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "url-loader@npm:3.0.0"
-  dependencies:
-    loader-utils: "npm:^1.2.3"
-    mime: "npm:^2.4.4"
-    schema-utils: "npm:^2.5.0"
-  peerDependencies:
-    file-loader: "*"
-    webpack: ^4.0.0 || ^5.0.0
-  peerDependenciesMeta:
-    file-loader:
-      optional: true
-  checksum: 7685b27597d3b1bc1770374db4cee2fa4c6637a9d2411078f652f3f78d0201f1efd826c0f83cfe9a363d3fb6d004af179a705ee5a5c04bafb5ed3fe490c9ca0e
   languageName: node
   linkType: hard
 
