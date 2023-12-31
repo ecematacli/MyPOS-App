@@ -92,7 +92,7 @@ export const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({
         <Divider className={classes.divider} />
         {MENU_ITEMS.map(
           ({ label, item, url, subMenuItems, allowedRoles, Icon }, i) => {
-            if (!allowedRoles.includes(user?.role.name)) {
+            if (!allowedRoles.includes(user?.role?.name)) {
               return <React.Fragment key={label} />
             }
 

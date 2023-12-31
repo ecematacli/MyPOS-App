@@ -53,8 +53,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const fetchUserOnAppLoad = async () => {
       const user = await fetchUser()
-      user && setUser(user)
-      user && setIsAdmin(user.role.name === UserRoles.Admin)
+      isAuthenticated && setUser(user)
+      isAuthenticated && setIsAdmin(user.role.name === UserRoles.Admin)
 
       setIsUserDataLoaded(true)
     }
