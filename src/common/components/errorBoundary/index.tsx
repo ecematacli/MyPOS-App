@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ExpansionPanelSummary } from '@material-ui/core'
+import { AccordionSummary } from '@mui/material'
 
 import {
   ErrorBoundaryContainer,
@@ -73,13 +73,13 @@ export default class ErrorBoundary extends Component<Props, State> {
             </ErrorMessage>
             <div>
               <ExpansionPanelContainer classes={{ root: 'root' }}>
-                <ExpansionPanelSummary>
+                <AccordionSummary>
                   <ExpansionTextDiv>
                     <ShowMoreText classes={{ body1: 'body' }}>
                       Expand for more info
                     </ShowMoreText>
                   </ExpansionTextDiv>
-                </ExpansionPanelSummary>
+                </AccordionSummary>
                 {this.showMore()}
               </ExpansionPanelContainer>
             </div>

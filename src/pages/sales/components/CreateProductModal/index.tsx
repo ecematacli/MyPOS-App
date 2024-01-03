@@ -11,7 +11,7 @@ import {
   DialogTitle,
   Accordion,
   AccordionSummary,
-} from '@material-ui/core'
+} from '@mui/material'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import styles from './styles'

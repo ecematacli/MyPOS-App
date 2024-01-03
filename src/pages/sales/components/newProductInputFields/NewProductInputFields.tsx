@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { InputAdornment } from '@material-ui/core'
+import { InputAdornment } from '@mui/material'
 import { FieldProps } from 'formik'
 
 import styles from './styles'
@@ -11,7 +11,8 @@ interface InputProps {
   label: string
   type: string | undefined
 }
-const NewProductInputFields: React.FC<FieldProps<FormValues> & InputProps> = props => {
+const NewProductInputFields: React.FC<FieldProps<FormValues> &
+  InputProps> = props => {
   const classes = styles(props)
   const {
     field,
@@ -23,7 +24,9 @@ const NewProductInputFields: React.FC<FieldProps<FormValues> & InputProps> = pro
   } = props
 
   const invalidFields = errors[fieldId] && touched[fieldId]
-  const requiredFieldClasses = invalidFields ? `${classes.notchedOutline}` : null
+  const requiredFieldClasses = invalidFields
+    ? `${classes.notchedOutline}`
+    : null
 
   return (
     <Fragment>
@@ -47,7 +50,9 @@ const NewProductInputFields: React.FC<FieldProps<FormValues> & InputProps> = pro
           )
         }
       />
-      {(fieldId === 'barcode' || fieldId === 'price' || fieldId === 'discountPrice') &&
+      {(fieldId === 'barcode' ||
+        fieldId === 'price' ||
+        fieldId === 'discountPrice') &&
       invalidFields ? (
         <div className={classes.helperText} data-testid={`${fieldId}-error`}>
           {errors[fieldId]}

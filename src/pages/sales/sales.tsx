@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, IconButton, Typography, Box } from '@material-ui/core'
+import { Grid, IconButton, Typography, Box } from '@mui/material'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import { Add } from '@material-ui/icons'
 import { useDispatch } from 'react-redux'

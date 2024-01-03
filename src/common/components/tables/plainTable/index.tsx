@@ -7,7 +7,7 @@ import {
   TableHead,
   TableContainer,
   TablePagination,
-} from '@material-ui/core'
+} from '@mui/material'
 
 import styles from './styles'
 import { PlainTableProps, Batch, BatchProduct, PaginationLabel } from './types'

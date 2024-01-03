@@ -7,7 +7,7 @@ import {
   TableBody,
   TableCell,
   IconButton,
-} from '@material-ui/core'
+} from '@mui/material'
 import DeleteIcon from '@material-ui/icons/Delete'
 import clsx from 'clsx'
 

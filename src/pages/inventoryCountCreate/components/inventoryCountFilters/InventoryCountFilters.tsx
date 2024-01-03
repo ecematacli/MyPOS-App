@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import clsx from 'clsx';
-import { DatePicker } from '@material-ui/pickers';
+import React, { Fragment } from 'react'
+import clsx from 'clsx'
+import { DatePicker } from '@material-ui/pickers'
 import {
   InputAdornment,
   TextField,
@@ -11,28 +11,28 @@ import {
   Select,
   MenuItem,
   Typography,
-} from '@material-ui/core';
-import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
+} from '@mui/material'
+import InsertInvitationIcon from '@material-ui/icons/InsertInvitation'
 
-import styles from './styles';
-import { Category } from '../../../../redux/categories/types';
-import { Brand } from '../../../../redux/brands/types';
+import styles from './styles'
+import { Category } from '../../../../redux/categories/types'
+import { Brand } from '../../../../redux/brands/types'
 
 type InputChange = ({
   target: { value, name },
-}: React.ChangeEvent<HTMLInputElement>) => void;
+}: React.ChangeEvent<HTMLInputElement>) => void
 interface Props {
-  startDate: Date;
-  handleStartDateChange: React.Dispatch<React.SetStateAction<Date>>;
-  countName: string;
-  handleCountNameChange: InputChange;
-  handleDropdownInputChange: InputChange;
+  startDate: Date
+  handleStartDateChange: React.Dispatch<React.SetStateAction<Date>>
+  countName: string
+  handleCountNameChange: InputChange
+  handleDropdownInputChange: InputChange
   DROPDOWN_INPUT_FIELDS: {
-    label: string;
-    fieldId: string;
-    value: string;
-    dropdownItems: Category[] | Brand[];
-  }[];
+    label: string
+    fieldId: string
+    value: string
+    dropdownItems: Category[] | Brand[]
+  }[]
 }
 const InventoryCountFilters: React.FC<Props> = ({
   startDate,
@@ -42,7 +42,7 @@ const InventoryCountFilters: React.FC<Props> = ({
   handleDropdownInputChange,
   DROPDOWN_INPUT_FIELDS,
 }) => {
-  const classes = styles();
+  const classes = styles()
 
   const renderTextField = (props: TextFieldProps) => (
     <TextField
@@ -51,28 +51,28 @@ const InventoryCountFilters: React.FC<Props> = ({
         classes: { root: classes.datePickerInput },
         endAdornment: (
           <Fragment>
-            <InputAdornment position="start">
+            <InputAdornment position='start'>
               <InsertInvitationIcon className={classes.calendarIcon} />
             </InputAdornment>
           </Fragment>
         ),
       }}
-      variant="outlined"
+      variant='outlined'
     />
-  );
+  )
 
   const renderInputs = () => (
     <div className={classes.inputContainer}>
       <div>
         <InputLabel classes={{ root: classes.inputLabel }}>
           Start Date
-          </InputLabel>
+        </InputLabel>
         <DatePicker
-          color="secondary"
-          variant="inline"
+          color='secondary'
+          variant='inline'
           TextFieldComponent={renderTextField}
           autoOk
-          format="dd MMM yyyy"
+          format='dd MMM yyyy'
           value={startDate}
           onChange={handleStartDateChange}
         />
@@ -81,19 +81,19 @@ const InventoryCountFilters: React.FC<Props> = ({
         <InputLabel
           classes={{ root: classes.inputLabel }}
           className={classes.inputSpace}
-          color="secondary">
+          color='secondary'>
           Count Name
-          </InputLabel>
+        </InputLabel>
         <OutlinedInput
           className={classes.inputSpace}
           classes={{ root: classes.inputRoot, input: classes.input }}
           value={countName}
           onChange={handleCountNameChange}
-          color="secondary"
+          color='secondary'
         />
       </div>
     </div>
-  );
+  )
 
   const renderDropdownInputs = () => (
     <div className={classes.dropdownInputContainer}>
@@ -110,11 +110,11 @@ const InventoryCountFilters: React.FC<Props> = ({
             </InputLabel>
             <FormControl
               classes={{ root: classes.dropdownInput }}
-              variant="outlined">
+              variant='outlined'>
               <Select
                 classes={{ root: classes.selectRoot }}
                 name={fieldId}
-                color="secondary"
+                color='secondary'
                 value={value}
                 onChange={handleDropdownInputChange}
                 labelId={label}
@@ -137,7 +137,7 @@ const InventoryCountFilters: React.FC<Props> = ({
         )
       )}
     </div>
-  );
+  )
 
   return (
     <div className={classes.filtersContainer}>
@@ -151,7 +151,7 @@ const InventoryCountFilters: React.FC<Props> = ({
         {renderDropdownInputs()}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default InventoryCountFilters;
+export default InventoryCountFilters

@@ -1,12 +1,12 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 interface FormikForm {
-  touched: any;
-  errors: any;
+  touched: any
+  errors: any
 }
 
 interface StyleProps {
-  form: FormikForm;
-  fieldId: string;
+  form: FormikForm
+  fieldId: string
 }
 export default makeStyles(({ spacing, palette }) => ({
   input: {
@@ -32,4 +32,4 @@ export default makeStyles(({ spacing, palette }) => ({
   invalidatedLabel: {
     color: palette.error.main,
   },
-}));
+}))

@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Typography, Button } from '@material-ui/core'
+import { Typography, Button } from '@mui/material'
 
 import styles from './styles'
 import useStockOrders from './hooks/useStockOrders'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
 import FileUpload from './components/fileUpload/FileUpload'
-import Alert from '../../common/components/alert'
+import { Alert } from '../../common/components/alert/alert'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 const StockOrdersPage = () => {

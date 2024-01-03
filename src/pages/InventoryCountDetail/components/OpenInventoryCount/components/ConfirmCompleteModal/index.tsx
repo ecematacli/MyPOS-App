@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Dialog, DialogTitle, Button, Typography } from '@material-ui/core'
+import { Dialog, DialogTitle, Button, Typography } from '@mui/material'
 import styles from './styles'
 import { Align } from '../../../../../../common/components/Align'
 import { BatchesProductsData } from '../../types'
@@ -26,9 +26,9 @@ export const ConfirmCompleteModal: FC<Props> = ({
   const message = () => {
     if (uncounted > 0) {
       return {
-        message: `There ${uncounted === 1 ? 'is' : 'are'} ${uncounted} uncounted product${
-          uncounted === 1 ? '' : 's'
-        }`,
+        message: `There ${
+          uncounted === 1 ? 'is' : 'are'
+        } ${uncounted} uncounted product${uncounted === 1 ? '' : 's'}`,
         icon: <Warning color='error' />,
         error: true,
       }
@@ -60,14 +60,17 @@ export const ConfirmCompleteModal: FC<Props> = ({
           <Align vertical>
             <Align align='center' padding={[1, 0]}>
               {m.icon}
-              <Typography color={m.error ? 'error' : 'primary'} style={{ marginLeft: 8 }}>
+              <Typography
+                color={m.error ? 'error' : 'primary'}
+                style={{ marginLeft: 8 }}>
                 {m.message}
               </Typography>
             </Align>
             <Typography>
-              Counts of uncounted items will be set to zero. After completion inventory levels
-              will be adjusted immediately. Updated inventory levels will be sent to the
-              e-commerce store in batches of 40 products. This may take some time.
+              Counts of uncounted items will be set to zero. After completion
+              inventory levels will be adjusted immediately. Updated inventory
+              levels will be sent to the e-commerce store in batches of 40
+              products. This may take some time.
             </Typography>
           </Align>
         </div>

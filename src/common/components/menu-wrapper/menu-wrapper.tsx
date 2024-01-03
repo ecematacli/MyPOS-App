@@ -2,27 +2,39 @@ import React, { useContext, useState, Fragment } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   CssBaseline,
-  Drawer,
-  AppBar,
   Hidden,
-  Divider,
   List,
-  ListItem,
-  ListItemIcon,
   ListItemText,
-  IconButton,
   Collapse,
-  Box,
-  Typography,
-} from '@material-ui/core'
+} from '@mui/material'
 import MenuIcon from '@material-ui/icons/Menu'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 
-import styles from './styles'
+import {
+  DrawerContainer,
+  DrawerIcon,
+  DrawerItemText,
+  DrawerList,
+  DrawerListContainer,
+  DrawerPaper,
+  DrawerRoot,
+  EmailAddress,
+  LogoImage,
+  LogoWrapper,
+  MenuButton,
+  MenuIconContainer,
+  MenuItem,
+  StyledAppBar,
+  StyledContent,
+  StyledDivider,
+  SubMenuIcons,
+  SubMenuItems,
+  UserInfoBox,
+} from './menu-wrapper-styles'
 import logo from '../../../assets/img/merit.png'
 import { MENU_ITEMS, SubMenuItem } from './menu-item-list'
-import Notifications from '../notifications/Notifications'
+import { Notifications } from '../notifications/notifications'
 import {
   AuthContext,
   AuthTokenSettingContext,
@@ -32,7 +44,6 @@ import Loading from '../loading'
 export const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const classes = styles()
   const history = useHistory()
 
   const { isAuthenticated, user, isUserDataLoaded } = useContext(AuthContext)
@@ -69,27 +80,27 @@ export const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({
           handleCloseMenu()
         }}>
         <Collapse in={openedItems[item]} timeout='auto' unmountOnExit>
-          <List component='div' disablePadding>
-            <ListItem button className={classes.subMenuItems}>
-              <ListItemIcon className={classes.subMenuIcons}>
+          <List disablePadding>
+            <SubMenuItems>
+              <SubMenuIcons>
                 <Icon />
-              </ListItemIcon>
+              </SubMenuIcons>
               <ListItemText primary={subLabel} />
-            </ListItem>
+            </SubMenuItems>
           </List>
         </Collapse>
       </div>
     ))
 
   const drawer = (
-    <Box className={classes.drawerListContainer}>
-      <List className={classes.drawerListItems}>
-        <ListItem>
-          <div className={classes.logoWrapper}>
-            <img className={classes.logoImg} src={logo} alt='logo' />
-          </div>
-        </ListItem>
-        <Divider className={classes.divider} />
+    <DrawerListContainer>
+      <DrawerList>
+        <MenuItem>
+          <LogoWrapper>
+            <LogoImage src={logo} alt='logo' />
+          </LogoWrapper>
+        </MenuItem>
+        <StyledDivider />
         {MENU_ITEMS.map(
           ({ label, item, url, subMenuItems, allowedRoles, Icon }, i) => {
             if (!allowedRoles.includes(user?.role?.name)) {
@@ -98,101 +109,86 @@ export const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({
 
             if (subMenuItems) {
               return (
-                <div key={label}>
-                  <ListItem button onClick={() => toggleOpenedItems(item)}>
-                    <IconButton className={classes.drawerIcon}>
+                <React.Fragment key={label}>
+                  <MenuItem key={label} onClick={() => toggleOpenedItems(item)}>
+                    <DrawerIcon>
                       <Icon />
-                    </IconButton>
-                    <ListItemText
-                      className={classes.drawerItemText}
-                      inset
-                      primary={label}
-                    />
-                    {openedItems[item] ? <ExpandLess /> : <ExpandMore />}
-                  </ListItem>
+                    </DrawerIcon>
+                    <DrawerItemText inset primary={label} />
+                    {openedItems[item] ? (
+                      <ExpandLess style={{ cursor: 'pointer' }} />
+                    ) : (
+                      <ExpandMore style={{ cursor: 'pointer' }} />
+                    )}
+                  </MenuItem>
                   {renderSubMenuItems(subMenuItems, item)}
-                </div>
+                </React.Fragment>
               )
             }
             return (
-              <div key={label}>
-                {i === MENU_ITEMS.length - 1 && (
-                  <Divider className={classes.divider} />
-                )}
-                <ListItem
+              <React.Fragment key={label}>
+                {i === MENU_ITEMS.length - 1 && <StyledDivider />}
+                <MenuItem
                   onClick={() => {
                     history.push(url)
                     handleCloseMenu()
                     item === 'signout' && onSignOutClick()
                   }}
                   key={label}
-                  button>
-                  <IconButton className={classes.drawerIcon}>
+                  style={{ cursor: 'pointer' }}>
+                  <DrawerIcon>
                     <Icon />
-                  </IconButton>
-                  <ListItemText
-                    className={classes.drawerItemText}
-                    inset
-                    primary={label}
-                  />
-                </ListItem>
-              </div>
+                  </DrawerIcon>
+                  <DrawerItemText inset primary={label} />
+                </MenuItem>
+              </React.Fragment>
             )
           }
         )}
-      </List>
-      <Box className={classes.userInfoBox}>
-        <Typography className={classes.emailAddress}>{user?.email}</Typography>
-      </Box>
-    </Box>
+      </DrawerList>
+      <UserInfoBox>
+        <EmailAddress>{user?.email}</EmailAddress>
+      </UserInfoBox>
+    </DrawerListContainer>
   )
   return (
-    <div className={classes.drawerRoot}>
+    <DrawerRoot>
       <CssBaseline />
       {isAuthenticated ? (
         <Fragment>
-          <AppBar classes={{ root: classes.appBar }}>
-            <div className={classes.menuIconContainer}>
-              <IconButton
-                className={classes.menuButton}
+          <StyledAppBar>
+            <MenuIconContainer>
+              <MenuButton
                 edge='start'
                 color='inherit'
                 aria-label='open drawer'
                 onClick={handleMobileOpenToggle}>
-                <MenuIcon className={classes.menuIcon} />
-              </IconButton>
-            </div>
-          </AppBar>
-          <nav className={classes.drawer}>
+                <MenuIcon />
+              </MenuButton>
+            </MenuIconContainer>
+          </StyledAppBar>
+          <DrawerContainer>
             <Hidden xlUp implementation='css'>
-              <Drawer
+              <DrawerPaper
                 variant='temporary'
                 open={mobileOpen}
                 onClose={handleMobileOpenToggle}
                 ModalProps={{
                   keepMounted: true, // Better open performance on mobile.
-                }}
-                classes={{
-                  paper: classes.drawerPaper,
                 }}>
                 {drawer}
-              </Drawer>
+              </DrawerPaper>
             </Hidden>
             <Hidden lgDown implementation='css'>
-              <Drawer
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-                variant='permanent'
-                open>
+              <DrawerPaper variant='permanent' open>
                 {drawer}
-              </Drawer>
+              </DrawerPaper>
             </Hidden>
-          </nav>
+          </DrawerContainer>
         </Fragment>
       ) : null}
-      <main className={classes.content}>{children}</main>
+      <StyledContent>{children}</StyledContent>
       <Notifications />
-    </div>
+    </DrawerRoot>
   )
 }

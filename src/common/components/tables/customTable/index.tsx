@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow,
   TablePagination,
-} from '@material-ui/core'
+} from '@mui/material'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'

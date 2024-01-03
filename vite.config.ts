@@ -9,7 +9,7 @@ import { ENV_CONFIG_ENUM, getWebpackDefineConfig } from './config'
 
 export const isInCypressTest = process.env.VITE_CYPRESS === 'true'
 const isInProduction = process.env.NODE_ENV === 'production'
-
+console.log('url: ', process.env.API_URL)
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
   //@ts-ignore

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import clsx from 'clsx'
-import { TableCell, TableRow, Collapse } from '@material-ui/core'
+import { TableCell, TableRow, Collapse } from '@mui/material'
 
 import styles from './styles'
 import { Product } from '../../../../../redux/products/types'

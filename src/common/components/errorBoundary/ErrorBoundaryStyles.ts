@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { ExpansionPanel, AccordionDetails, Typography } from '@material-ui/core'
+import { Accordion, AccordionDetails, Typography } from '@mui/material'
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied'
 
 export const ErrorBoundaryContainer = styled.div`
@@ -27,7 +27,7 @@ export const ErrorMessage = styled(Typography)`
   }
 `
 
-export const ExpansionPanelContainer = styled(ExpansionPanel)`
+export const ExpansionPanelContainer = styled(Accordion)`
   margin-top: 20px;
   &.root {
     box-shadow: none;

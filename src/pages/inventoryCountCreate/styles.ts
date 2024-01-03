@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
 export default makeStyles(({ spacing, palette }) => ({
   createInvContainer: {
@@ -71,4 +71,4 @@ export default makeStyles(({ spacing, palette }) => ({
   boxesImage: {
     height: 100,
   },
-}));
+}))

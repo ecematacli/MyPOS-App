@@ -1,4 +1,4 @@
-import { makeStyles, Theme } from '@material-ui/core'
+import { makeStyles } from '@mui/styles'
 import { Styles } from 'react-select'
 
 export default makeStyles(({ spacing, breakpoints, palette }) => ({

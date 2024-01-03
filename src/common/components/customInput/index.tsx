@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { makeStyles, useTheme } from '@mui/styles'
 
 import {
   OutlinedInput,
@@ -8,7 +8,7 @@ import {
   Select,
   MenuItem,
   Theme,
-} from '@material-ui/core'
+} from '@mui/material'
 import { Props, DropdownItems } from './types'
 
 const styles = makeStyles(({ breakpoints }) => ({
@@ -58,7 +58,10 @@ const CustomInput: React.FC<Props> = props => {
               input={<OutlinedInput classes={classesProp?.innerInput} />}>
               {dropdownItems &&
                 dropdownItems.map(({ id, name }: DropdownItems) => (
-                  <MenuItem classes={{ root: classes.dropdownItems }} key={id} value={name}>
+                  <MenuItem
+                    classes={{ root: classes.dropdownItems }}
+                    key={id}
+                    value={name}>
                     {name}
                   </MenuItem>
                 ))}

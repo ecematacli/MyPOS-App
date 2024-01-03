@@ -8,7 +8,7 @@ import {
   OutlinedInput,
   Select,
   Typography,
-} from '@material-ui/core'
+} from '@mui/material'
 import { Align } from '../../../common/components/Align'
 import { InputAutoSuggest } from '../../../common/components/input-auto-suggest/input-auto-suggest'
 import { Page } from '../../../common/components/page'

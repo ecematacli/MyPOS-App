@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Button } from '@material-ui/core'
+import { Button } from '@mui/material'
 import Alert from '@material-ui/lab/Alert'
 
 import { Align } from '../../common/components/Align'

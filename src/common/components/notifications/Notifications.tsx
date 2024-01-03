@@ -1,20 +1,18 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext, Fragment } from 'react'
 
 import {
   NotificationsContext,
-  Notification
-} from '../../../contexts/NotificationsContext';
-import CustomSnackbar from '.';
+  Notification,
+} from '../../../contexts/NotificationsContext'
+import { NotificationSnackbar } from './notification-snackbar'
 
-const Notifications: React.FC = () => {
-  const { notifications, removeNotification } = useContext(
-    NotificationsContext
-  );
+export const Notifications = () => {
+  const { notifications, removeNotification } = useContext(NotificationsContext)
 
   return (
     <Fragment>
       {notifications.map((n: Notification) => (
-        <CustomSnackbar
+        <NotificationSnackbar
           key={n.id}
           open
           handleClose={() => removeNotification(n.id)}
@@ -23,7 +21,5 @@ const Notifications: React.FC = () => {
         />
       ))}
     </Fragment>
-  );
-};
-
-export default Notifications;
+  )
+}

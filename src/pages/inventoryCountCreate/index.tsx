@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Typography, Button, Divider } from '@material-ui/core'
+import { Typography, Button, Divider } from '@mui/material'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import styles from './styles'

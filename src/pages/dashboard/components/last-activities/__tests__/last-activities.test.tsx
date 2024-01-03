@@ -1,6 +1,6 @@
 import React from 'react'
 
-import LastActivities from '../LastActivities'
+import LastActivities from '../last-activities'
 import { render } from '../../../../../testUtils/render'
 
 const lastActivities = [

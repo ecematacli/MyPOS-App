@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Typography, Button } from '@material-ui/core'
+import { Typography, Button } from '@mui/material'
 
 import styles from './styles'
 import { formatDate } from '../../common/utils'

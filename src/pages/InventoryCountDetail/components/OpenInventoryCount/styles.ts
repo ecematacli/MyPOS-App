@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
 export default makeStyles(({ spacing }) => ({
   gridItem: {
@@ -19,4 +19,4 @@ export default makeStyles(({ spacing }) => ({
     maxWidth: spacing(137.5),
     display: 'flex',
   },
-}));
+}))

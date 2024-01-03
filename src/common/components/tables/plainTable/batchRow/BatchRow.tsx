@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { TableRow, TableCell } from '@material-ui/core'
+import { TableRow, TableCell } from '@mui/material'
 
 import styles from './styles'
 import { Batch } from '../types'

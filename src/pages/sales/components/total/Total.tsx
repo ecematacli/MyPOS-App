@@ -7,7 +7,7 @@ import {
   Select,
   MenuItem,
   OutlinedInput,
-} from '@material-ui/core'
+} from '@mui/material'
 
 import styles from './styles'
 import { TotalProps } from '../pos-table-right/types'

@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
 export default makeStyles(({ spacing, palette }) => ({
   tabs: {
@@ -15,4 +15,4 @@ export default makeStyles(({ spacing, palette }) => ({
     margin: '0 auto',
     maxWidth: spacing(137.5),
   },
-}));
+}))

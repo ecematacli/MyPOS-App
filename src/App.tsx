@@ -1,9 +1,9 @@
 import React from 'react'
-import { ThemeProvider } from '@material-ui/styles'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns'
+import { ThemeProvider } from '@mui/material/styles'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
-import theme from './theme'
+import { theme } from './theme/theme'
 import { AppRouter } from './routes/AppRouter'
 import { Provider } from 'react-redux'
 import configureStore from './redux/store'
@@ -21,9 +21,9 @@ export const App = () => (
         <NotificationsProvider>
           <GlobalStyles />
           <ThemeProvider theme={theme}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
               <AppRouter />
-            </MuiPickersUtilsProvider>
+            </LocalizationProvider>
           </ThemeProvider>
         </NotificationsProvider>
       </CatalogInfoProvider>

@@ -6,7 +6,7 @@ import { productNameWithVariation, currencyFormatter } from '../../utils'
 
 import React from 'react'
 import { Align } from '../Align'
-import { Grid } from '@material-ui/core'
+import { Grid } from '@mui/material'
 
 export const formatOptionLabel = () => (
   { name, variation, sku, price, barcode }: AutoSuggestProduct,

@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
   filterIconContainer: {
@@ -7,20 +7,20 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     justifyContent: 'flex-end',
     margin: 'auto',
     marginTop: spacing(3),
-    marginBottom: -spacing(1)
+    marginBottom: -spacing(1),
   },
   filterIcon: {
     fontSize: spacing(4),
-    color: palette.secondary.main
+    color: palette.secondary.main,
   },
   filterIconDiv: {
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   popoverPaper: {
     maxWidth: 435,
     '@media (max-width:465px)': {
-      width: 340
-    }
+      width: 340,
+    },
   },
   filterCaption: {
     marginTop: spacing(3),
@@ -28,17 +28,17 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     paddingBottom: spacing(2),
     borderBottom: '1px solid #eee',
     fontSize: spacing(2),
-    color: 'rgba(0, 0, 0, 0.54)'
+    color: 'rgba(0, 0, 0, 0.54)',
   },
   filterLabel: {
     marginRight: spacing(5),
     '@media (max-width:465px)': {
-      marginRight: 0
+      marginRight: 0,
     },
-    color: palette.grayColors[3]
+    color: palette.grayColors[3],
   },
   filterInputContainer: {
-    padding: spacing(4, 3, 4)
+    padding: spacing(4, 3, 4),
   },
   filterInputs: {
     display: 'flex',
@@ -46,49 +46,49 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     alignItems: 'center',
     marginBottom: spacing(4),
     '&:last-child': {
-      marginBottom: 0
-    }
+      marginBottom: 0,
+    },
   },
   chipInput: {
     backgroundColor: palette.primary.dark,
     marginLeft: spacing(1),
-    marginTop: 10
+    marginTop: 10,
   },
   input: {
     [breakpoints.down('sm')]: {
-      fontSize: spacing(1.6)
-    }
+      fontSize: spacing(1.6),
+    },
   },
   inputRoot: {
     width: 258,
     height: 35,
     borderColor: palette.secondary.dark,
     '&:focus': {
-      backgroundColor: 'transparent !important'
+      backgroundColor: 'transparent !important',
     },
     '@media (max-width:465px)': {
-      width: 210
-    }
+      width: 210,
+    },
   },
   dropdownInput: {
     width: 258,
     '@media (max-width:465px)': {
-      width: 210
-    }
+      width: 210,
+    },
   },
   innerInput: {
-    height: 35
+    height: 35,
   },
   filterBtnDiv: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginBottom: spacing(1.5)
+    marginBottom: spacing(1.5),
   },
   filterBtn: {
     textTransform: 'capitalize',
     fontSize: spacing(2),
     [breakpoints.down('sm')]: {
-      fontSize: 13
-    }
-  }
-}));
+      fontSize: 13,
+    },
+  },
+}))

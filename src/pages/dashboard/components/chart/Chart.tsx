@@ -8,22 +8,21 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts'
-import {
-  Paper,
-  IconButton,
-  Typography,
-  Divider,
-  ListItem,
-} from '@material-ui/core'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
+import { Paper, IconButton, Divider, useTheme, Box } from '@mui/material'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
 
-import styles from './styles'
+import {
+  ChartPaper,
+  DisplayOptionsItem,
+  DisplayOptionsTitle,
+  IconContainer,
+} from './chart-styles'
 import { RevenueData, AppliedFilters } from '../../types'
 import { capitalize } from '../../../../common/utils'
 import { currencyFormatter } from '../../../../common/utils'
 import { getDisabledOptions } from '../../utils'
-import useChartState from './useChartState'
-import CustomPopover from '../../../../common/components/customPopover'
+import { useChartState } from './use-chart-state'
+import { CustomPopover } from '../../../../common/components/custom-popover/custom-popover'
 
 interface ChartProps {
   revenueData: RevenueData
@@ -35,12 +34,18 @@ interface ChartProps {
   appliedFilters: AppliedFilters
 }
 
-const Chart: React.FC<ChartProps> = ({
+export const Chart: React.FC<ChartProps> = ({
   revenueData,
   fetchRevenueData,
   appliedFilters,
 }) => {
-  const classes = styles()
+  const theme = useTheme()
+
+  const commonPopoverStyles = {
+    minWidth: 250,
+    minHeight: 200,
+    color: theme.palette.secondary.main,
+  }
 
   const disabledOptions = getDisabledOptions(
     appliedFilters.startDate,
@@ -56,42 +61,42 @@ const Chart: React.FC<ChartProps> = ({
     onDisplayOptionClick,
   } = useChartState(fetchRevenueData, disabledOptions, appliedFilters)
 
-  const labelStyle = {
-    color: '#696969',
-    textAlign: 'center',
-  }
-
   const renderDateOptions = () => {
     return (
-      <div className={classes.iconContainer}>
-        <IconButton onClick={handleClick} className={classes.iconButton}>
+      <IconContainer>
+        <IconButton
+          onClick={handleClick}
+          sx={{ position: 'absolute', right: 0 }}>
           <MoreVertIcon />
         </IconButton>
         <CustomPopover
           open={open}
-          classes={{ paper: classes.popoverPaper }}
+          sx={{
+            '& .MuiPopover-paper': commonPopoverStyles,
+          }}
           anchorEl={anchorEl}
           onClose={handleClose}>
-          <Paper className={classes.popoverPaper}>
-            <Typography className={classes.displayOptionsTitle}>
+          <Paper sx={commonPopoverStyles}>
+            <DisplayOptionsTitle>
               Choose a display type for date
-            </Typography>
+            </DisplayOptionsTitle>
             <Divider />
-            <div>
+            <Box>
               {(['daily', 'weekly', 'monthly'] as const).map(option => (
-                <ListItem
-                  className={classes.displayOptionsItem}
+                <DisplayOptionsItem
                   disabled={disabledOptions[option]}
                   selected={displayOption === option}
                   onClick={() => onDisplayOptionClick(option)}
                   key={option}>
-                  <div className={classes.option}>{capitalize(option)}</div>
-                </ListItem>
+                  <Box sx={{ paddingLeft: theme.spacing(1) }}>
+                    {capitalize(option)}
+                  </Box>
+                </DisplayOptionsItem>
               ))}
-            </div>
+            </Box>
           </Paper>
         </CustomPopover>
-      </div>
+      </IconContainer>
     )
   }
 
@@ -142,11 +147,9 @@ const Chart: React.FC<ChartProps> = ({
   )
 
   return (
-    <Paper className={classes.chartPaper}>
+    <ChartPaper>
       {renderDateOptions()}
       {renderAreaChart()}
-    </Paper>
+    </ChartPaper>
   )
 }
-
-export default Chart

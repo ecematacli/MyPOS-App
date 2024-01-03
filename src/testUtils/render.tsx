@@ -6,7 +6,7 @@ import { ThemeProvider } from '@material-ui/styles'
 import { mockStore } from '../__mocks__/store'
 import { AuthContext } from '../contexts/AuthContext'
 import { NotificationsContext } from '../contexts/NotificationsContext'
-import theme from '../theme'
+import { theme } from '../theme/theme'
 import { UserRoles } from 'api/user/types'
 
 export const render = (

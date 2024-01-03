@@ -2,10 +2,10 @@ import React, { Fragment } from 'react'
 import {
   Typography,
   Divider,
-  ExpansionPanel,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionSummary,
   AccordionDetails,
-} from '@material-ui/core'
+} from '@mui/material'
 
 import styles from './styles'
 import inventoryImage from '../../../../../../assets/img/stocktake-emptylist-v1.png'
@@ -28,15 +28,15 @@ const LastCountedItems: React.FC<LastCountedItemsProps> = ({
     lastCountedItems
       .slice(0, 30)
       .map(({ id, name, counted, variation, sku, barcode, countedAt }, i) => (
-        <ExpansionPanel key={id + countedAt}>
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+        <Accordion key={id + countedAt}>
+          <AccordionSummary expandIcon={<ExpandMore />}>
             <Align align='center'>
               <span className={classes.countNumber}>{counted}</span>
               <Typography variant='caption'>
                 {productNameWithVariation(name, variation)}
               </Typography>
             </Align>
-          </ExpansionPanelSummary>
+          </AccordionSummary>
           <AccordionDetails>
             <Align vertical>
               <Typography variant='caption'>
@@ -56,7 +56,7 @@ const LastCountedItems: React.FC<LastCountedItemsProps> = ({
               </Typography>
             </Align>
           </AccordionDetails>
-        </ExpansionPanel>
+        </Accordion>
       ))
 
   const renderInventoryImg = () => (

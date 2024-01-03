@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
 export default makeStyles(({ palette, spacing }) => ({
   stockOrdersContainer: {
@@ -39,4 +39,4 @@ export default makeStyles(({ palette, spacing }) => ({
     maxWidth: spacing(137.5),
     margin: '0 auto',
   },
-}));
+}))

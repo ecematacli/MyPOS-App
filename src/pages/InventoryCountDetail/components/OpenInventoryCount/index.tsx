@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid } from '@material-ui/core'
+import { Grid } from '@mui/material'
 
 import styles from './styles'
 import LastCountedItems from './components/lastCountedItems/LastCountedItems'
@@ -73,20 +73,20 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
         {loading || !batch ? (
           <Loading />
         ) : (
-            <div className={classes.countTableDiv}>
-              <BatchStats batch={batch} />
-              <CountBatchesProductsTable
-                tabsValue={tabsValue}
-                handleTabsChange={handleTabsChange}
-                batchProducts={batchProducts}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                handleChangePage={handleChangePage}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-                selectedProductRow={selectedProduct}
-              />
-            </div>
-          )}
+          <div className={classes.countTableDiv}>
+            <BatchStats batch={batch} />
+            <CountBatchesProductsTable
+              tabsValue={tabsValue}
+              handleTabsChange={handleTabsChange}
+              batchProducts={batchProducts}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              handleChangePage={handleChangePage}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
+              selectedProductRow={selectedProduct}
+            />
+          </div>
+        )}
       </Grid>
       <Grid item xs={3}>
         <LastCountedItems lastCountedItems={lastCountedItems} />

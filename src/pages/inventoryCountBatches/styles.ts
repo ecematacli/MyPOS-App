@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
 export default makeStyles(({ spacing, palette }) => ({
   inventoryContainer: {
@@ -49,4 +49,4 @@ export default makeStyles(({ spacing, palette }) => ({
     alignItems: 'center',
     marginTop: spacing(5),
   },
-}));
+}))

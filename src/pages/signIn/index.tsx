@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, Typography, CardMedia } from '@material-ui/core'
+import { Card, CardContent, Typography, CardMedia } from '@mui/material'
 import { Formik, Field, Form } from 'formik'
 import * as Yup from 'yup'
 

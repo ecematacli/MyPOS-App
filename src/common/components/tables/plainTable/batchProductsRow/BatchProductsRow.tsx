@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableRow, TableCell } from '@material-ui/core'
+import { TableRow, TableCell } from '@mui/material'
 import AdjustIcon from '@material-ui/icons/Adjust'
 
 import styles from './styles'

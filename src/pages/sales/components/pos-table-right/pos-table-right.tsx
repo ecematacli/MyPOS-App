@@ -9,7 +9,7 @@ import {
   Typography,
   Button,
   Box,
-} from '@material-ui/core'
+} from '@mui/material'
 import clsx from 'clsx'
 
 import styles from './styles'

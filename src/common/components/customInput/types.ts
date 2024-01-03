@@ -1,4 +1,4 @@
-import { InputBaseComponentProps } from '@material-ui/core'
+import { InputBaseComponentProps } from '@mui/material'
 import { FormikTouched } from 'formik'
 
 export interface DropdownItems {

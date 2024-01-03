@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableRow, TableCell } from '@material-ui/core'
+import { TableRow, TableCell } from '@mui/material'
 
 import { productNameWithVariation } from '../../../common/utils'
 import { ProductToTransfer } from '../types'

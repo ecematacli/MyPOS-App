@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
-import { Grid } from '@material-ui/core'
+import { Box, Grid } from '@mui/material'
 
-import styles from './styles'
 import { getInitialLastThirtyDays } from './utils'
-import DashboardDateFilter from './components/dashboardDateFilter/DashboardDateFilter'
-import useDashboardState from './hooks/useDashboardState'
-import DashboardStats from './components/dashboardStats/DashboardStats'
-import Chart from './components/chart/Chart'
-import LastActivities from './components/lastActivities/LastActivities'
-import TopSellingItems from './components/topSellingItems/TopSellingItems'
+import { DashboardDateFilter } from './components/dashboard-date-filter/dashboard-date-filter'
+import { useDashboardState } from './hooks/use-dashboard-state'
+import { DashboardStats } from './components/dashboard-stats/dashboard-stats'
+import { Chart } from './components/chart/chart'
+import { LastActivities } from './components/last-activities/last-activities'
+import { TopSellingItems } from './components/top-selling-items/top-selling-items'
 
-const DashboardPage = () => {
-  const classes = styles()
+export const DashboardPage = () => {
   const { initialStart, initialEnd } = getInitialLastThirtyDays()
   const {
     loading: { topSellings, activities },
@@ -40,12 +38,17 @@ const DashboardPage = () => {
   }, [])
 
   return (
-    <div className={classes.dashboardContainer}>
+    <Box
+      sx={{
+        padding: theme => theme.spacing(3),
+      }}>
       <Grid
-        className={classes.dateGridContainer}
         container
-        justify='flex-end'
-        spacing={3}>
+        justifyContent='flex-end'
+        spacing={3}
+        sx={{
+          marginTop: theme => theme.spacing(1),
+        }}>
         <DashboardDateFilter
           startDate={startDate}
           endDate={endDate}
@@ -57,13 +60,18 @@ const DashboardPage = () => {
         />
       </Grid>
       <Grid
-        className={classes.gridContainer}
         container
-        justify='center'
+        sx={{
+          marginTop: theme => theme.spacing(7),
+        }}
+        justifyContent='center'
         spacing={3}>
         <DashboardStats saleStats={saleStats} />
       </Grid>
-      <Grid className={classes.gridContainer} container>
+      <Grid
+        sx={{
+          marginTop: theme => theme.spacing(7),
+        }}>
         <Grid item xs={12} sm={12} md={12}>
           <Chart
             revenueData={revenue}
@@ -72,7 +80,12 @@ const DashboardPage = () => {
           />
         </Grid>
       </Grid>
-      <Grid className={classes.gridContainer} container>
+      <Grid
+        container
+        spacing={3}
+        sx={{
+          marginTop: theme => theme.spacing(7),
+        }}>
         <Grid item xs={12} sm={12} md={7}>
           <TopSellingItems
             loading={topSellings && topSellings}
@@ -89,8 +102,6 @@ const DashboardPage = () => {
           />
         </Grid>
       </Grid>
-    </div>
+    </Box>
   )
 }
-
-export default DashboardPage

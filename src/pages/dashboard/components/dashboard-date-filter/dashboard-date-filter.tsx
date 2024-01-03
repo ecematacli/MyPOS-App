@@ -1,11 +1,16 @@
 import React from 'react'
-import { TextField, InputAdornment, Box, Button } from '@material-ui/core'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import { TextField, InputAdornment } from '@mui/material'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
-import styles from './styles'
+import {
+  FilterButton,
+  FilterButtonContainer,
+  FilterContainer,
+  InputContainer,
+} from './dasboard-date-filter-styles'
 import { AppliedFilters } from '../../types'
-import useDatePickerState from './useDatePickerState'
-import CustomPopover from '../../../../common/components/customPopover'
+import { useDatePicker } from './use-date-picker'
+import { CustomPopover } from '../../../../common/components/custom-popover/custom-popover'
 import DatePickerFilter from '../../../../common/components/datePickerFilter'
 
 interface DateFilterProps {
@@ -18,7 +23,7 @@ interface DateFilterProps {
   appliedFilters: AppliedFilters
 }
 
-const DashboardDateFilter: React.FC<DateFilterProps> = ({
+export const DashboardDateFilter: React.FC<DateFilterProps> = ({
   startDate,
   handleStartDateChange,
   endDate,
@@ -27,14 +32,13 @@ const DashboardDateFilter: React.FC<DateFilterProps> = ({
   onDateFilterClearing,
   appliedFilters,
 }) => {
-  const classes = styles()
   const {
     open,
     anchorEl,
     handleClick,
     handleClose,
     getDatePickerInputValue,
-  } = useDatePickerState(appliedFilters)
+  } = useDatePicker(appliedFilters)
 
   const onDateSelectClick = () => {
     onDateSelection()
@@ -42,12 +46,12 @@ const DashboardDateFilter: React.FC<DateFilterProps> = ({
   }
 
   return (
-    <div className={classes.inputContainer}>
+    <InputContainer>
       <TextField
         label='Select Date'
         color='secondary'
         value={getDatePickerInputValue()}
-        classes={{ root: classes.input }}
+        sx={{ width: 245 }}
         onClick={handleClick}
         InputProps={{
           endAdornment: (
@@ -58,39 +62,32 @@ const DashboardDateFilter: React.FC<DateFilterProps> = ({
         }}
       />
       <CustomPopover open={open} anchorEl={anchorEl} onClose={handleClose}>
-        <Box className={classes.dashboardFiltersContainer}>
+        <FilterContainer>
           <DatePickerFilter
             startDate={startDate}
             handleStartDateChange={handleStartDateChange}
             endDate={endDate}
             handleEndDateChange={handleEndDateChange}
           />
-          <Box className={classes.filterBtnDiv}>
-            <Button
-              className={classes.filterBtn}
-              color='secondary'
-              onClick={handleClose}>
+          <FilterButtonContainer>
+            <FilterButton color='secondary' onClick={handleClose}>
               Cancel
-            </Button>
-            <Button
-              className={classes.filterBtn}
+            </FilterButton>
+            <FilterButton
               color='secondary'
               disabled={!startDate && !endDate}
               onClick={onDateFilterClearing}>
               Clear Filters
-            </Button>
-            <Button
+            </FilterButton>
+            <FilterButton
               onClick={onDateSelectClick}
               disabled={!startDate || !endDate}
-              className={classes.filterBtn}
               color='primary'>
               Apply filter
-            </Button>
-          </Box>
-        </Box>
+            </FilterButton>
+          </FilterButtonContainer>
+        </FilterContainer>
       </CustomPopover>
-    </div>
+    </InputContainer>
   )
 }
-
-export default DashboardDateFilter

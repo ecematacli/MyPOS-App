@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
 export default makeStyles(({ palette, spacing }) => ({
   priceUpdateUploadContainer: {
@@ -54,4 +54,4 @@ export default makeStyles(({ palette, spacing }) => ({
     textTransform: 'capitalize',
     color: 'white',
   },
-}));
+}))

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Button, Typography } from '@material-ui/core'
+import { Button, Typography } from '@mui/material'
 
 import { Align } from '../../../common/components/Align'
 import { Page } from '../../../common/components/page'
@@ -16,17 +16,26 @@ interface Props {
 export const TransferDetail: FC<Props> = ({ transfer, goBack }) => {
   const Actions = (
     <Align justify='flex-end' fullWidth>
-      <Button onClick={goBack} variant='contained' color='primary' style={{ color: 'white' }}>
+      <Button
+        onClick={goBack}
+        variant='contained'
+        color='primary'
+        style={{ color: 'white' }}>
         Back
       </Button>
     </Align>
   )
 
   return (
-    <Page title={`Stock Transfer ${transfer.id}`} loading={false} actions={Actions}>
+    <Page
+      title={`Stock Transfer ${transfer.id}`}
+      loading={false}
+      actions={Actions}>
       <Align vertical fullWidth>
         <Align width={30} vertical>
-          <Typography>Created: {formatDate(transfer.createdAt, 'd MMM yyyy')}</Typography>
+          <Typography>
+            Created: {formatDate(transfer.createdAt, 'd MMM yyyy')}
+          </Typography>
           <Typography>Origin: {transfer.origin.name}</Typography>
           <Typography>Destination: {transfer.destination.name}</Typography>
         </Align>

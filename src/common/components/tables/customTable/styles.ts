@@ -1,7 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
 interface StyleProps {
-  noPagination?: boolean;
+  noPagination?: boolean
 }
 
 export default makeStyles(({ spacing, palette, breakpoints }) => ({
@@ -63,4 +63,4 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
     color: palette.grayColors[3],
     fontSize: spacing(2.25),
   },
-}));
+}))

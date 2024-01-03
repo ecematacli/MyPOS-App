@@ -16,7 +16,8 @@ import {
   formatActivitiesData,
 } from '../utils'
 import { AuthTokenSettingContext } from '../../../contexts/AuthContext'
-export default () => {
+
+export const useDashboardState = () => {
   const { clearAuthToken } = useContext(AuthTokenSettingContext)
   const { initialStart, initialEnd }: InitialDates = getInitialLastThirtyDays()
 

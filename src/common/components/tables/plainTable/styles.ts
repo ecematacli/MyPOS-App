@@ -1,8 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
 interface StyleProps {
-  type: string;
-  noPagination?: boolean;
+  type: string
+  noPagination?: boolean
 }
 
 export default makeStyles(({ spacing, palette }) => ({
@@ -44,4 +44,4 @@ export default makeStyles(({ spacing, palette }) => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
-}));
+}))

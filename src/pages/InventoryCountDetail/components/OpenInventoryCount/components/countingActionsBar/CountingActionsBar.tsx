@@ -1,6 +1,6 @@
 import React, { SetStateAction, Dispatch } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Button, Typography, OutlinedInput, Checkbox } from '@material-ui/core'
+import { Button, Typography, OutlinedInput, Checkbox } from '@mui/material'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import styles from './styles'

@@ -6,7 +6,7 @@ import { ThemeProvider } from '@material-ui/styles'
 import Total from '../Total'
 import { TotalProps } from '../../pos-table-right/types'
 import { NotificationsContext } from '../../../../../contexts/NotificationsContext'
-import theme from '../../../../../theme'
+import theme from '../../../../../theme/theme'
 
 const addNotification = jest.fn()
 const discardSale = jest.fn()

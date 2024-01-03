@@ -1,9 +1,9 @@
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined'
-import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined'
-import TrendingUpOutlinedIcon from '@material-ui/icons/TrendingUpOutlined'
+import { SvgIconProps } from '@mui/material'
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined'
+import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined'
 
 import { SaleStatsData } from '../../types'
-import { SvgIconProps } from '@material-ui/core'
 
 type StatId = 'revenue' | 'profit' | 'itemsSold' | 'saleCount'
 interface StatFields {

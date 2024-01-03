@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import clsx from 'clsx'
-import { TableCell, TableRow, Collapse, Chip, Tooltip } from '@material-ui/core'
+import { TableCell, TableRow, Collapse, Chip, Tooltip } from '@mui/material'
 
 import styles from './styles'
 import { Sale } from '../../../../../redux/sales/types'

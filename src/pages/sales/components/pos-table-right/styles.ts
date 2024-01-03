@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@mui/styles'
 
-export default makeStyles(({ spacing, palette, breakpoints }) => ({
+export default makeStyles((theme: Theme) => ({
   root: {
     boxShadow: '0 2px 7px 0 rgba(0, 0, 0, 0.15) ',
     [breakpoints.down('md')]: {
@@ -111,4 +111,4 @@ export default makeStyles(({ spacing, palette, breakpoints }) => ({
       margin: 'auto',
     },
   },
-}));
+}))

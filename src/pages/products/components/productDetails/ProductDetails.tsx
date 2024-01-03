@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { connect } from 'react-redux'
-import { Paper, Typography, IconButton, Card } from '@material-ui/core'
+import { Paper, Typography, IconButton, Card } from '@mui/material'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
 import DoneIcon from '@material-ui/icons/Done'
 import CancelIcon from '@material-ui/icons/Cancel'

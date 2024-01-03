@@ -8,7 +8,7 @@ import {
   MenuItem,
   IconButton,
   Box,
-} from '@material-ui/core'
+} from '@mui/material'
 import { AuthContext } from '../../../../contexts/AuthContext'
 import { useCatalogInfo } from '../../../../contexts/CatalogInfoContext'
 

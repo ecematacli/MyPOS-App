@@ -12,7 +12,7 @@ import Loading from '../../common/components/loading'
 import CustomTable from '../../common/components/tables/customTable'
 import SaleDetails from './components/saleDetails/SaleDetails'
 import SalesFilters from './components/salesFilters/SalesFilters'
-import { Box } from '@material-ui/core'
+import { Box } from '@mui/material'
 import { fetchOutlets } from '../../api/outlets/outlets'
 import { Outlets } from '../../api/outlets/types'
 

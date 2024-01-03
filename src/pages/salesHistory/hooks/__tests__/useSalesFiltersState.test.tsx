@@ -5,7 +5,7 @@ import { UserRoles } from 'api/user/types'
 import { ThemeProvider } from '@material-ui/styles'
 
 import { useSalesFilterState, Args } from '../useSalesFiltersState'
-import theme from '../../../../theme'
+import theme from '../../../../theme/theme'
 import { mockStore } from '../../../../__mocks__/store'
 import { AuthContext } from 'contexts/AuthContext'
 

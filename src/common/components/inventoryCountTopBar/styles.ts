@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
-import { Props } from './index';
+import { Props } from './index'
 
 export default makeStyles(({ palette, spacing, breakpoints }) => ({
   titleContainer: {
@@ -32,4 +32,4 @@ export default makeStyles(({ palette, spacing, breakpoints }) => ({
     margin: '0 auto',
     maxWidth: spacing(137.5),
   },
-}));
+}))

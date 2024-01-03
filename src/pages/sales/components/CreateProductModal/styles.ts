@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles'
 
 export default makeStyles(({ spacing, palette }) => ({
   paper: {
@@ -46,4 +46,4 @@ export default makeStyles(({ spacing, palette }) => ({
     marginBottom: 15,
     color: palette.secondary.main,
   },
-}));
+}))

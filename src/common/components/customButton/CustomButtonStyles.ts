@@ -1,10 +1,10 @@
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button'
 
-import { withTheme, styled, Theme } from '@material-ui/core/styles';
-import { ButtonProps } from './index';
+import { withTheme, styled, Theme } from '@mui/styles'
+import { ButtonProps } from './index'
 
 interface StyleProps extends ButtonProps {
-  theme: Theme;
+  theme: Theme
 }
 
 export const StyledButton = styled(withTheme(Button))(
@@ -28,4 +28,4 @@ export const StyledButton = styled(withTheme(Button))(
       color: 'white !important',
     },
   })
-);
+)

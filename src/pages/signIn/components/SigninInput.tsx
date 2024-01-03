@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react';
-import { FieldProps } from 'formik';
-import { TextField } from '@material-ui/core';
+import React, { Fragment } from 'react'
+import { FieldProps } from 'formik'
+import { TextField } from '@mui/material'
 
-import styles from './styles';
-import { FormValues } from '../index';
+import styles from './styles'
+import { FormValues } from '../index'
 
 interface InputProps {
-  fieldId: string;
-  label: string;
-  type: string;
+  fieldId: string
+  label: string
+  type: string
 }
 
 export const SigninInput: React.FC<FieldProps<FormValues> & InputProps> = ({
@@ -18,9 +18,9 @@ export const SigninInput: React.FC<FieldProps<FormValues> & InputProps> = ({
   form,
   ...otherProps
 }) => {
-  const classes = styles();
+  const classes = styles()
 
-  const { touched, errors } = form;
+  const { touched, errors } = form
 
   const inputClasses = {
     classes: {
@@ -28,16 +28,16 @@ export const SigninInput: React.FC<FieldProps<FormValues> & InputProps> = ({
       focused: classes.cssFocused,
       notchedOutline: classes.notchedOutline,
     },
-  };
+  }
 
   return (
     <Fragment>
       <TextField
         {...field}
         {...otherProps}
-        color="secondary"
+        color='secondary'
         label={label}
-        variant="outlined"
+        variant='outlined'
         className={classes.signInField}
         inputProps={{
           'data-testid': `${fieldId}`,
@@ -48,7 +48,7 @@ export const SigninInput: React.FC<FieldProps<FormValues> & InputProps> = ({
         <div className={classes.helperText}>{errors[fieldId]}</div>
       ) : null}
     </Fragment>
-  );
-};
+  )
+}
 
-export default SigninInput;
+export default SigninInput

@@ -5,7 +5,7 @@ import styles from './styles'
 import { Product } from '../../redux/products/types'
 import PlainTable from '../../common/components/tables/plainTable'
 import { Align } from '../../common/components/Align'
-import { Button } from '@material-ui/core'
+import { Button } from '@mui/material'
 import { useResync } from '../../common/hooks/useResync'
 
 interface Props {
