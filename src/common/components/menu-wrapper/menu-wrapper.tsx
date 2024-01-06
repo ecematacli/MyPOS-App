@@ -168,7 +168,7 @@ export const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({
             </MenuIconContainer>
           </StyledAppBar>
           <DrawerContainer>
-            <Hidden xlUp implementation='css'>
+            <Hidden lgUp implementation='css'>
               <DrawerPaper
                 variant='temporary'
                 open={mobileOpen}

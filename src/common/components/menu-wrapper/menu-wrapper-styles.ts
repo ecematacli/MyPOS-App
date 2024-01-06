@@ -10,9 +10,7 @@ import {
   AppBar,
   List,
   Divider,
-  Paper,
   Drawer,
-  ButtonBase,
 } from '@mui/material'
 import backgroundImage from '../../../assets/img/sidebar-2.jpg'
 
@@ -60,7 +58,7 @@ export const LogoImage = styled('img')({
 })
 
 export const DrawerContainer = styled('nav')(({ theme }) => ({
-  [theme.breakpoints.up('xl')]: {
+  [theme.breakpoints.up('lg')]: {
     width: drawerWidth,
     flexShrink: 0,
   },

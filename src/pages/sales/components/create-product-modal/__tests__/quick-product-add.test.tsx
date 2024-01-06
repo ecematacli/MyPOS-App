@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, waitFor } from '@testing-library/react'
 
-import QuickProductAdd from '../../CreateProductModal'
+import QuickProductAdd from '../create-product-modal'
 import { render } from '../../../../../testUtils/render'
 import { testBrands, testCategories } from '../../../../../testUtils'
 
@@ -105,7 +105,9 @@ describe('[Quick Product Add component]', () => {
       fireEvent.click(submitButton)
     })
 
-    expect(getByTestId('barcode-error')).toHaveTextContent('This field is required')
+    expect(getByTestId('barcode-error')).toHaveTextContent(
+      'This field is required'
+    )
 
     fireEvent.change(barcode, {
       target: {

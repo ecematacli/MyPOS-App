@@ -1,24 +1,24 @@
 import React, { Fragment, useState } from 'react'
-import clsx from 'clsx'
-import {
-  Divider,
-  Typography,
-  FormControl,
-  Select,
-  MenuItem,
-  OutlinedInput,
-} from '@mui/material'
+import { Typography, MenuItem, OutlinedInput, Box } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
-import styles from './styles'
+import {
+  DiscountText,
+  StyledEditIcon,
+  StyledFormControl,
+  StyledSelect,
+  TotalDivider,
+  TotalSectionContainer,
+} from './styles'
 import { TotalProps } from '../pos-table-right/types'
 import { currencyFormatter } from '../../../../common/utils'
-import EditProductFieldPopover from '../editProductFieldPopover/EditProductFieldPopover'
+import { EditPricePopover } from '../edit-product-field-popover/edit-product-field-popover'
 import useEditDiscountState from './hooks/useEditDiscountState'
-import { Edit } from '@material-ui/icons'
-import CustomInput from '../../../../common/components/customInput'
+
+import { CustomInput } from '../../../../common/components/custom-input/custom-input'
 import { Align } from '../../../../common/components/Align'
 
-const Total: React.FC<TotalProps> = ({
+export const Total: React.FC<TotalProps> = ({
   products,
   total,
   tax,
@@ -32,9 +32,8 @@ const Total: React.FC<TotalProps> = ({
   onCompleteDiscountEditClick,
   handleClose,
   setTotal,
-  ...props
 }) => {
-  const classes = styles()
+  const theme = useTheme()
   const [editingTotal, setEditingTotal] = useState(false)
 
   const {
@@ -45,15 +44,18 @@ const Total: React.FC<TotalProps> = ({
   } = useEditDiscountState(discount, percentageDiscount)
 
   const renderDiscountTypes = () => (
-    <FormControl classes={{ root: classes.formControl }}>
-      <Select
+    <StyledFormControl>
+      <StyledSelect
         color='secondary'
-        classes={{ root: classes.selectRoot }}
         input={
           <OutlinedInput
-            classes={{
-              root: classes.innerOptionsInput,
-              input: classes.optionsInput,
+            sx={{
+              root: { height: 35 },
+              input: {
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: 14,
+                },
+              },
             }}
           />
         }
@@ -61,18 +63,24 @@ const Total: React.FC<TotalProps> = ({
         onChange={handleDiscountTypeChange}>
         {['%', 'TL'].map(label => (
           <MenuItem
-            classes={{ root: classes.discountType }}
+            sx={{
+              root: {
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: 14,
+                },
+              },
+            }}
             key={label}
             value={label}>
             {label}
           </MenuItem>
         ))}
-      </Select>
-    </FormControl>
+      </StyledSelect>
+    </StyledFormControl>
   )
 
   const renderEditPricePopover = () => (
-    <EditProductFieldPopover
+    <EditPricePopover
       title='İndirim Uygula'
       field='discount'
       popoverContentElement={renderDiscountTypes()}
@@ -100,15 +108,17 @@ const Total: React.FC<TotalProps> = ({
   )
 
   const renderTotal = () => (
-    <div className={classes.totalContainer}>
+    <Box>
       {!products.length && editingTotal ? (
         <CustomInput
+          id='edit-total'
           value={total - discount}
           onChange={({ target }) =>
             setTotal((parseFloat(target.value) || 0) + discount)
           }
-          classesProp={{ input: classes.totalInput }}
-          id='edit-total'
+          classesProp={{
+            input: { height: theme.spacing(0.5), width: theme.spacing(7) },
+          }}
         />
       ) : (
         <Align align='center'>
@@ -116,52 +126,61 @@ const Total: React.FC<TotalProps> = ({
             {currencyFormatter(total - discount)}
           </Typography>
           {!products.length ? (
-            <div>
-              <Edit
-                className={classes.totalEditIcon}
-                onClick={() => setEditingTotal(true)}
-              />
-            </div>
-          ) : null}
+            <Box>
+              <StyledEditIcon onClick={() => setEditingTotal(true)} />
+            </Box>
+          ) : (
+            <React.Fragment />
+          )}
         </Align>
       )}
-    </div>
+    </Box>
   )
 
   return (
-    <div className={classes.totalContentDiv}>
-      <div className={classes.totalSection}>
+    <Box sx={{ overflow: 'auto' }}>
+      <TotalSectionContainer>
         <Typography>Ara Toplam</Typography>
         <Typography data-testid='sub-total'>
           {currencyFormatter(total - tax)}
         </Typography>
-      </div>
-      <div className={classes.totalSection}>
+      </TotalSectionContainer>
+      <TotalSectionContainer>
         <Typography>Vergi</Typography>
         <Typography data-testid='tax'>{currencyFormatter(tax)}</Typography>
-      </div>
-      <div className={classes.totalSection}>
+      </TotalSectionContainer>
+      <TotalSectionContainer>
         <Fragment>
-          <div
-            className={classes.discountContainer}
+          <Box
+            display='flex'
+            alignItems='center'
             onClick={e => handleEditClick(e, 'discount')}>
-            <Typography className={classes.discount}>İndirim</Typography>
-          </div>
+            <DiscountText>İndirim</DiscountText>
+          </Box>
           {renderEditPricePopover()}
           <Typography data-testid='discount'>
-            <span className={classes.percentageSign}>%</span>
+            <Box
+              component='span'
+              sx={{ fontWeight: 'bold', paddingRight: 1.2 }}>
+              %
+            </Box>
             {parseFloat(percentageDiscount.toFixed(2))} /{' '}
             {currencyFormatter(discount)}
           </Typography>
         </Fragment>
-      </div>
-      <Divider className={classes.totalDivider} />
-      <div className={clsx(classes.totalSection, classes.totalAmount)}>
+      </TotalSectionContainer>
+      <TotalDivider />
+      <TotalSectionContainer
+        display='flex'
+        justifyContent='space-between'
+        alignItems='center'
+        sx={theme => ({
+          paddingTop: theme.spacing(2),
+          paddingBottom: theme.spacing(1),
+        })}>
         <Typography>Toplam</Typography>
         {renderTotal()}
-      </div>
-    </div>
+      </TotalSectionContainer>
+    </Box>
   )
 }
-
-export default Total

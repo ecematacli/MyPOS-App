@@ -5,7 +5,12 @@ import { NewProductData } from '../../hooks/types'
 import { findMatchedFields } from '../../../../common/utils'
 import { NotificationsContext } from '../../../../contexts/NotificationsContext'
 
-export default ({ brands, categories, onClose, createProduct }: ProductInputStateArgs) => {
+export const useNewProductInputState = ({
+  brands,
+  categories,
+  onClose,
+  createProduct,
+}: ProductInputStateArgs) => {
   const { addNotification } = useContext(NotificationsContext)
   const initialValues = {
     taxRate: '18',
@@ -34,7 +39,10 @@ export default ({ brands, categories, onClose, createProduct }: ProductInputStat
     let brandId: string
 
     if (additionalInputs.category) {
-      categoryId = findMatchedFields(categories, additionalInputs.category).id.toString()
+      categoryId = findMatchedFields(
+        categories,
+        additionalInputs.category
+      ).id.toString()
     }
 
     if (additionalInputs.brand) {

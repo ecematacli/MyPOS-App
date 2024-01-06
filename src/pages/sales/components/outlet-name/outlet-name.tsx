@@ -1,19 +1,14 @@
 import React, { useContext, useState } from 'react'
-import StoreIcon from '@material-ui/icons/StoreOutlined'
-import styles from './styles'
 import {
-  Typography,
-  makeStyles,
-  TextField,
-  MenuItem,
-  IconButton,
-  Box,
-} from '@mui/material'
+  StyledOutletName,
+  StyledStoreIcon,
+  OutletNameContainer,
+} from './styles'
+import { IconButton } from '@mui/material'
 import { AuthContext } from '../../../../contexts/AuthContext'
 import { useCatalogInfo } from '../../../../contexts/CatalogInfoContext'
 
 export const OutletName = () => {
-  const classes = styles()
   const { user } = useContext(AuthContext)
   const { outlets } = useCatalogInfo()
 
@@ -50,15 +45,12 @@ export const OutletName = () => {
           ))}
         </TextField>
       )} */}
-      <Box className={classes.outletWrapper}>
-        <StoreIcon className={classes.iconBtn} />
-        <IconButton
-          classes={{ root: classes.iconBtn }}
-          disableFocusRipple
-          disableRipple>
-          <Typography className={classes.outletName}>{outlet?.name}</Typography>
+      <OutletNameContainer>
+        <StyledStoreIcon />
+        <IconButton disableFocusRipple disableRipple>
+          <StyledOutletName>{outlet?.name}</StyledOutletName>
         </IconButton>
-      </Box>
+      </OutletNameContainer>
     </React.Fragment>
   )
 }

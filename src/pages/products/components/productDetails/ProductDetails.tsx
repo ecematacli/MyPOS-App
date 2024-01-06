@@ -12,7 +12,7 @@ import { editProduct } from '../../../../redux/products/productsActions'
 import useProductDetails from './hooks/useProductDetails'
 import { getProductFields } from './getProductFields'
 import { NotificationsContext } from '../../../../contexts/NotificationsContext'
-import CustomInput from '../../../../common/components/customInput'
+import { CustomInput } from '../../../../common/components/custom-input/custom-input'
 
 const ProductDetails: React.FC<DetailsProps> = props => {
   const classes = styles({})

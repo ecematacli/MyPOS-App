@@ -3,20 +3,26 @@ import React, { FC, ChangeEvent, Fragment } from 'react'
 import {
   Table,
   TableHead,
-  TableRow,
   TableBody,
   TableCell,
   IconButton,
+  Box,
 } from '@mui/material'
-import DeleteIcon from '@material-ui/icons/Delete'
-import clsx from 'clsx'
 
-import styles from './styles'
-import { TABLE_HEAD } from './tableHead'
-import { Product } from '../../../../../redux/products/types'
-import EditPricePopover from '../../editProductFieldPopover/EditProductFieldPopover'
 import {
-  capitalizeFirstLetters,
+  ArrowBox,
+  EditableAmountBox,
+  PopOverTitle,
+  QuantityBox,
+  QuantityValueBox,
+  StyledTableRow,
+  DeleteIcon,
+  TableWrapperBox,
+} from './pos-product-table-styles'
+import { TABLE_HEAD } from './table-head-data'
+import { Product } from '../../../../../redux/products/types'
+import { EditPricePopover } from '../../edit-product-field-popover/edit-product-field-popover'
+import {
   currencyFormatter,
   productNameWithVariation,
 } from '../../../../../common/utils'
@@ -50,8 +56,6 @@ export const POSProductTable: FC<Props> = ({
   increaseProductQuantity,
   handleEditClick,
 }) => {
-  const classes = styles()
-
   const translateText = (text: string) => {
     switch (text) {
       case 'price':
@@ -82,20 +86,16 @@ export const POSProductTable: FC<Props> = ({
       currencySign
       handleCompleteEditClick={() => onCompletePriceEditClick(field, value)}
       popoverContentElement={
-        <div
-          className={clsx(
-            classes[field === 'discountPrice' && 'discounted'],
-            classes.popoverTitle
-          )}>
+        <PopOverTitle sx={{ ...(field === 'discountPrice' && { width: 40 }) }}>
           {label ? label : translateText(field)}
-        </div>
+        </PopOverTitle>
       }
     />
   )
   const renderTableHead = () =>
     TABLE_HEAD.map(({ label, numeric }, i) => (
       <TableCell
-        className={classes[i === 0 && 'firstCell']}
+        sx={theme => ({ ...(i === 0 && { paddingLeft: theme.spacing(2.8) }) })}
         key={label}
         align={numeric ? 'right' : 'left'}>
         {label}
@@ -106,41 +106,30 @@ export const POSProductTable: FC<Props> = ({
     products.map((product: Product) => {
       const { id, name, qty, price, discountPrice, variation } = product
       return (
-        <TableRow
-          className={classes.tableRow}
-          role='checkbox'
-          hover
-          tabIndex={-1}
-          key={id}>
-          <TableCell className={classes.firstCell} component='td' scope='row'>
+        <StyledTableRow role='checkbox' hover tabIndex={-1} key={id}>
+          <TableCell
+            sx={theme => ({ paddingLeft: theme.spacing(2.8) })}
+            component='td'
+            scope='row'>
             {productNameWithVariation(name, variation)}
           </TableCell>
           <TableCell align='right' padding='none'>
-            <div className={classes.quantity}>
-              <div
-                className={classes.arrow}
-                onClick={() => {
-                  decreaseProductQuantity(product)
-                }}>
+            <QuantityBox>
+              <ArrowBox onClick={() => decreaseProductQuantity(product)}>
                 &#10094;
-              </div>
-              <div className={classes.quantityVal}>{qty}</div>
-              <div
-                className={classes.arrow}
-                onClick={() => {
-                  increaseProductQuantity(product)
-                }}>
+              </ArrowBox>
+              <QuantityValueBox>{qty}</QuantityValueBox>
+              <ArrowBox onClick={() => increaseProductQuantity(product)}>
                 &#10095;
-              </div>
-            </div>
+              </ArrowBox>
+            </QuantityBox>
           </TableCell>
           <TableCell align='right'>
             <Fragment>
-              <div
-                className={classes.editableAmount}
+              <EditableAmountBox
                 onClick={e => handleEditClick(e, 'price', id, product)}>
                 {currencyFormatter(price)}
-              </div>
+              </EditableAmountBox>
               {renderEditPopover(
                 'price',
                 'Fiyat için miktar ekleyin',
@@ -151,11 +140,10 @@ export const POSProductTable: FC<Props> = ({
           </TableCell>
           <TableCell align='right'>
             <Fragment>
-              <div
-                className={classes.editableAmount}
+              <EditableAmountBox
                 onClick={e => handleEditClick(e, 'discountPrice', id, product)}>
                 {discountPrice ? currencyFormatter(discountPrice) : '-'}
-              </div>
+              </EditableAmountBox>
               {renderEditPopover(
                 'discountPrice',
                 'İndirimli fiyat için miktar ekleyin',
@@ -166,20 +154,21 @@ export const POSProductTable: FC<Props> = ({
           </TableCell>
           <TableCell colSpan={3} align='right'>
             <IconButton onClick={() => deleteProduct(product.id)}>
-              <DeleteIcon className={classes.deleteIcon} />
+              <DeleteIcon />
             </IconButton>
           </TableCell>
-        </TableRow>
+        </StyledTableRow>
       )
     })
+
   return (
-    <div className={classes.tableWrapper}>
+    <TableWrapperBox>
       <Table size='medium'>
         <TableHead>
-          <TableRow className={classes.tableRow}>{renderTableHead()}</TableRow>
+          <StyledTableRow>{renderTableHead()}</StyledTableRow>
         </TableHead>
         <TableBody>{renderTableBody()}</TableBody>
       </Table>
-    </div>
+    </TableWrapperBox>
   )
 }

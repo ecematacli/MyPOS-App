@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { makeStyles, useTheme } from '@mui/styles'
+import { styled, useTheme } from '@mui/material/styles'
 
 import {
   OutlinedInput,
@@ -11,75 +11,70 @@ import {
 } from '@mui/material'
 import { Props, DropdownItems } from './types'
 
-const styles = makeStyles(({ breakpoints }) => ({
-  root: {
-    '&:focus': {
-      backgroundColor: 'transparent',
-    },
+const StyledSelect = styled(Select)({
+  '&:focus': {
+    backgroundColor: 'transparent',
   },
-  dropdownItems: {
-    [breakpoints.down('sm')]: {
-      fontSize: 14,
-    },
+})
+
+const DropdownItem = styled(MenuItem)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 14,
   },
 }))
 
-const CustomInput: React.FC<Props> = props => {
-  const classes = styles()
+export const CustomInput: React.FC<Props> = props => {
   const { palette }: Theme = useTheme()
 
   const {
     label,
     dropdown,
     dropdownItems,
-    inputLabel,
     classesProp,
     type = 'text',
     required,
     invalidatedField,
     ...otherProps
   } = props
-
   return (
     <Fragment>
       {dropdown ? (
         <Fragment>
-          {inputLabel && (
-            <InputLabel color='secondary' id={label}>
+          {label && (
+            <InputLabel color='secondary' id={label} style={classesProp?.label}>
               {label}
             </InputLabel>
           )}
-          <FormControl variant='outlined' classes={classesProp?.dropdownInput}>
-            <Select
+          <FormControl variant='outlined' sx={classesProp?.dropdownInput}>
+            <StyledSelect
               {...otherProps}
-              classes={{ root: classes.root }}
               color='secondary'
               labelId={label}
-              input={<OutlinedInput classes={classesProp?.innerInput} />}>
+              input={<OutlinedInput sx={classesProp?.innerInput} />}>
               {dropdownItems &&
                 dropdownItems.map(({ id, name }: DropdownItems) => (
-                  <MenuItem
-                    classes={{ root: classes.dropdownItems }}
-                    key={id}
-                    value={name}>
+                  <DropdownItem key={id} value={name}>
                     {name}
-                  </MenuItem>
+                  </DropdownItem>
                 ))}
-            </Select>
+            </StyledSelect>
           </FormControl>
         </Fragment>
       ) : (
         <Fragment>
-          {inputLabel && (
+          {label && (
             <InputLabel
               color='secondary'
-              style={invalidatedField && { color: palette.error.main }}>
+              sx={{
+                ...(invalidatedField && { color: palette.error.main }),
+                ...classesProp?.label,
+              }}>
               {label}
             </InputLabel>
           )}
           <OutlinedInput
             {...otherProps}
-            classes={!dropdown && classesProp}
+            sx={!dropdown && classesProp}
             color='secondary'
             type={type}
             required={required}
@@ -89,5 +84,3 @@ const CustomInput: React.FC<Props> = props => {
     </Fragment>
   )
 }
-
-export default CustomInput

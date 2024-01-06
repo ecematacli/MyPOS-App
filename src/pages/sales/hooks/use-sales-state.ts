@@ -5,7 +5,7 @@ import {
   calculateTotalTax,
   calculateTotalDiscount,
   calculatePercentageFromDiscount,
-} from '../utilities/'
+} from '../utilities'
 import api from '../../../api/api-client'
 import { Product } from '../../../redux/products/types'
 import { State, ActionTypes, Action, NewProductData } from './types'
@@ -73,7 +73,7 @@ const productsReducer = (state: State, action: Action): State => {
 }
 
 // Products and Total state
-export default (storage?: any) => {
+export const useSalesState = (storage?: any) => {
   const [total, setTotal] = useState(0)
   const [tax, setTax] = useState(0)
   const [discount, setDiscount] = useState(0)

@@ -1,26 +1,30 @@
 import React, { useContext } from 'react'
 import { useDispatch, connect } from 'react-redux'
+import { useTheme } from '@mui/material/styles'
+import ExpandMore from '@mui/icons-material/ExpandMore'
 import {
-  Paper,
-  Divider,
-  Accordion,
   AccordionSummary,
   AccordionDetails,
   Typography,
-  Button,
   Box,
 } from '@mui/material'
-import clsx from 'clsx'
 
-import styles from './styles'
+import {
+  ExpansionPanelRoot,
+  PaymentButtonText,
+  RootPaper,
+  StyledAccordion,
+  StyledBox,
+  StyledButton,
+  TotalDivider,
+} from './styles'
 import { PosTableProps } from './types'
 import { NotificationsContext } from '../../../../contexts/NotificationsContext'
-import { useEditProductFieldState } from './useEditProductFieldState'
-import Total from '../total/Total'
-import { ExpandMore } from '@material-ui/icons'
-import CustomInput from '../../../../common/components/customInput'
-import { POSProductTable } from './ProductTable'
-import CustomButton from '../../../../common/components/customButton'
+import { useEditProductFieldState } from './use-edit-product-field-state'
+import { Total } from '../total/total'
+import { CustomInput } from '../../../../common/components/custom-input/custom-input'
+import { POSProductTable } from './pos-product-table/pos-product-table'
+import { CustomButton } from '../../../../common/components/custom-button/custom-button'
 import {
   currencyFormatter,
   getPaymentMethodLabel,
@@ -51,7 +55,7 @@ const PosTableRightComponent: React.FC<PosTableProps> = ({
   setDescription,
   setTotal,
 }) => {
-  const classes = styles()
+  const theme = useTheme()
   const dispatch = useDispatch()
   const { addNotification } = useContext(NotificationsContext)
   const {
@@ -86,8 +90,8 @@ const PosTableRightComponent: React.FC<PosTableProps> = ({
     )
 
   return (
-    <Paper elevation={0} className={classes.root}>
-      <Box className={classes.paperRoot}>
+    <RootPaper>
+      <Box>
         <POSProductTable
           products={products}
           deleteProduct={deleteProduct}
@@ -98,7 +102,7 @@ const PosTableRightComponent: React.FC<PosTableProps> = ({
           handleEditClick={handleEditClick}
           {...rest}
         />
-        <Accordion className={classes.expansionPanelRoot} elevation={0}>
+        <StyledAccordion elevation={0}>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <Typography>Notlar</Typography>
           </AccordionSummary>
@@ -106,15 +110,17 @@ const PosTableRightComponent: React.FC<PosTableProps> = ({
             <CustomInput
               value={description}
               onChange={({ target }) => setDescription(target.value)}
-              classesProp={{ input: classes.noteInput }}
+              classesProp={{
+                input: { height: theme.spacing(3), padding: theme.spacing(1) },
+              }}
               id='description'
               placeholder='Bu satışla ilgili bir not ekleyin'
               fullWidth
               multiline
             />
           </AccordionDetails>
-        </Accordion>
-        <Accordion className={classes.expansionPanelRoot} elevation={0}>
+        </StyledAccordion>
+        <ExpansionPanelRoot elevation={0}>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <Typography>
               Ödeme Yöntemi{`: ${getPaymentMethodLabel(paymentMethod)}`}
@@ -122,21 +128,23 @@ const PosTableRightComponent: React.FC<PosTableProps> = ({
           </AccordionSummary>
           <AccordionDetails>
             {PAYMENT_METHODS.map(({ label, value }) => (
-              <Button
+              <StyledButton
                 key={value}
                 color='primary'
                 variant='contained'
                 onClick={() => setPaymentMethod(value)}
-                className={clsx({
-                  [classes.selectedPayment]: value === paymentMethod,
-                  [classes.paymentMethodBtn]: true,
+                sx={theme => ({
+                  ...(value === paymentMethod && {
+                    background: theme.palette.primary.main,
+                    color: '#fff',
+                  }),
                 })}>
                 {translatePaymentMethodLabel(label).toLocaleUpperCase('tr-TR')}
-              </Button>
+              </StyledButton>
             ))}
           </AccordionDetails>
-        </Accordion>
-        <Divider className={classes.totalDivider} />
+        </ExpansionPanelRoot>
+        <TotalDivider />
         <Total
           products={products}
           total={total}
@@ -153,24 +161,22 @@ const PosTableRightComponent: React.FC<PosTableProps> = ({
           setTotal={setTotal}
         />
       </Box>
-      <Divider className={classes.totalDivider} />
+      <TotalDivider />
       <Align padding={[1]}>
         <CustomButton
           data-testid='custom-button'
           onClick={onCompleteSaleClick}
           fullWidth
           disabled={!products.length}>
-          <Box className={classes.paymentBtnTextHolder}>
-            <Typography className={classes.paymentBtnTxt}>
+          <Box display='flex' justifyContent='center' width='100%'>
+            <PaymentButtonText>
               {'Satış Tamamla'.toLocaleUpperCase('tr-TR')}
-            </Typography>
-            <Typography className={classes.paymentBtnTxt}>
-              {currencyFormatter(total - discount)}
-            </Typography>
+            </PaymentButtonText>
+            <Typography>{currencyFormatter(total - discount)}</Typography>
           </Box>
         </CustomButton>
       </Align>
-    </Paper>
+    </RootPaper>
   )
 }
 

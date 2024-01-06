@@ -6,7 +6,7 @@ import useSalesFiltersPopover from './useSalesFiltersPopover'
 import DatePickerFilter from '../../../../common/components/datePickerFilter'
 import { CustomPopover } from '../../../../common/components/custom-popover/custom-popover'
 import { Box, Button } from '@mui/material'
-import CustomInput from '../../../../common/components/customInput'
+import { CustomInput } from '../../../../common/components/custom-input/custom-input'
 import { Outlets, Outlet } from '../../../../api/outlets/types'
 import { AuthContext } from '../../../../contexts/AuthContext'
 

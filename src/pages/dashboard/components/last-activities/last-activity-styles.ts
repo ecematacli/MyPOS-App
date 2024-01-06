@@ -2,9 +2,9 @@ import { styled } from '@mui/material'
 
 import { Paper, Typography, Divider } from '@mui/material'
 
-export const StyledPaper = styled(Paper)(({ theme }) => ({
+export const StyledPaper = styled(Paper)({
   minHeight: 570,
-}))
+})
 
 export const StyledTitle = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3, 2.5),

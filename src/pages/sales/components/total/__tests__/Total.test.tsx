@@ -1,12 +1,12 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { ThemeProvider } from '@material-ui/styles'
+import { ThemeProvider } from '@mui/material/styles'
 
-import Total from '../Total'
+import { Total } from '../total'
 import { TotalProps } from '../../pos-table-right/types'
 import { NotificationsContext } from '../../../../../contexts/NotificationsContext'
-import theme from '../../../../../theme/theme'
+import { theme } from '../../../../../theme/theme'
 
 const addNotification = jest.fn()
 const discardSale = jest.fn()

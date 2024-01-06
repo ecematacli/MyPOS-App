@@ -1,26 +1,5 @@
-import { makeStyles } from '@mui/styles'
 import { Styles } from 'react-select'
-
-export default makeStyles(({ spacing, breakpoints, palette }) => ({
-  suggestionContainer: {
-    display: 'flex',
-    // justifyContent: 'space-between',
-    alignItems: 'center',
-    height: spacing(8),
-    width: '100%',
-    color: palette.grayColors[3],
-    [breakpoints.down('xl')]: {
-      ' & > * ': {
-        fontSize: 14,
-      },
-    },
-    [breakpoints.down('sm')]: {
-      ' & > * ': {
-        fontSize: 13,
-      },
-    },
-  },
-}))
+import { Theme } from '@mui/material/styles'
 
 export const selectStyles = ({
   spacing,

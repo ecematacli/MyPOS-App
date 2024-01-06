@@ -8,7 +8,8 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts'
-import { Paper, IconButton, Divider, useTheme, Box } from '@mui/material'
+import { Paper, IconButton, Divider, Box } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 import {

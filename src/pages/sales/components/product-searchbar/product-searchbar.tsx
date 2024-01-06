@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 
 import api from '../../../../api/api-client'
-import styles from './styles'
+import { SearchBarContainer } from './styles'
 import { Product } from '../../../../redux/products/types'
 import { InputAutoSuggest } from '../../../../common/components/input-auto-suggest/input-auto-suggest'
 import { NotificationsContext } from '../../../../contexts/NotificationsContext'
@@ -10,8 +10,7 @@ interface SearchBarProps {
   addProduct: (product: Product) => void
 }
 
-const ProductSearchBar: React.FC<SearchBarProps> = ({ addProduct }) => {
-  const classes = styles()
+export const ProductSearchBar: React.FC<SearchBarProps> = ({ addProduct }) => {
   const { addNotification } = useContext(NotificationsContext)
 
   const fetchProducts = async (query: string): Promise<Product[]> => {
@@ -26,14 +25,12 @@ const ProductSearchBar: React.FC<SearchBarProps> = ({ addProduct }) => {
   }
 
   return (
-    <div className={classes.searchBarInput}>
+    <SearchBarContainer>
       <InputAutoSuggest
         selectOption={addProduct}
         isQuickScanMode
         loadOptions={fetchProducts}
       />
-    </div>
+    </SearchBarContainer>
   )
 }
-
-export default ProductSearchBar

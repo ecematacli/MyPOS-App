@@ -1,33 +1,33 @@
-import { ProductField, AdditionalInputField, AdditionalInputs } from './types';
-import { Category } from '../../../../redux/categories/types';
-import { Brand } from '../../../../redux/brands/types';
+import { ProductField, AdditionalInputField, AdditionalInputs } from './types'
+import { Category } from '../../../../redux/categories/types'
+import { Brand } from '../../../../redux/brands/types'
 
 export const NEW_PRODUCT_FIELDS: ProductField[] = [
   {
-    label: 'Barcode (required)*',
+    label: 'Barkod (zorunlu)*',
     fieldId: 'barcode',
     required: true,
   },
-  { label: 'Product Name', fieldId: 'name' },
+  { label: 'Ürün adı', fieldId: 'name' },
   {
-    label: 'Quantity',
+    label: 'Miktar',
     fieldId: 'qty',
     type: 'number',
   },
   {
-    label: 'Price (required*)',
+    label: 'Fiyat (zorunlu)*',
     fieldId: 'price',
     currency: true,
     required: true,
   },
   {
-    label: 'Discounted Price',
+    label: 'İndirimli Fiyat',
     fieldId: 'discountPrice',
   },
-  { label: 'Variation', fieldId: 'variation' },
+  { label: 'Çeşit', fieldId: 'variation' },
 
   { label: 'Sku', fieldId: 'sku' },
-];
+]
 
 export const getAdditionalProductFields = (
   additionalInputs: AdditionalInputs,
@@ -62,4 +62,4 @@ export const getAdditionalProductFields = (
     value: additionalInputs.category,
     additionalField: true,
   },
-];
+]

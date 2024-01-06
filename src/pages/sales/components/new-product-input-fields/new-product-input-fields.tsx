@@ -1,19 +1,21 @@
 import React, { Fragment } from 'react'
 import { InputAdornment } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import { FieldProps } from 'formik'
 
-import styles from './styles'
-import CustomInput from '../../../../common/components/customInput'
-import { FormValues } from '../CreateProductModal/types'
+import { ErrorHelperText, getRootInputStyles } from './styles'
+import { CustomInput } from '../../../../common/components/custom-input/custom-input'
+import { FormValues } from '../create-product-modal/types'
 
 interface InputProps {
   fieldId: string
   label: string
   type: string | undefined
 }
-const NewProductInputFields: React.FC<FieldProps<FormValues> &
+
+export const NewProductInputFields: React.FC<FieldProps<FormValues> &
   InputProps> = props => {
-  const classes = styles(props)
+  const theme = useTheme()
   const {
     field,
     fieldId,
@@ -24,8 +26,8 @@ const NewProductInputFields: React.FC<FieldProps<FormValues> &
   } = props
 
   const invalidFields = errors[fieldId] && touched[fieldId]
-  const requiredFieldClasses = invalidFields
-    ? `${classes.notchedOutline}`
+  const requiredFieldStyles = invalidFields
+    ? `borderColor:${theme.palette.error.main}`
     : null
 
   return (
@@ -36,10 +38,10 @@ const NewProductInputFields: React.FC<FieldProps<FormValues> &
         label={label}
         type={type}
         classesProp={{
-          root: classes.input,
-          notchedOutline: requiredFieldClasses,
+          root: getRootInputStyles(theme, { touched, errors, fieldId }),
+          notchedOutline: requiredFieldStyles,
+          label: { marginTop: '20px' },
         }}
-        inputLabel
         inputProps={{
           'data-testid': `${fieldId}`,
         }}
@@ -53,13 +55,11 @@ const NewProductInputFields: React.FC<FieldProps<FormValues> &
       {(fieldId === 'barcode' ||
         fieldId === 'price' ||
         fieldId === 'discountPrice') &&
-      invalidFields ? (
-        <div className={classes.helperText} data-testid={`${fieldId}-error`}>
-          {errors[fieldId]}
-        </div>
-      ) : null}
+        invalidFields && (
+          <ErrorHelperText data-testid={`${fieldId}-error`}>
+            {errors[fieldId] as string}
+          </ErrorHelperText>
+        )}
     </Fragment>
   )
 }
-
-export default NewProductInputFields

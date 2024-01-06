@@ -4,7 +4,7 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 
 import styles from './styles'
 import { capitalize } from '../../../../common/utils'
-import CustomInput from '../../../../common/components/customInput'
+import { CustomInput } from '../../../../common/components/custom-input/custom-input'
 import { CustomPopover } from '../../../../common/components/custom-popover/custom-popover'
 import { Filters, AppliedFilters, FilterInput } from '../../types'
 

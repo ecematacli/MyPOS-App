@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import styles from './styles'
 import image from '../../assets/img/accountant.jpg'
 import { useLoginState } from './hooks/useLoginState'
-import CustomButton from '../../common/components/customButton'
+import { CustomButton } from '../../common/components/custom-button/custom-button'
 import SigninInput from './components/SigninInput'
 import { SIGNIN_FIELDS } from './signInFields'
 

@@ -1,19 +1,21 @@
 import React from 'react'
+import { Popover, Divider, InputAdornment, PopoverOrigin } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+
 import {
-  Popover,
-  Typography,
-  Divider,
-  Button,
-  InputAdornment,
-  PopoverOrigin,
-} from '@mui/material'
-
-import styles from './styles'
+  AddPriceContainer,
+  ButtonContainer,
+  ContentContainer,
+  PriceCaptionTitle,
+  StyledActionButton,
+  StyledCustomInput,
+  getPriceInputRootStyles,
+  getSmallScreenInputStyles,
+} from './styles'
 import { Props } from './types'
-import CustomInput from '../../../../common/components/customInput'
 
-const EditPricePopover: React.FC<Props> = props => {
-  const classes = styles(props)
+export const EditPricePopover: React.FC<Props> = props => {
+  const theme = useTheme()
   const {
     open,
     anchorEl,
@@ -44,14 +46,13 @@ const EditPricePopover: React.FC<Props> = props => {
       }
 
   const renderContent = () => (
-    <div className={classes.popoverContentDiv}>
-      <Typography className={classes.addPriceCaption}>{title}</Typography>
+    <ContentContainer {...props}>
+      <PriceCaptionTitle>{title}</PriceCaptionTitle>
       <Divider />
-      <div className={classes.addPriceDiv}>
+      <AddPriceContainer>
         {popoverContentElement}
-        <CustomInput
+        <StyledCustomInput
           type='number'
-          className={classes.numberSpinner}
           value={inputValue}
           onChange={handleInputChange}
           startAdornment={
@@ -63,26 +64,22 @@ const EditPricePopover: React.FC<Props> = props => {
             'data-testid': testId,
           }}
           classesProp={{
-            root: classes.priceInputRoot,
-            input: classes.smallScreenFont,
+            root: getPriceInputRootStyles(theme),
+            input: getSmallScreenInputStyles(theme),
           }}
         />
-      </div>
-      <div className={classes.btnDiv}>
-        <Button
-          className={classes.actionBtn}
-          onClick={() => handleClose()}
-          color='secondary'>
+      </AddPriceContainer>
+      <ButtonContainer display='flex' justifyContent='flex-end'>
+        <StyledActionButton onClick={() => handleClose()} color='secondary'>
           İptal et
-        </Button>
-        <Button
+        </StyledActionButton>
+        <StyledActionButton
           onClick={() => handleCompleteEditClick()}
-          className={classes.actionBtn}
           color='primary'>
           Kaydet
-        </Button>
-      </div>
-    </div>
+        </StyledActionButton>
+      </ButtonContainer>
+    </ContentContainer>
   )
 
   return (
@@ -96,5 +93,3 @@ const EditPricePopover: React.FC<Props> = props => {
     </Popover>
   )
 }
-
-export default EditPricePopover

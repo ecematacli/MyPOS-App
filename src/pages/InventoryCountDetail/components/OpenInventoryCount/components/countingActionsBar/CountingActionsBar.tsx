@@ -10,7 +10,7 @@ import {
   capitalizeFirstLetters,
   formatDate,
 } from '../../../../../../common/utils'
-import CustomButton from '../../../../../../common/components/customButton'
+import { CustomButton } from '../../../../../../common/components/custom-button/custom-button'
 import { InputAutoSuggest } from '../../../../../../common/components/input-auto-suggest/input-auto-suggest'
 
 interface CountingActionsBarProps {

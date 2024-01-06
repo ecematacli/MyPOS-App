@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 
 import { ProductInputStateArgs } from '../types'
 import { mockStore } from '../../../../../__mocks__/store'
-import useNewProductInputState from '../useNewProductInputState'
+import { useNewProductInputState } from '../use-new-product-input-state'
 import { testBrands, testCategories } from '../../../../../testUtils'
 import { NotificationsContext } from '../../../../../contexts/NotificationsContext'
 

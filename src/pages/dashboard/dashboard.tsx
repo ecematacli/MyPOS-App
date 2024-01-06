@@ -62,7 +62,7 @@ export const DashboardPage = () => {
       <Grid
         container
         sx={{
-          marginTop: theme => theme.spacing(7),
+          marginTop: theme => theme.spacing(4),
         }}
         justifyContent='center'
         spacing={3}>

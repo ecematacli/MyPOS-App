@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, IconButton, Typography, Box } from '@mui/material'
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
-import { Add } from '@material-ui/icons'
 import { useDispatch } from 'react-redux'
+import { Grid, IconButton, Typography, Box } from '@mui/material'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import Add from '@mui/icons-material/Add'
 
-import styles from './styles'
+import {
+  ActionGridItem,
+  PosTableGridItem,
+  SalesContainer,
+  SalesPageContainer,
+  SearchBarGridItem,
+} from './sales-styles'
 import { fetchCategories } from '../../redux/categories/categoriesActions'
 import { fetchBrands } from '../../redux/brands/brandsActions'
-import useSalesState from './hooks/useSalesState'
-import ProductSearchBar from './components/productSearchBar/ProductSearchBar'
+import { useSalesState } from './hooks/use-sales-state'
+import { ProductSearchBar } from './components/product-searchbar/product-searchbar'
 import { PosTableRight } from './components/pos-table-right/pos-table-right'
-import CreateProductModal from './components/CreateProductModal'
-import { OutletName } from './components/outlet-name/OutletName'
+import { CreateProductModal } from './components/create-product-modal/create-product-modal'
+import { OutletName } from './components/outlet-name/outlet-name'
 
 export const Sales = () => {
-  const classes = styles()
   const dispatch = useDispatch()
 
   const [createProductModalOpen, setCreateProductModalOpen] = useState(false)
@@ -42,60 +47,59 @@ export const Sales = () => {
   }, [])
 
   return (
-    <Box className={classes.salesPage}>
+    <SalesPageContainer>
       <CreateProductModal
         open={createProductModalOpen}
         onClose={() => setCreateProductModalOpen(false)}
         createProduct={createProduct}
       />
-      <Box className={classes.salesContainer}>
-        <Grid container spacing={0} justify='center'>
-          {/*
-         // @ts-ignore */}
-          <Grid item align='center' className={classes.discardSaleGridItem}>
-            <Box className={classes.discardSaleBtnHolder}>
+      <SalesContainer>
+        <Grid container spacing={2}>
+          <ActionGridItem xs={12} item>
+            <Box
+              display='flex'
+              justifyContent='space-between'
+              alignItems='center'>
               <OutletName />
               <Box>
                 <IconButton
-                  classes={{ root: classes.iconBtn }}
+                  sx={{
+                    borderRadius: 0,
+                  }}
                   onClick={discardSale}>
                   <DeleteForeverIcon />
                   <Typography>Satışı İptal Et</Typography>
                 </IconButton>
                 <IconButton
-                  classes={{ root: classes.iconBtn }}
+                  sx={{
+                    borderRadius: 0,
+                  }}
                   onClick={() => setCreateProductModalOpen(true)}>
                   <Add />
                   <Typography>Ürün Ekle</Typography>
                 </IconButton>
               </Box>
             </Box>
-          </Grid>
-          {/*
-        // @ts-ignore */}
-          <Grid
+          </ActionGridItem>
+          <SearchBarGridItem
             item
-            align='center'
-            xs={12}
-            sm={12}
-            md={12}
-            lg={6}
-            xl={5}
-            className={classes.searchBarGridItem}
-            zeroMinWidth>
-            <ProductSearchBar addProduct={addProduct} />
-          </Grid>
-          {/*
-        // @ts-ignore */}
-          <Grid
-            item
-            align='center'
+            alignItems='center'
             xs={12}
             sm={12}
             md={12}
             lg={6}
             xl={6}
-            className={classes.posTableGridItem}
+            zeroMinWidth>
+            <ProductSearchBar addProduct={addProduct} />
+          </SearchBarGridItem>
+          <PosTableGridItem
+            item
+            alignItems='center'
+            xs={12}
+            sm={12}
+            md={12}
+            lg={6}
+            xl={6}
             zeroMinWidth>
             <PosTableRight
               products={products}
@@ -112,9 +116,9 @@ export const Sales = () => {
               discardSale={discardSale}
               {...rest}
             />
-          </Grid>
+          </PosTableGridItem>
         </Grid>
-      </Box>
-    </Box>
+      </SalesContainer>
+    </SalesPageContainer>
   )
 }
