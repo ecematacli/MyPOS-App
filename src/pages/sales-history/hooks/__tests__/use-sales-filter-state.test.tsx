@@ -2,10 +2,10 @@ import React from 'react'
 import { renderHook, act } from '@testing-library/react-hooks'
 import { Provider } from 'react-redux'
 import { UserRoles } from 'api/user/types'
-import { ThemeProvider } from '@material-ui/styles'
+import { ThemeProvider } from '@mui/material/styles'
 
-import { useSalesFilterState, Args } from '../useSalesFiltersState'
-import theme from '../../../../theme/theme'
+import { useSalesFilterState, Args } from '../use-sales-filter-state'
+import { theme } from '../../../../theme/theme'
 import { mockStore } from '../../../../__mocks__/store'
 import { AuthContext } from 'contexts/AuthContext'
 
@@ -22,7 +22,7 @@ beforeEach(() => {
     fetchSales: jest.fn(),
   }
 
-  wrapper = ({ children }) => (
+  wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider store={store}>
       <AuthContext.Provider
         value={{

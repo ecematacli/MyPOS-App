@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
 import { ActionTypes, StoreState } from '../../redux/types'
@@ -6,12 +6,12 @@ import { fetchSales } from '../../redux/sales/salesActions'
 import { Sale } from '../../redux/sales/types'
 import { loadingSelector } from '../../redux/loading/loadingReducer'
 import { formatDate } from '../../common/utils'
-import { TABLE_HEADS } from './tableHeads'
-import { useSalesFilterState } from './hooks/useSalesFiltersState'
+import { TABLE_HEADS } from './table-heads-data'
+import { useSalesFilterState } from './hooks/use-sales-filter-state'
 import Loading from '../../common/components/loading'
-import CustomTable from '../../common/components/tables/customTable'
-import SaleDetails from './components/saleDetails/SaleDetails'
-import SalesFilters from './components/salesFilters/SalesFilters'
+import { CustomTable } from '../../common/components/tables/custom-table/custom-table'
+import { SaleDetails } from './components/sale-details/sale-details'
+import { SalesFilters } from './components/sales-filters/sales-filters'
 import { Box } from '@mui/material'
 import { fetchOutlets } from '../../api/outlets/outlets'
 import { Outlets } from '../../api/outlets/types'
@@ -118,7 +118,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     }))
 
   return (
-    <Box style={{ padding: 24 }}>
+    <Box>
       <SalesFilters
         outlets={outlets}
         startDate={startDate}

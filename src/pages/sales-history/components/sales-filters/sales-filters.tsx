@@ -1,11 +1,18 @@
 import React, { Fragment, useContext } from 'react'
-import FilterListIcon from '@material-ui/icons/FilterList'
+import { Box } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
-import styles from './styles'
-import useSalesFiltersPopover from './useSalesFiltersPopover'
+import {
+  FilterButton,
+  FilterButtonContainer,
+  SalesFilterContainer,
+  StyledContainer,
+  StyledFilterListIcon,
+  getDropdownInputStyles,
+} from './sales-filters-styles'
+import { useSalesFiltersPopover } from './use-sales-filters-popover'
 import DatePickerFilter from '../../../../common/components/datePickerFilter'
 import { CustomPopover } from '../../../../common/components/custom-popover/custom-popover'
-import { Box, Button } from '@mui/material'
 import { CustomInput } from '../../../../common/components/custom-input/custom-input'
 import { Outlets, Outlet } from '../../../../api/outlets/types'
 import { AuthContext } from '../../../../contexts/AuthContext'
@@ -22,7 +29,7 @@ interface FiltersProps {
   handleOutletChange: (outletName: string) => void
 }
 
-const SalesFilters: React.FC<FiltersProps> = ({
+export const SalesFilters: React.FC<FiltersProps> = ({
   startDate,
   handleStartDateChange,
   endDate,
@@ -33,9 +40,9 @@ const SalesFilters: React.FC<FiltersProps> = ({
   onDateSelection,
   outlets,
 }) => {
-  const classes = styles()
+  const theme = useTheme()
   const { open, anchorEl, handleClick, handleClose } = useSalesFiltersPopover()
-  const { user, isAdmin } = useContext(AuthContext)
+  const { isAdmin } = useContext(AuthContext)
 
   const onApplyFilterClick = () => {
     onDateSelection()
@@ -44,13 +51,13 @@ const SalesFilters: React.FC<FiltersProps> = ({
 
   return (
     <Fragment>
-      <Box className={classes.filterIconContainer}>
-        <Box className={classes.filterIconDiv} onClick={handleClick}>
-          <FilterListIcon className={classes.filterIcon} />
+      <StyledContainer display='flex' justifyContent='flex-end'>
+        <Box sx={{ cursor: 'pointer' }} onClick={handleClick}>
+          <StyledFilterListIcon />
         </Box>
-      </Box>
+      </StyledContainer>
       <CustomPopover open={open} anchorEl={anchorEl} onClose={handleClose}>
-        <Box className={classes.salesFilterContainer}>
+        <SalesFilterContainer>
           <DatePickerFilter
             startDate={startDate}
             handleStartDateChange={handleStartDateChange}
@@ -59,44 +66,37 @@ const SalesFilters: React.FC<FiltersProps> = ({
           />
           {isAdmin && (
             <CustomInput
+              dropdown
+              color='secondary'
               name={'Magaza'}
               label={'Outlet'}
-              dropdown={true}
               classesProp={{
-                dropdownInput: { root: classes.dropdownInput },
+                dropdownInput: { root: getDropdownInputStyles(theme) },
               }}
               dropdownItems={[{ name: 'All', id: 0 }, ...outlets]}
               value={selectedOutlet ? selectedOutlet.name : 'All'}
               onChange={({ target: { value } }) => handleOutletChange(value)}
-              color='secondary'
             />
           )}
-          <Box className={classes.filterBtnDiv}>
-            <Button
-              className={classes.filterBtn}
-              color='secondary'
-              onClick={handleClose}>
+          <FilterButtonContainer display='flex' justifyContent='flex-end'>
+            <FilterButton color='secondary' onClick={handleClose}>
               Cancel
-            </Button>
-            <Button
-              className={classes.filterBtn}
+            </FilterButton>
+            <FilterButton
               color='secondary'
               disabled={!startDate && !endDate}
               onClick={onDateFilterClearing}>
               Clear Filters
-            </Button>
-            <Button
+            </FilterButton>
+            <FilterButton
               onClick={onApplyFilterClick}
               disabled={!startDate && !endDate && !selectedOutlet}
-              className={classes.filterBtn}
               color='primary'>
               Apply filter
-            </Button>
-          </Box>
-        </Box>
+            </FilterButton>
+          </FilterButtonContainer>
+        </SalesFilterContainer>
       </CustomPopover>
     </Fragment>
   )
 }
-
-export default SalesFilters

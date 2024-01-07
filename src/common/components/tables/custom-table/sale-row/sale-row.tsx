@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
-import clsx from 'clsx'
-import { TableCell, TableRow, Collapse, Chip, Tooltip } from '@mui/material'
+import { TableCell, TableRow, Collapse, Tooltip } from '@mui/material'
 
-import styles from './styles'
+import { StyledChip, StyledTableRow } from './styles'
 import { Sale } from '../../../../../redux/sales/types'
 import {
   currencyFormatter,
@@ -21,7 +20,7 @@ interface Props {
   component: React.JSXElementConstructor<any>
 }
 
-const SaleRow: React.FC<Props> = ({
+export const SaleRow: React.FC<Props> = ({
   sale,
   expandedRows,
   toggleExpanded,
@@ -29,8 +28,6 @@ const SaleRow: React.FC<Props> = ({
   renderExpandIconContainer,
   component: Component,
 }) => {
-  const classes = styles()
-
   const {
     id,
     createdAt,
@@ -42,43 +39,19 @@ const SaleRow: React.FC<Props> = ({
     products,
   } = sale
 
-  const renderSaleDetails = () => (
-    <TableRow key={id}>
-      <TableCell padding='none' colSpan={12}>
-        <Collapse in={expandedRows[id]} timeout='auto' unmountOnExit>
-          <Component sale={sale} rowIndex={index} />
-        </Collapse>
-      </TableCell>
-    </TableRow>
-  )
-
-  const getOutletColor = (name: string) => {
-    switch (name) {
-      case 'Web':
-        return classes.blueChip
-      case 'POS':
-        return classes.redChip
-      default:
-        return classes.greenChip
-    }
-  }
-
   return (
     <Fragment key={id}>
-      <TableRow
-        className={clsx(
-          classes.tableBodyRow,
-          classes[index % 2 ? 'whiteRow' : 'greenRow']
-        )}
+      <StyledTableRow
+        isEvenRow={index % 2 === 0}
         onClick={() => toggleExpanded(id)}>
         <TableCell>{renderExpandIconContainer(id)}</TableCell>
         <TableCell>{createdAt}</TableCell>
         <TableCell>
           <Tooltip title={orderNo || ''} placement='top'>
-            <Chip
+            <StyledChip
               variant='outlined'
               label={outlet.name}
-              className={getOutletColor(outlet.name)}
+              outletName={outlet.name}
             />
           </Tooltip>
         </TableCell>
@@ -90,10 +63,16 @@ const SaleRow: React.FC<Props> = ({
         <TableCell align='right'>
           {total ? currencyFormatter(total) : '-'}
         </TableCell>
-      </TableRow>
-      {expandedRows[id] ? renderSaleDetails() : null}
+      </StyledTableRow>
+      {expandedRows[id] && (
+        <TableRow key={id}>
+          <TableCell padding='none' colSpan={12}>
+            <Collapse in={expandedRows[id]} timeout='auto' unmountOnExit>
+              <Component sale={sale} rowIndex={index} />
+            </Collapse>
+          </TableCell>
+        </TableRow>
+      )}
     </Fragment>
   )
 }
-
-export default SaleRow

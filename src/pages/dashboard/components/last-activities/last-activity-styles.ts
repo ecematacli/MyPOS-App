@@ -1,6 +1,5 @@
-import { styled } from '@mui/material'
-
 import { Paper, Typography, Divider } from '@mui/material'
+import { styled } from '@mui/material/styles'
 
 export const StyledPaper = styled(Paper)({
   minHeight: 570,

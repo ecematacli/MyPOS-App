@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
-import { IFetchSalesArgs } from '..'
+import { IFetchSalesArgs } from '../sales-history'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { useCatalogInfo } from '../../../contexts/CatalogInfoContext'
 import { Outlet } from '../../../api/outlets/types'

@@ -1,25 +1,33 @@
 import React, { useState } from 'react'
 import {
   TableContainer,
-  Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  TablePagination,
+  Typography,
 } from '@mui/material'
-import ExpandLess from '@material-ui/icons/ExpandLess'
-import ExpandMore from '@material-ui/icons/ExpandMore'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import ExpandLess from '@mui/icons-material/ExpandLess'
+import ExpandMore from '@mui/icons-material/ExpandMore'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
-import styles from './styles'
+import {
+  IconContainer,
+  NoDisplayMessage,
+  PaginationContainer,
+  StyledContainer,
+  StyledIcon,
+  StyledTable,
+  StyledTableHeadRow,
+  StyledTablePagination,
+} from './custom-table-styles'
 import { Sale } from '../../../../redux/sales/types'
 import { Product } from '../../../../redux/products/types'
 import { TableProps, PaginationLabel } from './types'
-import SaleRow from './saleRow/SaleRow'
-import ProductRow from './productRow/ProductRow'
+import { SaleRow } from './sale-row/sale-row'
+import { ProductRow } from './product-row/product-row'
 
-const CustomTable: React.FC<TableProps> = ({
+export const CustomTable: React.FC<TableProps> = ({
   tableHeads,
   rows,
   tableType,
@@ -31,7 +39,6 @@ const CustomTable: React.FC<TableProps> = ({
   handleChangeRowsPerPage,
   component: Component,
 }) => {
-  const classes = styles({ noPagination })
   const [expandedRows, setExpandedRows] = useState<{
     [id: string]: boolean
   }>({})
@@ -41,29 +48,29 @@ const CustomTable: React.FC<TableProps> = ({
   }
 
   const renderExpandIconContainer = (id: number) => (
-    <div className={classes.iconContainer}>
+    <IconContainer>
       {expandedRows[id] ? (
-        <ExpandLess className={classes.icon} />
+        <StyledIcon as={ExpandLess} />
       ) : (
-        <ExpandMore className={classes.icon} />
+        <StyledIcon as={ExpandMore} />
       )}
-    </div>
+    </IconContainer>
   )
 
   const renderTableHead = () => {
     return tableHeads.map(({ label, numeric }, i) => (
       <TableCell align={numeric ? 'right' : 'left'} key={i}>
-        <div>{label}</div>
+        <Typography>{label}</Typography>
       </TableCell>
     ))
   }
 
   const renderNoDisplay = () => (
     <TableRow>
-      <TableCell className={classes.noDisplayCell} colSpan={10}>
-        <div className={classes.noDisplayMsg}>
+      <TableCell sx={{ borderBottom: 'none', paddingTop: 50 }} colSpan={10}>
+        <NoDisplayMessage>
           {`No ${tableType === 'sales' ? 'sales' : 'products'} to display`}
-        </div>
+        </NoDisplayMessage>
       </TableCell>
     </TableRow>
   )
@@ -105,9 +112,9 @@ const CustomTable: React.FC<TableProps> = ({
             index={i}
             product={product}
             renderIconContainer={() => (
-              <div className={classes.iconContainer}>
-                <ChevronRightIcon className={classes.icon} />
-              </div>
+              <IconContainer>
+                <StyledIcon as={ChevronRightIcon} />
+              </IconContainer>
             )}
           />
         ))
@@ -122,43 +129,34 @@ const CustomTable: React.FC<TableProps> = ({
   }
 
   const renderPagination = () => (
-    <div className={classes.paginationContainer}>
-      <TablePagination
-        classes={{
-          toolbar: classes.smallPagination,
-          caption: classes.smallPagination,
-          select: classes.smallPagination,
-        }}
+    <PaginationContainer display='flex' justifyContent='flex-end'>
+      <StyledTablePagination
         rowsPerPageOptions={[10, 25, 50]}
         count={count}
         rowsPerPage={rowsPerPage}
         page={page - 1}
         onPageChange={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
         labelDisplayedRows={renderLabelDisplayRows}
       />
-    </div>
+    </PaginationContainer>
   )
 
   return (
-    <TableContainer>
-      <div className={classes.tableContainer}>
-        <Table className={classes.table}>
-          {tableHeads !== undefined ? (
+    <StyledContainer>
+      <TableContainer>
+        <StyledTable>
+          {tableHeads && (
             <TableHead>
-              <TableRow className={classes.tableHeadRow}>
-                {renderTableHead()}
-              </TableRow>
+              <StyledTableHeadRow>{renderTableHead()}</StyledTableHeadRow>
             </TableHead>
-          ) : null}
+          )}
           <TableBody>
             {!count ? renderNoDisplay() : renderTableBody()}
           </TableBody>
-        </Table>
-      </div>
+        </StyledTable>
+      </TableContainer>
       {!noPagination && count > 0 && renderPagination()}
-    </TableContainer>
+    </StyledContainer>
   )
 }
-
-export default CustomTable

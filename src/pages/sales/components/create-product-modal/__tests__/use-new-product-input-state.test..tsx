@@ -24,7 +24,7 @@ beforeEach(() => {
     createProduct,
   }
 
-  wrapper = ({ children }) => (
+  wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider store={store}>
       <NotificationsContext.Provider
         value={{

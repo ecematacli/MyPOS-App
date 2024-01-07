@@ -1,13 +1,8 @@
 import { Theme, Typography } from '@mui/material'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import { FieldProps } from 'formik'
 
 type IFormikForm = FieldProps['form']
-
-interface StyleProps {
-  form: FieldProps['form']
-  fieldId: string
-}
 
 export const ErrorHelperText = styled(Typography)(({ theme }) => ({
   fontSize: 16,

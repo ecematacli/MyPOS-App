@@ -1,36 +1,39 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import {
+  Box,
   Button,
   IconButton,
-  Paper,
   Table,
   TableBody,
   TableCell,
   TableHead,
-  TableRow,
-  Typography,
 } from '@mui/material'
+import Refresh from '@mui/icons-material/Refresh'
 
-import styles from './styles'
+import {
+  DetailTotalContainer,
+  SalesDetailsPaper,
+  StyledTableHeadRow,
+  StyledTableRow,
+  TableContainer,
+  TotalText,
+} from './styles'
 import { Sale } from '../../../../redux/sales/types'
 import { currencyFormatter } from '../../../../common/utils'
 import { SyncedIcon } from '../../../../common/components/syncedIcon'
-import { TABLE_HEAD } from './tableHead'
-import { Refresh } from '@material-ui/icons'
+import { TABLE_HEAD } from './table-head-data'
 import { Align } from '../../../../common/components/Align'
-import { NotificationsContext } from '../../../../contexts/NotificationsContext'
 import { Product } from '../../../../redux/products/types'
 import { useResync } from '../../../../common/hooks/useResync'
 
-interface DetailsProps {
+interface IDetailsProps {
   sale: Sale
   rowIndex: number
 }
 
-const SaleDetails: React.FC<DetailsProps> = props => {
-  const { addNotification } = useContext(NotificationsContext)
+export const SaleDetails: React.FC<IDetailsProps> = props => {
   const [reSyncBtnClicked, setResyncBtnClicked] = useState(false)
-  const classes = styles(props)
+
   const {
     sale: { id, products, total, outlet },
   } = props
@@ -61,12 +64,7 @@ const SaleDetails: React.FC<DetailsProps> = props => {
         synced,
       } = product
       return (
-        <TableRow
-          role='checkbox'
-          hover
-          tabIndex={-1}
-          key={key}
-          className={classes.tableBodyRow}>
+        <StyledTableRow role='checkbox' hover tabIndex={-1} key={key}>
           <TableCell>{sku}</TableCell>
           <TableCell>{name ? name : '-'}</TableCell>
           <TableCell align='center'>
@@ -91,42 +89,40 @@ const SaleDetails: React.FC<DetailsProps> = props => {
           <TableCell align='right'>
             {discountPrice ? currencyFormatter(discountPrice) : '-'}
           </TableCell>
-        </TableRow>
+        </StyledTableRow>
       )
     })
   }
 
   return (
-    <Paper className={classes.salesDetailsContainer}>
-      <div className={classes.table}>
+    <SalesDetailsPaper {...props}>
+      <TableContainer>
         <Table>
           <TableHead>
-            <TableRow className={classes.tableHeadRow}>{tableHead()}</TableRow>
+            <StyledTableHeadRow>{tableHead()}</StyledTableHeadRow>
           </TableHead>
           <TableBody>{tableBody()}</TableBody>
         </Table>
-      </div>
-      <div className={classes.detailTotal}>
-        {!reSyncBtnClicked && outlet.name != 'Web' && products?.length ? (
+      </TableContainer>
+      <DetailTotalContainer
+        {...props}
+        display='flex'
+        justifyContent='space-between'
+        alignItems='center'>
+        {!reSyncBtnClicked && outlet.name != 'Web' && products?.length && (
           <Button
             variant='contained'
             color='primary'
-            style={{ color: 'white' }}
+            sx={{ color: 'white' }}
             onClick={() => handleResyncSaleClick(products)}
             size='small'>
             Re-sync sale
           </Button>
-        ) : (
-          <div />
         )}
-        <div>
-          <Typography className={classes.total}>
-            Total &nbsp; {currencyFormatter(total)}
-          </Typography>
-        </div>
-      </div>
-    </Paper>
+        <Box>
+          <TotalText>Total &nbsp; {currencyFormatter(total)}</TotalText>
+        </Box>
+      </DetailTotalContainer>
+    </SalesDetailsPaper>
   )
 }
-
-export default SaleDetails

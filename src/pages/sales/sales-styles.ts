@@ -1,4 +1,5 @@
-import { Box, Grid, styled } from '@mui/material'
+import { Box, Grid } from '@mui/material'
+import { styled } from '@mui/material/styles'
 
 export const SalesPageContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3, 5, 2),
