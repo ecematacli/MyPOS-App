@@ -19,12 +19,8 @@ export const IconContainer = styled(Box)(({ theme }) => ({
 export const FiltersContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   padding: theme.spacing(3.5, 6),
-}))
-
-export const FilterSectionWrapper = styled(Box)(({ theme }) => ({
   margin: '0 auto',
   maxWidth: theme.spacing(137.5),
-  display: 'flex',
 }))
 
 export const DividerContainer = styled(Box)(({ theme }) => ({

@@ -7,7 +7,6 @@ import {
   BackArrowIcon,
   CreateInventoryContainer,
   DividerContainer,
-  FilterSectionWrapper,
   FiltersContainer,
   IconContainer,
   ImageContainer,
@@ -23,10 +22,10 @@ import { Category } from '../../redux/categories/types'
 import { fetchBrands } from '../../redux/brands/brandsActions'
 import { fetchCategories } from '../../redux/categories/categoriesActions'
 import { NotificationsContext } from '../../contexts/NotificationsContext'
-import useInventoryFilterState from './hooks/useInventoryFilterState'
-import { getDropdownInputFields } from './components/inventoryCountFilters/getDropdownInputFields'
+import { useInventoryFilterState } from './hooks/use-inventory-filter-state'
+import { getDropdownInputFields } from './components/inventory-count-filters/getDropdownInputFields'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
-import { InventoryCountFilters } from './components/inventoryCountFilters/InventoryCountFilters'
+import { InventoryCountFilters } from './components/inventory-count-filters/inventory-count-filters'
 
 interface Props {
   fetchCategories: () => void
@@ -93,16 +92,14 @@ const InventoryCountCreate: React.FC<Props> = ({
         }
       />
       <FiltersContainer>
-        <FilterSectionWrapper>
-          <InventoryCountFilters
-            startDate={startDate}
-            handleStartDateChange={handleStartDateChange}
-            handleDropdownInputChange={handleDropdownInputChange}
-            countName={countName}
-            handleCountNameChange={handleCountNameChange}
-            DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
-          />
-        </FilterSectionWrapper>
+        <InventoryCountFilters
+          startDate={startDate}
+          handleStartDateChange={handleStartDateChange}
+          handleDropdownInputChange={handleDropdownInputChange}
+          countName={countName}
+          handleCountNameChange={handleCountNameChange}
+          DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
+        />
       </FiltersContainer>
       <DividerContainer>
         <Divider />

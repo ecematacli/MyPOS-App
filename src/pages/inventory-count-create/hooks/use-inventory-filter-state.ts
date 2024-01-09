@@ -21,7 +21,7 @@ interface Batch {
   brand: string
 }
 
-export default (
+export const useInventoryFilterState = (
   brands: Brand[],
   categories: Category[],
   addNotification: (message: string, severity: string) => void

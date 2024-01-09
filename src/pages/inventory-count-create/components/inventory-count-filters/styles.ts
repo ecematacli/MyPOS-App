@@ -1,11 +1,4 @@
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  Typography,
-  Select,
-} from '@mui/material'
+import { Box, InputLabel, Typography, Select } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation'
 
@@ -30,6 +23,7 @@ export const CalendarIcon = styled(InsertInvitationIcon)(({ theme }) => ({
 
 export const FiltersInfoBox = styled(Box)(({ theme }) => ({
   width: theme.spacing(21.25),
+  flexBasis: '30%',
   height: theme.spacing(8.37),
   marginRight: theme.spacing(7),
 }))
@@ -42,37 +36,12 @@ export const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
   },
 }))
 
-export const StyledOutlinedInput = styled(OutlinedInput)(({ theme }) => ({
-  marginLeft: theme.spacing(2.5),
-
-  '&.MuiInputBase-root': {
-    height: theme.spacing(5.75),
-    width: theme.spacing(37.5),
-    borderColor: theme.palette.secondary.dark,
-    '&.Mui-focused': {
-      backgroundColor: 'transparent !important',
-    },
-  },
-  '& .MuiInputBase-input': {
-    [theme.breakpoints.down('sm')]: {
-      fontSize: theme.spacing(1.6),
-    },
-  },
-}))
-
 export const InfoText = styled(Typography)(({ theme }) => ({
   color: theme.palette.secondary.main,
 }))
 
 export const DropdownInputContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(4),
-  display: 'flex',
-}))
-
-export const StyledFormControl = styled(FormControl)(({ theme }) => ({
-  '&.MuiFormControl-root': {
-    width: theme.spacing(37.5),
-  },
 }))
 
 export const StyledSelect = styled(Select)(({ theme }) => ({
