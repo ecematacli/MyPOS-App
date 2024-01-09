@@ -6,7 +6,7 @@ import { Router } from 'react-router-dom'
 
 import { mockStore } from '../../../../__mocks__/store'
 import { axios } from '../../../../__mocks__/axios'
-import { useLoginState } from '../useLoginState'
+import { useLoginState } from '../use-login-state'
 import { NotificationsContext } from '../../../../contexts/NotificationsContext'
 import {
   AuthTokenSettingContext,
@@ -25,7 +25,7 @@ beforeEach(() => {
   const initialState = {}
   const store = mockStore(initialState)
 
-  wrapper = ({ children }) => (
+  wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider store={store}>
       <Router history={createBrowserHistory()}>
         <AuthContext.Provider

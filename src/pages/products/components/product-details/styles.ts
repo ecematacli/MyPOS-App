@@ -17,8 +17,8 @@ export const ProductDetailsContainer = styled(Paper)<{ rowIndex?: number }>(
     alignItems: 'center',
     background:
       rowIndex % 2
-        ? `${theme.palette.whiteColors[0]}`
-        : `${theme.palette.greenColors[2]}`,
+        ? `${theme.palette.greenColors[2]}`
+        : `${theme.palette.whiteColors[0]}`,
   })
 )
 export const PaperHead = styled(Box)<{ rowIndex?: number }>(

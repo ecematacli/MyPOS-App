@@ -1,17 +1,17 @@
 interface Field {
-  label: string;
-  name: string;
+  label: string
+  name: string
 }
 
-export type SigninFields = Field[];
+export type SigninFields = Field[]
 
 export const SIGNIN_FIELDS: SigninFields = [
   {
-    label: 'Email Address*',
+    label: 'E-posta Adresi"*',
     name: 'email',
   },
   {
-    label: 'Password*',
+    label: 'Şifre*',
     name: 'password',
   },
-];
+]

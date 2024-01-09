@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import api from '../../../api/api-client'
 import { AuthTokenSettingContext } from '../../../contexts/AuthContext'
 import { NotificationsContext } from '../../../contexts/NotificationsContext'
-import { FormValues } from '..'
+import { FormValues } from '../sign-in'
 
 export const useLoginState = () => {
   const { saveAuthToken } = useContext(AuthTokenSettingContext)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
-import { SignInPage } from '../index'
+import { SignInPage } from '../sign-in'
 import { render } from '../../../testUtils/render'
 
 describe.skip('[Sign In Page component]', () => {

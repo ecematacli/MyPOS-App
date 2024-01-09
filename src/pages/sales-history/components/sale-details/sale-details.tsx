@@ -95,7 +95,7 @@ export const SaleDetails: React.FC<IDetailsProps> = props => {
   }
 
   return (
-    <SalesDetailsPaper {...props}>
+    <SalesDetailsPaper rowIndex={props.rowIndex}>
       <TableContainer>
         <Table>
           <TableHead>

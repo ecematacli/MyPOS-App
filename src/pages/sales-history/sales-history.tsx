@@ -34,7 +34,7 @@ interface SalesHistoryProps {
   cursors: { before: string; after: string }
 }
 
-const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
+const SalesHistory: React.FC<SalesHistoryProps> = ({
   fetchSales,
   sales,
   count,
@@ -163,4 +163,6 @@ const mapStateToProps = (state: StoreState) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchSales })(SalesHistoryPage)
+export const SalesHistoryPage = connect(mapStateToProps, { fetchSales })(
+  SalesHistory
+)
