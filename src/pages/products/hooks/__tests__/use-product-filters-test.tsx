@@ -1,10 +1,10 @@
 import React from 'react'
 import { renderHook, act } from '@testing-library/react-hooks'
 import { Provider } from 'react-redux'
-import { ThemeProvider } from '@material-ui/styles'
+import { ThemeProvider } from '@mui/material/styles'
 
-import useProductFilters, { Args } from '../useProductFilters'
-import theme from '../../../../theme/theme'
+import { useProductFilters, Args } from '../use-product-filters'
+import { theme } from '../../../../theme/theme'
 import { testBrands, testCategories } from '../../../../testUtils'
 import { mockStore } from '../../../../__mocks__/store'
 
@@ -26,7 +26,7 @@ beforeEach(() => {
   const initialState = {}
   const store = mockStore(initialState)
 
-  wrapper = ({ children }) => (
+  wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider store={store}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </Provider>

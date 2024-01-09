@@ -35,7 +35,7 @@ export const TotalDivider = styled(Divider)(({ theme }) => ({
 }))
 
 export const TotalSectionContainer = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(0, 3),
+  padding: theme.spacing(0, 2),
   margin: theme.spacing(1),
   [theme.breakpoints.down('sm')]: {
     ' & > * ': {

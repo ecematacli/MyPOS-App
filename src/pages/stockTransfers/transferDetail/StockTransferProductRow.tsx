@@ -3,7 +3,7 @@ import { TableRow, TableCell } from '@mui/material'
 
 import { productNameWithVariation } from '../../../common/utils'
 import { StockTransferProduct } from '../types'
-import { SyncedIcon } from '../../../common/components/syncedIcon'
+import { SyncedIcon } from '../../../common/components/synced-icon/synced-icon'
 
 interface Props {
   product: StockTransferProduct

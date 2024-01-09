@@ -139,35 +139,31 @@ export const Total: React.FC<TotalProps> = ({
 
   return (
     <Box sx={{ overflow: 'auto' }}>
-      <TotalSectionContainer>
+      <TotalSectionContainer display='flex' justifyContent='space-between'>
         <Typography>Ara Toplam</Typography>
         <Typography data-testid='sub-total'>
           {currencyFormatter(total - tax)}
         </Typography>
       </TotalSectionContainer>
-      <TotalSectionContainer>
+      <TotalSectionContainer display='flex' justifyContent='space-between'>
         <Typography>Vergi</Typography>
         <Typography data-testid='tax'>{currencyFormatter(tax)}</Typography>
       </TotalSectionContainer>
-      <TotalSectionContainer>
-        <Fragment>
-          <Box
-            display='flex'
-            alignItems='center'
-            onClick={e => handleEditClick(e, 'discount')}>
-            <DiscountText>İndirim</DiscountText>
+      <TotalSectionContainer display='flex' justifyContent='space-between'>
+        <Box
+          display='flex'
+          alignItems='center'
+          onClick={e => handleEditClick(e, 'discount')}>
+          <DiscountText>İndirim</DiscountText>
+        </Box>
+        {renderEditPricePopover()}
+        <Typography data-testid='discount'>
+          <Box component='span' sx={{ fontWeight: 'bold', paddingRight: 1.2 }}>
+            %
           </Box>
-          {renderEditPricePopover()}
-          <Typography data-testid='discount'>
-            <Box
-              component='span'
-              sx={{ fontWeight: 'bold', paddingRight: 1.2 }}>
-              %
-            </Box>
-            {parseFloat(percentageDiscount.toFixed(2))} /{' '}
-            {currencyFormatter(discount)}
-          </Typography>
-        </Fragment>
+          {parseFloat(percentageDiscount.toFixed(2))} /{' '}
+          {currencyFormatter(discount)}
+        </Typography>
       </TotalSectionContainer>
       <TotalDivider />
       <TotalSectionContainer

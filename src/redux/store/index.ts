@@ -7,7 +7,7 @@ import { appReducer } from '../reducers'
 const composeEnhancers =
   (window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose) || compose
 
-const configureStore = () => {
+export const configureStore = () => {
   const store = createStore(
     appReducer,
     composeEnhancers(applyMiddleware(thunk, apiMiddleware))
@@ -15,5 +15,3 @@ const configureStore = () => {
 
   return store
 }
-
-export default configureStore

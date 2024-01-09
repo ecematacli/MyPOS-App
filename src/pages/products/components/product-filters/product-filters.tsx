@@ -1,8 +1,22 @@
 import React, { Fragment, useState } from 'react'
-import { Button, Chip } from '@mui/material'
-import FilterListIcon from '@material-ui/icons/FilterList'
+import { Box, Button } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
-import styles from './styles'
+import {
+  FilterButtonContainer,
+  FilterCaption,
+  FilterIconContainer,
+  FilterInputContainer,
+  FilterInputs,
+  FilterLabel,
+  StyledChipInput,
+  StyledFilterButton,
+  StyledFilterListIcon,
+  StyledPopoverContent,
+  getDropdownInputStyles,
+  getInputRootStyles,
+  getInputStyles,
+} from './styles'
 import { capitalize } from '../../../../common/utils'
 import { CustomInput } from '../../../../common/components/custom-input/custom-input'
 import { CustomPopover } from '../../../../common/components/custom-popover/custom-popover'
@@ -21,7 +35,7 @@ interface FiltersProps {
   handleDelete: (key: string) => void
 }
 
-const ProductFilters: React.FC<FiltersProps> = ({
+export const ProductFilters: React.FC<FiltersProps> = ({
   filterInputs,
   appliedFilters,
   cancelClick,
@@ -31,11 +45,9 @@ const ProductFilters: React.FC<FiltersProps> = ({
   handleApplyFilterClick,
   handleDelete,
 }) => {
-  const classes = styles()
+  const theme = useTheme()
 
-  const [anchorEl, setAnchorEl] = useState<
-    null | Element | ((element: Element) => Element)
-  >(null)
+  const [anchorEl, setAnchorEl] = useState<null | Element>(null)
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(e.currentTarget)
@@ -44,8 +56,6 @@ const ProductFilters: React.FC<FiltersProps> = ({
   const handleClose = () => {
     setAnchorEl(null)
   }
-
-  const open = Boolean(anchorEl)
 
   const onCancelClick = () => {
     handleClose()
@@ -61,11 +71,10 @@ const ProductFilters: React.FC<FiltersProps> = ({
     Object.keys(appliedFilters).map(key => {
       if (!appliedFilters[key]) return
       return (
-        <Chip
+        <StyledChipInput
           key={key}
           color='secondary'
           size='medium'
-          className={classes.chipInput}
           label={`${capitalize(key)}: ${appliedFilters[key]}`}
           onDelete={() => handleDelete(key)}
         />
@@ -73,11 +82,15 @@ const ProductFilters: React.FC<FiltersProps> = ({
     })
 
   const renderFilterInputs = () => (
-    <div className={classes.filterInputContainer}>
+    <FilterInputContainer>
       {filterInputFields.map(
         ({ label, fieldId, dropdown, placeholder, value, dropdownItems }) => (
-          <div key={label} className={classes.filterInputs}>
-            <div className={classes.filterLabel}>{label}</div>
+          <FilterInputs
+            display='flex'
+            justifyContent='space-between'
+            alignItems='center'
+            key={label}>
+            <FilterLabel>{label}</FilterLabel>
             <CustomInput
               dropdown={dropdown}
               name={fieldId}
@@ -88,80 +101,76 @@ const ProductFilters: React.FC<FiltersProps> = ({
               classesProp={
                 !dropdown
                   ? {
-                      root: classes.inputRoot,
-                      input: classes.input,
+                      root: getInputRootStyles(theme),
+                      input: getInputStyles(theme),
                     }
                   : {
-                      dropdownInput: { root: classes.dropdownInput },
+                      dropdownInput: { root: getDropdownInputStyles() },
                       innerInput: {
-                        root: classes.innerInput,
-                        input: classes.input,
+                        root: { height: 35 },
+                        input: getInputStyles(theme),
                       },
                     }
               }
             />
-          </div>
+          </FilterInputs>
         )
       )}
-    </div>
+    </FilterInputContainer>
   )
 
   const renderFilterButtons = () => (
-    <div className={classes.filterBtnDiv}>
-      <div>
-        <Button
-          className={classes.filterBtn}
-          color='secondary'
-          onClick={onCancelClick}>
+    <FilterButtonContainer display='flex' justifyContent='flex-end'>
+      <Box>
+        <StyledFilterButton color='secondary' onClick={onCancelClick}>
           Cancel
-        </Button>
-      </div>
-      <div className={classes.filterBtnDiv}>
+        </StyledFilterButton>
+      </Box>
+      <FilterButtonContainer display='flex' justifyContent='flex-end'>
         <Button
-          className={classes.filterBtn}
           color='secondary'
           disabled={Object.values(filterInputs).every(f => f === '')}
           onClick={clearAllFilters}>
           Clear Filters
         </Button>
-      </div>
-      <div>
+      </FilterButtonContainer>
+      <Box>
         <Button
           onClick={onApplyFilterClick}
-          className={classes.filterBtn}
           disabled={Object.values(filterInputs).every(f => f === '')}
-          style={{ marginRight: 16 }}
+          sx={{ marginRight: 16 }}
           color='primary'>
           Apply filters
         </Button>
-      </div>
-    </div>
+      </Box>
+    </FilterButtonContainer>
   )
 
   return (
     <Fragment>
-      <div className={classes.filterIconContainer}>
-        <div className={classes.filterIconDiv} onClick={handleClick}>
-          <FilterListIcon className={classes.filterIcon} />
-        </div>
-      </div>
+      <FilterIconContainer onClick={handleClick}>
+        <StyledFilterListIcon />
+      </FilterIconContainer>
       <CustomPopover
-        open={open}
+        open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         onClose={handleClose}
-        classes={{ paper: classes.popoverPaper }}>
-        <div className={classes.popoverPaper}>
-          <div className={classes.filterCaption}>
+        sx={{
+          maxWidth: 435,
+          '@media (max-width:465px)': {
+            width: 340,
+          },
+        }}>
+        <StyledPopoverContent>
+          <FilterCaption>
             {Object.values(appliedFilters).some(f => !!f)
               ? renderChipInputs()
               : 'Add Filters...'}
-          </div>
+          </FilterCaption>
           {renderFilterInputs()}
           {renderFilterButtons()}
-        </div>
+        </StyledPopoverContent>
       </CustomPopover>
     </Fragment>
   )
 }
-
-export default ProductFilters

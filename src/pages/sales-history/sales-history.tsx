@@ -8,13 +8,14 @@ import { loadingSelector } from '../../redux/loading/loadingReducer'
 import { formatDate } from '../../common/utils'
 import { TABLE_HEADS } from './table-heads-data'
 import { useSalesFilterState } from './hooks/use-sales-filter-state'
-import Loading from '../../common/components/loading'
+import { Loading } from '../../common/components/loading/loading'
 import { CustomTable } from '../../common/components/tables/custom-table/custom-table'
 import { SaleDetails } from './components/sale-details/sale-details'
 import { SalesFilters } from './components/sales-filters/sales-filters'
 import { Box } from '@mui/material'
 import { fetchOutlets } from '../../api/outlets/outlets'
 import { Outlets } from '../../api/outlets/types'
+import { PageContainer } from 'common/components/page-container/page-container'
 
 export interface IFetchSalesArgs {
   rowsPerPage: number
@@ -118,7 +119,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
     }))
 
   return (
-    <Box>
+    <PageContainer>
       <SalesFilters
         outlets={outlets}
         startDate={startDate}
@@ -145,7 +146,7 @@ const SalesHistoryPage: React.FC<SalesHistoryProps> = ({
           component={SaleDetails}
         />
       )}
-    </Box>
+    </PageContainer>
   )
 }
 

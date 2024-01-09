@@ -4,18 +4,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
 import { theme } from './theme/theme'
-import { AppRouter } from './routes/AppRouter'
+import { AppRouter } from './routes/app-router'
 import { Provider } from 'react-redux'
-import configureStore from './redux/store'
+import { configureStore } from './redux/store'
 import { AuthContextProvider } from './contexts/AuthContext'
 import { NotificationsProvider } from './contexts/NotificationsContext'
 import { GlobalStyles } from './GlobalStyles'
 import { CatalogInfoProvider } from './contexts/CatalogInfoContext'
 
-const store = configureStore()
-
 export const App = () => (
-  <Provider store={store}>
+  <Provider store={configureStore()}>
     <AuthContextProvider>
       <CatalogInfoProvider>
         <NotificationsProvider>

@@ -20,7 +20,7 @@ import {
 } from './styles'
 import { Sale } from '../../../../redux/sales/types'
 import { currencyFormatter } from '../../../../common/utils'
-import { SyncedIcon } from '../../../../common/components/syncedIcon'
+import { SyncedIcon } from '../../../../common/components/synced-icon/synced-icon'
 import { TABLE_HEAD } from './table-head-data'
 import { Align } from '../../../../common/components/Align'
 import { Product } from '../../../../redux/products/types'

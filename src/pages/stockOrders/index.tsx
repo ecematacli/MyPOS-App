@@ -4,7 +4,7 @@ import { Typography, Button } from '@mui/material'
 
 import styles from './styles'
 import { formatDate } from '../../common/utils'
-import Loading from '../../common/components/loading'
+import { Loading } from '../../common/components/loading/loading'
 import PlainTable from '../../common/components/tables/plainTable'
 import useStockOrders from './hooks/useStockOrders'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'

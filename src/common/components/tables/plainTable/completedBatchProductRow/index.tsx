@@ -4,7 +4,7 @@ import { TableRow, TableCell } from '@mui/material'
 import styles from './styles'
 import { BatchProduct } from '../types'
 import { productNameWithVariation } from '../../../../utils'
-import { SyncedIcon } from '../../../syncedIcon'
+import { SyncedIcon } from '../../../synced-icon/synced-icon'
 
 interface Props {
   row: BatchProduct

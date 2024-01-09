@@ -12,7 +12,7 @@ import {
   CreatedContentContainer,
 } from './last-activity-styles'
 import { LastActivitiesData } from '../../types'
-import Loading from '../../../../common/components/loading'
+import { Loading } from '../../../../common/components/loading/loading'
 
 interface Props {
   loading: boolean

@@ -1,4 +1,6 @@
-import React, { useEffect, Fragment, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Box } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import { connect } from 'react-redux'
 
 import { ActionTypes, StoreState } from '../../redux/types'
@@ -9,14 +11,15 @@ import { fetchProducts } from '../../redux/products/productsActions'
 import { fetchCategories } from '../../redux/categories/categoriesActions'
 import { fetchBrands } from '../../redux/brands/brandsActions'
 import { loadingSelector } from '../../redux/loading/loadingReducer'
-import { TABLE_HEADS } from './tableHeads'
-import { getFilterInputFields } from './getFilterInputFields'
-import useProductFilters from './hooks/useProductFilters'
-import Loading from '../../common/components/loading'
+import { TABLE_HEADS } from './table-heads-data'
+import { useProductFilters } from './hooks/use-product-filters'
+import { Loading } from '../../common/components/loading/loading'
 import { CustomTable } from '../../common/components/tables/custom-table/custom-table'
-import ProductDetails from './components/productDetails/ProductDetails'
-import ProductFilters from './components/productFilters/ProductFilters'
+import ProductDetails from './components/productDetails/product-details'
+import { ProductFilters } from './components/product-filters/product-filters'
 import { findMatchedFields } from '../../common/utils'
+import { FilterInput } from './types'
+import { PageContainer } from 'common/components/page-container/page-container'
 
 interface ProductsProps {
   fetchProducts: (
@@ -36,7 +39,38 @@ interface ProductsProps {
   isFetching: boolean
 }
 
-const ProductsPage: React.FC<ProductsProps> = ({
+export const getFilterInputFields = (
+  brands: Brand[],
+  categories: Category[],
+  filter: {
+    searchQuery: string
+    category: string
+    brand: string
+  }
+): FilterInput[] => [
+  {
+    label: 'Search Query',
+    fieldId: 'searchQuery',
+    placeholder: 'Search by name, sku or barcode',
+    value: filter.searchQuery,
+  },
+  {
+    label: 'Category',
+    fieldId: 'category',
+    dropdown: true,
+    dropdownItems: categories,
+    value: filter.category,
+  },
+  {
+    label: 'Brand',
+    fieldId: 'brand',
+    dropdown: true,
+    dropdownItems: brands,
+    value: filter.brand,
+  },
+]
+
+const ProductsPageComponent: React.FC<ProductsProps> = ({
   fetchProducts,
   fetchCategories,
   fetchBrands,
@@ -76,7 +110,7 @@ const ProductsPage: React.FC<ProductsProps> = ({
   )
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
   ) => {
     //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
@@ -111,9 +145,6 @@ const ProductsPage: React.FC<ProductsProps> = ({
     )
   }
 
-  const productsInOrder = () =>
-    ids.map((productId: number) => products[productId])
-
   useEffect(() => {
     fetchProducts(page, rowsPerPage)
     fetchCategories()
@@ -121,7 +152,7 @@ const ProductsPage: React.FC<ProductsProps> = ({
   }, [])
 
   return (
-    <div style={{ padding: 24 }}>
+    <PageContainer>
       <ProductFilters
         filterInputs={filterInputs}
         appliedFilters={appliedFilters}
@@ -135,21 +166,22 @@ const ProductsPage: React.FC<ProductsProps> = ({
       {isFetching ? (
         <Loading />
       ) : (
-        <Fragment>
-          <CustomTable
-            tableHeads={TABLE_HEADS}
-            tableType='products'
-            rows={{ type: 'products', products: productsInOrder() }}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            handleChangePage={handleChangePage}
-            handleChangeRowsPerPage={handleChangeRowsPerPage}
-            count={count}
-            component={ProductDetails}
-          />
-        </Fragment>
+        <CustomTable
+          tableHeads={TABLE_HEADS}
+          tableType='products'
+          rows={{
+            type: 'products',
+            products: ids.map((productId: number) => products[productId]),
+          }}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          count={count}
+          component={ProductDetails}
+        />
       )}
-    </div>
+    </PageContainer>
   )
 }
 
@@ -169,8 +201,8 @@ const mapStateToProps = (state: StoreState) => {
   }
 }
 
-export default connect(mapStateToProps, {
+export const ProductsPage = connect(mapStateToProps, {
   fetchProducts,
   fetchCategories,
   fetchBrands,
-})(ProductsPage)
+})(ProductsPageComponent)

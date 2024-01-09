@@ -8,7 +8,6 @@ import {
   ActionGridItem,
   PosTableGridItem,
   SalesContainer,
-  SalesPageContainer,
   SearchBarGridItem,
 } from './sales-styles'
 import { fetchCategories } from '../../redux/categories/categoriesActions'
@@ -18,8 +17,9 @@ import { ProductSearchBar } from './components/product-searchbar/product-searchb
 import { PosTableRight } from './components/pos-table-right/pos-table-right'
 import { CreateProductModal } from './components/create-product-modal/create-product-modal'
 import { OutletName } from './components/outlet-name/outlet-name'
+import { PageContainer } from 'common/components/page-container/page-container'
 
-export const Sales = () => {
+export const SalesPage = () => {
   const dispatch = useDispatch()
 
   const [createProductModalOpen, setCreateProductModalOpen] = useState(false)
@@ -47,7 +47,7 @@ export const Sales = () => {
   }, [])
 
   return (
-    <SalesPageContainer>
+    <PageContainer>
       <CreateProductModal
         open={createProductModalOpen}
         onClose={() => setCreateProductModalOpen(false)}
@@ -119,6 +119,6 @@ export const Sales = () => {
           </PosTableGridItem>
         </Grid>
       </SalesContainer>
-    </SalesPageContainer>
+    </PageContainer>
   )
 }

@@ -1,23 +1,39 @@
 import React, { useContext } from 'react'
 import { connect } from 'react-redux'
-import { Paper, Typography, IconButton, Card } from '@mui/material'
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
-import DoneIcon from '@material-ui/icons/Done'
-import CancelIcon from '@material-ui/icons/Cancel'
+import { Typography, Box } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import CancelIcon from '@mui/icons-material/Cancel'
+import DoneIcon from '@mui/icons-material/Done'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 
-import styles from './styles'
+import {
+  DetailActionButton,
+  DetailContent,
+  DetailsCard,
+  EditFormContainer,
+  EditIconContainer,
+  PaperHead,
+  PaperTitle,
+  ProductDetailsContainer,
+  ProductDetailsInfo,
+  getDropdownInputRootStyles,
+  getInnerInputStyles,
+  getInputStyles,
+  getRootInputStyles,
+} from './styles'
 import { StoreState } from '../../../../redux/types'
 import { DetailsProps } from './types'
 import { editProduct } from '../../../../redux/products/productsActions'
-import useProductDetails from './hooks/useProductDetails'
+import useProductDetails from './hooks/use-product-details'
 import { getProductFields } from './getProductFields'
 import { NotificationsContext } from '../../../../contexts/NotificationsContext'
 import { CustomInput } from '../../../../common/components/custom-input/custom-input'
+import { StyledIconButton } from 'pages/sales/components/outlet-name/styles'
 
 const ProductDetails: React.FC<DetailsProps> = props => {
-  const classes = styles({})
-  const { product, brands, categories, editProduct } = props
+  const theme = useTheme()
 
+  const { product, brands, categories, editProduct } = props
   const { addNotification } = useContext(NotificationsContext)
 
   const PRODUCT_FIELDS = getProductFields(brands, categories)
@@ -49,7 +65,7 @@ const ProductDetails: React.FC<DetailsProps> = props => {
     dropdownItems: { name: string; id: number }[],
     type: string
   ) => (
-    <div className={classes.editFormContainer}>
+    <EditFormContainer>
       <CustomInput
         name={fieldId}
         label={label}
@@ -58,14 +74,17 @@ const ProductDetails: React.FC<DetailsProps> = props => {
         classesProp={
           !dropdown
             ? {
-                root: classes.inputRoot,
-                input: classes.input,
+                root: getRootInputStyles(),
+                input: getInputStyles(theme),
               }
             : {
                 dropdownInput: {
-                  root: classes.dropdownInput,
+                  root: getDropdownInputRootStyles(),
                 },
-                innerInput: { root: classes.innerInput, input: classes.input },
+                innerInput: {
+                  root: getInnerInputStyles(),
+                  input: getInputStyles(theme),
+                },
               }
         }
         dropdownItems={dropdownItems}
@@ -73,24 +92,22 @@ const ProductDetails: React.FC<DetailsProps> = props => {
         onChange={handleInputChange}
         color='secondary'
       />
-      <div className={classes.editIcons}>
-        <IconButton
-          className={classes.iconButton}
+      <Box sx={{ marginLeft: theme.spacing(1) }}>
+        <StyledIconButton
           onClick={() => {
             completeEdit(fieldId, productVal[fieldId], product.id, label)
             handleEditedRow(fieldId)
           }}>
-          <DoneIcon className={classes.detailActionBtnIcon} />
-        </IconButton>
-        <IconButton
-          className={classes.iconButton}
+          <DetailActionButton as={DoneIcon} />
+        </StyledIconButton>
+        <StyledIconButton
           onClick={() => {
             handleEditedRow(fieldId)
           }}>
-          <CancelIcon className={classes.detailActionBtnIcon} />
-        </IconButton>
-      </div>
-    </div>
+          <DetailActionButton as={CancelIcon} />
+        </StyledIconButton>
+      </Box>
+    </EditFormContainer>
   )
 
   const renderProductDetails = () =>
@@ -105,43 +122,38 @@ const ProductDetails: React.FC<DetailsProps> = props => {
       } = productField
 
       return (
-        <div key={label} className={classes.productDetails}>
+        <ProductDetailsInfo key={label}>
           <Typography>{label}: </Typography>
-          <div className={classes.detailAction}>
+          <Box display='flex'>
             {editedRow[fieldId] ? (
               renderEditForm(fieldId, label, dropdown, dropdownItems, type)
             ) : (
-              <>
-                {currency && <div>&#x20BA;</div>}
-                <Typography className={classes.detailContent}>
-                  {renderProductValues(fieldId)}
-                </Typography>
-                <div
+              <React.Fragment>
+                {currency && <Box>&#x20BA;</Box>}
+                <DetailContent>{renderProductValues(fieldId)}</DetailContent>
+                <EditIconContainer
                   onClick={() => {
                     handleEditedRow(fieldId)
-                  }}
-                  className={classes.editIcon}>
-                  {enabledEdit ? <EditOutlinedIcon /> : null}
-                </div>
-              </>
+                  }}>
+                  {enabledEdit ? <EditOutlinedIcon /> : <React.Fragment />}
+                </EditIconContainer>
+              </React.Fragment>
             )}
-          </div>
-        </div>
+          </Box>
+        </ProductDetailsInfo>
       )
     })
 
   return (
-    <Paper className={classes.productDetailsContainer}>
-      <div className={classes.paperHead}>
-        <Typography color='secondary' className={classes.paperTitle}>
-          Details
-        </Typography>
-        <IconButton className={classes.iconButton} onClick={handleEditClick}>
+    <ProductDetailsContainer>
+      <PaperHead>
+        <PaperTitle color='secondary'>Details</PaperTitle>
+        <StyledIconButton onClick={handleEditClick}>
           {enabledEdit ? <DoneIcon /> : <EditOutlinedIcon />}
-        </IconButton>
-      </div>
-      <Card className={classes.detailsCard}>{renderProductDetails()}</Card>
-    </Paper>
+        </StyledIconButton>
+      </PaperHead>
+      <DetailsCard>{renderProductDetails()}</DetailsCard>
+    </ProductDetailsContainer>
   )
 }
 

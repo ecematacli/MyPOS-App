@@ -24,7 +24,7 @@ import {
   QuantityData,
 } from './styles'
 import { TopSellingData } from '../../types'
-import Loading from '../../../../common/components/loading'
+import { Loading } from '../../../../common/components/loading/loading'
 
 interface Props {
   loading: boolean

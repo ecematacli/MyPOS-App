@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom'
 
 import { AuthContext } from '../contexts/AuthContext'
-import Loading from '../common/components/loading'
+import { Loading } from '../common/components/loading/loading'
 
-const PrivateRoute: React.FC<RouteProps> = ({
+export const PrivateRouter: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
@@ -32,5 +32,3 @@ const PrivateRoute: React.FC<RouteProps> = ({
     />
   )
 }
-
-export default PrivateRoute

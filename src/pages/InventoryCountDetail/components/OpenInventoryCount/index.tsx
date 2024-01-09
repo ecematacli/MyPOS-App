@@ -6,7 +6,7 @@ import LastCountedItems from './components/lastCountedItems/LastCountedItems'
 import CountingActionsBar from './components/countingActionsBar/CountingActionsBar'
 import CountBatchesProductsTable from './components/countBatchesProductsTable/CountBatchesProductsTable'
 import useCountDetails from './hooks/useCountDetails'
-import Loading from '../../../../common/components/loading'
+import { Loading } from '../../../../common/components/loading/loading'
 import { BatchStats } from '../BatchStats'
 import { ConfirmCompleteModal } from './components/ConfirmCompleteModal'
 

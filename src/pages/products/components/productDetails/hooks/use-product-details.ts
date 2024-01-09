@@ -3,7 +3,13 @@ import { useState } from 'react'
 import { Args, EditedRow, UserProductValues } from '../types'
 import { findMatchedFields } from '../../../../../common/utils'
 
-export default ({ product, editProduct, addNotification, brands, categories }: Args) => {
+export default ({
+  product,
+  editProduct,
+  addNotification,
+  brands,
+  categories,
+}: Args) => {
   const [editedRow, setEditedRow] = useState<EditedRow | {}>({})
   const [productVal, setProductVal] = useState<UserProductValues>(product)
   const [enabledEdit, setEnabledEdit] = useState(false)
@@ -85,7 +91,10 @@ export default ({ product, editProduct, addNotification, brands, categories }: A
         }
       }
 
-      if (!productField || (productField.name && productField.name !== productVal[fieldId])) {
+      if (
+        !productField ||
+        (productField.name && productField.name !== productVal[fieldId])
+      ) {
         editProduct({ updatedField, productId, label, addNotification })
       }
     } else if (productField != productVal[fieldId]) {

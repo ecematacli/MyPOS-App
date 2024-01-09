@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import { getInitialLastThirtyDays } from './utils'
 import { DashboardDateFilter } from './components/dashboard-date-filter/dashboard-date-filter'
@@ -8,6 +8,7 @@ import { DashboardStats } from './components/dashboard-stats/dashboard-stats'
 import { Chart } from './components/chart/chart'
 import { LastActivities } from './components/last-activities/last-activities'
 import { TopSellingItems } from './components/top-selling-items/top-selling-items'
+import { PageContainer } from 'common/components/page-container/page-container'
 
 export const DashboardPage = () => {
   const { initialStart, initialEnd } = getInitialLastThirtyDays()
@@ -38,10 +39,7 @@ export const DashboardPage = () => {
   }, [])
 
   return (
-    <Box
-      sx={{
-        padding: theme => theme.spacing(3),
-      }}>
+    <PageContainer>
       <Grid
         container
         justifyContent='flex-end'
@@ -102,6 +100,6 @@ export const DashboardPage = () => {
           />
         </Grid>
       </Grid>
-    </Box>
+    </PageContainer>
   )
 }

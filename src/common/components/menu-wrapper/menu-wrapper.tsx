@@ -18,7 +18,7 @@ import {
   DrawerList,
   DrawerListContainer,
   DrawerPaper,
-  DrawerRoot,
+  DrawerRootContainer,
   EmailAddress,
   LogoImage,
   LogoWrapper,
@@ -39,7 +39,7 @@ import {
   AuthContext,
   AuthTokenSettingContext,
 } from '../../../contexts/AuthContext'
-import Loading from '../loading'
+import { Loading } from '../loading/loading'
 
 export const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -152,7 +152,7 @@ export const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({
     </DrawerListContainer>
   )
   return (
-    <DrawerRoot>
+    <DrawerRootContainer>
       <CssBaseline />
       {isAuthenticated ? (
         <Fragment>
@@ -189,6 +189,6 @@ export const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({
       ) : null}
       <StyledContent>{children}</StyledContent>
       <Notifications />
-    </DrawerRoot>
+    </DrawerRootContainer>
   )
 }

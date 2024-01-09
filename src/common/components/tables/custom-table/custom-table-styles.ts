@@ -10,8 +10,8 @@ import { styled } from '@mui/material/styles'
 export const StyledContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   marginTop: theme.spacing(3),
-  overflowX: 'auto',
   color: theme.palette.secondary.main,
+  // backgroundColor: 'coral',
 }))
 
 export const IconContainer = styled(Box)(({ theme }) => ({
@@ -26,6 +26,10 @@ export const StyledIcon = styled(Box)(({ theme }) => ({
 }))
 
 export const StyledTablePagination = styled(TablePagination)(({ theme }) => ({
+  // marginBottom: 50,
+  borderBottom: 'none',
+  fontSize: 13,
+
   '& .MuiTablePagination-toolbar': {
     [theme.breakpoints.down('sm')]: {
       fontSize: 13,
@@ -71,16 +75,14 @@ export const StyledTable = styled(Table)<{ noPagination?: boolean }>(
 )
 
 export const StyledTableHeadRow = styled(TableRow)(({ theme }) => ({
-  tableHeadRow: {
-    '& > th': {
-      borderBottom: 'none',
-      paddingBottom: 6,
-      color: theme.palette.grayColors[7],
-      fontSize: 14,
-      fontWeight: 600,
-      [theme.breakpoints.down('sm')]: {
-        fontSize: 13,
-      },
+  '& > th': {
+    borderBottom: 'none',
+    paddingBottom: 6,
+    color: theme.palette.grayColors[7],
+    fontSize: 14,
+    fontWeight: 600,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 13,
     },
   },
 }))

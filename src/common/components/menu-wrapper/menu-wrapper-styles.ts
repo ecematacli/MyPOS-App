@@ -16,8 +16,9 @@ import backgroundImage from '../../../assets/img/sidebar-2.jpg'
 
 const drawerWidth = 255
 
-export const DrawerRoot = styled('div')({
+export const DrawerRootContainer = styled('div')({
   display: 'flex',
+  height: '100%',
 })
 
 export const StyledAppBar = styled(AppBar)({
@@ -132,5 +133,6 @@ export const StyledDivider = styled(Divider)(({ theme }) => ({
 export const StyledContent = styled('main')(({ theme }) => ({
   flexGrow: 1,
   overflow: 'auto',
+  minHeight: '100%',
   backgroundColor: theme.palette.grayColors[1],
 }))

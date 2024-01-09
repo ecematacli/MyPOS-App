@@ -2,14 +2,14 @@ import React, { useContext } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
-import PrivateRoute from './PrivateRoute'
+import { PrivateRouter } from './private-router'
 import { MenuWrapper } from '../common/components/menu-wrapper/menu-wrapper'
 import ErrorBoundary from '../common/components/errorBoundary'
 import { SignInPage } from '../pages/signIn'
 import { DashboardPage } from '../pages/dashboard/dashboard'
-import { Sales } from '../pages/sales/sales'
+import { SalesPage } from '../pages/sales/sales'
 import SalesHistoryPage from '../pages/sales-history/sales-history'
-import ProductsPage from '../pages/products'
+import { ProductsPage } from '../pages/products/products'
 import InventoryCountBatches from '../pages/inventoryCountBatches'
 import InventoryCountCreate from '../pages/inventoryCountCreate'
 import InventoryCountDetail from '../pages/InventoryCountDetail'
@@ -31,71 +31,71 @@ export const AppRouter = () => {
         <ErrorBoundary history={history}>
           <Switch>
             <Route path='/signin' exact component={SignInPage} />
-            <PrivateRoute path='/sales/pos' exact component={Sales} />
-            <PrivateRoute
+            <PrivateRouter path='/sales/pos' exact component={SalesPage} />
+            <PrivateRouter
               path='/sales/history'
               exact
               component={SalesHistoryPage}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/products'
               exact
               component={ProductsPage}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/price-updates'
               exact
               component={PriceUpdatePage}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/inventory-count'
               exact
               component={InventoryCountBatches}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/inventory-count/create'
               exact
               component={InventoryCountCreate}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/inventory-count/:id'
               exact
               component={InventoryCountDetail}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/stock-orders'
               exact
               component={StockOrders}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/stock-orders/upload'
               exact
               component={StockOrderUpload}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/stock-order/:id'
               exact
               component={StockOrderPage}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/stock-transfers'
               exact
               component={StockTransfers}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/stock-transfers/new'
               exact
               component={NewTransfer}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/inventory/stock-transfers/:id'
               exact
               component={StockTransfers}
             />
-            <PrivateRoute
+            <PrivateRouter
               path='/'
               exact
-              component={isAdmin ? DashboardPage : Sales}
+              component={isAdmin ? DashboardPage : SalesPage}
             />
           </Switch>
         </ErrorBoundary>

@@ -3,7 +3,7 @@ import { TableRow, TableCell, IconButton } from '@mui/material'
 
 import { OrderedProduct } from '../types'
 import { currencyFormatter } from '../../../../utils'
-import { SyncedIcon } from '../../../syncedIcon'
+import { SyncedIcon } from '../../../synced-icon/synced-icon'
 import { Align } from '../../../Align'
 import { Refresh } from '@material-ui/icons'
 import { useResync } from '../../../../hooks/useResync'

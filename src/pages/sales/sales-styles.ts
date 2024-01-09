@@ -1,10 +1,6 @@
 import { Box, Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
-export const SalesPageContainer = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(3, 5, 2),
-}))
-
 export const SalesContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1, 3, 0, 3),
   height: '100vh',

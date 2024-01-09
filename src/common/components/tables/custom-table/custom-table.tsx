@@ -104,6 +104,7 @@ export const CustomTable: React.FC<TableProps> = ({
           />
         ))
       }
+
       if (rows.type === 'stockOrderProducts') {
         return rows.products.map((product: Product, i: number) => (
           <ProductRow
@@ -128,22 +129,12 @@ export const CustomTable: React.FC<TableProps> = ({
     )}  -  ${count} items`
   }
 
-  const renderPagination = () => (
-    <PaginationContainer display='flex' justifyContent='flex-end'>
-      <StyledTablePagination
-        rowsPerPageOptions={[10, 25, 50]}
-        count={count}
-        rowsPerPage={rowsPerPage}
-        page={page - 1}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        labelDisplayedRows={renderLabelDisplayRows}
-      />
-    </PaginationContainer>
-  )
-
   return (
-    <StyledContainer>
+    <StyledContainer
+      display='flex'
+      flexDirection='column'
+      justifyContent='space-between'
+      height='100%'>
       <TableContainer>
         <StyledTable>
           {tableHeads && (
@@ -156,7 +147,19 @@ export const CustomTable: React.FC<TableProps> = ({
           </TableBody>
         </StyledTable>
       </TableContainer>
-      {!noPagination && count > 0 && renderPagination()}
+      {!noPagination && count > 0 && (
+        <PaginationContainer display='flex'>
+          <StyledTablePagination
+            rowsPerPageOptions={[10, 25, 50]}
+            count={count}
+            rowsPerPage={rowsPerPage}
+            page={page - 1}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            labelDisplayedRows={renderLabelDisplayRows}
+          />
+        </PaginationContainer>
+      )}
     </StyledContainer>
   )
 }

@@ -9,7 +9,7 @@ import { ArrowBack } from '@material-ui/icons'
 import { Typography } from '@mui/material'
 import { capitalizeFirstLetters, formatDate } from '../../../../common/utils'
 import { Align } from '../../../../common/components/Align'
-import Loading from '../../../../common/components/loading'
+import { Loading } from '../../../../common/components/loading/loading'
 import { BatchStats } from '../BatchStats'
 
 interface Props {
