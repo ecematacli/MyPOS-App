@@ -1,30 +1,36 @@
 import React from 'react'
+import { Box } from '@mui/material'
+import { styled } from '@mui/material/styles'
 
-import styles from './styles'
 import { BatchesData } from '../types'
 import { formatDate } from '../../../common/utils'
 import PlainTable from '../../../common/components/tables/plainTable'
+
+export const TableContainer = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(4),
+  width: '100%',
+}))
 
 interface Props {
   batchesData: BatchesData
   page: number
   rowsPerPage: number
-  handleChangeRowsPerPage: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void
+  handleChangeRowsPerPage: ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => void
   handleChangePage: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     newPage: number
   ) => void
 }
 
-const BatchTable: React.FC<Props> = ({
+export const BatchTable: React.FC<Props> = ({
   batchesData,
   page,
   rowsPerPage,
   handleChangeRowsPerPage,
   handleChangePage,
 }) => {
-  const classes = styles()
-
   const { count, batches } = batchesData
 
   const formattedBatchData = () =>
@@ -35,7 +41,7 @@ const BatchTable: React.FC<Props> = ({
     }))
 
   return (
-    <div className={classes.tableDiv}>
+    <TableContainer>
       <PlainTable
         tableHeads={[
           { name: 'Name' },
@@ -55,8 +61,6 @@ const BatchTable: React.FC<Props> = ({
         handleChangeRowsPerPage={handleChangeRowsPerPage}
         handleChangePage={handleChangePage}
       />
-    </div>
+    </TableContainer>
   )
 }
-
-export default BatchTable

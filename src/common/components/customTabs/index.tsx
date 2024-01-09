@@ -9,8 +9,8 @@ interface Props {
   tabs: { tab: string; value: string }[]
   tabsValue: string
   centered?: boolean
-  className: string
-  classes: any
+  stylesWithClasses: any
+  styles: any
   textColor?: 'inherit' | 'primary' | 'secondary'
 }
 
@@ -19,19 +19,19 @@ const CustomTabs: React.FC<Props> = ({
   handleChange,
   tabs,
   centered = false,
-  className,
-  classes,
+  stylesWithClasses,
   textColor,
+  styles,
 }) => (
   <Tabs
-    className={className}
+    sx={styles}
     value={tabsValue}
     onChange={handleChange}
     textColor={textColor}
     indicatorColor='primary'
     centered={centered}>
     {tabs.map(({ tab, value }) => (
-      <Tab value={value} classes={classes} key={tab} label={tab} />
+      <Tab value={value} sx={stylesWithClasses} key={tab} label={tab} />
     ))}
   </Tabs>
 )

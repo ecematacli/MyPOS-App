@@ -1,10 +1,21 @@
 import React, { useEffect, Fragment, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Typography, Button, Divider } from '@mui/material'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { Typography, Divider, Box } from '@mui/material'
 
-import styles from './styles'
+import {
+  BackArrowIcon,
+  CreateInventoryContainer,
+  DividerContainer,
+  FilterSectionWrapper,
+  FiltersContainer,
+  IconContainer,
+  ImageContainer,
+  InfoText,
+  StartButton,
+  StartCountContainer,
+  TitleText,
+} from './styles'
 import boxes from '../../assets/img/boxes.png'
 import { StoreState } from '../../redux/types'
 import { Brand } from '../../redux/brands/types'
@@ -15,7 +26,7 @@ import { NotificationsContext } from '../../contexts/NotificationsContext'
 import useInventoryFilterState from './hooks/useInventoryFilterState'
 import { getDropdownInputFields } from './components/inventoryCountFilters/getDropdownInputFields'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
-import InventoryCountFilters from './components/inventoryCountFilters/InventoryCountFilters'
+import { InventoryCountFilters } from './components/inventoryCountFilters/InventoryCountFilters'
 
 interface Props {
   fetchCategories: () => void
@@ -31,7 +42,6 @@ const InventoryCountCreate: React.FC<Props> = ({
   categories,
 }) => {
   const history = useHistory()
-  const classes = styles()
 
   const { addNotification } = useContext(NotificationsContext)
 
@@ -55,63 +65,52 @@ const InventoryCountCreate: React.FC<Props> = ({
     fetchCategories()
   }, [])
 
-  const renderInventoryCountTopBar = () => (
-    <Fragment>
+  return (
+    <CreateInventoryContainer>
       <InventoryCountTopBar
         title={
           <Fragment>
-            <span
-              className={classes.iconDiv}
+            <IconContainer
+              component='span'
               onClick={() => history.push('/inventory/inventory-count')}>
-              <ArrowBackIcon className={classes.backArrow} />
-            </span>
-            <Typography className={classes.titleText}>
-              Add Inventory Count
-            </Typography>
+              <BackArrowIcon />
+            </IconContainer>
+            <TitleText>Add Inventory Count</TitleText>
           </Fragment>
         }
         inventoryCountActionsPaper={
-          <div className={classes.startCountDiv}>
-            <Typography className={classes.infoText}>
+          <StartCountContainer>
+            <InfoText>
               Schedule an inventory count to maintain accurate inventory levels.
-            </Typography>
-            <div>
-              <Button onClick={createCountBatch} className={classes.startBtn}>
-                <Typography className={classes.btnText}>Start Count</Typography>
-              </Button>
-            </div>
-          </div>
+            </InfoText>
+
+            <StartButton onClick={createCountBatch}>
+              <Typography sx={{ textTransform: 'capitalize', color: 'white' }}>
+                Start Count
+              </Typography>
+            </StartButton>
+          </StartCountContainer>
         }
       />
-    </Fragment>
-  )
-
-  const renderInventoryCountFilters = () => (
-    <div className={classes.filtersContainer}>
-      <div className={classes.filterSectionWrapper}>
-        <InventoryCountFilters
-          startDate={startDate}
-          handleStartDateChange={handleStartDateChange}
-          handleDropdownInputChange={handleDropdownInputChange}
-          countName={countName}
-          handleCountNameChange={handleCountNameChange}
-          DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
-        />
-      </div>
-    </div>
-  )
-
-  return (
-    <div className={classes.createInvContainer}>
-      {renderInventoryCountTopBar()}
-      {renderInventoryCountFilters()}
-      <div className={classes.dividerDiv}>
+      <FiltersContainer>
+        <FilterSectionWrapper>
+          <InventoryCountFilters
+            startDate={startDate}
+            handleStartDateChange={handleStartDateChange}
+            handleDropdownInputChange={handleDropdownInputChange}
+            countName={countName}
+            handleCountNameChange={handleCountNameChange}
+            DROPDOWN_INPUT_FIELDS={DROPDOWN_INPUT_FIELDS}
+          />
+        </FilterSectionWrapper>
+      </FiltersContainer>
+      <DividerContainer>
         <Divider />
-      </div>
-      <div className={classes.imageDiv}>
-        <img className={classes.boxesImage} src={boxes} />
-      </div>
-    </div>
+      </DividerContainer>
+      <ImageContainer>
+        <Box component='img' alt='Boxes' src={boxes} />
+      </ImageContainer>
+    </CreateInventoryContainer>
   )
 }
 
@@ -120,6 +119,7 @@ const mapStateToProps = (state: StoreState) => ({
   categories: state.categories,
 })
 
-export default connect(mapStateToProps, { fetchCategories, fetchBrands })(
-  InventoryCountCreate
-)
+export const InventoryCountCreatePage = connect(mapStateToProps, {
+  fetchCategories,
+  fetchBrands,
+})(InventoryCountCreate)

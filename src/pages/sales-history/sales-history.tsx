@@ -5,7 +5,7 @@ import { ActionTypes, StoreState } from '../../redux/types'
 import { fetchSales } from '../../redux/sales/salesActions'
 import { Sale } from '../../redux/sales/types'
 import { loadingSelector } from '../../redux/loading/loadingReducer'
-import { formatDate } from '../../common/utils'
+import { formatDate, formatDateInLocale } from '../../common/utils'
 import { TABLE_HEADS } from './table-heads-data'
 import { useSalesFilterState } from './hooks/use-sales-filter-state'
 import { Loading } from '../../common/components/loading/loading'
@@ -115,7 +115,8 @@ const SalesHistory: React.FC<SalesHistoryProps> = ({
   const formattedSalesData = () =>
     salesInOrder().map((sale: Sale) => ({
       ...sale,
-      createdAt: formatDate(sale.createdAt, 'd MMMM y - p'),
+      // createdAt: formatDate(sale.createdAt, 'd MMMM y - p'),
+      createdAt: formatDateInLocale(sale.createdAt),
     }))
 
   return (

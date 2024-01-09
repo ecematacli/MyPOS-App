@@ -44,14 +44,6 @@ export const SaleDetails: React.FC<IDetailsProps> = props => {
     reSync({ id, type: 'sale', products })
   }
 
-  const tableHead = () => {
-    return TABLE_HEAD.map(({ label, numeric }) => (
-      <TableCell align={numeric ? 'right' : 'left'} key={label}>
-        {label}
-      </TableCell>
-    ))
-  }
-
   const tableBody = () => {
     return products?.map((product, key) => {
       const {
@@ -99,7 +91,13 @@ export const SaleDetails: React.FC<IDetailsProps> = props => {
       <TableContainer>
         <Table>
           <TableHead>
-            <StyledTableHeadRow>{tableHead()}</StyledTableHeadRow>
+            <StyledTableHeadRow>
+              {TABLE_HEAD.map(({ label, numeric }) => (
+                <TableCell align={numeric ? 'right' : 'left'} key={label}>
+                  {label}
+                </TableCell>
+              ))}
+            </StyledTableHeadRow>
           </TableHead>
           <TableBody>{tableBody()}</TableBody>
         </Table>
@@ -116,11 +114,11 @@ export const SaleDetails: React.FC<IDetailsProps> = props => {
             sx={{ color: 'white' }}
             onClick={() => handleResyncSaleClick(products)}
             size='small'>
-            Re-sync sale
+            Yeniden Senkronize Et
           </Button>
         )}
         <Box>
-          <TotalText>Total &nbsp; {currencyFormatter(total)}</TotalText>
+          <TotalText>Toplam &nbsp; {currencyFormatter(total)}</TotalText>
         </Box>
       </DetailTotalContainer>
     </SalesDetailsPaper>

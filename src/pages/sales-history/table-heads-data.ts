@@ -6,22 +6,22 @@ interface TableHead {
 export const TABLE_HEADS: TableHead[] = [
   { label: '' },
   {
-    label: 'Date',
+    label: 'Tarih',
   },
-  { label: 'Outlet' },
+  { label: 'Mağaza' },
   {
     label: 'Payment Method',
   },
   {
-    label: 'Total Qty',
+    label: 'Toplam Miktar',
     numeric: true,
   },
   {
-    label: 'Total Discount',
+    label: 'Toplam İndirim',
     numeric: true,
   },
   {
-    label: 'Total Payment',
+    label: 'Toplam Ödeme',
     numeric: true,
   },
 ]

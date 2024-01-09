@@ -1,74 +1,84 @@
-import { makeStyles } from '@mui/styles'
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  Typography,
+  Select,
+} from '@mui/material'
+import { styled } from '@mui/material/styles'
+import InsertInvitationIcon from '@mui/icons-material/InsertInvitation'
 
-export default makeStyles(({ spacing, palette, breakpoints }) => ({
-  filtersContainer: {
-    marginTop: spacing(5.5),
-    display: 'flex',
-    width: '100%',
-  },
-  infoText: {
-    color: palette.secondary.main,
-  },
-  calendarIcon: {
-    color: palette.secondary.main,
-    marginRight: -spacing(1.5),
-  },
-  datePickerInput: {
-    height: spacing(5.75),
-    width: spacing(37.5),
-  },
-  inputSpace: {
-    marginLeft: spacing(2.5),
-  },
-  inputLabel: {
-    color: palette.secondary.main,
-    fontSize: spacing(1.87),
+export const AddCountContainer = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  flex: 1,
+  boxShadow: 'none',
+})
+
+export const FiltersContainer = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(5.5),
+  display: 'flex',
+  width: '100%',
+}))
+
+export const CalendarIcon = styled(InsertInvitationIcon)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+  marginRight: `-${theme.spacing(1.5)}px`,
+}))
+
+export const FiltersInfoBox = styled(Box)(({ theme }) => ({
+  width: theme.spacing(21.25),
+  height: theme.spacing(8.37),
+  marginRight: theme.spacing(7),
+}))
+
+export const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
+  '&.MuiInputLabel-root': {
+    color: theme.palette.secondary.main,
+    fontSize: theme.spacing(1.87),
     fontWeight: 'bold',
   },
-  inputContainer: {
-    display: 'flex',
-    flex: 1,
-  },
-  filtersInfoDiv: {
-    width: spacing(21.25),
-    height: spacing(8.37),
-    marginRight: spacing(7),
-  },
-  selectRoot: {
-    '&:focus': {
-      backgroundColor: 'transparent',
-    },
-  },
-  dropdownInputContainer: {
-    marginTop: spacing(4),
-    display: 'flex',
-  },
-  dropdownItemDiv: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  input: {
-    [breakpoints.down('sm')]: {
-      fontSize: spacing(1.6),
-    },
-  },
-  inputRoot: {
-    height: spacing(5.75),
-    width: spacing(37.5),
-    borderColor: palette.secondary.dark,
-    '&:focus': {
+}))
+
+export const StyledOutlinedInput = styled(OutlinedInput)(({ theme }) => ({
+  marginLeft: theme.spacing(2.5),
+
+  '&.MuiInputBase-root': {
+    height: theme.spacing(5.75),
+    width: theme.spacing(37.5),
+    borderColor: theme.palette.secondary.dark,
+    '&.Mui-focused': {
       backgroundColor: 'transparent !important',
     },
   },
-  dropdownInput: {
-    width: spacing(37.5),
-  },
-  dropdownItems: {
-    [breakpoints.down('sm')]: {
-      fontSize: spacing(1.75),
+  '& .MuiInputBase-input': {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: theme.spacing(1.6),
     },
   },
-  innerInput: {
-    height: spacing(5.75),
+}))
+
+export const InfoText = styled(Typography)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+}))
+
+export const DropdownInputContainer = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(4),
+  display: 'flex',
+}))
+
+export const StyledFormControl = styled(FormControl)(({ theme }) => ({
+  '&.MuiFormControl-root': {
+    width: theme.spacing(37.5),
+  },
+}))
+
+export const StyledSelect = styled(Select)(({ theme }) => ({
+  '&.MuiSelect-root': {
+    '& .Mui-focused': {
+      backgroundColor: 'transparent',
+    },
   },
 }))

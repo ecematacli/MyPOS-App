@@ -147,7 +147,7 @@ const ProductDetails: React.FC<DetailsProps> = props => {
   return (
     <ProductDetailsContainer rowIndex={props.rowIndex}>
       <PaperHead>
-        <PaperTitle color='secondary'>Details</PaperTitle>
+        <PaperTitle color='secondary'>Detaylar</PaperTitle>
         <StyledIconButton onClick={handleEditClick}>
           {enabledEdit ? <DoneIcon /> : <EditOutlinedIcon />}
         </StyledIconButton>

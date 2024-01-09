@@ -1,38 +1,47 @@
-import { makeStyles } from '@mui/styles'
+import { Box, Typography } from '@mui/material'
+import { styled, Theme } from '@mui/material/styles'
+import { ArrowBack } from '@mui/icons-material'
 
-export default makeStyles(({ palette, spacing }) => ({
-  tabs: {
-    boxShadow: 'none',
-    marginTop: spacing(4),
-    color: palette.grayColors[3],
-    backgroundColor: 'inherit',
-  },
-  tabRoot: {
-    textTransform: 'none',
-    fontSize: spacing(2),
-  },
-  tableContainer: {
-    position: 'relative',
-    padding: spacing(0, 6),
-  },
-  tableSectionWrapper: {
-    margin: '0 auto',
-    maxWidth: spacing(137.5),
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  backArrow: {
-    color: palette.grayColors[13],
-    cursor: 'pointer',
-  },
-  iconDiv: {
-    display: 'flex',
-    alignItems: 'center',
-    marginRight: spacing(1),
-  },
-  titleText: {
-    fontSize: spacing(3.2),
-    fontWeight: 'bold',
-    color: palette.grayColors[17],
-  },
+export const AddCountContainer = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  flex: 1,
+  boxShadow: 'none',
+})
+
+export const IconContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  marginRight: theme.spacing(1),
 }))
+
+export const TableSectionWrapper = styled(Box)(({ theme }) => ({
+  margin: '0 auto',
+  maxWidth: theme.spacing(137.5),
+  display: 'flex',
+  flexDirection: 'column',
+}))
+
+export const TableContainer = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  padding: theme.spacing(0, 6),
+}))
+
+export const TitleText = styled(Typography)(({ theme }) => ({
+  fontSize: theme.spacing(3.2),
+  fontWeight: 'bold',
+  color: theme.palette.grayColors[17],
+}))
+
+export const BackArrowIcon = styled(ArrowBack)(({ theme }) => ({
+  color: theme.palette.grayColors[13],
+  cursor: 'pointer',
+}))
+
+export const getTabsStyles = (theme: Theme) => ({
+  boxShadow: 'none',
+  marginTop: theme.spacing(4),
+  color: theme.palette.grayColors[3],
+  backgroundColor: 'inherit',
+})

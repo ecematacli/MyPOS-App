@@ -11,7 +11,6 @@ export const StyledContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   marginTop: theme.spacing(3),
   color: theme.palette.secondary.main,
-  // backgroundColor: 'coral',
 }))
 
 export const IconContainer = styled(Box)(({ theme }) => ({
@@ -26,7 +25,6 @@ export const StyledIcon = styled(Box)(({ theme }) => ({
 }))
 
 export const StyledTablePagination = styled(TablePagination)(({ theme }) => ({
-  // marginBottom: 50,
   borderBottom: 'none',
   fontSize: 13,
 

@@ -1,32 +1,32 @@
 interface TableHead {
-  label: string;
-  numeric?: boolean;
+  label: string
+  numeric?: boolean
 }
 
 export const TABLE_HEAD: TableHead[] = [
   {
-    label: 'Sku',
+    label: 'Stok Kodu',
   },
   {
-    label: 'Product Name',
+    label: 'Ürün Adı',
   },
   {
-    label: 'Synced',
+    label: 'Senkronize',
   },
   {
-    label: 'Variation',
+    label: 'Varyasyon',
     numeric: true,
   },
   {
-    label: 'Quantity',
+    label: 'Miktar',
     numeric: true,
   },
   {
-    label: 'Price',
+    label: 'Fiyat',
     numeric: true,
   },
   {
-    label: 'Discounted Price',
+    label: 'İndirimli Fiyat',
     numeric: true,
   },
-];
+]

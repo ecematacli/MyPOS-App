@@ -1,35 +1,35 @@
-import { Brand } from '../../../../redux/brands/types';
-import { Category } from '../../../../redux/categories/types';
+import { Brand } from '../../../../redux/brands/types'
+import { Category } from '../../../../redux/categories/types'
 
 interface DropdownItem {
-  name: string;
-  id: number;
+  name: string
+  id: number
 }
 interface ProductField {
-  label: string;
-  fieldId: string;
-  type?: string;
-  currency?: boolean;
-  dropdown?: boolean;
-  dropdownItems?: DropdownItem[];
+  label: string
+  fieldId: string
+  type?: string
+  currency?: boolean
+  dropdown?: boolean
+  dropdownItems?: DropdownItem[]
 }
 
 export const getProductFields = (
   brands: Brand[],
   categories: Category[]
 ): ProductField[] => [
-  { label: 'Barcode', fieldId: 'barcode' },
-  { label: 'Product Name', fieldId: 'name' },
-  { label: 'Quantity', fieldId: 'qty', type: 'number' },
-  { label: 'Price', fieldId: 'price', currency: true },
+  { label: 'Barkod', fieldId: 'barcode' },
+  { label: 'Ürün adı', fieldId: 'name' },
+  { label: 'Miktar', fieldId: 'qty', type: 'number' },
+  { label: 'Fiyat', fieldId: 'price', currency: true },
   {
-    label: 'Discounted Price',
+    label: 'İndirimli Fiyat',
     fieldId: 'discountPrice',
     currency: true,
   },
-  { label: 'Variation', fieldId: 'variation' },
+  { label: 'Varyasyon', fieldId: 'variation' },
   {
-    label: 'Tax Rate',
+    label: 'Vergi Oranı',
     fieldId: 'taxRate',
     dropdown: true,
     dropdownItems: [
@@ -37,17 +37,17 @@ export const getProductFields = (
       { id: 2, name: '18' },
     ],
   },
-  { label: 'Sku', fieldId: 'sku' },
+  { label: 'Stok Kodu', fieldId: 'sku' },
   {
-    label: 'Brand Name',
+    label: 'Marka adı',
     fieldId: 'brand',
     dropdown: true,
     dropdownItems: brands,
   },
   {
-    label: 'Category Name',
+    label: 'Kategori adı',
     fieldId: 'category',
     dropdown: true,
     dropdownItems: categories,
   },
-];
+]

@@ -6,26 +6,26 @@ interface TableHead {
 export const TABLE_HEADS: TableHead[] = [
   { label: '' },
   {
-    label: 'Sku',
+    label: 'Stock Kodu',
   },
   {
-    label: 'Name',
+    label: 'Ürün adı',
   },
   {
-    label: 'Variation'
+    label: 'Varyasyon',
   },
   {
-    label: 'Category',
+    label: 'Kategori',
   },
   {
-    label: 'Brand',
+    label: 'Marka',
   },
   {
-    label: 'Price',
+    label: 'Fiyat',
     numeric: true,
   },
   {
-    label: 'Discounted Price',
+    label: 'İndirimli Fiyat',
     numeric: true,
   },
 ]

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import api from '../../../api/api-client'
 import { BatchesData } from '../types'
 
-export default () => {
+export const useInventoryBatchState = () => {
   const [loading, setLoading] = useState(false)
   const [batches, setBatches] = useState<BatchesData>({
     count: 0,

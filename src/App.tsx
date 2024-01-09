@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 import { configureStore } from './redux/store'
 import { AuthContextProvider } from './contexts/AuthContext'
 import { NotificationsProvider } from './contexts/NotificationsContext'
-import { GlobalStyles } from './GlobalStyles'
+import { GlobalStyles } from './global-styles'
 import { CatalogInfoProvider } from './contexts/CatalogInfoContext'
 
 export const App = () => (

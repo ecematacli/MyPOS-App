@@ -26,7 +26,7 @@ export const PaperHead = styled(Box)<{ rowIndex?: number }>(
     borderRadius: 3,
     width: '65%',
     height: 65,
-    marginBottom: -theme.spacing(4),
+    marginBottom: `${-theme.spacing(4)}px`,
     padding: theme.spacing(2),
     display: 'flex',
     justifyContent: 'space-between',

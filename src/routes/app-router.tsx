@@ -10,8 +10,8 @@ import { DashboardPage } from '../pages/dashboard/dashboard'
 import { SalesPage } from '../pages/sales/sales'
 import { SalesHistoryPage } from '../pages/sales-history/sales-history'
 import { ProductsPage } from '../pages/products/products'
-import InventoryCountBatches from '../pages/inventoryCountBatches'
-import InventoryCountCreate from '../pages/inventoryCountCreate'
+import { InventoryCountBatchesPages } from '../pages/inventory-count-batches/inventory-count-batches'
+import { InventoryCountCreatePage } from '../pages/inventoryCountCreate'
 import InventoryCountDetail from '../pages/InventoryCountDetail'
 import StockOrders from '../pages/stockOrders'
 import StockOrderPage from '../pages/stockOrder'
@@ -50,12 +50,12 @@ export const AppRouter = () => {
             <PrivateRouter
               path='/inventory/inventory-count'
               exact
-              component={InventoryCountBatches}
+              component={InventoryCountBatchesPages}
             />
             <PrivateRouter
               path='/inventory/inventory-count/create'
               exact
-              component={InventoryCountCreate}
+              component={InventoryCountCreatePage}
             />
             <PrivateRouter
               path='/inventory/inventory-count/:id'

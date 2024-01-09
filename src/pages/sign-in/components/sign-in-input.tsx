@@ -49,14 +49,10 @@ export const SignInInput: React.FC<FieldProps<FormValues> & InputProps> = ({
         {...otherProps}
         color='secondary'
         label={label}
-        // variant='outlined'
         inputProps={{
           'data-testid': `${fieldId}`,
           placeholder: label,
         }}
-        // InputLabelProps={{
-        //   shrink: true,
-        // }}
         InputProps={{
           sx: {
             ...(errors[fieldId] && touched[fieldId] ? inputClasses : {}),

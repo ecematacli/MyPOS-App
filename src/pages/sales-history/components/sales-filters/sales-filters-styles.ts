@@ -6,7 +6,7 @@ export const StyledContainer = styled(Box)(({ theme }) => ({
   width: '90%',
   margin: 'auto',
   marginTop: theme.spacing(3),
-  marginBottom: -theme.spacing(1),
+  marginBottom: `${-theme.spacing(1)}px`,
 }))
 
 export const SalesFilterContainer = styled(Box)(({ theme }) => ({
@@ -17,7 +17,7 @@ export const FilterButtonContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(6),
   '@media (max-width:420px)': {
     paddingRight: theme.spacing(7),
-    marginBottom: -theme.spacing(3),
+    marginBottom: `${-theme.spacing(3)}px`,
   },
 }))
 

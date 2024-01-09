@@ -27,7 +27,7 @@ export const FilterIconContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'flex-end',
   margin: 'auto',
   marginTop: theme.spacing(3),
-  marginBottom: -theme.spacing(1),
+  marginBottom: `${-theme.spacing(1)}px`,
   cursor: 'pointer',
 }))
 

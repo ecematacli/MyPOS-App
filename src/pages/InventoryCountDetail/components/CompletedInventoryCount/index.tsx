@@ -1,24 +1,29 @@
-import React, { FC, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useTheme } from '@mui/material/styles'
+
 import { useCompletedInventoryCountState } from './useCompletedInventoryCountState'
-import styles from './styles'
+import {
+  BackArrowIcon,
+  IconContainer,
+  TableContainer,
+  TableSectionWrapper,
+  TitleText,
+  getTabsStyles,
+} from './styles'
 import CustomTabs from '../../../../common/components/customTabs'
 import PlainTable from '../../../../common/components/tables/plainTable'
 import InventoryCountTopBar from '../../../../common/components/inventoryCountTopBar'
-import { ArrowBack } from '@material-ui/icons'
-import { Typography } from '@mui/material'
 import { capitalizeFirstLetters, formatDate } from '../../../../common/utils'
 import { Align } from '../../../../common/components/Align'
 import { Loading } from '../../../../common/components/loading/loading'
 import { BatchStats } from '../BatchStats'
 
-interface Props {
-  batchId: string
-}
-
-export const CompletedInventoryCountDetail: FC<Props> = ({ batchId }) => {
+export const CompletedInventoryCountDetail: React.FC<{ batchId: string }> = ({
+  batchId,
+}) => {
   const history = useHistory()
-  const classes = styles()
+  const theme = useTheme()
 
   const {
     currentTab,
@@ -52,30 +57,31 @@ export const CompletedInventoryCountDetail: FC<Props> = ({ batchId }) => {
         title={
           <Align vertical>
             <Align>
-              <span
-                className={classes.iconDiv}
+              <IconContainer
                 onClick={() => history.push('/inventory/inventory-count')}>
-                <ArrowBack className={classes.backArrow} />
-              </span>
-              <Typography className={classes.titleText}>
+                <BackArrowIcon />
+              </IconContainer>
+              <TitleText>
                 {batch &&
                   (batch.name
                     ? capitalizeFirstLetters(batch.name)
                     : `Count on ${formatDate(batch.started, 'd MMMM y - p')}`)}
-              </Typography>
+              </TitleText>
             </Align>
           </Align>
         }
         inventoryCountActionsPaper={<Align padding={[1]} />}
       />
-      <div className={classes.tableContainer}>
-        <div className={classes.tableSectionWrapper}>
+      <TableContainer>
+        <TableSectionWrapper>
           <BatchStats batch={batch} />
           <CustomTabs
             tabsValue={currentTab}
             handleChange={handleTabsChange}
-            className={classes.tabs}
-            classes={{ root: classes.tabRoot }}
+            styles={getTabsStyles(theme)}
+            stylesWithClasses={{
+              root: { textTransform: 'none', fontSize: theme.spacing(2) },
+            }}
             tabs={[
               {
                 tab: `All (${synced + notSynced})`,
@@ -110,8 +116,8 @@ export const CompletedInventoryCountDetail: FC<Props> = ({ batchId }) => {
             handleChangeRowsPerPage={handleChangeRowsPerPage}
             handleChangePage={handleChangePage}
           />
-        </div>
-      </div>
+        </TableSectionWrapper>
+      </TableContainer>
     </Fragment>
   )
 }

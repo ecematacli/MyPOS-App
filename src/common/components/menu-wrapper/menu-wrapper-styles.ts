@@ -50,7 +50,7 @@ export const LogoWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   marginTop: theme.spacing(0.8),
-  marginBottom: -theme.spacing(0.6),
+  marginBottom: `${-theme.spacing(0.6)}px`,
 }))
 
 export const LogoImage = styled('img')({
