@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { Grid } from '@mui/material'
 
-import styles from './styles'
-import LastCountedItems from './components/lastCountedItems/LastCountedItems'
-import CountingActionsBar from './components/countingActionsBar/CountingActionsBar'
-import CountBatchesProductsTable from './components/countBatchesProductsTable/CountBatchesProductsTable'
+import { CountTableContainer, GridItem } from './styles'
+import { LastCountedItems } from './components/last-counted-items/last-counted-items'
+import { CountingActionsBar } from './components/counting-actions-bar./counting-actions-bar'
+import CountBatchesProductsTable from './components/count-batches-products-table/count-batches-products-table'
 import useCountDetails from './hooks/useCountDetails'
 import { Loading } from '../../../../common/components/loading/loading'
-import { BatchStats } from '../BatchStats'
-import { ConfirmCompleteModal } from './components/ConfirmCompleteModal'
+import { BatchStats } from '../batch-stats/batch-stats'
+import { ConfirmCompleteModal } from './components/confirm-complete-modal'
 
 interface Props {
   batchId: string
 }
 
-const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
-  const classes = styles()
+export const OpenInventoryCount: React.FC<Props> = ({ batchId }) => {
   const [completeModalOpen, setCompleteModalOpen] = useState(false)
 
   const {
@@ -56,7 +55,7 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
         complete={complete}
         error={completeInvCountError}
       />
-      <Grid className={classes.gridItem} item xs={9}>
+      <GridItem item xs={9}>
         <CountingActionsBar
           batch={batch}
           onProductSelect={onProductSelect}
@@ -73,7 +72,7 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
         {loading || !batch ? (
           <Loading />
         ) : (
-          <div className={classes.countTableDiv}>
+          <CountTableContainer>
             <BatchStats batch={batch} />
             <CountBatchesProductsTable
               tabsValue={tabsValue}
@@ -85,14 +84,12 @@ const OpenInventoryCountDetail: React.FC<Props> = ({ batchId }) => {
               handleChangeRowsPerPage={handleChangeRowsPerPage}
               selectedProductRow={selectedProduct}
             />
-          </div>
+          </CountTableContainer>
         )}
-      </Grid>
+      </GridItem>
       <Grid item xs={3}>
         <LastCountedItems lastCountedItems={lastCountedItems} />
       </Grid>
     </Grid>
   )
 }
-
-export default OpenInventoryCountDetail

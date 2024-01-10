@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTheme } from '@mui/material/styles'
 
-import { useCompletedInventoryCountState } from './useCompletedInventoryCountState'
+import { useCompletedInventoryCountState } from './use-completed-inventory-count-state'
 import {
   BackArrowIcon,
   IconContainer,
@@ -17,7 +17,7 @@ import InventoryCountTopBar from '../../../../common/components/inventoryCountTo
 import { capitalizeFirstLetters, formatDate } from '../../../../common/utils'
 import { Align } from '../../../../common/components/Align'
 import { Loading } from '../../../../common/components/loading/loading'
-import { BatchStats } from '../BatchStats'
+import { BatchStats } from '../batch-stats/batch-stats'
 
 export const CompletedInventoryCountDetail: React.FC<{ batchId: string }> = ({
   batchId,

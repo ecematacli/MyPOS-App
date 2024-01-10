@@ -1,9 +1,15 @@
 import React, { Fragment } from 'react'
+import { Box } from '@mui/material'
+import { styled, useTheme } from '@mui/material/styles'
 
-import styles from './styles'
 import { BatchesProductsData, BatchProduct } from '../../types'
 import CustomTabs from '../../../../../../common/components/customTabs'
 import PlainTable from '../../../../../../common/components/tables/plainTable'
+
+export const TableSectionContainer = styled(Box)(({ theme }) => ({
+  margin: '0 auto',
+  maxWidth: theme.spacing(137.5),
+}))
 
 export interface CountBatchesProductsTableProps {
   batchProducts: BatchesProductsData
@@ -13,10 +19,15 @@ export interface CountBatchesProductsTableProps {
     newPage: number
   ) => void
   rowsPerPage: number
-  handleChangeRowsPerPage: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void
+  handleChangeRowsPerPage: ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => void
   selectedProductRow: BatchProduct
   tabsValue: string
-  handleTabsChange: (e: React.ChangeEvent<HTMLInputElement>, newValue: string) => void
+  handleTabsChange: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    newValue: string
+  ) => void
 }
 
 const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
@@ -29,7 +40,7 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
   tabsValue,
   handleTabsChange,
 }) => {
-  const classes = styles()
+  const theme = useTheme()
   const { counted, uncounted, products } = batchProducts
 
   const getCountForTabs = () => {
@@ -44,12 +55,19 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
   }
   return (
     <Fragment>
-      <div className={classes.tableSectionWrapper}>
+      <TableSectionContainer>
         <CustomTabs
           tabsValue={tabsValue}
           handleChange={handleTabsChange}
-          className={classes.tabs}
-          classes={{ root: classes.tabRoot }}
+          styles={{
+            boxShadow: 'none',
+            marginTop: theme.spacing(2),
+            color: theme.palette.grayColors[3],
+            backgroundColor: 'inherit',
+          }}
+          stylesWithClasses={{
+            root: { textTransform: 'none', fontSize: theme.spacing(2) },
+          }}
           tabs={[
             {
               tab: `All (${counted + uncounted})`,
@@ -84,7 +102,7 @@ const CountBatchesProductsTable: React.FC<CountBatchesProductsTableProps> = ({
           handleChangePage={handleChangePage}
           selectedRow={selectedProductRow}
         />
-      </div>
+      </TableSectionContainer>
     </Fragment>
   )
 }

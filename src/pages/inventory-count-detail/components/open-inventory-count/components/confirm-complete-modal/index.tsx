@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
-import { Dialog, DialogTitle, Button, Typography } from '@mui/material'
-import styles from './styles'
-import { Align } from '../../../../../../common/components/Align'
+import React from 'react'
+import { Dialog, Button, Typography, Box } from '@mui/material'
+import { ContentContainer, StyledButton, TitleContainer } from './styles'
 import { BatchesProductsData } from '../../types'
-import { Warning, PlaylistAddCheck } from '@material-ui/icons'
-import Alert from '@material-ui/lab/Alert'
+import Warning from '@mui/icons-material/Warning'
+import PlaylistAddCheck from '@mui/icons-material/PlaylistAddCheck'
+import Alert from '@mui/material/Alert'
 
 interface Props {
   open: boolean
@@ -14,15 +14,13 @@ interface Props {
   error: any
 }
 
-export const ConfirmCompleteModal: FC<Props> = ({
+export const ConfirmCompleteModal: React.FC<Props> = ({
   open,
   onClose,
   batchProducts: { uncounted, counted },
   complete,
   error,
 }) => {
-  const classes = styles()
-
   const message = () => {
     if (uncounted > 0) {
       return {
@@ -51,42 +49,38 @@ export const ConfirmCompleteModal: FC<Props> = ({
   const m = message()
   return (
     <Dialog onClose={onClose} open={open}>
-      <Align vertical>
-        <div className={classes.title}>
+      <Box display='flex' flexDirection='column'>
+        <TitleContainer>
           <Typography variant='body1'>Complete Inventory Count</Typography>
-        </div>
+        </TitleContainer>
         {error && <Alert severity='error'>{error.toString()}</Alert>}
-        <div className={classes.content}>
-          <Align vertical>
-            <Align align='center' padding={[1, 0]}>
+        <ContentContainer>
+          <Box display='flex' flexDirection='column'>
+            <Box display='flex' alignItems='center' padding={[1, 0]}>
               {m.icon}
               <Typography
                 color={m.error ? 'error' : 'primary'}
                 style={{ marginLeft: 8 }}>
                 {m.message}
               </Typography>
-            </Align>
+            </Box>
             <Typography>
               Counts of uncounted items will be set to zero. After completion
               inventory levels will be adjusted immediately. Updated inventory
               levels will be sent to the e-commerce store in batches of 40
               products. This may take some time.
             </Typography>
-          </Align>
-        </div>
-        <Align justify='flex-end' padding={[1, 2]}>
+          </Box>
+        </ContentContainer>
+        <Box display='flex' justifyContent='flex-end' padding={[1, 2]}>
           <Button variant='contained' onClick={onClose}>
             Cancel
           </Button>
-          <Button
-            color='primary'
-            variant='contained'
-            className={classes.button}
-            onClick={complete}>
+          <StyledButton color='primary' variant='contained' onClick={complete}>
             Complete
-          </Button>
-        </Align>
-      </Align>
+          </StyledButton>
+        </Box>
+      </Box>
     </Dialog>
   )
 }

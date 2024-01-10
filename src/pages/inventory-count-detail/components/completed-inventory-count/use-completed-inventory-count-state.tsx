@@ -1,5 +1,5 @@
 import { useGetRequest } from '../../../../common/hooks/useGetRequest'
-import { BatchData, BatchesProductsData } from '../OpenInventoryCount/types'
+import { BatchData, BatchesProductsData } from '../open-inventory-count/types'
 import { useState, useEffect } from 'react'
 import api from '../../../../api/api-client'
 
