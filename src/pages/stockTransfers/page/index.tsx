@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import React, { FC, ReactNode } from 'react'
-import { Align } from '../Align'
-import { Loading } from '../loading/loading'
+import { Align } from '../../../common/components/Align'
+import { Loading } from '../../../common/components/loading/loading'
 import styles from './styles'
 
 interface Props {

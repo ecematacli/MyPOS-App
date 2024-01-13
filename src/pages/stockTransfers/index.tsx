@@ -4,7 +4,7 @@ import { Button } from '@mui/material'
 import Alert from '@material-ui/lab/Alert'
 
 import { Align } from '../../common/components/Align'
-import { Page } from '../../common/components/page'
+import { Page } from './page'
 import PlainTable from '../../common/components/tables/plainTable'
 import { useGetRequest } from '../../common/hooks/useGetRequest'
 import StockTransferRow from './StockTransferRow'

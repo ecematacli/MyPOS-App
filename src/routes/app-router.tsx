@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history'
 
 import { PrivateRouter } from './private-router'
 import { MenuWrapper } from '../common/components/menu-wrapper/menu-wrapper'
-import ErrorBoundary from '../common/components/errorBoundary'
+import { ErrorBoundary } from '../common/components/errorBoundary/error-boundary'
 import { SignInPage } from '../pages/sign-in/sign-in'
 import { DashboardPage } from '../pages/dashboard/dashboard'
 import { SalesPage } from '../pages/sales/sales'
@@ -12,10 +12,10 @@ import { SalesHistoryPage } from '../pages/sales-history/sales-history'
 import { ProductsPage } from '../pages/products/products'
 import { InventoryCountBatchesPages } from '../pages/inventory-count-batches/inventory-count-batches'
 import { InventoryCountCreatePage } from '../pages/inventory-count-create/inventory-count-create'
-import { InventoryCountDetail } from '../pages/inventory-count-detail'
-import StockOrders from '../pages/stockOrders'
-import StockOrderPage from '../pages/stockOrder'
-import StockOrderUpload from '../pages/stockOrderUpload'
+import { InventoryCountDetailPage } from '../pages/inventory-count-detail'
+import { StockOrdersPage } from '../pages/stock-orders/stock-orders'
+import StockOrderPage from '../pages/stock-order/stock-order'
+import { StockOrderUploadPage } from '../pages/stock-order-upload/stock-order-upload'
 import { NewTransfer } from '../pages/stockTransfers/newTransfer'
 import { StockTransfers } from '../pages/stockTransfers'
 import { AuthContext } from '../contexts/AuthContext'
@@ -60,17 +60,17 @@ export const AppRouter = () => {
             <PrivateRouter
               path='/inventory/inventory-count/:id'
               exact
-              component={InventoryCountDetail}
+              component={InventoryCountDetailPage}
             />
             <PrivateRouter
               path='/inventory/stock-orders'
               exact
-              component={StockOrders}
+              component={StockOrdersPage}
             />
             <PrivateRouter
               path='/inventory/stock-orders/upload'
               exact
-              component={StockOrderUpload}
+              component={StockOrderUploadPage}
             />
             <PrivateRouter
               path='/inventory/stock-order/:id'

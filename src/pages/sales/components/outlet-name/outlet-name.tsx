@@ -12,7 +12,7 @@ export const OutletName = () => {
   const { user } = useContext(AuthContext)
   const { outlets } = useCatalogInfo()
 
-  const [selectedOutletId, setSelectedOutletId] = useState(user.role.outletId)
+  const [selectedOutletId, setSelectedOutletId] = useState(user.role?.outletId)
 
   const handleChange = (event: React.ChangeEvent<{ value: string }>) => {
     setSelectedOutletId(parseInt(event.target.value))

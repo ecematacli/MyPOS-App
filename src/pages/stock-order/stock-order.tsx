@@ -1,11 +1,10 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-import styles from './styles'
+import { TableContainer } from './styles'
 import { Product } from '../../redux/products/types'
 import PlainTable from '../../common/components/tables/plainTable'
-import { Align } from '../../common/components/Align'
-import { Button } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { useResync } from '../../common/hooks/useResync'
 
 interface Props {
@@ -31,21 +30,20 @@ const StockOrderPage: React.FC<Props> = ({
     params: { id },
   },
 }) => {
-  const classes = styles()
   const history = useHistory()
 
   const { reSync } = useResync()
 
   return (
-    <Align vertical>
-      <div className={classes.tableContainer}>
-        <Align padding={[1]} justify='flex-end'>
+    <Box display='flex' flexDirection='column'>
+      <TableContainer>
+        <Box display='flex' padding={1} justifyContent='flex-end'>
           <Button
             variant='contained'
             onClick={() =>
               reSync({ id: parseInt(id), products, type: 'stockOrder' })
             }
-            style={{ marginRight: 10 }}>
+            sx={{ marginRight: 10 }}>
             Sync
           </Button>
           <Button
@@ -53,17 +51,17 @@ const StockOrderPage: React.FC<Props> = ({
             onClick={() => history.push('/inventory/stock-orders')}>
             Back
           </Button>
-        </Align>
-        <div className={classes.tableSectionWrapper}>
+        </Box>
+        <Box display='flex' justifyContent='space-between'>
           <PlainTable
             tableHeads={tableHead}
             rows={products}
             tableFor='OrderedProducts'
             hasDataToShow
           />
-        </div>
-      </div>
-    </Align>
+        </Box>
+      </TableContainer>
+    </Box>
   )
 }
 

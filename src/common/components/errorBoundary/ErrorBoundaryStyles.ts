@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Accordion, AccordionDetails, Typography } from '@mui/material'
-import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied'
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied'
 
 export const ErrorBoundaryContainer = styled.div`
   display: flex;

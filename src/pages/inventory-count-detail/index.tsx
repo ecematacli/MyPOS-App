@@ -6,10 +6,11 @@ import { useGetRequest } from '../../common/hooks/useGetRequest'
 import { OpenInventoryCount } from './components/open-inventory-count/open-inventory-count'
 import { CompletedInventoryCountDetail } from './components/completed-inventory-count/completed-inventory-count'
 import { BatchData } from './components/open-inventory-count/types'
+import { PageContainer } from 'common/components/page-container/page-container'
 
 interface Props extends RouteComponentProps<{ id: string }> {}
 
-export const InventoryCountDetail: React.FC<Props> = ({
+export const InventoryCountDetailPage: React.FC<Props> = ({
   match: {
     params: { id },
   },
@@ -23,12 +24,14 @@ export const InventoryCountDetail: React.FC<Props> = ({
   }
 
   return (
-    <Box pt={3}>
-      {batch.status === 'Open' ? (
-        <OpenInventoryCount batchId={id} />
-      ) : (
-        <CompletedInventoryCountDetail batchId={id} />
-      )}
-    </Box>
+    <PageContainer>
+      <Box pt={3}>
+        {batch.status === 'Open' ? (
+          <OpenInventoryCount batchId={id} />
+        ) : (
+          <CompletedInventoryCountDetail batchId={id} />
+        )}
+      </Box>
+    </PageContainer>
   )
 }

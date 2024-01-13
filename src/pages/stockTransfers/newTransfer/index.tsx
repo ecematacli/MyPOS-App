@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import { Align } from '../../../common/components/Align'
 import { InputAutoSuggest } from '../../../common/components/input-auto-suggest/input-auto-suggest'
-import { Page } from '../../../common/components/page'
+import { Page } from '../page'
 import { useNewTransferState } from './useNewTransferState'
 import styles from './styles'
 import PlainTable from '../../../common/components/tables/plainTable'

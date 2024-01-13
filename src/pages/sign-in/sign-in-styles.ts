@@ -2,8 +2,9 @@ import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 export const CardContainer = styled(Box)(({ theme }) => ({
-  width: '100vw',
-  height: '100vh',
+  // width: '100vw',
+  // height: '100vh',
+  height: '100%',
   overflow: 'hidden',
   display: 'flex',
   justifyContent: 'center',

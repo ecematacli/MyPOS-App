@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Button, Typography } from '@mui/material'
 
 import { Align } from '../../../common/components/Align'
-import { Page } from '../../../common/components/page'
+import { Page } from '../page'
 import PlainTable from '../../../common/components/tables/plainTable'
 import { formatDate } from '../../../common/utils'
 import { StockTransfer } from '../types'
