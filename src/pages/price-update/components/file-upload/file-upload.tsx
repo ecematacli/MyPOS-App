@@ -1,16 +1,15 @@
 import React, { useCallback, Fragment } from 'react'
-import { Typography } from '@mui/material'
 import { useDropzone } from 'react-dropzone'
+import { Box, Typography } from '@mui/material'
 
 import {
+  DropInput,
   FileNameContainer,
   StyledClearIcon,
   StyledUploadIcon,
   UploadContainer,
-  UploadInput,
 } from './styles'
 import { formatDate } from '../../../../common/utils'
-import { Box } from '@mui/material'
 
 interface Props {
   setUploadedFileName: (fileName: string) => void
@@ -18,7 +17,7 @@ interface Props {
   setUploadedFile: (formData: FormData) => void
 }
 
-export const FileUpload: React.FC<Props> = ({
+const FileUpload: React.FC<Props> = ({
   setUploadedFileName,
   setUploadedFile,
   uploadedFileName,
@@ -48,9 +47,11 @@ export const FileUpload: React.FC<Props> = ({
           <Typography sx={{ marginTop: -0.5 }}>
             Select a file or drag here!
           </Typography>
-          <UploadInput component='input' {...getInputProps()} />
+          <DropInput component='input' {...getInputProps()} />
         </Fragment>
       )}
     </UploadContainer>
   )
 }
+
+export default FileUpload

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Box } from '@mui/material'
 
 import {
   BackArrowIcon,
+  ButtonText,
   IconContainer,
   InfoText,
   TitleText,
@@ -11,15 +12,14 @@ import {
   UploadFileContainer,
   UploadFileWrapper,
   ValidateButton,
-  ValidateText,
 } from './styles'
-import useStockOrders from './hooks/use-stock-orders'
+import { usePriceUpdate } from './hooks/use-price-update'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
-import { FileUpload } from './components/file-upload/file-upload'
+import FileUpload from './components/file-upload/file-upload'
 import { Alert } from '../../common/components/alert/alert'
 import { PageContainer } from 'common/components/page-container/page-container'
 
-export const StockOrderUploadPage = () => {
+export const PriceUpdatePage = () => {
   const history = useHistory()
 
   const {
@@ -30,7 +30,8 @@ export const StockOrderUploadPage = () => {
     isUploadSuccess,
     uploadError,
     sendFile,
-  } = useStockOrders()
+    result,
+  } = usePriceUpdate()
 
   const renderInvalidFileFeedback = () => {
     const validationErrorRow = uploadError?.validationErrors?.map(err => {
@@ -45,7 +46,7 @@ export const StockOrderUploadPage = () => {
       )
     })
     return (
-      <React.Fragment>
+      <Fragment>
         <Alert
           open
           severity='error'
@@ -54,7 +55,7 @@ export const StockOrderUploadPage = () => {
           }`}
         />
         {validationErrorRow}
-      </React.Fragment>
+      </Fragment>
     )
   }
 
@@ -62,14 +63,14 @@ export const StockOrderUploadPage = () => {
     <PageContainer>
       <InventoryCountTopBar
         title={
-          <React.Fragment>
+          <Fragment>
             <IconContainer
               component='span'
               onClick={() => history.push('/inventory/stock-orders')}>
               <BackArrowIcon />
             </IconContainer>
-            <TitleText>Upload Stock Order File</TitleText>
-          </React.Fragment>
+            <TitleText>Upload the Products Export File</TitleText>
+          </Fragment>
         }
         inventoryCountActionsPaper={
           <Box
@@ -77,12 +78,12 @@ export const StockOrderUploadPage = () => {
             justifyContent='space-between'
             alignItems='center'>
             <InfoText>
-              Upload and validate files to keep track of your stock orders.
+              Upload a products export file to update the prices.
             </InfoText>
             <ValidateButton
               onClick={() => sendFile(uploadedFileData)}
               disabled={!uploadedFileName}>
-              <ValidateText>Upload File</ValidateText>
+              <ButtonText>Upload File</ButtonText>
             </ValidateButton>
           </Box>
         }
@@ -94,7 +95,7 @@ export const StockOrderUploadPage = () => {
               <Alert
                 open
                 severity='success'
-                alertMessage='Stock order uploaded successfully!'
+                alertMessage={`Prices are updated! Updated: ${result.updated} Not Found: ${result.notFound}`}
               />
             )}
             {uploadError && renderInvalidFileFeedback()}

@@ -24,7 +24,7 @@ const tableHead = [
   { name: 'Synced' },
 ]
 
-const StockOrderPage: React.FC<Props> = ({
+export const StockOrderPage: React.FC<Props> = ({
   location: { state: products },
   match: {
     params: { id },
@@ -64,5 +64,3 @@ const StockOrderPage: React.FC<Props> = ({
     </Box>
   )
 }
-
-export default StockOrderPage

@@ -9,7 +9,7 @@ interface Props {
   product: StockTransferProduct
 }
 
-const StockTransferProductRow: React.FC<Props> = ({
+export const StockTransferProductRow: React.FC<Props> = ({
   product: {
     id,
     name,
@@ -36,5 +36,3 @@ const StockTransferProductRow: React.FC<Props> = ({
     </TableCell>
   </TableRow>
 )
-
-export default StockTransferProductRow

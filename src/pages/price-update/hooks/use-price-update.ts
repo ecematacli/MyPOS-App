@@ -15,7 +15,7 @@ export interface PriceUpdateResponse {
   notFound: number
 }
 
-export default () => {
+export const usePriceUpdate = () => {
   const [uploadedFileName, setUploadedFileName] = useState('')
   const [uploadedFileData, setUploadedFileData] = useState<FormData>(null)
   const [isUploadSuccess, setIsUploadSuccess] = useState(false)

@@ -1,14 +1,14 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
-export const CardContainer = styled(Box)(({ theme }) => ({
+export const CardContainer = styled(Box)({
   // width: '100vw',
   // height: '100vh',
   height: '100%',
   overflow: 'hidden',
   display: 'flex',
   justifyContent: 'center',
-}))
+})
 
 export const StyledCardMedia = styled(CardMedia)(({ theme }) => ({
   height: theme.spacing(31.25),
@@ -28,6 +28,7 @@ export const StyledCardContent = styled(CardContent)(({ theme }) => ({
     marginLeft: theme.spacing(1),
   },
 }))
+
 export const SignInText = styled(Typography)(({ theme }) => ({
   color: theme.palette.secondary.main,
   fontSize: theme.spacing(2.5),

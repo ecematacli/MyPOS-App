@@ -1,14 +1,13 @@
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Button } from '@mui/material'
-import Alert from '@material-ui/lab/Alert'
+import { Box, Button } from '@mui/material'
+import Alert from '@mui/material/Alert'
 
-import { Align } from '../../common/components/Align'
-import { Page } from './page'
+import { Page } from './page/page'
 import PlainTable from '../../common/components/tables/plainTable'
 import { useGetRequest } from '../../common/hooks/useGetRequest'
-import StockTransferRow from './StockTransferRow'
-import { TransferDetail } from './transferDetail'
+import { StockTransferRow } from './stock-transfer-row'
+import { TransferDetail } from './transferDetail/transfer-detail'
 import { StockTransfer } from './types'
 
 type Response = {
@@ -17,7 +16,7 @@ type Response = {
 
 interface Props {}
 
-export const StockTransfers: FC<Props> = () => {
+export const StockTransfers: React.FC<Props> = () => {
   const history = useHistory()
 
   const { loading, error, value } = useGetRequest<Response>('/stock-transfers')
@@ -27,7 +26,7 @@ export const StockTransfers: FC<Props> = () => {
   ] = useState<StockTransfer | null>(null)
 
   const Actions = (
-    <Align justify='flex-end' fullWidth>
+    <Box display='flex' justifyContent='flex-end' width='100%'>
       <Button
         onClick={() => history.push('/inventory/stock-transfers/new')}
         variant='contained'
@@ -35,7 +34,7 @@ export const StockTransfers: FC<Props> = () => {
         style={{ color: 'white' }}>
         New Transfer
       </Button>
-    </Align>
+    </Box>
   )
 
   if (selectedTransfer) {

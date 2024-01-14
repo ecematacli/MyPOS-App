@@ -1,9 +1,10 @@
 import React from 'react'
 import { TableRow, TableCell } from '@mui/material'
+import Add from '@mui/icons-material/Add'
+import Remove from '@mui/icons-material/Remove'
 
 import { productNameWithVariation } from '../../../common/utils'
 import { ProductToTransfer } from '../types'
-import { Add, Remove } from '@material-ui/icons'
 import { Align } from '../../../common/components/Align'
 
 interface Props {
@@ -11,8 +12,8 @@ interface Props {
   changeQty: (change: number) => void
 }
 
-const NewTransferProductRow: React.FC<Props> = ({ row, changeQty }) => {
-  const { id, name, barcode, sku, variation, qty, qtyToTransfer } = row
+export const NewTransferProductRow: React.FC<Props> = ({ row, changeQty }) => {
+  const { name, barcode, sku, variation, qty, qtyToTransfer } = row
 
   return (
     <TableRow hover>
@@ -32,5 +33,3 @@ const NewTransferProductRow: React.FC<Props> = ({ row, changeQty }) => {
     </TableRow>
   )
 }
-
-export default NewTransferProductRow

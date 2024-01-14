@@ -13,7 +13,7 @@ import {
 import { formatDate } from '../../common/utils'
 import { Loading } from '../../common/components/loading/loading'
 import PlainTable from '../../common/components/tables/plainTable'
-import useStockOrders from './hooks/useStockOrders'
+import useStockOrders from './hooks/use-stock-orders'
 import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
 import { PageContainer } from 'common/components/page-container/page-container'
 

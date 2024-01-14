@@ -1,29 +1,28 @@
-import React, { FC } from 'react'
-import { Button, Typography } from '@mui/material'
+import React from 'react'
+import { Box, Button, Typography } from '@mui/material'
 
-import { Align } from '../../../common/components/Align'
-import { Page } from '../page'
+import { Page } from '../page/page'
 import PlainTable from '../../../common/components/tables/plainTable'
 import { formatDate } from '../../../common/utils'
 import { StockTransfer } from '../types'
-import StockTransferProductRow from './StockTransferProductRow'
+import { StockTransferProductRow } from './stock-transfer-product-row'
 
 interface Props {
   transfer: StockTransfer
   goBack: () => void
 }
 
-export const TransferDetail: FC<Props> = ({ transfer, goBack }) => {
+export const TransferDetail: React.FC<Props> = ({ transfer, goBack }) => {
   const Actions = (
-    <Align justify='flex-end' fullWidth>
+    <Box display='flex' justifyContent='flex-end' width='100%'>
       <Button
         onClick={goBack}
         variant='contained'
         color='primary'
-        style={{ color: 'white' }}>
+        sx={{ color: 'white' }}>
         Back
       </Button>
-    </Align>
+    </Box>
   )
 
   return (
@@ -31,14 +30,14 @@ export const TransferDetail: FC<Props> = ({ transfer, goBack }) => {
       title={`Stock Transfer ${transfer.id}`}
       loading={false}
       actions={Actions}>
-      <Align vertical fullWidth>
-        <Align width={30} vertical>
+      <Box display='flex' flexDirection='column' width='100%'>
+        <Box display='flex' flexDirection='column' width={'30em'}>
           <Typography>
             Created: {formatDate(transfer.createdAt, 'd MMM yyyy')}
           </Typography>
           <Typography>Origin: {transfer.origin.name}</Typography>
           <Typography>Destination: {transfer.destination.name}</Typography>
-        </Align>
+        </Box>
         <PlainTable
           tableHeads={[
             { name: 'Barcode' },
@@ -55,7 +54,7 @@ export const TransferDetail: FC<Props> = ({ transfer, goBack }) => {
           ))}
           tableFor='StockTransferProducts'
         />
-      </Align>
+      </Box>
     </Page>
   )
 }

@@ -9,7 +9,7 @@ interface Props {
   handleClick: () => void
 }
 
-const StockTransferRow: React.FC<Props> = ({
+export const StockTransferRow: React.FC<Props> = ({
   transfer: { id, createdAt, destination, origin, products },
   handleClick,
 }) => (
@@ -25,5 +25,3 @@ const StockTransferRow: React.FC<Props> = ({
     </TableCell>
   </TableRow>
 )
-
-export default StockTransferRow

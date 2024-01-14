@@ -14,12 +14,12 @@ import { InventoryCountBatchesPages } from '../pages/inventory-count-batches/inv
 import { InventoryCountCreatePage } from '../pages/inventory-count-create/inventory-count-create'
 import { InventoryCountDetailPage } from '../pages/inventory-count-detail'
 import { StockOrdersPage } from '../pages/stock-orders/stock-orders'
-import StockOrderPage from '../pages/stock-order/stock-order'
+import { StockOrderPage } from '../pages/stock-order/stock-order'
 import { StockOrderUploadPage } from '../pages/stock-order-upload/stock-order-upload'
-import { NewTransfer } from '../pages/stockTransfers/newTransfer'
-import { StockTransfers } from '../pages/stockTransfers'
+import { NewTransfer } from '../pages/stock-transfers/new-transfer/new-transfer'
+import { StockTransfers } from '../pages/stock-transfers'
 import { AuthContext } from '../contexts/AuthContext'
-import PriceUpdatePage from '../pages/priceUpdate'
+import { PriceUpdatePage } from '../pages/price-update/price-update'
 
 export const AppRouter = () => {
   const history = createBrowserHistory()

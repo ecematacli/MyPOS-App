@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import {
+  Box,
   Button,
   FormControl,
   InputLabel,
@@ -9,19 +10,17 @@ import {
   Select,
   Typography,
 } from '@mui/material'
-import { Align } from '../../../common/components/Align'
+import Alert from '@mui/material/Alert'
+
+import { Page } from '../page/page'
 import { InputAutoSuggest } from '../../../common/components/input-auto-suggest/input-auto-suggest'
-import { Page } from '../page'
-import { useNewTransferState } from './useNewTransferState'
-import styles from './styles'
+import { useNewTransferState } from './use-new-transfer-state'
 import PlainTable from '../../../common/components/tables/plainTable'
-import Alert from '@material-ui/lab/Alert'
 import { Space } from '../../../common/components/Space'
-import NewTransferProductRow from './NewStockTransferProductRow'
+import { NewTransferProductRow } from './new-stock-transfer-product-row'
 
 export const NewTransfer = () => {
   const history = useHistory()
-  const classes = styles()
   const {
     products,
     addProduct,
@@ -36,7 +35,11 @@ export const NewTransfer = () => {
   } = useNewTransferState()
 
   const Actions = (
-    <Align justify='space-between' align='center' width={10}>
+    <Box
+      display='flex'
+      justifyContent='space-between'
+      alignItems='center'
+      width={'10em'}>
       <Button
         onClick={() => history.push('/inventory/stock-transfers')}
         variant='contained'
@@ -50,7 +53,7 @@ export const NewTransfer = () => {
         style={{ color: 'white' }}>
         Submit
       </Button>
-    </Align>
+    </Box>
   )
 
   return (
@@ -64,12 +67,12 @@ export const NewTransfer = () => {
           {`Error while fetching outlets: ${getOutletsError.message}`}
         </Alert>
       )}
-      <Align vertical>
-        <Align vertical width={25}>
+      <Box display='flex' flexDirection='column'>
+        <Box display='flex' flexDirection='column' width={'25em'}>
           <InputLabel color='secondary' id='From'>
             From
           </InputLabel>
-          <FormControl variant='outlined' className={classes.dropdownRoot}>
+          <FormControl variant='outlined' sx={{ width: '246px' }}>
             <Select
               color='secondary'
               name='origin'
@@ -78,9 +81,9 @@ export const NewTransfer = () => {
               value={selectedOrigin}
               input={
                 <OutlinedInput
-                  classes={{
-                    root: classes.dropdownInnerInput,
-                    input: classes.dropdownInput,
+                  sx={{
+                    root: { height: '35px', backgroundColor: 'none' },
+                    input: { width: '246px' },
                   }}
                 />
               }>
@@ -98,7 +101,7 @@ export const NewTransfer = () => {
           <InputLabel color='secondary' id='To'>
             To
           </InputLabel>
-          <FormControl variant='outlined' className={classes.dropdownRoot}>
+          <FormControl variant='outlined' sx={{ width: '246px' }}>
             <Select
               color='secondary'
               name='destination'
@@ -107,9 +110,9 @@ export const NewTransfer = () => {
               value={selectedDestination}
               input={
                 <OutlinedInput
-                  classes={{
-                    root: classes.dropdownInnerInput,
-                    input: classes.dropdownInput,
+                  sx={{
+                    root: { height: '35px', backgroundColor: 'none' },
+                    input: { width: '246px' },
                   }}
                 />
               }>
@@ -123,19 +126,24 @@ export const NewTransfer = () => {
               ))}
             </Select>
           </FormControl>
-        </Align>
-        <Align justify='space-between' align='center' padding={[1]} width={25}>
-          <Align align='center'>
+        </Box>
+        <Box
+          display='flex'
+          justifyContent='space-between'
+          alignItems='center'
+          padding={'1em'}
+          width={'25em'}>
+          <Box display='flex' alignItems='center'>
             <Typography>Number of products: </Typography>
             <Typography>{products.length}</Typography>
-          </Align>
-          <Align align='center'>
+          </Box>
+          <Box display='flex' alignItems='center'>
             <Typography>Total quantity: </Typography>
             <Typography>
               {products.reduce((sum, p) => sum + p.qtyToTransfer, 0)}
             </Typography>
-          </Align>
-        </Align>
+          </Box>
+        </Box>
         <InputAutoSuggest
           loadOptions={searchProducts}
           selectOption={addProduct}
@@ -159,7 +167,7 @@ export const NewTransfer = () => {
           ))}
           tableFor='StockTransferProducts'
         />
-      </Align>
+      </Box>
     </Page>
   )
 }
