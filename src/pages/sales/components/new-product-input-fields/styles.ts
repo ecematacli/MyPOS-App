@@ -7,7 +7,6 @@ type IFormikForm = FieldProps['form']
 export const ErrorHelperText = styled(Typography)(({ theme }) => ({
   fontSize: 16,
   color: theme.palette.error.main,
-  marginTop: -15,
   marginBottom: theme.spacing(2),
   width: 300,
 }))

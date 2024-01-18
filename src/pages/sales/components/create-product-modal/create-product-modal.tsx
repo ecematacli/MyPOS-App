@@ -137,7 +137,6 @@ const CreateProductModalComponent: React.FC<Props> = ({
                     label: { marginTop: '20px' },
                   }}
                   dropdownItems={dropdownItems}
-                  inputLabel
                 />
               )
             }
@@ -153,7 +152,7 @@ const CreateProductModalComponent: React.FC<Props> = ({
           data-testid='add-button'
           onClick={triggerFormSubmission}
           color='primary'>
-          Add Product
+          Ürün Ekle
         </Button>
       </DialogActions>
     </StyledDialog>

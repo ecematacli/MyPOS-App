@@ -100,8 +100,8 @@ describe('[useProductFields Hook]', () => {
         price: parseFloat(inputValues.price),
         discountPrice: parseFloat(inputValues.discountPrice),
         taxRate: 18,
-        categoryId: '8',
-        brandId: undefined,
+        categoryId: 8,
+        brandId: null,
       },
       addNotification
     )

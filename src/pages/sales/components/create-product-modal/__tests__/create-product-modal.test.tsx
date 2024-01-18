@@ -85,8 +85,8 @@ describe('[Quick Product Add component]', () => {
     })
 
     expect(getByTestId('price-error')).not.toBeNull()
-    expect(getByText('Please enter a valid price')).toBeInTheDocument()
-    expect(getByText('This field is required')).toBeInTheDocument()
+    expect(getByTestId('price-error')).toBeInTheDocument()
+    expect(getByText('Bu alan zorunludur')).toBeInTheDocument()
   })
 
   test('displays an error message for barcode field in accordance with the Yup validation', async () => {
@@ -105,9 +105,7 @@ describe('[Quick Product Add component]', () => {
       fireEvent.click(submitButton)
     })
 
-    expect(getByTestId('barcode-error')).toHaveTextContent(
-      'This field is required'
-    )
+    expect(getByTestId('barcode-error')).toHaveTextContent('Bu alan zorunludur')
 
     fireEvent.change(barcode, {
       target: {
@@ -119,7 +117,7 @@ describe('[Quick Product Add component]', () => {
       fireEvent.click(submitButton)
     })
 
-    expect(getByText('Barcode can only consist of numbers')).toBeInTheDocument()
+    expect(getByText('Barkod sadece sayılardan oluşabilir')).toBeInTheDocument()
 
     fireEvent.change(barcode, {
       target: {
@@ -132,6 +130,6 @@ describe('[Quick Product Add component]', () => {
     })
 
     expect(barcode).not.toBeNull()
-    expect(getByText('Too Short!')).toBeInTheDocument()
+    expect(getByText('Çok kısa!')).toBeInTheDocument()
   })
 })

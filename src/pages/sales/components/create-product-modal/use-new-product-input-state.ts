@@ -49,16 +49,17 @@ export const useNewProductInputState = ({
       brandId = findMatchedFields(brands, additionalInputs.brand).id.toString()
     }
 
-    const newProduct: NewProductData = {
-      ...inputValues,
-      price: parseFloat(inputValues.price),
-      discountPrice: parseFloat(inputValues.discountPrice),
-      taxRate: parseFloat(additionalInputs.taxRate),
-      categoryId: categoryId ? parseInt(categoryId) : null,
-      brandId: brandId ? parseInt(brandId) : null,
-    }
-
-    createProduct(newProduct, addNotification)
+    createProduct(
+      {
+        ...inputValues,
+        price: parseFloat(inputValues.price),
+        discountPrice: parseFloat(inputValues.discountPrice),
+        taxRate: parseFloat(additionalInputs.taxRate),
+        categoryId: categoryId ? parseInt(categoryId) : null,
+        brandId: brandId ? parseInt(brandId) : null,
+      },
+      addNotification
+    )
     setAdditionalInputs(initialValues)
     onClose()
   }

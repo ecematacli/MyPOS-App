@@ -72,7 +72,7 @@ const productsReducer = (state: State, action: Action): State => {
   }
 }
 
-// Products and Total state
+/* Products and Total state */
 export const useSalesState = (storage?: any) => {
   const [total, setTotal] = useState(0)
   const [tax, setTax] = useState(0)
