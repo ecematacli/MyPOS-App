@@ -11,9 +11,9 @@ import {
   TitleText,
   getTabsStyles,
 } from './styles'
-import CustomTabs from '../../../../common/components/customTabs'
-import PlainTable from '../../../../common/components/tables/plainTable'
-import InventoryCountTopBar from '../../../../common/components/inventoryCountTopBar'
+import { CustomTabs } from '../../../../common/components/custom-tabs/custom-tabs'
+import { PlainTable } from '../../../../common/components/tables/plain-table/plain-table'
+import { InventoryCountTopBar } from '../../../../common/components/inventory-count-topbar/inventory-count-topbar'
 import { capitalizeFirstLetters, formatDate } from '../../../../common/utils'
 import { Align } from '../../../../common/components/Align'
 import { Loading } from '../../../../common/components/loading/loading'

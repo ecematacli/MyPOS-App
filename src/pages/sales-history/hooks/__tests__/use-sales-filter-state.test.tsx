@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import { useSalesFilterState, Args } from '../use-sales-filter-state'
 import { theme } from '../../../../theme/theme'
 import { mockStore } from '../../../../__mocks__/store'
-import { AuthContext } from 'contexts/AuthContext'
+import { AuthContext } from 'contexts/auth-context'
 
 let wrapper: React.FC
 let args: Args

@@ -7,11 +7,11 @@ import { Router } from 'react-router-dom'
 import { mockStore } from '../../../../__mocks__/store'
 import { axios } from '../../../../__mocks__/axios'
 import { useLoginState } from '../use-login-state'
-import { NotificationsContext } from '../../../../contexts/NotificationsContext'
+import { NotificationsContext } from '../../../../contexts/notifications-context'
 import {
   AuthTokenSettingContext,
   AuthContext,
-} from '../../../../contexts/AuthContext'
+} from '../../../../contexts/auth-context'
 import { UserRoles } from 'api/user/types'
 
 let wrapper: React.FC

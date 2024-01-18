@@ -2,8 +2,8 @@ import { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import api from '../../../api/api-client'
-import { AuthTokenSettingContext } from '../../../contexts/AuthContext'
-import { NotificationsContext } from '../../../contexts/NotificationsContext'
+import { AuthTokenSettingContext } from '../../../contexts/auth-context'
+import { NotificationsContext } from '../../../contexts/notifications-context'
 import { FormValues } from '../sign-in'
 
 export const useLoginState = () => {

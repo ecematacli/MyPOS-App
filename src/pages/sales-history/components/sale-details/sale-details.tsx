@@ -24,7 +24,7 @@ import { SyncedIcon } from '../../../../common/components/synced-icon/synced-ico
 import { TABLE_HEAD } from './table-head-data'
 import { Align } from '../../../../common/components/Align'
 import { Product } from '../../../../redux/products/types'
-import { useResync } from '../../../../common/hooks/useResync'
+import { useResync } from '../../../../common/hooks/use-resync'
 
 interface IDetailsProps {
   sale: Sale

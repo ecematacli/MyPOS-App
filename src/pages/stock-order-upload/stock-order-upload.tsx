@@ -14,7 +14,7 @@ import {
   ValidateText,
 } from './styles'
 import useStockOrders from './hooks/use-stock-orders'
-import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
+import { InventoryCountTopBar } from '../../common/components/inventory-count-topbar/inventory-count-topbar'
 import { FileUpload } from './components/file-upload/file-upload'
 import { Alert } from '../../common/components/alert/alert'
 import { PageContainer } from 'common/components/page-container/page-container'

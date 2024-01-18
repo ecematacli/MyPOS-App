@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 
 import { BatchesData } from '../types'
 import { formatDate } from '../../../common/utils'
-import PlainTable from '../../../common/components/tables/plainTable'
+import { PlainTable } from '../../../common/components/tables/plain-table/plain-table'
 
 export const TableContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(4),

@@ -8,10 +8,10 @@ import {
   BatchData,
   LastCountedProduct,
 } from '../types'
-import { NotificationsContext } from '../../../../../contexts/NotificationsContext'
-import useLocalStorageState from '../../../../../common/hooks/useLocalStorageState'
-import { useGetRequest } from '../../../../../common/hooks/useGetRequest'
-import { usePostRequest } from '../../../../../common/hooks/usePostRequest'
+import { NotificationsContext } from '../../../../../contexts/notifications-context'
+import { useLocalStorageState } from '../../../../../common/hooks/use-local-storage-state'
+import { useGetRequest } from '../../../../../common/hooks/use-get-request'
+import { usePostRequest } from '../../../../../common/hooks/use-post-request'
 
 export default (batchId: string) => {
   const history = useHistory()

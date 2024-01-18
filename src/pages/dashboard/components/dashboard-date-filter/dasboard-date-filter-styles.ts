@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles'
 import { Box, Button } from '@mui/material'
 
-export const IconContainer = styled('div')(({ theme }) => ({
+export const IconContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3, 2.5),
   color: theme.palette.grayColors[3],
   boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.1)',

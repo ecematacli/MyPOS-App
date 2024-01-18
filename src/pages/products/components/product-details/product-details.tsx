@@ -26,7 +26,7 @@ import { DetailsProps } from './types'
 import { editProduct } from '../../../../redux/products/productsActions'
 import useProductDetails from './hooks/use-product-details'
 import { getProductFields } from './getProductFields'
-import { NotificationsContext } from '../../../../contexts/NotificationsContext'
+import { NotificationsContext } from '../../../../contexts/notifications-context'
 import { CustomInput } from '../../../../common/components/custom-input/custom-input'
 import { StyledIconButton } from 'pages/sales/components/outlet-name/styles'
 

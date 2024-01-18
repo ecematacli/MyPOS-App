@@ -21,10 +21,10 @@ import { Brand } from '../../redux/brands/types'
 import { Category } from '../../redux/categories/types'
 import { fetchBrands } from '../../redux/brands/brandsActions'
 import { fetchCategories } from '../../redux/categories/categoriesActions'
-import { NotificationsContext } from '../../contexts/NotificationsContext'
+import { NotificationsContext } from '../../contexts/notifications-context'
 import { useInventoryFilterState } from './hooks/use-inventory-filter-state'
 import { getDropdownInputFields } from './components/inventory-count-filters/getDropdownInputFields'
-import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
+import { InventoryCountTopBar } from '../../common/components/inventory-count-topbar/inventory-count-topbar'
 import { InventoryCountFilters } from './components/inventory-count-filters/inventory-count-filters'
 
 interface Props {

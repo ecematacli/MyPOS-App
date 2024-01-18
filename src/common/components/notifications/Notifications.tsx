@@ -3,7 +3,7 @@ import React, { useContext, Fragment } from 'react'
 import {
   NotificationsContext,
   Notification,
-} from '../../../contexts/NotificationsContext'
+} from '../../../contexts/notifications-context'
 import { NotificationSnackbar } from './notification-snackbar'
 
 export const Notifications = () => {

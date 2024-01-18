@@ -3,8 +3,8 @@ import { Box } from '@mui/material'
 import { styled, useTheme } from '@mui/material/styles'
 
 import { BatchesProductsData, BatchProduct } from '../../types'
-import CustomTabs from '../../../../../../common/components/customTabs'
-import PlainTable from '../../../../../../common/components/tables/plainTable'
+import { CustomTabs } from '../../../../../../common/components/custom-tabs/custom-tabs'
+import { PlainTable } from '../../../../../../common/components/tables/plain-table/plain-table'
 
 export const TableSectionContainer = styled(Box)(({ theme }) => ({
   margin: '0 auto',

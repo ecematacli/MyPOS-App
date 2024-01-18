@@ -15,7 +15,7 @@ import {
   formatChartDate,
   formatActivitiesData,
 } from '../utils'
-import { AuthTokenSettingContext } from '../../../contexts/AuthContext'
+import { AuthTokenSettingContext } from '../../../contexts/auth-context'
 
 export const useDashboardState = () => {
   const { clearAuthToken } = useContext(AuthTokenSettingContext)

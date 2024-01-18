@@ -11,11 +11,11 @@ import {
   getDropdownInputStyles,
 } from './sales-filters-styles'
 import { useSalesFiltersPopover } from './use-sales-filters-popover'
-import DatePickerFilter from '../../../../common/components/datePickerFilter'
+import { DatePickerFilter } from '../../../../common/components/date-picker-filter/date-picker-filter'
 import { CustomPopover } from '../../../../common/components/custom-popover/custom-popover'
 import { CustomInput } from '../../../../common/components/custom-input/custom-input'
 import { Outlets, Outlet } from '../../../../api/outlets/types'
-import { AuthContext } from '../../../../contexts/AuthContext'
+import { AuthContext } from '../../../../contexts/auth-context'
 
 interface FiltersProps {
   startDate: Date

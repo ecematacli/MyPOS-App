@@ -5,8 +5,8 @@ import {
   OutletNameContainer,
 } from './styles'
 import { IconButton } from '@mui/material'
-import { AuthContext } from '../../../../contexts/AuthContext'
-import { useCatalogInfo } from '../../../../contexts/CatalogInfoContext'
+import { AuthContext } from '../../../../contexts/auth-context'
+import { useCatalogInfo } from '../../../../contexts/catalog-info-context'
 
 export const OutletName = () => {
   const { user } = useContext(AuthContext)

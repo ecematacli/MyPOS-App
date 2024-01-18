@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import { IFetchSalesArgs } from '../sales-history'
-import { AuthContext } from '../../../contexts/AuthContext'
-import { useCatalogInfo } from '../../../contexts/CatalogInfoContext'
+import { AuthContext } from '../../../contexts/auth-context'
+import { useCatalogInfo } from '../../../contexts/catalog-info-context'
 import { Outlet } from '../../../api/outlets/types'
 
 export interface Args {

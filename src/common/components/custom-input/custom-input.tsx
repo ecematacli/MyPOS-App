@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { styled, useTheme } from '@mui/material/styles'
-
 import {
   OutlinedInput,
   InputLabel,
@@ -9,6 +8,7 @@ import {
   MenuItem,
   Theme,
 } from '@mui/material'
+
 import { Props, DropdownItems } from './types'
 
 const StyledSelect = styled(Select)({

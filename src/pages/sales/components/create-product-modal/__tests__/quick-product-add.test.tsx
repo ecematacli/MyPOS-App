@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, waitFor } from '@testing-library/react'
 
-import QuickProductAdd from '../create-product-modal'
+import { CreateProductModal } from '../create-product-modal'
 import { render } from '../../../../../testUtils/render'
 import { testBrands, testCategories } from '../../../../../testUtils'
 
@@ -14,7 +14,7 @@ describe('[Quick Product Add component]', () => {
     createProduct: jest.fn(),
   }
   test('renders correct input values for Formik custom input fields', async () => {
-    const { getByTestId } = render(<QuickProductAdd {...props} />)
+    const { getByTestId } = render(<CreateProductModal {...props} />)
 
     const name = getByTestId('name') as HTMLInputElement
     const barcode = getByTestId('barcode') as HTMLInputElement
@@ -58,7 +58,7 @@ describe('[Quick Product Add component]', () => {
   })
 
   test('displays an error message for price field in accordance with the Yup validation', async () => {
-    const { getByTestId, getByText } = render(<QuickProductAdd {...props} />)
+    const { getByTestId, getByText } = render(<CreateProductModal {...props} />)
 
     const price = getByTestId('price') as HTMLInputElement
 
@@ -90,7 +90,7 @@ describe('[Quick Product Add component]', () => {
   })
 
   test('displays an error message for barcode field in accordance with the Yup validation', async () => {
-    const { getByTestId, getByText } = render(<QuickProductAdd {...props} />)
+    const { getByTestId, getByText } = render(<CreateProductModal {...props} />)
 
     const barcode = getByTestId('barcode') as HTMLInputElement
     const submitButton = getByTestId('add-button')

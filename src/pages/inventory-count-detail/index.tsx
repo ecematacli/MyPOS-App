@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@mui/material'
 import { RouteComponentProps } from 'react-router-dom'
 
-import { useGetRequest } from '../../common/hooks/useGetRequest'
+import { useGetRequest } from '../../common/hooks/use-get-request'
 import { OpenInventoryCount } from './components/open-inventory-count/open-inventory-count'
 import { CompletedInventoryCountDetail } from './components/completed-inventory-count/completed-inventory-count'
 import { BatchData } from './components/open-inventory-count/types'

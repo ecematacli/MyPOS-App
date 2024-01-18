@@ -15,7 +15,7 @@ import Alert from '@mui/material/Alert'
 import { Page } from '../page/page'
 import { InputAutoSuggest } from '../../../common/components/input-auto-suggest/input-auto-suggest'
 import { useNewTransferState } from './use-new-transfer-state'
-import PlainTable from '../../../common/components/tables/plainTable'
+import { PlainTable } from '../../../common/components/tables/plain-table/plain-table'
 import { Space } from '../../../common/components/Space'
 import { NewTransferProductRow } from './new-stock-transfer-product-row'
 

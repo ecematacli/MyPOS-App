@@ -4,10 +4,10 @@ import { Box, Button } from '@mui/material'
 import Alert from '@mui/material/Alert'
 
 import { Page } from './page/page'
-import PlainTable from '../../common/components/tables/plainTable'
-import { useGetRequest } from '../../common/hooks/useGetRequest'
+import { PlainTable } from '../../common/components/tables/plain-table/plain-table'
+import { useGetRequest } from '../../common/hooks/use-get-request'
 import { StockTransferRow } from './stock-transfer-row'
-import { TransferDetail } from './transferDetail/transfer-detail'
+import { TransferDetail } from './transfer-detail/transfer-detail'
 import { StockTransfer } from './types'
 
 type Response = {

@@ -12,7 +12,7 @@ import {
   TitleText,
 } from './styles'
 import { ChangeEvent, BatchData, BatchProduct } from '../../types'
-import InventoryCountTopBar from '../../../../../../common/components/inventoryCountTopBar'
+import { InventoryCountTopBar } from '../../../../../../common/components/inventory-count-topbar/inventory-count-topbar'
 import {
   capitalizeFirstLetters,
   formatDate,

@@ -1,4 +1,4 @@
-import { useGetRequest } from '../../../../common/hooks/useGetRequest'
+import { useGetRequest } from '../../../../common/hooks/use-get-request'
 import { BatchData, BatchesProductsData } from '../open-inventory-count/types'
 import { useState, useEffect } from 'react'
 import api from '../../../../api/api-client'

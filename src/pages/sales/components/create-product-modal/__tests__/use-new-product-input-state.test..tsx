@@ -6,7 +6,7 @@ import { ProductInputStateArgs } from '../types'
 import { mockStore } from '../../../../../__mocks__/store'
 import { useNewProductInputState } from '../use-new-product-input-state'
 import { testBrands, testCategories } from '../../../../../testUtils'
-import { NotificationsContext } from '../../../../../contexts/NotificationsContext'
+import { NotificationsContext } from '../../../../../contexts/notifications-context'
 
 let wrapper: React.FC
 let args: ProductInputStateArgs

@@ -13,8 +13,8 @@ import {
 import { useInventoryBatchState } from './hooks/use-inventory-batch-state'
 import { BatchTable } from './components/batch-table'
 import { Loading } from '../../common/components/loading/loading'
-import CustomTabs from '../../common/components/customTabs'
-import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
+import { CustomTabs } from '../../common/components/custom-tabs/custom-tabs'
+import { InventoryCountTopBar } from '../../common/components/inventory-count-topbar/inventory-count-topbar'
 import inventoryImage from '../../assets/img/stocktake-emptylist-v1.png'
 import { PageContainer } from 'common/components/page-container/page-container'
 

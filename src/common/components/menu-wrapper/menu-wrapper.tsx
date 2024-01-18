@@ -7,9 +7,9 @@ import {
   ListItemText,
   Collapse,
 } from '@mui/material'
-import MenuIcon from '@material-ui/icons/Menu'
-import ExpandLess from '@material-ui/icons/ExpandLess'
-import ExpandMore from '@material-ui/icons/ExpandMore'
+import MenuIcon from '@mui/icons-material/Menu'
+import ExpandLess from '@mui/icons-material/ExpandLess'
+import ExpandMore from '@mui/icons-material/ExpandMore'
 
 import {
   DrawerContainer,
@@ -38,7 +38,7 @@ import { Notifications } from '../notifications/notifications'
 import {
   AuthContext,
   AuthTokenSettingContext,
-} from '../../../contexts/AuthContext'
+} from '../../../contexts/auth-context'
 import { Loading } from '../loading/loading'
 
 export const MenuWrapper: React.FC<{ children: React.ReactNode }> = ({

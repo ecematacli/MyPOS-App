@@ -3,7 +3,7 @@ import { useReducer, useContext } from 'react'
 import { AdditionalInputs, FormValues, ProductInputStateArgs } from './types'
 import { NewProductData } from '../../hooks/types'
 import { findMatchedFields } from '../../../../common/utils'
-import { NotificationsContext } from '../../../../contexts/NotificationsContext'
+import { NotificationsContext } from '../../../../contexts/notifications-context'
 
 export const useNewProductInputState = ({
   brands,

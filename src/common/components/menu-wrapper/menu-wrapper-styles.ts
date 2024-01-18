@@ -16,7 +16,7 @@ import backgroundImage from '../../../assets/img/sidebar-2.jpg'
 
 const drawerWidth = 255
 
-export const DrawerRootContainer = styled('div')({
+export const DrawerRootContainer = styled(Box)({
   display: 'flex',
   height: '100%',
 })
@@ -33,7 +33,7 @@ export const MenuIconContainer = styled(Box)({
   width: 30,
 })
 
-export const MenuIcon = styled('div')({
+export const MenuIcon = styled(Box)({
   fontSize: 35,
 })
 

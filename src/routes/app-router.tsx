@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history'
 
 import { PrivateRouter } from './private-router'
 import { MenuWrapper } from '../common/components/menu-wrapper/menu-wrapper'
-import { ErrorBoundary } from '../common/components/errorBoundary/error-boundary'
+import { ErrorBoundary } from '../common/components/error-boundary/error-boundary'
 import { SignInPage } from '../pages/sign-in/sign-in'
 import { DashboardPage } from '../pages/dashboard/dashboard'
 import { SalesPage } from '../pages/sales/sales'
@@ -18,7 +18,7 @@ import { StockOrderPage } from '../pages/stock-order/stock-order'
 import { StockOrderUploadPage } from '../pages/stock-order-upload/stock-order-upload'
 import { NewTransfer } from '../pages/stock-transfers/new-transfer/new-transfer'
 import { StockTransfers } from '../pages/stock-transfers'
-import { AuthContext } from '../contexts/AuthContext'
+import { AuthContext } from '../contexts/auth-context'
 import { PriceUpdatePage } from '../pages/price-update/price-update'
 
 export const AppRouter = () => {

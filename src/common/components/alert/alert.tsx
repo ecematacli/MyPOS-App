@@ -1,11 +1,10 @@
 import React from 'react'
-import { IconButton, Collapse } from '@mui/material'
+import { IconButton, Collapse, Box } from '@mui/material'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
 import { styled } from '@mui/material/styles'
-
 import CloseIcon from '@mui/icons-material/Close'
 
-export const StyledAlertContainer = styled('div')(({ theme }) => ({
+export const StyledAlertContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(3),
   width: '100%',
   '&:first-child': {

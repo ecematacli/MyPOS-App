@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button'
-import { styled } from '@mui/system'
+import { styled } from '@mui/material/styles'
 import { ButtonProps } from './custom-button'
 import { Theme } from '@mui/material'
 

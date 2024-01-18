@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles'
 
-import { Paper, Typography, Divider, ListItemButton } from '@mui/material'
+import { Paper, Typography, Divider, ListItemButton, Box } from '@mui/material'
 
 export const ChartPaper = styled(Paper)({
   height: 315,
@@ -10,7 +10,7 @@ export const ChartPaper = styled(Paper)({
   position: 'relative',
 })
 
-export const IconContainer = styled('div')(({ theme }) => ({
+export const IconContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3, 2.5),
   color: theme.palette.grayColors[3],
   boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.1)',
@@ -42,14 +42,14 @@ export const NoDisplayText = styled(Typography)(({ theme }) => ({
   color: theme.palette.secondary.main,
 }))
 
-export const ActivitiesContentContainer = styled('div')(({ theme }) => ({
+export const ActivitiesContentContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   paddingTop: theme.spacing(3),
   color: theme.palette.secondary.main,
 }))
 
-export const CreatedContentContainer = styled('div')(({ theme }) => ({
+export const CreatedContentContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1, 1),
 
   '& .createdText': {

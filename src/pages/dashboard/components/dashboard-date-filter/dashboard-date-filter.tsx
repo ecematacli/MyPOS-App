@@ -11,7 +11,7 @@ import {
 import { AppliedFilters } from '../../types'
 import { useDatePicker } from './use-date-picker'
 import { CustomPopover } from '../../../../common/components/custom-popover/custom-popover'
-import DatePickerFilter from '../../../../common/components/datePickerFilter'
+import { DatePickerFilter } from '../../../../common/components/date-picker-filter/date-picker-filter'
 
 interface DateFilterProps {
   startDate: Date

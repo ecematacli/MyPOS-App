@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles'
 
 import { Total } from '../total'
 import { TotalProps } from '../../pos-table-right/types'
-import { NotificationsContext } from '../../../../../contexts/NotificationsContext'
+import { NotificationsContext } from '../../../../../contexts/notifications-context'
 import { theme } from '../../../../../theme/theme'
 
 const addNotification = jest.fn()

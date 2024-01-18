@@ -12,9 +12,9 @@ import {
 } from './styles'
 import { formatDate } from '../../common/utils'
 import { Loading } from '../../common/components/loading/loading'
-import PlainTable from '../../common/components/tables/plainTable'
+import { PlainTable } from '../../common/components/tables/plain-table/plain-table'
 import useStockOrders from './hooks/use-stock-orders'
-import InventoryCountTopBar from '../../common/components/inventoryCountTopBar'
+import { InventoryCountTopBar } from '../../common/components/inventory-count-topbar/inventory-count-topbar'
 import { PageContainer } from 'common/components/page-container/page-container'
 
 export const StockOrdersPage = () => {

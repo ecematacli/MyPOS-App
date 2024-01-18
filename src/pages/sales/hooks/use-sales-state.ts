@@ -9,7 +9,7 @@ import {
 import api from '../../../api/api-client'
 import { Product } from '../../../redux/products/types'
 import { State, ActionTypes, Action, NewProductData } from './types'
-import useLocalStorageReducerState from '../../../common/hooks/useLocalStorageReducerState'
+import { useLocalStorageReducerState } from '../../../common/hooks/use-local-storage-reducer-state'
 import { PaymentMethod } from '../../../redux/sales/types'
 
 // Products Reducer

@@ -4,7 +4,7 @@ import api from '../../../../api/api-client'
 import { SearchBarContainer } from './styles'
 import { Product } from '../../../../redux/products/types'
 import { InputAutoSuggest } from '../../../../common/components/input-auto-suggest/input-auto-suggest'
-import { NotificationsContext } from '../../../../contexts/NotificationsContext'
+import { NotificationsContext } from '../../../../contexts/notifications-context'
 
 interface SearchBarProps {
   addProduct: (product: Product) => void

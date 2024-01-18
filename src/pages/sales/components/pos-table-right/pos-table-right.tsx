@@ -19,7 +19,7 @@ import {
   TotalDivider,
 } from './styles'
 import { PosTableProps } from './types'
-import { NotificationsContext } from '../../../../contexts/NotificationsContext'
+import { NotificationsContext } from '../../../../contexts/notifications-context'
 import { useEditProductFieldState } from './use-edit-product-field-state'
 import { Total } from '../total/total'
 import { CustomInput } from '../../../../common/components/custom-input/custom-input'
@@ -32,7 +32,7 @@ import {
 import { Align } from '../../../../common/components/Align'
 import { PAYMENT_METHODS } from '../../../../redux/sales/types'
 import { translatePaymentMethodLabel } from '../../../../common/utils/translation'
-import { AuthContext } from '../../../../contexts/AuthContext'
+import { AuthContext } from '../../../../contexts/auth-context'
 import { completeSale } from '../../../../redux/sales/salesActions'
 import { editProduct } from '../../../../redux/products/productsActions'
 

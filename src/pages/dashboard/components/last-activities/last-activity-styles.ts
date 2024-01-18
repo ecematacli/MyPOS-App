@@ -1,4 +1,4 @@
-import { Paper, Typography, Divider } from '@mui/material'
+import { Paper, Typography, Divider, Box } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 export const StyledPaper = styled(Paper)({
@@ -23,14 +23,14 @@ export const NoDisplayText = styled(Typography)(({ theme }) => ({
   color: theme.palette.secondary.main,
 }))
 
-export const ActivitiesContentContainer = styled('div')(({ theme }) => ({
+export const ActivitiesContentContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   paddingTop: theme.spacing(3),
   color: theme.palette.secondary.main,
 }))
 
-export const CreatedContentContainer = styled('div')(({ theme }) => ({
+export const CreatedContentContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1, 1),
 
   '& .createdText': {

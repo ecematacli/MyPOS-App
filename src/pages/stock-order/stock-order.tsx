@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom'
 
 import { TableContainer } from './styles'
 import { Product } from '../../redux/products/types'
-import PlainTable from '../../common/components/tables/plainTable'
+import { PlainTable } from '../../common/components/tables/plain-table/plain-table'
 import { Box, Button } from '@mui/material'
-import { useResync } from '../../common/hooks/useResync'
+import { useResync } from '../../common/hooks/use-resync'
 
 interface Props {
   match: { params: { id: string } }

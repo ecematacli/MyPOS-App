@@ -7,10 +7,10 @@ import { theme } from './theme/theme'
 import { AppRouter } from './routes/app-router'
 import { Provider } from 'react-redux'
 import { configureStore } from './redux/store'
-import { AuthContextProvider } from './contexts/AuthContext'
-import { NotificationsProvider } from './contexts/NotificationsContext'
+import { AuthContextProvider } from './contexts/auth-context'
+import { NotificationsProvider } from './contexts/notifications-context'
 import { GlobalStyles } from './global-styles'
-import { CatalogInfoProvider } from './contexts/CatalogInfoContext'
+import { CatalogInfoProvider } from './contexts/catalog-info-context'
 
 export const App = () => (
   <Provider store={configureStore()}>
