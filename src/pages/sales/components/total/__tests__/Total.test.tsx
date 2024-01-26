@@ -1,16 +1,15 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { ThemeProvider } from '@material-ui/styles'
+import { ThemeProvider } from '@mui/material/styles'
 
-import Total from '../Total'
-import { TotalProps } from '../../posTableRight/types'
-import { NotificationsContext } from '../../../../../contexts/NotificationsContext'
-import theme from '../../../../../theme'
+import { Total } from '../total'
+import { TotalProps } from '../../pos-table-right/types'
+import { NotificationsContext } from '../../../../../contexts/notifications-context'
+import { theme } from '../../../../../theme/theme'
 
 const addNotification = jest.fn()
 const discardSale = jest.fn()
-const completeSale = jest.fn()
 
 let props: TotalProps = null
 
@@ -82,6 +81,6 @@ describe('[Total Component]', () => {
 
   test('renders the discount in TL and % correctly', () => {
     const { getByTestId } = renderTotalComponent()
-    expect(getByTestId('discount')).toHaveTextContent('%20 / TRY 50.00')
+    expect(getByTestId('discount')).toHaveTextContent('%20 / ₺50,00')
   })
 })

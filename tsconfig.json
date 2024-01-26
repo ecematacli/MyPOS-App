@@ -1,36 +1,35 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "strictNullChecks": false,
-    "module": "commonjs",
-    "jsx": "react",
-    "target": "esnext",
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "lib": [
-      "es2018",
-      "dom",
-      "esnext.asynciterable"
-    ],
-    "typeRoots": [
-      "./node_modules/@types",
-      "src/types"
-    ],
+    "outDir": "dist",
+    "typeRoots": ["./node_modules/@types", "src/types"],
     "esModuleInterop": true,
-    "isolatedModules": true,
+    "strictNullChecks": false,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "module": "esnext",
     "noEmit": false,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
     "strict": false,
-    "skipLibCheck": true
+    "baseUrl": "src",
+    "declaration": false,
+    "incremental": true,
+    "lib": ["es2018", "dom", "esnext.asynciterable"],
+    "resolveJsonModule": true,
+    // "strictPropertyInitialization": true,
+    "target": "esnext",
+    "types": ["@testing-library/jest-dom"],
+    "paths": {
+      "react": ["./node_modules/@types/react"]
+    }
   },
   "include": [
     "src/**/*",
-    "jest.config.js"
+    "jest.config.js",
+    "src/pages/sales/components/create-product-modal/__tests__/.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "awesomeTypescriptLoaderOptions": {
     "useCache": true,
     "transpileOnly": true

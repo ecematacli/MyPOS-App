@@ -1,39 +1,39 @@
-import { Middleware, Dispatch, AnyAction } from 'redux';
+import { Middleware, Dispatch, AnyAction } from 'redux'
 
-import api from '../../api';
+import api from '../../api/api-client'
 
-import { ApiAction } from '../types';
+import { ApiAction } from '../types'
 
 export interface EnhancedAction {
-  type: string;
-  payload?: any;
-  response?: string;
-  requestPayload?: any;
-  requestUrl?: string;
+  type: string
+  payload?: any
+  response?: string
+  requestPayload?: any
+  requestUrl?: string
 }
 
 export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
   action: ApiAction | AnyAction
 ) => {
-  const callAPI = action.callApi;
+  const callAPI = action.callApi
 
   if (typeof callAPI === 'undefined') {
-    return next(action);
+    return next(action)
   }
 
   const actionWith = (dataObj: EnhancedAction) => {
-    const { type } = action;
-    const finalAction = { type, ...dataObj };
-    return finalAction;
-  };
+    const { type } = action
+    const finalAction = { type, ...dataObj }
+    return finalAction
+  }
 
-  const { url, method, data, successMessage, errorMessage } = callAPI;
-  const { type } = action;
+  const { url, method, data, successMessage, errorMessage } = callAPI
+  const { type } = action
 
-  next(actionWith({ type: type + '_REQUEST' }));
+  next(actionWith({ type: type + '_REQUEST' }))
 
   try {
-    const response = await api({ method, url, data });
+    const response = await api({ method, url, data })
     next(
       actionWith({
         type: type + '_SUCCESS',
@@ -41,21 +41,21 @@ export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
         requestPayload: data,
         requestUrl: url,
       })
-    );
-    successMessage && successMessage();
+    )
+    successMessage && successMessage()
   } catch (error) {
-    const response = error.response;
+    const response = error.response
 
-    const status = response?.status;
-    const message = response?.data?.message;
-    const unauthorized = status === 401 || status === 403;
+    const status = response?.status
+    const message = response?.data?.message
+    const unauthorized = status === 401 || status === 403
 
     if (response && unauthorized) {
-      location.replace('/signin');
-      localStorage.removeItem('token');
+      location.replace('/signin')
+      localStorage.removeItem('token')
     }
 
-    errorMessage && errorMessage(message || 'Something went wrong...', 'error');
+    errorMessage && errorMessage(message || 'Something went wrong...', 'error')
 
     next(
       actionWith({
@@ -64,6 +64,6 @@ export const apiMiddleware: Middleware = () => (next: Dispatch) => async (
         requestPayload: data,
         requestUrl: url,
       })
-    );
+    )
   }
-};
+}

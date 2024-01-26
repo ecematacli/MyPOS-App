@@ -1,4 +1,5 @@
 import { Product } from '../products/types'
+import { Outlet } from '../../pages/stock-transfers/types'
 
 export enum PaymentMethod {
   Cash = 'Cash',
@@ -18,7 +19,7 @@ export enum SuccessActionTypes {
 export interface Sale {
   id: number
   createdAt: string
-  outlet: string
+  outlet: Outlet
   status: string
   orderNo: null
   total: number
@@ -43,6 +44,7 @@ export interface SaleData {
   discount: number
   paymentMethod: PaymentMethod
   description?: string
+  outletId: number
 }
 
 // Action creator
