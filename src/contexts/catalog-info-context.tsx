@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { Outlet } from '../api/outlets/types'
 import { fetchOutlets } from '../api/outlets/outlets'
+import { useAuthContext } from './auth-context'
 
 interface CatalogInfoContextProps {
   outlets: Outlet[]
@@ -18,6 +19,7 @@ export const CatalogInfoProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [outlets, setOutlets] = useState<Outlet[]>([])
+  const { isAuthenticated } = useAuthContext()
 
   useEffect(() => {
     const fetchOutletsOnLoad = async () => {
@@ -25,7 +27,7 @@ export const CatalogInfoProvider: React.FC<{ children: React.ReactNode }> = ({
       setOutlets(outlets)
     }
 
-    fetchOutletsOnLoad()
+    isAuthenticated && fetchOutletsOnLoad()
   }, [])
 
   return (

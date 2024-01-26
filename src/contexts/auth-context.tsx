@@ -61,6 +61,10 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     }
 
+    if (!isAuthenticated) {
+      return setIsUserDataLoaded(true)
+    }
+
     fetchUserOnAppLoad()
   }, [isAuthenticated])
 
@@ -73,4 +77,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       </AuthTokenSettingContext.Provider>
     </AuthContext.Provider>
   )
+}
+
+export const useAuthContext = () => {
+  return React.useContext(AuthContext)
 }

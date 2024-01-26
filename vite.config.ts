@@ -28,11 +28,11 @@ export default defineConfig({
   ...(isInProduction
     ? {}
     : {
-        server: {
-          port: 8080,
-          strictPort: true,
-        },
-      }),
+      server: {
+        port: 8080,
+        strictPort: true,
+      },
+    }),
   plugins: [
     react({ jsxRuntime: 'classic' }),
     /** Dont use reactRefresh otherwise start-server-and-test isn't notified that app is loaded */

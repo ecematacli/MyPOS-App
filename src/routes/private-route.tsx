@@ -9,7 +9,7 @@ import {
 import { AuthContext } from '../contexts/auth-context'
 import { Loading } from '../common/components/loading/loading'
 
-export const PrivateRouter: React.FC<RouteProps> = ({
+export const PrivateRoute: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {

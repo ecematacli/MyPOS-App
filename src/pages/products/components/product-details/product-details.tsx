@@ -74,18 +74,18 @@ const ProductDetails: React.FC<DetailsProps> = props => {
         classesProp={
           !dropdown
             ? {
-                root: getRootInputStyles(),
-                input: getInputStyles(theme),
-              }
+              root: getRootInputStyles(),
+              input: getInputStyles(theme),
+            }
             : {
-                dropdownInput: {
-                  root: getDropdownInputRootStyles(),
-                },
-                innerInput: {
-                  root: getInnerInputStyles(),
-                  input: getInputStyles(theme),
-                },
-              }
+              dropdownInput: {
+                root: getDropdownInputRootStyles(),
+              },
+              innerInput: {
+                root: getInnerInputStyles(),
+                input: getInputStyles(theme),
+              },
+            }
         }
         dropdownItems={dropdownItems}
         value={getInputValues(fieldId)}

@@ -13,7 +13,7 @@ export interface Product {
   name: string;
   price: number;
   discountPrice: number | null;
-  qty: number;
+  inventoryLevels: ProductStock[];
   variation: string | null;
   taxRate: number | null;
   brand: Brand;
@@ -21,6 +21,10 @@ export interface Product {
   synced?: boolean;
 }
 
+export interface ProductStock {
+  outletId: number;
+  qty: number;
+}
 export interface ProductsState {
   count: number;
   products: { [id: string]: Product };
