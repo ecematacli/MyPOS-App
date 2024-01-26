@@ -1,9 +1,8 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 
-import { useEditProductFieldState } from '../useEditProductFieldState'
+import { useEditProductFieldState } from '../use-edit-product-field-state'
 import {
   Args,
-  EditProductAction,
   EditProductFieldLocalStorageState,
   ChangeEvent,
   ClickEvent,

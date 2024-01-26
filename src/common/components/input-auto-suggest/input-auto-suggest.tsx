@@ -2,7 +2,7 @@ import React, { FC, useState, useRef } from 'react'
 import AsyncSelect from 'react-select/async'
 import makeAnimated from 'react-select/animated'
 import { ActionMeta, OptionsType } from 'react-select'
-import { useTheme } from '@material-ui/core'
+import { useTheme } from '@mui/material/styles'
 
 import { selectStyles } from './style'
 import { formatOptionLabel } from './format-option-label'

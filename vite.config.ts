@@ -34,7 +34,7 @@ export default defineConfig({
         },
       }),
   plugins: [
-    ...(isInProduction ? [] : [react({ jsxRuntime: 'classic' })]),
+    react({ jsxRuntime: 'classic' }),
     /** Dont use reactRefresh otherwise start-server-and-test isn't notified that app is loaded */
     // @ts-ignore
 

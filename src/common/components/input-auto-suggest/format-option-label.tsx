@@ -5,8 +5,7 @@ import parse from 'autosuggest-highlight/parse'
 import { productNameWithVariation, currencyFormatter } from '../../utils'
 
 import React from 'react'
-import { Align } from '../Align'
-import { Grid } from '@material-ui/core'
+import { Box, Grid } from '@mui/material'
 
 export const formatOptionLabel = () => (
   { name, variation, sku, price, barcode }: AutoSuggestProduct,
@@ -32,17 +31,17 @@ export const formatOptionLabel = () => (
   return (
     <Grid container>
       <Grid item xs={11}>
-        <Align justify='flex-start'>
+        <Box display='flex' justifyContent='flex-start'>
           {renderParts(name)}
-          {variation && <span> / {variation}</span>}
-        </Align>
-        <Align vertical align='flex-start'>
-          <div>{renderParts(sku)}</div>
-          <div>{renderParts(barcode)}</div>
-        </Align>
+          {variation && <Box component='span'> / {variation}</Box>}
+        </Box>
+        <Box display='flex' flexDirection='column' alignItems='flex-start'>
+          <Box>{renderParts(sku)}</Box>
+          <Box>{renderParts(barcode)}</Box>
+        </Box>
       </Grid>
       <Grid item xs={1}>
-        <div>{price ? currencyFormatter(price) : '-'}</div>
+        <Box>{price ? currencyFormatter(price) : '-'}</Box>
       </Grid>
     </Grid>
   )

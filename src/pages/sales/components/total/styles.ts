@@ -1,83 +1,45 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { styled } from '@mui/material/styles'
+import { Typography, Box, Select, Divider, FormControl } from '@mui/material'
+import Edit from '@mui/icons-material/Edit'
 
-export default makeStyles(({ spacing, palette, breakpoints }) => ({
-  totalDivider: {
-    backgroundColor: palette.secondary.light,
-  },
-  totalContentDiv: { overflow: 'auto' },
-  totalSection: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: spacing(0, 3),
-    margin: spacing(1),
-    [breakpoints.down('sm')]: {
-      ' & > * ': {
-        fontSize: 14,
-      },
-    },
-  },
-  discountContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  discount: {
-    color: palette.grayColors[3],
-    textDecoration: 'underline',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-  },
-  discountType: {
-    [breakpoints.down('sm')]: {
-      fontSize: 14,
-    },
-  },
-  percentageSign: {
-    fontWeight: 'bold',
-    paddingRight: 1.2,
-  },
-  formControl: {
+export const StyledFormControl = styled(FormControl)(({ theme }) => ({
+  '&.MuiFormControl-root': {
     width: 65,
-    marginRight: spacing(0.7),
+    marginRight: theme.spacing(0.7),
   },
-  innerOptionsInput: {
-    height: 35,
-  },
-  optionsInput: {
-    [breakpoints.down('sm')]: {
-      fontSize: 14,
-    },
-  },
-  selectRoot: {
+}))
+
+export const StyledSelect = styled(Select)({
+  '&.MuiSelect-root': {
     '&:focus': {
       backgroundColor: 'transparent',
     },
   },
-  notchedOutline: {
-    borderColor: palette.secondary.light,
-  },
-  discountInput: {
-    width: spacing(14),
-    height: spacing(5),
-    marginRight: '-7px',
-    fontWeight: spacing(50),
-    fontSize: spacing(2),
-    color: 'rgba(0, 0, 0, 0.87)',
-    borderColor: palette.secondary.dark,
-    borderRadius: spacing(2),
-  },
-  totalAmount: {
-    paddingTop: spacing(2),
-    paddingBottom: spacing(1),
-  },
-  totalContainer: {},
-  totalEditIcon: {
-    fontSize: 14,
-    marginLeft: spacing(0.5),
-    cursor: 'pointer',
-  },
-  totalInput: {
-    height: spacing(0.5),
-    width: spacing(7),
+})
+
+export const StyledEditIcon = styled(Edit)(({ theme }) => ({
+  fontSize: 14,
+  marginLeft: theme.spacing(0.5),
+  cursor: 'pointer',
+}))
+
+export const DiscountText = styled(Typography)(({ theme }) => ({
+  color: theme.palette.grayColors[3],
+  textDecoration: 'underline',
+  fontWeight: 'bold',
+  cursor: 'pointer',
+}))
+
+export const TotalDivider = styled(Divider)(({ theme }) => ({
+  backgroundColor: theme.palette.secondary.light,
+}))
+
+export const TotalSectionContainer = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  margin: theme.spacing(1),
+  [theme.breakpoints.down('sm')]: {
+    ' & > * ': {
+      fontSize: 14,
+    },
   },
 }))

@@ -23,6 +23,21 @@ export const findMatchedFields = (
 export const formatDate = (dateToFormat: string | Date, formatType: string) =>
   dateToFormat && format(new Date(dateToFormat), formatType)
 
+export const formatDateInLocale = (
+  dateToFormat: string | Date,
+  options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  },
+  locale = 'tr-TR'
+) => {
+  const date = new Date(dateToFormat)
+  return new Intl.DateTimeFormat(locale, options).format(date)
+}
+
 export const capitalize = (str: string) => {
   if (typeof str !== 'string') return ''
   return str.charAt(0).toUpperCase() + str.slice(1)

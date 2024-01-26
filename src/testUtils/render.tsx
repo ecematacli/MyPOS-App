@@ -1,12 +1,12 @@
 import React from 'react'
 import { render as rtlRender } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import { ThemeProvider } from '@material-ui/styles'
+import { ThemeProvider } from '@mui/material/styles'
 
 import { mockStore } from '../__mocks__/store'
-import { AuthContext } from '../contexts/AuthContext'
-import { NotificationsContext } from '../contexts/NotificationsContext'
-import theme from '../theme'
+import { AuthContext } from '../contexts/auth-context'
+import { NotificationsContext } from '../contexts/notifications-context'
+import { theme } from '../theme/theme'
 import { UserRoles } from 'api/user/types'
 
 export const render = (

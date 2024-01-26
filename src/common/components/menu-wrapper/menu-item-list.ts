@@ -1,14 +1,15 @@
-import { SvgIconProps } from '@material-ui/core'
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined'
-import DashboardIcon from '@material-ui/icons/Dashboard'
-import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew'
-import SportsTennisRoundedIcon from '@material-ui/icons/SportsTennisRounded'
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
-import HistoryIcon from '@material-ui/icons/History'
-import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined'
-import ExposureOutlinedIcon from '@material-ui/icons/ExposureOutlined'
-import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile'
-import { MonetizationOn, SyncAlt } from '@material-ui/icons'
+import { SvgIconProps } from '@mui/material'
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
+import SportsTennisRoundedIcon from '@mui/icons-material/SportsTennisRounded'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
+import HistoryIcon from '@mui/icons-material/History'
+import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined'
+import ExposureOutlinedIcon from '@mui/icons-material/ExposureOutlined'
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
+import SyncAltIcon from '@mui/icons-material/SyncAlt'
 import { UserRoles } from '../../../api/user/types'
 
 export interface MenuItem {
@@ -82,13 +83,13 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         subLabel: 'Stok Transferleri',
         url: '/inventory/stock-transfers',
-        Icon: SyncAlt,
+        Icon: SyncAltIcon,
         allowedRoles: [UserRoles.Admin, UserRoles.Employee],
       },
       {
         subLabel: 'Price Updates',
         url: '/inventory/price-updates',
-        Icon: MonetizationOn,
+        Icon: MonetizationOnIcon,
         allowedRoles: [UserRoles.Admin],
       },
     ],
@@ -96,7 +97,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     label: 'Çıkış yap',
     item: 'signout',
-    Icon: PowerSettingsNew,
+    Icon: PowerSettingsNewIcon,
     allowedRoles: [UserRoles.Admin, UserRoles.Employee],
   },
 ]

@@ -1,5 +1,5 @@
 import { Product } from '../products/types'
-import { Outlet } from '../../pages/stockTransfers/types'
+import { Outlet } from '../../pages/stock-transfers/types'
 
 export enum PaymentMethod {
   Cash = 'Cash',
