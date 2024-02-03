@@ -15,36 +15,44 @@ interface StatFields {
 }
 export const statsData = ({
   webRevenue,
-  storeRevenue,
+  enkaRevenue,
+  kozaRevenue,
   saleCount,
   soldProductCount,
 }: SaleStatsData): StatFields[] => [
-  {
-    label: 'Revenue (store)',
-    id: 'revenue',
-    currency: true,
-    Icon: AttachMoneyOutlinedIcon,
-    value: storeRevenue,
-  },
-  {
-    label: 'Revenue (web)',
-    id: 'profit',
-    currency: true,
-    Icon: AttachMoneyOutlinedIcon,
-    value: webRevenue,
-  },
-  {
-    label: 'Products Sold',
-    id: 'itemsSold',
-    currency: false,
-    Icon: ShoppingCartOutlinedIcon,
-    value: soldProductCount,
-  },
-  {
-    label: 'Sale Count',
-    id: 'saleCount',
-    currency: false,
-    Icon: TrendingUpOutlinedIcon,
-    value: saleCount,
-  },
-]
+    {
+      label: 'Revenue (enka)',
+      id: 'revenue',
+      currency: true,
+      Icon: AttachMoneyOutlinedIcon,
+      value: enkaRevenue,
+    },
+    {
+      label: 'Revenue (koza)',
+      id: 'revenue',
+      currency: true,
+      Icon: AttachMoneyOutlinedIcon,
+      value: kozaRevenue,
+    },
+    {
+      label: 'Revenue (web)',
+      id: 'profit',
+      currency: true,
+      Icon: AttachMoneyOutlinedIcon,
+      value: webRevenue,
+    },
+    {
+      label: 'Products Sold',
+      id: 'itemsSold',
+      currency: false,
+      Icon: ShoppingCartOutlinedIcon,
+      value: soldProductCount,
+    },
+    {
+      label: 'Sale Count',
+      id: 'saleCount',
+      currency: false,
+      Icon: TrendingUpOutlinedIcon,
+      value: saleCount,
+    },
+  ]
