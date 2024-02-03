@@ -136,10 +136,20 @@ export const Chart: React.FC<ChartProps> = ({
         <Area
           isAnimationActive={false}
           connectNulls
-          name='Store Revenue'
+          name='Enka Revenue'
           type='monotone'
-          dataKey='store'
+          dataKey='enka'
           stroke='#82ca9d'
+          fillOpacity={1}
+          fill='url(#colorPv)'
+        />
+        <Area
+          isAnimationActive={false}
+          connectNulls
+          name='Koza Revenue'
+          type='monotone'
+          dataKey='koza'
+          stroke='#1b4a9d'
           fillOpacity={1}
           fill='url(#colorPv)'
         />

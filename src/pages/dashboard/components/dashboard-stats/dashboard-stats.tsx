@@ -32,7 +32,7 @@ export const DashboardStats: React.FC<{ saleStats: SaleStatsData }> = ({
   return (
     <Fragment>
       {statsData(saleStats).map(({ label, id, Icon, value, currency }) => (
-        <Grid key={id} item xs={12} sm={12} md={3}>
+        <Grid key={id} item xs={16} sm={16} md={2.3}>
           <StatsContainer>
             <StatsPaper>
               <Box

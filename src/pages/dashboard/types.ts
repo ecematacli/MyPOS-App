@@ -44,7 +44,8 @@ export type RevenueData = Revenue[];
 
 export interface SaleStatsData {
   webRevenue: number;
-  storeRevenue: number;
+  enkaRevenue: number;
+  kozaRevenue: number;
   saleCount: number;
   soldProductCount: number;
 }
