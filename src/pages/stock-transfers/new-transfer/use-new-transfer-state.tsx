@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { NotificationsContext } from '../../../contexts/notifications-context'
-import api from '../../../api/api-client'
+import { api } from '../../../api/api-client'
 import { Outlet, ProductToTransfer } from '../types'
 import { useGetRequest } from '../../../common/hooks/use-get-request'
 

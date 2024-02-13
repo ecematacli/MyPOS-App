@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import api from '../../../api/api-client'
+import { api } from '../../../api/api-client'
 import { BatchesData } from '../types'
 
 export const useInventoryBatchState = () => {

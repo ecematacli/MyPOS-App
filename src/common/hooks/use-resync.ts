@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { NotificationsContext } from '../../contexts/notifications-context'
 import { Product } from '../../redux/products/types'
-import api from '../../api/api-client'
+import { api } from '../../api/api-client'
 import { OrderedProduct } from '../components/tables/plain-table/types'
 
 interface SyncBody {

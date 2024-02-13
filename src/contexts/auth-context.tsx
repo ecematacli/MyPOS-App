@@ -19,12 +19,19 @@ interface AuthTokenSettingContext {
   clearAuthToken?: ClearAuthToken
 }
 
-export const AuthContext = createContext<AuthContext>(null)
+const initialAuthData = {
+  isAuthenticated: false,
+  user: null,
+  isUserDataLoaded: false,
+  isAdmin: false,
+}
+
+export const AuthContext = createContext<AuthContext>(initialAuthData)
 export const AuthTokenSettingContext = createContext<AuthTokenSettingContext>(
   {}
 )
 
-const initialToken = JSON.parse(localStorage.getItem('token'))
+const initialToken = localStorage.getItem('token')
 
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

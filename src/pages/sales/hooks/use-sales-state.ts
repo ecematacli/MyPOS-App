@@ -6,7 +6,7 @@ import {
   calculateTotalDiscount,
   calculatePercentageFromDiscount,
 } from '../utilities'
-import api from '../../../api/api-client'
+import { api } from '../../../api/api-client'
 import { Product } from '../../../redux/products/types'
 import { State, ActionTypes, Action, NewProductData } from './types'
 import { useLocalStorageReducerState } from '../../../common/hooks/use-local-storage-reducer-state'

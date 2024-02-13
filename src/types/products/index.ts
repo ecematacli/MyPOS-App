@@ -1,0 +1,85 @@
+import { Category } from '../categories'
+import { Brand } from '../brands'
+
+export interface Product {
+  id: number
+  barcode: string
+  sku: string
+  name: string
+  price: number
+  discountPrice: number | null
+  inventoryLevels: ProductStock[]
+  variation: string | null
+  taxRate: number | null
+  brand: Brand
+  category: Category
+  synced?: boolean
+}
+
+export interface ProductStock {
+  outletId: number
+  qty: number
+}
+
+export interface ProductsState {
+  count: number
+  products: { [id: string]: Product }
+  ids: number[]
+}
+
+export interface ProductsData {
+  products: Product[]
+  count: number
+}
+
+// //Action creator argumument types
+// export interface EditActionArgs {
+//   updatedField: { [key: string]: string }
+//   productId: number
+//   label: string
+//   addNotification: (m?: string, t?: string) => void
+// }
+
+// //Action Creator types
+// export interface FetchProductsAction {
+//   type: SuccessActionTypes.FETCH_PRODUCTS_SUCCESS
+//   payload: {
+//     count: number
+//     products: Product[]
+//   }
+// }
+
+// export interface CreateProductAction {
+//   type: SuccessActionTypes.CREATE_PRODUCT_SUCCESS
+//   payload: Product
+// }
+// export interface EditProductAction {
+//   type: SuccessActionTypes.EDIT_PRODUCT_SUCCESS
+//   payload: Product
+// }
+
+// export interface InputValues {
+//   barcode: string
+//   name: string
+//   qty: number
+//   sku: string
+//   price: number
+//   variation: string
+//   discountPrice: number
+// }
+
+// export interface AdditionalInputs {
+//   taxRate: number
+//   category: string
+//   brand: string
+// }
+// export interface ProductData extends InputValues {
+//   taxRate: number
+//   categoryId: string
+//   brandId: string
+// }
+
+// export type Action =
+//   | FetchProductsAction
+//   | EditProductAction
+//   | CreateProductAction

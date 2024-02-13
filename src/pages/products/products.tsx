@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Box } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import { connect } from 'react-redux'
+import { Box, Grid } from '@mui/material'
+
+import { useTheme } from '@mui/material/styles'
 
 import { ActionTypes, StoreState } from '../../redux/types'
 import { Product } from '../../redux/products/types'
@@ -11,15 +11,26 @@ import { fetchProducts } from '../../redux/products/productsActions'
 import { fetchCategories } from '../../redux/categories/categoriesActions'
 import { fetchBrands } from '../../redux/brands/brandsActions'
 import { loadingSelector } from '../../redux/loading/loadingReducer'
-import { TABLE_HEADS } from './table-heads-data'
+
 import { useProductFilters } from './hooks/use-product-filters'
 import { Loading } from '../../common/components/loading/loading'
 import { CustomTable } from '../../common/components/tables/custom-table/custom-table'
-import ProductDetails from './components/product-details/product-details'
-import { ProductFilters } from './components/product-filters/product-filters'
-import { findMatchedFields } from '../../common/utils'
+
+import { ProductFilters } from '../product-details/product-filters-old/product-filters'
+import { currencyFormatter, findMatchedFields } from '../../common/utils'
 import { FilterInput } from './types'
 import { PageContainer } from 'common/components/page-container/page-container'
+import {
+  ProductsTableContainer,
+  StyledTableBodyRow,
+  StyledTableHead,
+  GridItem,
+} from './products-styles'
+import { ProductsTable } from './components/products-table/products-table'
+import { ProductDetailsPage } from '../product-details/product-details'
+import { useCategoriesQuery } from 'api/categories/use-categories-query'
+import { useProductsQuery } from 'api/products/use-products-query'
+import { useBrandsQuery } from 'api/brands/use-brands-query'
 
 interface ProductsProps {
   fetchProducts: (
@@ -70,139 +81,112 @@ export const getFilterInputFields = (
   },
 ]
 
-const ProductsPageComponent: React.FC<ProductsProps> = ({
+export const ProductsPage: React.FC<ProductsProps> = ({
   fetchProducts,
   fetchCategories,
   fetchBrands,
-  products,
   count,
   ids,
   isFetching,
-  categories,
-  brands,
 }) => {
-  const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [page, setPage] = useState(1)
+  const { data: productsData, isLoading } = useProductsQuery({ page: 1 })
 
-  const filterStateArgs = {
-    brands,
-    categories,
-    setPage,
-    page,
-    rowsPerPage,
-    fetchProducts,
+  const theme = useTheme()
+
+  const [selectedProductId, setSelectedProductId] = useState<
+    null | Product['id']
+  >(null)
+
+  if (isLoading) {
+    return <Loading />
   }
 
-  const {
-    filterInputs,
-    appliedFilters,
-    cancelClick,
-    clearAllFilters,
-    handleInputChange,
-    handleApplyFilterClick,
-    handleDelete,
-  } = useProductFilters(filterStateArgs)
-
-  const FILTER_INPUT_FIELDS = getFilterInputFields(
-    brands,
-    categories,
-    filterInputs
-  )
-
-  const handleChangePage = (
-    _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number
-  ) => {
-    //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
-    if (newPage + 1 < 0) return
-    setPage(newPage + 1)
-
-    fetchProducts(
-      newPage + 1,
-      rowsPerPage,
-      findMatchedFields(categories, filterInputs.category).id,
-      findMatchedFields(brands, filterInputs.brand).id,
-      filterInputs.searchQuery
-    )
+  if (!productsData) {
+    return <React.Fragment />
   }
 
-  const handleChangeRowsPerPage = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    const numValue = parseInt(value)
-    setRowsPerPage(numValue)
+  // const filterStateArgs = {
+  //   brands,
+  //   categories,
+  //   setPage,
+  //   page,
+  //   rowsPerPage,
+  //   fetchProducts,
+  // }
 
-    if (Math.ceil(count / rowsPerPage) === page) {
-      setPage(1)
-    }
+  // const {
+  //   filterInputs,
+  //   appliedFilters,
+  //   cancelClick,
+  //   clearAllFilters,
+  //   handleInputChange,
+  //   handleApplyFilterClick,
+  //   handleDelete,
+  // } = useProductFilters(filterStateArgs)
 
-    fetchProducts(
-      page,
-      numValue,
-      findMatchedFields(categories, filterInputs.category).id,
-      findMatchedFields(brands, filterInputs.brand).id,
-      filterInputs.searchQuery
-    )
-  }
+  // const FILTER_INPUT_FIELDS = getFilterInputFields(
+  //   brands,
+  //   categories,
+  //   filterInputs
+  // )
 
-  useEffect(() => {
-    fetchProducts(page, rowsPerPage)
-    fetchCategories()
-    fetchBrands()
-  }, [])
+  // const handleChangePage = (
+  //   _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  //   newPage: number
+  // ) => {
+  //   //To adapt 0-based page of MUI pagination component 1 is added whilst 1 is subtracted for page prop
+  //   if (newPage + 1 < 0) return
+  //   setPage(newPage + 1)
+
+  //   fetchProducts(
+  //     newPage + 1,
+  //     rowsPerPage,
+  //     findMatchedFields(categories, filterInputs.category).id,
+  //     findMatchedFields(brands, filterInputs.brand).id,
+  //     filterInputs.searchQuery
+  //   )
+  // }
+
+  // useEffect(() => {
+  //   fetchProducts(page, rowsPerPage)
+  //   fetchCategories()
+  //   fetchBrands()
+  // }, [])
 
   return (
-    <PageContainer>
-      <ProductFilters
-        filterInputs={filterInputs}
-        appliedFilters={appliedFilters}
-        cancelClick={cancelClick}
-        clearAllFilters={clearAllFilters}
-        handleInputChange={handleInputChange}
-        filterInputFields={FILTER_INPUT_FIELDS}
-        handleApplyFilterClick={handleApplyFilterClick}
-        handleDelete={handleDelete}
-      />
-      {isFetching ? (
-        <Loading />
-      ) : (
-        <CustomTable
-          tableHeads={TABLE_HEADS}
-          tableType='products'
-          rows={{
-            type: 'products',
-            products: ids.map((productId: number) => products[productId]),
-          }}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          count={count}
-          component={ProductDetails}
-        />
-      )}
+    <PageContainer
+      sx={{
+        padding: 0,
+        overflowY: 'auto',
+        [theme.breakpoints.down('md')]: {
+          padding: theme.spacing(2),
+        },
+      }}>
+      <Grid container sx={{ height: '100%' }}>
+        <Grid
+          item
+          xs={12}
+          md={selectedProductId ? 6 : 12}
+          pt={8}
+          sx={{ height: '100%', overflowY: 'auto' }}>
+          <Box height='100%'>
+            <ProductsTable
+              selectedProductId={selectedProductId}
+              setSelectedProductId={setSelectedProductId}
+            />
+          </Box>
+        </Grid>
+        {selectedProductId && (
+          <GridItem item md={6} sx={{ overflowY: 'auto', maxHeight: '100vh' }}>
+            <Box>
+              <ProductDetailsPage
+                selectedProductId={selectedProductId}
+                setSelectedProductId={setSelectedProductId}
+              />
+            </Box>
+          </GridItem>
+        )}
+      </Grid>
     </PageContainer>
   )
 }
-
-const mapStateToProps = (state: StoreState) => {
-  const {
-    products: { products, count, ids },
-    categories,
-    brands,
-  } = state
-  return {
-    products,
-    count,
-    ids,
-    categories,
-    brands,
-    isFetching: loadingSelector(ActionTypes.FETCH_PRODUCTS, state),
-  }
-}
-
-export const ProductsPage = connect(mapStateToProps, {
-  fetchProducts,
-  fetchCategories,
-  fetchBrands,
-})(ProductsPageComponent)

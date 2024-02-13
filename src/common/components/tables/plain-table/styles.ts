@@ -40,10 +40,10 @@ export const StyledTableHeadRow = styled(TableRow)<{ type: string }>(
     width: '15.3%',
     '& > th': {
       color: theme.palette.grayColors[3],
-      '&:nth-child(2)': {
+      '&:nth-of-type(2)': {
         width: '27%',
       },
-      '&:nth-child(3)': {
+      '&:nth-of-type(3)': {
         width: '27%',
       },
     },

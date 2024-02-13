@@ -1,6 +1,6 @@
 import { Middleware, Dispatch, AnyAction } from 'redux'
 
-import api from '../../api/api-client'
+import { api } from '../../api/api-client'
 
 import { ApiAction } from '../types'
 

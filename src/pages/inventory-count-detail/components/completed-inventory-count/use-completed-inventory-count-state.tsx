@@ -1,7 +1,7 @@
 import { useGetRequest } from '../../../../common/hooks/use-get-request'
 import { BatchData, BatchesProductsData } from '../open-inventory-count/types'
 import { useState, useEffect } from 'react'
-import api from '../../../../api/api-client'
+import { api } from '../../../../api/api-client'
 
 export const useCompletedInventoryCountState = (batchId: string) => {
   const [loading, setLoading] = useState(false)

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import api from '../../../api/api-client'
+import { api } from '../../../api/api-client'
 import { Product } from '../../../redux/products/types'
 
 interface StockOrders {

@@ -1,7 +1,7 @@
 import { useState, useReducer } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import api from '../../../api/api-client'
+import { api } from '../../../api/api-client'
 import { findMatchedFields } from '../../../common/utils'
 import { Brand } from '../../../redux/brands/types'
 import { Category } from '../../../redux/categories/types'

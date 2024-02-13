@@ -152,13 +152,13 @@ export const theme = createTheme({
       },
     },
     MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          '&.Mui-focused': {
-            color: '#7e7e7e',
-          },
-        },
-      },
+      // styleOverrides: {
+      //   root: {
+      //     '&.Mui-focused': {
+      //       color: '#7e7e7e',
+      //     },
+      //   },
+      // },
     },
     MuiInputBase: {
       styleOverrides: {

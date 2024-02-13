@@ -3,7 +3,7 @@
     "outDir": "dist",
     "typeRoots": ["./node_modules/@types", "src/types"],
     "esModuleInterop": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "module": "esnext",

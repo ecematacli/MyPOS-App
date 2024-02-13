@@ -17,14 +17,14 @@ export interface MenuItem {
   item: string
   url?: string
   subMenuItems?: SubMenuItem[]
-  Icon: (props: SvgIconProps) => JSX.Element
+  Icon: React.ElementType
   allowedRoles: UserRoles[]
 }
 
 export interface SubMenuItem {
   subLabel: string
   url: string
-  Icon: (props: SvgIconProps) => JSX.Element
+  Icon: React.ElementType
   allowedRoles: UserRoles[]
 }
 

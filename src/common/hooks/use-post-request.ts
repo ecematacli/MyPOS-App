@@ -1,4 +1,4 @@
-import api from '../../api/api-client'
+import { api } from '../../api/api-client'
 
 interface Props {
   onSuccess?: (data: any) => void

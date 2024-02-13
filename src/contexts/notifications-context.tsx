@@ -13,9 +13,11 @@ interface NotificationsContext {
   removeNotification: (id: number) => void
 }
 
-export const NotificationsContext = createContext<NotificationsContext | null>(
-  null
-)
+export const NotificationsContext = createContext<NotificationsContext>({
+  notifications: [],
+  addNotification: () => {},
+  removeNotification: () => {},
+})
 
 export const NotificationsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

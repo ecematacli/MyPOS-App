@@ -69,7 +69,7 @@ export const TableHeadRow = styled(TableRow)(({ theme }) => ({
     [theme.breakpoints.down('md')]: {
       fontSize: 14,
     },
-    '&:nth-child(2)': {
+    '&:nth-of-type(2)': {
       width: '110px',
     },
   },

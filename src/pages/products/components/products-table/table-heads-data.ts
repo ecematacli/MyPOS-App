@@ -6,7 +6,7 @@ interface TableHead {
 export const TABLE_HEADS: TableHead[] = [
   { label: '' },
   {
-    label: 'Stock Kodu',
+    label: 'Stok Kodu',
   },
   {
     label: 'Ürün adı',
@@ -14,6 +14,8 @@ export const TABLE_HEADS: TableHead[] = [
   {
     label: 'Varyasyon',
   },
+  { label: 'Enka Miktar', numeric: true },
+  { label: 'Koza Miktar', numeric: true },
   {
     label: 'Kategori',
   },

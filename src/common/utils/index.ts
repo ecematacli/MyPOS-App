@@ -6,9 +6,9 @@ import { Brand } from '../../redux/brands/types'
 import { translatePaymentMethodLabel } from './translation'
 import { PaymentMethod, PAYMENT_METHODS } from '../../redux/sales/types'
 
-export const currencyFormatter = (num: number): string => {
-  if (typeof num === 'undefined' || num === null) {
-    return ''
+export const currencyFormatter = (num?: number | null): string => {
+  if (!num) {
+    return '-'
   }
   // @ts-ignore
   return num.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' })

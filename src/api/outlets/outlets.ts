@@ -1,5 +1,5 @@
-import api from '../api-client'
-import { Outlet } from './types'
+import { Outlet } from 'types/outlets'
+import { api } from '../api-client'
 
 export const fetchOutlets = async (): Promise<Outlet[]> => {
   try {

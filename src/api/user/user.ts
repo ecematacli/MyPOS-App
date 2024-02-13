@@ -1,4 +1,4 @@
-import api from '../api-client'
+import { api } from '../api-client'
 import { User } from './types'
 
 export const fetchUser = async (): Promise<User | undefined> => {

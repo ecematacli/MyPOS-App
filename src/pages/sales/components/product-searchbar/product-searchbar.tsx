@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 
-import api from '../../../../api/api-client'
-import { SearchBarContainer } from './styles'
+import { api } from '../../../../api/api-client'
 import { Product } from '../../../../redux/products/types'
 import { InputAutoSuggest } from '../../../../common/components/input-auto-suggest/input-auto-suggest'
 import { NotificationsContext } from '../../../../contexts/notifications-context'
+import { Box } from '@mui/material'
 
 interface SearchBarProps {
   addProduct: (product: Product) => void
@@ -25,12 +25,12 @@ export const ProductSearchBar: React.FC<SearchBarProps> = ({ addProduct }) => {
   }
 
   return (
-    <SearchBarContainer>
+    <Box width='100%'>
       <InputAutoSuggest
         selectOption={addProduct}
         isQuickScanMode
         loadOptions={fetchProducts}
       />
-    </SearchBarContainer>
+    </Box>
   )
 }

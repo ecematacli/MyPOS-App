@@ -1,6 +1,12 @@
 import React from 'react'
-import { Box } from '@mui/material'
+import { Box, SxProps } from '@mui/material'
+import { Theme } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
+
+interface IPageContainerProps {
+  children: React.ReactNode
+  sx?: SxProps<Theme>
+}
 
 export const StyledContentContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -8,13 +14,16 @@ export const StyledContentContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   flex: '1 0 auto',
   height: '100%',
-  padding: theme.spacing(0, 4),
+  padding: theme.spacing(4),
+  overflow: 'auto',
+
+  [theme.breakpoints.down('md')]: {
+    paddingTop: theme.spacing(4),
+  },
 }))
 
-export const ContentWrapper = styled(Box)(({ theme }) => ({}))
-
-export const PageContainer = ({ children }: { children: React.ReactNode }) => (
-  <StyledContentContainer id='page-container'>
-    <ContentWrapper height='100%'>{children}</ContentWrapper>
+export const PageContainer = ({ children, sx }: IPageContainerProps) => (
+  <StyledContentContainer id='page-container' sx={sx}>
+    <Box minHeight='100%'>{children}</Box>
   </StyledContentContainer>
 )

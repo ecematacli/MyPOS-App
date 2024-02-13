@@ -7,7 +7,8 @@
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "prettier/@typescript-eslint"
+    "prettier/@typescript-eslint",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
   ],
   "plugins": ["@typescript-eslint", "react", "react-hooks"],
   "rules": {
