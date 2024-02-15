@@ -20,12 +20,7 @@ import { ProductFilters } from '../product-details/product-filters-old/product-f
 import { currencyFormatter, findMatchedFields } from '../../common/utils'
 import { FilterInput } from './types'
 import { PageContainer } from 'common/components/page-container/page-container'
-import {
-  ProductsTableContainer,
-  StyledTableBodyRow,
-  StyledTableHead,
-  GridItem,
-} from './products-styles'
+import { GridItem } from './products-styles'
 import { ProductsTable } from './components/products-table/products-table'
 import { ProductDetailsPage } from '../product-details/product-details'
 import { useCategoriesQuery } from 'api/categories/use-categories-query'
@@ -157,7 +152,7 @@ export const ProductsPage: React.FC<ProductsProps> = ({
     <PageContainer
       sx={{
         padding: 0,
-        overflowY: 'auto',
+        height: '100%',
         [theme.breakpoints.down('md')]: {
           padding: theme.spacing(2),
         },
@@ -168,22 +163,18 @@ export const ProductsPage: React.FC<ProductsProps> = ({
           xs={12}
           md={selectedProductId ? 6 : 12}
           pt={8}
-          sx={{ height: '100%', overflowY: 'auto' }}>
-          <Box height='100%'>
-            <ProductsTable
+          sx={{ height: '100%' }}>
+          <ProductsTable
+            selectedProductId={selectedProductId}
+            setSelectedProductId={setSelectedProductId}
+          />
+        </Grid>
+        {selectedProductId && (
+          <GridItem item md={6} sx={{ height: '100%', overflowY: 'auto' }}>
+            <ProductDetailsPage
               selectedProductId={selectedProductId}
               setSelectedProductId={setSelectedProductId}
             />
-          </Box>
-        </Grid>
-        {selectedProductId && (
-          <GridItem item md={6} sx={{ overflowY: 'auto', maxHeight: '100vh' }}>
-            <Box>
-              <ProductDetailsPage
-                selectedProductId={selectedProductId}
-                setSelectedProductId={setSelectedProductId}
-              />
-            </Box>
           </GridItem>
         )}
       </Grid>

@@ -12,7 +12,7 @@ export const OutletName = () => {
   const { user } = useContext(AuthContext)
   const { outlets } = useCatalogInfo()
 
-  const [selectedOutletId, setSelectedOutletId] = useState(user.role?.outletId)
+  const [selectedOutletId, setSelectedOutletId] = useState(user!.role?.outletId)
 
   const handleChange = (event: React.ChangeEvent<{ value: string }>) => {
     setSelectedOutletId(parseInt(event.target.value))
@@ -20,7 +20,7 @@ export const OutletName = () => {
     // todo make the API request when admin changes the outlet
   }
 
-  const outlet = outlets.find(outlet => outlet.id === user.role.outletId)
+  const outlet = outlets.find(outlet => outlet.id === user!.role.outletId)
 
   return (
     <React.Fragment>

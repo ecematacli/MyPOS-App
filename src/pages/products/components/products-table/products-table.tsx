@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import {
   Box,
-  InputAdornment,
-  OutlinedInput,
   Paper,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
@@ -17,7 +14,6 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { TABLE_HEADS } from './table-heads-data'
 
 import { currencyFormatter, findMatchedFields } from 'common/utils'
-import { FilterInput } from './types'
 import { PageContainer } from 'common/components/page-container/page-container'
 
 import {
@@ -40,6 +36,7 @@ import { ProductsFilters } from '../product-filters/product-filters'
 import { InputAutoSuggest } from 'common/components/input-auto-suggest/input-auto-suggest'
 import { useProductsFilters } from 'pages/products/use-product-filters'
 import { ProductsNotFound } from '../products-not-found/products-not-found'
+import { useHistory } from 'react-router-dom'
 
 interface IProductsTableProps {
   selectedProductId: number | null
@@ -54,7 +51,7 @@ export const getFilterInputFields = (
     category: string
     brand: string
   }
-): FilterInput[] => [
+) => [
   {
     label: 'Search Query',
     fieldId: 'searchQuery',
@@ -81,15 +78,19 @@ export const ProductsTable: React.FC<IProductsTableProps> = ({
   selectedProductId,
   setSelectedProductId,
 }) => {
+  const history = useHistory()
+
   const [page, setPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('')
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null)
-  const [selectedBrandId, setSelectedBrand] = useState<number | null>(null)
+  const [selectedCategoryId, setSelectedCategoryId] = useState('')
+  const [selectedBrandId, setSelectedBrandId] = useState('')
 
   const { data: productsData, isLoading } = useProductsQuery({
     page,
     searchQuery: debouncedSearchQuery,
+    categoryId: Number(selectedCategoryId),
+    brandId: Number(selectedBrandId),
   })
 
   useEffect(() => {
@@ -115,7 +116,7 @@ export const ProductsTable: React.FC<IProductsTableProps> = ({
   }
 
   const handleOpenInANewTabClick = (id: number) => {
-    setSelectedProductId(id)
+    history.push(`inventory/products/${id}`)
   }
 
   const handleChangePage = (
@@ -134,7 +135,7 @@ export const ProductsTable: React.FC<IProductsTableProps> = ({
   const hasNoProducts = !isLoading && productsData.products.length === 0
 
   return (
-    <Box display='flex' flexDirection='column' sx={{ minHeight: '100%' }}>
+    <Box display='flex' flexDirection='column' height='100%' pb='5px'>
       <Box
         display='flex'
         justifyContent='space-between'
@@ -146,7 +147,10 @@ export const ProductsTable: React.FC<IProductsTableProps> = ({
           setSearchQuery={setSearchQuery}
           selectedCategoryId={selectedCategoryId}
           setSelectedCategoryId={setSelectedCategoryId}
+          selectedBrandId={selectedBrandId}
+          setSelectedBrandId={setSelectedBrandId}
         />
+
         {!hasNoProducts && (
           <StyledTablePagination
             rowsPerPageOptions={[]}
@@ -163,7 +167,7 @@ export const ProductsTable: React.FC<IProductsTableProps> = ({
       {hasNoProducts ? (
         <ProductsNotFound />
       ) : (
-        <TableContainer component={Paper} sx={{ marginBottom: '100px' }}>
+        <TableContainer component={Paper}>
           <Table
             stickyHeader
             sx={{ minWidth: 650 }}

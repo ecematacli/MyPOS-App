@@ -23,14 +23,18 @@ import { useBrandsQuery } from 'api/brands/use-brands-query'
 interface IProductsFilters {
   searchQuery: string
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>
-  selectedCategoryId: number | null
-  setSelectedCategoryId: React.Dispatch<React.SetStateAction<number | null>>
+  selectedCategoryId: string
+  setSelectedCategoryId: React.Dispatch<React.SetStateAction<string>>
+  selectedBrandId: string
+  setSelectedBrandId: React.Dispatch<React.SetStateAction<string>>
 }
 export const ProductsFilters = ({
   searchQuery,
   setSearchQuery,
   selectedCategoryId,
   setSelectedCategoryId,
+  selectedBrandId,
+  setSelectedBrandId,
 }: IProductsFilters) => {
   const { data: categories } = useCategoriesQuery()
   const { data: brands } = useBrandsQuery()
@@ -43,8 +47,12 @@ export const ProductsFilters = ({
     setSearchQuery('')
   }
 
-  const handleCategoryChange = (event: SelectChangeEvent<any>) => {
-    setSelectedCategoryId(Number(event.target.value))
+  const handleCategoryChange = (event: SelectChangeEvent<string>) => {
+    setSelectedCategoryId(event.target.value)
+  }
+
+  const handleBrandChange = (event: SelectChangeEvent<string>) => {
+    setSelectedBrandId(event.target.value)
   }
 
   return (
@@ -62,15 +70,15 @@ export const ProductsFilters = ({
         }
         endAdornment={
           searchQuery && (
-            <InputAdornment position='end' onClick={handleInputReset}>
-              <IconButton sx={{ padding: 0 }}>
+            <InputAdornment position='end'>
+              <IconButton onClick={handleInputReset} sx={{ padding: 0 }}>
                 <CancelIcon />
               </IconButton>
             </InputAdornment>
           )
         }
       />
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
+      <FormControl sx={{ m: 1, width: 120 }}>
         <InputLabel id='category'>Kategori</InputLabel>
         <Select
           value={selectedCategoryId}
@@ -85,15 +93,15 @@ export const ProductsFilters = ({
         </Select>
       </FormControl>
 
-      <FormControl sx={{ minWidth: 120 }}>
+      <FormControl sx={{ width: 120 }}>
         <InputLabel>Marka</InputLabel>
         <Select
-          value={selectedCategoryId}
+          value={selectedBrandId}
           label='Marka'
-          onChange={handleCategoryChange}>
-          {categories?.map(category => (
-            <MenuItem key={category.id} value={category.id}>
-              {category.name}
+          onChange={handleBrandChange}>
+          {brands?.map(brand => (
+            <MenuItem key={brand.id} value={brand.id}>
+              {brand.name}
             </MenuItem>
           ))}
         </Select>

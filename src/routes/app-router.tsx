@@ -44,7 +44,7 @@ export const AppRouter = () => {
               component={ProductsPage}
             />
             <PrivateRoute
-              path='/inventory/product/:id'
+              path='/inventory/products/:id'
               exact
               component={ProductDetailsPage}
             />

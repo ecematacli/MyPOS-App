@@ -20,9 +20,9 @@ export const ProductDetailsContainer = styled(Box)(({ theme }) => ({
   color: theme.palette.secondary.main,
   display: 'flex',
   flexDirection: 'column',
-  position: 'relative',
   alignItems: 'center',
-  background: 'transparent',
+  // position: 'relative',
+  // background: 'transparent',
 }))
 
 export const PaperHead = styled(Box)(({ theme }) => ({
@@ -68,7 +68,6 @@ export const ProductDetailsInfo = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-start',
 
-  // alignItems: 'center',
   padding: theme.spacing(0, 0, 4),
   [theme.breakpoints.down('sm')]: {
     ' & > p ': {
@@ -101,17 +100,23 @@ export const EditFormContainer = styled(Box)({
 })
 
 export const GridContainer = styled(Grid)(({ theme }) => ({
-  padding: theme.spacing(2, 0),
+  padding: theme.spacing(1.5, 0),
   display: 'flex',
   alignItems: 'center',
+  // justifyContent: 'center',
 }))
 
-export const DetailsCard = styled(Card)(({ theme }) => ({
-  backgroundColor: 'white',
-  width: '100%',
-  padding: theme.spacing(3, 6),
-  boxShadow: 'none',
-}))
+export const DetailsCard = styled(Box)<{ hasSelectedProductId: boolean }>(
+  ({ theme, hasSelectedProductId }) => ({
+    backgroundColor: 'white',
+    width: hasSelectedProductId ? '100%' : '90%',
+    padding: theme.spacing(
+      hasSelectedProductId ? 4.5 : 5,
+      hasSelectedProductId ? 6 : 15
+    ),
+    boxShadow: 'none',
+  })
+)
 
 export const StyledIconButton = styled(IconButton)({
   width: 35,
@@ -126,7 +131,7 @@ export const StyledIconButton = styled(IconButton)({
 export const StyledInput = styled(OutlinedInput)<{ width?: number | string }>(
   ({ width }) => ({
     width: width || '60%',
-    height: 45,
+    height: 40,
   })
 )
 

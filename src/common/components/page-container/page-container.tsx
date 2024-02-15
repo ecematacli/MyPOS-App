@@ -13,7 +13,6 @@ export const StyledContentContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   flexDirection: 'column',
   flex: '1 0 auto',
-  height: '100%',
   padding: theme.spacing(4),
   overflow: 'auto',
 
@@ -24,6 +23,6 @@ export const StyledContentContainer = styled(Box)(({ theme }) => ({
 
 export const PageContainer = ({ children, sx }: IPageContainerProps) => (
   <StyledContentContainer id='page-container' sx={sx}>
-    <Box minHeight='100%'>{children}</Box>
+    {children}
   </StyledContentContainer>
 )

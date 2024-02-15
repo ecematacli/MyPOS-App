@@ -1,10 +1,4 @@
-import {
-  Box,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-} from '@mui/material'
+import { Box, TableCell, TablePagination, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 export const StyledTableCell = styled(TableCell)<{ cellType?: string }>(
@@ -18,10 +12,10 @@ export const StyledTableCell = styled(TableCell)<{ cellType?: string }>(
   })
 )
 
-export const StyledTableBodyRow = styled(TableRow)(({ theme }) => ({
+export const StyledTableBodyRow = styled(TableRow)({
   '&:last-child td, &:last-child th': { border: 0 },
   cursor: 'pointer',
-}))
+})
 
 export const StyledTablePagination = styled(TablePagination)(({ theme }) => ({
   borderBottom: 'none',
