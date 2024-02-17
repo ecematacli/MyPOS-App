@@ -16,7 +16,6 @@ import {
 import SearchIcon from '@mui/icons-material/Search'
 import CancelIcon from '@mui/icons-material/Cancel'
 
-import { useProductsFilters } from 'pages/products/use-product-filters'
 import { useCategoriesQuery } from 'api/categories/use-categories-query'
 import { useBrandsQuery } from 'api/brands/use-brands-query'
 
@@ -28,7 +27,7 @@ interface IProductsFilters {
   selectedBrandId: string
   setSelectedBrandId: React.Dispatch<React.SetStateAction<string>>
 }
-export const ProductsFilters = ({
+export const ProductsTableFilters = ({
   searchQuery,
   setSearchQuery,
   selectedCategoryId,
@@ -61,6 +60,7 @@ export const ProductsFilters = ({
         sx={{ width: '353px' }}
         name='name'
         placeholder='Ürün adı, sku veya barkod ile arama yap'
+        data-testid='product-search-input'
         value={searchQuery}
         onChange={handleInputChange}
         startAdornment={
@@ -71,7 +71,10 @@ export const ProductsFilters = ({
         endAdornment={
           searchQuery && (
             <InputAdornment position='end'>
-              <IconButton onClick={handleInputReset} sx={{ padding: 0 }}>
+              <IconButton
+                data-testid='cancel-icon-button'
+                onClick={handleInputReset}
+                sx={{ padding: 0 }}>
                 <CancelIcon />
               </IconButton>
             </InputAdornment>
@@ -94,10 +97,11 @@ export const ProductsFilters = ({
       </FormControl>
 
       <FormControl sx={{ width: 120 }}>
-        <InputLabel>Marka</InputLabel>
+        <InputLabel id='brand'>Marka</InputLabel>
         <Select
           value={selectedBrandId}
           label='Marka'
+          labelId='brand'
           onChange={handleBrandChange}>
           {brands?.map(brand => (
             <MenuItem key={brand.id} value={brand.id}>

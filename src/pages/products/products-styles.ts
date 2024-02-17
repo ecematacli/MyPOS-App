@@ -16,6 +16,8 @@ export const ProductDetailsContainer = styled(Box)<{
 
 export const GridItem = styled(Grid)(({ theme }) => ({
   borderLeft: `1px solid ${theme.palette.grayColors[4]}`,
+  height: '100%',
+  overflowY: 'auto',
   [theme.breakpoints.down('md')]: {
     display: 'none',
   },

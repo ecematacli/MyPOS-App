@@ -1,13 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
-import {
-  Box,
-  Grid,
-  InputAdornment,
-  OutlinedInput,
-  TextField,
-  Typography,
-} from '@mui/material'
-import { Close, Style } from '@mui/icons-material'
+import React, { useEffect, useState } from 'react'
+import { Box, Grid, InputAdornment } from '@mui/material'
+import { Close } from '@mui/icons-material'
 import { useParams } from 'react-router-dom'
 import DoneIcon from '@mui/icons-material/Done'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
@@ -17,29 +10,26 @@ import { PageContainer } from 'common/components/page-container/page-container'
 import {
   DetailContentTypography,
   DetailsCard,
-  EditIconContainer,
   PaperHead,
   PaperTitle,
-  ProductDetailsInfo,
   StyledIconButton,
   ProductDetailsContainer,
   StyledLabel,
   GridContainer,
   StyledInput,
-  ProductNameInfo,
 } from './product-details-styles'
+import { useProductQuery } from 'api/product/use-product-query'
 import { useCategoriesQuery } from 'api/categories/use-categories-query'
 import { useBrandsQuery } from 'api/brands/use-brands-query'
-import { useProductsQuery } from 'api/products/use-products-query'
 import { Product } from 'types/products'
 import { Outlet } from 'types/outlets'
 import { ENKA_OUTLET_ID, KOZA_OUTLET_ID } from 'constants/outlets'
 import { useEditProductMutation } from 'api/product/use-product-mutation'
 import { NotificationsContext } from 'contexts/notifications-context'
-import { useProductQuery } from 'api/product/use-product-query'
+import { Loading } from 'common/components/loading/loading'
 
 interface IProductDetailsProps {
-  selectedProductId: number
+  selectedProductId?: number
   setSelectedProductId?: React.Dispatch<React.SetStateAction<number | null>>
 }
 
@@ -54,7 +44,9 @@ export const ProductDetailsPage = ({
   // The id can be either passed as a prop or as a route param
   const productId = Number(idFromParam) || selectedProductId
 
-  const { data: product } = useProductQuery(productId)
+  const { data: product, isLoading: isProductLoading } = useProductQuery(
+    productId!
+  )
   const { data: categories } = useCategoriesQuery()
   const { data: brands } = useBrandsQuery()
 
@@ -68,10 +60,6 @@ export const ProductDetailsPage = ({
     setProductInputValues(product!)
     setEditedProductFields([])
   }, [product])
-
-  if (!productInputValues || !brands || !categories) {
-    return <React.Fragment />
-  }
 
   const getStoreQuantity = (product: Product, outletId: Outlet['id']) =>
     product.inventoryLevels.find(inventory => inventory.outletId === outletId)
@@ -133,34 +121,51 @@ export const ProductDetailsPage = ({
   const handleOnCompleteEdit = () => {
     setEditedProductFields([])
     editProduct({
-      updatedField: productInputValues,
+      updatedField: {
+        ...productInputValues,
+        taxRate: String(productInputValues.taxRate),
+      },
       productId,
     })
+  }
+
+  if (!productInputValues || !brands || !categories) {
+    return <React.Fragment />
+  }
+
+  if (isProductLoading) {
+    return <Loading />
   }
 
   return (
     <PageContainer
       sx={{
-        padding: selectedProductId ? theme.spacing(1, 3) : theme.spacing(5, 15),
+        padding: theme.spacing(2, 3),
       }}>
-      <Box display='flex' justifyContent='flex-end' sx={{ cursor: 'pointer' }}>
+      <Box component='span' display='flex' justifyContent='flex-end'>
         {selectedProductId && (
           <Close
             onClick={() => setSelectedProductId!(null)}
-            sx={{ cursor: 'pointer', marginTop: '20px' }}
+            sx={{ cursor: 'pointer', mt: '20px' }}
           />
         )}
       </Box>
-      <ProductDetailsContainer>
-        <PaperHead>
+      <ProductDetailsContainer data-testid='product-details'>
+        <PaperHead hasSelectedProductId={!!selectedProductId}>
           <PaperTitle color='secondary'>Detaylar</PaperTitle>
-          <StyledIconButton>
-            {editedProductFields.length ? (
-              <DoneIcon onClick={handleOnCompleteEdit} />
-            ) : (
-              <EditOutlinedIcon onClick={handleEditClick} />
-            )}
-          </StyledIconButton>
+          {editedProductFields.length ? (
+            <StyledIconButton
+              onClick={handleOnCompleteEdit}
+              data-testid='edit-complete-button'>
+              <DoneIcon />
+            </StyledIconButton>
+          ) : (
+            <StyledIconButton
+              onClick={handleEditClick}
+              data-testid='edit-icon-button'>
+              <EditOutlinedIcon />
+            </StyledIconButton>
+          )}
         </PaperHead>
 
         <DetailsCard hasSelectedProductId={!!selectedProductId}>
@@ -171,13 +176,14 @@ export const ProductDetailsPage = ({
             <Grid item xs={selectedProductId ? 9 : 5}>
               {editedProductFields.includes('name') ? (
                 <StyledInput
-                  width='100%'
+                  width='90%'
                   name='name'
                   value={productInputValues.name}
                   onChange={handleInputChange}
                 />
               ) : (
                 <DetailContentTypography
+                  data-testid='product-name'
                   onClick={() => handleProductEditClick('name')}>
                   {productInputValues.name}
                 </DetailContentTypography>
@@ -201,12 +207,14 @@ export const ProductDetailsPage = ({
                 />
               ) : (
                 <DetailContentTypography
+                  data-testid='enka-inventory-level'
                   onClick={() => handleProductEditClick('enkaQty')}>
                   {getStoreQuantity(productInputValues, ENKA_OUTLET_ID)}
                 </DetailContentTypography>
               )}
             </Grid>
           </GridContainer>
+
           <GridContainer container>
             <Grid item xs={3}>
               <StyledLabel>Koza Miktar: </StyledLabel>
@@ -215,6 +223,7 @@ export const ProductDetailsPage = ({
               {editedProductFields.includes('kozaQty') ? (
                 <StyledInput
                   type='number'
+                  name='inventoryLevels'
                   value={getStoreQuantity(productInputValues, KOZA_OUTLET_ID)}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleInventoryInputChange(e, KOZA_OUTLET_ID)
@@ -222,12 +231,14 @@ export const ProductDetailsPage = ({
                 />
               ) : (
                 <DetailContentTypography
+                  data-testid='koza-inventory-level'
                   onClick={() => handleProductEditClick('kozaQty')}>
                   {getStoreQuantity(productInputValues, KOZA_OUTLET_ID)}
                 </DetailContentTypography>
               )}
             </Grid>
           </GridContainer>
+
           <GridContainer container>
             <Grid item xs={3}>
               <StyledLabel>Barkod: </StyledLabel>
@@ -241,12 +252,14 @@ export const ProductDetailsPage = ({
                 />
               ) : (
                 <DetailContentTypography
+                  data-testid='barcode'
                   onClick={() => handleProductEditClick('barcode')}>
                   {productInputValues.barcode}
                 </DetailContentTypography>
               )}
             </Grid>
           </GridContainer>
+
           <GridContainer container>
             <Grid item xs={3}>
               <StyledLabel>Varyasyon: </StyledLabel>
@@ -260,12 +273,14 @@ export const ProductDetailsPage = ({
                 />
               ) : (
                 <DetailContentTypography
+                  data-testid='variation'
                   onClick={() => handleProductEditClick('variation')}>
                   {productInputValues.variation}
                 </DetailContentTypography>
               )}
             </Grid>
           </GridContainer>
+
           <GridContainer container>
             <Grid item xs={3}>
               <StyledLabel>Fiyat: </StyledLabel>
@@ -284,6 +299,7 @@ export const ProductDetailsPage = ({
                 <Box display='flex'>
                   <Box>&#x20BA;</Box>
                   <DetailContentTypography
+                    data-testid='price'
                     onClick={() => handleProductEditClick('price')}>
                     {productInputValues.price}
                   </DetailContentTypography>
@@ -291,6 +307,7 @@ export const ProductDetailsPage = ({
               )}
             </Grid>
           </GridContainer>
+
           <GridContainer container>
             <Grid item xs={3}>
               <StyledLabel>İndirimli Fiyat: </StyledLabel>
@@ -309,6 +326,7 @@ export const ProductDetailsPage = ({
                 <Box display='flex'>
                   <Box>&#x20BA;</Box>
                   <DetailContentTypography
+                    data-testid='discount-price'
                     onClick={() => handleProductEditClick('discountPrice')}>
                     {productInputValues.discountPrice}
                   </DetailContentTypography>
@@ -316,6 +334,7 @@ export const ProductDetailsPage = ({
               )}
             </Grid>
           </GridContainer>
+
           <GridContainer container>
             <Grid item xs={3}>
               <StyledLabel>Stok Kodu: </StyledLabel>
@@ -329,12 +348,14 @@ export const ProductDetailsPage = ({
                 />
               ) : (
                 <DetailContentTypography
+                  data-testid='sku'
                   onClick={() => handleProductEditClick('sku')}>
                   {productInputValues.sku}
                 </DetailContentTypography>
               )}
             </Grid>
           </GridContainer>
+
           <GridContainer container>
             <Grid item xs={3}>
               <StyledLabel>Marka: </StyledLabel>
@@ -348,6 +369,7 @@ export const ProductDetailsPage = ({
                 />
               ) : (
                 <DetailContentTypography
+                  data-testid='brand'
                   onClick={() => handleProductEditClick('brand')}>
                   {productInputValues.brand?.name}
                 </DetailContentTypography>
@@ -367,6 +389,7 @@ export const ProductDetailsPage = ({
                 />
               ) : (
                 <DetailContentTypography
+                  data-testid='category'
                   onClick={() => handleProductEditClick('category')}>
                   {productInputValues.category?.name}
                 </DetailContentTypography>

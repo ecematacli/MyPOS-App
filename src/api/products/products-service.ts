@@ -14,8 +14,7 @@ export const fetchProducts = async ({
   categoryId,
   brandId,
   searchQuery,
-}: IFetchProductsParams = {}) => {
-  console.log({ page })
+}: IFetchProductsParams) => {
   const params = new URLSearchParams({
     page: page.toString(),
     rowsPerPage: rowsPerPage.toString(),

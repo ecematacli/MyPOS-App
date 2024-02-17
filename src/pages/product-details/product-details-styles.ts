@@ -25,15 +25,34 @@ export const ProductDetailsContainer = styled(Box)(({ theme }) => ({
   // background: 'transparent',
 }))
 
-export const PaperHead = styled(Box)(({ theme }) => ({
+export const PaperHead = styled(Box, {
+  shouldForwardProp: prop => prop !== 'hasSelectedProductId',
+})<{ hasSelectedProductId: boolean }>(({ theme, hasSelectedProductId }) => ({
   borderRadius: 3,
-  width: '75%',
+  width: hasSelectedProductId ? '75%' : '55%',
   height: 65,
   padding: theme.spacing(2),
   display: 'flex',
   justifyContent: 'space-between',
   zIndex: 5,
   background: `${theme.palette.greenColors[6]}`,
+
+  [theme.breakpoints.down('lg')]: {
+    width: hasSelectedProductId ? '75%' : '75%',
+  },
+}))
+
+export const DetailsCard = styled(Card, {
+  shouldForwardProp: prop => prop !== 'hasSelectedProductId',
+})<{ hasSelectedProductId: boolean }>(({ theme, hasSelectedProductId }) => ({
+  backgroundColor: 'white',
+  width: hasSelectedProductId ? '100%' : '60%',
+  padding: theme.spacing(4.5, hasSelectedProductId ? 5 : 6),
+  boxShadow: 'none',
+
+  [theme.breakpoints.down('lg')]: {
+    width: hasSelectedProductId ? '100%' : '80%',
+  },
 }))
 
 export const DetailContentTypography = styled(Typography)(({ theme }) => ({
@@ -105,18 +124,6 @@ export const GridContainer = styled(Grid)(({ theme }) => ({
   alignItems: 'center',
   // justifyContent: 'center',
 }))
-
-export const DetailsCard = styled(Box)<{ hasSelectedProductId: boolean }>(
-  ({ theme, hasSelectedProductId }) => ({
-    backgroundColor: 'white',
-    width: hasSelectedProductId ? '100%' : '90%',
-    padding: theme.spacing(
-      hasSelectedProductId ? 4.5 : 5,
-      hasSelectedProductId ? 6 : 15
-    ),
-    boxShadow: 'none',
-  })
-)
 
 export const StyledIconButton = styled(IconButton)({
   width: 35,

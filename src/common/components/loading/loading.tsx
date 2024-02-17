@@ -9,7 +9,7 @@ export const CircularProgressContainer = styled(Box)({
 })
 
 export const Loading = () => (
-  <CircularProgressContainer data-testid='loading'>
+  <CircularProgressContainer data-testid='loading-indicator'>
     <CircularProgress color='primary' />
   </CircularProgressContainer>
 )

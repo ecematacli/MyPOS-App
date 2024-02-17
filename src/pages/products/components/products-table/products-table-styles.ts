@@ -1,16 +1,16 @@
 import { Box, TableCell, TablePagination, TableRow } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
-export const StyledTableCell = styled(TableCell)<{ cellType?: string }>(
-  ({ cellType, theme }) => ({
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    maxWidth: '150px',
-    backgroundColor:
-      cellType === 'header' ? theme.palette.grayColors[0] : 'unset',
-  })
-)
+export const StyledTableCell = styled(TableCell, {
+  shouldForwardProp: prop => prop !== 'cellType',
+})<{ cellType?: string }>(({ cellType, theme }) => ({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  maxWidth: '150px',
+  backgroundColor:
+    cellType === 'header' ? theme.palette.grayColors[0] : 'unset',
+}))
 
 export const StyledTableBodyRow = styled(TableRow)({
   '&:last-child td, &:last-child th': { border: 0 },
@@ -28,24 +28,7 @@ export const StyledTablePagination = styled(TablePagination)(({ theme }) => ({
       fontSize: 13,
     },
   },
-  // fontSize: 13,
-
-  // '& .MuiTablePagination-toolbar': {
-  //   [theme.breakpoints.down('sm')]: {
-  //     fontSize: 13,
-  //   },
-  // },
-  // '& .MuiTablePagination-select': {
-  //   [theme.breakpoints.down('sm')]: {
-  //     fontSize: 13,
-  //   },
-  // },
-  // '& .MuiTablePagination-caption': {
-  //   [theme.breakpoints.down('sm')]: {
-  //     fontSize: 13,
-  //   },
-  // },
-}))
+})) as typeof TablePagination
 
 export const PaginationContainer = styled(Box)(({ theme }) => ({
   // margin: theme.spacing(3, 0),

@@ -3,15 +3,14 @@ import { ProductsData } from 'types/products'
 
 import { fetchProducts, IFetchProductsParams } from './products-service'
 
-const PRODUCTS_QUERY_KEY = 'products'
+export const PRODUCTS_QUERY_KEY = 'products'
 
-export const useProductsQuery = ({
-  page,
-  searchQuery,
-}: IFetchProductsParams): UseQueryResult<ProductsData> => {
+export const useProductsQuery = (
+  params: IFetchProductsParams = {}
+): UseQueryResult<ProductsData> => {
   return useQuery({
-    queryKey: [PRODUCTS_QUERY_KEY, page, searchQuery],
-    queryFn: () => fetchProducts({ page, searchQuery }),
+    queryKey: [PRODUCTS_QUERY_KEY, params],
+    queryFn: () => fetchProducts(params),
     keepPreviousData: true,
   })
 }

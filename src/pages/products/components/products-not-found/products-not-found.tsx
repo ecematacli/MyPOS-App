@@ -4,6 +4,7 @@ import { Box, Typography } from '@mui/material'
 export const ProductsNotFound = () => {
   return (
     <Box
+      data-testid='products-not-found'
       display='flex'
       flexDirection='column'
       justifyContent='center'
@@ -15,10 +16,10 @@ export const ProductsNotFound = () => {
           height='170'
           viewBox='0 0 200 170'
           fill='none'>
-          <g clip-path='url(#clip0_1061_158131)'>
+          <g clipPath='url(#clip0_1061_158131)'>
             <path
-              fill-rule='evenodd'
-              clip-rule='evenodd'
+              fillRule='evenodd'
+              clipRule='evenodd'
               d='M104.118 147.446C141.439 147.446 171.693 117.35 171.693 80.2232C171.693 43.0969 141.439 13 104.118 13C66.7974 13 36.543 43.0969 36.543 80.2232C36.543 117.35 66.7974 147.446 104.118 147.446Z'
               fill='#EBEBEB'
             />
@@ -30,8 +31,8 @@ export const ProductsNotFound = () => {
               width='136'
               height='135'>
               <path
-                fill-rule='evenodd'
-                clip-rule='evenodd'
+                fillRule='evenodd'
+                clipRule='evenodd'
                 d='M104.118 147.446C141.439 147.446 171.693 117.35 171.693 80.2232C171.693 43.0969 141.439 13 104.118 13C66.7974 13 36.543 43.0969 36.543 80.2232C36.543 117.35 66.7974 147.446 104.118 147.446Z'
                 fill='white'
               />
@@ -60,8 +61,8 @@ export const ProductsNotFound = () => {
                 fill='#6E6E6E'
               />
               <path
-                fill-rule='evenodd'
-                clip-rule='evenodd'
+                fillRule='evenodd'
+                clipRule='evenodd'
                 d='M151.588 56.1559L149.418 53.9856L134.14 69.2637L118.862 53.9856L116.691 56.1559L131.97 71.434L116.691 86.7121L118.862 88.8824L134.14 73.6043L149.418 88.8824L151.588 86.7121L136.31 71.434L151.588 56.1559Z'
                 fill='white'
               />
@@ -90,8 +91,8 @@ export const ProductsNotFound = () => {
                 fill='#6E6E6E'
               />
               <path
-                fill-rule='evenodd'
-                clip-rule='evenodd'
+                fillRule='evenodd'
+                clipRule='evenodd'
                 d='M76.3575 67.8558L73.6569 66.2966L62.6806 85.3082L43.669 74.3318L42.1098 77.0325L61.1213 88.0088L50.145 107.02L52.8456 108.58L63.822 89.568L82.8335 100.544L84.3928 97.8437L65.3812 86.8674L76.3575 67.8558Z'
                 fill='white'
               />

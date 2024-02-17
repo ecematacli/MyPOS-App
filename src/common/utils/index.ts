@@ -16,9 +16,8 @@ export const currencyFormatter = (num?: number | null): string => {
 
 export const findMatchedFields = (
   fields: Category[] | Brand[],
-  fieldToBeMatched: string
-): Category | Brand =>
-  fieldToBeMatched && fields.find(f => f.name === fieldToBeMatched)
+  fieldToBeMatched?: string
+) => fieldToBeMatched && fields.find(f => f.name === fieldToBeMatched)
 
 export const formatDate = (dateToFormat: string | Date, formatType: string) =>
   dateToFormat && format(new Date(dateToFormat), formatType)
@@ -50,15 +49,15 @@ export const capitalizeFirstLetters = (str: string) =>
     .map(word => capitalize(word))
     .join(' ')
 
-export const totalQty = (products: Product[]) =>
-  products?.reduce((acc: number, item: Product) => {
-    return acc + item.qty
-  }, 0) || 0
+export const totalQty = (products: Product[]) => 0
+// products?.reduce((acc: number, item: Product) => {
+//   return acc + item.qty
+// }, 0) || 0
 
-export const totalDiscount = (products: Product[]) =>
-  products.reduce((acc: number, item: Product) => {
-    return acc + item.discountPrice
-  }, 0)
+export const totalDiscount = (products: Product[]) => 0
+// products.reduce((acc: number, item: Product) => {
+//   return acc + item?.discountPrice
+// }, 0)
 
 export const getPaymentMethodLabel = (pm: PaymentMethod) => {
   const paymentMethod = PAYMENT_METHODS.find(p => p.value === pm)

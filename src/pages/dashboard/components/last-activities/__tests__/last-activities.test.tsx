@@ -27,7 +27,7 @@ describe('[Last Activities component]', () => {
     const { getByTestId } = render(
       <LastActivities loading lastActivities={null} />
     )
-    expect(getByTestId('loading')).toBeInTheDocument()
+    expect(getByTestId('loading-indicator')).toBeInTheDocument()
   })
 
   test('renders no display message when last activities array is empty', () => {
