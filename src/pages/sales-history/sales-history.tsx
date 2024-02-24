@@ -5,7 +5,7 @@ import { ActionTypes, StoreState } from '../../redux/types'
 import { fetchSales } from '../../redux/sales/salesActions'
 import { Sale } from '../../redux/sales/types'
 import { loadingSelector } from '../../redux/loading/loadingReducer'
-import { formatDate, formatDateInLocale } from '../../common/utils'
+import { formatDateInLocale } from '../../common/utils'
 import { TABLE_HEADS } from './table-heads-data'
 import { useSalesFilterState } from './hooks/use-sales-filter-state'
 import { Loading } from '../../common/components/loading/loading'
@@ -14,15 +14,15 @@ import { SaleDetails } from './components/sale-details/sale-details'
 import { SalesFilters } from './components/sales-filters/sales-filters'
 import { Box } from '@mui/material'
 import { fetchOutlets } from '../../api/outlets/outlets'
-import { Outlets } from '../../api/outlets/types'
 import { PageContainer } from 'common/components/page-container/page-container'
+import { Outlets } from 'types/outlets'
 
 export interface IFetchSalesArgs {
   rowsPerPage: number
-  afterCursor?: string
-  beforeCursor?: string
-  startDate?: Date
-  endDate?: Date
+  afterCursor?: string | null
+  beforeCursor?: string | null
+  startDate?: Date | null
+  endDate?: Date | null
   outletId?: number
 }
 interface SalesHistoryProps {

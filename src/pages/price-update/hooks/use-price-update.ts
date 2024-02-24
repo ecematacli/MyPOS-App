@@ -17,10 +17,12 @@ export interface PriceUpdateResponse {
 
 export const usePriceUpdate = () => {
   const [uploadedFileName, setUploadedFileName] = useState('')
-  const [uploadedFileData, setUploadedFileData] = useState<FormData>(null)
+  const [uploadedFileData, setUploadedFileData] = useState<FormData | null>(
+    null
+  )
   const [isUploadSuccess, setIsUploadSuccess] = useState(false)
-  const [uploadError, setUploadError] = useState<UploadError>(null)
-  const [result, setResult] = useState<PriceUpdateResponse>(null)
+  const [uploadError, setUploadError] = useState<UploadError | null>(null)
+  const [result, setResult] = useState<PriceUpdateResponse | null>(null)
 
   const handleUploadedFileName = (fileName: string) =>
     setUploadedFileName(fileName)

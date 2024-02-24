@@ -141,6 +141,7 @@ export const ProductDetailsPage = ({
     <PageContainer
       sx={{
         padding: theme.spacing(2, 3),
+        ...(idFromParam ? { paddingTop: theme.spacing(6) } : {}),
       }}>
       <Box component='span' display='flex' justifyContent='flex-end'>
         {selectedProductId && (

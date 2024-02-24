@@ -50,7 +50,7 @@ export const PriceUpdatePage = () => {
         <Alert
           open
           severity='error'
-          alertMessage={`${uploadError.message}${
+          alertMessage={`${uploadError?.message}${
             uploadError?.validationErrors?.length ? ':' : ''
           }`}
         />
@@ -81,7 +81,7 @@ export const PriceUpdatePage = () => {
               Upload a products export file to update the prices.
             </InfoText>
             <ValidateButton
-              onClick={() => sendFile(uploadedFileData)}
+              onClick={() => sendFile(uploadedFileData!)}
               disabled={!uploadedFileName}>
               <ButtonText>Upload File</ButtonText>
             </ValidateButton>
@@ -95,7 +95,7 @@ export const PriceUpdatePage = () => {
               <Alert
                 open
                 severity='success'
-                alertMessage={`Prices are updated! Updated: ${result.updated} Not Found: ${result.notFound}`}
+                alertMessage={`Prices are updated! Updated: ${result?.updated} Not Found: ${result?.notFound}`}
               />
             )}
             {uploadError && renderInvalidFileFeedback()}

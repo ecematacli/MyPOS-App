@@ -50,8 +50,10 @@ jest.mock('api/products/use-products-query', () => ({
   })),
 }))
 
-jest.mock('../components/product-filters/product-filters', () => ({
-  ProductsFilters: () => <Box>Mocked Products Filters!</Box>,
+jest.mock('../components/products-table-filters/product-table-filters', () => ({
+  ProductsTableFilters: () => (
+    <Box>Mocked Products Table Filters component!</Box>
+  ),
 }))
 
 const mockedUseProductsQuery = useProductsQuery as jest.Mock

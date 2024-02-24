@@ -1,10 +1,10 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM from 'react-dom'
 
 import { App } from './app'
 
 const root = document.getElementById('root')
 
 if (root !== null) {
-  ReactDOM.createRoot(root).render(<App />)
+  ReactDOM.render(<App />, root)
 }

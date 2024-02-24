@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import {
   Box,
   FormControl,
-  Grid,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -10,11 +9,10 @@ import {
   OutlinedInput,
   Select,
   SelectChangeEvent,
-  TextField,
-  Typography,
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import CancelIcon from '@mui/icons-material/Cancel'
+import ClearIcon from '@mui/icons-material/Clear'
 
 import { useCategoriesQuery } from 'api/categories/use-categories-query'
 import { useBrandsQuery } from 'api/brands/use-brands-query'
@@ -46,6 +44,14 @@ export const ProductsTableFilters = ({
     setSearchQuery('')
   }
 
+  const handleCategoryIdReset = () => {
+    setSelectedCategoryId('')
+  }
+
+  const handleBrandIdReset = () => {
+    setSelectedBrandId('')
+  }
+
   const handleCategoryChange = (event: SelectChangeEvent<string>) => {
     setSelectedCategoryId(event.target.value)
   }
@@ -62,6 +68,7 @@ export const ProductsTableFilters = ({
         placeholder='Ürün adı, sku veya barkod ile arama yap'
         data-testid='product-search-input'
         value={searchQuery}
+        autoComplete='off'
         onChange={handleInputChange}
         startAdornment={
           <InputAdornment position='start'>
@@ -88,6 +95,9 @@ export const ProductsTableFilters = ({
           label='Kategori'
           labelId='category'
           onChange={handleCategoryChange}>
+          <MenuItem value='' onClick={handleCategoryIdReset}>
+            <ClearIcon />
+          </MenuItem>
           {categories?.map(category => (
             <MenuItem key={category.id} value={category.id}>
               {category.name}
@@ -103,6 +113,9 @@ export const ProductsTableFilters = ({
           label='Marka'
           labelId='brand'
           onChange={handleBrandChange}>
+          <MenuItem value='' onClick={handleBrandIdReset}>
+            <ClearIcon />
+          </MenuItem>
           {brands?.map(brand => (
             <MenuItem key={brand.id} value={brand.id}>
               {brand.name}

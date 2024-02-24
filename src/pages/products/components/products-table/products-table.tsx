@@ -98,6 +98,7 @@ export const ProductsTable: React.FC<IProductsTableProps> = ({
         justifyContent='space-between'
         alignItems='center'
         p={'10px'}
+        pl={'20px'}
         width='100%'>
         <ProductsTableFilters
           searchQuery={searchQuery}
@@ -143,11 +144,18 @@ export const ProductsTable: React.FC<IProductsTableProps> = ({
             <TableBody>
               {productsData.products.map(product => (
                 <StyledTableBodyRow key={product.id}>
-                  <StyledTableCell sx={{ width: '40px', padding: '10px' }}>
-                    <OpenInNewIcon
-                      fontSize='small'
-                      onClick={() => handleOpenInANewTabClick(product.id)}
-                    />
+                  <StyledTableCell
+                    sx={{
+                      width: '60px',
+                      p: '10px',
+                      pl: '20px',
+                    }}>
+                    <Box display='flex' alignItems='center'>
+                      <OpenInNewIcon
+                        fontSize='small'
+                        onClick={() => handleOpenInANewTabClick(product.id)}
+                      />
+                    </Box>
                   </StyledTableCell>
                   <StyledTableCell onClick={() => handleRowClick(product)}>
                     {product.sku || '-'}

@@ -30,11 +30,7 @@ export const StyledTablePagination = styled(TablePagination)(({ theme }) => ({
   },
 })) as typeof TablePagination
 
-export const PaginationContainer = styled(Box)(({ theme }) => ({
-  // margin: theme.spacing(3, 0),
-  // fontSize: theme.spacing(2),
-  // width: '93%',
-  // margin: 'auto',
+export const PaginationContainer = styled(Box)({
   display: 'flex',
   justifyContent: 'flex-end',
-}))
+})

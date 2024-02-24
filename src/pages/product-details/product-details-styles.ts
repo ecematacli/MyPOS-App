@@ -29,7 +29,7 @@ export const PaperHead = styled(Box, {
   shouldForwardProp: prop => prop !== 'hasSelectedProductId',
 })<{ hasSelectedProductId: boolean }>(({ theme, hasSelectedProductId }) => ({
   borderRadius: 3,
-  width: hasSelectedProductId ? '75%' : '55%',
+  width: hasSelectedProductId ? '75%' : '45%',
   height: 65,
   padding: theme.spacing(2),
   display: 'flex',

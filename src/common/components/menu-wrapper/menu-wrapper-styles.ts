@@ -14,7 +14,7 @@ import {
 } from '@mui/material'
 import MuiDrawer from '@mui/material/Drawer'
 import MuiMenuIcon from '@mui/icons-material/Menu'
-import backgroundImage from '../../../assets/img/sidebar-2.jpg'
+import backgroundImage from '../../../assets/img/drawer-image.png'
 
 const drawerWidth = 240
 
@@ -119,7 +119,8 @@ export const StyledDrawer = styled(MuiDrawer, {
     '& .MuiDrawer-paper': {
       ...openedMixin(theme),
       backgroundSize: 'cover',
-      backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url(${backgroundImage})`,
+      backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.77), rgba(0, 0, 0, 0.77) ), url(${backgroundImage})`,
+      // backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url(${backgroundImage})`,
       backgroundPosition: 'center center',
     },
   }),

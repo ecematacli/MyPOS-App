@@ -18,9 +18,9 @@ import { Outlets, Outlet } from '../../../../api/outlets/types'
 import { AuthContext } from '../../../../contexts/auth-context'
 
 interface FiltersProps {
-  startDate: Date
+  startDate: Date | null
   handleStartDateChange: (newDate: Date) => void
-  endDate: Date
+  endDate: Date | null
   handleEndDateChange: (newDate: Date) => void
   onDateFilterClearing: () => void
   onDateSelection: () => void
