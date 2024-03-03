@@ -1,83 +1,69 @@
-import React, { useState, createContext, useEffect } from 'react'
+import React, { useState, createContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { fetchUser } from '../api/user/user'
-import { User, UserRoles } from '../api/user/types'
+import { USER_QUERY_KEY, useUserQuery } from 'api/user/use-user-query'
+import { User, UserRoles } from 'types/user'
+import { useQueryClient } from '@tanstack/react-query'
 
-type AuthContext = {
+interface IAuthContext {
   isAuthenticated: boolean
-  user: User | null
-  isUserDataLoaded: boolean
+  user: User | undefined
+  isUserDataLoading: boolean
   isAdmin: boolean
 }
 
-type SaveAuthToken = (data: string | null) => void
-type ClearAuthToken = () => void
-
-interface AuthTokenSettingContext {
-  saveAuthToken?: SaveAuthToken
-  clearAuthToken?: ClearAuthToken
+interface IAuthTokenSettingContext {
+  saveAuthToken: (data: string | null) => void
+  clearAuthToken: () => void
 }
 
 const initialAuthData = {
   isAuthenticated: false,
-  user: null,
-  isUserDataLoaded: false,
+  user: undefined,
+  isUserDataLoading: false,
   isAdmin: false,
 }
 
-export const AuthContext = createContext<AuthContext>(initialAuthData)
-export const AuthTokenSettingContext = createContext<AuthTokenSettingContext>(
-  {}
+export const AuthContext = createContext<IAuthContext>(initialAuthData)
+export const AuthTokenSettingContext = createContext<IAuthTokenSettingContext>(
+  {} as IAuthTokenSettingContext
 )
-
-const initialToken = localStorage.getItem('token')
 
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const history = useHistory()
+  const queryClient = useQueryClient()
 
-  const [isAuthenticated, setIsAuthenticated] = useState(Boolean(initialToken))
-  const [user, setUser] = useState<User | null>(null)
-  const [isUserDataLoaded, setIsUserDataLoaded] = useState<boolean>(false)
-  const [isAdmin, setIsAdmin] = useState<boolean>(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    Boolean(localStorage.getItem('token'))
+  )
 
-  const saveAuthToken: SaveAuthToken = async (data = null) => {
+  const { data: userData, isLoading, fetchStatus } = useUserQuery({
+    shouldFetchData: isAuthenticated,
+  })
+
+  const saveAuthToken = async (data: string | null) => {
     localStorage.setItem('token', JSON.stringify(data))
     setIsAuthenticated(true)
   }
 
-  const clearAuthToken: ClearAuthToken = () => {
+  const clearAuthToken = () => {
     localStorage.removeItem('token')
-
     setIsAuthenticated(false)
-    setUser(null)
-
+    queryClient.removeQueries({ queryKey: [USER_QUERY_KEY] })
     history.push('/signin')
   }
 
-  useEffect(() => {
-    const fetchUserOnAppLoad = async () => {
-      const user = await fetchUser()
-
-      if (isAuthenticated && user) {
-        setUser(user)
-        setIsAdmin(user.role.name === UserRoles.Admin)
-        setIsUserDataLoaded(true)
-      }
-    }
-
-    if (!isAuthenticated) {
-      return setIsUserDataLoaded(true)
-    }
-
-    fetchUserOnAppLoad()
-  }, [isAuthenticated])
-
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, isUserDataLoaded, isAdmin }}>
+      value={{
+        isAuthenticated,
+        user: userData,
+        isAdmin: userData?.role.name === UserRoles.Admin,
+        /** https://github.com/TanStack/query/issues/3975 */
+        isUserDataLoading: isLoading && fetchStatus !== 'idle',
+      }}>
       <AuthTokenSettingContext.Provider
         value={{ saveAuthToken, clearAuthToken }}>
         {children}
@@ -86,6 +72,6 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   )
 }
 
-export const useAuthContext = () => {
-  return React.useContext(AuthContext)
-}
+export const useAuthContext = () => React.useContext(AuthContext)
+export const useAuthTokenContext = () =>
+  React.useContext(AuthTokenSettingContext)

@@ -1,19 +1,25 @@
 import { useState } from 'react'
+
 import { AppliedFilters } from '../../types'
 
 interface DisabledOptions {
   [key: string]: boolean
 }
-
-export const useChartState = (
+interface IArgs {
   fetchRevenueData: (
     displayOption: string,
     start: Date,
     end: Date
-  ) => Promise<void>,
-  disabledOptions: DisabledOptions,
+  ) => Promise<void>
   appliedFilters: AppliedFilters
-) => {
+  disabledOptions?: DisabledOptions
+}
+
+export const useChartState = ({
+  fetchRevenueData,
+  disabledOptions,
+  appliedFilters,
+}: IArgs) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const [displayOption, setDisplayOption] = useState('daily')
 
@@ -31,14 +37,12 @@ export const useChartState = (
   //Display option select click handler
   const onDisplayOptionClick = (option: string) => {
     setDisplayOption(option)
-    !disabledOptions[option] && fetchRevenueData(option, startDate, endDate)
+    !disabledOptions?.[option] && fetchRevenueData(option, startDate, endDate)
     handleClose()
   }
 
-  const open = Boolean(anchorEl)
-
   return {
-    open,
+    open: Boolean(anchorEl),
     anchorEl,
     handleClick,
     handleClose,

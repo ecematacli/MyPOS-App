@@ -14,11 +14,7 @@ export const InputContainer = styled(Box)(({ theme }) => ({
 export const FilterButtonContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
-  marginTop: theme.spacing(6),
-  '@media (max-width:420px)': {
-    paddingRight: theme.spacing(7),
-    marginBottom: `${-theme.spacing(3)}px`,
-  },
+  padding: theme.spacing(3.4, 4),
 }))
 
 export const FilterButton = styled(Button)(({ theme }) => ({

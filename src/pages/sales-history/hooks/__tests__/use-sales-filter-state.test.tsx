@@ -1,13 +1,13 @@
 import React from 'react'
 import { renderHook, act } from '@testing-library/react-hooks'
 import { Provider } from 'react-redux'
-import { UserRoles } from 'api/user/types'
 import { ThemeProvider } from '@mui/material/styles'
 
 import { useSalesFilterState, Args } from '../use-sales-filter-state'
 import { theme } from '../../../../theme/theme'
 import { mockStore } from '../../../../__mocks__/store'
 import { AuthContext } from 'contexts/auth-context'
+import { UserRoles } from 'types/user'
 
 let wrapper: React.FC
 let args: Args
@@ -33,7 +33,7 @@ beforeEach(() => {
             name: 'Ecem',
             role: { id: 1, name: UserRoles.Admin, outletId: 1 },
           },
-          isUserDataLoaded: true,
+          isUserDataLoading: false,
           isAdmin: true,
         }}>
         <ThemeProvider theme={theme}>{children}</ThemeProvider>

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Tooltip, Grid, Box } from '@mui/material'
 
 import {
@@ -30,7 +30,7 @@ export const DashboardStats: React.FC<{ saleStats: SaleStatsData }> = ({
   saleStats,
 }) => {
   return (
-    <Fragment>
+    <React.Fragment>
       {statsData(saleStats).map(({ label, id, Icon, value, currency }) => (
         <Grid key={id} item xs={12} sm={12} md={3}>
           <StatsContainer>
@@ -56,6 +56,6 @@ export const DashboardStats: React.FC<{ saleStats: SaleStatsData }> = ({
           </StatsContainer>
         </Grid>
       ))}
-    </Fragment>
+    </React.Fragment>
   )
 }

@@ -81,10 +81,8 @@ export const DashboardPage = () => {
       <Grid
         container
         spacing={3}
-        // mb={3}
         sx={{
           marginTop: theme => theme.spacing(7),
-          // paddingBottom: theme => theme.spacing(3),
         }}>
         <Grid item xs={12} sm={12} md={7}>
           <TopSellingItems

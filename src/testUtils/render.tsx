@@ -8,7 +8,7 @@ import { mockStore } from '../__mocks__/store'
 import { AuthContext } from '../contexts/auth-context'
 import { NotificationsContext } from '../contexts/notifications-context'
 import { theme } from '../theme/theme'
-import { UserRoles } from 'api/user/types'
+import { UserRoles } from 'types/user'
 
 export const render = (
   ui: any,
@@ -25,7 +25,7 @@ export const render = (
       <AuthContext.Provider
         value={{
           isAuthenticated,
-          isUserDataLoaded: true,
+          isUserDataLoading: false,
           isAdmin: true,
           user: {
             email: 'Ecem',

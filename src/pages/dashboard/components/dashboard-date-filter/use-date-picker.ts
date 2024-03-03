@@ -4,7 +4,7 @@ import { AppliedFilters } from '../../types'
 import { formatDate } from '../../../../common/utils'
 
 export const useDatePicker = (appliedFilters: AppliedFilters) => {
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
   //Popover handlers
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -14,8 +14,6 @@ export const useDatePicker = (appliedFilters: AppliedFilters) => {
   const handleClose = () => {
     setAnchorEl(null)
   }
-
-  const open = Boolean(anchorEl)
 
   //Date Picker filter handlers
   const getDatePickerInputValue = () => {
@@ -44,7 +42,7 @@ export const useDatePicker = (appliedFilters: AppliedFilters) => {
 
   return {
     getDatePickerInputValue,
-    open,
+    open: Boolean(anchorEl),
     anchorEl,
     handleClick,
     handleClose,

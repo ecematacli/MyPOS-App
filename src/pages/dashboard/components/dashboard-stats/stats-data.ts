@@ -10,7 +10,7 @@ interface StatFields {
   label: string
   id: StatId
   currency: boolean
-  Icon: (props: SvgIconProps) => JSX.Element
+  Icon: React.ElementType<SvgIconProps>
   value: number
 }
 export const statsData = ({

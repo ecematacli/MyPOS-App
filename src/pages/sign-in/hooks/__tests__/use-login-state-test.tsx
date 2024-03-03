@@ -12,7 +12,7 @@ import {
   AuthTokenSettingContext,
   AuthContext,
 } from '../../../../contexts/auth-context'
-import { UserRoles } from 'api/user/types'
+import { UserRoles } from 'types/user'
 
 let wrapper: React.FC
 const addNotification = jest.fn()
@@ -37,14 +37,15 @@ beforeEach(() => {
               name: 'Ecem',
               role: { id: 1, name: UserRoles.Admin, outletId: 1 },
             },
-            isUserDataLoaded: true,
+            isUserDataLoading: false,
             isAdmin: true,
           }}>
-          <AuthTokenSettingContext.Provider value={{ saveAuthToken }}>
+          <AuthTokenSettingContext.Provider
+            value={{ saveAuthToken, clearAuthToken: jest.fn() }}>
             <NotificationsContext.Provider
               value={{
-                notifications: null,
-                removeNotification: null,
+                notifications: [],
+                removeNotification: jest.fn(),
                 addNotification,
               }}>
               {children}

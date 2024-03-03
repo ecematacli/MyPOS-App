@@ -60,10 +60,10 @@ export const Chart: React.FC<ChartProps> = ({
     anchorEl,
     displayOption,
     onDisplayOptionClick,
-  } = useChartState(fetchRevenueData, disabledOptions, appliedFilters)
+  } = useChartState({ fetchRevenueData, disabledOptions, appliedFilters })
 
-  const renderDateOptions = () => {
-    return (
+  return (
+    <ChartPaper>
       <IconContainer>
         <IconButton
           onClick={handleClick}
@@ -85,10 +85,10 @@ export const Chart: React.FC<ChartProps> = ({
             <Box>
               {(['daily', 'weekly', 'monthly'] as const).map(option => (
                 <DisplayOptionsItem
-                  disabled={disabledOptions[option]}
+                  key={option}
+                  disabled={disabledOptions?.[option]}
                   selected={displayOption === option}
-                  onClick={() => onDisplayOptionClick(option)}
-                  key={option}>
+                  onClick={() => onDisplayOptionClick(option)}>
                   <Box sx={{ paddingLeft: theme.spacing(1) }}>
                     {capitalize(option)}
                   </Box>
@@ -98,59 +98,46 @@ export const Chart: React.FC<ChartProps> = ({
           </Paper>
         </CustomPopover>
       </IconContainer>
-    )
-  }
-
-  const renderAreaChart = () => (
-    <ResponsiveContainer width='100%' height='90%'>
-      <AreaChart
-        data={revenueData}
-        margin={{ top: 30, right: 30, left: 0, bottom: 25 }}>
-        <defs>
-          <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
-            <stop offset='10%' stopColor='#00acc1' stopOpacity={0.3} />
-            <stop offset='90%' stopColor='#00acc1' stopOpacity={0.1} />
-          </linearGradient>
-          <linearGradient id='colorPv' x1='0' y1='0' x2='0' y2='1'>
-            <stop offset='5%' stopColor='#82ca9d' stopOpacity={0.3} />
-            <stop offset='95%' stopColor='#82ca9d' stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        <XAxis dataKey='x' />
-        <YAxis />
-        <CartesianGrid stroke='#e2e2e2' strokeDasharray='3 3' />
-        <Tooltip
-          // labelStyle={labelStyle}
-          formatter={value => currencyFormatter(value as number)}
-        />
-        <Area
-          isAnimationActive={false}
-          connectNulls
-          name='Web Revenue'
-          type='monotone'
-          dataKey='web'
-          stroke='#00acc1'
-          fillOpacity={1}
-          fill='url(#colorUv)'
-        />
-        <Area
-          isAnimationActive={false}
-          connectNulls
-          name='Store Revenue'
-          type='monotone'
-          dataKey='store'
-          stroke='#82ca9d'
-          fillOpacity={1}
-          fill='url(#colorPv)'
-        />
-      </AreaChart>
-    </ResponsiveContainer>
-  )
-
-  return (
-    <ChartPaper>
-      {renderDateOptions()}
-      {renderAreaChart()}
+      <ResponsiveContainer width='100%' height='90%'>
+        <AreaChart
+          data={revenueData}
+          margin={{ top: 30, right: 30, left: 0, bottom: 25 }}>
+          <defs>
+            <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
+              <stop offset='10%' stopColor='#00acc1' stopOpacity={0.3} />
+              <stop offset='90%' stopColor='#00acc1' stopOpacity={0.1} />
+            </linearGradient>
+            <linearGradient id='colorPv' x1='0' y1='0' x2='0' y2='1'>
+              <stop offset='5%' stopColor='#82ca9d' stopOpacity={0.3} />
+              <stop offset='95%' stopColor='#82ca9d' stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey='x' />
+          <YAxis />
+          <CartesianGrid stroke='#e2e2e2' strokeDasharray='3 3' />
+          <Tooltip formatter={value => currencyFormatter(value as number)} />
+          <Area
+            isAnimationActive={false}
+            connectNulls
+            name='Web Revenue'
+            type='monotone'
+            dataKey='web'
+            stroke='#00acc1'
+            fillOpacity={1}
+            fill='url(#colorUv)'
+          />
+          <Area
+            isAnimationActive={false}
+            connectNulls
+            name='Store Revenue'
+            type='monotone'
+            dataKey='store'
+            stroke='#82ca9d'
+            fillOpacity={1}
+            fill='url(#colorPv)'
+          />
+        </AreaChart>
+      </ResponsiveContainer>
     </ChartPaper>
   )
 }

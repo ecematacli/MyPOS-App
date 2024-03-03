@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles'
 interface IPageContainerProps {
   children: React.ReactNode
   sx?: SxProps<Theme>
+  height?: string
 }
 
 export const StyledContentContainer = styled(Box)(({ theme }) => ({
@@ -21,8 +22,12 @@ export const StyledContentContainer = styled(Box)(({ theme }) => ({
   },
 }))
 
-export const PageContainer = ({ children, sx }: IPageContainerProps) => (
-  <StyledContentContainer id='page-container' sx={sx}>
+export const PageContainer = ({
+  children,
+  sx,
+  height,
+}: IPageContainerProps) => (
+  <StyledContentContainer id='page-container' sx={sx} height={height}>
     {children}
   </StyledContentContainer>
 )

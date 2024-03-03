@@ -9,7 +9,7 @@ const lastActivities = [
     event: 'Sale synced',
     message: 'Sale Synced with id of 58. 17 products out of 19',
     saleId: 58,
-    userId: null,
+    userId: '1',
     created: '11 February 2020 - 5:45 PM',
   },
   {

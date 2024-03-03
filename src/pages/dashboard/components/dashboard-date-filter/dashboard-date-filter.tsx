@@ -5,7 +5,6 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import {
   FilterButton,
   FilterButtonContainer,
-  FilterContainer,
   InputContainer,
 } from './dasboard-date-filter-styles'
 import { AppliedFilters } from '../../types'
@@ -62,31 +61,29 @@ export const DashboardDateFilter: React.FC<DateFilterProps> = ({
         }}
       />
       <CustomPopover open={open} anchorEl={anchorEl} onClose={handleClose}>
-        <FilterContainer>
-          <DatePickerFilter
-            startDate={startDate}
-            handleStartDateChange={handleStartDateChange}
-            endDate={endDate}
-            handleEndDateChange={handleEndDateChange}
-          />
-          <FilterButtonContainer>
-            <FilterButton color='secondary' onClick={handleClose}>
-              Cancel
-            </FilterButton>
-            <FilterButton
-              color='secondary'
-              disabled={!startDate && !endDate}
-              onClick={onDateFilterClearing}>
-              Clear Filters
-            </FilterButton>
-            <FilterButton
-              onClick={onDateSelectClick}
-              disabled={!startDate || !endDate}
-              color='primary'>
-              Apply filter
-            </FilterButton>
-          </FilterButtonContainer>
-        </FilterContainer>
+        <DatePickerFilter
+          startDate={startDate}
+          handleStartDateChange={handleStartDateChange}
+          endDate={endDate}
+          handleEndDateChange={handleEndDateChange}
+        />
+        <FilterButtonContainer>
+          <FilterButton color='secondary' onClick={handleClose}>
+            Cancel
+          </FilterButton>
+          <FilterButton
+            color='secondary'
+            disabled={!startDate && !endDate}
+            onClick={onDateFilterClearing}>
+            Clear Filters
+          </FilterButton>
+          <FilterButton
+            onClick={onDateSelectClick}
+            disabled={!startDate || !endDate}
+            color='primary'>
+            Apply filter
+          </FilterButton>
+        </FilterButtonContainer>
       </CustomPopover>
     </InputContainer>
   )

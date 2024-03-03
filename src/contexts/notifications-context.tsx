@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import { AlertColor } from '@mui/material/Alert'
 
 export interface Notification {
@@ -42,3 +42,5 @@ export const NotificationsProvider: React.FC<{ children: React.ReactNode }> = ({
     </NotificationsContext.Provider>
   )
 }
+
+export const useNotificationsContext = () => useContext(NotificationsContext)

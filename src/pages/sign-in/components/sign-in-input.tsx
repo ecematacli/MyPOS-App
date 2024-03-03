@@ -1,7 +1,6 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { FieldProps } from 'formik'
 import { useTheme } from '@mui/material/styles'
-import { GlobalStyles } from '@mui/system'
 
 import { HelperText, StyledTextField } from './styles'
 import { FormValues } from '../sign-in'
@@ -36,14 +35,7 @@ export const SignInInput: React.FC<FieldProps<FormValues> & InputProps> = ({
   }
 
   return (
-    <Fragment>
-      <GlobalStyles
-        styles={{
-          '.MuiInputBase-input:focus::placeholder': {
-            color: 'transparent',
-          },
-        }}
-      />
+    <React.Fragment>
       <StyledTextField
         {...field}
         {...otherProps}
@@ -51,7 +43,6 @@ export const SignInInput: React.FC<FieldProps<FormValues> & InputProps> = ({
         label={label}
         inputProps={{
           'data-testid': `${fieldId}`,
-          placeholder: label,
         }}
         InputProps={{
           sx: {
@@ -60,8 +51,8 @@ export const SignInInput: React.FC<FieldProps<FormValues> & InputProps> = ({
         }}
       />
       {errors[fieldId] && touched[fieldId] && (
-        <HelperText>{errors[fieldId].toString()}</HelperText>
+        <HelperText>{errors[fieldId]!.toString()}</HelperText>
       )}
-    </Fragment>
+    </React.Fragment>
   )
 }

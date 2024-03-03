@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react'
-import { Box } from '@mui/material'
+import React from 'react'
+import { Box, Grid } from '@mui/material'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
-import { DatePickerContainer, FilterCaption, StyledDatePicker } from './styles'
+import { DatePickerContainer, FilterCaption, GridContainer } from './styles'
 
 type DateChangeHandler = React.Dispatch<React.SetStateAction<Date>>
 
@@ -19,30 +20,30 @@ export const DatePickerFilter: React.FC<Props> = ({
   handleEndDateChange,
 }) => {
   return (
-    <Fragment>
+    <React.Fragment>
       <FilterCaption>Add Start and End Date Filters...</FilterCaption>
-      <Box>
-        <DatePickerContainer component='span'>
-          <StyledDatePicker
-            label='Start Date'
-            value={startDate}
-            onChange={(date: Date | null) => handleStartDateChange(date)}
-          />
-        </DatePickerContainer>
-        <DatePickerContainer
-          component='span'
-          sx={theme => ({
-            [theme.breakpoints.up('md')]: {
-              marginLeft: 32,
-            },
-          })}>
-          <StyledDatePicker
-            label='End Date'
-            value={endDate}
-            onChange={(date: Date | null) => handleEndDateChange(date)}
-          />
-        </DatePickerContainer>
-      </Box>
-    </Fragment>
+      <GridContainer container spacing={3} pt={2}>
+        <Grid item xs={12} md={6}>
+          <DatePickerContainer component='span'>
+            <DatePicker
+              sx={{ width: '100%' }}
+              label='Start Date'
+              value={startDate}
+              onChange={(date: Date) => handleStartDateChange(date)}
+            />
+          </DatePickerContainer>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <DatePickerContainer component='span'>
+            <DatePicker
+              sx={{ width: '100%' }}
+              label='End Date'
+              value={endDate}
+              onChange={(date: Date) => handleEndDateChange(date)}
+            />
+          </DatePickerContainer>
+        </Grid>
+      </GridContainer>
+    </React.Fragment>
   )
 }

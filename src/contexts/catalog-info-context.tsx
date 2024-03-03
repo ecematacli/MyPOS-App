@@ -1,9 +1,8 @@
-import React, { createContext, useEffect, useState } from 'react'
-import { Outlet } from '../api/outlets/types'
-import { fetchOutlets } from '../api/outlets/outlets'
+import React, { createContext } from 'react'
+
 import { useAuthContext } from './auth-context'
 import { useOutletsQuery } from 'api/outlets/use-outlets-query'
-import { Loading } from 'common/components/loading/loading'
+import { Outlet } from 'types/outlets'
 
 interface CatalogInfoContextProps {
   outlets: Outlet[]
@@ -23,10 +22,6 @@ export const CatalogInfoProvider: React.FC<{ children: React.ReactNode }> = ({
   const { isAuthenticated } = useAuthContext()
 
   const { data: outlets, isLoading } = useOutletsQuery(isAuthenticated)
-
-  if (isLoading) {
-    return <Loading />
-  }
 
   return (
     <CatalogInfoContext.Provider value={{ outlets: outlets! }}>

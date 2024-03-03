@@ -1,10 +1,9 @@
 import { styled } from '@mui/material/styles'
-import { Box, Typography } from '@mui/material'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { Box, Typography, Grid } from '@mui/material'
 
 export const FilterCaption = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(3),
-  paddingLeft: theme.spacing(2),
+  padding: theme.spacing(3.4, 4),
   paddingBottom: theme.spacing(2),
   borderBottom: `1px solid ${theme.palette.secondary.light}`,
   fontSize: theme.spacing(2),
@@ -12,18 +11,10 @@ export const FilterCaption = styled(Typography)(({ theme }) => ({
 }))
 
 export const DatePickerContainer = styled(Box)(({ theme }) => ({
-  display: 'inline-block',
+  width: '100%',
   marginTop: theme.spacing(3.5),
-  '@media (max-width:420px)': {
-    paddingRight: theme.spacing(5),
-  },
 }))
 
-export const StyledDatePicker = styled(DatePicker)({
-  '@media (max-width:420px)': {
-    width: '230px !important',
-  },
-  '@media (max-width:600px) and (min-width: 421px)': {
-    width: '280px !important',
-  },
-})
+export const GridContainer = styled(Grid)(({ theme }) => ({
+  padding: theme.spacing(3.4, 4),
+}))

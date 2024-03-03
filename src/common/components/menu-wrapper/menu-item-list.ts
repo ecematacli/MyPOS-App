@@ -1,4 +1,3 @@
-import { SvgIconProps } from '@mui/material'
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
@@ -10,7 +9,7 @@ import ExposureOutlinedIcon from '@mui/icons-material/ExposureOutlined'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
 import SyncAltIcon from '@mui/icons-material/SyncAlt'
-import { UserRoles } from '../../../api/user/types'
+import { UserRoles } from 'types/user'
 
 export interface MenuItem {
   label: string
@@ -97,6 +96,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     label: 'Çıkış yap',
     item: 'signout',
+    url: 'signin',
     Icon: PowerSettingsNewIcon,
     allowedRoles: [UserRoles.Admin, UserRoles.Employee],
   },

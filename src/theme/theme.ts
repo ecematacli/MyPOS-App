@@ -89,15 +89,6 @@ export const theme = createTheme({
         },
       },
     },
-    MuiFormLabel: {
-      styleOverrides: {
-        root: {
-          '&.Mui-focused': {
-            color: 'inherit',
-          },
-        },
-      },
-    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
@@ -150,15 +141,6 @@ export const theme = createTheme({
           fontSize: 24,
         },
       },
-    },
-    MuiInputLabel: {
-      // styleOverrides: {
-      //   root: {
-      //     '&.Mui-focused': {
-      //       color: '#7e7e7e',
-      //     },
-      //   },
-      // },
     },
     MuiInputBase: {
       styleOverrides: {

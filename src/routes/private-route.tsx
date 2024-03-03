@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   Route,
   Redirect,
@@ -6,25 +6,19 @@ import {
   RouteComponentProps,
 } from 'react-router-dom'
 
-import { AuthContext } from '../contexts/auth-context'
-import { Loading } from '../common/components/loading/loading'
+import { useAuthContext } from '../contexts/auth-context'
 
-export const PrivateRoute: React.FC<RouteProps> = ({
-  component: Component,
-  ...rest
-}) => {
-  const { isAuthenticated, isUserDataLoaded } = useContext(AuthContext)
-
+export const PrivateRoute: React.FC<RouteProps & {
+  component: React.FunctionComponent
+}> = ({ component: Component, ...rest }) => {
+  const { isAuthenticated, user } = useAuthContext()
+  console.log('PRIVATE ROUTE!!!!', isAuthenticated, user)
   return (
     <Route
       {...rest}
       render={(props: RouteComponentProps) =>
-        isAuthenticated ? (
-          isUserDataLoaded ? (
-            <Component {...props} />
-          ) : (
-            <Loading />
-          )
+        isAuthenticated && user ? (
+          <Component {...props} />
         ) : (
           <Redirect to={{ pathname: '/signin' }} />
         )

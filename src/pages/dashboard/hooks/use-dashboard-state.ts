@@ -27,8 +27,8 @@ export const useDashboardState = () => {
   }
 
   const [loading, setLoading] = useState<Loading>({})
-  const [startDate, handleStartDateChange] = useState<Date | null>(initialStart)
-  const [endDate, handleEndDateChange] = useState<Date | null>(initialEnd)
+  const [startDate, handleStartDateChange] = useState<Date>(initialStart)
+  const [endDate, handleEndDateChange] = useState<Date>(initialEnd)
   const [topSellingProducts, setTopSellingProducts] = useState<TopSellingData>({
     count: 0,
     products: [],
@@ -54,7 +54,7 @@ export const useDashboardState = () => {
     const filters = { startDate, endDate }
 
     const params = Object.keys(filters)
-      .reduce((arr, key) => {
+      .reduce((arr: string[], key) => {
         if (filters[key]) {
           arr.push(`${key}=${filters[key].toISOString()}`)
         }
@@ -92,7 +92,7 @@ export const useDashboardState = () => {
 
   // Dashboard Page API Caller functions
   const fetchRevenueData = async (
-    displayOption: string,
+    displayOption: string | null,
     start: Date,
     end: Date
   ) => {

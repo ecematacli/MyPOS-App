@@ -1,14 +1,14 @@
-import { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { api } from '../../../api/api-client'
-import { AuthTokenSettingContext } from '../../../contexts/auth-context'
-import { NotificationsContext } from '../../../contexts/notifications-context'
+import { useAuthTokenContext } from '../../../contexts/auth-context'
+import { useNotificationsContext } from '../../../contexts/notifications-context'
 import { FormValues } from '../sign-in'
 
 export const useLoginState = () => {
-  const { saveAuthToken } = useContext(AuthTokenSettingContext)
-  const { addNotification } = useContext(NotificationsContext)
+  const { saveAuthToken } = useAuthTokenContext()
+  const { addNotification } = useNotificationsContext()
+
   const history = useHistory()
 
   const postSignInForm = async (userCredentials: FormValues) => {
@@ -21,11 +21,11 @@ export const useLoginState = () => {
         saveAuthToken(null)
       }
     } catch (e) {
-      const { status } = e.response
-      if (status === 400 || status === 401 || status === 403) {
-        const errorMessage =
-          'There was a problem logging in. Check your email and password!'
-        addNotification(errorMessage, 'error')
+      if ([400, 401, 403].includes(e.response?.status)) {
+        addNotification(
+          'There was a problem logging in. Check your email and password!',
+          'error'
+        )
       } else {
         addNotification('Something went wrong!', 'error')
       }

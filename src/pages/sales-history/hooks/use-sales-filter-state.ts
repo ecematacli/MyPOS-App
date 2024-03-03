@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react'
 import { IFetchSalesArgs } from '../sales-history'
 import { AuthContext } from '../../../contexts/auth-context'
 import { useCatalogInfo } from '../../../contexts/catalog-info-context'
-import { Outlet } from '../../../api/outlets/types'
+import { Outlet } from 'types/outlets'
 
 export interface Args {
   rowsPerPage: number
@@ -20,12 +20,7 @@ export const useSalesFilterState = ({
   const [selectedOutlet, setSelectedOutlet] = useState<Outlet | null>(null)
   const { outlets } = useCatalogInfo()
 
-  const {
-    user: {
-      role: { outletId },
-    },
-    isAdmin,
-  } = useContext(AuthContext)
+  const { user, isAdmin } = useContext(AuthContext)
 
   const applyFilters = () => {
     setPage(1)
@@ -35,7 +30,7 @@ export const useSalesFilterState = ({
       beforeCursor: null,
       startDate,
       endDate,
-      outletId: selectedOutlet?.id,
+      outletId: user?.role.outletId,
     })
   }
 
@@ -55,7 +50,7 @@ export const useSalesFilterState = ({
     if (isAdmin) {
       setSelectedOutlet(null)
     } else {
-      setSelectedOutlet(outlets.find(o => o.id === outletId))
+      setSelectedOutlet(outlets.find(o => o.id === user?.role.outletId))
     }
   }, [])
 

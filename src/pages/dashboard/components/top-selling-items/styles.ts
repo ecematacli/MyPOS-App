@@ -5,15 +5,9 @@ import {
   TableCell as MuiTableCell,
   TableRow,
 } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-import { styled } from '@mui/material/styles'
-
-const centered = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-}
 
 export const PaperContainer = styled(Paper)({
   height: 570,

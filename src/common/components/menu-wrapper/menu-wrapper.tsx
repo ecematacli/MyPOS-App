@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   CssBaseline,
@@ -19,10 +19,8 @@ import {
   DrawerHeader,
   DrawerIcon,
   DrawerItemText,
-  DrawerList,
   DrawerListContainer,
   StyledDrawer,
-  DrawerRootContainer,
   EmailAddress,
   LogoImage,
   LogoWrapper,
@@ -40,22 +38,24 @@ import logo from '../../../assets/img/merit.png'
 import { MENU_ITEMS } from './menu-item-list'
 import { Notifications } from '../notifications/notifications'
 import {
-  AuthContext,
-  AuthTokenSettingContext,
+  useAuthContext,
+  useAuthTokenContext,
 } from '../../../contexts/auth-context'
 import { Loading } from '../loading/loading'
 
 export const MenuWrapper = ({ children }) => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-
   const history = useHistory()
 
-  const { isAuthenticated, user, isUserDataLoaded } = useContext(AuthContext)
-  const { clearAuthToken } = useContext(AuthTokenSettingContext)
+  const { isAuthenticated, user, isUserDataLoading, isAdmin } = useAuthContext()
+  const { clearAuthToken } = useAuthTokenContext()
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [openedItems, setOpenedItems] = useState<{ [key: string]: boolean }>({})
 
+  const shouldDisplayDrawer = Boolean(isAuthenticated && user)
+
   const onSignOutClick = (): void => {
-    clearAuthToken?.()
+    clearAuthToken()
   }
 
   const toggleOpenedItems = (item: string): void => {
@@ -79,96 +79,14 @@ export const MenuWrapper = ({ children }) => {
     handleDrawerOpen()
   }
 
-  if (!isUserDataLoaded) {
+  if (isUserDataLoading) {
     return <Loading />
   }
 
-  if (!user?.role?.name) {
-    return <React.Fragment />
-  }
-
-  const renderDrawerMenuItems = () => (
-    <Box>
-      {MENU_ITEMS.map(
-        ({ label, item, url, subMenuItems, allowedRoles, Icon }, i) => {
-          if (!allowedRoles.includes(user?.role?.name)) {
-            return <React.Fragment key={label} />
-          }
-
-          if (subMenuItems) {
-            return (
-              <React.Fragment key={label}>
-                <MenuItem
-                  key={label}
-                  onClick={() => onMenuWithSubitemClick(item)}>
-                  <DrawerIcon>
-                    <Icon />
-                  </DrawerIcon>
-                  {isDrawerOpen && (
-                    <React.Fragment>
-                      <DrawerItemText inset primary={label} />
-                      {openedItems[item] ? (
-                        <ExpansionIcon component={ExpandLess} />
-                      ) : (
-                        <ExpansionIcon component={ExpandMore} />
-                      )}
-                    </React.Fragment>
-                  )}
-                </MenuItem>
-                {subMenuItems.map(({ subLabel, url, Icon }, i) => (
-                  <Box
-                    key={subLabel}
-                    onClick={() => {
-                      url && history.push(url)
-                      // handleCloseMenu() // TODO: handle mobile menu close
-                    }}>
-                    <Collapse
-                      in={openedItems[item]}
-                      timeout='auto'
-                      unmountOnExit>
-                      <List disablePadding>
-                        <SubMenuItems>
-                          <SubMenuIcons>
-                            <Icon />
-                          </SubMenuIcons>
-                          <ListItemText primary={subLabel} />
-                        </SubMenuItems>
-                      </List>
-                    </Collapse>
-                  </Box>
-                ))}
-              </React.Fragment>
-            )
-          }
-
-          // Not a sub menu items
-          return (
-            <React.Fragment key={label}>
-              {i === MENU_ITEMS.length - 1 && <StyledDivider />}
-              <MenuItem
-                onClick={() => {
-                  url && history.push(url)
-                  // handleCloseMenu() // TODO: handle mobile menu close
-                  item === 'signout' && onSignOutClick()
-                }}
-                key={label}
-                style={{ cursor: 'pointer' }}>
-                <DrawerIcon>
-                  <Icon />
-                </DrawerIcon>
-                {isDrawerOpen && <DrawerItemText inset primary={label} />}
-              </MenuItem>
-            </React.Fragment>
-          )
-        }
-      )}
-    </Box>
-  )
-
   return (
-    <DrawerRootContainer>
+    <Box display='flex' height='100%' width='100%'>
       <CssBaseline />
-      {isAuthenticated && (
+      {shouldDisplayDrawer && (
         <React.Fragment>
           <StyledAppBar isDrawerOpen={isDrawerOpen} position='fixed'>
             <Toolbar
@@ -206,9 +124,92 @@ export const MenuWrapper = ({ children }) => {
                     <LogoImage src={logo} alt='logo' />
                   </LogoWrapper>
                 )}
+
                 <DrawerListContainer>
-                  {renderDrawerMenuItems()}
+                  <Box>
+                    {MENU_ITEMS.map(
+                      (
+                        { label, item, url, subMenuItems, allowedRoles, Icon },
+                        i
+                      ) => {
+                        if (!allowedRoles.includes(user!.role?.name)) {
+                          return <React.Fragment key={label} />
+                        }
+
+                        if (subMenuItems) {
+                          return (
+                            <React.Fragment key={label}>
+                              <MenuItem
+                                key={label}
+                                onClick={() => onMenuWithSubitemClick(item)}>
+                                <DrawerIcon>
+                                  <Icon />
+                                </DrawerIcon>
+                                {isDrawerOpen && (
+                                  <React.Fragment>
+                                    <DrawerItemText inset primary={label} />
+                                    {openedItems[item] ? (
+                                      <ExpansionIcon component={ExpandLess} />
+                                    ) : (
+                                      <ExpansionIcon component={ExpandMore} />
+                                    )}
+                                  </React.Fragment>
+                                )}
+                              </MenuItem>
+                              {subMenuItems.map(
+                                ({ subLabel, url, Icon }, i) => (
+                                  <Box
+                                    key={subLabel}
+                                    onClick={() => {
+                                      url && history.push(url)
+                                      // handleCloseMenu() // TODO: handle mobile menu close
+                                    }}>
+                                    <Collapse
+                                      in={openedItems[item]}
+                                      timeout='auto'
+                                      unmountOnExit>
+                                      <List disablePadding>
+                                        <SubMenuItems>
+                                          <SubMenuIcons>
+                                            <Icon />
+                                          </SubMenuIcons>
+                                          <ListItemText primary={subLabel} />
+                                        </SubMenuItems>
+                                      </List>
+                                    </Collapse>
+                                  </Box>
+                                )
+                              )}
+                            </React.Fragment>
+                          )
+                        }
+
+                        // Not a sub menu items
+                        return (
+                          <React.Fragment key={label}>
+                            {i === MENU_ITEMS.length - 1 && <StyledDivider />}
+                            <MenuItem
+                              onClick={() => {
+                                url && history.push(url)
+                                // handleCloseMenu() // TODO: handle mobile menu close
+                                item === 'signout' && onSignOutClick()
+                              }}
+                              key={label}
+                              style={{ cursor: 'pointer' }}>
+                              <DrawerIcon>
+                                <Icon />
+                              </DrawerIcon>
+                              {isDrawerOpen && (
+                                <DrawerItemText inset primary={label} />
+                              )}
+                            </MenuItem>
+                          </React.Fragment>
+                        )
+                      }
+                    )}
+                  </Box>
                 </DrawerListContainer>
+
                 {isDrawerOpen && (
                   <UserInfoBox>
                     <EmailAddress>{user?.email}</EmailAddress>
@@ -217,10 +218,10 @@ export const MenuWrapper = ({ children }) => {
               </StyledDrawer>
             </Hidden>
           </DrawerContainer>
-          <StyledContent component='main'>{children}</StyledContent>
         </React.Fragment>
       )}
+      <StyledContent component='main'>{children}</StyledContent>
       <Notifications />
-    </DrawerRootContainer>
+    </Box>
   )
 }

@@ -65,16 +65,6 @@ export const TopSellingItems: React.FC<Props> = ({
     fetchTopSellingProducts(pageNumber, startDate, endDate)
   }
 
-  const renderTableHead = () => (
-    <TableHeadRow>
-      {['Sku', 'Product Name', 'Variation', 'Unit Sold'].map((head, i) => (
-        <TableCell align={i > 1 ? 'center' : 'left'} key={head}>
-          {head}
-        </TableCell>
-      ))}
-    </TableHeadRow>
-  )
-
   const renderTopSellingItems = () =>
     topSellingProducts?.products
       .filter((_, i) => i < 3)
@@ -99,7 +89,17 @@ export const TopSellingItems: React.FC<Props> = ({
       <StyledDivider />
       <ContentContainer>
         <Table>
-          <TableHead>{renderTableHead()}</TableHead>
+          <TableHead>
+            <TableHeadRow>
+              {['Sku', 'Product Name', 'Variation', 'Unit Sold'].map(
+                (head, i) => (
+                  <TableCell align={i > 1 ? 'center' : 'left'} key={head}>
+                    {head}
+                  </TableCell>
+                )
+              )}
+            </TableHeadRow>
+          </TableHead>
           <TableBody>
             {loading || !topSellingProducts?.products ? (
               <TableRow>
